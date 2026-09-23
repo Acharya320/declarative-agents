@@ -3,6 +3,8 @@
 
 # Declarative Agents
 
+> **Maintenance mode.** This repository accepts bug fixes only.
+
 Profile-driven runtime and design patterns for declarative, tool-augmented LLM agents: an agent is a YAML profile, interpreted by one Go runtime.
 
 Most agent frameworks bind workflow logic to the code, so any loop change forces a binary rebuild. The YAML profile defines the agent — its tools, states, transitions, signals, budgets — and a single runtime executes whatever loop it receives. Altering the workflow is a configuration edit; a new agent needs no new binary. The companion white paper, *Design Patterns for Declarative Agents*, lists eleven patterns for building dependable agents this way.
