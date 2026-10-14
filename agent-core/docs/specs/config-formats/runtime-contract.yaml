@@ -666,9 +666,9 @@ engine_policy_audit:
         not encode a domain state name.
 
 historical_background:
-  - lifecycle-rollback.md
-  - roll-backs.md
-  - tools-as-dsl.md
+  - docs/guides/lifecycle-rollback.md
+  - docs/guides/roll-backs.md
+  - docs/guides/tools-as-dsl.md
 
 related_documents:
   - cfg-machine-format

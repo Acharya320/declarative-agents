@@ -19,7 +19,7 @@ requirements_source:
     - docs/specs/software-requirements/srd025-rollback-lifecycle.yaml
     - docs/specs/software-requirements/srd026-lifecycle-tools.yaml
   historical_background:
-    - tools-as-dsl.md
+    - docs/guides/tools-as-dsl.md
 
 primary_entities:
   - name: ToolDef

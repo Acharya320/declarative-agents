@@ -432,8 +432,8 @@ migration_guidance:
   - "Update semantic-model audits and SRDs in the same change as the declaration or machine change."
 
 historical_background:
-  - lifecycle-rollback.md
-  - tools-as-dsl.md
+  - docs/guides/lifecycle-rollback.md
+  - docs/guides/tools-as-dsl.md
 
 related_documents:
   - cfg-tool-declaration-format

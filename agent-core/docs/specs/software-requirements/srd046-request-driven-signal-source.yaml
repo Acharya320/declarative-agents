@@ -133,7 +133,7 @@ related_documents:
   - docs/ARCHITECTURE.yaml
   - docs/specs/config-formats/runtime-contract.yaml
   - docs/specs/semantic-models/machine-request-http.yaml
-  - rest-tool.md
+  - docs/guides/rest-tool.md
 
 implementation_status:
   specified:

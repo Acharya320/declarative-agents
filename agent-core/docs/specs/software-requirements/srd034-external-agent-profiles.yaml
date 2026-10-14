@@ -115,7 +115,7 @@ acceptance_criteria:
       - "test-rel06.0-profile-migration: Container runs with mounted profile and workspace"
 
 related_documents:
-  - repository-migration.md
+  - docs/guides/repository-migration.md
   - docs/specs/config-formats/runtime-contract.yaml
   - rel06.0-uc001-mounted-profile-container-runtime
   - test-rel06.0-profile-migration

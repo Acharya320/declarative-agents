@@ -158,8 +158,8 @@ depends_on:
     symbols_used: [DoltCheckpoint, Revert]
 
 historical_background:
-  - roll-backs.md
-  - tools-as-dsl.md
+  - docs/guides/roll-backs.md
+  - docs/guides/tools-as-dsl.md
 
 related_documents:
   - cfg-tool-authoring-standard

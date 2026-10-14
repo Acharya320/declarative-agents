@@ -16,7 +16,7 @@ import (
 
 func TestPackageLayoutInventoryMatchesGoList(t *testing.T) {
 	root := moduleRoot(t)
-	listed := inventoryFromPackageLayout(t, filepath.Join(root, "package-layout.md"))
+	listed := inventoryFromPackageLayout(t, filepath.Join(root, "docs", "guides", "package-layout.md"))
 	current := modulePackagePaths(t, root)
 	if violations := inventoryMismatches(listed, current); len(violations) > 0 {
 		t.Errorf("package-layout.md inventory does not match go list ./...:\n  %s",

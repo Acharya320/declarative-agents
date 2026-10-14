@@ -46,7 +46,7 @@ Support code lives in `internal/support`. Specification graph loading and
 cross-artifact validation live in `pkg/spec`.
 
 Private implementation packages are grouped under `internal/`. See
-`package-layout.md` for the migration map and ownership rules. Current internal
+`docs/guides/package-layout.md` for the migration map and ownership rules. Current internal
 domains include `internal/observability` for tracing and telemetry, and
 `internal/support` for process, workspace, and CLI helper code.
 
@@ -113,7 +113,7 @@ proof profile is under `testdata/integration/profiles/request-signal/`.
 ## Lifecycle Operations
 
 Lifecycle features are opt-in: checkpointing, suspend/resume, approval gates,
-history, and rollback. See `lifecycle-rollback.md` for profile examples,
+history, and rollback. See `docs/guides/lifecycle-rollback.md` for profile examples,
 `--dolt-dsn`, `--resume-checkpoint`, request files, receipt-driven rollback,
 and Dolt-backed persistence behavior.
 

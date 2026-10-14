@@ -1163,7 +1163,7 @@ overview:
       - docs/specs/semantic-models/rollback-lifecycle.yaml
       - docs/specs/test-suites/test-rel02.0-lifecycle.yaml
       - docs/specs/test-suites/test-rel02.0-tool-contracts.yaml
-      - roll-backs.md
+      - docs/guides/roll-backs.md
 
   engine_operations:
     summary: |

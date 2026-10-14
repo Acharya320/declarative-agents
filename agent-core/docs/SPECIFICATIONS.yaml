@@ -75,7 +75,7 @@ overview: |
     and receipt-driven undo rather than the retired engine undo-walk.
 
   Source-of-truth note.
-  - roll-backs.md and tools-as-dsl.md are historical design notes. Their
+  - docs/guides/roll-backs.md and docs/guides/tools-as-dsl.md are historical design notes. Their
     requirements have been consolidated into srd025, cfg-tool-authoring-standard,
     sm-rollback-lifecycle, and sm-tool-language. Release 02.0 use cases and
     formal test suites carry the scenario coverage. Future requirements changes
@@ -1323,8 +1323,8 @@ coverage_gaps: |
   server.
 
   Residual documentation cleanup is tracked as follow-up work. Historical
-  roll-backs.md and tools-as-dsl.md references should be normalized to canonical
-  spec IDs. lifecycle-rollback.md needs the same treatment. Remaining
+  docs/guides/roll-backs.md and docs/guides/tools-as-dsl.md references should be normalized to canonical
+  spec IDs. docs/guides/lifecycle-rollback.md needs the same treatment. Remaining
   uncovered-AC warnings track missing formal YAML test cases for packages that
   already have Go tests.
   This split matters because YAML suites provide traceability evidence, while

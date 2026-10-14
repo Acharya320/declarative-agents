@@ -21,7 +21,7 @@ requirements_source:
     - docs/specs/software-requirements/srd025-rollback-lifecycle.yaml
     - docs/specs/software-requirements/srd026-lifecycle-tools.yaml
   historical_background:
-    - roll-backs.md
+    - docs/guides/roll-backs.md
 
 primary_entities:
   - name: CheckpointPort
