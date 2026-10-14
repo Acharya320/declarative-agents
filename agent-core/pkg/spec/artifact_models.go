@@ -27,6 +27,10 @@ type SRD struct {
 	// clarification_marker). A document with a non-empty list is not ready.
 	NeedsClarification []ClarificationEntry `yaml:"needs_clarification"`
 
+	// Assumptions is the tagged list (A1, A2) of premises the requirements
+	// rest on.
+	Assumptions []string `yaml:"-"`
+
 	OrderedGroups []string `yaml:"-"`
 }
 
@@ -119,6 +123,13 @@ type UseCase struct {
 	// NeedsClarification lists decisions nobody has made (design.yaml
 	// clarification_marker).
 	NeedsClarification []ClarificationEntry `yaml:"needs_clarification"`
+
+	// Assumptions (A1, A2) and EdgeCases (E1, E2) are tagged lists; Priority
+	// ranks the use case within its release: P1 must ship, P2 should, P3
+	// could, absent means unranked (design.yaml use_case priority).
+	Assumptions []string `yaml:"-"`
+	EdgeCases   []string `yaml:"-"`
+	Priority    string   `yaml:"priority"`
 }
 
 // SuccessCriterion is one success criterion in a use case.

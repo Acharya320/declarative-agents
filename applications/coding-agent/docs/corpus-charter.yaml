@@ -59,3 +59,6 @@ checks:
       # A needs_clarification entry is a decision nobody has made; a corpus
       # carrying one is not ready (design.yaml clarification_marker, GH-2549).
       - unresolved-clarification
+      # A use-case priority outside P1/P2/P3 is invalid (design.yaml
+      # use_case priority, GH-2551).
+      - invalid-priority
