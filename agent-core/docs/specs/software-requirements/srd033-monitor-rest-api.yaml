@@ -282,7 +282,7 @@ depends_on:
 related_documents:
   - sm-tool-metrics-monitoring
   - cfg-rest-tool-format
-  - boundary-tools-and-async.md
+  - docs/guides/boundary-tools-and-async.md
 
 diagrams:
   requirements_trace: |

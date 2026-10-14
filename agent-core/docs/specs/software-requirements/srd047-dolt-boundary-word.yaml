@@ -145,7 +145,7 @@ related_documents:
   - docs/ARCHITECTURE.yaml
   - docs/specs/config-formats/tool-authoring-standard.yaml
   - docs/specs/software-requirements/srd027-rest-tool-runtime.yaml
-  - rest-tool.md
+  - docs/guides/rest-tool.md
 
 implementation_status:
   specified:

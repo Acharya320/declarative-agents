@@ -310,7 +310,7 @@ related_documents:
   - docs/specs/config-formats/tool-declaration-format.yaml
   - docs/specs/config-formats/tool-authoring-standard.yaml
   - docs/specs/semantic-models/tool-language.yaml
-  - rest-tool.md
+  - docs/guides/rest-tool.md
 
 implementation_status:
   implemented:

@@ -244,8 +244,8 @@ depends_on:
 related_documents:
   - docs/specs/semantic-models/tool-language.yaml
   - docs/specs/semantic-models/tool-metrics-monitoring.yaml
-  - boundary-tools-and-async.md
-  - rest-tool.md
+  - docs/guides/boundary-tools-and-async.md
+  - docs/guides/rest-tool.md
 
 implementation_status:
   implemented:

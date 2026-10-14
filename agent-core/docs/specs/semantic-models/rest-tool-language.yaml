@@ -24,8 +24,8 @@ requirements_source:
   supporting:
     - docs/specs/semantic-models/tool-language.yaml
     - docs/specs/semantic-models/rollback-lifecycle.yaml
-    - declarative-programming-pattern.md
-    - boundary-tools-and-async.md
+    - docs/guides/declarative-programming-pattern.md
+    - docs/guides/boundary-tools-and-async.md
 
 primary_entities:
   - name: RestDefinition

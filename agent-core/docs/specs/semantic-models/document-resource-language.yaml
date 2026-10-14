@@ -17,7 +17,7 @@ requirements_source:
     - docs/specs/software-requirements/srd030-machine-request-rest-binding.yaml
     - docs/specs/semantic-models/machine-request-http.yaml
     - docs/specs/semantic-models/rest-tool-language.yaml
-    - declarative-programming-pattern.md
+    - docs/guides/declarative-programming-pattern.md
 
 primary_entities:
   - name: DocumentResource
