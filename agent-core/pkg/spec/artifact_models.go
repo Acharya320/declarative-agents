@@ -23,7 +23,19 @@ type SRD struct {
 	RetiredIn  string   `yaml:"retired_in"`
 	ReplacedBy []string `yaml:"replaced_by"`
 
+	// NeedsClarification lists decisions nobody has made (design.yaml
+	// clarification_marker). A document with a non-empty list is not ready.
+	NeedsClarification []ClarificationEntry `yaml:"needs_clarification"`
+
 	OrderedGroups []string `yaml:"-"`
+}
+
+// ClarificationEntry is one unmade decision: the id it blocks and the
+// question to answer. Resolving it means making the decision, editing the
+// blocked entry in place, and deleting the entry.
+type ClarificationEntry struct {
+	ID       string `yaml:"id"`
+	Question string `yaml:"question"`
 }
 
 // RequirementGroup is a named group of requirement items (e.g. R1, R2).
@@ -103,6 +115,10 @@ type UseCase struct {
 	// unparsed so checkIndexDocumentAgreement keeps its existing silence.
 	RetiredIn  string   `yaml:"retired_in"`
 	ReplacedBy []string `yaml:"replaced_by"`
+
+	// NeedsClarification lists decisions nobody has made (design.yaml
+	// clarification_marker).
+	NeedsClarification []ClarificationEntry `yaml:"needs_clarification"`
 }
 
 // SuccessCriterion is one success criterion in a use case.
@@ -125,6 +141,10 @@ type TestSuite struct {
 	// Retirement fields (design.yaml D6). Absent means in force.
 	RetiredIn  string   `yaml:"retired_in"`
 	ReplacedBy []string `yaml:"replaced_by"`
+
+	// NeedsClarification lists decisions nobody has made (design.yaml
+	// clarification_marker).
+	NeedsClarification []ClarificationEntry `yaml:"needs_clarification"`
 }
 
 // TestCase is one test case within a test suite.

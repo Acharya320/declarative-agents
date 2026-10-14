@@ -99,7 +99,11 @@ field_specs:
 
       worker, and resolving it means replacing the marker with the decision in
 
-      the same item (design.yaml clarification_marker).
+      the same item. The inline marker is the tracker-issue convention only;
+
+      corpus YAML documents record unmade decisions in their structured
+
+      needs_clarification field (design.yaml clarification_marker).
 
       '
   acceptance_criteria:
@@ -124,7 +128,11 @@ field_specs:
 
       worker, and resolving it means replacing the marker with the decision in
 
-      the same item (design.yaml clarification_marker).
+      the same item. The inline marker is the tracker-issue convention only;
+
+      corpus YAML documents use the needs_clarification field instead
+
+      (design.yaml clarification_marker).
 
       '
   format_rule:

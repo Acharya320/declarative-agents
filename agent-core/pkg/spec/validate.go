@@ -37,6 +37,7 @@ func Validate(g *Graph, corpus *Corpus) []Finding {
 	all = append(all, checkMachineDiagnostics(corpus)...)
 	all = append(all, checkRetiredIDs(corpus)...)
 	all = append(all, checkCitationsOfRetiredIDs(corpus)...)
+	all = append(all, checkUnresolvedClarifications(corpus)...)
 	return all
 }
 
