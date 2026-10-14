@@ -145,7 +145,11 @@ documentation_standards:
 
     the corpus and keep the inline literal marker [NEEDS CLARIFICATION:
 
-    question] instead (issue-format.yaml).
+    question] instead (issue-format.yaml). mage clarify lists every open
+
+    entry across participating modules; run it and resolve the entries
+
+    before planning work on the document.
 
     '
 document_types:
