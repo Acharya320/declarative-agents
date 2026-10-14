@@ -16,6 +16,13 @@ type SRD struct {
 	AcceptanceCriteria []AcceptanceCriterion       `yaml:"acceptance_criteria"`
 	DependsOn          []Dependency                `yaml:"depends_on"`
 
+	// Retirement fields (design.yaml D6). An SRD that no longer applies keeps
+	// its id with status retired, the release that retired it, and the ids
+	// that replace it. Absent means in force.
+	Status     string   `yaml:"status"`
+	RetiredIn  string   `yaml:"retired_in"`
+	ReplacedBy []string `yaml:"replaced_by"`
+
 	OrderedGroups []string `yaml:"-"`
 }
 
@@ -30,6 +37,12 @@ type RequirementItem struct {
 	ID     string
 	Text   string
 	Weight int
+
+	// Retirement fields (design.yaml D6), set when the item is retired in
+	// place rather than renumbered.
+	Status     string
+	RetiredIn  string
+	ReplacedBy []string
 }
 
 // Dependency records an inter-SRD dependency.
@@ -43,6 +56,11 @@ type AcceptanceCriterion struct {
 	ID        string   `yaml:"id"`
 	Criterion string   `yaml:"criterion"`
 	Traces    []string `yaml:"traces"`
+
+	// Retirement fields (design.yaml D6). Absent means in force.
+	Status     string   `yaml:"status"`
+	RetiredIn  string   `yaml:"retired_in"`
+	ReplacedBy []string `yaml:"replaced_by"`
 }
 
 // AllItems returns all requirement items from the SRD in group order.
@@ -79,6 +97,12 @@ type UseCase struct {
 	SuccessCriteria []SuccessCriterion `yaml:"success_criteria"`
 	OutOfScope      []string           `yaml:"-"`
 	TestSuite       string             `yaml:"test_suite"`
+
+	// Retirement fields (design.yaml D6). ParseUseCase copies the document's
+	// status only when it is the retirement marker; lifecycle statuses stay
+	// unparsed so checkIndexDocumentAgreement keeps its existing silence.
+	RetiredIn  string   `yaml:"retired_in"`
+	ReplacedBy []string `yaml:"replaced_by"`
 }
 
 // SuccessCriterion is one success criterion in a use case.
@@ -97,6 +121,10 @@ type TestSuite struct {
 	Traces        []string   `yaml:"traces"`
 	Preconditions []string   `yaml:"preconditions"`
 	TestCases     []TestCase `yaml:"test_cases"`
+
+	// Retirement fields (design.yaml D6). Absent means in force.
+	RetiredIn  string   `yaml:"retired_in"`
+	ReplacedBy []string `yaml:"replaced_by"`
 }
 
 // TestCase is one test case within a test suite.

@@ -69,6 +69,25 @@ articles:
     a model, human, child process, external API, nested machine, or workspace.
 
     '
+- id: D6
+  title: Identifiers are immutable
+  rule: 'An SRD id (srdNNN), a requirement id (Rn, Rn.m), an acceptance
+
+    criterion id (ACn), a use-case id, and a test-suite id are never
+
+    renumbered or reused once a release tag contains them. An entry that no
+
+    longer applies keeps its id with status: retired, the release that
+
+    retired it (retired_in), and the ids that replace it (replaced_by,
+
+    possibly empty). Merging or splitting SRDs retires the old ids with
+
+    pointers. This is the rule application-dsl-spec/language.yaml already
+
+    states for statements, applied to the corpus.
+
+    '
 documentation_standards:
   style: 'Write short, exact sentences. Use active voice. Remove filler. Prefer
 
@@ -103,6 +122,17 @@ documentation_standards:
       image files.
 
       '
+  clarification_marker: 'The literal text [NEEDS CLARIFICATION: question] inside a requirement,
+
+    a criterion, or an issue''s requirements, acceptance criteria, or design
+
+    decisions marks a decision nobody has made. A document or issue carrying
+
+    one is not ready. A person resolves it by replacing the marker with the
+
+    answer in place, never in a comment or a separate note.
+
+    '
 document_types:
   vision:
     location: docs/VISION.yaml
@@ -185,6 +215,19 @@ document_types:
       requirement_groups: R1, R2, R3
       requirement_items: R1.1, R1.2, R2.1
       acceptance_criteria: AC1, AC2, AC3
+    optional_fields:
+    - status
+    - retired_in
+    - replaced_by
+    retirement: 'The three optional fields implement D6 on the document and on a
+
+      requirement item or acceptance criterion retired individually. The
+
+      use_case and test_suite types take the same optional fields with the
+
+      same meaning.
+
+      '
     purpose: Defines product or runtime requirements with checkable criteria.
   use_case:
     location: docs/specs/use-cases/relNN.N-ucNNN-short-name.yaml
@@ -202,6 +245,10 @@ document_types:
       flow_steps: F1, F2, F3
       touchpoints: T1, T2, T3
       success_criteria: S1, S2, S3
+    optional_fields:
+    - status
+    - retired_in
+    - replaced_by
     purpose: Describes one end-to-end path through the architecture.
   test_suite:
     location: docs/specs/test-suites/test-relNN.N-short-name.yaml
@@ -212,6 +259,10 @@ document_types:
     - traces
     - preconditions
     - test_cases
+    optional_fields:
+    - status
+    - retired_in
+    - replaced_by
     purpose: Maps release use cases and SRD criteria to named tests.
   audit_register:
     location: docs/specs/audits/name.yaml
@@ -472,6 +523,11 @@ completeness_checks:
   check: New SRD requirements trace to acceptance criteria.
 - id: C5
   check: mage audit reports no new warnings for touched docs.
+- id: C6
+  check: mage audit reports no retired-id-missing finding (every id present at the
+    previous release tag is present, or retired, at HEAD).
+- id: C7
+  check: mage audit reports no unresolved-clarification finding.
 references:
 - docs/VISION.yaml
 - docs/ARCHITECTURE.yaml
