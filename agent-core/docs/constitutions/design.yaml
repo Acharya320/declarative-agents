@@ -122,6 +122,13 @@ documentation_standards:
       image files.
 
       '
+  success_criteria: 'A success criterion states a measurable outcome in domain terms and
+
+    names no implementation technology. A criterion a person cannot check
+
+    without reading the implementation is a design note, not a criterion.
+
+    '
   clarification_marker: 'A corpus document records a decision nobody has made as an entry in
 
     its optional needs_clarification list. Each entry carries id, the
@@ -228,6 +235,7 @@ document_types:
     - retired_in
     - replaced_by
     - needs_clarification
+    - assumptions
     retirement: 'The three optional fields implement D6 on the document and on a
 
       requirement item or acceptance criterion retired individually. The
@@ -254,11 +262,25 @@ document_types:
       flow_steps: F1, F2, F3
       touchpoints: T1, T2, T3
       success_criteria: S1, S2, S3
+      assumptions: A1, A2, A3
+      edge_cases: E1, E2, E3
     optional_fields:
     - status
     - retired_in
     - replaced_by
     - needs_clarification
+    - assumptions
+    - edge_cases
+    - priority
+    priority: 'P1 must ship for the use case''s release, P2 should, P3 could.
+
+      An absent priority means unranked. No other value is valid. A use case
+
+      is the unit of scheduling here, so priority lives on it rather than on
+
+      a separate user-story type.
+
+      '
     purpose: Describes one end-to-end path through the architecture.
   test_suite:
     location: docs/specs/test-suites/test-relNN.N-short-name.yaml

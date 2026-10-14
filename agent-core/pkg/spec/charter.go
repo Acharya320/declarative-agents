@@ -34,6 +34,7 @@ var supportedSpecCorpusCheckIDs = map[string]bool{
 	"index-document-mismatch":            true,
 	"index-missing-test-suite":           true,
 	"index-missing-use-case":             true,
+	"invalid-priority":                   true,
 	"machine-incomplete-signal-metadata": true,
 	"machine-incomplete-state-metadata":  true,
 	"machine-metric-label-invalid":       true,

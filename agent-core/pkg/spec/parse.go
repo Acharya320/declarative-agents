@@ -33,6 +33,7 @@ type rawSRD struct {
 	RetiredIn          string                `yaml:"retired_in"`
 	ReplacedBy         []string              `yaml:"replaced_by"`
 	NeedsClarification []ClarificationEntry  `yaml:"needs_clarification"`
+	Assumptions        yaml.Node             `yaml:"assumptions"`
 }
 
 func parseSRDBytes(data []byte, source string) (SRD, error) {
@@ -46,13 +47,9 @@ func parseSRDBytes(data []byte, source string) (SRD, error) {
 		return SRD{}, fmt.Errorf("parse SRD %s requirements: %w", source, err)
 	}
 
-	goals, err := parseTaggedList(&raw.Goals, "goals")
+	goals, nonGoals, assumptions, err := parseSRDLists(&raw, source)
 	if err != nil {
-		return SRD{}, fmt.Errorf("parse SRD %s: %w", source, err)
-	}
-	nonGoals, err := parseTaggedList(&raw.NonGoals, "non_goals")
-	if err != nil {
-		return SRD{}, fmt.Errorf("parse SRD %s: %w", source, err)
+		return SRD{}, err
 	}
 
 	return SRD{
@@ -68,8 +65,27 @@ func parseSRDBytes(data []byte, source string) (SRD, error) {
 		RetiredIn:          raw.RetiredIn,
 		ReplacedBy:         raw.ReplacedBy,
 		NeedsClarification: raw.NeedsClarification,
+		Assumptions:        assumptions,
 		OrderedGroups:      orderedKeys,
 	}, nil
+}
+
+// parseSRDLists parses the SRD's tagged lists: goals, non-goals, and
+// assumptions.
+func parseSRDLists(raw *rawSRD, source string) (goals, nonGoals, assumptions []string, err error) {
+	goals, err = parseTaggedList(&raw.Goals, "goals")
+	if err != nil {
+		return nil, nil, nil, fmt.Errorf("parse SRD %s: %w", source, err)
+	}
+	nonGoals, err = parseTaggedList(&raw.NonGoals, "non_goals")
+	if err != nil {
+		return nil, nil, nil, fmt.Errorf("parse SRD %s: %w", source, err)
+	}
+	assumptions, err = parseTaggedList(&raw.Assumptions, "assumptions")
+	if err != nil {
+		return nil, nil, nil, fmt.Errorf("parse SRD %s: %w", source, err)
+	}
+	return goals, nonGoals, assumptions, nil
 }
 
 // parseTaggedList handles YAML lists of the form:
@@ -363,6 +379,9 @@ type rawUseCase struct {
 	RetiredIn          string               `yaml:"retired_in"`
 	ReplacedBy         []string             `yaml:"replaced_by"`
 	NeedsClarification []ClarificationEntry `yaml:"needs_clarification"`
+	Assumptions        yaml.Node            `yaml:"assumptions"`
+	EdgeCases          yaml.Node            `yaml:"edge_cases"`
+	Priority           string               `yaml:"priority"`
 }
 
 // ParseUseCase reads a use case YAML file.
@@ -387,7 +406,18 @@ func ParseUseCase(path string) (UseCase, error) {
 	if err != nil {
 		return UseCase{}, fmt.Errorf("parse use case %s: %w", path, err)
 	}
-	return useCaseFromRaw(&raw, flow, touchpoints, outOfScope), nil
+	assumptions, err := parseTaggedList(&raw.Assumptions, "assumptions")
+	if err != nil {
+		return UseCase{}, fmt.Errorf("parse use case %s: %w", path, err)
+	}
+	edgeCases, err := parseTaggedList(&raw.EdgeCases, "edge_cases")
+	if err != nil {
+		return UseCase{}, fmt.Errorf("parse use case %s: %w", path, err)
+	}
+	uc := useCaseFromRaw(&raw, flow, touchpoints, outOfScope)
+	uc.Assumptions = assumptions
+	uc.EdgeCases = edgeCases
+	return uc, nil
 }
 
 func useCaseFromRaw(raw *rawUseCase, flow, touchpoints, outOfScope []string) UseCase {
@@ -405,6 +435,7 @@ func useCaseFromRaw(raw *rawUseCase, flow, touchpoints, outOfScope []string) Use
 		RetiredIn:          raw.RetiredIn,
 		ReplacedBy:         raw.ReplacedBy,
 		NeedsClarification: raw.NeedsClarification,
+		Priority:           raw.Priority,
 	}
 	// Only the retirement marker is copied. Lifecycle statuses (planned,
 	// done) stay unparsed so checkIndexDocumentAgreement keeps treating the

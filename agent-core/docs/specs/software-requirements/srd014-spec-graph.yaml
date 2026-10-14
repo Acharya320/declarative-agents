@@ -27,6 +27,7 @@ requirements:
       - R1.4: ParseRoadmap reads road-map.yaml into a Roadmap struct with releases and use case references.
       - R1.5: ParseSpecIndex reads SPECIFICATIONS.yaml into a SpecIndex struct.
       - R1.6: Tagged goals, non-goals, flows, out-of-scope items, and touchpoints SHALL reject unsupported or ambiguous YAML shapes with artifact and field diagnostics; every accepted list element SHALL produce exactly one ordered logical item.
+      - R1.7: ParseSRD reads the optional assumptions tagged list; ParseUseCase reads the optional assumptions and edge_cases tagged lists and the optional priority field (design.yaml use_case priority).
 
   R2:
     title: Graph construction
@@ -70,6 +71,10 @@ requirements:
           question; an entry whose id names nothing in the document still
           fires, saying the target is unknown. An absent or empty list is
           silent.
+      - R3.15: >-
+          Detect a use-case priority outside the P1/P2/P3 vocabulary
+          (invalid-priority, design.yaml use_case priority). An absent
+          priority means unranked and is silent.
 
   R4:
     title: Corpus loading
@@ -101,15 +106,15 @@ non_goals:
 acceptance_criteria:
   - id: AC1
     criterion: ParseSRD, ParseUseCase, ParseTestSuite, ParseRoadmap, and ParseSpecIndex produce typed structs from YAML files without silently dropping malformed tagged-list elements.
-    traces: [R1.1, R1.2, R1.3, R1.4, R1.5, R1.6]
+    traces: [R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R1.7]
 
   - id: AC2
     criterion: BuildGraph constructs a directed labeled property graph from a Corpus with correct node kinds and edge relationships.
     traces: [R2.1, R2.2, R2.3]
 
   - id: AC3
-    criterion: Validate detects orphaned SRDs, broken touchpoints and citations, uncovered items and ACs, depends_on violations, releases without test suites, releases missing a roadmap_summary row, index entries disagreeing with their documents, ids dropped without retirement entries, citations of retired ids, and unresolved needs_clarification entries.
-    traces: [R3.1, R3.2, R3.3, R3.4, R3.5, R3.6, R3.7, R3.8, R3.9, R3.10, R3.12, R3.13, R3.14]
+    criterion: Validate detects orphaned SRDs, broken touchpoints and citations, uncovered items and ACs, depends_on violations, releases without test suites, releases missing a roadmap_summary row, index entries disagreeing with their documents, ids dropped without retirement entries, citations of retired ids, unresolved needs_clarification entries, and invalid use-case priorities.
+    traces: [R3.1, R3.2, R3.3, R3.4, R3.5, R3.6, R3.7, R3.8, R3.9, R3.10, R3.12, R3.13, R3.14, R3.15]
 
   - id: AC4
     criterion: LoadCorpus discovers and parses all artifacts from the standard directory layout.
