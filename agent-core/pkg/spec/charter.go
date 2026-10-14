@@ -60,6 +60,7 @@ var supportedSpecCorpusCheckIDs = map[string]bool{
 	"tool-unknown-side-effect-target":    true,
 	"uncovered-ac":                       true,
 	"uncovered-req-item":                 true,
+	"unresolved-clarification":           true,
 	"untraced-success-criterion":         true,
 	"use-case-missing-test-suite":        true,
 }

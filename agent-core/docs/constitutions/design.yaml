@@ -122,15 +122,23 @@ documentation_standards:
       image files.
 
       '
-  clarification_marker: 'The literal text [NEEDS CLARIFICATION: question] inside a requirement,
+  clarification_marker: 'A corpus document records a decision nobody has made as an entry in
 
-    a criterion, or an issue''s requirements, acceptance criteria, or design
+    its optional needs_clarification list. Each entry carries id, the
 
-    decisions marks a decision nobody has made. A document or issue carrying
+    requirement item, acceptance criterion, or success criterion the question
 
-    one is not ready. A person resolves it by replacing the marker with the
+    blocks, and question, the decision to make. A document with a non-empty
 
-    answer in place, never in a comment or a separate note.
+    list is not ready. A person resolves an entry by making the decision,
+
+    editing the blocked entry in place, and deleting the entry, never by
+
+    answering in a comment or a separate note. Tracker issues live outside
+
+    the corpus and keep the inline literal marker [NEEDS CLARIFICATION:
+
+    question] instead (issue-format.yaml).
 
     '
 document_types:
@@ -219,6 +227,7 @@ document_types:
     - status
     - retired_in
     - replaced_by
+    - needs_clarification
     retirement: 'The three optional fields implement D6 on the document and on a
 
       requirement item or acceptance criterion retired individually. The
@@ -249,6 +258,7 @@ document_types:
     - status
     - retired_in
     - replaced_by
+    - needs_clarification
     purpose: Describes one end-to-end path through the architecture.
   test_suite:
     location: docs/specs/test-suites/test-relNN.N-short-name.yaml
@@ -263,6 +273,7 @@ document_types:
     - status
     - retired_in
     - replaced_by
+    - needs_clarification
     purpose: Maps release use cases and SRD criteria to named tests.
   audit_register:
     location: docs/specs/audits/name.yaml

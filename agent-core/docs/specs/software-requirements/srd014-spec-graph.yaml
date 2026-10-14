@@ -63,6 +63,13 @@ requirements:
           Warn when a touchpoint, citation, or trace names a retired id
           (citation-of-retired-id); the message names the replaced_by ids so
           the finding carries the fix.
+      - R3.14: >-
+          Detect needs_clarification entries on SRDs, use cases, and test
+          suites (unresolved-clarification, design.yaml clarification_marker).
+          One error per entry, naming the document, the blocked id, and the
+          question; an entry whose id names nothing in the document still
+          fires, saying the target is unknown. An absent or empty list is
+          silent.
 
   R4:
     title: Corpus loading
@@ -101,8 +108,8 @@ acceptance_criteria:
     traces: [R2.1, R2.2, R2.3]
 
   - id: AC3
-    criterion: Validate detects orphaned SRDs, broken touchpoints and citations, uncovered items and ACs, depends_on violations, releases without test suites, releases missing a roadmap_summary row, index entries disagreeing with their documents, ids dropped without retirement entries, and citations of retired ids.
-    traces: [R3.1, R3.2, R3.3, R3.4, R3.5, R3.6, R3.7, R3.8, R3.9, R3.10, R3.12, R3.13]
+    criterion: Validate detects orphaned SRDs, broken touchpoints and citations, uncovered items and ACs, depends_on violations, releases without test suites, releases missing a roadmap_summary row, index entries disagreeing with their documents, ids dropped without retirement entries, citations of retired ids, and unresolved needs_clarification entries.
+    traces: [R3.1, R3.2, R3.3, R3.4, R3.5, R3.6, R3.7, R3.8, R3.9, R3.10, R3.12, R3.13, R3.14]
 
   - id: AC4
     criterion: LoadCorpus discovers and parses all artifacts from the standard directory layout.

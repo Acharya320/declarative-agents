@@ -32,6 +32,7 @@ type rawSRD struct {
 	Status             string                `yaml:"status"`
 	RetiredIn          string                `yaml:"retired_in"`
 	ReplacedBy         []string              `yaml:"replaced_by"`
+	NeedsClarification []ClarificationEntry  `yaml:"needs_clarification"`
 }
 
 func parseSRDBytes(data []byte, source string) (SRD, error) {
@@ -66,6 +67,7 @@ func parseSRDBytes(data []byte, source string) (SRD, error) {
 		Status:             raw.Status,
 		RetiredIn:          raw.RetiredIn,
 		ReplacedBy:         raw.ReplacedBy,
+		NeedsClarification: raw.NeedsClarification,
 		OrderedGroups:      orderedKeys,
 	}, nil
 }
@@ -347,19 +349,20 @@ func ParseSpecIndex(path string) (SpecIndex, error) {
 
 // rawUseCase is the intermediate representation for YAML unmarshalling.
 type rawUseCase struct {
-	ID              string             `yaml:"id"`
-	Title           string             `yaml:"title"`
-	Summary         string             `yaml:"summary"`
-	Actor           string             `yaml:"actor"`
-	Trigger         string             `yaml:"trigger"`
-	Flow            yaml.Node          `yaml:"flow"`
-	Touchpoints     yaml.Node          `yaml:"touchpoints"`
-	SuccessCriteria []SuccessCriterion `yaml:"success_criteria"`
-	OutOfScope      yaml.Node          `yaml:"out_of_scope"`
-	TestSuite       string             `yaml:"test_suite"`
-	Status          string             `yaml:"status"`
-	RetiredIn       string             `yaml:"retired_in"`
-	ReplacedBy      []string           `yaml:"replaced_by"`
+	ID                 string               `yaml:"id"`
+	Title              string               `yaml:"title"`
+	Summary            string               `yaml:"summary"`
+	Actor              string               `yaml:"actor"`
+	Trigger            string               `yaml:"trigger"`
+	Flow               yaml.Node            `yaml:"flow"`
+	Touchpoints        yaml.Node            `yaml:"touchpoints"`
+	SuccessCriteria    []SuccessCriterion   `yaml:"success_criteria"`
+	OutOfScope         yaml.Node            `yaml:"out_of_scope"`
+	TestSuite          string               `yaml:"test_suite"`
+	Status             string               `yaml:"status"`
+	RetiredIn          string               `yaml:"retired_in"`
+	ReplacedBy         []string             `yaml:"replaced_by"`
+	NeedsClarification []ClarificationEntry `yaml:"needs_clarification"`
 }
 
 // ParseUseCase reads a use case YAML file.
@@ -389,18 +392,19 @@ func ParseUseCase(path string) (UseCase, error) {
 
 func useCaseFromRaw(raw *rawUseCase, flow, touchpoints, outOfScope []string) UseCase {
 	uc := UseCase{
-		ID:              raw.ID,
-		Title:           raw.Title,
-		Summary:         raw.Summary,
-		Actor:           raw.Actor,
-		Trigger:         raw.Trigger,
-		Flow:            flow,
-		Touchpoints:     touchpoints,
-		SuccessCriteria: raw.SuccessCriteria,
-		OutOfScope:      outOfScope,
-		TestSuite:       raw.TestSuite,
-		RetiredIn:       raw.RetiredIn,
-		ReplacedBy:      raw.ReplacedBy,
+		ID:                 raw.ID,
+		Title:              raw.Title,
+		Summary:            raw.Summary,
+		Actor:              raw.Actor,
+		Trigger:            raw.Trigger,
+		Flow:               flow,
+		Touchpoints:        touchpoints,
+		SuccessCriteria:    raw.SuccessCriteria,
+		OutOfScope:         outOfScope,
+		TestSuite:          raw.TestSuite,
+		RetiredIn:          raw.RetiredIn,
+		ReplacedBy:         raw.ReplacedBy,
+		NeedsClarification: raw.NeedsClarification,
 	}
 	// Only the retirement marker is copied. Lifecycle statuses (planned,
 	// done) stay unparsed so checkIndexDocumentAgreement keeps treating the
