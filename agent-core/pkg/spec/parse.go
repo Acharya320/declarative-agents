@@ -29,6 +29,9 @@ type rawSRD struct {
 	NonGoals           yaml.Node             `yaml:"non_goals"`
 	AcceptanceCriteria []AcceptanceCriterion `yaml:"acceptance_criteria"`
 	DependsOn          []Dependency          `yaml:"depends_on"`
+	Status             string                `yaml:"status"`
+	RetiredIn          string                `yaml:"retired_in"`
+	ReplacedBy         []string              `yaml:"replaced_by"`
 }
 
 func parseSRDBytes(data []byte, source string) (SRD, error) {
@@ -60,6 +63,9 @@ func parseSRDBytes(data []byte, source string) (SRD, error) {
 		NonGoals:           nonGoals,
 		AcceptanceCriteria: raw.AcceptanceCriteria,
 		DependsOn:          raw.DependsOn,
+		Status:             raw.Status,
+		RetiredIn:          raw.RetiredIn,
+		ReplacedBy:         raw.ReplacedBy,
 		OrderedGroups:      orderedKeys,
 	}, nil
 }
@@ -291,6 +297,16 @@ func parseOneItem(node *yaml.Node) (RequirementItem, error) {
 				return RequirementItem{}, fmt.Errorf("decode weight: %w", err)
 			}
 			item.Weight = w
+		case "status":
+			item.Status = val.Value
+		case "retired_in":
+			item.RetiredIn = val.Value
+		case "replaced_by":
+			var replaced []string
+			if err := val.Decode(&replaced); err != nil {
+				return RequirementItem{}, fmt.Errorf("decode replaced_by: %w", err)
+			}
+			item.ReplacedBy = replaced
 		default:
 			item.ID = key
 			item.Text = val.Value
@@ -341,6 +357,9 @@ type rawUseCase struct {
 	SuccessCriteria []SuccessCriterion `yaml:"success_criteria"`
 	OutOfScope      yaml.Node          `yaml:"out_of_scope"`
 	TestSuite       string             `yaml:"test_suite"`
+	Status          string             `yaml:"status"`
+	RetiredIn       string             `yaml:"retired_in"`
+	ReplacedBy      []string           `yaml:"replaced_by"`
 }
 
 // ParseUseCase reads a use case YAML file.
@@ -365,7 +384,11 @@ func ParseUseCase(path string) (UseCase, error) {
 	if err != nil {
 		return UseCase{}, fmt.Errorf("parse use case %s: %w", path, err)
 	}
-	return UseCase{
+	return useCaseFromRaw(&raw, flow, touchpoints, outOfScope), nil
+}
+
+func useCaseFromRaw(raw *rawUseCase, flow, touchpoints, outOfScope []string) UseCase {
+	uc := UseCase{
 		ID:              raw.ID,
 		Title:           raw.Title,
 		Summary:         raw.Summary,
@@ -376,7 +399,16 @@ func ParseUseCase(path string) (UseCase, error) {
 		SuccessCriteria: raw.SuccessCriteria,
 		OutOfScope:      outOfScope,
 		TestSuite:       raw.TestSuite,
-	}, nil
+		RetiredIn:       raw.RetiredIn,
+		ReplacedBy:      raw.ReplacedBy,
+	}
+	// Only the retirement marker is copied. Lifecycle statuses (planned,
+	// done) stay unparsed so checkIndexDocumentAgreement keeps treating the
+	// document side as silent, exactly as before retirement support (D6).
+	if raw.Status == statusRetired {
+		uc.Status = raw.Status
+	}
+	return uc
 }
 
 // ParseTestSuite reads a test suite YAML file.

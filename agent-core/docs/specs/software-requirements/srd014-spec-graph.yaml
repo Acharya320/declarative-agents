@@ -52,6 +52,17 @@ requirements:
           the document they name. Silence on either side is not disagreement:
           an index may summarize less than a document states, and a document
           may omit a field the index carries.
+      - R3.12: >-
+          Detect ids the previous release tag contains that are absent at HEAD
+          without a retirement entry, and retired entries without retired_in
+          (retired-id-missing, design.yaml D6). The previous tag's corpus is
+          read through the local checkout with read-only git calls: the latest
+          release tag reachable from HEAD^ names the baseline, and a module
+          without a repository, a release tag, or tagged specs yields nothing.
+      - R3.13: >-
+          Warn when a touchpoint, citation, or trace names a retired id
+          (citation-of-retired-id); the message names the replaced_by ids so
+          the finding carries the fix.
 
   R4:
     title: Corpus loading
@@ -90,8 +101,8 @@ acceptance_criteria:
     traces: [R2.1, R2.2, R2.3]
 
   - id: AC3
-    criterion: Validate detects orphaned SRDs, broken touchpoints and citations, uncovered items and ACs, depends_on violations, releases without test suites, releases missing a roadmap_summary row, and index entries disagreeing with their documents.
-    traces: [R3.1, R3.2, R3.3, R3.4, R3.5, R3.6, R3.7, R3.8, R3.9, R3.10]
+    criterion: Validate detects orphaned SRDs, broken touchpoints and citations, uncovered items and ACs, depends_on violations, releases without test suites, releases missing a roadmap_summary row, index entries disagreeing with their documents, ids dropped without retirement entries, and citations of retired ids.
+    traces: [R3.1, R3.2, R3.3, R3.4, R3.5, R3.6, R3.7, R3.8, R3.9, R3.10, R3.12, R3.13]
 
   - id: AC4
     criterion: LoadCorpus discovers and parses all artifacts from the standard directory layout.

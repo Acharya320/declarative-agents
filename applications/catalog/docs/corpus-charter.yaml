@@ -44,3 +44,21 @@ checks:
       - docspec-broken-implementation-path
       - docspec-broken-related-document
       - docspec-broken-requirement-source
+      # Identifiers are immutable once a release tag contains them, and
+      # citations follow retirements (design.yaml D6, GH-2545).
+      - retired-id-missing
+      - citation-of-retired-id
+  # A clarification marker is a decision nobody has made; a corpus carrying
+  # one is not ready (design.yaml clarification_marker). This charter spells
+  # the marker out in its own patterns list and is excluded.
+  - id: unresolved-clarification
+    kind: grep_check
+    severity: error
+    include:
+      - docs/**/*.yaml
+      - docs/**/*.md
+    exclude:
+      - docs/corpus-charter.yaml
+    patterns:
+      - "[NEEDS CLARIFICATION"
+    message: A clarification marker remains; replace it with the decision in place (design.yaml clarification_marker).

@@ -35,6 +35,8 @@ func Validate(g *Graph, corpus *Corpus) []Finding {
 	all = append(all, checkDocSpecImplementationPaths(corpus)...)
 	all = append(all, checkDocSpecExamplePaths(corpus)...)
 	all = append(all, checkMachineDiagnostics(corpus)...)
+	all = append(all, checkRetiredIDs(corpus)...)
+	all = append(all, checkCitationsOfRetiredIDs(corpus)...)
 	return all
 }
 
