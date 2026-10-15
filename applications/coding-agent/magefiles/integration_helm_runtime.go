@@ -42,7 +42,7 @@ func prepareCodingHelmClusterForNamespace(
 		_, _ = environment.run(ctx, "kubectl", "delete", "persistentvolume", codingWorkspaceVolume,
 			"--ignore-not-found=true", "--wait=true", "--timeout=30s")
 		cancel()
-		ctx, cancel = context.WithTimeout(context.Background(), codingHelmProbeTimeout)
+		ctx, cancel = context.WithTimeout(context.Background(), codingDockerProbeTimeout)
 		output, err := codingSmokeEnvironment{}.run(ctx, "docker", "exec",
 			cluster+"-control-plane", "sh", "-c",
 			"rm -rf /tmp/coding-agent-workspace && mkdir -p /tmp/coding-agent-workspace && chmod 0777 /tmp/coding-agent-workspace")
