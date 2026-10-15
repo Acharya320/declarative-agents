@@ -142,7 +142,13 @@ documentation_standards:
 
     validated release and the tracked pin -- is resolved by revalidating the
 
-    local requirement and re-pinning the entry in the same change.
+    local requirement and re-pinning the entry in the same change. mage
+
+    upgrade moves the pin and re-pins every entry whose cited item is
+
+    byte-identical across the two releases; mage upgrade:status prints the
+
+    entries still behind their pins, the pre-planning worklist.
 
     '
   success_criteria: 'A success criterion states a measurable outcome in domain terms and
