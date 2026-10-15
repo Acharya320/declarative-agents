@@ -109,7 +109,7 @@ func TestMachineCommandTimeoutRoutesRecoveryAndContinues(t *testing.T) {
 			{State: "Slow", Signal: "CommandError", Next: "Recovered", Action: "recover"},
 			{State: "Recovered", Signal: "ToolDone", Next: "Done"},
 		},
-		BudgetSpec: &core.BudgetSpec{MaxIterations: 5, CommandTimeout: "1ms"},
+		BudgetSpec: &core.BudgetSpec{MaxIterations: 5, CommandTimeout: "200ms"},
 	}
 	registry := core.NewRegistry()
 	registry.Register(core.ToolSpec{Name: "slow"}, timeoutBuilder{})
