@@ -19,25 +19,16 @@ import (
 // validated release and the new pin is re-pinned in place. What remains is
 // exactly the set of requirements whose upstream changed; each carries a
 // stale-external-reference audit finding, and upgrade:status prints them as
-// the worklist (design.yaml external_references, GH-2558).
-// DA_UPGRADE_RELEASE overrides the target tag.
+// the worklist (design.yaml external_references, GH-2558). upgrade:to
+// targets a named release instead of the newest.
 func Upgrade(repo string) error {
-	cache, err := externalCacheDir(repo)
+	cache, err := fetchedExternalCache(repo)
 	if err != nil {
 		return err
 	}
-	if _, err := extGitOutput(cache, "rev-parse", "--git-dir"); err != nil {
-		return fmt.Errorf("parent cache for %s is missing; clone it: git clone https://%s %s",
-			repo, repo, cache)
-	}
-	if _, err := extGitOutput(cache, "fetch", "--tags", "origin"); err != nil {
-		return fmt.Errorf("fetch %s tags through %s: %w", repo, cache, err)
-	}
-	target := os.Getenv("DA_UPGRADE_RELEASE")
-	if target == "" {
-		if target, err = cacheLatestReleaseTag(cache); err != nil {
-			return err
-		}
+	target, err := cacheLatestReleaseTag(cache)
+	if err != nil {
+		return err
 	}
 	if target == "" {
 		return fmt.Errorf("no release tag in the %s cache to upgrade to", repo)
@@ -46,6 +37,42 @@ func Upgrade(repo string) error {
 }
 
 type UPGRADE mg.Namespace
+
+// To performs the same upgrade as upgrade, targeting the named release
+// rather than the parent's newest one.
+func (UPGRADE) To(repo, release string) error {
+	return upgradeToNamedRelease(auditParticipants(), repo, release, os.Stdout)
+}
+
+// upgradeToNamedRelease fetches the cache and upgrades to release, refusing
+// a tag the fetched cache does not contain.
+func upgradeToNamedRelease(modules []string, repo, release string, out io.Writer) error {
+	cache, err := fetchedExternalCache(repo)
+	if err != nil {
+		return err
+	}
+	if _, err := extGitOutput(cache, "rev-parse", "--verify", "refs/tags/"+release); err != nil {
+		return fmt.Errorf("release %s is not in the %s cache after fetching", release, repo)
+	}
+	return upgradeToRelease(modules, repo, cache, release, out)
+}
+
+// fetchedExternalCache returns the parent's cache after fetching its tags,
+// refusing a missing cache with the clone command.
+func fetchedExternalCache(repo string) (string, error) {
+	cache, err := externalCacheDir(repo)
+	if err != nil {
+		return "", err
+	}
+	if _, err := extGitOutput(cache, "rev-parse", "--git-dir"); err != nil {
+		return "", fmt.Errorf("parent cache for %s is missing; clone it: git clone https://%s %s",
+			repo, repo, cache)
+	}
+	if _, err := extGitOutput(cache, "fetch", "--tags", "origin"); err != nil {
+		return "", fmt.Errorf("fetch %s tags through %s: %w", repo, cache, err)
+	}
+	return cache, nil
+}
 
 // Status prints every derived_from entry still validated against a release
 // older than its repository's tracked pin: the pre-planning worklist after

@@ -47,6 +47,15 @@ func (f fakeUpgradeCache) output(dir string, args ...string) (string, error) {
 	}
 	switch args[0] {
 	case "rev-parse":
+		if args[1] == "--verify" {
+			tag := strings.TrimPrefix(args[2], "refs/tags/")
+			for _, known := range strings.Split(f.tags, "\n") {
+				if known == tag {
+					return tag, nil
+				}
+			}
+			return "", errors.New("unknown tag " + tag)
+		}
 		return ".git", nil
 	case "fetch":
 		return "", nil
@@ -201,6 +210,30 @@ func TestUpgradeStatusQuietWhenCurrent(t *testing.T) {
 	}
 	if !strings.Contains(out.String(), "no entries behind their pins") {
 		t.Fatalf("output %q, want the quiet line", out.String())
+	}
+}
+
+func TestUpgradeToNamedRelease(t *testing.T) {
+	_, srdPath := upgradeFixture(t)
+	var out strings.Builder
+	if err := upgradeToNamedRelease([]string{"mod-a"}, "github.com/example/parent", "v0.20270102.0", &out); err != nil {
+		t.Fatal(err)
+	}
+	document, err := os.ReadFile(srdPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if strings.Count(string(document), "release: v0.20270102.0") != 1 {
+		t.Fatalf("want the unchanged entry re-pinned to the named release:\n%s", document)
+	}
+}
+
+func TestUpgradeToRefusesUnknownRelease(t *testing.T) {
+	upgradeFixture(t)
+	var out strings.Builder
+	err := upgradeToNamedRelease([]string{"mod-a"}, "github.com/example/parent", "v0.20991231.0", &out)
+	if err == nil || !strings.Contains(err.Error(), "release v0.20991231.0 is not in the") {
+		t.Fatalf("err = %v, want the unknown-release refusal", err)
 	}
 }
 
