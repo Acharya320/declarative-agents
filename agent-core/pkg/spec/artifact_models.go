@@ -31,6 +31,10 @@ type SRD struct {
 	// rest on.
 	Assumptions []string `yaml:"-"`
 
+	// DerivedFrom records document-level provenance: the parent requirements
+	// this SRD exists to satisfy (design.yaml external_references).
+	DerivedFrom []ExternalReference `yaml:"derived_from"`
+
 	OrderedGroups []string `yaml:"-"`
 }
 
@@ -40,6 +44,19 @@ type SRD struct {
 type ClarificationEntry struct {
 	ID       string `yaml:"id"`
 	Question string `yaml:"question"`
+}
+
+// ExternalReference is one provenance backlink: the parent repository
+// requirement this entry's carrier derives from, validated against a parent
+// release. Release absent means the entry resolves against the cache HEAD,
+// a co-development state the release gate refuses (design.yaml
+// external_references).
+type ExternalReference struct {
+	Repo    string `yaml:"repo"`
+	Release string `yaml:"release"`
+	SRD     string `yaml:"srd"`
+	Item    string `yaml:"item"`
+	Reason  string `yaml:"reason"`
 }
 
 // RequirementGroup is a named group of requirement items (e.g. R1, R2).
@@ -59,6 +76,10 @@ type RequirementItem struct {
 	Status     string
 	RetiredIn  string
 	ReplacedBy []string
+
+	// DerivedFrom records why this item exists: the parent requirements it
+	// derives from, each validated against a parent release.
+	DerivedFrom []ExternalReference
 }
 
 // Dependency records an inter-SRD dependency.
@@ -77,6 +98,10 @@ type AcceptanceCriterion struct {
 	Status     string   `yaml:"status"`
 	RetiredIn  string   `yaml:"retired_in"`
 	ReplacedBy []string `yaml:"replaced_by"`
+
+	// DerivedFrom records why this criterion exists (design.yaml
+	// external_references).
+	DerivedFrom []ExternalReference `yaml:"derived_from"`
 }
 
 // AllItems returns all requirement items from the SRD in group order.

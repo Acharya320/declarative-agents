@@ -33,6 +33,7 @@ func Bump() error {
 	}
 	results := pinsurvey.Survey(pinsurvey.NewClient(), pins)
 	printPinReport(os.Stdout, results)
+	reportExternalPinCurrency(auditParticipants(), os.Stdout)
 	return nil
 }
 

@@ -122,6 +122,29 @@ documentation_standards:
       image files.
 
       '
+  external_references: 'A requirement that exists because a parent repository''s requirement
+
+    demands it says so with a derived_from entry on the SRD, the requirement
+
+    item, or the acceptance criterion: repo, the release it was validated
+
+    against, srd, item, and an optional reason. Resolution is offline against
+
+    a mandated clone cache, a sibling checkout named after the repository
+
+    (docs/external-checkouts.yaml overrides the location); the tracked
+
+    target pin per parent lives in docs/external-pins.yaml. An entry without
+
+    a release resolves against the cache HEAD during co-development and is
+
+    refused at release. A stale entry -- the cited item changed between the
+
+    validated release and the tracked pin -- is resolved by revalidating the
+
+    local requirement and re-pinning the entry in the same change.
+
+    '
   success_criteria: 'A success criterion states a measurable outcome in domain terms and
 
     names no implementation technology. A criterion a person cannot check
@@ -240,6 +263,12 @@ document_types:
     - replaced_by
     - needs_clarification
     - assumptions
+    - derived_from
+    provenance: 'derived_from (external_references) applies to the document and to an
+
+      individual requirement item or acceptance criterion.
+
+      '
     retirement: 'The three optional fields implement D6 on the document and on a
 
       requirement item or acceptance criterion retired individually. The

@@ -217,6 +217,9 @@ func runReleaseGates(commit string) error {
 	if err := checkReleaseDockerHeadroom(probeDockerMemory, releaseDockerFreeFloor); err != nil {
 		return err
 	}
+	if err := externalReferenceReleaseGate(auditParticipants()); err != nil {
+		return err
+	}
 	return executePlatformReleaseGates(
 		releaseGates(root), newReleasePlatform(root, commit), runReleaseCommand)
 }
