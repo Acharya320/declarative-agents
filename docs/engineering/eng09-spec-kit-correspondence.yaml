@@ -17,8 +17,9 @@ introduction: |
   Spec Kit's files; we show that every step of its workflow and every
   element of its spec artifact has a mechanism here with the same job.
   Where our mechanism is machine-checked and Spec Kit's is a markdown
-  convention, the difference favors the corpus. One step, converge, has
-  no automated equivalent yet; the last section bounds that gap.
+  convention, the difference favors the corpus. One step, converge, is
+  closed on its cross-repository axis and open on its intra-repository
+  one; the last section bounds what remains.
 
 sections:
   - title: "Unit of correspondence"
@@ -61,7 +62,7 @@ sections:
       | speckit.tasks | Issue push/pop with sub-issues on an epic, or beads in bd-mode repositories |
       | speckit.analyze | mage audit: the spec_corpus checks and the traceability graph |
       | speckit.implement | The do-work loop: one unit at a time, acceptance criteria verified at finish |
-      | speckit.converge | No automated equivalent; see the last section |
+      | speckit.converge | Cross-repository: the external-reference upgrade loop (GH-2557, GH-2558); intra-repository code-vs-spec: no automated equivalent, see the last section |
       | speckit.taskstoissues | Native: tasks are issues from the start |
 
   - title: "Artifact correspondence"
@@ -116,8 +117,19 @@ sections:
       equivalent here is therefore a skill or an agent profile beside
       the gate, filing its gaps as sub-issues the way do-work already
       files follow-up work: the model proposes, the audit enforces.
-      Until that exists, converge is the one Spec Kit step without an
-      automated counterpart.
+
+      One axis of converge is closed. The external-reference upgrade
+      loop (GH-2557, GH-2558) is converge across the repository
+      boundary: stale-external-reference findings are deterministic
+      gap detection between a child corpus and its parent's releases,
+      mage upgrade performs the mechanical re-pins, upgrade:status
+      prints the remaining gaps as a worklist that becomes tracker
+      issues, and the loop terminates when the audit is clean at the
+      tracked pin -- implement until converged, Spec Kit's exact
+      shape, with the tracker in place of tasks.md. What stays open is
+      the intra-repository half: the judgment that this repository's
+      own code realizes its own requirements, which srd014 R5.3 keeps
+      outside the deterministic audit.
 
 references:
   - agent-core/docs/constitutions/design.yaml
@@ -129,3 +141,5 @@ references:
   - https://github.com/Nokia-Bell-Labs/declarative-agents/issues/2549
   - https://github.com/Nokia-Bell-Labs/declarative-agents/issues/2551
   - https://github.com/Nokia-Bell-Labs/declarative-agents/issues/2552
+  - https://github.com/Nokia-Bell-Labs/declarative-agents/issues/2557
+  - https://github.com/Nokia-Bell-Labs/declarative-agents/issues/2558
