@@ -83,8 +83,13 @@ ollama:
     tier: qwen2.5:0.5b
   persistence:
     size: 2Gi
+  # The CPU limit is a ceiling, not a size. llama.cpp starts one inference
+  # thread per CPU the node exposes, and a CFS quota below that count throttles
+  # every token barrier: on a 12-CPU node a 4-CPU limit held generation at 0.2
+  # tokens/s and timed the chat proof out (GH-2567). The limit sits above any
+  # developer node's CPU count; the request keeps scheduling honest.
   resources:
     requests: {cpu: 500m, memory: 512Mi}
-    limits: {cpu: "4", memory: 4Gi}
+    limits: {cpu: "64", memory: 4Gi}
   gpu:
     count: 0
