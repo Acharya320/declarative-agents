@@ -17,11 +17,15 @@ import (
 func TestLoopParallelForEachIsBoundedAndJoinsInInputOrder(t *testing.T) {
 	t.Parallel()
 	spec := parallelIteratorMachine(t, ForEachCollectAll)
+	// alpha cannot finish before gamma, and gamma cannot start until beta frees
+	// one of the two slots, so completion is beta, gamma, alpha by construction
+	// rather than by sleep margins a loaded scheduler can erase (GH-2572).
 	tracker := &parallelItemTracker{
 		failOn: "beta",
 		delays: map[string]time.Duration{
 			"alpha": 40 * time.Millisecond, "beta": 5 * time.Millisecond, "gamma": 15 * time.Millisecond,
 		},
+		after: map[string]string{"alpha": "gamma"},
 	}
 	checkpoint := &InMemoryCheckpoint{}
 	trace := &loopRecorder{}
@@ -215,6 +219,13 @@ func (c *parallelItemCommand) ExecuteContext(ctx context.Context) Result {
 	case <-ctx.Done():
 		return Result{Signal: CommandError, Err: ctx.Err(), Output: name}
 	}
+	if predecessor := c.tracker.predecessor(name); predecessor != "" {
+		select {
+		case <-c.tracker.doneChan(predecessor):
+		case <-ctx.Done():
+			return Result{Signal: CommandError, Err: ctx.Err(), Output: name}
+		}
+	}
 	if name == c.tracker.failOn {
 		return Result{Signal: "ItemFailed", Output: name, Receipt: "item"}
 	}
@@ -224,11 +235,39 @@ func (c *parallelItemCommand) ExecuteContext(ctx context.Context) Result {
 type parallelItemTracker struct {
 	mu        sync.Mutex
 	delays    map[string]time.Duration
+	after     map[string]string // item -> item that must finish first
 	failOn    string
 	active    int
 	maxActive int
 	started   []string
 	completed []string
+	done      map[string]chan struct{}
+}
+
+func (t *parallelItemTracker) predecessor(name string) string {
+	t.mu.Lock()
+	defer t.mu.Unlock()
+	return t.after[name]
+}
+
+// doneChan returns the channel finish closes for name, creating it on first
+// use so a waiter may arrive before or after the item starts.
+func (t *parallelItemTracker) doneChan(name string) chan struct{} {
+	t.mu.Lock()
+	defer t.mu.Unlock()
+	return t.doneChanLocked(name)
+}
+
+func (t *parallelItemTracker) doneChanLocked(name string) chan struct{} {
+	if t.done == nil {
+		t.done = map[string]chan struct{}{}
+	}
+	ch, ok := t.done[name]
+	if !ok {
+		ch = make(chan struct{})
+		t.done[name] = ch
+	}
+	return ch
 }
 
 func (t *parallelItemTracker) start(name string) {
@@ -246,6 +285,12 @@ func (t *parallelItemTracker) finish(name string) {
 	defer t.mu.Unlock()
 	t.active--
 	t.completed = append(t.completed, name)
+	ch := t.doneChanLocked(name)
+	select {
+	case <-ch: // an item re-run after a resume finishes again; closed already
+	default:
+		close(ch)
+	}
 }
 
 func (t *parallelItemTracker) delay(name string) time.Duration {
