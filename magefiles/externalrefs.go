@@ -327,6 +327,39 @@ func parentSRDFileAt(cache, ref, srdID string) (string, error) {
 	return "", nil
 }
 
+// parentItemText returns the text behind an id in SRD document bytes: a
+// requirement item's text, an acceptance criterion's criterion, or a
+// group's title.
+func parentItemText(data []byte, id string) (string, bool) {
+	var doc struct {
+		Requirements map[string]struct {
+			Title string           `yaml:"title"`
+			Items []map[string]any `yaml:"items"`
+		} `yaml:"requirements"`
+		AcceptanceCriteria []map[string]any `yaml:"acceptance_criteria"`
+	}
+	if err := yaml.Unmarshal(data, &doc); err != nil {
+		return "", false
+	}
+	for _, group := range doc.Requirements {
+		for _, item := range group.Items {
+			if text, ok := item[id]; ok {
+				s, _ := text.(string)
+				return s, true
+			}
+		}
+	}
+	for _, ac := range doc.AcceptanceCriteria {
+		if stringField(ac, "id") == id {
+			return stringField(ac, "criterion"), true
+		}
+	}
+	if group, ok := doc.Requirements[id]; ok {
+		return group.Title, true
+	}
+	return "", false
+}
+
 // parentItemRetired reports whether the id carries status retired in the
 // SRD document bytes: the document itself, a requirement item, or an
 // acceptance criterion.
