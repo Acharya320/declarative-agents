@@ -30,10 +30,18 @@ const (
 	helmRelease         = "smoke"
 	helmImageRepository = "ghcr.io/nokia-bell-labs/declarative-agents/agent-core"
 
-	helmInstallTimeout   = 5 * time.Minute
-	helmImageLoadTimeout = 3 * time.Minute
-	helmReadyTimeout     = 90 * time.Second
-	helmSpanTimeout      = 60 * time.Second
+	helmInstallTimeout = 5 * time.Minute
+	helmReadyTimeout   = 90 * time.Second
+	helmSpanTimeout    = 60 * time.Second
+
+	// A kind image load gets kindImageLoadBase for the first GiB and
+	// kindImageLoadPerGiB for each further GiB, up to kindImageLoadCap. The
+	// per-GiB budget is a 5.7 MB/s throughput floor: the derived ollama image
+	// (2.8 GB) loads into the shared da-platform cluster while other scenarios
+	// run there, and a flat three minutes cut it short (GH-2564).
+	kindImageLoadBase   = 3 * time.Minute
+	kindImageLoadPerGiB = 3 * time.Minute
+	kindImageLoadCap    = 20 * time.Minute
 
 	helmFailureDiagnosticsTimeout = 30 * time.Second
 	helmEvidenceCommandTimeout    = 10 * time.Second
@@ -66,9 +74,42 @@ func loadKindImageWithCommands(
 	commands kindrig.Commands,
 	cluster, image string,
 ) error {
-	ctx, cancel := context.WithTimeout(context.Background(), helmImageLoadTimeout)
+	ctx, cancel := context.WithTimeout(context.Background(), imageLoadDeadline(image))
 	defer cancel()
 	return kindrig.LoadImage(ctx, commands.KindRunContext, cluster, image)
+}
+
+// imageSizeProbe reports a local image's size in bytes. Tests swap it.
+var imageSizeProbe = func(image string) (int64, error) {
+	output, err := exec.Command("docker", "image", "inspect", "--format", "{{.Size}}", image).Output()
+	if err != nil {
+		return 0, err
+	}
+	return strconv.ParseInt(strings.TrimSpace(string(output)), 10, 64)
+}
+
+// imageLoadDeadline sizes one image load's budget. A failed probe gets the
+// cap, so a large image is never cut short because its size was unknown.
+func imageLoadDeadline(image string) time.Duration {
+	size, err := imageSizeProbe(image)
+	if err != nil {
+		return kindImageLoadCap
+	}
+	return kindImageLoadDeadline(size)
+}
+
+// kindImageLoadDeadline returns the load budget for an image of sizeBytes.
+func kindImageLoadDeadline(sizeBytes int64) time.Duration {
+	const gib = int64(1) << 30
+	deadline := kindImageLoadBase
+	if sizeBytes > gib {
+		extra := (sizeBytes - gib + gib - 1) / gib
+		deadline += time.Duration(extra) * kindImageLoadPerGiB
+	}
+	if deadline > kindImageLoadCap {
+		return kindImageLoadCap
+	}
+	return deadline
 }
 
 // HelmSmoke deploys the chatbot-mesh chart on a disposable kind cluster with the
