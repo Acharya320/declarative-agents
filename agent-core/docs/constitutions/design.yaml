@@ -144,9 +144,11 @@ documentation_standards:
 
     local requirement and re-pinning the entry in the same change. mage
 
-    upgrade moves the pin and re-pins every entry whose cited item is
+    upgrade (or mage upgrade:to for a named release) moves the pin and
 
-    byte-identical across the two releases; mage upgrade:status prints the
+    re-pins every entry whose cited item is byte-identical across the two
+
+    releases; mage upgrade:status prints the
 
     entries still behind their pins, the pre-planning worklist.
 
