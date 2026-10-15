@@ -35,6 +35,10 @@ const (
 	codingHelmRequestTimeout = 2 * time.Minute
 	codingHelmTraceTimeout   = 45 * time.Second
 	codingHelmProbeTimeout   = 5 * time.Second
+	// Docker Desktop answers docker info and docker image inspect slowly
+	// while every release lane builds and loads images at once; a 5s bound
+	// reported that busy-but-healthy daemon as an outage (GH-2573).
+	codingDockerProbeTimeout = 30 * time.Second
 	codingHelmDiagTimeout    = 15 * time.Second
 )
 
@@ -134,7 +138,7 @@ func codingHelmSmokeSkipReason(roots integrationRoots, run codingSmokeRunner) st
 	if reason := baseIntegrationSkipReason(roots); reason != "" {
 		return reason
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), codingHelmProbeTimeout)
+	ctx, cancel := context.WithTimeout(context.Background(), codingDockerProbeTimeout)
 	defer cancel()
 	if output, err := run(ctx, "docker", "info"); err != nil {
 		return fmt.Sprintf("Docker unavailable: %v: %s", err, strings.TrimSpace(string(output)))
@@ -143,7 +147,7 @@ func codingHelmSmokeSkipReason(roots integrationRoots, run codingSmokeRunner) st
 		codingHelmGoDonorImage,
 		codingHelmLintDonorImage,
 	} {
-		ctx, cancel := context.WithTimeout(context.Background(), codingHelmProbeTimeout)
+		ctx, cancel := context.WithTimeout(context.Background(), codingDockerProbeTimeout)
 		output, err := run(ctx, "docker", "image", "inspect", image)
 		cancel()
 		if err != nil {
@@ -240,7 +244,7 @@ func runCodingHelmSmoke(roots integrationRoots) (result error) {
 }
 
 func codingKindKubeconfig(cluster string) (string, func(), error) {
-	ctx, cancel := context.WithTimeout(context.Background(), codingHelmProbeTimeout)
+	ctx, cancel := context.WithTimeout(context.Background(), codingDockerProbeTimeout)
 	defer cancel()
 	output, err := codingSmokeEnvironment{}.run(
 		ctx, "kind", "get", "kubeconfig", "--name", cluster)
@@ -264,13 +268,14 @@ func checkCodingHelmInfrastructure(run codingSmokeRunner) error {
 		step, name string
 		args       []string
 		want       string
+		timeout    time.Duration
 	}{
-		{"Docker engine", "docker", []string{"info"}, ""},
+		{"Docker engine", "docker", []string{"info"}, "", codingDockerProbeTimeout},
 		{"host-to-Kubernetes API", "kubectl",
-			[]string{"--request-timeout=5s", "get", "--raw=/readyz"}, "ok"},
+			[]string{"--request-timeout=5s", "get", "--raw=/readyz"}, "ok", codingHelmProbeTimeout},
 	}
 	for _, probe := range probes {
-		ctx, cancel := context.WithTimeout(context.Background(), codingHelmProbeTimeout)
+		ctx, cancel := context.WithTimeout(context.Background(), probe.timeout)
 		output, err := run(ctx, probe.name, probe.args...)
 		contextErr := ctx.Err()
 		cancel()

@@ -52,6 +52,45 @@ func TestCodingHelmInfrastructureProbeClassification(t *testing.T) {
 	}
 }
 
+func TestCodingHelmDockerProbesTolerateABusyDaemon(t *testing.T) {
+	budgets := map[string]time.Duration{}
+	record := func(ctx context.Context, name string, args ...string) ([]byte, error) {
+		deadline, ok := ctx.Deadline()
+		if !ok {
+			t.Fatalf("%s probe has no deadline", name)
+		}
+		budgets[name] = time.Until(deadline)
+		if name == "kubectl" {
+			return []byte("ok"), nil
+		}
+		return []byte("healthy"), nil
+	}
+	if err := checkCodingHelmInfrastructure(record); err != nil {
+		t.Fatalf("healthy infrastructure rejected: %v", err)
+	}
+	if budgets["docker"] <= 5*time.Second || budgets["docker"] > codingDockerProbeTimeout {
+		t.Fatalf("docker probe budget = %s, want above the old 5s and at most %s",
+			budgets["docker"], codingDockerProbeTimeout)
+	}
+	if budgets["kubectl"] > codingHelmProbeTimeout {
+		t.Fatalf("kubectl probe budget = %s, want at most %s", budgets["kubectl"], codingHelmProbeTimeout)
+	}
+}
+
+func TestCodingHelmDockerProbeStillFailsAHungDaemon(t *testing.T) {
+	hung := func(ctx context.Context, name string, args ...string) ([]byte, error) {
+		if name == "docker" {
+			return nil, context.DeadlineExceeded
+		}
+		return []byte("ok"), nil
+	}
+	err := checkCodingHelmInfrastructure(hung)
+	var infrastructure *codingHelmInfrastructureError
+	if !errors.As(err, &infrastructure) || infrastructure.Step != "Docker engine" {
+		t.Fatalf("hung daemon error = %#v, want the Docker engine infrastructure error", err)
+	}
+}
+
 func TestCodingHelmFailureDistinguishesSemanticFromInfrastructure(t *testing.T) {
 	healthy := func(_ context.Context, name string, args ...string) ([]byte, error) {
 		if name == "kubectl" && strings.Contains(strings.Join(args, " "), "/readyz") {
