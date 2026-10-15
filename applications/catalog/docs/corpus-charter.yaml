@@ -54,3 +54,10 @@ checks:
       # A use-case priority outside P1/P2/P3 is invalid (design.yaml
       # use_case priority, GH-2551).
       - invalid-priority
+      # External references resolve, stay live, and keep up with the tracked
+      # pin (design.yaml external_references, GH-2557).
+      - unverifiable-external-reference
+      - broken-external-reference
+      - retired-external-reference
+      - stale-external-reference
+      - unpinned-external-reference

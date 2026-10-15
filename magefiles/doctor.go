@@ -3,6 +3,8 @@
 
 package main
 
+import "os"
+
 // Doctor reports whether the repository-wide checks can run, without mutating
 // anything.
 //
@@ -12,5 +14,8 @@ package main
 // kindrig.Doctor gates cluster work, including demo:up, and needing a linter
 // installed to bring up a demo would be the wrong coupling (GH-1479).
 func Doctor() error {
-	return reportGolangciLint()
+	if err := reportGolangciLint(); err != nil {
+		return err
+	}
+	return reportExternalCaches(auditParticipants(), os.Stdout)
 }

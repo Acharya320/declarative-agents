@@ -34,6 +34,7 @@ type rawSRD struct {
 	ReplacedBy         []string              `yaml:"replaced_by"`
 	NeedsClarification []ClarificationEntry  `yaml:"needs_clarification"`
 	Assumptions        yaml.Node             `yaml:"assumptions"`
+	DerivedFrom        []ExternalReference   `yaml:"derived_from"`
 }
 
 func parseSRDBytes(data []byte, source string) (SRD, error) {
@@ -66,6 +67,7 @@ func parseSRDBytes(data []byte, source string) (SRD, error) {
 		ReplacedBy:         raw.ReplacedBy,
 		NeedsClarification: raw.NeedsClarification,
 		Assumptions:        assumptions,
+		DerivedFrom:        raw.DerivedFrom,
 		OrderedGroups:      orderedKeys,
 	}, nil
 }
@@ -308,24 +310,11 @@ func parseOneItem(node *yaml.Node) (RequirementItem, error) {
 		key := node.Content[i].Value
 		val := node.Content[i+1]
 
-		switch key {
-		case "weight":
-			var w int
-			if err := val.Decode(&w); err != nil {
-				return RequirementItem{}, fmt.Errorf("decode weight: %w", err)
-			}
-			item.Weight = w
-		case "status":
-			item.Status = val.Value
-		case "retired_in":
-			item.RetiredIn = val.Value
-		case "replaced_by":
-			var replaced []string
-			if err := val.Decode(&replaced); err != nil {
-				return RequirementItem{}, fmt.Errorf("decode replaced_by: %w", err)
-			}
-			item.ReplacedBy = replaced
-		default:
+		handled, err := parseItemMetadata(&item, key, val)
+		if err != nil {
+			return RequirementItem{}, err
+		}
+		if !handled {
 			item.ID = key
 			item.Text = val.Value
 		}
@@ -335,6 +324,32 @@ func parseOneItem(node *yaml.Node) (RequirementItem, error) {
 		return RequirementItem{}, fmt.Errorf("requirement item has no ID key")
 	}
 	return item, nil
+}
+
+// parseItemMetadata decodes a requirement item's metadata keys; any other
+// key is the item's id and stays with the caller.
+func parseItemMetadata(item *RequirementItem, key string, val *yaml.Node) (bool, error) {
+	switch key {
+	case "weight":
+		if err := val.Decode(&item.Weight); err != nil {
+			return false, fmt.Errorf("decode weight: %w", err)
+		}
+	case "status":
+		item.Status = val.Value
+	case "retired_in":
+		item.RetiredIn = val.Value
+	case "replaced_by":
+		if err := val.Decode(&item.ReplacedBy); err != nil {
+			return false, fmt.Errorf("decode replaced_by: %w", err)
+		}
+	case "derived_from":
+		if err := val.Decode(&item.DerivedFrom); err != nil {
+			return false, fmt.Errorf("decode derived_from: %w", err)
+		}
+	default:
+		return false, nil
+	}
+	return true, nil
 }
 
 // ParseRoadmap reads a road-map.yaml file.
