@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec"
+	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 	"gopkg.in/yaml.v3"
 )
 
@@ -58,24 +59,15 @@ func splitFrontmatter(data []byte) (frontmatter, []byte, int, error) {
 	return fm, []byte(body), strings.Count(head, "\n") + 3, nil
 }
 
-// refJSON is the marker-attribute form of an external reference.
-type refJSON struct {
-	Repo    string `json:"repo"`
-	Release string `json:"release,omitempty"`
-	SRD     string `json:"srd"`
-	Item    string `json:"item"`
-	Reason  string `json:"reason,omitempty"`
-}
-
-func refsToJSON(refs []spec.ExternalReference) []refJSON {
-	out := make([]refJSON, len(refs))
+func refsToJSON(refs []spec.ExternalReference) []markdown.Reference {
+	out := make([]markdown.Reference, len(refs))
 	for i, r := range refs {
-		out[i] = refJSON(r)
+		out[i] = markdown.Reference(r)
 	}
 	return out
 }
 
-func refsFromJSON(refs []refJSON) []spec.ExternalReference {
+func refsFromJSON(refs []markdown.Reference) []spec.ExternalReference {
 	out := make([]spec.ExternalReference, len(refs))
 	for i, r := range refs {
 		out[i] = spec.ExternalReference(r)
@@ -85,7 +77,7 @@ func refsFromJSON(refs []refJSON) []spec.ExternalReference {
 
 // retirementAttrs encodes the retirement and provenance fields shared by
 // items and criteria, omitting the ones that are unset.
-func retirementAttrs(status, retiredIn string, replacedBy []string, derived []spec.ExternalReference) ([]attr, error) {
+func retirementAttrs(status, retiredIn string, replacedBy []string, derived []spec.ExternalReference) ([]markdown.Attr, error) {
 	values := []struct {
 		key   string
 		value any
@@ -96,51 +88,51 @@ func retirementAttrs(status, retiredIn string, replacedBy []string, derived []sp
 		{"replaced_by", replacedBy, len(replacedBy) > 0},
 		{"derived_from", refsToJSON(derived), len(derived) > 0},
 	}
-	var attrs []attr
+	var attrs []markdown.Attr
 	for _, v := range values {
 		if !v.set {
 			continue
 		}
-		encoded, err := encodeAttr(v.value)
+		encoded, err := markdown.EncodeAttr(v.value)
 		if err != nil {
 			return nil, fmt.Errorf("attribute %s: %w", v.key, err)
 		}
-		attrs = append(attrs, attr{Key: v.key, Value: encoded})
+		attrs = append(attrs, markdown.Attr{Key: v.key, Value: encoded})
 	}
 	return attrs, nil
 }
 
-func itemMarker(item *spec.RequirementItem) (marker, error) {
-	m := marker{Tag: "req", Value: item.ID}
+func itemMarker(item *spec.RequirementItem) (markdown.Marker, error) {
+	m := markdown.Marker{Tag: "req", Value: item.ID}
 	if item.Weight != 1 {
-		m.Attrs = append(m.Attrs, attr{Key: "weight", Value: fmt.Sprint(item.Weight)})
+		m.Attrs = append(m.Attrs, markdown.Attr{Key: "weight", Value: fmt.Sprint(item.Weight)})
 	}
 	attrs, err := retirementAttrs(item.Status, item.RetiredIn, item.ReplacedBy, item.DerivedFrom)
 	if err != nil {
-		return marker{}, fmt.Errorf("item %s: %w", item.ID, err)
+		return markdown.Marker{}, fmt.Errorf("item %s: %w", item.ID, err)
 	}
 	m.Attrs = append(m.Attrs, attrs...)
 	return m, nil
 }
 
-func criterionMarker(criterion *spec.AcceptanceCriterion) (marker, error) {
-	m := marker{Tag: "ac", Value: criterion.ID}
+func criterionMarker(criterion *spec.AcceptanceCriterion) (markdown.Marker, error) {
+	m := markdown.Marker{Tag: "ac", Value: criterion.ID}
 	attrs, err := retirementAttrs(criterion.Status, criterion.RetiredIn, criterion.ReplacedBy, criterion.DerivedFrom)
 	if err != nil {
-		return marker{}, fmt.Errorf("criterion %s: %w", criterion.ID, err)
+		return markdown.Marker{}, fmt.Errorf("criterion %s: %w", criterion.ID, err)
 	}
 	m.Attrs = append(m.Attrs, attrs...)
 	return m, nil
 }
 
 // applyItemAttrs decodes an item marker's attributes onto the item.
-func applyItemAttrs(m marker, item *spec.RequirementItem) error {
+func applyItemAttrs(m markdown.Marker, item *spec.RequirementItem) error {
 	item.Weight = 1
 	for _, a := range m.Attrs {
 		var err error
 		switch a.Key {
 		case "weight":
-			err = decodeAttr(a.Value, &item.Weight)
+			err = markdown.DecodeAttr(a.Value, &item.Weight)
 		default:
 			err = applyRetirementAttr(a, &item.Status, &item.RetiredIn, &item.ReplacedBy, &item.DerivedFrom)
 		}
@@ -151,7 +143,7 @@ func applyItemAttrs(m marker, item *spec.RequirementItem) error {
 	return nil
 }
 
-func applyCriterionAttrs(m marker, criterion *spec.AcceptanceCriterion) error {
+func applyCriterionAttrs(m markdown.Marker, criterion *spec.AcceptanceCriterion) error {
 	for _, a := range m.Attrs {
 		err := applyRetirementAttr(a, &criterion.Status, &criterion.RetiredIn,
 			&criterion.ReplacedBy, &criterion.DerivedFrom)
@@ -162,17 +154,17 @@ func applyCriterionAttrs(m marker, criterion *spec.AcceptanceCriterion) error {
 	return nil
 }
 
-func applyRetirementAttr(a attr, status, retiredIn *string, replacedBy *[]string, derived *[]spec.ExternalReference) error {
+func applyRetirementAttr(a markdown.Attr, status, retiredIn *string, replacedBy *[]string, derived *[]spec.ExternalReference) error {
 	switch a.Key {
 	case "status":
-		return decodeAttr(a.Value, status)
+		return markdown.DecodeAttr(a.Value, status)
 	case "retired_in":
-		return decodeAttr(a.Value, retiredIn)
+		return markdown.DecodeAttr(a.Value, retiredIn)
 	case "replaced_by":
-		return decodeAttr(a.Value, replacedBy)
+		return markdown.DecodeAttr(a.Value, replacedBy)
 	case "derived_from":
-		var refs []refJSON
-		if err := decodeAttr(a.Value, &refs); err != nil {
+		var refs []markdown.Reference
+		if err := markdown.DecodeAttr(a.Value, &refs); err != nil {
 			return err
 		}
 		*derived = refsFromJSON(refs)

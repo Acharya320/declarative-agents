@@ -10,7 +10,7 @@ title: Markdown Specification Format
 
 This guideline specifies the Markdown format that replaces the typed YAML specification corpus (epic GH-2578). A document in this format renders as a document on GitHub and GitLab, and it parses into the same document model the YAML front end feeds, so the traceability graph and every audit check keep working unchanged. Each heading carries a one-line HTML comment marker that says what the heading opens. Facts a reader needs stay in visible Markdown, and machine-only facts live in the markers.
 
-We wrote the format from evidence, not from argument. The prototype in tools/specmd-prototype parses, prints, and diagnoses the format, and tools/specmd-prototype/FINDINGS.md records what it established: round-trip laws over the 106 tracked SRDs, the inventory of shape rules, and the quality of the diagnostics. The rules this guideline describes are data. Each document type declares them in the markdown block of its entry in agent-core/docs/constitutions/design.yaml, and the prototype reads its rules from nowhere else.
+We wrote the format from evidence, not from argument. The prototype in tools/specmd-prototype parses, prints, and diagnoses the format, and tools/specmd-prototype/FINDINGS.md records what it established: round-trip laws over the 106 tracked SRDs, the inventory of shape rules, and the quality of the diagnostics. The rules this guideline describes are data. Each document type declares them in the markdown block of its entry in agent-core/docs/constitutions/design.yaml, and the engine reads its rules from nowhere else. The engine (marker grammar, shapes, declaration loader, and diagnostics) lives in agent-core/pkg/spec/markdown (GH-2602).
 
 This guideline is itself written in the format. Running specmd check on this file reports zero findings, which makes the file its first conformance test.
 
@@ -266,7 +266,7 @@ The check reports what the corpus migration (GH-2584) rewrites. On the printed S
 <!-- section: rules-as-data -->
 ## Rules as data
 
-Every entry in document_types carries a markdown entry, and a test in the prototype holds design.yaml to that. A structured type declares its rules there; a type that takes no rules says why in one line. Table 9 lists the types.
+Every entry in document_types carries a markdown entry, and a test in agent-core/pkg/spec/markdown holds design.yaml to that. A structured type declares its rules there; a type that takes no rules says why in one line. Table 9 lists the types.
 
 Table 9: Markdown declarations by document type
 

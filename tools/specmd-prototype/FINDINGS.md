@@ -3,7 +3,7 @@
 
 # Markdown spec compiler: prototype findings
 
-This note records what the prototype in this directory established for the spec-format migration (GH-2578), so the format specification (GH-2581) is written from evidence. The processor came in GH-2588 and the diagnostics in GH-2589. GH-2597 moved the rules into design.yaml (the markdown block of each document type), added the engineering_guideline declaration, and applied GH-2581's decisions on the id grammar and criterion traces. GH-2581 declared the remaining document types, which made a file select its declaration by its whole path rather than its name, let a list or table field be empty, and let a table field leave its columns undeclared. The measurements below were taken on 2026-10-15.
+This note records what the prototype in this directory established for the spec-format migration (GH-2578), so the format specification (GH-2581) is written from evidence. The processor came in GH-2588 and the diagnostics in GH-2589. GH-2597 moved the rules into design.yaml (the markdown block of each document type), added the engineering_guideline declaration, and applied GH-2581's decisions on the id grammar and criterion traces. GH-2581 declared the remaining document types, which made a file select its declaration by its whole path rather than its name, let a list or table field be empty, and let a table field leave its columns undeclared. GH-2602 moved the format engine and its diagnostics tests to agent-core/pkg/spec/markdown. The measurements below were taken on 2026-10-15.
 
 ## Verdict on the epic's decision metric
 

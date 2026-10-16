@@ -1,7 +1,7 @@
 // Copyright (c) 2026 Nokia
 // SPDX-License-Identifier: BSD-3-Clause
 
-package specmd
+package markdown
 
 import (
 	"fmt"
@@ -30,7 +30,7 @@ func (d *diagnosis) parentAt(level int) string {
 	return parent.kind
 }
 
-func (d *diagnosis) heading(b block, level int, heading string) {
+func (d *diagnosis) heading(b Block, level int, heading string) {
 	d.closeOpen()
 	line := d.fileLine(b)
 	if d.pending == nil {
@@ -81,7 +81,7 @@ func (d *diagnosis) finishNode(node *dnode) {
 	}
 }
 
-func (d *diagnosis) checkNode(node *dnode, m marker, heading string) {
+func (d *diagnosis) checkNode(node *dnode, m Marker, heading string) {
 	rule := d.rules.Nodes[node.kind]
 	path := "nodes." + node.kind
 	if pattern, ok := d.rules.idPatterns[node.kind]; ok && !pattern.MatchString(m.Value) {
@@ -144,7 +144,7 @@ func (d *diagnosis) checkField(node *dnode) {
 	}
 }
 
-func (d *diagnosis) checkAttributes(node *dnode, m marker) {
+func (d *diagnosis) checkAttributes(node *dnode, m Marker) {
 	allowed := d.rules.Nodes[node.kind].Attributes
 	for _, a := range m.Attrs {
 		if !contains(allowed, a.Key) {
@@ -163,16 +163,16 @@ func attributeShapeOK(shape, raw string) bool {
 	switch shape {
 	case "integer":
 		var n int
-		return decodeAttr(raw, &n) == nil
+		return DecodeAttr(raw, &n) == nil
 	case "list":
 		var values []string
-		return decodeAttr(raw, &values) == nil
+		return DecodeAttr(raw, &values) == nil
 	case "references":
-		var refs []refJSON
-		return decodeAttr(raw, &refs) == nil
+		var refs []Reference
+		return DecodeAttr(raw, &refs) == nil
 	}
 	var s string
-	return decodeAttr(raw, &s) == nil
+	return DecodeAttr(raw, &s) == nil
 }
 
 // closeOpen checks the content the open node collected.
@@ -265,7 +265,7 @@ func (d *diagnosis) contentText(node *dnode) string {
 	if len(node.content) == 0 {
 		return ""
 	}
-	return spanText(d.lines, node.content[0].start, node.content[len(node.content)-1].end)
+	return SpanText(d.lines, node.content[0].Start, node.content[len(node.content)-1].End)
 }
 
 // proseContainment reports RFC 2119 keywords in paragraphs and lists outside
@@ -275,12 +275,12 @@ func (d *diagnosis) proseContainment(node *dnode) {
 		return
 	}
 	for _, b := range node.content {
-		switch b.node.(type) {
+		switch b.Node.(type) {
 		case *ast.Paragraph, *ast.List:
 		default:
 			continue
 		}
-		for i := b.start; i <= b.end; i++ {
+		for i := b.Start; i <= b.End; i++ {
 			if keyword := d.rules.keywordRegexp.FindString(d.lines[i]); keyword != "" {
 				d.add("prose-containment", i+d.offset+1, "no RFC 2119 keyword outside a req-tagged block",
 					"\""+keyword+"\" in "+node.kind+" "+node.id, "prose_containment",

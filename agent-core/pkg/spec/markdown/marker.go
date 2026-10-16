@@ -1,7 +1,7 @@
 // Copyright (c) 2026 Nokia
 // SPDX-License-Identifier: BSD-3-Clause
 
-package specmd
+package markdown
 
 import (
 	"encoding/json"
@@ -17,15 +17,25 @@ import (
 // attributes carrying machine-only data. Segments are separated by " | ".
 // Attribute values are raw text when that is unambiguous and JSON otherwise,
 // with "|" escaped so a value never splits a segment.
-type marker struct {
+type Marker struct {
 	Tag   string
 	Value string
-	Attrs []attr
+	Attrs []Attr
 }
 
-type attr struct {
+type Attr struct {
 	Key   string
 	Value string
+}
+
+// Reference is the JSON form of one provenance reference in a references
+// attribute, such as derived_from.
+type Reference struct {
+	Repo    string `json:"repo"`
+	Release string `json:"release,omitempty"`
+	SRD     string `json:"srd"`
+	Item    string `json:"item"`
+	Reason  string `json:"reason,omitempty"`
 }
 
 const (
@@ -36,27 +46,27 @@ const (
 
 // parseMarker reads one marker line. It reports false for a comment that is
 // not a marker, such as the license header.
-func parseMarker(line string) (marker, bool, error) {
+func ParseMarker(line string) (Marker, bool, error) {
 	text := strings.TrimSpace(line)
 	if !strings.HasPrefix(text, markerOpen) || !strings.HasSuffix(text, markerClose) {
-		return marker{}, false, nil
+		return Marker{}, false, nil
 	}
 	body := strings.TrimSpace(text[len(markerOpen) : len(text)-len(markerClose)])
 	if isLicenseComment(body) {
-		return marker{}, false, nil
+		return Marker{}, false, nil
 	}
 	segments := strings.Split(body, segmentSep)
 	tag, value, ok := strings.Cut(segments[0], ":")
 	if !ok {
-		return marker{}, true, fmt.Errorf("marker %q: expected \"<tag>: <value>\"", text)
+		return Marker{}, true, fmt.Errorf("marker %q: expected \"<tag>: <value>\"", text)
 	}
-	m := marker{Tag: strings.TrimSpace(tag), Value: strings.TrimSpace(value)}
+	m := Marker{Tag: strings.TrimSpace(tag), Value: strings.TrimSpace(value)}
 	for _, segment := range segments[1:] {
 		key, raw, ok := strings.Cut(segment, ":")
 		if !ok {
-			return marker{}, true, fmt.Errorf("marker %q: attribute %q: expected \"<key>: <value>\"", text, segment)
+			return Marker{}, true, fmt.Errorf("marker %q: attribute %q: expected \"<key>: <value>\"", text, segment)
 		}
-		m.Attrs = append(m.Attrs, attr{Key: strings.TrimSpace(key), Value: strings.TrimSpace(raw)})
+		m.Attrs = append(m.Attrs, Attr{Key: strings.TrimSpace(key), Value: strings.TrimSpace(raw)})
 	}
 	return m, true, nil
 }
@@ -66,7 +76,7 @@ func isLicenseComment(body string) bool {
 }
 
 // String prints the marker in canonical form.
-func (m marker) String() string {
+func (m Marker) String() string {
 	var b strings.Builder
 	b.WriteString(markerOpen + " " + m.Tag + ": " + m.Value)
 	for _, a := range m.Attrs {
@@ -78,7 +88,7 @@ func (m marker) String() string {
 
 // encodeAttr renders an attribute value: a plain string stays raw when
 // nothing in it could be misread; everything else is JSON.
-func encodeAttr(value any) (string, error) {
+func EncodeAttr(value any) (string, error) {
 	if s, ok := value.(string); ok && rawAttrSafe(s) {
 		return s, nil
 	}
@@ -98,7 +108,7 @@ func rawAttrSafe(s string) bool {
 
 // decodeAttr reads an attribute value into target. A string target takes
 // the raw text unless the value is a JSON string; every other target is JSON.
-func decodeAttr(raw string, target any) error {
+func DecodeAttr(raw string, target any) error {
 	if s, ok := target.(*string); ok && !strings.HasPrefix(raw, `"`) {
 		*s = raw
 		return nil

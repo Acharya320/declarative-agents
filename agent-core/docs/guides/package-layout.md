@@ -20,6 +20,10 @@ public Go APIs. Placement rules are defined in
   planning and audit flows. Its tool-corpus view is converted from
   `internal/tools/catalog.ToolDef`, so runtime and audit share one recursive
   declaration loader.
+- `pkg/spec/markdown` is the format engine of the Markdown specification
+  corpus (eng10): marker grammar, block scanner, shapes, the design.yaml
+  declaration loader, and the tiered diagnostics. It imports no internal
+  package; callers pass the declarations in.
 - `pkg/profileaudit` is a public package for profile-startup audit used by
   `cmd/agent` and catalog gates. It currently imports internal catalog, REST,
   runtime, load, and support surfaces listed in
@@ -181,12 +185,14 @@ Generated from `go list ./...`. The boundaries gate checks this list.
 - `pkg/profileaudit`
 - `pkg/profilestage`
 - `pkg/spec`
+- `pkg/spec/markdown`
 
 REST subpackages layer as definition (model and loading) under validation; the
 parent keeps collection and the server runtime on top; client, credentials,
 redact, monitor, mock, and servercmd are leaves the parent imports.
 
-Public `pkg/` packages are `pkg/spec` and `pkg/profileaudit`.
+Public `pkg/` packages are `pkg/spec`, `pkg/spec/markdown`, `pkg/profileaudit`,
+and `pkg/profilestage`.
 
 ## Migration Order
 

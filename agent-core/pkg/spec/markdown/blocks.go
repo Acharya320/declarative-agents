@@ -1,7 +1,7 @@
 // Copyright (c) 2026 Nokia
 // SPDX-License-Identifier: BSD-3-Clause
 
-package specmd
+package markdown
 
 import (
 	"sort"
@@ -21,32 +21,32 @@ var markdown = goldmark.New(goldmark.WithExtensions(extension.Table))
 // inclusive) in the parsed source. Spans run from a block's first line to the
 // line before the next block, minus trailing blank lines, so content between
 // two structural lines is reproduced exactly.
-type block struct {
-	node  ast.Node
-	start int
-	end   int
+type Block struct {
+	Node  ast.Node
+	Start int
+	End   int
 }
 
 // topLevelBlocks parses src and returns its top-level blocks in order.
-func topLevelBlocks(src []byte) ([]block, []string) {
+func TopLevelBlocks(src []byte) ([]Block, []string) {
 	doc := markdown.Parser().Parse(text.NewReader(src))
 	lines := strings.Split(string(src), "\n")
 	starts := lineStarts(src)
-	var blocks []block
+	var blocks []Block
 	for node := doc.FirstChild(); node != nil; node = node.NextSibling() {
 		if start, ok := startLine(node, src, starts); ok {
-			blocks = append(blocks, block{node: node, start: start})
+			blocks = append(blocks, Block{Node: node, Start: start})
 		}
 	}
 	for i := range blocks {
 		end := len(lines) - 1
 		if i+1 < len(blocks) {
-			end = blocks[i+1].start - 1
+			end = blocks[i+1].Start - 1
 		}
-		for end > blocks[i].start && strings.TrimSpace(lines[end]) == "" {
+		for end > blocks[i].Start && strings.TrimSpace(lines[end]) == "" {
 			end--
 		}
-		blocks[i].end = end
+		blocks[i].End = end
 	}
 	return blocks, lines
 }
@@ -116,26 +116,26 @@ func classifyContent(content string) string {
 }
 
 // headingOf reports a block's ATX heading level and text.
-func headingOf(b block, lines []string) (int, string, bool) {
-	heading, ok := b.node.(*ast.Heading)
+func HeadingOf(b Block, lines []string) (int, string, bool) {
+	heading, ok := b.Node.(*ast.Heading)
 	if !ok {
 		return 0, "", false
 	}
-	line := strings.TrimSpace(lines[b.start])
+	line := strings.TrimSpace(lines[b.Start])
 	return heading.Level, strings.TrimSpace(strings.TrimLeft(line, "#")), true
 }
 
 // commentLine reports a single-line HTML comment block and its text.
-func commentLine(b block, lines []string) (string, bool) {
-	if _, ok := b.node.(*ast.HTMLBlock); !ok || b.start != b.end {
+func CommentLine(b Block, lines []string) (string, bool) {
+	if _, ok := b.Node.(*ast.HTMLBlock); !ok || b.Start != b.End {
 		return "", false
 	}
-	line := strings.TrimSpace(lines[b.start])
+	line := strings.TrimSpace(lines[b.Start])
 	return line, strings.HasPrefix(line, markerOpen) && strings.HasSuffix(line, markerClose)
 }
 
 // spanText returns the source lines of a run of blocks, verbatim.
-func spanText(lines []string, start, end int) string {
+func SpanText(lines []string, start, end int) string {
 	if start > end {
 		return ""
 	}

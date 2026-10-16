@@ -76,4 +76,5 @@ pkg:internal/version files=1 loc=40
 pkg:pkg/profileaudit files=4 loc=1214
 pkg:pkg/profilestage files=2 loc=581
 pkg:pkg/spec files=37 loc=7942
+pkg:pkg/spec/markdown files=7 loc=1495
 pkg:internal/fragments files=2 loc=279

@@ -1,7 +1,7 @@
 // Copyright (c) 2026 Nokia
 // SPDX-License-Identifier: BSD-3-Clause
 
-package specmd
+package markdown
 
 import (
 	"fmt"
@@ -24,11 +24,11 @@ const (
 )
 
 // renderNode returns the Markdown lines for a field value.
-func renderNode(node *yaml.Node) ([]string, error) {
+func RenderNode(node *yaml.Node) ([]string, error) {
 	switch {
 	case isString(node) && proseSafe(node.Value):
 		return proseLines(node.Value), nil
-	case isStringList(node) && listSafe(node):
+	case IsStringList(node) && listSafe(node):
 		return listLines(node), nil
 	case tableSafe(node):
 		return tableLines(node), nil
@@ -41,7 +41,7 @@ func isString(node *yaml.Node) bool {
 	return node.Kind == yaml.ScalarNode && node.ShortTag() == "!!str"
 }
 
-func isStringList(node *yaml.Node) bool {
+func IsStringList(node *yaml.Node) bool {
 	if node.Kind != yaml.SequenceNode || len(node.Content) == 0 {
 		return false
 	}
@@ -222,7 +222,7 @@ func fencedYAML(node *yaml.Node) ([]string, error) {
 
 // parseContent reads a field's content back into a value, choosing the shape
 // from the Markdown itself.
-func parseContent(text string) (*yaml.Node, error) {
+func ParseContent(text string) (*yaml.Node, error) {
 	switch classifyContent(text) {
 	case shapeYAML:
 		return parseFencedYAML(text)
