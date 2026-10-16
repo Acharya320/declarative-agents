@@ -777,4 +777,5 @@ related_documents:
   - srd054-machine-templates
   - cfg-agent-profile-format
 
-implementation: internal/runtime/core/machine.go
+implementation:
+  - internal/runtime/core/machine.go

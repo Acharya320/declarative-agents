@@ -95,11 +95,12 @@ func (d *diagnosis) checkNode(node *dnode, m Marker, heading string) {
 	}
 	d.checkHeading(node, rule, heading)
 	if rule.UniqueID {
-		if first, seen := d.ids[m.Value]; seen {
+		key := node.kind + " " + m.Value // ids are unique within their kind
+		if first, seen := d.ids[key]; seen {
 			d.add("duplicate-id", node.line, "an id used once", fmt.Sprintf("%s, first used on line %d", m.Value, first),
 				path+".unique_id", "give the second node a new id; an id is never reused (design.yaml D6)")
 		} else {
-			d.ids[m.Value] = node.line
+			d.ids[key] = node.line
 		}
 	}
 	if node.tag == "field" {

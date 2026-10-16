@@ -20,6 +20,9 @@ type nodeYAML struct {
 	Title   string `yaml:"title"`
 	Content string `yaml:"content"`
 	Keyed   bool   `yaml:"keyed"`
+	// DeriveID names how a record without an id gets one when it is
+	// canonicalized: "slug" makes a kebab-case id from its title.
+	DeriveID string `yaml:"derive_id"`
 }
 
 // Record forms, field value conversions, and the field tag.
@@ -30,6 +33,7 @@ const (
 	valueOutline = "outline"
 	tagField     = "field"
 	headingFree  = "free"
+	deriveSlug   = "slug"
 )
 
 // checkMapping rejects a YAML mapping the converter could not follow.
@@ -46,11 +50,15 @@ func (r *Declaration) checkMapping() error {
 			return fmt.Errorf("nodes.%s.yaml.id: list records name their id key", name)
 		case m.Keyed && m.Content == "":
 			return fmt.Errorf("nodes.%s.yaml.content: keyed records name their content key", name)
+		case m.DeriveID != "" && (m.DeriveID != deriveSlug || m.Title == ""):
+			return fmt.Errorf("nodes.%s.yaml.derive_id: only slug, from a title", name)
 		}
 	}
 	for _, name := range sortedKeys(r.Fields) {
 		field := r.Fields[name]
 		switch {
+		case field.Split != "" && (field.Shape != shapeTable || len(field.Columns) != 3):
+			return fmt.Errorf("fields.%s.split: splits a keyed string into a three-column table", name)
 		case field.Value == "" || field.Value == valueKeyed:
 		case field.Value != valueOutline:
 			return fmt.Errorf("fields.%s.value: %q is neither keyed nor outline", name, field.Value)

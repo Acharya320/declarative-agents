@@ -82,10 +82,33 @@ func (c *canonicalizer) member(level int, parent, key string, value *yaml.Node, 
 	if kind, ok := c.d.fieldRecords(key); ok {
 		return c.records(kind, value, path)
 	}
-	if field := c.d.Fields[key]; field.Value == valueOutline && value.Kind == yaml.SequenceNode {
+	field := c.d.Fields[key]
+	switch {
+	case field.Value == valueOutline && value.Kind == yaml.SequenceNode:
 		c.outline(field, value, path)
+	case field.Split != "" && value.Kind == yaml.SequenceNode:
+		c.splitRows(field, value, path)
 	}
 	return value
+}
+
+// splitRows rewrites each keyed row "<id>: <a><split><b>" of a table field
+// into a record under the field's three columns.
+func (c *canonicalizer) splitRows(field fieldRule, list *yaml.Node, path string) {
+	for i, row := range list.Content {
+		if row.Kind != yaml.MappingNode || len(row.Content) != 2 || !isString(row.Content[1]) {
+			continue
+		}
+		first, second, ok := strings.Cut(row.Content[1].Value, field.Split)
+		if !ok {
+			continue
+		}
+		c.note(fmt.Sprintf("%s[%d]", path, i), "keyed row %s split into %s", row.Content[0].Value, strings.Join(field.Columns, ", "))
+		list.Content[i] = &yaml.Node{Kind: yaml.MappingNode, Tag: "!!map", Content: []*yaml.Node{
+			stringNode(field.Columns[0]), stringNode(row.Content[0].Value),
+			stringNode(field.Columns[1]), stringNode(first),
+			stringNode(field.Columns[2]), stringNode(second)}}
+	}
 }
 
 func (c *canonicalizer) records(kind string, value *yaml.Node, path string) *yaml.Node {
@@ -101,12 +124,49 @@ func (c *canonicalizer) records(kind string, value *yaml.Node, path string) *yam
 		}
 	case rule.YAML.Records == recordsList && value.Kind == yaml.SequenceNode:
 		for i, item := range value.Content {
+			c.recordID(rule.YAML, item, fmt.Sprintf("%s[%d]", path, i))
 			if id, _, err := listRecord(rule.YAML, item); err == nil {
 				value.Content[i] = c.record(kind, rule, id, item, path+"/"+id)
 			}
 		}
 	}
 	return value
+}
+
+// recordID gives a list record a string id: a non-string id becomes its
+// text, and a record without one derives it from its title when the mapping
+// says so.
+func (c *canonicalizer) recordID(m nodeYAML, item *yaml.Node, path string) {
+	if item.Kind != yaml.MappingNode || (m.Keyed && len(item.Content) == 2 && item.Content[0].Value != m.ID) {
+		return
+	}
+	id := mapValue(item, m.ID)
+	switch {
+	case id != nil && id.Kind == yaml.ScalarNode && id.ShortTag() != "!!str":
+		c.note(path, "%s %s written as text", m.ID, id.Value)
+		id.Tag, id.Style = "!!str", 0
+	case id == nil && m.DeriveID == deriveSlug && mapValue(item, m.Title) != nil:
+		slug := slugOf(mapValue(item, m.Title).Value)
+		c.note(path, "%s %s derived from its %s", m.ID, slug, m.Title)
+		item.Content = append([]*yaml.Node{stringNode(m.ID), stringNode(slug)}, item.Content...)
+	}
+}
+
+// slugOf makes a kebab-case id from a title.
+func slugOf(title string) string {
+	var b strings.Builder
+	dash := false
+	for _, r := range strings.ToLower(title) {
+		switch {
+		case r >= 'a' && r <= 'z' || r >= '0' && r <= '9':
+			b.WriteRune(r)
+			dash = false
+		case !dash && b.Len() > 0:
+			b.WriteByte('-')
+			dash = true
+		}
+	}
+	return strings.TrimSuffix(b.String(), "-")
 }
 
 // listToMap rewrites map records written as a list of records that carry
