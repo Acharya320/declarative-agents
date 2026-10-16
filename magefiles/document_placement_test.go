@@ -27,6 +27,23 @@ type documentType struct {
 	Location       string   `yaml:"location"`
 	Format         string   `yaml:"format"`
 	RequiredFields []string `yaml:"required_fields"`
+	// Markdown is the type's Markdown declaration (GH-2578): a mapping whose
+	// location names where the Markdown form of the type lives. A scalar
+	// (a note that the type stays in its current format) declares none.
+	Markdown yaml.Node `yaml:"markdown"`
+}
+
+// markdownLocation returns the declared Markdown location, if any.
+func (t documentType) markdownLocation() string {
+	if t.Markdown.Kind != yaml.MappingNode {
+		return ""
+	}
+	for i := 0; i+1 < len(t.Markdown.Content); i += 2 {
+		if t.Markdown.Content[i].Value == "location" {
+			return t.Markdown.Content[i+1].Value
+		}
+	}
+	return ""
 }
 
 type documentLocationMatcher struct {
@@ -92,6 +109,35 @@ document_types:
 `)
 	if err := checkDocumentPlacement(root); err != nil {
 		t.Fatalf("placement after registry-only change: %v", err)
+	}
+}
+
+// TestDocumentPlacementAcceptsDeclaredMarkdownLocations proves a type's
+// declared Markdown location places a Markdown document, and that an
+// undeclared Markdown location still fails (GH-2597).
+func TestDocumentPlacementAcceptsDeclaredMarkdownLocations(t *testing.T) {
+	const registry = `
+document_types:
+  engineering_guideline:
+    location: docs/engineering/engNN-short-name.yaml
+    markdown:
+      location: docs/engineering/engNN-short-name.md
+  constitution:
+    location: docs/constitutions/name.yaml
+    markdown: stays YAML
+`
+	declared := newDocumentPlacementRepository(t, registry, map[string]string{
+		"docs/engineering/eng10-markdown-spec-format.md": "---\nid: eng10-markdown-spec-format\n---\n",
+	})
+	if err := checkDocumentPlacement(declared); err != nil {
+		t.Fatalf("declared markdown location rejected: %v", err)
+	}
+	undeclared := newDocumentPlacementRepository(t, registry, map[string]string{
+		"docs/constitutions/design.md": "# not declared\n",
+	})
+	if err := checkDocumentPlacement(undeclared); err == nil ||
+		!strings.Contains(err.Error(), "docs/constitutions/design.md") {
+		t.Fatalf("undeclared markdown location error = %v, want docs/constitutions/design.md", err)
 	}
 }
 
@@ -317,6 +363,15 @@ func loadDocumentLocationMatchers(filename string) ([]documentLocationMatcher, e
 			required:     append([]string(nil), registry.DocumentTypes[name].RequiredFields...),
 			pattern:      pattern,
 		})
+		if markdown := registry.DocumentTypes[name].markdownLocation(); markdown != "" {
+			pattern, err := compileDocumentLocation(markdown)
+			if err != nil {
+				return nil, fmt.Errorf("document type %q markdown location %q: %w", name, markdown, err)
+			}
+			matchers = append(matchers, documentLocationMatcher{
+				documentType: name + " (markdown)", location: markdown, format: "markdown", pattern: pattern,
+			})
+		}
 	}
 	return matchers, nil
 }

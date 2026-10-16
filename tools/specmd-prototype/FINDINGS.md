@@ -3,11 +3,11 @@
 
 # Markdown spec compiler: prototype findings
 
-This note records what the prototype in this directory established for the spec-format migration (GH-2578), so the format specification (GH-2581) is written from evidence. The processor came in GH-2588 and the diagnostics in GH-2589; the measurements below were taken on 2026-10-15 against main at a36ed4e4.
+This note records what the prototype in this directory established for the spec-format migration (GH-2578), so the format specification (GH-2581) is written from evidence. The processor came in GH-2588 and the diagnostics in GH-2589. GH-2597 moved the rules into design.yaml (the markdown block of each document type), added the engineering_guideline declaration, and applied GH-2581's decisions on the id grammar and criterion traces. The measurements below were taken on 2026-10-15.
 
 ## Verdict on the epic's decision metric
 
-The epic asked whether Tier 3 shape rules stay around a dozen with clean failure modes, or whether the YAML-islands and render-only fallbacks need reconsidering. They stay around a dozen. The SRD declaration needs 12 field-content rules, and each fails with one named finding that quotes its rule. Marker attributes add 8 more rules, all checked mechanically (a JSON shape or a count) rather than by judgment. We see no case for the fallbacks.
+The epic asked whether Tier 3 shape rules stay around a dozen with clean failure modes, or whether the YAML-islands and render-only fallbacks need reconsidering. They stay around a dozen. The SRD declaration needs 14 field-content rules, and each fails with one named finding that quotes its rule. Marker attributes add 5 more, all checked mechanically (a JSON shape) rather than by judgment. A second document type, the engineering guideline, needed a declaration and no engine code. We see no case for the fallbacks.
 
 ## Round trip
 
@@ -24,15 +24,15 @@ Table 1: Lossy spots and normalization
 
 ## Finding catalog
 
-Every finding has a stable name, a file line, expected and found text, the rule path in rules/srd.yaml, and a fix hint. Findings are collected, never fail-fast. Tier 0, canonical form, is never a finding: the formatter fixes it.
+Every finding has a stable name, a file line, expected and found text, the rule path in design.yaml, and a fix hint. Findings are collected, never fail-fast. Tier 0, canonical form, is never a finding: the formatter fixes it.
 
 Table 2: Finding names by tier
 
 | Tier | Names |
 | --- | --- |
-| 1, grammar | frontmatter-missing, frontmatter-invalid, frontmatter-missing-key, frontmatter-unknown-key, frontmatter-id-mismatch, marker-malformed, marker-unknown-tag, marker-unknown-attribute, marker-orphan |
-| 2, structure | heading-untagged, heading-misplaced, id-malformed, item-wrong-group, heading-id-mismatch, duplicate-id, field-disallowed, field-duplicate, content-untagged, untagged-structure, missing-content, missing-required-field, missing-requirement-groups |
-| 3, shapes | field-shape-mismatch, list-item-prefix, table-columns-mismatch, attribute-shape, criterion-traces-missing, criterion-trace-invalid |
+| 1, grammar | document-type-unknown, frontmatter-missing, frontmatter-invalid, frontmatter-missing-key, frontmatter-unknown-key, frontmatter-id-mismatch, marker-malformed, marker-unknown-tag, marker-unknown-attribute, marker-orphan |
+| 2, structure | heading-untagged, heading-misplaced, id-malformed, id-outside-parent, heading-id-mismatch, duplicate-id, field-disallowed, field-duplicate, content-untagged, untagged-structure, missing-content, missing-required-field, missing-required-node |
+| 3, shapes | field-shape-mismatch, list-item-pattern, table-columns-mismatch, attribute-shape |
 | 4, prose | prose-containment |
 
 ## Tier 3 shape rules
@@ -41,26 +41,25 @@ Table 3: Tier 3 rule inventory
 
 | Rule | Count | Rules |
 | --- | --- | --- |
-| Field content shape | 8 | problem prose, goals list, non_goals list, assumptions list, acceptance_criteria empty, needs_clarification table, evidence prose, endpoints table |
-| List item prefix | 2 | goals G<n>:, assumptions A<n>: |
+| Field content shape | 9 | problem prose, goals list, non_goals list, assumptions list, acceptance_criteria empty, needs_clarification table, evidence prose, endpoints table, traces list |
+| List item pattern | 3 | goals G<n>:, assumptions A<n>:, traces a requirement id |
 | Table columns | 2 | needs_clarification id, question; endpoints path, owner |
-| Marker attribute shape | 6 | weight integer, status text, retired_in text, replaced_by list, derived_from references, traces list |
-| Criterion traces | 2 | at least one trace; each trace a requirement id |
+| Marker attribute shape | 5 | weight integer, status text, retired_in text, replaced_by list, derived_from references |
 
-The first three rows are the 12 field-content rules the metric counts; the last two are the 8 attribute rules.
+The first three rows are the 14 field-content rules the metric counts; the last is the 5 attribute rules. Criterion traces moved from a marker attribute to a visible field (GH-2581 decision 3), so their two former checks are now a required field and a list item pattern.
 
 ## What the diagnostics found in the corpus
 
-The printer never produces a structural finding: no marker, frontmatter, heading, or placement finding on the printed form of any tracked SRD (TestPrintedCorpusIsStructurallyClean). Two findings report the corpus's own content.
+On the printed form of all 106 tracked SRDs, the only findings left are prose containment (TestPrintedCorpusIsClean). The printer is structurally sound, every id fits the declared grammar, and all 583 acceptance criteria carry a visible traces field.
 
-The id grammar rejects 18 ids in 3 SRDs: agent-core srd008 uses R3.1b, srd013 uses three-level ids R10.0.1 through R10.1.6, and srd019 uses R3.1.1 through R3.1.6. Design.yaml declares R1.1 numbering, and D6 forbids renumbering an id a release contains, so GH-2581 must either widen the id grammar to these forms or retire and replace them with pointers. Renumbering in place is not open.
+The declared R1.1 numbering first rejected 18 ids in 3 SRDs: agent-core srd008 uses R3.1b, srd013 uses three-level ids R10.0.1 through R10.1.6, and srd019 uses R3.1.1 through R3.1.6. D6 forbids renumbering an id a release contains, so GH-2581 widened the grammar instead (decision 1): an item id has two or three dotted levels and an optional lowercase suffix, and R1.1 stays canonical for new items.
 
-Prose containment reports 15 hits in 5 SRDs, 14 of them in non-goals phrased as obligations ("the applier SHALL NOT ..."). A non-goal written with shall states a requirement no test traces. GH-2581 decides whether these become requirement items or are reworded; exempting non-goals would hide them.
+Prose containment reports 15 hits in 5 SRDs, 14 of them in non-goals phrased as obligations ("the applier SHALL NOT ..."). A non-goal written with shall states a requirement no test traces. The check stays on non-goals (decision 2); each hit becomes a requirement item or is reworded during the corpus migration (GH-2584).
 
 Five catalog SRDs are relocated stubs with empty required sections. The rules exempt status relocated and retired from the required-content checks rather than demand empty sections.
 
 ## Rendering
 
-On GitHub (observed on the converted srd004): the frontmatter renders as a two-column table of names and values; no marker or license comment is visible; the outline reads as a document, with 14 level-2 sections, 39 level-3 items and criteria, and level-4 Evidence and Endpoints; the endpoint list renders as a table and the one fallback as a highlighted yaml block. Criterion traces live only in their markers, so a reader cannot see which requirements a criterion verifies; GH-2581 should decide whether traces belong in the visible layer.
+On GitHub (observed on the converted srd004): the frontmatter renders as a two-column table of names and values; no marker or license comment is visible; the outline reads as a document, with 14 level-2 sections, 39 level-3 items and criteria, and level-4 Evidence and Endpoints; the endpoint list renders as a table and the one fallback as a highlighted yaml block. Criterion traces were first written only in their markers, which left a reader unable to see what a criterion verifies; they now render as a visible list under each criterion (decision 3).
 
 On GitLab: not observed; this repository has no GitLab mirror. GitLab documents that it hides HTML comments and shows front matter in a box above the rendered document, which would keep every marker invisible and show the frontmatter as code rather than a table. A rendering check on a GitLab instance remains open.
