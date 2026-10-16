@@ -65,7 +65,7 @@ The criterion text.
 
 The frontmatter lists the fields frontmatter.required names and admits only those frontmatter.allowed names. Where a type sets id_matches_filename, the id equals the file name without its extension. The license comments are plain comments, not markers, and the copyright gate checks them as it does for any Markdown file.
 
-During the migration window a document exists as .yaml or as .md, never both; GH-2583 adds the audit finding that enforces this. After the sunset (GH-2585) only the Markdown locations remain.
+During the migration window a document exists as .yaml or as .md, never both; the audit's dual-format-document finding enforces this (GH-2614). After the sunset (GH-2585) only the Markdown locations remain.
 
 <!-- section: marker-grammar -->
 ## Marker grammar
@@ -334,7 +334,7 @@ GitHub hides HTML comments and renders frontmatter as a table, so a converted do
 <!-- section: authoring-loop -->
 ## Authoring loop
 
-An author, human or agent, writes a document, runs the audit, and fixes what it reports. The formatter (mage fmt, GH-2583) applies Tier 0 before anything is reported, so findings only ever concern meaning. Until GH-2583 lands, a mage target in agent-core runs the same diagnostics on any file, with paths relative to agent-core and separated by commas:
+An author, human or agent, writes a document, runs the audit, and fixes what it reports. The formatter, mage fmt <scope> from the repository root (GH-2615), applies Tier 0 in place, and the audit reports a document out of canonical form as not-canonical, so findings otherwise only concern meaning. A mage target in agent-core also runs the diagnostics on any file, with paths relative to agent-core and separated by commas:
 
 ```text
 cd agent-core

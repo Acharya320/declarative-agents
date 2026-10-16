@@ -10,7 +10,7 @@ import (
 	"regexp"
 	"strings"
 
-	"gopkg.in/yaml.v3"
+	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 )
 
 // Every document type that declares a references field gets it checked for
@@ -97,27 +97,53 @@ func referenceBases(candidate string) []string {
 // document could have written it against.
 func referenceResolves(root, candidate, path string) bool {
 	for _, base := range referenceBases(candidate) {
-		if _, err := os.Stat(filepath.Join(root, filepath.FromSlash(base), filepath.FromSlash(path))); err == nil {
+		if corpusFileExists(filepath.Join(root, filepath.FromSlash(base), filepath.FromSlash(path))) {
 			return true
 		}
 	}
 	return false
 }
 
+// corpusFileExists reports whether a file exists, or, for a corpus document
+// named by its .yaml path that has moved to Markdown during the migration
+// window, whether its Markdown form does.
+func corpusFileExists(path string) bool {
+	if _, err := os.Stat(path); err == nil {
+		return true
+	}
+	if !strings.HasSuffix(path, ".yaml") {
+		return false
+	}
+	declarations, err := markdown.Default()
+	if err != nil {
+		return false
+	}
+	d, ok := declarations.ForSource(filepath.ToSlash(path))
+	if !ok {
+		return false
+	}
+	_, err = os.Stat(d.MarkdownPath(path))
+	return err == nil
+}
+
 // documentReferenceFailures reports every references entry in one document
 // that names a path which does not exist under any base it could mean.
 func documentReferenceFailures(root, candidate string) []string {
-	data, err := os.ReadFile(filepath.Join(root, filepath.FromSlash(candidate)))
+	node, ok, err := corpusDocumentNode(filepath.Join(root, filepath.FromSlash(candidate)), candidate)
 	if err != nil {
-		return []string{fmt.Sprintf("%s: cannot be read: %v", candidate, err)}
+		// A document nothing can read hides every reference it makes, so it
+		// fails here rather than passing unchecked.
+		return []string{fmt.Sprintf("%s: references cannot be checked, the document does not parse: %v", candidate, err)}
+	}
+	if !ok {
+		return nil
 	}
 	var document struct {
 		References []string `yaml:"references"`
 	}
-	if err := yaml.Unmarshal(data, &document); err != nil {
-		// Field presence and parseability are already reported by the
-		// placement check; a references list this shape cannot hold is its
-		// finding to make, not this one's.
+	if err := node.Decode(&document); err != nil {
+		// A references list this shape cannot hold is the placement
+		// check's finding to make, not this one's.
 		return nil
 	}
 	var failures []string

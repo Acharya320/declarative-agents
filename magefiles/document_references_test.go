@@ -136,3 +136,43 @@ func write(t *testing.T, root, rel, body string) {
 		t.Fatal(err)
 	}
 }
+
+// A reference written against a document's YAML path still resolves once the
+// document has moved to Markdown during the migration window.
+func TestDocumentReferencesFollowAMoveToMarkdown(t *testing.T) {
+	t.Parallel()
+	root := t.TempDir()
+	write(t, root, "docs/engineering/eng09-moved.md", "moved\n")
+	write(t, root, "docs/engineering/eng10-cites.yaml",
+		"id: eng10\nreferences:\n  - docs/engineering/eng09-moved.yaml\n")
+	if failures := documentReferenceFailures(root, "docs/engineering/eng10-cites.yaml"); len(failures) != 0 {
+		t.Errorf("reference to a moved document reported %v, want it resolved", failures)
+	}
+}
+
+// A document that does not parse hides every reference it makes, so the
+// check fails it instead of passing it unchecked.
+func TestDocumentReferencesFailAnUnparseableDocument(t *testing.T) {
+	t.Parallel()
+	root := t.TempDir()
+	write(t, root, "docs/engineering/eng12-broken.yaml", "id: eng12\nreferences: [unterminated\n")
+	failures := documentReferenceFailures(root, "docs/engineering/eng12-broken.yaml")
+	if len(failures) != 1 || !strings.Contains(failures[0], "does not parse") {
+		t.Errorf("failures = %v, want one saying the document does not parse", failures)
+	}
+}
+
+// readCorpusYAML reads a document by its YAML path from its Markdown form
+// once it has moved.
+func TestReadCorpusYAMLFallsBackToMarkdown(t *testing.T) {
+	t.Parallel()
+	root := t.TempDir()
+	write(t, root, "docs/engineering/eng10-markdown-spec-format.md", validGuidelineMarkdown)
+	data, err := readCorpusYAML(filepath.Join(root, "docs/engineering/eng10-markdown-spec-format.yaml"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(data), "id: eng10-markdown-spec-format") || !strings.Contains(string(data), "introduction:") {
+		t.Errorf("read %q, want the guideline's YAML tree", data)
+	}
+}

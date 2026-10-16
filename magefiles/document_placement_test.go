@@ -52,6 +52,10 @@ type documentLocationMatcher struct {
 	format       string
 	required     []string
 	pattern      *regexp.Regexp
+	// declared marks a Markdown location whose type declares its Markdown
+	// structure: the document must parse under that declaration, whose
+	// diagnostics own its required fields.
+	declared bool
 }
 
 func TestDocumentPlacementRepositoryConformance(t *testing.T) {
@@ -112,6 +116,29 @@ document_types:
 	}
 }
 
+// validGuidelineMarkdown is a minimal engineering guideline in the Markdown
+// format, which parses under the embedded declarations.
+const validGuidelineMarkdown = `---
+id: eng10-markdown-spec-format
+title: Sample
+---
+
+<!-- field: introduction -->
+## Introduction
+
+We describe a sample practice.
+
+<!-- section: the-practice -->
+## The practice
+
+Each module follows the practice.
+
+<!-- field: references -->
+## References
+
+- https://www.rfc-editor.org/rfc/rfc2119
+`
+
 // TestDocumentPlacementAcceptsDeclaredMarkdownLocations proves a type's
 // declared Markdown location places a Markdown document, and that an
 // undeclared Markdown location still fails (GH-2597).
@@ -127,10 +154,18 @@ document_types:
     markdown: stays YAML
 `
 	declared := newDocumentPlacementRepository(t, registry, map[string]string{
-		"docs/engineering/eng10-markdown-spec-format.md": "---\nid: eng10-markdown-spec-format\n---\n",
+		"docs/engineering/eng10-markdown-spec-format.md": validGuidelineMarkdown,
 	})
 	if err := checkDocumentPlacement(declared); err != nil {
 		t.Fatalf("declared markdown location rejected: %v", err)
+	}
+	// A declared Markdown document must parse under its declaration; one
+	// that does not is a placement failure naming its first finding.
+	broken := newDocumentPlacementRepository(t, registry, map[string]string{
+		"docs/engineering/eng10-markdown-spec-format.md": strings.Replace(validGuidelineMarkdown, "<!-- field: introduction -->\n", "", 1),
+	})
+	if err := checkDocumentPlacement(broken); err == nil || !strings.Contains(err.Error(), "heading-untagged") {
+		t.Fatalf("unparseable markdown error = %v, want heading-untagged", err)
 	}
 	undeclared := newDocumentPlacementRepository(t, registry, map[string]string{
 		"docs/constitutions/design.md": "# not declared\n",
@@ -308,13 +343,13 @@ func checkDocumentPlacement(root string) error {
 				candidate+": matches no declared document type location")
 			continue
 		}
-		if strings.EqualFold(matched.format, "markdown") {
+		if strings.EqualFold(matched.format, "markdown") && !matched.declared {
 			continue
 		}
-		missing, err := missingDocumentFields(filepath.Join(root, filepath.FromSlash(candidate)), matched.required)
+		missing, err := missingDocumentFields(filepath.Join(root, filepath.FromSlash(candidate)), candidate, matched.required)
 		if err != nil {
 			failures = append(failures, fmt.Sprintf(
-				"%s: document type %s cannot be parsed as YAML: %v",
+				"%s: document type %s cannot be parsed: %v",
 				candidate, matched.documentType, err))
 			continue
 		}
@@ -370,21 +405,19 @@ func loadDocumentLocationMatchers(filename string) ([]documentLocationMatcher, e
 			}
 			matchers = append(matchers, documentLocationMatcher{
 				documentType: name + " (markdown)", location: markdown, format: "markdown", pattern: pattern,
+				declared: true,
 			})
 		}
 	}
 	return matchers, nil
 }
 
-func missingDocumentFields(filename string, required []string) ([]string, error) {
-	data, err := os.ReadFile(filename)
-	if err != nil {
+func missingDocumentFields(filename, candidate string, required []string) ([]string, error) {
+	node, ok, err := corpusDocumentNode(filename, candidate)
+	if err != nil || !ok {
 		return nil, err
 	}
-	var document yaml.Node
-	if err := yaml.Unmarshal(data, &document); err != nil {
-		return nil, err
-	}
+	document := *node
 
 	present := map[string]bool{}
 	if len(document.Content) != 0 {
