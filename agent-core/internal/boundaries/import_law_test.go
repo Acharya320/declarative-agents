@@ -21,7 +21,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-const constitutionPath = "docs/constitutions/boundaries.yaml"
+const constitutionPath = "docs/constitutions/boundaries.md"
 
 type goListPackage struct {
 	ImportPath string
