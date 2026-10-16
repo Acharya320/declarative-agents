@@ -77,6 +77,7 @@ GH-2476
 |
     python3 - <<'PY'
     from pathlib import Path
+    import subprocess
     import yaml
 
     root = Path("applications/docs")
@@ -91,7 +92,14 @@ GH-2476
         "eng01": Path("docs/engineering/eng01-kind-test-demo-rig.md"),
         "eng08": Path("docs/engineering/eng08-gcp-demo-rig.md"),
     }
-    docs = {name: yaml.safe_load(path.read_text()) for name, path in paths.items()}
+    def load(path):
+        # A corpus document is Markdown; mage specYAML prints the YAML tree
+        # its declaration parses it into (GH-2627).
+        out = subprocess.run(["mage", "specYAML", str(path)], cwd="agent-core",
+                             check=True, capture_output=True, text=True).stdout
+        return yaml.safe_load(out)
+
+    docs = {name: load(path) for name, path in paths.items()}
     required = {
         "srd": {"id", "title", "problem", "goals", "requirements",
                 "non_goals", "acceptance_criteria"},
