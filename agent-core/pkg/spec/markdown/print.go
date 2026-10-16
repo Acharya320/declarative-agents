@@ -145,10 +145,11 @@ func (p *printer) record(kind, id string, record *yaml.Node) error {
 	}
 	p.block(marker.String(), strings.Repeat("#", rule.Level)+" "+heading)
 	if content := mapValue(record, rule.YAML.Content); content != nil {
-		if !isString(content) || !proseSafe(content.Value) {
-			return fmt.Errorf("%s %s: %s is not prose-safe text", kind, id, rule.YAML.Content)
+		lines, err := contentLines(content)
+		if err != nil {
+			return fmt.Errorf("%s %s: %w", kind, id, err)
 		}
-		p.block(proseLines(content.Value)...)
+		p.block(lines...)
 	}
 	for i := 0; i+1 < len(record.Content); i += 2 {
 		key := record.Content[i].Value
@@ -160,6 +161,15 @@ func (p *printer) record(kind, id string, record *yaml.Node) error {
 		}
 	}
 	return nil
+}
+
+// contentLines prints a node's content as prose, or as a fenced yaml block
+// when the text would not read back as the same prose.
+func contentLines(content *yaml.Node) ([]string, error) {
+	if isString(content) && proseSafe(content.Value) {
+		return proseLines(content.Value), nil
+	}
+	return fencedYAML(content)
 }
 
 func recordMarker(rule nodeRule, id string, record *yaml.Node) (Marker, error) {

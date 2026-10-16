@@ -3,7 +3,7 @@
 
 # Markdown spec compiler: prototype findings
 
-This note records what the prototype in this directory established for the spec-format migration (GH-2578), so the format specification (GH-2581) is written from evidence. The processor came in GH-2588 and the diagnostics in GH-2589. GH-2597 moved the rules into design.yaml (the markdown block of each document type), added the engineering_guideline declaration, and applied GH-2581's decisions on the id grammar and criterion traces. GH-2581 declared the remaining document types, which made a file select its declaration by its whole path rather than its name, let a list or table field be empty, and let a table field leave its columns undeclared. GH-2602 moved the format engine and its diagnostics tests to agent-core/pkg/spec/markdown. The measurements below were taken on 2026-10-15.
+This note records what the prototype (tools/specmd-prototype, retired in GH-2604) established for the spec-format migration (GH-2578), so the format specification (GH-2581) is written from evidence. The processor came in GH-2588 and the diagnostics in GH-2589. GH-2597 moved the rules into design.yaml (the markdown block of each document type), added the engineering_guideline declaration, and applied GH-2581's decisions on the id grammar and criterion traces. GH-2581 declared the remaining document types, which made a file select its declaration by its whole path rather than its name, let a list or table field be empty, and let a table field leave its columns undeclared. GH-2602 moved the format engine and its diagnostics tests to this package, GH-2603 added the generic converter, and GH-2604 ran the SRD on it and retired the prototype; the SRD laws below now hold through the generic converter (TestEveryCorpusSRDRoundTrips). The measurements below were taken on 2026-10-15.
 
 ## Verdict on the epic's decision metric
 
@@ -50,7 +50,7 @@ The first three rows are the 14 field-content rules the metric counts; the last 
 
 ## What the diagnostics found in the corpus
 
-On the printed form of all 106 tracked SRDs, the only findings left are prose containment (TestPrintedCorpusIsClean). The printer is structurally sound, every id fits the declared grammar, and all 583 acceptance criteria carry a visible traces field.
+On the printed form of all 106 tracked SRDs, the only findings left are prose containment (TestEveryCorpusSRDRoundTrips). The printer is structurally sound, every id fits the declared grammar, and all 583 acceptance criteria carry a visible traces field.
 
 The declared R1.1 numbering first rejected 18 ids in 3 SRDs: agent-core srd008 uses R3.1b, srd013 uses three-level ids R10.0.1 through R10.1.6, and srd019 uses R3.1.1 through R3.1.6. D6 forbids renumbering an id a release contains, so GH-2581 widened the grammar instead (decision 1): an item id has two or three dotted levels and an optional lowercase suffix, and R1.1 stays canonical for new items.
 

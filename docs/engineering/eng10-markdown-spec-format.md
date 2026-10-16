@@ -10,9 +10,9 @@ title: Markdown Specification Format
 
 This guideline specifies the Markdown format that replaces the typed YAML specification corpus (epic GH-2578). A document in this format renders as a document on GitHub and GitLab, and it parses into the same document model the YAML front end feeds, so the traceability graph and every audit check keep working unchanged. Each heading carries a one-line HTML comment marker that says what the heading opens. Facts a reader needs stay in visible Markdown, and machine-only facts live in the markers.
 
-We wrote the format from evidence, not from argument. The prototype in tools/specmd-prototype parses, prints, and diagnoses the format, and tools/specmd-prototype/FINDINGS.md records what it established: round-trip laws over the 106 tracked SRDs, the inventory of shape rules, and the quality of the diagnostics. The rules this guideline describes are data. Each document type declares them in the markdown block of its entry in agent-core/docs/constitutions/design.yaml, and the engine reads its rules from nowhere else. The engine (marker grammar, shapes, declaration loader, and diagnostics) lives in agent-core/pkg/spec/markdown (GH-2602).
+We wrote the format from evidence, not from argument. A prototype (GH-2588, GH-2589) first parsed, printed, and diagnosed the format, and agent-core/pkg/spec/markdown/FINDINGS.md records what it established: round-trip laws over the 106 tracked SRDs, the inventory of shape rules, and the quality of the diagnostics. The rules this guideline describes are data. Each document type declares them in the markdown block of its entry in agent-core/docs/constitutions/design.yaml, and the engine reads its rules from nowhere else. The engine (marker grammar, shapes, declaration loader, diagnostics, and the converter for every type) lives in agent-core/pkg/spec/markdown.
 
-This guideline is itself written in the format. Running specmd check on this file reports zero findings, which makes the file its first conformance test.
+This guideline is itself written in the format. Running mage specCheck on this file reports zero findings, which makes the file its first conformance test.
 
 <!-- section: one-layer-rule -->
 ## The one-layer rule
@@ -159,26 +159,26 @@ Table 5: Value conversions
 | list of records with prose | nodes, one per record | requirement items, acceptance criteria, test cases |
 | anything else | fenced yaml block | nested passthrough values |
 
-A passthrough value, one no declaration types, takes the first conversion that parses back to the same node: a string becomes prose, a list of plain strings becomes a list, a list of flat records sharing one key order becomes a table, and anything else becomes a fenced yaml block. A declared field is held to its declaration instead: the printer refuses a value its declared shape or conversion cannot carry rather than fall back, so the normalization of the next sections, not the converter, decides what a field holds. Record keys keep their order, so a document's key order survives as its field order.
+A passthrough value, one no declaration types, takes the first conversion that parses back to the same node: a string becomes prose, a list of plain strings becomes a list, a list of flat records sharing one key order becomes a table, and anything else becomes a fenced yaml block. A declared field is held to its declaration instead: the printer refuses a value its declared shape or conversion cannot carry rather than fall back, so canonicalization, not a silent fallback, decides what a field holds. Record keys keep their order, so a document's key order survives as its field order.
 
 <!-- section: round-trip-laws -->
 ## Round-trip laws
 
-The laws are stated on the node tree, with comments removed and after the one-time form normalization of the next section. For every tracked document of every structured type, yaml to node to Markdown to node is the identity, Markdown is a fixed point of parse then print on canonical form, and the converter is idempotent. For the types that have a typed model, the model parsed from the Markdown front end equals the model parsed from the YAML one. Two details are part of the canonical form. Parsing returns a record's keys in one order, id, title, content, attributes, then its children in document order, and the one-time normalization puts the YAML records in that order too. Strings compare without their trailing newlines, the whitespace normalization the converter reports. GH-2605 proves the laws on the real corpus, and GH-2606 adds the batch converter and its inverse.
+The laws are stated on the node tree, with comments removed and after canonicalization (next section). For every tracked document of every structured type, yaml to node to Markdown to node is the identity, Markdown is a fixed point of parse then print on canonical form, and the converter is idempotent. For the types that have a typed model, the model parsed from the Markdown front end equals the model parsed from the YAML one. Two details are part of the canonical form. Parsing returns a record's keys in one order, id, title, content, attributes, then its children in document order, and canonicalization puts the YAML records in that order before printing. Strings compare without their trailing newlines, the whitespace normalization the converter reports. GH-2605 proves the laws on the real corpus, and GH-2606 adds the batch converter and its inverse.
 
 <!-- section: comments-and-forms -->
 ## Comments and two-form fields
 
 YAML comments do not survive conversion. The tracked corpus holds 270 non-license comment lines in 35 files of the structured types, and they fall into two groups. Some carry facts a reader needs, such as the note in four catalog SRDs that the agent-core SRDs they cite are platform dependencies. Others restate structure: 10 repeat the document title on its first line, and 26 are blank or divider lines. Neither group belongs in a marker, since the one-layer rule keeps markers for machine-only facts, and placing a free note inside a typed field would break its shape. The converter therefore reports every comment it does not carry, with file and line, and the corpus migration (GH-2584) turns each comment that states a fact into visible text in the same pull request, called out as a hand edit.
 
-Some fields are written in more than one YAML form, and one Markdown form cannot parse back to two. Before the round trips run, each such field is normalized to one canonical form in its own commit that changes no value: a record holding only its id and content takes the keyed form, any other record keeps the record form, and an unnumbered entry receives the next free number. Table 6 counts the entries the normalization touches.
+Some fields are written in more than one YAML form, and one Markdown form cannot parse back to two. The converter canonicalizes each document in memory, once, before it prints, and reports every change it makes: frontmatter keys move first, a record holding only its id and content takes the keyed form, any other record keeps the record form with its keys in canonical order, map records written as a list become a map, a key whose records have no heading and which holds none is dropped, and an unnumbered entry receives the next free number. We first planned a commit that rewrote the YAML into canonical form; it would have re-emitted every SRD through a YAML encoder just before the sunset deletes the YAML, so the canonical form exists only on the way to Markdown. The typed-model equality of the round-trip laws proves it changes no value. Table 6 counts the entries canonicalization touches.
 
-Table 6: Fields normalized before conversion
+Table 6: Fields canonicalized at conversion
 
 | Field | Forms in the corpus | Entries normalized |
 | --- | --- | --- |
 | SRD goals | 404 keyed, 33 records with id and text, 36 numbered strings | 69 become keyed |
-| SRD requirement groups | 104 SRDs as a map, 2 as a list | 2 SRDs become a map |
+| SRD requirement groups | 99 SRDs as a map, 2 as a list, 5 relocated stubs with an empty map | 2 SRDs become a map; 5 empty maps are dropped |
 | SRD requirement items | 2467 keyed, 160 records with more keys | none |
 | use case flow | 403 keyed, 262 records with id and text, 47 records with traces, 1 unnumbered string | 262 become keyed, 1 is numbered |
 | use case touchpoints | 309 keyed strings, 272 records, 17 unnumbered strings | 309 split into records, 17 numbered |
@@ -213,7 +213,7 @@ Table 7: Diagnostic tiers
 | 3 | shapes: field shapes, list item patterns, table columns, attribute shapes | named finding |
 | 4 | prose containment | named finding |
 
-Each finding carries its name, tier, file, line, what the rule expected, what the document has, the rule path inside design.yaml (document_types.<type>.markdown.<rule>), and a fix hint. The names are stable: tools and agents match on them, so renaming one is a breaking change. Table 8 is the complete catalog.
+Parsing stops at a finding of tiers 1 to 3; prose-containment findings come back with the parsed tree, since they concern wording rather than structure. Each finding carries its name, tier, file, line, what the rule expected, what the document has, the rule path inside design.yaml (document_types.<type>.markdown.<rule>), and a fix hint. The names are stable: tools and agents match on them, so renaming one is a breaking change. Table 8 is the complete catalog.
 
 Table 8: Finding catalog
 
@@ -330,11 +330,11 @@ GitHub hides HTML comments and renders frontmatter as a table, so a converted do
 <!-- section: authoring-loop -->
 ## Authoring loop
 
-An author, human or agent, writes a document, runs the audit, and fixes what it reports. The formatter (mage fmt, GH-2583) applies Tier 0 before anything is reported, so findings only ever concern meaning. Until GH-2583 lands, the prototype's check command runs the same diagnostics on any file:
+An author, human or agent, writes a document, runs the audit, and fixes what it reports. The formatter (mage fmt, GH-2583) applies Tier 0 before anything is reported, so findings only ever concern meaning. Until GH-2583 lands, a mage target in agent-core runs the same diagnostics on any file, with paths relative to agent-core and separated by commas:
 
 ```text
-cd tools/specmd-prototype
-go run ./cmd/specmd check ../../docs/engineering/eng10-markdown-spec-format.md
+cd agent-core
+mage specCheck ../docs/engineering/eng10-markdown-spec-format.md
 ```
 
 Each finding names the rule in design.yaml it enforces, so an author who disagrees with a finding knows which declaration to change, through an issue that amends this guideline.
@@ -345,7 +345,7 @@ Each finding names the rule in design.yaml it enforces, so an author who disagre
 - agent-core/docs/constitutions/design.yaml
 - docs/engineering/eng09-spec-kit-correspondence.yaml
 - docs/engineering/eng03-declaration-standard-library.yaml
-- tools/specmd-prototype/FINDINGS.md
+- agent-core/pkg/spec/markdown/FINDINGS.md
 - https://www.rfc-editor.org/rfc/rfc2119
 - https://docs.gitlab.com/user/markdown/
 - https://github.com/Nokia-Bell-Labs/declarative-agents/issues/2578

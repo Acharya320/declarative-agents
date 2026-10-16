@@ -100,7 +100,7 @@ func (r *Declaration) Diagnose(data []byte, source string) []Finding {
 		doc: &dnode{kind: "document", fields: map[string]bool{}}}
 	body, offset := d.frontmatter(data)
 	d.offset = offset
-	blocks, lines := TopLevelBlocks(body)
+	blocks, lines := topLevelBlocks(body)
 	d.lines = lines
 	for _, b := range blocks {
 		d.step(b)
@@ -127,11 +127,11 @@ func (d *diagnosis) add(name string, line int, expected, found, rule, hint strin
 func (d *diagnosis) fileLine(b Block) int { return b.Start + d.offset + 1 }
 
 func (d *diagnosis) step(b Block) {
-	if text, ok := CommentLine(b, d.lines); ok {
+	if text, ok := commentLine(b, d.lines); ok {
 		d.comment(b, text)
 		return
 	}
-	if level, heading, ok := HeadingOf(b, d.lines); ok {
+	if level, heading, ok := headingOf(b, d.lines); ok {
 		d.heading(b, level, heading)
 		return
 	}
@@ -145,7 +145,7 @@ func (d *diagnosis) step(b Block) {
 }
 
 func (d *diagnosis) comment(b Block, text string) {
-	m, isMarker, err := ParseMarker(text)
+	m, isMarker, err := parseMarker(text)
 	switch {
 	case err != nil:
 		d.add("marker-malformed", d.fileLine(b), "<!-- <tag>: <value> | <key>: <value> -->",
