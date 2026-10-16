@@ -189,7 +189,11 @@ func TestRESTServerMachineRequestTraceEnvelope(t *testing.T) {
 
 func TestRESTServerMachineRequestTimeout(t *testing.T) {
 	t.Parallel()
-	state, baseURL := launchMachineRequestServer(t, "DocumentationReady", 50*time.Millisecond, false)
+	// A 10ms timeout against a 50ms machine: the timeout fires first however
+	// slow the host is.
+	cfg := machineRequestConfig("DocumentationReady", 50*time.Millisecond, false)
+	cfg.Timeout = "10ms"
+	state, baseURL := launchMachineRequestServerWithConfig(t, cfg)
 	defer stopRESTServer(t, state, "machine")
 
 	body := requestBody(t, http.MethodPost, baseURL+"/docs", `{"name":"slow"}`, http.StatusGatewayTimeout)
