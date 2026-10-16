@@ -1,24 +1,19 @@
 // Copyright (c) 2026 Nokia
 // SPDX-License-Identifier: BSD-3-Clause
 
-package specmd
+package markdown_test
 
 import (
 	"fmt"
-	"os"
-	"path/filepath"
 	"reflect"
 	"strings"
-	"testing"
 
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec"
 	"gopkg.in/yaml.v3"
 )
 
-const (
-	fixtureYAML     = "testdata/srd004-declarative-ux.yaml"
-	fixtureMarkdown = "testdata/srd004-declarative-ux.md"
-)
+// These helpers compare two SRD models field by field. They came from the
+// prototype (GH-2588) with its round-trip tests.
 
 // textNorm is the one whitespace normalization the Markdown front end
 // applies: a YAML literal block ends text with a newline that Markdown prose
@@ -148,129 +143,4 @@ func normalizeValue(value any, text func(string) string) any {
 		}
 	}
 	return value
-}
-
-func readFile(t *testing.T, path string) []byte {
-	t.Helper()
-	data, err := os.ReadFile(path)
-	if err != nil {
-		t.Fatal(err)
-	}
-	return data
-}
-
-func fixtureModel(t *testing.T) spec.SRD {
-	t.Helper()
-	srd, err := spec.ParseSRD(fixtureYAML)
-	if err != nil {
-		t.Fatal(err)
-	}
-	return srd
-}
-
-func assertNoDiffs(t *testing.T, diffs []string) {
-	t.Helper()
-	if len(diffs) > 0 {
-		t.Fatalf("models differ:\n%s", strings.Join(diffs, "\n"))
-	}
-}
-
-func TestYAMLToMarkdownToModelPreservesEveryField(t *testing.T) {
-	original := fixtureModel(t)
-	md, err := PrintMarkdown(&original)
-	if err != nil {
-		t.Fatal(err)
-	}
-	back, err := ParseMarkdown(md, "printed")
-	if err != nil {
-		t.Fatal(err)
-	}
-	assertNoDiffs(t, modelDiffs(&original, &back, true))
-}
-
-func TestFixtureMatchesTheConverter(t *testing.T) {
-	original := fixtureModel(t)
-	md, err := PrintMarkdown(&original)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if string(md) != string(readFile(t, fixtureMarkdown)) {
-		t.Fatalf("%s is stale; regenerate with: go run ./cmd/specmd md %s > %s",
-			fixtureMarkdown, fixtureYAML, fixtureMarkdown)
-	}
-}
-
-func TestMarkdownIsIdentityOnCanonicalInput(t *testing.T) {
-	canonical := readFile(t, fixtureMarkdown)
-	srd, err := ParseMarkdown(canonical, fixtureMarkdown)
-	if err != nil {
-		t.Fatal(err)
-	}
-	again, err := PrintMarkdown(&srd)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if string(again) != string(canonical) {
-		t.Fatalf("md -> model -> md changed the canonical document:\n%s", firstDifference(canonical, again))
-	}
-}
-
-func TestModelToYAMLToModelIsIdentity(t *testing.T) {
-	original := fixtureModel(t)
-	printed, err := PrintYAML(&original)
-	if err != nil {
-		t.Fatal(err)
-	}
-	path := filepath.Join(t.TempDir(), "srd004-declarative-ux.yaml")
-	if err := os.WriteFile(path, printed, 0o644); err != nil {
-		t.Fatal(err)
-	}
-	back, err := spec.ParseSRD(path)
-	if err != nil {
-		t.Fatalf("printed YAML does not parse: %v\n%s", err, printed)
-	}
-	assertNoDiffs(t, modelDiffs(&original, &back, false))
-}
-
-func TestFormatterIsIdempotentAndCanonicalizes(t *testing.T) {
-	canonical := readFile(t, fixtureMarkdown)
-	once, err := FormatMarkdown(canonical, fixtureMarkdown)
-	if err != nil {
-		t.Fatal(err)
-	}
-	twice, err := FormatMarkdown(once, fixtureMarkdown)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if string(once) != string(canonical) || string(twice) != string(once) {
-		t.Fatalf("formatter is not idempotent:\n%s", firstDifference(once, twice))
-	}
-	messy := strings.Replace(string(canonical), "## Problem\n", "## Problem statement\n\n\n", 1)
-	messy = strings.Replace(messy, "<!-- field: goals -->", "\n\n<!--   field:   goals   -->", 1)
-	messy = strings.Replace(messy, "## Non-goals", "## Things we will not do", 1)
-	formatted, err := FormatMarkdown([]byte(messy), "messy.md")
-	if err != nil {
-		t.Fatal(err)
-	}
-	if string(formatted) != string(canonical) {
-		t.Fatalf("formatter did not converge a non-canonical spelling:\n%s", firstDifference(canonical, formatted))
-	}
-}
-
-// firstDifference shows the first differing line of two documents.
-func firstDifference(want, got []byte) string {
-	a, b := strings.Split(string(want), "\n"), strings.Split(string(got), "\n")
-	for i := 0; i < len(a) || i < len(b); i++ {
-		var x, y string
-		if i < len(a) {
-			x = a[i]
-		}
-		if i < len(b) {
-			y = b[i]
-		}
-		if x != y {
-			return fmt.Sprintf("line %d:\n  want %q\n  got  %q", i+1, x, y)
-		}
-	}
-	return "documents are equal"
 }

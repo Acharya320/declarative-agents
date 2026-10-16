@@ -4,7 +4,6 @@
 package markdown
 
 import (
-	"fmt"
 	"strings"
 	"testing"
 
@@ -156,7 +155,7 @@ func TestToyTypeRoundTrips(t *testing.T) {
 	d := toyDeclaration(t)
 	original := yamlDoc(t, toyRecipe)
 	md, back := roundTrip(t, d, original)
-	if diff := nodeDiff(original, back, "$"); diff != "" {
+	if diff := Diff(original, back); diff != "" {
 		t.Fatalf("yaml -> md -> yaml changed %s\n%s", diff, md)
 	}
 	if !strings.Contains(back.HeadComment, "SPDX-License-Identifier: BSD-3-Clause") {
@@ -208,7 +207,7 @@ func TestEachConversionPrintsItsShape(t *testing.T) {
 			if !strings.Contains(md, tc.want) {
 				t.Errorf("Markdown lacks %q:\n%s", tc.want, md)
 			}
-			if diff := nodeDiff(original, back, "$"); diff != "" {
+			if diff := Diff(original, back); diff != "" {
 				t.Errorf("round trip changed %s", diff)
 			}
 		})
@@ -262,47 +261,4 @@ func TestMappingDeclarationsAreChecked(t *testing.T) {
 	if _, err := LoadDeclarations([]byte(outline)); err == nil {
 		t.Error("accepted an outline without its id and content keys")
 	}
-}
-
-// nodeDiff compares two YAML trees as the round-trip laws do: ordered maps
-// and lists, scalars by tag and value, comments and styles ignored, and
-// trailing newlines of strings normalized. It names the first difference.
-func nodeDiff(a, b *yaml.Node, path string) string {
-	if a.Kind == yaml.DocumentNode && len(a.Content) > 0 {
-		a = a.Content[0]
-	}
-	if b.Kind == yaml.DocumentNode && len(b.Content) > 0 {
-		b = b.Content[0]
-	}
-	switch {
-	case a.Kind != b.Kind:
-		return path + ": kind differs"
-	case a.Kind == yaml.ScalarNode:
-		return scalarDiff(a, b, path)
-	case len(a.Content) != len(b.Content):
-		return path + ": length differs"
-	}
-	for i := range a.Content {
-		if diff := nodeDiff(a.Content[i], b.Content[i], path+"/"+childName(a, i)); diff != "" {
-			return diff
-		}
-	}
-	return ""
-}
-
-func scalarDiff(a, b *yaml.Node, path string) string {
-	if a.ShortTag() != b.ShortTag() {
-		return path + ": " + a.ShortTag() + " " + a.Value + " became " + b.ShortTag() + " " + b.Value
-	}
-	if a.ShortTag() != "!!null" && strings.TrimRight(a.Value, "\n") != strings.TrimRight(b.Value, "\n") {
-		return path + ": " + a.Value + " became " + b.Value
-	}
-	return ""
-}
-
-func childName(parent *yaml.Node, i int) string {
-	if parent.Kind == yaml.MappingNode && i%2 == 1 {
-		return parent.Content[i-1].Value
-	}
-	return fmt.Sprintf("[%d]", i)
 }

@@ -41,6 +41,19 @@ serves by declaration.
 - G4: Give shared presentation code, including design tokens, one owner and one distribution path for in-repository and external consumers.
 - G5: Let an observer agent carry no UI files by serving an embedded bundle configured only by declaration.
 
+<!-- field: applicability -->
+## Applicability
+
+```yaml
+baseline: |
+    R1 through R6 apply to every panel published by the UI kit and to every
+    application shell built from it. Domain panels an application keeps to
+    itself follow R6 and need not satisfy R1 or R4.
+capability_gates:
+    ui: The whole SRD applies only to applications or actors that ship UI assets.
+    embedded_bundle: R9 applies only to REST definitions that select a named bundle.
+```
+
 <!-- req: R1 -->
 ## R1 - Presentation contract
 
@@ -50,12 +63,6 @@ serves by declaration.
 The presentation contract shall be the closed set of endpoints below.
 This SRD names each endpoint and its owner; the owning SRD defines
 the response schema, and this SRD does not restate it.
-
-<!-- field: evidence -->
-#### Evidence
-
-The UI kit exports the list as one constant, and a kit test fails when
-a published panel names an endpoint outside it.
 
 <!-- field: endpoints -->
 #### Endpoints
@@ -69,6 +76,12 @@ a published panel names an endpoint outside it.
 | GET /monitor/fleet | catalog srd021-observer R3.1 over chatbot-mesh srd008-observer-agent R3 |
 | GET /query/traces?page_size=&offset= | catalog srd020-collector R5.1 |
 | GET /query/traces/{trace_id} | catalog srd020-collector R5.2 |
+
+<!-- field: evidence -->
+#### Evidence
+
+The UI kit exports the list as one constant, and a kit test fails when
+a published panel names an endpoint outside it.
 
 <!-- req: R1.2 -->
 ### R1.2
@@ -623,19 +636,6 @@ observer directory holds declarations only.
 - R9.2
 - R9.3
 - R9.4
-
-<!-- field: applicability -->
-## Applicability
-
-```yaml
-baseline: |
-    R1 through R6 apply to every panel published by the UI kit and to every
-    application shell built from it. Domain panels an application keeps to
-    itself follow R6 and need not satisfy R1 or R4.
-capability_gates:
-    ui: The whole SRD applies only to applications or actors that ship UI assets.
-    embedded_bundle: R9 applies only to REST definitions that select a named bundle.
-```
 
 <!-- field: use_case_traces -->
 ## Use case traces

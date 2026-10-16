@@ -163,16 +163,16 @@ func attributeShapeOK(shape, raw string) bool {
 	switch shape {
 	case "integer":
 		var n int
-		return DecodeAttr(raw, &n) == nil
+		return decodeAttr(raw, &n) == nil
 	case "list":
 		var values []string
-		return DecodeAttr(raw, &values) == nil
+		return decodeAttr(raw, &values) == nil
 	case "references":
 		var refs []Reference
-		return DecodeAttr(raw, &refs) == nil
+		return decodeAttr(raw, &refs) == nil
 	}
 	var s string
-	return DecodeAttr(raw, &s) == nil
+	return decodeAttr(raw, &s) == nil
 }
 
 // closeOpen checks the content the open node collected.
@@ -265,7 +265,7 @@ func (d *diagnosis) contentText(node *dnode) string {
 	if len(node.content) == 0 {
 		return ""
 	}
-	return SpanText(d.lines, node.content[0].Start, node.content[len(node.content)-1].End)
+	return spanText(d.lines, node.content[0].Start, node.content[len(node.content)-1].End)
 }
 
 // proseContainment reports RFC 2119 keywords in paragraphs and lists outside

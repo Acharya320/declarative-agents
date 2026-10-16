@@ -458,6 +458,7 @@ document_types:
           heading: id_title
           content: none
           unique_id: true
+          yaml: {from: requirements, records: map, id: id, title: title}
         group_field: {tag: field, level: 3, parent: requirement_group, heading: free, content: any}
         requirement_item:
           tag: req
@@ -469,6 +470,7 @@ document_types:
           content: prose
           unique_id: true
           attributes: [weight, status, retired_in, replaced_by, derived_from]
+          yaml: {from: items, records: list, id: id, content: text, keyed: true}
         item_field: {tag: field, level: 4, parent: requirement_item, heading: free, content: any}
         acceptance_criterion:
           tag: ac
@@ -480,12 +482,13 @@ document_types:
           unique_id: true
           attributes: [status, retired_in, replaced_by, derived_from]
           required_fields: [traces]
+          yaml: {from: acceptance_criteria, records: list, id: id, content: criterion}
         criterion_field: {tag: field, level: 4, parent: acceptance_criterion, heading: free, content: any}
       fields:
         problem: {in: [document_field], shape: prose}
-        goals: {in: [document_field], shape: list, item_pattern: '^G[0-9]+: '}
-        non_goals: {in: [document_field], shape: list}
-        assumptions: {in: [document_field], shape: list, item_pattern: '^A[0-9]+: '}
+        goals: {in: [document_field], shape: list, item_pattern: '^G[0-9]+: ', value: outline, id: id, content: text}
+        non_goals: {in: [document_field], shape: list, heading: Non-goals}
+        assumptions: {in: [document_field], shape: list, item_pattern: '^A[0-9]+: ', value: outline, id: id, content: text}
         acceptance_criteria: {in: [document_field], shape: empty}
         needs_clarification: {in: [document_field], shape: table, columns: [id, question]}
         evidence: {in: [item_field], shape: prose}

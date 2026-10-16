@@ -46,7 +46,7 @@ const (
 
 // parseMarker reads one marker line. It reports false for a comment that is
 // not a marker, such as the license header.
-func ParseMarker(line string) (Marker, bool, error) {
+func parseMarker(line string) (Marker, bool, error) {
 	text := strings.TrimSpace(line)
 	if !strings.HasPrefix(text, markerOpen) || !strings.HasSuffix(text, markerClose) {
 		return Marker{}, false, nil
@@ -88,7 +88,7 @@ func (m Marker) String() string {
 
 // encodeAttr renders an attribute value: a plain string stays raw when
 // nothing in it could be misread; everything else is JSON.
-func EncodeAttr(value any) (string, error) {
+func encodeAttr(value any) (string, error) {
 	if s, ok := value.(string); ok && rawAttrSafe(s) {
 		return s, nil
 	}
@@ -108,7 +108,7 @@ func rawAttrSafe(s string) bool {
 
 // decodeAttr reads an attribute value into target. A string target takes
 // the raw text unless the value is a JSON string; every other target is JSON.
-func DecodeAttr(raw string, target any) error {
+func decodeAttr(raw string, target any) error {
 	if s, ok := target.(*string); ok && !strings.HasPrefix(raw, `"`) {
 		*s = raw
 		return nil

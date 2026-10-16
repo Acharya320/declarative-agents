@@ -31,7 +31,7 @@ func (r *Declaration) renderField(key string, value *yaml.Node) ([]string, error
 	case typed && emptyCollection(value) && (field.Shape == shapeList || field.Shape == shapeTable):
 		return nil, nil
 	}
-	lines, err := RenderNode(value)
+	lines, err := renderNode(value)
 	if err != nil || !typed || field.Shape == "" || field.Shape == shapeEmpty {
 		return lines, err
 	}
@@ -55,7 +55,7 @@ func (r *Declaration) parseField(key, text string) (*yaml.Node, error) {
 	case text == "":
 		return &yaml.Node{Kind: yaml.ScalarNode, Tag: "!!null"}, nil
 	}
-	return ParseContent(text)
+	return parseContent(text)
 }
 
 func emptyCollection(node *yaml.Node) bool {
@@ -143,7 +143,7 @@ func nestedLines(key string, value *yaml.Node) ([]string, error) {
 	switch {
 	case isString(value) && cellSafe(value) && value.Value != "":
 		return []string{"  - " + key + ": " + value.Value}, nil
-	case IsStringList(value):
+	case isStringList(value):
 		lines := []string{"  - " + key + ":"}
 		for _, item := range value.Content {
 			if !cellSafe(item) || item.Value == "" {

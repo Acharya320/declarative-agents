@@ -11,12 +11,16 @@ import (
 )
 
 // Parse reads a Markdown document of this declaration's type back into the
-// YAML tree Print writes it from. A document with findings yields no tree:
-// the findings say what to fix. A record's keys come back in canonical
+// YAML tree Print writes it from, with any prose-containment findings: those
+// concern wording, not structure. A document with a finding of tiers 1 to 3
+// yields no tree; the findings say what to fix. A record's keys come back in canonical
 // order: id, title, content, attributes, then its children in document order.
 func (r *Declaration) Parse(data []byte, source string) (*yaml.Node, []Finding, error) {
-	if findings := r.Diagnose(data, source); len(findings) > 0 {
-		return nil, findings, nil
+	findings := r.Diagnose(data, source)
+	for _, f := range findings {
+		if f.Tier < 4 {
+			return nil, findings, nil
+		}
 	}
 	head, body := splitFrontmatter(data)
 	root := &yaml.Node{Kind: yaml.MappingNode, Tag: "!!map"}
@@ -24,7 +28,7 @@ func (r *Declaration) Parse(data []byte, source string) (*yaml.Node, []Finding, 
 		return nil, nil, fmt.Errorf("%s: %w", source, err)
 	}
 	rd := &reader{d: r, root: root}
-	blocks, lines := TopLevelBlocks(body)
+	blocks, lines := topLevelBlocks(body)
 	rd.lines = lines
 	for _, b := range blocks {
 		if err := rd.step(b); err != nil {
@@ -35,17 +39,17 @@ func (r *Declaration) Parse(data []byte, source string) (*yaml.Node, []Finding, 
 		return nil, nil, fmt.Errorf("%s: %w", source, err)
 	}
 	doc := &yaml.Node{Kind: yaml.DocumentNode, Content: []*yaml.Node{root}, HeadComment: strings.Join(rd.license, "\n")}
-	return doc, nil, nil
+	return doc, findings, nil
 }
 
 // Format rewrites a Markdown document in canonical form: Parse, then Print.
 func (r *Declaration) Format(data []byte, source string) ([]byte, []Finding, error) {
 	doc, findings, err := r.Parse(data, source)
-	if err != nil || len(findings) > 0 {
+	if err != nil || doc == nil {
 		return nil, findings, err
 	}
 	out, err := r.Print(doc)
-	return out, nil, err
+	return out, findings, err
 }
 
 // frame is a field or node the reader has opened from a marker and heading.
@@ -70,8 +74,8 @@ type reader struct {
 }
 
 func (rd *reader) step(b Block) error {
-	if text, ok := CommentLine(b, rd.lines); ok {
-		m, isMarker, err := ParseMarker(text)
+	if text, ok := commentLine(b, rd.lines); ok {
+		m, isMarker, err := parseMarker(text)
 		switch {
 		case err != nil:
 			return err
@@ -82,7 +86,7 @@ func (rd *reader) step(b Block) error {
 		}
 		return nil
 	}
-	if level, heading, ok := HeadingOf(b, rd.lines); ok {
+	if level, heading, ok := headingOf(b, rd.lines); ok {
 		return rd.heading(level, heading)
 	}
 	if rd.open != nil {
@@ -228,7 +232,7 @@ func (rd *reader) closeFrom(level int) error {
 func (rd *reader) close(f *frame) error {
 	text := ""
 	if len(f.blocks) > 0 {
-		text = SpanText(rd.lines, f.blocks[0].Start, f.blocks[len(f.blocks)-1].End)
+		text = spanText(rd.lines, f.blocks[0].Start, f.blocks[len(f.blocks)-1].End)
 	}
 	if f.field {
 		if _, records := rd.d.fieldRecords(f.key); records {
@@ -241,23 +245,20 @@ func (rd *reader) close(f *frame) error {
 		setKey(f.holder, f.key, value)
 		return nil
 	}
-	rd.closeRecord(f, text)
-	return nil
+	return rd.closeRecord(f, text)
 }
 
 // closeRecord fills in the record's content and, when the record holds only
 // its id and content and the mapping allows it, rewrites it in keyed form.
-func (rd *reader) closeRecord(f *frame, text string) {
+func (rd *reader) closeRecord(f *frame, text string) error {
 	m := rd.d.Nodes[f.kind].YAML
 	if m.Content != "" {
-		if text == "" {
-			deleteKey(f.value, m.Content)
-		} else {
-			setKey(f.value, m.Content, stringNode(text))
+		if err := setContent(f.value, m.Content, text); err != nil {
+			return fmt.Errorf("%s %s: %w", f.kind, f.key, err)
 		}
 	}
 	if !m.Keyed || m.Records != recordsList || len(f.value.Content) != 4 || mapValue(f.value, m.Content) == nil {
-		return
+		return nil
 	}
 	keyed := &yaml.Node{Kind: yaml.MappingNode, Tag: "!!map",
 		Content: []*yaml.Node{stringNode(f.key), mapValue(f.value, m.Content)}}
@@ -266,6 +267,25 @@ func (rd *reader) closeRecord(f *frame, text string) {
 			f.container.Content[i] = keyed
 		}
 	}
+	return nil
+}
+
+// setContent stores a node's content: prose as a string, a fenced yaml
+// block as the value it holds, and nothing when the node has no content.
+func setContent(record *yaml.Node, key, text string) error {
+	switch {
+	case text == "":
+		deleteKey(record, key)
+	case classifyContent(text) == shapeYAML:
+		value, err := parseFencedYAML(text)
+		if err != nil {
+			return err
+		}
+		setKey(record, key, value)
+	default:
+		setKey(record, key, stringNode(text))
+	}
+	return nil
 }
 
 func newContainer(records string) *yaml.Node {

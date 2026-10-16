@@ -22,8 +22,9 @@ public Go APIs. Placement rules are defined in
   declaration loader.
 - `pkg/spec/markdown` is the format engine of the Markdown specification
   corpus (eng10): marker grammar, block scanner, shapes, the design.yaml
-  declaration loader, and the tiered diagnostics. It imports no internal
-  package; callers pass the declarations in.
+  declaration loader, the tiered diagnostics, and the declaration-driven
+  converter between a document's YAML tree and its Markdown. It imports no
+  internal package; callers pass the declarations in.
 - `pkg/profileaudit` is a public package for profile-startup audit used by
   `cmd/agent` and catalog gates. It currently imports internal catalog, REST,
   runtime, load, and support surfaces listed in

@@ -28,7 +28,7 @@ type Block struct {
 }
 
 // topLevelBlocks parses src and returns its top-level blocks in order.
-func TopLevelBlocks(src []byte) ([]Block, []string) {
+func topLevelBlocks(src []byte) ([]Block, []string) {
 	doc := markdown.Parser().Parse(text.NewReader(src))
 	lines := strings.Split(string(src), "\n")
 	starts := lineStarts(src)
@@ -116,7 +116,7 @@ func classifyContent(content string) string {
 }
 
 // headingOf reports a block's ATX heading level and text.
-func HeadingOf(b Block, lines []string) (int, string, bool) {
+func headingOf(b Block, lines []string) (int, string, bool) {
 	heading, ok := b.Node.(*ast.Heading)
 	if !ok {
 		return 0, "", false
@@ -126,7 +126,7 @@ func HeadingOf(b Block, lines []string) (int, string, bool) {
 }
 
 // commentLine reports a single-line HTML comment block and its text.
-func CommentLine(b Block, lines []string) (string, bool) {
+func commentLine(b Block, lines []string) (string, bool) {
 	if _, ok := b.Node.(*ast.HTMLBlock); !ok || b.Start != b.End {
 		return "", false
 	}
@@ -135,7 +135,7 @@ func CommentLine(b Block, lines []string) (string, bool) {
 }
 
 // spanText returns the source lines of a run of blocks, verbatim.
-func SpanText(lines []string, start, end int) string {
+func spanText(lines []string, start, end int) string {
 	if start > end {
 		return ""
 	}
