@@ -33,7 +33,7 @@ current state.
 ### T3 - Preserve release coverage
 
 Adding a use case requires adding or updating the release test suite.
-Closing a release requires matching SPECIFICATIONS.yaml counts, use case
+Closing a release requires matching SPECIFICATIONS.md counts, use case
 status, and test-suite entries.
 
 <!-- article: T4 -->
@@ -176,8 +176,8 @@ config_or_profile:
 <!-- field: references -->
 ## References
 
-- docs/SPECIFICATIONS.yaml
-- docs/specs/test-suites/test-rel00.0.yaml
-- docs/specs/test-suites/test-rel02.0-lifecycle.yaml
-- docs/specs/test-suites/test-rel02.0-tool-contracts.yaml
-- docs/constitutions/go-style.yaml
+- docs/SPECIFICATIONS.md
+- docs/specs/test-suites/test-rel00.0.md
+- docs/specs/test-suites/test-rel02.0-lifecycle.md
+- docs/specs/test-suites/test-rel02.0-tool-contracts.md
+- docs/constitutions/go-style.md

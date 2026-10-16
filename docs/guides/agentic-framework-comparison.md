@@ -757,8 +757,8 @@ autonomous-network platform.
 |---|---|---|
 | Profile-driven machine and tool vocabulary | Shipped runtime | The [agent-core runtime](../../agent-core/README.md) loads profile, machine, tool selection, declarations, and optional REST bindings. |
 | Reference and declared-outcome validation | Shipped runtime | Startup validates references, transition keys, selected words, and declared emitted-signal routes; [`emits_from_stl_test.go`](../../agent-core/internal/tools/catalog/emits_from_stl_test.go) covers the outcome route. |
-| Optional model boundary | Shipped runtime | Profiles can omit model words; the [host-side deploy use case](../../applications/catalog/docs/specs/use-cases/rel18.0-uc001-host-side-deploy.yaml) exercises a no-model workflow. |
-| Process, endpoint, and workload composition | Shipped runtime; Shipped application | The [composition model](composition-model.md), [`selfinvoke_test.go`](../../agent-core/internal/tools/control/selfinvoke_test.go), and [`server_machine_request_behavior_test.go`](../../agent-core/internal/tools/rest/server_machine_request_behavior_test.go) cover runtime forms. The coding application's [`test-rel02.0-serving-contract.yaml`](../../applications/coding-agent/docs/specs/test-suites/test-rel02.0-serving-contract.yaml) binds the production serving paths to `mage integration:servingHealth` and `mage integration:servingRemote`. |
+| Optional model boundary | Shipped runtime | Profiles can omit model words; the [host-side deploy use case](../../applications/catalog/docs/specs/use-cases/rel18.0-uc001-host-side-deploy.md) exercises a no-model workflow. |
+| Process, endpoint, and workload composition | Shipped runtime; Shipped application | The [composition model](composition-model.md), [`selfinvoke_test.go`](../../agent-core/internal/tools/control/selfinvoke_test.go), and [`server_machine_request_behavior_test.go`](../../agent-core/internal/tools/rest/server_machine_request_behavior_test.go) cover runtime forms. The coding application's [`test-rel02.0-serving-contract.md`](../../applications/coding-agent/docs/specs/test-suites/test-rel02.0-serving-contract.md) binds the production serving paths to `mage integration:servingHealth` and `mage integration:servingRemote`. |
 | Checkpoint history and receipt reversal | Shipped runtime | [`checkpoint_rollback_test.go`](../../agent-core/internal/tools/lifecycle/checkpoint_rollback_test.go) and [`receipt_rollback_test.go`](../../agent-core/internal/tools/lifecycle/receipt_rollback_test.go) cover orchestration and receipts; [`dolt_checkpoint_revert_test.go`](../../agent-core/internal/runtime/checkpoint/dolt/dolt_checkpoint_revert_test.go) and the catalog's [`lifecycle_history_rollback_test.go`](../../applications/catalog/conformance/lifecycle_history_rollback_test.go) exercise persisted-state reversion. The two-part path is non-atomic, irreversible entries are skipped, and exact restoration depends on each tool and external state. |
 | Approval | Conformance fixture | The [approval fixture](../../applications/catalog/testdata/conformance/lifecycle/approval/profile.yaml), [`main_lifecycle_test.go`](../../agent-core/cmd/agent/main_lifecycle_test.go), and [`checkpoint_lifecycle_test.go`](../../agent-core/cmd/agent/checkpoint_lifecycle_test.go) cover suspend and resume routing; authority notification, decider identity, rationale, discovery, and deployed approval APIs are not shipped. |
 | Trusted transport configuration | Shipped runtime | REST client [target](../../agent-core/internal/tools/rest/client/client_target_test.go) and [request](../../agent-core/internal/tools/rest/client/client_request_test.go) tests cover configured authority surfaces; this is not a complete network authorization plane. |
@@ -768,7 +768,7 @@ autonomous-network platform.
 | Application-level distributed verification | Not demonstrated | Per-machine checks do not prove concurrency, retries, partitions, fencing, global invariants, timing, or convergence. |
 | High availability and disaster recovery | Not demonstrated | Checkpoints and Kubernetes packaging do not establish replicated persistence, ownership fencing, RPO/RTO, or regional failover. |
 | Fleet scale and overload behavior | Not demonstrated | No representative device/event benchmark establishes serialization, fairness, backpressure, emergency capacity, or safe degradation. |
-| Deterministic application closure | Shipped application | The coding application's [`test-rel03.0-deployment-profile-package.yaml`](../../applications/coding-agent/docs/specs/test-suites/test-rel03.0-deployment-profile-package.yaml), [`profiles_closure_test.go`](../../applications/coding-agent/magefiles/profiles_closure_test.go), and [`profiles_deployment_test.go`](../../applications/coding-agent/magefiles/profiles_deployment_test.go) cover exact role closures, reproducibility, and bounded package partitions. |
+| Deterministic application closure | Shipped application | The coding application's [`test-rel03.0-deployment-profile-package.md`](../../applications/coding-agent/docs/specs/test-suites/test-rel03.0-deployment-profile-package.md), [`profiles_closure_test.go`](../../applications/coding-agent/magefiles/profiles_closure_test.go), and [`profiles_deployment_test.go`](../../applications/coding-agent/magefiles/profiles_deployment_test.go) cover exact role closures, reproducibility, and bounded package partitions. |
 | Signed profile and tool admission | Not demonstrated | Complete signer, SBOM, vulnerability, and anti-rollback admission is not one shipped contract. |
 | Proven device rollback | Not demonstrated | Receipt semantics are available; no physical or simulated network-device campaign proves exact or compensating restoration. |
 | Runtime role or specification synthesis | Research horizon | The repository does not generate and admit novel network roles or sound acceptance criteria for capabilities novel in kind. |
@@ -783,7 +783,7 @@ adapters, policy systems, and bounded logic inside tools remain code.
 The autonomous-network requirement model draws on the
 `self-evolving-networks` reference architecture. This repository records its
 conceptual provenance in
-[`applications/docs/VISION.yaml`](../../applications/docs/VISION.yaml):
+[`applications/docs/VISION.md`](../../applications/docs/VISION.md):
 
 - repository:
   `https://gitlabe1.ext.net.nokia.com/architecture/self-evolving-networks.git`
@@ -866,7 +866,7 @@ Repository evidence:
 - [Bidirectional Log](../../design-patterns/07-bidirectional-log.md)
 - [Boundary Tool](../../design-patterns/09-boundary-tool.md)
 - [Approval Gate](../../design-patterns/10-approval-gate.md)
-- [Host-side deploy use case](../../applications/catalog/docs/specs/use-cases/rel18.0-uc001-host-side-deploy.yaml)
+- [Host-side deploy use case](../../applications/catalog/docs/specs/use-cases/rel18.0-uc001-host-side-deploy.md)
 
 Framework and workflow-system documentation:
 

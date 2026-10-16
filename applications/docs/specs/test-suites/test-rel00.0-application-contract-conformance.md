@@ -61,17 +61,17 @@ executable_structural
     root = Path("applications/docs")
     docs = {p: yaml.safe_load(p.read_text()) for p in root.rglob("*.yaml")}
     required = {
-        root / "VISION.yaml": {
+        root / "VISION.md": {
             "id", "title", "executive_summary", "problem", "what_this_does",
             "why_we_build_this", "success_criteria", "not",
         },
-        root / "ARCHITECTURE.yaml": {
+        root / "ARCHITECTURE.md": {
             "id", "title", "overview", "interfaces", "components",
             "design_decisions", "technology_choices", "project_structure",
             "implementation_status", "related_documents",
         },
-        root / "road-map.yaml": {"id", "title", "releases"},
-        root / "SPECIFICATIONS.yaml": {
+        root / "road-map.md": {"id", "title", "releases"},
+        root / "SPECIFICATIONS.md": {
             "id", "title", "overview", "roadmap_summary",
             "foundation_document_index", "srd_index", "config_format_index",
             "semantic_model_index", "use_case_index", "test_suite_index",
@@ -81,14 +81,14 @@ executable_structural
     for path, fields in required.items():
         assert path in docs, path
         assert not fields - set(docs[path]), (path, fields - set(docs[path]))
-    index = docs[root / "SPECIFICATIONS.yaml"]
+    index = docs[root / "SPECIFICATIONS.md"]
     for section in ("foundation_document_index", "srd_index",
                     "use_case_index", "test_suite_index"):
         for entry in index[section]:
             path = Path("applications") / entry["path"]
             assert path.is_file(), path
-    uc_path = root / "specs/use-cases/rel00.0-uc001-application-contract-conformance.yaml"
-    ts_path = root / "specs/test-suites/test-rel00.0-application-contract-conformance.yaml"
+    uc_path = root / "specs/use-cases/rel00.0-uc001-application-contract-conformance.md"
+    ts_path = root / "specs/test-suites/test-rel00.0-application-contract-conformance.md"
     uc, suite = docs[uc_path], docs[ts_path]
     assert uc["test_suite"] == suite["id"]
     assert uc["id"] in suite["traces"]
@@ -96,8 +96,8 @@ executable_structural
         trace["target"] for trace in uc["touchpoints"]
     }
     for srd_name in (
-        "srd001-application-module-contract.yaml",
-        "srd002-managed-application-services.yaml",
+        "srd001-application-module-contract.md",
+        "srd002-managed-application-services.md",
     ):
         srd = docs[root / "specs/software-requirements" / srd_name]
         assert uc["id"] in srd["use_case_traces"]
@@ -263,9 +263,9 @@ mage audit
 - applications/chatbot-mesh/magefiles/magefile.go
 - applications/coding-agent/magefiles/magefile.go
 - applications/agent-architecture/magefiles/magefile.go
-- applications/chatbot-mesh/docs/SPECIFICATIONS.yaml
-- applications/coding-agent/docs/SPECIFICATIONS.yaml
-- applications/agent-architecture/docs/SPECIFICATIONS.yaml
+- applications/chatbot-mesh/docs/SPECIFICATIONS.md
+- applications/coding-agent/docs/SPECIFICATIONS.md
+- applications/agent-architecture/docs/SPECIFICATIONS.md
 
 <!-- field: expected -->
 #### Expected
@@ -314,10 +314,10 @@ application_test_suites
 <!-- field: evidence -->
 #### Evidence
 
-- applications/coding-agent/docs/specs/test-suites/test-rel02.0-serving-contract.yaml
-- applications/chatbot-mesh/docs/specs/test-suites/test-rel03.0-mesh-deployment.yaml
-- applications/chatbot-mesh/docs/specs/test-suites/test-rel02.0-observability.yaml
-- applications/agent-architecture/docs/specs/test-suites/test-rel00.0-guided-agent-architecture.yaml
+- applications/coding-agent/docs/specs/test-suites/test-rel02.0-serving-contract.md
+- applications/chatbot-mesh/docs/specs/test-suites/test-rel03.0-mesh-deployment.md
+- applications/chatbot-mesh/docs/specs/test-suites/test-rel02.0-observability.md
+- applications/agent-architecture/docs/specs/test-suites/test-rel00.0-guided-agent-architecture.md
 
 <!-- field: expected -->
 #### Expected
@@ -369,10 +369,10 @@ application_test_suites
 <!-- field: evidence -->
 #### Evidence
 
-- applications/coding-agent/docs/specs/test-suites/test-rel03.0-deployment-profile-package.yaml
-- applications/coding-agent/docs/specs/test-suites/test-rel04.0-helm-topology.yaml
-- applications/coding-agent/docs/specs/test-suites/test-rel05.0-helm-package-validation.yaml
-- applications/chatbot-mesh/docs/specs/test-suites/test-rel03.0-mesh-deployment.yaml
+- applications/coding-agent/docs/specs/test-suites/test-rel03.0-deployment-profile-package.md
+- applications/coding-agent/docs/specs/test-suites/test-rel04.0-helm-topology.md
+- applications/coding-agent/docs/specs/test-suites/test-rel05.0-helm-package-validation.md
+- applications/chatbot-mesh/docs/specs/test-suites/test-rel03.0-mesh-deployment.md
 
 <!-- field: expected -->
 #### Expected
@@ -418,9 +418,9 @@ referenced_engineering_contract
 <!-- field: evidence -->
 #### Evidence
 
-- docs/engineering/eng01-kind-test-demo-rig.yaml
-- applications/coding-agent/docs/specs/test-suites/test-rel06.0-live-helm-smoke.yaml
-- applications/chatbot-mesh/docs/specs/test-suites/test-rel03.0-mesh-deployment.yaml
+- docs/engineering/eng01-kind-test-demo-rig.md
+- applications/coding-agent/docs/specs/test-suites/test-rel06.0-live-helm-smoke.md
+- applications/chatbot-mesh/docs/specs/test-suites/test-rel03.0-mesh-deployment.md
 
 <!-- field: expected -->
 #### Expected
@@ -517,7 +517,7 @@ go_test
 
 - magefiles/agent_role_realizations_test.go
 - magefiles/audit.go
-- applications/docs/specs/semantic-models/agent-role-realizations.yaml
+- applications/docs/specs/semantic-models/agent-role-realizations.md
 - applications/catalog/conformance/family_inventory_test.go
 - applications/catalog/conformance/membership_contract_test.go
 

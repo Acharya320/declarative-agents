@@ -9,7 +9,7 @@ status: relocated
 <!-- field: canonical_path -->
 ## Canonical path
 
-applications/chatbot-mesh/docs/specs/use-cases/rel00.0-uc001-rag-server-query.yaml
+applications/chatbot-mesh/docs/specs/use-cases/rel00.0-uc001-rag-server-query.md
 
 <!-- field: note -->
 ## Note

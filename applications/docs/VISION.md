@@ -258,9 +258,9 @@ portability: |
 <!-- field: canonical_documents -->
 ## Canonical documents
 
-- docs/ARCHITECTURE.yaml
-- docs/road-map.yaml
-- docs/SPECIFICATIONS.yaml
-- docs/specs/software-requirements/srd001-application-module-contract.yaml
-- docs/specs/software-requirements/srd002-managed-application-services.yaml
-- docs/specs/software-requirements/srd008-persistent-application-platform.yaml
+- docs/ARCHITECTURE.md
+- docs/road-map.md
+- docs/SPECIFICATIONS.md
+- docs/specs/software-requirements/srd001-application-module-contract.md
+- docs/specs/software-requirements/srd002-managed-application-services.md
+- docs/specs/software-requirements/srd008-persistent-application-platform.md

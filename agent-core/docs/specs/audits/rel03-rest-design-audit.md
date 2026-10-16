@@ -3,7 +3,7 @@
 
 # Release 03.0 REST Design Audit
 
-Issue `agent-core-g60h` audits the REST runtime package and its release evidence. Main evidence comes from `internal/tools/rest/` and `tools/builtin/rest/all.yaml`. Profile evidence lives under `applications/catalog/testdata/conformance/rest/` (or `$AGENT_CATALOG_ROOT/testdata/conformance/rest/` at runtime); fixture evidence lives under `testdata/integration/rel03-rest-tools/`; release status evidence lives in `docs/SPECIFICATIONS.yaml`.
+Issue `agent-core-g60h` audits the REST runtime package and its release evidence. Main evidence comes from `internal/tools/rest/` and `tools/builtin/rest/all.yaml`. Profile evidence lives under `applications/catalog/testdata/conformance/rest/` (or `$AGENT_CATALOG_ROOT/testdata/conformance/rest/` at runtime); fixture evidence lives under `testdata/integration/rel03-rest-tools/`; release status evidence lives in `docs/SPECIFICATIONS.md`.
 
 Method: I treated a REST behavior as supported only when a requirement, profile or config artifact, and Go test pointed to the same behavior. Partial support stays visible as follow-up work.
 
@@ -29,7 +29,7 @@ D2 passes. Sample YAML lives under `applications/catalog/testdata/conformance/re
 
 ### D3 Traceability
 
-D3 passes. `docs/SPECIFICATIONS.yaml` links release 03.0 to `test-rel03.0-rest-tools` and marks the release done. Named Go tests exist in `internal/tools/rest/`. The SRD029 binding gap is resolved by `agent-core-usbz.1`. Side-effect vocabulary alignment is resolved by `agent-core-usbz.2`.
+D3 passes. `docs/SPECIFICATIONS.md` links release 03.0 to `test-rel03.0-rest-tools` and marks the release done. Named Go tests exist in `internal/tools/rest/`. The SRD029 binding gap is resolved by `agent-core-usbz.1`. Side-effect vocabulary alignment is resolved by `agent-core-usbz.2`.
 
 ### D4 Profile-First Runtime Docs
 
@@ -73,7 +73,7 @@ Code and documentation gates passed through the standard Go and Mage checks. The
 
 REST behavior crosses config loading, runtime validation, HTTP I/O, event queues, and release metadata. A green server-only test would not prove the release by itself. Here, `go build ./...`, `go vet ./...`, `mage lint`, `go test ./...`, and `mage audit` pass with the updated release suite count. The de-AI lexical checks are clean; structural warnings are recorded below.
 
-De-AI exception: the structural checker reports list-heavy, tricolon-heavy, and exhaustive-list-heavy for `docs/specs/test-suites/test-rel03.0-rest-tools.yaml`. We keep that warning because the file is a formal YAML test suite. Its required fields are lists of inputs, expected facts, and traces, and rewriting those lists into prose would make the suite less useful to the spec graph. The checker also reports uniform paragraphs in this Markdown audit; lexical checks are clean, and the paragraphs stay short to preserve audit readability.
+De-AI exception: the structural checker reports list-heavy, tricolon-heavy, and exhaustive-list-heavy for `docs/specs/test-suites/test-rel03.0-rest-tools.md`. We keep that warning because the file is a formal YAML test suite. Its required fields are lists of inputs, expected facts, and traces, and rewriting those lists into prose would make the suite less useful to the spec graph. The checker also reports uniform paragraphs in this Markdown audit; lexical checks are clean, and the paragraphs stay short to preserve audit readability.
 
 No drift remains.
 

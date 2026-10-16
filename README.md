@@ -89,7 +89,7 @@ run leaves a diagnostic lease and requires the explicit
 owner is confirmed dead.
 
 Every image family the repository uses is classified in
-[`docs/engineering/eng01-kind-test-demo-rig.yaml`](docs/engineering/eng01-kind-test-demo-rig.yaml)
+[`docs/engineering/eng01-kind-test-demo-rig.md`](docs/engineering/eng01-kind-test-demo-rig.md)
 (table 6: identity grammar, table 7: lifecycle and retention). The root
 `imageinventory` audit and pin survey prove each family is registered; active
 paths must not carry `kindrig/*` aliases, mutable `:local` or `:latest` tags,

@@ -75,6 +75,6 @@ a consumer bumps each against its own named tag.
 
 - magefiles/tag.go (Tag and TagDryRun, the release gates, the repository release lock, date-based naming)
 - magefiles/uikit.go (uikit:release tarball preparation)
-- docs/engineering/eng05-consumer-repositories.yaml (the consumer side of the pin)
+- docs/engineering/eng05-consumer-repositories.md (the consumer side of the pin)
 - docs/guides/ui-panels.md (kit package and release-tarball consumption)
 - Go Modules Reference, https://go.dev/ref/mod (module paths and version resolution for subdirectory modules)

@@ -468,7 +468,7 @@ chatbot_mesh:
         evidence:
             - applications/chatbot-mesh/agents/chatbot/machine.yaml
             - applications/chatbot-mesh/agents/chatbot/request-machine.yaml
-            - applications/chatbot-mesh/docs/specs/software-requirements/srd002-chatbot-agent.yaml
+            - applications/chatbot-mesh/docs/specs/software-requirements/srd002-chatbot-agent.md
         migration_impact: None; role bindings remain separate from the actor and Helm workload name.
     - actor: chatbot-chat-request
       profile: applications/chatbot-mesh/agents/chatbot/request-profile.yaml
@@ -491,7 +491,7 @@ chatbot_mesh:
         evidence:
             - applications/chatbot-mesh/agents/rag-server/profile.yaml
             - applications/chatbot-mesh/agents/rag-server/request-machine.yaml
-            - applications/chatbot-mesh/docs/specs/software-requirements/srd001-rag-server-agent.yaml
+            - applications/chatbot-mesh/docs/specs/software-requirements/srd001-rag-server-agent.md
         migration_impact: None; each values-named Helm RAG unit is a deployment instance of this realization, not a canonical role name.
     - actor: corpus-ingest
       profile: applications/chatbot-mesh/agents/corpus-ingest/profile.yaml

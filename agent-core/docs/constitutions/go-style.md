@@ -210,6 +210,6 @@ requirement_ids: Reference SRD or requirement IDs when a comment explains a spec
 <!-- field: references -->
 ## References
 
-- docs/ARCHITECTURE.yaml
-- docs/specs/semantic-models/tool-language.yaml
-- docs/specs/config-formats/runtime-contract.yaml
+- docs/ARCHITECTURE.md
+- docs/specs/semantic-models/tool-language.md
+- docs/specs/config-formats/runtime-contract.md

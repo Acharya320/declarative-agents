@@ -42,7 +42,7 @@ evidence.
   proves: |
     Root accounting accepts the demo's application section without an
     agents section and retains 15 canonical agents.
-- path: docs/engineering/eng01-kind-test-demo-rig.yaml
+- path: docs/engineering/eng01-kind-test-demo-rig.md
   proves: kind-demo obligations have one referenced engineering contract.
 ```
 
@@ -178,7 +178,7 @@ publication: post-merge from clean main through mage tag
   proves: Catalog test-time members and incompatible historical aliases retain their documented realization semantics.
 - path: magefiles/audit.go
   proves: Root mage audit executes the actor-role realization validator before module audits.
-- path: applications/catalog/docs/migrations/v0.20260727.0-agent-role-realization-alignment.yaml
+- path: applications/catalog/docs/migrations/v0.20260727.0-agent-role-realization-alignment.md
   proves: Every rename has an old-to-new path or identity entry, compatibility mechanism and duration, consumer pin, and post-merge publication boundary.
 - path: applications/catalog/conformance/release_alignment_test.go
   proves: Exact release metadata, consumer pins, migration coverage, and scoped zero-hit policy are executable.
@@ -211,7 +211,7 @@ shared capability contract.
 ### Implementation evidence
 
 ```yaml
-- path: applications/docs/VISION.yaml
+- path: applications/docs/VISION.md
   proves: |
     The canonical vision records the multi-agent thesis, both operating
     flows, human boundary, six-step construction sequence, retained
@@ -220,13 +220,13 @@ shared capability contract.
   proves: |
     A root reader can determine why and when to use several actors and
     follow the ordered scenario-to-evidence construction guide.
-- path: applications/docs/ARCHITECTURE.yaml
+- path: applications/docs/ARCHITECTURE.md
   proves: The project index assigns the revised VISION and README responsibilities and records implementation status.
-- path: applications/docs/SPECIFICATIONS.yaml
+- path: applications/docs/SPECIFICATIONS.md
   proves: The foundation index names and summarizes the broadened canonical vision.
-- path: applications/docs/specs/semantic-models/agent-role-realizations.yaml
+- path: applications/docs/specs/semantic-models/agent-role-realizations.md
   proves: Canonical roles, actor/profile realizations, inheritance, and ownership boundaries remain machine-readable.
-- path: applications/docs/pattern-language.yaml
+- path: applications/docs/pattern-language.md
   proves: Canonical reuse, composition, package closure, profile-free runtime, wrappers, and workload boundaries have construction patterns.
 ```
 
@@ -354,15 +354,15 @@ application_normalization: implemented
 ### Implementation evidence
 
 ```yaml
-- path: applications/docs/specs/software-requirements/srd003-application-consistency.yaml
+- path: applications/docs/specs/software-requirements/srd003-application-consistency.md
   proves: Numbered capability-aware composition consistency requirements and acceptance criteria.
-- path: applications/docs/specs/use-cases/rel14.0-uc001-application-consistency.yaml
+- path: applications/docs/specs/use-cases/rel14.0-uc001-application-consistency.md
   proves: Three-application flow and ownership touchpoints.
-- path: applications/docs/specs/test-suites/test-rel14.0-application-consistency.yaml
+- path: applications/docs/specs/test-suites/test-rel14.0-application-consistency.md
   proves: Requirement-to-AC-to-flow-to-test coverage and eight executable cases.
-- path: applications/docs/ARCHITECTURE.yaml
+- path: applications/docs/ARCHITECTURE.md
   proves: Normalized authority, ownership components, decisions, target structure, and status.
-- path: applications/docs/SPECIFICATIONS.yaml
+- path: applications/docs/SPECIFICATIONS.md
   proves: Reciprocal SRD, use-case, suite, and coverage-gap indexes.
 - path: applications/README.md
   proves: Capability-gated directory guidance and truthful current classifications.
@@ -452,9 +452,9 @@ gh-2154-declarative-ux
 
 | path | proves |
 | --- | --- |
-| applications/docs/specs/software-requirements/srd004-declarative-ux.yaml | Numbered contract, proxy, compatibility, panel, composition, client, ui.yaml, kit, and embedded-bundle requirements. |
-| applications/docs/specs/use-cases/rel15.0-uc001-declarative-ux.yaml | Composition flow and the endpoint-usage review of all three repositories. |
-| applications/docs/specs/test-suites/test-rel15.0-declarative-ux.yaml | Requirement-to-AC-to-test coverage with TC1 executable. |
+| applications/docs/specs/software-requirements/srd004-declarative-ux.md | Numbered contract, proxy, compatibility, panel, composition, client, ui.yaml, kit, and embedded-bundle requirements. |
+| applications/docs/specs/use-cases/rel15.0-uc001-declarative-ux.md | Composition flow and the endpoint-usage review of all three repositories. |
+| applications/docs/specs/test-suites/test-rel15.0-declarative-ux.md | Requirement-to-AC-to-test coverage with TC1 executable. |
 
 <!-- release: 16.0 | status: implemented -->
 ## 16.0 - Chart conformance gate
@@ -528,13 +528,13 @@ gh-2047-chart-conformance
 ### Implementation evidence
 
 ```yaml
-- path: docs/engineering/eng01-kind-test-demo-rig.yaml
+- path: docs/engineering/eng01-kind-test-demo-rig.md
   proves: Numbered chart conformance rules C1 through C6 and the exception-baseline contract.
-- path: applications/docs/specs/software-requirements/srd005-chart-conformance.yaml
+- path: applications/docs/specs/software-requirements/srd005-chart-conformance.md
   proves: Numbered rendering, pinning, policy, service, readiness, baseline, and reporting requirements.
-- path: applications/docs/specs/use-cases/rel16.0-uc001-chart-conformance.yaml
+- path: applications/docs/specs/use-cases/rel16.0-uc001-chart-conformance.md
   proves: The flow from a changed chart to a named finding to a shrinking baseline.
-- path: applications/docs/specs/test-suites/test-rel16.0-chart-conformance.yaml
+- path: applications/docs/specs/test-suites/test-rel16.0-chart-conformance.md
   proves: Requirement-to-AC-to-test coverage with every case executable.
 - path: applications/charts/agent-services/templates/_naming.tpl
   proves: One helper renders every image reference and appends the digest the values pin.
@@ -617,13 +617,13 @@ gh-2049-pin-currency
 ### Implementation evidence
 
 ```yaml
-- path: docs/engineering/eng01-kind-test-demo-rig.yaml
+- path: docs/engineering/eng01-kind-test-demo-rig.md
   proves: The integrity and currency properties, and the bump verb's report-never-mutate contract.
-- path: applications/docs/specs/software-requirements/srd006-pin-currency.yaml
+- path: applications/docs/specs/software-requirements/srd006-pin-currency.md
   proves: Numbered inventory, integrity, currency, no-write, unknown, and reporting requirements.
-- path: applications/docs/specs/use-cases/rel17.0-uc001-pin-currency.yaml
+- path: applications/docs/specs/use-cases/rel17.0-uc001-pin-currency.md
   proves: The flow from one command to a decision the operator takes.
-- path: applications/docs/specs/test-suites/test-rel17.0-pin-currency.yaml
+- path: applications/docs/specs/test-suites/test-rel17.0-pin-currency.md
   proves: Requirement-to-AC-to-test coverage with every case executable.
 - path: magefiles/pinsurvey/
   proves: The distribution client, both verdicts, version comparison, and the inventory's two halves.
@@ -701,13 +701,13 @@ gh-2418-tag-verify
 ### Implementation evidence
 
 ```yaml
-- path: docs/engineering/eng01-kind-test-demo-rig.yaml
+- path: docs/engineering/eng01-kind-test-demo-rig.md
   proves: The annotation-is-the-record statement and the verb's refuse-and-mutate-nothing contract.
-- path: applications/docs/specs/software-requirements/srd007-release-annotation.yaml
+- path: applications/docs/specs/software-requirements/srd007-release-annotation.md
   proves: Numbered object, degeneracy, reachability, and no-mutation requirements.
-- path: applications/docs/specs/use-cases/rel18.0-uc001-release-annotation.yaml
+- path: applications/docs/specs/use-cases/rel18.0-uc001-release-annotation.md
   proves: The flow from an annotated tag to a push that carries a real record.
-- path: applications/docs/specs/test-suites/test-rel18.0-release-annotation.yaml
+- path: applications/docs/specs/test-suites/test-rel18.0-release-annotation.md
   proves: Requirement-to-AC-to-test coverage with every case executable.
 - path: magefiles/tag_verify.go
   proves: The four rules with one named reason per failure, and the bar stated once.
@@ -805,15 +805,15 @@ gh-2474-shared-platform
 ### Implementation evidence
 
 ```yaml
-- path: applications/docs/specs/software-requirements/srd008-persistent-application-platform.yaml
+- path: applications/docs/specs/software-requirements/srd008-persistent-application-platform.md
   proves: Numbered ownership, platform, collector, lifecycle, parity, object, query, routing, and runner requirements.
-- path: applications/docs/specs/use-cases/rel19.0-uc001-persistent-application-platform.yaml
+- path: applications/docs/specs/use-cases/rel19.0-uc001-persistent-application-platform.md
   proves: Complete two-application lifecycle from platform creation through teardown, recovery, purge, and reset.
-- path: applications/docs/specs/test-suites/test-rel19.0-persistent-application-platform.yaml
+- path: applications/docs/specs/test-suites/test-rel19.0-persistent-application-platform.md
   proves: Requirement-to-acceptance and acceptance-to-test closure with planned implementation owners.
-- path: docs/engineering/eng01-kind-test-demo-rig.yaml
+- path: docs/engineering/eng01-kind-test-demo-rig.md
   proves: Canonical local platform, exception modes, application verbs, persistence, and query availability.
-- path: docs/engineering/eng08-gcp-demo-rig.yaml
+- path: docs/engineering/eng08-gcp-demo-rig.md
   proves: Cloud application buckets, workload identity, bucket IAM, and cluster-independent retention.
 - command: mage audit
   proves: Structured documents parse and reciprocal traceability remains valid.

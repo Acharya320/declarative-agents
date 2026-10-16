@@ -20,7 +20,7 @@ volume. No role needs an alternate image. Each agent's program is a profile supp
 ConfigMap and mounted read-only at `/profiles`, not baked into the image, so the
 same image runs every role, and a values change re-renders the topology without
 rebuilding images (the agent-core mounted-profile contract; see
-`docs/SPECIFICATIONS.yaml`). Every manifest deployment entry,
+`docs/SPECIFICATIONS.md`). Every manifest deployment entry,
 including the catalog collector, is packaged into per-workload ConfigMaps by
 `mage helmPrepare`; its declared UI asset is included in the same collector
 shard.

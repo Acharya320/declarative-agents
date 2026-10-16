@@ -74,8 +74,8 @@ From `applications/agent-architecture`, run `go test ./...`, `mage audit`,
 
 ## Documentation
 
-The structured design corpus is `docs/VISION.yaml`, `docs/ARCHITECTURE.yaml`,
-`docs/road-map.yaml`, and `docs/SPECIFICATIONS.yaml`. Helm details are in
+The structured design corpus is `docs/VISION.md`, `docs/ARCHITECTURE.md`,
+`docs/road-map.md`, and `docs/SPECIFICATIONS.md`. Helm details are in
 `helm/README.md`.
 
 ## Prerequisites (macOS)

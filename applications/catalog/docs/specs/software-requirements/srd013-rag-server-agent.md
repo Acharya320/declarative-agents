@@ -9,7 +9,7 @@ status: relocated
 <!-- field: canonical_path -->
 ## Canonical path
 
-applications/chatbot-mesh/docs/specs/software-requirements/srd001-rag-server-agent.yaml
+applications/chatbot-mesh/docs/specs/software-requirements/srd001-rag-server-agent.md
 
 <!-- field: note -->
 ## Note

@@ -357,7 +357,7 @@ Checkpoint port integration saves typed position and execution history after dis
 <!-- field: related_documents -->
 ## Related documents
 
-- docs/specs/semantic-models/tool-metrics-monitoring.yaml
+- docs/specs/semantic-models/tool-metrics-monitoring.md
 
 <!-- field: diagrams -->
 ## Diagrams

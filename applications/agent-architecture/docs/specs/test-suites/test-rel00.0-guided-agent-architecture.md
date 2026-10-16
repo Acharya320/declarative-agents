@@ -344,7 +344,7 @@ mage stats
 #### Inputs
 
 ```yaml
-documentation_yaml: docs/VISION.yaml, docs/ARCHITECTURE.yaml, docs/road-map.yaml, docs/SPECIFICATIONS.yaml, the indexed use case, and the indexed test suite
+documentation_yaml: docs/VISION.md, docs/ARCHITECTURE.md, docs/road-map.md, docs/SPECIFICATIONS.md, the indexed use case, and the indexed test suite
 lifecycle_yaml: ../catalog/agents/lifecycle-exit/profile.yaml, ../catalog/agents/lifecycle-exit/machine.yaml, and ../catalog/agents/lifecycle-exit/rest.yaml are inspected by lifecycle_exit_contract
 canonical_profile_owner: applications/catalog
 expected_canonical_references: 2

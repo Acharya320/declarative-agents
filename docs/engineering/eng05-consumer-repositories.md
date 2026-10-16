@@ -81,8 +81,8 @@ its pinned copy.
 <!-- field: references -->
 ## References
 
-- docs/engineering/eng03-declaration-standard-library.yaml (unit norms consumers inherit)
-- docs/engineering/eng04-ui-kit-reuse.yaml (interface norms consumers inherit)
+- docs/engineering/eng03-declaration-standard-library.md (unit norms consumers inherit)
+- docs/engineering/eng04-ui-kit-reuse.md (interface norms consumers inherit)
 - magefiles/tag.go (the release tagging the pin section resolves against)
 - GH-2245 (the request-path adoption whose defect only live tiers caught)
 - GH-2250 (the request-profile load error that adoption surfaced)

@@ -149,7 +149,7 @@ managed_services:
 <!-- interface: shared application contract -->
 ### shared application contract
 
-applications/docs/specs/software-requirements/srd001-application-module-contract.yaml
+applications/docs/specs/software-requirements/srd001-application-module-contract.md
 governs the runnable composition. srd002-managed-application-services R1
 through R3 govern both long-running local servers. Local documents name
 application behavior and evidence without restating shared obligations.
@@ -490,13 +490,13 @@ application:
     - path: go.mod
       role: Standalone module and pinned Go presentation tool dependency.
 documentation:
-    - path: docs/VISION.yaml
+    - path: docs/VISION.md
       role: Goals, boundaries, and ownership.
-    - path: docs/ARCHITECTURE.yaml
+    - path: docs/ARCHITECTURE.md
       role: Components, interfaces, dependency direction, and decisions.
-    - path: docs/road-map.yaml
+    - path: docs/road-map.md
       role: Release 00.0 contract and Mage evidence.
-    - path: docs/SPECIFICATIONS.yaml
+    - path: docs/SPECIFICATIONS.md
       role: Reciprocal use-case and test-suite index.
     - path: docs/specs/use-cases/
       role: Guided operator flow.
@@ -541,13 +541,13 @@ progress:
 
 | doc | purpose |
 | --- | --- |
-| ../docs/specs/software-requirements/srd001-application-module-contract.yaml | Shared runnable application module contract. |
-| ../docs/specs/software-requirements/srd002-managed-application-services.yaml | Shared R1 through R6 contract for the managed services, package, chart, and kind capabilities. |
-| docs/specs/software-requirements/srd001-helm-deployment.yaml | Implemented chart topology, manifest-derived profile package, values schema, and bounded kind smoke. |
-| docs/specs/software-requirements/srd002-applier.yaml | Implemented local standalone applier that validates, applies, verifies, and rolls back a values patch. |
-| docs/VISION.yaml | Application goals and exclusions. |
-| docs/road-map.yaml | Release 00.0 status and evidence. |
-| docs/specs/use-cases/rel00.0-uc001-guided-agent-architecture.yaml | End-to-end operator flow. |
-| docs/specs/test-suites/test-rel00.0-guided-agent-architecture.yaml | Implemented deterministic evidence and dependency-gated live observations. |
-| ../catalog/docs/specs/software-requirements/srd011-knowledge-manager.yaml | Canonical Knowledge Manager profile requirements. |
-| ../catalog/docs/specs/use-cases/rel07.0-uc001-documentation-curator-profile-ux.yaml | Catalog-owned curator profile and UI proof. |
+| ../docs/specs/software-requirements/srd001-application-module-contract.md | Shared runnable application module contract. |
+| ../docs/specs/software-requirements/srd002-managed-application-services.md | Shared R1 through R6 contract for the managed services, package, chart, and kind capabilities. |
+| docs/specs/software-requirements/srd001-helm-deployment.md | Implemented chart topology, manifest-derived profile package, values schema, and bounded kind smoke. |
+| docs/specs/software-requirements/srd002-applier.md | Implemented local standalone applier that validates, applies, verifies, and rolls back a values patch. |
+| docs/VISION.md | Application goals and exclusions. |
+| docs/road-map.md | Release 00.0 status and evidence. |
+| docs/specs/use-cases/rel00.0-uc001-guided-agent-architecture.md | End-to-end operator flow. |
+| docs/specs/test-suites/test-rel00.0-guided-agent-architecture.md | Implemented deterministic evidence and dependency-gated live observations. |
+| ../catalog/docs/specs/software-requirements/srd011-knowledge-manager.md | Canonical Knowledge Manager profile requirements. |
+| ../catalog/docs/specs/use-cases/rel07.0-uc001-documentation-curator-profile-ux.md | Catalog-owned curator profile and UI proof. |

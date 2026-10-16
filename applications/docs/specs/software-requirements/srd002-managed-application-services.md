@@ -471,7 +471,7 @@ kind_demo, with R6.4 proving the exclusion
 
 | id | path | usage |
 | --- | --- | --- |
-| eng01-kind-test-demo-rig | ../../../../docs/engineering/eng01-kind-test-demo-rig.yaml | Governs only the kind_demo capability. |
+| eng01-kind-test-demo-rig | ../../../../docs/engineering/eng01-kind-test-demo-rig.md | Governs only the kind_demo capability. |
 
 <!-- field: use_case_traces -->
 ## Use case traces

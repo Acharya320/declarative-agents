@@ -25,7 +25,7 @@ document_placement:
         files as scope-reconciliation candidates because a repository-wide
         placement gate must classify them too.
 package_role:
-    authority: docs/constitutions/go-style.yaml
+    authority: docs/constitutions/go-style.md
     method: |
         Rank production command packages by non-test size, then inspect functions
         for runtime behavior that belongs in an internal package. Size orders the
@@ -60,10 +60,10 @@ documents:
       supersession:
         status: absorbed
         documents:
-            - applications/catalog/docs/specs/software-requirements/srd006-bench.yaml
-            - applications/catalog/docs/specs/software-requirements/srd011-knowledge-manager.yaml
-            - applications/catalog/docs/specs/use-cases/rel07.0-uc001-documentation-curator-profile-ux.yaml
-            - applications/catalog/docs/specs/use-cases/rel07.0-uc004-bench-evaluator-profile-boundary.yaml
+            - applications/catalog/docs/specs/software-requirements/srd006-bench.md
+            - applications/catalog/docs/specs/software-requirements/srd011-knowledge-manager.md
+            - applications/catalog/docs/specs/use-cases/rel07.0-uc001-documentation-curator-profile-ux.md
+            - applications/catalog/docs/specs/use-cases/rel07.0-uc004-bench-evaluator-profile-boundary.md
       resolution: Deleted by GH-1794 after the finding gate found no live dependency.
     - path: agent-core/docs/specs/audits/declarative-decomposition-audit-2026-08-13.md
       previous_path: agent-core/docs/declarative-decomposition-audit-2026-08-13.md
@@ -105,8 +105,8 @@ documents:
         status: absorbed
         documents:
             - agent-core/README.md
-            - agent-core/docs/ARCHITECTURE.yaml
-            - agent-core/docs/specs/config-formats/runtime-contract.yaml
+            - agent-core/docs/ARCHITECTURE.md
+            - agent-core/docs/specs/config-formats/runtime-contract.md
             - agent-core/package-layout.md
       resolution: Deleted by GH-1794 after every recorded drift section named completed work.
     - path: agent-core/docs/grammar-machine-conformance-inventory.md
@@ -125,9 +125,9 @@ documents:
       supersession:
         status: absorbed
         documents:
-            - agent-core/docs/ARCHITECTURE.yaml
-            - agent-core/docs/specs/semantic-models/tool-language.yaml
-            - agent-core/docs/specs/config-formats/tool-authoring-standard.yaml
+            - agent-core/docs/ARCHITECTURE.md
+            - agent-core/docs/specs/semantic-models/tool-language.md
+            - agent-core/docs/specs/config-formats/tool-authoring-standard.md
       resolution: Deleted by GH-1794 after its seven alignment units were complete.
     - path: agent-core/docs/specs/audits/rel03-rest-design-audit.md
       previous_path: agent-core/docs/rel03-rest-design-audit.md
@@ -136,7 +136,7 @@ documents:
       classification: live_audit_report
       referrers:
         tracked:
-            - agent-core/docs/SPECIFICATIONS.yaml
+            - agent-core/docs/SPECIFICATIONS.md
             - this structure audit register
         open_issues:
             - GH-1776
@@ -155,19 +155,19 @@ documents:
         - agent-core/pkg/spec/tool_declaration_reach_test.go
         - agent-core/pkg/spec/validate_contract_baseline_test.go
       resolution: GH-1797 relocated the unchanged shrink-only ratchet beside its validator.
-    - path: applications/catalog/docs/migrations/v0.20260727.0-agent-role-realization-alignment.yaml
+    - path: applications/catalog/docs/migrations/v0.20260727.0-agent-role-realization-alignment.md
       source: method_1
       status: fixed
       classification: schema_lag
       document_type: migration
       resolution: GH-1795 registered the existing migration convention; no file move was required.
-    - path: applications/catalog/docs/migrations/v0.20260730.0-collector-family.yaml
+    - path: applications/catalog/docs/migrations/v0.20260730.0-collector-family.md
       source: method_1
       status: fixed
       classification: schema_lag
       document_type: migration
       resolution: GH-1795 registered the existing migration convention; no file move was required.
-    - path: applications/catalog/docs/migrations/v0.20260804.0-applier-family.yaml
+    - path: applications/catalog/docs/migrations/v0.20260804.0-applier-family.md
       source: method_1
       status: fixed
       classification: schema_lag
@@ -187,25 +187,25 @@ documents:
       classification: misfiled
       document_type: guide
       resolution: GH-1790 moved the guide and repaired README and specification-index links.
-    - path: applications/coding-agent/docs/migrations/rel14.0-actor-directories.yaml
+    - path: applications/coding-agent/docs/migrations/rel14.0-actor-directories.md
       source: method_1
       status: fixed
       classification: schema_lag
       document_type: migration
       resolution: GH-1795 registered the existing migration convention; no file move was required.
-    - path: applications/docs/pattern-language.yaml
+    - path: applications/docs/pattern-language.md
       source: method_1
       status: fixed
       classification: schema_lag
       document_type: pattern_language
       resolution: GH-1795 registered its active, repository-shared location.
-    - path: docs/engineering/eng01-kind-test-demo-rig.yaml
+    - path: docs/engineering/eng01-kind-test-demo-rig.md
       source: scope_reconciliation
       status: fixed
       classification: schema_lag
       document_type: engineering_guideline
       resolution: GH-1795 declared the repository-wide engineering location.
-    - path: docs/engineering/eng02-agent-ui-placement.yaml
+    - path: docs/engineering/eng02-agent-ui-placement.md
       source: scope_reconciliation
       status: fixed
       classification: schema_lag

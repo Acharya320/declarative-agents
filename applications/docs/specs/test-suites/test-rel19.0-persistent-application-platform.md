@@ -81,15 +81,15 @@ GH-2476
 
     root = Path("applications/docs")
     paths = {
-        "srd": root / "specs/software-requirements/srd008-persistent-application-platform.yaml",
-        "use_case": root / "specs/use-cases/rel19.0-uc001-persistent-application-platform.yaml",
-        "suite": root / "specs/test-suites/test-rel19.0-persistent-application-platform.yaml",
-        "index": root / "SPECIFICATIONS.yaml",
-        "roadmap": root / "road-map.yaml",
-        "architecture": root / "ARCHITECTURE.yaml",
-        "pattern": root / "pattern-language.yaml",
-        "eng01": Path("docs/engineering/eng01-kind-test-demo-rig.yaml"),
-        "eng08": Path("docs/engineering/eng08-gcp-demo-rig.yaml"),
+        "srd": root / "specs/software-requirements/srd008-persistent-application-platform.md",
+        "use_case": root / "specs/use-cases/rel19.0-uc001-persistent-application-platform.md",
+        "suite": root / "specs/test-suites/test-rel19.0-persistent-application-platform.md",
+        "index": root / "SPECIFICATIONS.md",
+        "roadmap": root / "road-map.md",
+        "architecture": root / "ARCHITECTURE.md",
+        "pattern": root / "pattern-language.md",
+        "eng01": Path("docs/engineering/eng01-kind-test-demo-rig.md"),
+        "eng08": Path("docs/engineering/eng08-gcp-demo-rig.md"),
     }
     docs = {name: yaml.safe_load(path.read_text()) for name, path in paths.items()}
     required = {

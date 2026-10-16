@@ -91,7 +91,7 @@ the collector query surface for the cross-agent waterfall.
 ## Role realization alignment
 
 ```yaml
-authority: applications/docs/specs/semantic-models/agent-role-realizations.yaml
+authority: applications/docs/specs/semantic-models/agent-role-realizations.md
 language_rule: |
     Actors and profiles assume or realize canonical roles; they are not role
     definitions. Helm names identify workloads and deployment instances and
@@ -102,14 +102,14 @@ decisions:
       canonical_role_sub_role: Planner / Intent Handler; Executor / Workflow Orchestrator; Knowledge Manager / Recommendation Generator.
       retained_or_proposed_name: Retain descriptive multi-role actor `chatbot`.
       authority_boundary: Selects declared words and trusted topology only; no lifecycle or deployment authority.
-      evidence: [agents/chatbot/request-machine.yaml, docs/specs/software-requirements/srd002-chatbot-agent.yaml]
+      evidence: [agents/chatbot/request-machine.yaml, docs/specs/software-requirements/srd002-chatbot-agent.md]
       migration_impact: None.
     - current_actor: rag-server
       implemented_responsibility: Serve ranked chunks from one configured corpus through a vector-in query boundary.
       canonical_role_sub_role: Knowledge Manager / Recommendation Generator.
       retained_or_proposed_name: Retain descriptive serving actor `rag-server`.
       authority_boundary: Read-only retrieval; no ingest, answer, lifecycle, or transport-authority decision.
-      evidence: [agents/rag-server/request-machine.yaml, docs/specs/software-requirements/srd001-rag-server-agent.yaml]
+      evidence: [agents/rag-server/request-machine.yaml, docs/specs/software-requirements/srd001-rag-server-agent.md]
       migration_impact: None; values-named RAG units are deployment instances.
     - current_actor: corpus-ingest
       implemented_responsibility: Parameterize and package the catalog corpus-ingest closure for the mesh.
@@ -415,11 +415,11 @@ configuration:
     - path: helm/
       role: The deployment chart.
 documentation:
-    - path: docs/VISION.yaml
+    - path: docs/VISION.md
       role: Goals, boundaries, and success criteria.
-    - path: docs/ARCHITECTURE.yaml
+    - path: docs/ARCHITECTURE.md
       role: Components, interfaces, and decisions.
-    - path: docs/road-map.yaml
+    - path: docs/road-map.md
       role: The application's own release plan.
     - path: docs/specs/software-requirements/
       role: srd001 rag-server, srd002 chatbot, srd003 deployment.
@@ -454,12 +454,12 @@ progress:
 
 | doc | purpose |
 | --- | --- |
-| docs/VISION.yaml | Goals, boundaries, and success criteria. |
-| docs/road-map.yaml | The application's release plan. |
-| docs/specs/software-requirements/srd001-rag-server-agent.yaml | The RAG server agent requirements (relocated, renumbered). |
-| docs/specs/software-requirements/srd002-chatbot-agent.yaml | The chatbot agent requirements (relocated, renumbered). |
-| docs/specs/software-requirements/srd003-chatbot-deployment.yaml | The deployment requirements (relocated, renumbered), including the provisioning authority boundary (R4). |
-| docs/specs/software-requirements/srd004-provisioning-workflow-orchestrator.yaml | The provisioning-workflow-orchestrator agent requirements (control plane). |
-| docs/specs/software-requirements/srd005-creator.yaml | The creator agent requirements (control plane). |
-| docs/specs/software-requirements/srd006-applier.yaml | The applier agent requirements (deployment plane) that replace the Go provisioner. |
+| docs/VISION.md | Goals, boundaries, and success criteria. |
+| docs/road-map.md | The application's release plan. |
+| docs/specs/software-requirements/srd001-rag-server-agent.md | The RAG server agent requirements (relocated, renumbered). |
+| docs/specs/software-requirements/srd002-chatbot-agent.md | The chatbot agent requirements (relocated, renumbered). |
+| docs/specs/software-requirements/srd003-chatbot-deployment.md | The deployment requirements (relocated, renumbered), including the provisioning authority boundary (R4). |
+| docs/specs/software-requirements/srd004-provisioning-workflow-orchestrator.md | The provisioning-workflow-orchestrator agent requirements (control plane). |
+| docs/specs/software-requirements/srd005-creator.md | The creator agent requirements (control plane). |
+| docs/specs/software-requirements/srd006-applier.md | The applier agent requirements (deployment plane) that replace the Go provisioner. |
 | README.md | The decisions record and standalone-program framing. |

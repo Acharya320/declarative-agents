@@ -97,7 +97,7 @@ that select canonical machines, declarations, and REST assets without copying
 them. They are supported through the remainder of v0 and removed at
 v1; new consumers must use canonical paths. The complete
 application-local identity migration and exact release pair are recorded in
-`docs/migrations/v0.20260727.0-agent-role-realization-alignment.yaml`.
+`docs/migrations/v0.20260727.0-agent-role-realization-alignment.md`.
 
 The canonical applier family at `agents/applier/` owns lifecycle hosting,
 request-machine sequencing, name-only selections, and shared lifecycle and
@@ -106,7 +106,7 @@ compose it through local wrappers. Their chart names, schema paths, release and
 Deployment coordinates, rollout commands, REST endpoints, RBAC, and caller
 authority remain application-owned. The coordinated promotion and root `v0.*`
 compatibility record is
-`docs/migrations/v0.20260804.0-applier-family.yaml`.
+`docs/migrations/v0.20260804.0-applier-family.md`.
 
 The rig-subject and `testdata/conformance/` REST/control/lifecycle fixtures are
 different: they exercise `agent-core` behavior and remain internal scaffolding
@@ -258,8 +258,8 @@ git branch -D exp/<slug>
 ## Runtime contract and authority
 
 This repository does not define how `cmd/agent` bootstraps paths. That contract
-lives in **agent-core**: `docs/specs/config-formats/runtime-contract.yaml`,
-`docs/specs/software-requirements/srd034-external-agent-profiles.yaml`, and the
+lives in **agent-core**: `docs/specs/config-formats/runtime-contract.md`,
+`docs/specs/software-requirements/srd034-external-agent-profiles.md`, and the
 constitution set under `docs/constitutions/`. Related work is tracked in
 **agent-core** as epic **`agent-core-tj96`** (single configuration
 authority), with the file-and-flag documentation milestone **`agent-core-tj96.1`**.

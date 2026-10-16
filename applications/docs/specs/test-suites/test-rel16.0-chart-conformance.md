@@ -73,12 +73,12 @@ executable_structural
 
     root = Path("applications/docs")
     paths = {
-        "srd": root / "specs/software-requirements/srd005-chart-conformance.yaml",
-        "use_case": root / "specs/use-cases/rel16.0-uc001-chart-conformance.yaml",
-        "suite": root / "specs/test-suites/test-rel16.0-chart-conformance.yaml",
-        "index": root / "SPECIFICATIONS.yaml",
-        "roadmap": root / "road-map.yaml",
-        "guideline": Path("docs/engineering/eng01-kind-test-demo-rig.yaml"),
+        "srd": root / "specs/software-requirements/srd005-chart-conformance.md",
+        "use_case": root / "specs/use-cases/rel16.0-uc001-chart-conformance.md",
+        "suite": root / "specs/test-suites/test-rel16.0-chart-conformance.md",
+        "index": root / "SPECIFICATIONS.md",
+        "roadmap": root / "road-map.md",
+        "guideline": Path("docs/engineering/eng01-kind-test-demo-rig.md"),
     }
     docs = {name: yaml.safe_load(path.read_text()) for name, path in paths.items()}
     required = {

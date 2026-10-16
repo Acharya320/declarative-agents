@@ -6,7 +6,7 @@
 `applications/` contains runnable application modules and the repository's
 reusable declarative catalog. These are different ownership classes.
 
-The canonical [applications vision](docs/VISION.yaml) explains why we compose
+The canonical [applications vision](docs/VISION.md) explains why we compose
 multi-agent systems, when one actor is sufficient, how intent and assurance
 flows cross the composition, and how a solution architecture becomes a runnable
 module, making it the entry point for the shared application contract.
@@ -20,7 +20,7 @@ managed boundary would add cost without isolation or control.
 
 Canonical roles are semantic interfaces. Profiles and runtime actors realize
 one or more of them as defined by the
-[role-realization model](docs/specs/semantic-models/agent-role-realizations.yaml).
+[role-realization model](docs/specs/semantic-models/agent-role-realizations.md).
 The application owns relationships, sequencing, topology, configuration, and
 human decision points among those actors. `agent-core` interprets each profile.
 
@@ -41,7 +41,7 @@ human decision points among those actors. `agent-core` interprets each profile.
 6. Prove the real path with structural checks and application-owned end-to-end
    evidence, then register the module in the applicable root Mage gates.
 
-The [application pattern language](docs/pattern-language.yaml) gives construction
+The [application pattern language](docs/pattern-language.md) gives construction
 patterns for canonical reuse, explicit composition, package closure,
 profile-free runtimes, wrappers, and role-scoped workloads. The shared vision
 remains the authority for purpose, boundaries, and the ordered process.
@@ -69,13 +69,13 @@ remains the authority for purpose, boundaries, and the ordered process.
   application UIs (srd004). It is a library, not an application, and has no
   `agents/application.yaml`.
 
-The shared contract follows the [vision](docs/VISION.yaml) under [`docs/`](docs/).
+The shared contract follows the [vision](docs/VISION.md) under [`docs/`](docs/).
 Application-local architecture and SRDs extend that contract with business
 behavior, topology, and evidence. They cite the shared requirements instead of
 copying them.
 
 The application-composition pattern language is
-[`docs/pattern-language.yaml`](docs/pattern-language.yaml). It covers catalog
+[`docs/pattern-language.md`](docs/pattern-language.md). It covers catalog
 consumption, application-owned composition, package-time closure, deployment
 topology, and module governance. It extends the
 [single-agent pattern language](../design-patterns/pattern-language.yaml)
@@ -91,8 +91,8 @@ application:
 - `agents/application.yaml`: schema-versioned composition authority for direct
   catalog and local profile roots, runtime paths, compatibility, deployment and
   UI entries when present, capability status, and evidence.
-- `docs/VISION.yaml`, `docs/ARCHITECTURE.yaml`, `docs/road-map.yaml`, and
-  `docs/SPECIFICATIONS.yaml`: the application-local design and traceability
+- `docs/VISION.md`, `docs/ARCHITECTURE.md`, `docs/road-map.md`, and
+  `docs/SPECIFICATIONS.md`: the application-local design and traceability
   corpus.
 - `magefiles/` or an equivalent local Mage entry: `audit` is required. Tests,
   stats, package, Helm, integration, doctor, and demo targets exist only when
@@ -161,7 +161,7 @@ the corresponding capability:
 - `packaged`: a deterministic distributable application artifact.
 - `helm_managed`: a Helm chart and chart-specific operator surfaces.
 - `kind_demo`: a kind integration or demo rig governed by
-  [`ENG01`](../docs/engineering/eng01-kind-test-demo-rig.yaml).
+  [`ENG01`](../docs/engineering/eng01-kind-test-demo-rig.md).
 
 The baseline does not require packaging, Helm, Kubernetes, kind, or a managed
 service. ENG01 governs applications that provide a kind demo; it does not make a

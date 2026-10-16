@@ -9,7 +9,7 @@ status: relocated
 <!-- field: canonical_path -->
 ## Canonical path
 
-applications/chatbot-mesh/docs/specs/software-requirements/srd004-provisioning-workflow-orchestrator.yaml
+applications/chatbot-mesh/docs/specs/software-requirements/srd004-provisioning-workflow-orchestrator.md
 
 <!-- field: note -->
 ## Note

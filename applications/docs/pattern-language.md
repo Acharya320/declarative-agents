@@ -88,7 +88,7 @@ canonical_example: >
 ## Role realization conventions
 
 ```yaml
-authority: applications/docs/specs/semantic-models/agent-role-realizations.yaml
+authority: applications/docs/specs/semantic-models/agent-role-realizations.md
 naming_form: <context-or-purpose>-<primary-role>[-<deployment-or-configuration-form>]
 identifier_style: lower-kebab-case
 directory_rules:

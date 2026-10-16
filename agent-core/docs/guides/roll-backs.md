@@ -12,13 +12,13 @@
 
 ## Canonical Documents
 
-- Requirements: `docs/specs/software-requirements/srd025-rollback-lifecycle.yaml`
-- Semantic model: `docs/specs/semantic-models/rollback-lifecycle.yaml`
-- Command undo audit: `docs/specs/semantic-models/command-undo-audit.yaml`
-- Approval/suspend/resume use case: `docs/specs/use-cases/rel02.0-uc001-approval-suspend-resume.yaml`
-- History/rollback use case: `docs/specs/use-cases/rel02.0-uc002-history-rollback.yaml`
-- Lifecycle formal tests: `docs/specs/test-suites/test-rel02.0-lifecycle.yaml`
-- Tool contract formal tests that cover rollback metadata: `docs/specs/test-suites/test-rel02.0-tool-contracts.yaml`
+- Requirements: `docs/specs/software-requirements/srd025-rollback-lifecycle.md`
+- Semantic model: `docs/specs/semantic-models/rollback-lifecycle.md`
+- Command undo audit: `docs/specs/semantic-models/command-undo-audit.md`
+- Approval/suspend/resume use case: `docs/specs/use-cases/rel02.0-uc001-approval-suspend-resume.md`
+- History/rollback use case: `docs/specs/use-cases/rel02.0-uc002-history-rollback.md`
+- Lifecycle formal tests: `docs/specs/test-suites/test-rel02.0-lifecycle.md`
+- Tool contract formal tests that cover rollback metadata: `docs/specs/test-suites/test-rel02.0-tool-contracts.md`
 
 ## Coverage Map
 

@@ -93,7 +93,7 @@ and core-owned assets.
 <!-- field: canonical_documents -->
 ## Canonical documents
 
-- docs/ARCHITECTURE.yaml
-- docs/SPECIFICATIONS.yaml
-- docs/road-map.yaml
-- docs/constitutions/issue-format.yaml
+- docs/ARCHITECTURE.md
+- docs/SPECIFICATIONS.md
+- docs/road-map.md
+- docs/constitutions/issue-format.md

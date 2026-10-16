@@ -77,7 +77,7 @@ it.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | docs/engineering/eng01-kind-test-demo-rig.yaml | States that the annotation is the release record and the verb's contract. |
+| T1 | docs/engineering/eng01-kind-test-demo-rig.md | States that the annotation is the release record and the verb's contract. |
 | T2 | magefiles/tag_verify.go | The check applying the four rules with one named reason per failure. |
 | T3 | magefiles/tag.go | Creates the lightweight ref the session annotates; unchanged by this release. |
 | T4 | srd007-release-annotation AC1 | The degenerate-annotation refusals. |

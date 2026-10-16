@@ -200,6 +200,6 @@ configuration in agents/<name>/ui/ui.yaml, and write the binding root as
 - applications/chatbot-mesh/agents/chatbot/rest.yaml (the ${VAR:-default} root form)
 - GH-1316 (chatbot-mesh ux/ to agents/chatbot/ui migration)
 - agent-core/docs/specs/software-requirements/srd013 R5.6/R5.7 (mounted-declaration ${VAR:-default} parameterization)
-- applications/catalog/docs/specs/software-requirements/srd020-collector.yaml R7.4 (collector static_assets root: literal, profile-directory-relative, no new environment variable)
+- applications/catalog/docs/specs/software-requirements/srd020-collector.md R7.4 (collector static_assets root: literal, profile-directory-relative, no new environment variable)
 - applications/agent-architecture/helm/templates/curator.yaml (a held-out UI: literal roots with the container workingDir set to the unpack path)
 - GH-2348 (documentation-curator UIs served 404: literal root against the image's / working directory)

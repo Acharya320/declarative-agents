@@ -94,7 +94,7 @@ amendment: Changing an edge, a baseline, or a singleton is done by editing this 
 <!-- field: references -->
 ## References
 
-- docs/constitutions/go-style.yaml
-- docs/constitutions/testing.yaml
+- docs/constitutions/go-style.md
+- docs/constitutions/testing.md
 - docs/guides/package-layout.md
 - design-patterns/pattern-language.yaml

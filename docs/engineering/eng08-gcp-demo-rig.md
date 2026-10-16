@@ -191,11 +191,11 @@ build none of it until an application carries a real secret.
 <!-- field: references -->
 ## References
 
-- docs/engineering/eng01-kind-test-demo-rig.yaml (the local half of the doctrine)
-- docs/engineering/eng06-releases-and-pinning.yaml (commit-tagged images and pin discipline)
-- docs/engineering/eng07-configuration-discipline.yaml (checked-in optional config, literal defaults, no environment variables)
-- agent-core/docs/specs/software-requirements/srd059-objectstore-tools.yaml (the words the bucket backs)
-- applications/docs/specs/software-requirements/srd008-persistent-application-platform.yaml (ownership, lifecycle, bucket, collector, and query contract)
-- applications/catalog/docs/specs/software-requirements/srd022-applier.yaml (R6, the deploy machine this rig points at GKE)
+- docs/engineering/eng01-kind-test-demo-rig.md (the local half of the doctrine)
+- docs/engineering/eng06-releases-and-pinning.md (commit-tagged images and pin discipline)
+- docs/engineering/eng07-configuration-discipline.md (checked-in optional config, literal defaults, no environment variables)
+- agent-core/docs/specs/software-requirements/srd059-objectstore-tools.md (the words the bucket backs)
+- applications/docs/specs/software-requirements/srd008-persistent-application-platform.md (ownership, lifecycle, bucket, collector, and query contract)
+- applications/catalog/docs/specs/software-requirements/srd022-applier.md (R6, the deploy machine this rig points at GKE)
 - Workload Identity, https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity
 - GKE Autopilot, https://cloud.google.com/kubernetes-engine/docs/concepts/autopilot-overview

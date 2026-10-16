@@ -94,7 +94,7 @@ Table 2: Spec artifact elements and their corpus forms
 <!-- section: markdown-format-re-check -->
 ## Markdown format re-check
 
-The corpus is migrating from YAML to Markdown with marker
+The corpus moved from YAML to Markdown with marker
 comments (eng10). Spec Kit's artifacts are Markdown checked by
 convention, so the migration could have turned every row of
 Table 2 back into a convention. It does not: Table 3 maps each
@@ -181,8 +181,8 @@ outside the deterministic audit.
 
 - agent-core/docs/constitutions/design.yaml
 - docs/engineering/eng10-markdown-spec-format.md
-- agent-core/docs/constitutions/issue-format.yaml
-- agent-core/docs/specs/software-requirements/srd014-spec-graph.yaml
+- agent-core/docs/constitutions/issue-format.md
+- agent-core/docs/specs/software-requirements/srd014-spec-graph.md
 - https://github.com/github/spec-kit
 - https://github.github.io/spec-kit/reference/agentic-sdd.html
 - https://github.com/Nokia-Bell-Labs/declarative-agents/issues/2545

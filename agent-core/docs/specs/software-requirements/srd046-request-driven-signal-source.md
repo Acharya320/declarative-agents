@@ -333,9 +333,9 @@ Structured traces and errors cover every source outcome, ownership is always rel
 <!-- field: related_documents -->
 ## Related documents
 
-- docs/ARCHITECTURE.yaml
-- docs/specs/config-formats/runtime-contract.yaml
-- docs/specs/semantic-models/machine-request-http.yaml
+- docs/ARCHITECTURE.md
+- docs/specs/config-formats/runtime-contract.md
+- docs/specs/semantic-models/machine-request-http.md
 - docs/guides/rest-tool.md
 
 <!-- field: implementation_status -->

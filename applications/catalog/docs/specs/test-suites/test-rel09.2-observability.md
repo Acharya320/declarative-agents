@@ -10,7 +10,7 @@ status: relocated
 <!-- field: canonical_path -->
 ## Canonical path
 
-applications/chatbot-mesh/docs/specs/test-suites/test-rel02.0-observability.yaml
+applications/chatbot-mesh/docs/specs/test-suites/test-rel02.0-observability.md
 
 <!-- field: note -->
 ## Note

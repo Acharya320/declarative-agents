@@ -292,20 +292,20 @@ and lifecycle recovery benefit every agent that imports agent-core.
 <!-- field: canonical_documents -->
 ## Canonical documents
 
-- docs/specs/config-formats/tool-authoring-standard.yaml
-- docs/specs/semantic-models/tool-language.yaml
-- docs/specs/semantic-models/rollback-lifecycle.yaml
-- docs/specs/software-requirements/srd022-builtin-tools.yaml
-- docs/specs/software-requirements/srd023-cli-exec-tools.yaml
-- docs/specs/software-requirements/srd024-blocking-input-tools.yaml
-- docs/specs/software-requirements/srd025-rollback-lifecycle.yaml
-- docs/specs/software-requirements/srd035-checkpoint-port.yaml
-- docs/specs/software-requirements/srd030-machine-request-rest-binding.yaml
-- docs/specs/software-requirements/srd031-declarative-document-resources.yaml
-- docs/specs/use-cases/rel02.0-uc003-tool-authoring.yaml
-- docs/specs/use-cases/rel02.0-uc004-sentence-tool-migration.yaml
-- docs/specs/use-cases/rel03.0-uc007-machine-request-documentation-ux.yaml
-- docs/specs/test-suites/test-rel02.0-tool-contracts.yaml
+- docs/specs/config-formats/tool-authoring-standard.md
+- docs/specs/semantic-models/tool-language.md
+- docs/specs/semantic-models/rollback-lifecycle.md
+- docs/specs/software-requirements/srd022-builtin-tools.md
+- docs/specs/software-requirements/srd023-cli-exec-tools.md
+- docs/specs/software-requirements/srd024-blocking-input-tools.md
+- docs/specs/software-requirements/srd025-rollback-lifecycle.md
+- docs/specs/software-requirements/srd035-checkpoint-port.md
+- docs/specs/software-requirements/srd030-machine-request-rest-binding.md
+- docs/specs/software-requirements/srd031-declarative-document-resources.md
+- docs/specs/use-cases/rel02.0-uc003-tool-authoring.md
+- docs/specs/use-cases/rel02.0-uc004-sentence-tool-migration.md
+- docs/specs/use-cases/rel03.0-uc007-machine-request-documentation-ux.md
+- docs/specs/test-suites/test-rel02.0-tool-contracts.md
 
 <!-- field: dependencies -->
 ## Dependencies

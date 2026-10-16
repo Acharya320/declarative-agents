@@ -3,7 +3,7 @@
 
 # @declarative-agents/ui-kit
 
-The shared presentation package for declarative-agents user interfaces. It owns the design tokens, the injectable HTTP and SSE client, the presentation-contract clients and their recorded fixtures, the generic application shell, shared hooks, and the observability panels. The contract it binds to is `applications/docs/specs/software-requirements/srd004-declarative-ux.yaml`; the design guide is `docs/guides/ui-panels.md`.
+The shared presentation package for declarative-agents user interfaces. It owns the design tokens, the injectable HTTP and SSE client, the presentation-contract clients and their recorded fixtures, the generic application shell, shared hooks, and the observability panels. The contract it binds to is `applications/docs/specs/software-requirements/srd004-declarative-ux.md`; the design guide is `docs/guides/ui-panels.md`.
 
 The kit is a library: React 19 is a peer dependency, and the built `dist/` is not committed. Applications compose kit panels with their own domain panels at build time.
 

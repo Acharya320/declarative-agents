@@ -2116,7 +2116,7 @@ mage integration:documentationCurator
 ```yaml
 browser_request: GET or POST document index endpoint configured as machine_request
 document_resource: documentation_corpus
-expected_document: SPECIFICATIONS.yaml
+expected_document: SPECIFICATIONS.md
 ```
 
 <!-- field: expected -->
@@ -2163,8 +2163,8 @@ mage integration:documentationCurator
 #### Inputs
 
 ```yaml
-selected_document: SPECIFICATIONS.yaml
-nested_index_document: specs/use-cases/rel03.0-uc007-machine-request-documentation-ux.yaml
+selected_document: SPECIFICATIONS.md
+nested_index_document: specs/use-cases/rel03.0-uc007-machine-request-documentation-ux.md
 response_modes: [raw_yaml, parsed_yaml]
 blocked_paths:
     - ../go.mod
@@ -2216,7 +2216,7 @@ mage integration:documentationCurator
 #### Inputs
 
 ```yaml
-selected_document: SPECIFICATIONS.yaml
+selected_document: SPECIFICATIONS.md
 rendered_selectors:
     - .doc-viewer
     - .doc-raw-section

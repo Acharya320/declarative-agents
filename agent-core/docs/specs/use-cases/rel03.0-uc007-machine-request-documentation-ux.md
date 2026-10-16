@@ -34,7 +34,7 @@ machine_request-backed documentation server with configured document resources.
 - F3: The UI requests the document index through the generic REST documentation_curator.documents machine_request route. Request validation runs before one short-lived request machine starts.
 - F4: The request machine dispatches declared find against the fixed docs/ corpus, then a resource word validates and shapes those paths before emitting DocumentListReady.
 - F5: The response word maps DocumentListReady output to the HTTP index response. The UI shows sidebar categories from the returned document list.
-- F6: The operator selects SPECIFICATIONS.yaml or another YAML document from the sidebar.
+- F6: The operator selects SPECIFICATIONS.md or another YAML document from the sidebar.
 - F7: The browser requests that raw YAML document through the generic REST documentation_curator.document machine_request route. Path validation runs before a second short-lived request machine starts.
 - F8: The request machine dispatches a document get word. Path policy denies traversal and permits only configured YAML or Markdown extensions.
 - F9: The response word returns raw YAML and parsed content according to the document resource response mode.

@@ -11,7 +11,7 @@ test_suite: test-rel00.0
 
 A maintainer runs the spec graph loader and validator against the repository
 documentation corpus. The validator parses SRDs, use cases, test suites,
-the roadmap, and SPECIFICATIONS.yaml into a graph, then reports broken
+the roadmap, and SPECIFICATIONS.md into a graph, then reports broken
 references, orphaned SRDs, uncovered criteria, and release coverage gaps.
 
 <!-- field: actor -->
@@ -28,7 +28,7 @@ documentation task.
 <!-- field: flow -->
 ## Flow
 
-- F1: LoadCorpus discovers SRDs, use cases, test suites, road-map.yaml, and SPECIFICATIONS.yaml from the standard documentation layout (srd014 R4).
+- F1: LoadCorpus discovers SRDs, use cases, test suites, road-map.md, and SPECIFICATIONS.md from the standard documentation layout (srd014 R4).
 - F2: The parser reads each artifact into typed structs for SRDs, use cases, test suites, roadmap releases, and the spec index (srd014 R1).
 - F3: BuildGraph creates release, SRD, requirement, acceptance criterion, use case, test suite, and test case nodes with contains, depends-on, traces, covers, and tests edges (srd014 R2).
 - F4: Validate reports orphaned SRDs, broken touchpoints, invalid test citations, uncovered requirement items, uncovered acceptance criteria, dependency errors, and releases without test suites (srd014 R3).
@@ -39,7 +39,7 @@ documentation task.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd014-spec-graph R1.1, R1.2, R1.3, R1.4, R1.5, R1.6 | typed parsers for SRDs, use cases, test suites, roadmap, and SPECIFICATIONS.yaml |
+| T1 | srd014-spec-graph R1.1, R1.2, R1.3, R1.4, R1.5, R1.6 | typed parsers for SRDs, use cases, test suites, roadmap, and SPECIFICATIONS.md |
 | T2 | srd014-spec-graph R2.1, R2.2, R2.3 | graph node kinds and relationship edges |
 | T3 | srd014-spec-graph R3.1, R3.2, R3.3, R3.4, R3.5, R3.6, R3.7, R3.8, R3.9, R3.10 | validation findings for broken, orphaned, and uncovered documentation links |
 | T4 | srd014-spec-graph R4.1, R4.2, R4.3, R4.4 | standard corpus discovery paths |

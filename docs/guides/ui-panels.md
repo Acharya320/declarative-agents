@@ -3,13 +3,13 @@
 
 # UI panels
 
-Agent UIs are React single-page applications served by the agent itself: a `static_assets` REST binding (`agent-core/internal/tools/rest/definition/server.go`) serves a built Vite bundle from the path the agent's `rest.yaml` declares, with an SPA fallback. Each UI keeps a declarative descriptor, `ui/ui.yaml`, naming its routes, sidebar, and monitored agents. Placement rules live in `docs/engineering/eng02-agent-ui-placement.yaml`.
+Agent UIs are React single-page applications served by the agent itself: a `static_assets` REST binding (`agent-core/internal/tools/rest/definition/server.go`) serves a built Vite bundle from the path the agent's `rest.yaml` declares, with an SPA fallback. Each UI keeps a declarative descriptor, `ui/ui.yaml`, naming its routes, sidebar, and monitored agents. Placement rules live in `docs/engineering/eng02-agent-ui-placement.md`.
 
 Before the declarative UX epic the runtime treated every bundle as bytes on disk (a platform bundle such as the observer is now compiled into agent-core), a test cross-checked `ui.yaml` against a hand-written route table, and the applications shared one tokens file. The declarative UX epic (GH-2154, shipped) replaced each of these; this guide documents the resulting mechanics.
 
 ## The presentation contract
 
-Shared panels bind only to the platform monitor and trace surface that `applications/docs/specs/software-requirements/srd004-declarative-ux.yaml` (R1) pins: `/monitor/state`, `/monitor/machines`, `/monitor/tools/declared`, `/monitor/events/stream`, `/monitor/fleet`, and the two `/query/traces` forms. srd004 names each endpoint's owning SRD and never restates a schema. Panels reach other agents only through `/monitor-proxy/{agent}/{path...}`; a proxy 404 means the agent is not deployed and its panels are hidden. The cohere-demo observer's `/trace-proxy` name is retired (R2.3). Within contract major version 1, owners change responses additively only, and the kit's recorded fixtures are the consumer contract tests (R3).
+Shared panels bind only to the platform monitor and trace surface that `applications/docs/specs/software-requirements/srd004-declarative-ux.md` (R1) pins: `/monitor/state`, `/monitor/machines`, `/monitor/tools/declared`, `/monitor/events/stream`, `/monitor/fleet`, and the two `/query/traces` forms. srd004 names each endpoint's owning SRD and never restates a schema. Panels reach other agents only through `/monitor-proxy/{agent}/{path...}`; a proxy 404 means the agent is not deployed and its panels are hidden. The cohere-demo observer's `/trace-proxy` name is retired (R2.3). Within contract major version 1, owners change responses additively only, and the kit's recorded fixtures are the consumer contract tests (R3).
 
 ## The panel model
 
@@ -70,4 +70,4 @@ The canonical tokens file is `applications/ui-kit/src/tokens.css` (GH-2260). Eve
 
 UI code reads and writes only through the kit client, whose base URL is injectable, so the same panel runs same-origin and under a desktop shell later. A component a second application would want goes into the kit, not into an app's `src/`. `magefiles/ui_duplication_test.go` enforces this: it fails on a local copy of the panel path helpers, the monitor, trace, or fleet clients, the machine layout, the status bar, or sub-path routing; on `/trace-proxy` anywhere under `applications/`; on an unscoped stylesheet rule for a class the kit shell styles (`.shell`, `.sidebar`, `.nav-item`, `.content`, and their kin); and on a raw `fetch` or `EventSource` in a UI that uses the kit. Domain panels stay in their application; the epic does not unify them.
 
-When a component belongs in the kit, what a conforming application UI contains, and how a panel is promoted are conventions, not mechanics: [eng04-ui-kit-reuse](../engineering/eng04-ui-kit-reuse.yaml) states them.
+When a component belongs in the kit, what a conforming application UI contains, and how a panel is promoted are conventions, not mechanics: [eng04-ui-kit-reuse](../engineering/eng04-ui-kit-reuse.md) states them.

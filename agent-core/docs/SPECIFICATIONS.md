@@ -236,8 +236,8 @@ Source-of-truth note.
 
 | id | title | summary | path |
 | --- | --- | --- | --- |
-| agent-core | Agent Core: Framework for Declarative Tool-Language Agents | Vision, problem statement, success criteria, boundaries, and canonical links for declarative tool-language agents. | docs/VISION.yaml |
-| architecture-agent-core | Agent Core Architecture | Runtime, package, configuration, tool-language, lifecycle, telemetry, and specification architecture with Mermaid diagrams. | docs/ARCHITECTURE.yaml |
+| agent-core | Agent Core: Framework for Declarative Tool-Language Agents | Vision, problem statement, success criteria, boundaries, and canonical links for declarative tool-language agents. | docs/VISION.md |
+| architecture-agent-core | Agent Core Architecture | Runtime, package, configuration, tool-language, lifecycle, telemetry, and specification architecture with Mermaid diagrams. | docs/ARCHITECTURE.md |
 
 <!-- field: srd_index -->
 ## Srd index
@@ -246,264 +246,264 @@ Source-of-truth note.
 - id: srd001-core-types
   title: Core Types
   summary: State, Signal, Command, Result, Cost, Builder, and CommandResolver types. Three generic Signal constants.
-  path: docs/specs/software-requirements/srd001-core-types.yaml
+  path: docs/specs/software-requirements/srd001-core-types.md
 - id: srd002-state-machine
   title: State Machine
   summary: TransitionTable mapping (State, Signal) to (NextState, ActionFunc). StateMachine.Step, TerminalFunc, NewStateMachine.
-  path: docs/specs/software-requirements/srd002-state-machine.yaml
+  path: docs/specs/software-requirements/srd002-state-machine.md
 - id: srd003-command-dispatch
   title: Command Dispatch
   summary: Dispatch wrapping Command.Execute with tracing, timeout, panic recovery. SafeExecute, FillDuration, ForceErrorSignal.
-  path: docs/specs/software-requirements/srd003-command-dispatch.yaml
+  path: docs/specs/software-requirements/srd003-command-dispatch.md
 - id: srd004-tool-registry
   title: Tool Registry
   summary: ToolSpec with Visibility and Phases. Registry pairing specs with Builders. Manifest filtering, freeze semantics.
-  path: docs/specs/software-requirements/srd004-tool-registry.yaml
+  path: docs/specs/software-requirements/srd004-tool-registry.md
 - id: srd005-agentic-loop
   title: Agentic Loop
   summary: Loop function driving state machine with budget enforcement, event recording, LoopHooks, RunResult, and OTel tracing.
-  path: docs/specs/software-requirements/srd005-agentic-loop.yaml
+  path: docs/specs/software-requirements/srd005-agentic-loop.md
 - id: srd006-yaml-machine-config
   title: YAML State Machine Configuration
   summary: MachineSpec YAML schema, validation, BuildTransitionTable, profile-closure timeout-envelope inspection, LoadMachineSpec, and ParseMachineSpec.
-  path: docs/specs/software-requirements/srd006-yaml-machine-config.yaml
+  path: docs/specs/software-requirements/srd006-yaml-machine-config.md
 - id: srd007-tracer-interface
   title: Tracer Port Interface
   summary: "Tracer interface with five methods: Push, Event, SetAttributes, RecordError, Context. Includes NoopTracer."
-  path: docs/specs/software-requirements/srd007-tracer-interface.yaml
+  path: docs/specs/software-requirements/srd007-tracer-interface.md
 - id: srd008-telemetry
   title: Telemetry Implementation
   summary: OTel setup with Trace, TraceAdapter, NewRoot, ExporterConfig, and live file/OTLP exporters; offline replay is a declared OTLP-tool machine.
-  path: docs/specs/software-requirements/srd008-telemetry.yaml
+  path: docs/specs/software-requirements/srd008-telemetry.md
 - id: srd009-ollama-adapter
   title: Ollama LLM Adapter
   summary: Ollama chat behind llm.Client with model validation and tracing; the compiled adapter was retired by srd058 R5.2 and Ollama now ships as the tools/providers/ollama library.
-  path: docs/specs/software-requirements/srd009-ollama-adapter.yaml
+  path: docs/specs/software-requirements/srd009-ollama-adapter.md
 - id: srd010-conversation
   title: Conversation Management
   summary: Single Conversation type supporting managed (Send) and manual (Append) modes with thread-safe history and system prompt management.
-  path: docs/specs/software-requirements/srd010-conversation.yaml
+  path: docs/specs/software-requirements/srd010-conversation.md
 - id: srd011-prompt-schema
   title: Prompt Schema and Loading
   summary: Prompt struct with Role, Task, Constraints, OutputFormat. YAML loading with mode detection, defaults, validation, and assembly.
-  path: docs/specs/software-requirements/srd011-prompt-schema.yaml
+  path: docs/specs/software-requirements/srd011-prompt-schema.md
 - id: srd012-system-prompt-template
   title: System Prompt Template and Manifest Serialization
   summary: Embedded Go text/template for system prompts, PromptData struct, SerializeManifest, and custom template support.
-  path: docs/specs/software-requirements/srd012-system-prompt-template.yaml
+  path: docs/specs/software-requirements/srd012-system-prompt-template.md
 - id: srd013-standard-tool-library
   title: Standard Tool Library (STL)
   summary: Overview of shared standard tools, focused internal/tools package ownership, grouped declaration layout, and retired compatibility facade history.
-  path: docs/specs/software-requirements/srd013-standard-tool-library.yaml
+  path: docs/specs/software-requirements/srd013-standard-tool-library.md
 - id: srd014-spec-graph
   title: Specification Graph Loader and Validator
   summary: Parses SRDs, use cases, test suites into typed structs. Builds a labeled property graph for cross-artifact validation.
-  path: docs/specs/software-requirements/srd014-spec-graph.yaml
+  path: docs/specs/software-requirements/srd014-spec-graph.md
 - id: srd015-genai-semconv
   title: GenAI Semantic Convention Helpers
   summary: OTel GenAI semantic convention constants, span name builders, and attribute helpers in internal/observability/telemetry/genai.
-  path: docs/specs/software-requirements/srd015-genai-semconv.yaml
+  path: docs/specs/software-requirements/srd015-genai-semconv.md
 - id: srd016-traceparent
   title: W3C Traceparent Parse and Format
   summary: W3C traceparent version-00 parser, formatter, and context builder in internal/observability/telemetry, plus HTTP trace-context propagation (planned) that injects traceparent on outbound REST client requests and extracts it on inbound REST server endpoints so a cross-agent trace continues.
-  path: docs/specs/software-requirements/srd016-traceparent.yaml
+  path: docs/specs/software-requirements/srd016-traceparent.md
 - id: srd017-llm-extensions
   title: LLM Package Extensions
   summary: Parse utilities, response parser profiles, invoke_llm parser selection, and domain interfaces in internal/model/llm.
-  path: docs/specs/software-requirements/srd017-llm-extensions.yaml
+  path: docs/specs/software-requirements/srd017-llm-extensions.md
 - id: srd018-cli-flag-contract
   title: CLI Standard Flag Contract
   summary: Canonical flag name constants in internal/support/cli, PropagateArgs for child-process argument building, RemainingBudget, and FormatFlag.
-  path: docs/specs/software-requirements/srd018-cli-flag-contract.yaml
+  path: docs/specs/software-requirements/srd018-cli-flag-contract.md
 - id: srd019-eval-harness
   title: Evaluation Harness Infrastructure
   summary: Suite configuration, grid evaluation, session execution, atomic point workspace tools, dump_config, run_agent, oracle/trace/version point result tools, collect_metrics, result analysis, and convergence tracking in internal/evaluation.
-  path: docs/specs/software-requirements/srd019-eval-harness.yaml
+  path: docs/specs/software-requirements/srd019-eval-harness.md
 - id: srd020-bench-web-ui
   title: Bench Web UI
   summary: Profile-owned React frontend, generic REST and machine_request routes, evaluation artifact queries, operator event routing, and self-invoke evaluator launch.
-  path: docs/specs/software-requirements/srd020-bench-web-ui.yaml
+  path: docs/specs/software-requirements/srd020-bench-web-ui.md
 - id: srd021-agent-cli-exec-tool
   title: Agent CLI as an Exec Tool
   summary: Requirements for declaring the agent binary as a configured exec tool for child program invocation instead of bespoke Go subprocess paths.
-  path: docs/specs/software-requirements/srd021-agent-cli-exec-tool.yaml
+  path: docs/specs/software-requirements/srd021-agent-cli-exec-tool.md
 - id: srd022-builtin-tools
   title: Builtin Tool Declarations and Factories
   summary: Requirements for builtin declarations, grouped builtin declaration paths, target catalog and registry package ownership, typed config validation, state-machine integration, mode-local overrides, and collection words including ordered field projection.
-  path: docs/specs/software-requirements/srd022-builtin-tools.yaml
+  path: docs/specs/software-requirements/srd022-builtin-tools.md
 - id: srd023-cli-exec-tools
   title: CLI and Exec Tool Declarations
   summary: Requirements for declaring external CLIs as exec tools, grouped exec declaration paths, JSON-to-argv mapping, subprocess execution, command-state stdin and env overlay, output capture, declaration selection, and target exec package ownership.
-  path: docs/specs/software-requirements/srd023-cli-exec-tools.yaml
+  path: docs/specs/software-requirements/srd023-cli-exec-tools.md
 - id: srd024-blocking-input-tools
   title: Blocking Input Tools
   summary: Requirements for tools such as invoke_llm and generic REST event waits that intentionally block the loop while waiting for external model, human, or approval input.
-  path: docs/specs/software-requirements/srd024-blocking-input-tools.yaml
+  path: docs/specs/software-requirements/srd024-blocking-input-tools.md
 - id: srd025-rollback-lifecycle
   title: Rollback, Checkpoint, Suspend, and Resume Lifecycle
   summary: Requirements for checkpoint-port-backed persistence, ordered execution history, receipt-driven rollback, suspend, resume, approval gates, and profile-selected lifecycle tools.
   status: done
-  path: docs/specs/software-requirements/srd025-rollback-lifecycle.yaml
+  path: docs/specs/software-requirements/srd025-rollback-lifecycle.md
 - id: srd026-lifecycle-tools
   title: Lifecycle Tool Adapters
   summary: Requirements for checkpoint_history, checkpoint_rollback, and generic lifecycle control words such as exit_agent, selected by ToolDef declarations and MachineSpec transitions. Under revision for the Dolt-backed checkpoint port.
   status: done
-  path: docs/specs/software-requirements/srd026-lifecycle-tools.yaml
+  path: docs/specs/software-requirements/srd026-lifecycle-tools.md
 - id: srd035-checkpoint-port
   title: Typed Checkpoint Port
   summary: Requirements for a two-method typed checkpoint port (Save/Load) over typed Position and Execution values, an opaque tool-owned Receipt on each Entry, a folded conversation snapshot, Noop and InMemory reference adapters, save timing, and a single resume contract. Replaces the key/blob StateStore.
   status: done
-  path: docs/specs/software-requirements/srd035-checkpoint-port.yaml
+  path: docs/specs/software-requirements/srd035-checkpoint-port.md
 - id: srd036-dolt-state-persistence
   title: Dolt State Persistence
   summary: Requirements for a DoltCheckpoint adapter implementing the srd035 port behind a database/sql seam, a generic five-table schema splitting tool_results into a tool_outputs forward plane and a receipts reverse plane, commit-per-step and branch-per-run versioning with merge-to-main on terminal state, Load reconstruction, and a DB-only git-style Revert for rollback.
   status: done
-  path: docs/specs/software-requirements/srd036-dolt-state-persistence.yaml
+  path: docs/specs/software-requirements/srd036-dolt-state-persistence.md
 - id: srd027-rest-tool-runtime
   title: Declarative REST Tool Runtime
   summary: Shared REST runtime requirements for declarative client and server boundary tools, OpenAPI imports, net/http execution, event fan-in, lifecycle control routing, safety controls, observability, and rollback.
-  path: docs/specs/software-requirements/srd027-rest-tool-runtime.yaml
+  path: docs/specs/software-requirements/srd027-rest-tool-runtime.md
 - id: srd028-rest-client-tools
   title: REST Client Tools
   summary: Requirements for declarative outbound REST client words, resource operations, RPC-shaped invoke, async send/await, response shaping, retries, redaction, and compensation.
-  path: docs/specs/software-requirements/srd028-rest-client-tools.yaml
+  path: docs/specs/software-requirements/srd028-rest-client-tools.md
 - id: srd029-rest-server-tools
   title: REST Server Tools
   summary: Requirements for declarative inbound REST server words, route launch, await, stop, generic event sources, lifecycle control endpoints, queues, OpenAPI server binding, and request validation.
-  path: docs/specs/software-requirements/srd029-rest-server-tools.yaml
+  path: docs/specs/software-requirements/srd029-rest-server-tools.md
 - id: srd030-machine-request-rest-binding
   title: Machine Request REST Binding
   summary: Requirements for binding one inbound HTTP request to one short-lived MachineSpec execution with request mapping, response extraction, errors, timeouts, and tracing.
-  path: docs/specs/software-requirements/srd030-machine-request-rest-binding.yaml
+  path: docs/specs/software-requirements/srd030-machine-request-rest-binding.md
 - id: srd031-declarative-document-resources
   title: Declarative Document Resources
   summary: Requirements for filesystem-backed documentation resources with safe path resolution, include patterns, extension allowlists, YAML and Markdown response modes, and profile-owned UI placement.
-  path: docs/specs/software-requirements/srd031-declarative-document-resources.yaml
+  path: docs/specs/software-requirements/srd031-declarative-document-resources.md
 - id: srd032-tool-metrics-monitor-store
   title: Tool Metrics Monitor Store
   summary: Requirements for a bounded in-memory monitor store, ToolMetricsRecorder, metric validation, OpenTelemetry metric export, disabled-mode behavior, profile startup wiring, workflow labels, and release proof.
   status: done
-  path: docs/specs/software-requirements/srd032-tool-metrics-monitor-store.yaml
+  path: docs/specs/software-requirements/srd032-tool-metrics-monitor-store.md
 - id: srd033-monitor-rest-api
   title: Monitor REST API
   summary: Requirements for read-only REST and OpenAPI monitor endpoints over cached monitor state and trusted profile declarations, including root and declared-machine, tool, metric, event, stream views, presentation metadata, and live-store wiring.
   status: done
-  path: docs/specs/software-requirements/srd033-monitor-rest-api.yaml
+  path: docs/specs/software-requirements/srd033-monitor-rest-api.md
 - id: srd034-external-agent-profiles
   title: External Agent Profiles and Mounted Runtime Assets
   summary: Requirements for separating agent-core runtime assets from profile-owned programs and running containers with externally supplied profiles.
   status: implemented
-  path: docs/specs/software-requirements/srd034-external-agent-profiles.yaml
+  path: docs/specs/software-requirements/srd034-external-agent-profiles.md
 - id: srd037-tool-dispatch-simplification
   title: Tool Dispatch Wiring Simplification
   summary: Planning requirements for registry error returns, unified builtin registration, and shared external-tool availability checks while preserving Command, Builder, Dispatch, and MachineSpec semantics.
   status: in_progress
-  path: docs/specs/software-requirements/srd037-tool-dispatch-simplification.yaml
+  path: docs/specs/software-requirements/srd037-tool-dispatch-simplification.md
 - id: srd038-command-state-store
   title: Command-State Store
   summary: Requirements for a core-level read-only forward view over the run's execution log, letting any word select declared params from an earlier labeled step through a $from selector, rehydrated from the srd036 tool_outputs plane after restart, with a declared-param-only authority boundary that never exposes transport or receipts, branch-scoped lifetime tied to Revert and terminal reaping, and redaction before persistence.
   status: implemented
-  path: docs/specs/software-requirements/srd038-command-state-store.yaml
+  path: docs/specs/software-requirements/srd038-command-state-store.md
 - id: srd039-mock-endpoint-binding
   title: Mock REST Endpoint Binding
   summary: A mock binding for inbound REST endpoints that serves canned responses from fixture data, with routes keyed by method and literal path, ordered response scripts whose last entry repeats, a 404-and-record miss path, a request log served for validator assertions, fixture validation at --validate-config and startup, and concurrency-safe sequencing.
   status: implemented
-  path: docs/specs/software-requirements/srd039-mock-endpoint-binding.yaml
+  path: docs/specs/software-requirements/srd039-mock-endpoint-binding.md
 - id: srd040-service-child-tools
   title: Service-Child and Scenario Tools
   summary: Words for a rig machine that composes other machines - start_scenario_mock, start_scenario_subject, and stop_service manage background serve-mode children with injected environment, trusted runtime targets, and process-group reaping; profile-visible REST probes and delay transitions own readiness retries and timeout; one-validator child execution composes through MachineSpec iteration and join; init_scenario_session with next_scenario discovers and visits deterministic work under declared roots; and start_service with list_services starts any profile as a detached child under a declared count bound and reports its outcome.
   status: implemented
-  path: docs/specs/software-requirements/srd040-service-child-tools.yaml
+  path: docs/specs/software-requirements/srd040-service-child-tools.md
 - id: srd041-value-predicate-tool
   title: Value Predicate Tool
   summary: A pure builtin word that resolves declared operands, compares them under a closed operator and type set, and emits configured satisfied or unsatisfied signals while treating selector and coercion failures as CommandError.
   status: implemented
-  path: docs/specs/software-requirements/srd041-value-predicate-tool.yaml
+  path: docs/specs/software-requirements/srd041-value-predicate-tool.md
 - id: srd042-otlp-receiver-tools
   title: OTLP Receiver Tools
   summary: Trace-only boundary words for OTLP/gRPC launch, bounded batch await, stdouttrace-compatible spool, unchanged upstream relay, lifecycle stop, and ingress self-loop prevention.
   status: implemented
-  path: docs/specs/software-requirements/srd042-otlp-receiver-tools.yaml
+  path: docs/specs/software-requirements/srd042-otlp-receiver-tools.md
 - id: srd043-application-catalog-layout
   title: Application and Catalog Source Layout
   summary: Requirements for applications/{catalog,coding-agent,chatbot-mesh}, core-owned integration profiles, owner-root execution, AGENT_CATALOG_ROOT and its temporary alias, path-class distinctions, v0 tag compatibility, and migration sequencing.
   status: implemented
-  path: docs/specs/software-requirements/srd043-application-catalog-layout.yaml
+  path: docs/specs/software-requirements/srd043-application-catalog-layout.md
 - id: srd044-spool-query-tools
   title: Spool Query Tools
   summary: Read-only builtin words for paginated trace listing and per-trace span detail from the srd042 NDJSON spool, with rotation discovery and malformed-line tolerance.
   status: implemented
-  path: docs/specs/software-requirements/srd044-spool-query-tools.yaml
+  path: docs/specs/software-requirements/srd044-spool-query-tools.md
 - id: srd045-span-analytics-tools
   title: Span Analytics Tools
   summary: Read-only builtin words for aggregate reads over the srd042 NDJSON spool -- a filtered duration-over-time heatmap, group-by counts with a reported dropped remainder, and attribute divergence between a selected region and its complement.
   status: implemented
-  path: docs/specs/software-requirements/srd045-span-analytics-tools.yaml
+  path: docs/specs/software-requirements/srd045-span-analytics-tools.md
 - id: srd046-request-driven-signal-source
   title: Request-Driven Signal Source
   summary: A transport-neutral SignalSource maps validated requests to declared signal and payload envelopes, atomically distinguishes accepted, refused_undeclared, and refused_conflict, preserves checkpoint and resume behavior, and allows model-free profiles without changing the model path.
   status: implemented
-  path: docs/specs/software-requirements/srd046-request-driven-signal-source.yaml
+  path: docs/specs/software-requirements/srd046-request-driven-signal-source.md
 - id: srd047-dolt-boundary-word
   title: Configured Dolt Boundary Words
   summary: General-purpose provision, query, and write words whose trusted configuration owns connection, database, SQL, parameter schemas, schema lifecycle, and commit messages, with bound caller params, commit-per-write, checkpoint-database separation, and real-Dolt integration proof.
   status: implemented
-  path: docs/specs/software-requirements/srd047-dolt-boundary-word.yaml
+  path: docs/specs/software-requirements/srd047-dolt-boundary-word.md
 - id: srd048-cohere-adapter
   title: Cohere v2 LLM Adapter
   summary: Cohere v2 Chat adapter behind llm.Client with lazy bearer credentials, ordered content-block and token normalization, declarative invoke_llm provider selection, parser profile, safe errors, and GenAI telemetry.
   status: implemented
-  path: docs/specs/software-requirements/srd048-cohere-adapter.yaml
+  path: docs/specs/software-requirements/srd048-cohere-adapter.md
 - id: srd049-pipeline-word
   title: Pipeline Word
   summary: One declared word for an ordered sequence of pure marshalling stages, with eager stage registration, previous-result chaining, selector propagation, and one machine-visible success signal.
   status: implemented
-  path: docs/specs/software-requirements/srd049-pipeline-word.yaml
+  path: docs/specs/software-requirements/srd049-pipeline-word.md
 - id: srd050-declaration-imports
   title: Named Declaration Units and Explicit Imports
   summary: Explicit relative imports for named tool and REST declaration units, with deterministic graph resolution, duplicate and override rules, closure usedness, legacy includes compatibility, and canonical dump evidence.
   status: specified
-  path: docs/specs/software-requirements/srd050-declaration-imports.yaml
+  path: docs/specs/software-requirements/srd050-declaration-imports.md
 - id: srd052-declaration-fragments
   title: Parameterized Declaration Fragments
   summary: Declaration units with typed parameters, expanded by importers with arguments; scalar-only substitution before strict decoding, the hand-written validation path, closure usedness and dump provenance for expansions, and machine stage fragments spliced under a prefix.
   status: specified
-  path: docs/specs/software-requirements/srd052-declaration-fragments.yaml
+  path: docs/specs/software-requirements/srd052-declaration-fragments.md
 - id: srd054-machine-templates
   title: Machine Templates
   summary: Whole machines as fragments with a machine body, expanded by machine files carrying unit, one expansion, name, and purpose; stage splicing inside a template, validation as a hand-written machine with template and instance named, and closure, digest, dump, and staging provenance.
   status: specified
-  path: docs/specs/software-requirements/srd054-machine-templates.yaml
+  path: docs/specs/software-requirements/srd054-machine-templates.md
 - id: srd055-agent-blueprints
   title: Agent Blueprints
   summary: Whole agent profiles as fragments with a profile body, expanded per agent with wholesale field overrides; blueprint-relative path resolution, direct machine template expansion, the instance as program identity with blueprint and templates in its digest, and dump, staging, and audit provenance.
   status: specified
-  path: docs/specs/software-requirements/srd055-agent-blueprints.yaml
+  path: docs/specs/software-requirements/srd055-agent-blueprints.md
 - id: srd056-unit-libraries
   title: Unit Libraries
   summary: Import paths relative to the declaring file or absolute under a library root -- the implicit /opt/agent-core root or a root the profile declares under libraries -- with a --library override, closure-scoped roots, read-only libraries, closure, digest, and dump provenance, rooted staging, and the service-library convention.
   status: specified
-  path: docs/specs/software-requirements/srd056-unit-libraries.yaml
+  path: docs/specs/software-requirements/srd056-unit-libraries.md
 - id: srd057-capability-profiles
   title: Capability Profiles
   summary: A profile that does one job, terminates, and declares no serve lifecycle, control or monitor server, or static assets; the child-process, service-endpoint, and workload forms that consume it unchanged, the evaluation-scoped in-process boundary it may not assume, and the binding discipline that makes shared behaviour a named profile with findings for the machines more than one profile reaches.
   status: specified
-  path: docs/specs/software-requirements/srd057-capability-profiles.yaml
+  path: docs/specs/software-requirements/srd057-capability-profiles.md
 - id: srd058-provider-libraries
   title: Provider Libraries and Template-Method Words
   summary: A provider as a directory of YAML reached through a declared providers root and rebound with --library; a chat dialect that invoke_llm reads as a template method in place of compiled adapters; embed and rerank stage fragments over library REST fragments under a shared signal vocabulary; Ollama and Cohere as the first libraries, and a synthetic third provider that needs no Go.
   status: implemented
-  path: docs/specs/software-requirements/srd058-provider-libraries.yaml
+  path: docs/specs/software-requirements/srd058-provider-libraries.md
 - id: srd059-objectstore-tools
   title: Objectstore Builtin Tool Family
   summary: One provider-neutral object-storage family with read/write/list plus an internal declaration-bound delete-prefix word; compiled-in drivers are selected by the declared bucket URL, an explicit endpoint binds the local rig with no environment read, object_write undoes through a prior-object snapshot receipt, and destructive purge is bounded, verified, and externally audited.
   status: implemented
-  path: docs/specs/software-requirements/srd059-objectstore-tools.yaml
+  path: docs/specs/software-requirements/srd059-objectstore-tools.md
 - id: srd060-retrieval-client-contract
   title: Retrieval Query Client Contract
   summary: The retrieval query contract shared by applications that serve retrieval over a Chroma collection; a client-computed vector and result count in, QueryResult with ids, documents, distances, metadatas, and embedding model out, 400 as QueryRejected; declared once in agent-core as a type unit and a client fragment, the first service library of srd056 R4.
   status: implemented
-  path: docs/specs/software-requirements/srd060-retrieval-client-contract.yaml
+  path: docs/specs/software-requirements/srd060-retrieval-client-contract.md
 ```
 
 <!-- field: config_format_index -->
@@ -511,81 +511,81 @@ Source-of-truth note.
 
 | id | title | summary | path |
 | --- | --- | --- | --- |
-| cfg-machine-format | Machine Configuration Format | MachineSpec YAML schema for agent state machines, states, signals, transitions, actions, budgets, and validation. | docs/specs/config-formats/machine-format.yaml |
-| cfg-runtime-contract | Machine + Tools Runtime Contract | Universal profile-first startup contract for runtime data flags, tool declarations, LLM boundary config, lifecycle ports, and nested machines. | docs/specs/config-formats/runtime-contract.yaml |
-| cfg-tool-authoring-standard | Tool Definition Authoring Standard | Source-of-truth guidance for authoring tools as vocabulary words with typed contracts, declaration placement, side effects, reversibility, undo, errors, and machine-composed workflows. | docs/specs/config-formats/tool-authoring-standard.yaml |
-| cfg-tool-declaration-format | Tool Declaration Format | YAML schema for builtin and exec tool declarations, grouped declaration files, include ordering, local overrides, and compatibility bundles. | docs/specs/config-formats/tool-declaration-format.yaml |
-| cfg-tool-selection-format | Tool Selection Format | Name-only tools.yaml selection format used to choose available vocabulary from shared grouped declaration files and local overrides. | docs/specs/config-formats/tool-selection-format.yaml |
-| cfg-llm-config-format | LLM Configuration Format | Per-agent invoke_llm declaration format for model/provider config, prompts, manifest state, response_profile parser selection, and time/token limits. | docs/specs/config-formats/llm-config-format.yaml |
-| cfg-rest-tool-format | REST Tool Configuration Format | YAML format for declarative REST definitions, clients, servers, OpenAPI imports, auth profiles, limits, retry policies, response mappings, machine_request bindings, and target-format event source, lifecycle control, and document resource fields. Release 03.0 support status is recorded in the spec. | docs/specs/config-formats/rest-tool-format.yaml |
-| cfg-agent-profile-format | Agent Profile Format | YAML format of the profile file --profile names -- machine, tool selections, tool declarations, REST definitions, config directories, workspace directory -- with path resolution, blueprints, and blueprint instances. | docs/specs/config-formats/agent-profile-format.yaml |
-| cfg-jurist-charter-format | Jurist Charter Format | YAML format for deterministic jurist check suites, including grep_check, ref_check, consistency_check, spec_corpus, target globs, severity, and finding provenance. | docs/specs/config-formats/jurist-charter-format.yaml |
+| cfg-machine-format | Machine Configuration Format | MachineSpec YAML schema for agent state machines, states, signals, transitions, actions, budgets, and validation. | docs/specs/config-formats/machine-format.md |
+| cfg-runtime-contract | Machine + Tools Runtime Contract | Universal profile-first startup contract for runtime data flags, tool declarations, LLM boundary config, lifecycle ports, and nested machines. | docs/specs/config-formats/runtime-contract.md |
+| cfg-tool-authoring-standard | Tool Definition Authoring Standard | Source-of-truth guidance for authoring tools as vocabulary words with typed contracts, declaration placement, side effects, reversibility, undo, errors, and machine-composed workflows. | docs/specs/config-formats/tool-authoring-standard.md |
+| cfg-tool-declaration-format | Tool Declaration Format | YAML schema for builtin and exec tool declarations, grouped declaration files, include ordering, local overrides, and compatibility bundles. | docs/specs/config-formats/tool-declaration-format.md |
+| cfg-tool-selection-format | Tool Selection Format | Name-only tools.yaml selection format used to choose available vocabulary from shared grouped declaration files and local overrides. | docs/specs/config-formats/tool-selection-format.md |
+| cfg-llm-config-format | LLM Configuration Format | Per-agent invoke_llm declaration format for model/provider config, prompts, manifest state, response_profile parser selection, and time/token limits. | docs/specs/config-formats/llm-config-format.md |
+| cfg-rest-tool-format | REST Tool Configuration Format | YAML format for declarative REST definitions, clients, servers, OpenAPI imports, auth profiles, limits, retry policies, response mappings, machine_request bindings, and target-format event source, lifecycle control, and document resource fields. Release 03.0 support status is recorded in the spec. | docs/specs/config-formats/rest-tool-format.md |
+| cfg-agent-profile-format | Agent Profile Format | YAML format of the profile file --profile names -- machine, tool selections, tool declarations, REST definitions, config directories, workspace directory -- with path resolution, blueprints, and blueprint instances. | docs/specs/config-formats/agent-profile-format.md |
+| cfg-jurist-charter-format | Jurist Charter Format | YAML format for deterministic jurist check suites, including grep_check, ref_check, consistency_check, spec_corpus, target globs, severity, and finding provenance. | docs/specs/config-formats/jurist-charter-format.md |
 
 <!-- field: semantic_model_index -->
 ## Semantic model index
 
 | id | title | summary | path |
 | --- | --- | --- | --- |
-| sm-command-undo-audit | Command Undo Audit | Migration checklist for commands that need real undo implementations versus long-term no-op undo behavior. | docs/specs/semantic-models/command-undo-audit.yaml |
-| sm-tool-vocabulary-audit | Tool Vocabulary Audit | Audit classifying current tools as words, stateful internal tools, boundaries, or sentence-shaped migration candidates. | docs/specs/semantic-models/tool-vocabulary-audit.yaml |
-| sm-rollback-lifecycle | Rollback Lifecycle Semantic Model | Semantic model for three-layer state ownership, lifecycle stores, checkpoints, suspend/resume, and rollback traversal. | docs/specs/semantic-models/rollback-lifecycle.yaml |
-| sm-tool-language | Tool Language Semantic Model | Semantic model for tools as vocabulary words, MachineSpec composition, boundary tools, contracts, and legacy sentence migration. | docs/specs/semantic-models/tool-language.yaml |
-| sm-rest-tool-language | REST Tool Language Semantic Model | Semantic model for declarative REST client and server boundary words, REST definitions, async request state, inbound event fan-in, lifecycle control routing, and OpenAPI import relationships. | docs/specs/semantic-models/rest-tool-language.yaml |
-| sm-machine-request-http | Machine Request HTTP Semantic Model | Semantic model for HTTP requests as grammar input, request-machine sentences as handling behavior, and response words as the bridge back to HTTP responses. | docs/specs/semantic-models/machine-request-http.yaml |
-| sm-document-resource-language | Document Resource Language Semantic Model | Semantic model for configured filesystem documentation corpora, safe path policy, response modes, document resource words, and human UI actor configuration. | docs/specs/semantic-models/document-resource-language.yaml |
-| sm-tool-metrics-monitoring | Tool Metrics Monitoring Semantic Model | Semantic model for standard tool metrics, specialized metrics, recorder ownership, workflow labels, low-cardinality attributes, and monitor snapshots. | docs/specs/semantic-models/tool-metrics-monitoring.yaml |
+| sm-command-undo-audit | Command Undo Audit | Migration checklist for commands that need real undo implementations versus long-term no-op undo behavior. | docs/specs/semantic-models/command-undo-audit.md |
+| sm-tool-vocabulary-audit | Tool Vocabulary Audit | Audit classifying current tools as words, stateful internal tools, boundaries, or sentence-shaped migration candidates. | docs/specs/semantic-models/tool-vocabulary-audit.md |
+| sm-rollback-lifecycle | Rollback Lifecycle Semantic Model | Semantic model for three-layer state ownership, lifecycle stores, checkpoints, suspend/resume, and rollback traversal. | docs/specs/semantic-models/rollback-lifecycle.md |
+| sm-tool-language | Tool Language Semantic Model | Semantic model for tools as vocabulary words, MachineSpec composition, boundary tools, contracts, and legacy sentence migration. | docs/specs/semantic-models/tool-language.md |
+| sm-rest-tool-language | REST Tool Language Semantic Model | Semantic model for declarative REST client and server boundary words, REST definitions, async request state, inbound event fan-in, lifecycle control routing, and OpenAPI import relationships. | docs/specs/semantic-models/rest-tool-language.md |
+| sm-machine-request-http | Machine Request HTTP Semantic Model | Semantic model for HTTP requests as grammar input, request-machine sentences as handling behavior, and response words as the bridge back to HTTP responses. | docs/specs/semantic-models/machine-request-http.md |
+| sm-document-resource-language | Document Resource Language Semantic Model | Semantic model for configured filesystem documentation corpora, safe path policy, response modes, document resource words, and human UI actor configuration. | docs/specs/semantic-models/document-resource-language.md |
+| sm-tool-metrics-monitoring | Tool Metrics Monitoring Semantic Model | Semantic model for standard tool metrics, specialized metrics, recorder ownership, workflow labels, low-cardinality attributes, and monitor snapshots. | docs/specs/semantic-models/tool-metrics-monitoring.md |
 
 <!-- field: use_case_index -->
 ## Use case index
 
 | id | title | release | status | test_suite | path |
 | --- | --- | --- | --- | --- | --- |
-| rel00.0-uc001-domain-agent-integration | Domain agent imports agent-core and runs an agentic loop | 00.0 | done | test-rel00.0 | docs/specs/use-cases/rel00.0-uc001-domain-agent-integration.yaml |
-| rel00.0-uc002-spec-corpus-validation | Maintainer validates the specification corpus graph | 00.0 | done | test-rel00.0 | docs/specs/use-cases/rel00.0-uc002-spec-corpus-validation.yaml |
-| rel01.0-uc001-generator-coding | Generator agent solves Go coding tasks using YAML config | 01.0 | done | test-rel01.0 | docs/specs/use-cases/rel01.0-uc001-generator-coding.yaml |
-| rel01.0-uc002-evaluator-benchmark | Evaluator runs generator profiles and collects results | 01.0 | done | test-rel01.0 | docs/specs/use-cases/rel01.0-uc002-evaluator-benchmark.yaml |
-| rel01.0-uc003-bench-visualization | Bench serves web UI for evaluation result exploration | 01.0 | done | test-rel01.0 | docs/specs/use-cases/rel01.0-uc003-bench-visualization.yaml |
-| rel02.0-uc001-approval-suspend-resume | Agent suspends at approval gate and resumes from the checkpoint port | 02.0 | done | test-rel02.0-lifecycle | docs/specs/use-cases/rel02.0-uc001-approval-suspend-resume.yaml |
-| rel02.0-uc002-history-rollback | User inspects history and rolls back after a bad tool action | 02.0 | done | test-rel02.0-lifecycle | docs/specs/use-cases/rel02.0-uc002-history-rollback.yaml |
-| rel02.0-uc003-tool-authoring | Developer authors a new tool as a vocabulary word | 02.0 | done | test-rel02.0-tool-contracts | docs/specs/use-cases/rel02.0-uc003-tool-authoring.yaml |
-| rel02.0-uc004-sentence-tool-migration | Developer migrates a sentence-shaped tool into machine-composed words | 02.0 | done | test-rel02.0-tool-contracts | docs/specs/use-cases/rel02.0-uc004-sentence-tool-migration.yaml |
-| rel03.0-uc001-rest-client-sync | Grammar invokes synchronous REST client resource words | 03.0 | done | test-rel03.0-rest-tools | docs/specs/use-cases/rel03.0-uc001-rest-client-sync.yaml |
-| rel03.0-uc002-rest-client-async | Grammar sends and awaits an asynchronous REST client operation | 03.0 | done | test-rel03.0-rest-tools | docs/specs/use-cases/rel03.0-uc002-rest-client-async.yaml |
-| rel03.0-uc003-rest-server-signals | Grammar receives inbound REST server signals | 03.0 | done | test-rel03.0-rest-tools | docs/specs/use-cases/rel03.0-uc003-rest-server-signals.yaml |
-| rel03.0-uc004-openapi-import | OpenAPI import defines REST operations and endpoint bindings | 03.0 | done | test-rel03.0-rest-tools | docs/specs/use-cases/rel03.0-uc004-openapi-import.yaml |
-| rel03.0-uc005-ollama-openapi-model-listing | Qwen agent lists Ollama models through an OpenAPI REST tool | 03.0 | done | test-rel03.0-rest-tools | docs/specs/use-cases/rel03.0-uc005-ollama-openapi-model-listing.yaml |
-| rel03.0-uc006-documentation-curator | Knowledge Manager serves documentation curator UX and REST tools | 03.0 | done | test-rel03.0-rest-tools | docs/specs/use-cases/rel03.0-uc006-documentation-curator.yaml |
-| rel03.0-uc007-machine-request-documentation-ux | Knowledge Manager UX uses machine_request document resources | 03.0 | done | test-rel03.0-rest-tools | docs/specs/use-cases/rel03.0-uc007-machine-request-documentation-ux.yaml |
-| rel03.0-uc008-rest-await-any-fan-in | Staged REST await-any fan-in adds event sources | 03.0 | done | test-rel03.0-rest-tools | docs/specs/use-cases/rel03.0-uc008-rest-await-any-fan-in.yaml |
-| rel04.0-uc001-configurable-tool-metrics | Profile configures tool metrics for embedded monitoring | 04.0 | done | test-rel04.0-monitor | docs/specs/use-cases/rel04.0-uc001-configurable-tool-metrics.yaml |
-| rel04.0-uc002-monitor-rest-api | Supervisor reads monitor state through REST | 04.0 | done | test-rel04.0-monitor | docs/specs/use-cases/rel04.0-uc002-monitor-rest-api.yaml |
-| rel05.0-uc001-qwen-monitor-token-progress | Qwen run exposes increasing token metrics through embedded monitor | 05.0 | implemented | test-rel05.0-monitor-qwen | docs/specs/use-cases/rel05.0-uc001-qwen-monitor-token-progress.yaml |
-| rel06.0-uc001-mounted-profile-container-runtime | Runtime container runs an externally mounted agent profile | 06.0 | implemented | test-rel06.0-profile-migration | docs/specs/use-cases/rel06.0-uc001-mounted-profile-container-runtime.yaml |
-| rel07.0-uc001-command-state-threading | A REST word selects a non-adjacent prior word's output by label and resumes mid-chain | 07.0 | implemented | test-rel07.0-command-state | docs/specs/use-cases/rel07.0-uc001-command-state-threading.yaml |
-| rel07.0-uc002-two-plane-revert | Reverting to an earlier step reaps later two-plane rows while the receipt walk reverses the surviving step | 07.0 | implemented | test-rel07.0-command-state | docs/specs/use-cases/rel07.0-uc002-two-plane-revert.yaml |
-| rel08.0-uc001-http-trace-propagation | Two agents linked by a REST call produce one connected trace | 08.0 | implemented | test-rel08.0-trace-propagation | docs/specs/use-cases/rel08.0-uc001-http-trace-propagation.yaml |
-| rel09.0-uc001-scenario-rig-run | A rig machine runs one scenario hermetically to a verdict | 09.0 | specified | test-rel09.0-scenario-rig | docs/specs/use-cases/rel09.0-uc001-scenario-rig-run.yaml |
-| rel10.0-uc001-value-predicate-branch | A machine branches on a value it read from a service | 10.0 | implemented | test-rel10.0-value-predicate | docs/specs/use-cases/rel10.0-uc001-value-predicate-branch.yaml |
-| rel11.0-uc001-otlp-receiver-await | A persistent machine receives, records, and relays OTLP trace and metric batches | 11.0 | implemented | test-rel11.0-otlp-receiver | docs/specs/use-cases/rel11.0-uc001-otlp-receiver-await.yaml |
-| rel12.0-uc001-spool-query | A collector reads trace summaries and span detail from its NDJSON spool | 12.0 | implemented | test-rel12.0-spool-query | docs/specs/use-cases/rel12.0-uc001-spool-query.yaml |
-| rel13.0-uc001-span-analytics | Aggregate reads turn a spool into a latency heatmap and a divergence ranking | 13.0 | implemented | test-rel13.0-span-analytics | docs/specs/use-cases/rel13.0-uc001-span-analytics.yaml |
-| rel14.0-uc001-request-driven-signal | A model-free profile advances from a validated HTTP request | 14.0 | implemented | test-rel14.0-agent-input-and-dolt | docs/specs/use-cases/rel14.0-uc001-request-driven-signal.yaml |
-| rel14.0-uc002-dolt-boundary-word | Declared Dolt words provision and update a versioned store | 14.0 | implemented | test-rel14.0-agent-input-and-dolt | docs/specs/use-cases/rel14.0-uc002-dolt-boundary-word.yaml |
-| rel15.0-uc001-cohere-invoke | A profile selects Cohere for an invoke_llm classifier | 15.0 | implemented | test-rel15.0-cohere-invoke | docs/specs/use-cases/rel15.0-uc001-cohere-invoke.yaml |
-| rel16.0-uc001-pipeline-word | A profile folds a marshalling block into one pipeline word | 16.0 | implemented | test-rel16.0-pipeline-word | docs/specs/use-cases/rel16.0-uc001-pipeline-word.yaml |
-| rel17.0-uc001-declaration-imports | A profile composes named tool and REST declaration units | 17.0 | specified | test-rel17.0-declaration-imports | docs/specs/use-cases/rel17.0-uc001-declaration-imports.yaml |
-| rel18.0-uc001-declaration-fragments | A profile expands parameterized declaration fragments | 18.0 | specified | test-rel18.0-declaration-fragments | docs/specs/use-cases/rel18.0-uc001-declaration-fragments.yaml |
-| rel20.0-uc001-machine-templates | A machine file expands a whole-machine template | 20.0 | implemented | test-rel20.0-machine-templates | docs/specs/use-cases/rel20.0-uc001-machine-templates.yaml |
-| rel20.0-uc002-agent-blueprints | A profile expands an agent blueprint | 20.0 | specified | test-rel20.0-machine-templates | docs/specs/use-cases/rel20.0-uc002-agent-blueprints.yaml |
-| rel20.0-uc003-unit-libraries | A unit imports from a library root | 20.0 | implemented | test-rel20.0-unit-libraries | docs/specs/use-cases/rel20.0-uc003-unit-libraries.yaml |
-| rel21.0-uc001-capability-profiles | One capability profile is consumed by more than one form | 21.0 | specified | test-rel21.0-capability-profiles | docs/specs/use-cases/rel21.0-uc001-capability-profiles.yaml |
-| rel22.0-uc001-provider-libraries | A deployment changes and adds a model provider without editing an agent | 22.0 | implemented | test-rel22.0-provider-libraries | docs/specs/use-cases/rel22.0-uc001-provider-libraries.yaml |
-| rel23.0-uc001-provider-failure-signals | A machine retries a busy model provider and gives up on a misconfigured one | 23.0 | implemented | test-rel23.0-provider-failure-signals | docs/specs/use-cases/rel23.0-uc001-provider-failure-signals.yaml |
-| rel24.0-uc001-objectstore-tools | One profile writes objects on kind and on GCS through a values overlay | 24.0 | implemented | test-rel24.0-objectstore-tools | docs/specs/use-cases/rel24.0-uc001-objectstore-tools.yaml |
-| rel25.0-uc001-drain-outcome | A monitor exit on a loaded host succeeds and names its unfinished drain | 25.0 | implemented | test-rel25.0-drain-outcome | docs/specs/use-cases/rel25.0-uc001-drain-outcome.yaml |
-| rel26.0-uc001-retrieval-client-library | A chatbot queries its retrieval servers through the shared agent-core client | 26.0 | implemented | test-rel26.0-retrieval-client-library | docs/specs/use-cases/rel26.0-uc001-retrieval-client-library.yaml |
-| rel99.0-uc001-tool-dispatch-simplification | Maintainer simplifies tool dispatch wiring without changing core dispatch | 99.0 | done | test-rel99.0-tool-dispatch-simplification | docs/specs/use-cases/rel99.0-uc001-tool-dispatch-simplification.yaml |
-| rel99.0-uc002-application-catalog-migration | Maintainers migrate applications and reusable catalog blocks to explicit owner roots | 99.0 | done | test-rel99.0-application-catalog-migration | docs/specs/use-cases/rel99.0-uc002-application-catalog-migration.yaml |
+| rel00.0-uc001-domain-agent-integration | Domain agent imports agent-core and runs an agentic loop | 00.0 | done | test-rel00.0 | docs/specs/use-cases/rel00.0-uc001-domain-agent-integration.md |
+| rel00.0-uc002-spec-corpus-validation | Maintainer validates the specification corpus graph | 00.0 | done | test-rel00.0 | docs/specs/use-cases/rel00.0-uc002-spec-corpus-validation.md |
+| rel01.0-uc001-generator-coding | Generator agent solves Go coding tasks using YAML config | 01.0 | done | test-rel01.0 | docs/specs/use-cases/rel01.0-uc001-generator-coding.md |
+| rel01.0-uc002-evaluator-benchmark | Evaluator runs generator profiles and collects results | 01.0 | done | test-rel01.0 | docs/specs/use-cases/rel01.0-uc002-evaluator-benchmark.md |
+| rel01.0-uc003-bench-visualization | Bench serves web UI for evaluation result exploration | 01.0 | done | test-rel01.0 | docs/specs/use-cases/rel01.0-uc003-bench-visualization.md |
+| rel02.0-uc001-approval-suspend-resume | Agent suspends at approval gate and resumes from the checkpoint port | 02.0 | done | test-rel02.0-lifecycle | docs/specs/use-cases/rel02.0-uc001-approval-suspend-resume.md |
+| rel02.0-uc002-history-rollback | User inspects history and rolls back after a bad tool action | 02.0 | done | test-rel02.0-lifecycle | docs/specs/use-cases/rel02.0-uc002-history-rollback.md |
+| rel02.0-uc003-tool-authoring | Developer authors a new tool as a vocabulary word | 02.0 | done | test-rel02.0-tool-contracts | docs/specs/use-cases/rel02.0-uc003-tool-authoring.md |
+| rel02.0-uc004-sentence-tool-migration | Developer migrates a sentence-shaped tool into machine-composed words | 02.0 | done | test-rel02.0-tool-contracts | docs/specs/use-cases/rel02.0-uc004-sentence-tool-migration.md |
+| rel03.0-uc001-rest-client-sync | Grammar invokes synchronous REST client resource words | 03.0 | done | test-rel03.0-rest-tools | docs/specs/use-cases/rel03.0-uc001-rest-client-sync.md |
+| rel03.0-uc002-rest-client-async | Grammar sends and awaits an asynchronous REST client operation | 03.0 | done | test-rel03.0-rest-tools | docs/specs/use-cases/rel03.0-uc002-rest-client-async.md |
+| rel03.0-uc003-rest-server-signals | Grammar receives inbound REST server signals | 03.0 | done | test-rel03.0-rest-tools | docs/specs/use-cases/rel03.0-uc003-rest-server-signals.md |
+| rel03.0-uc004-openapi-import | OpenAPI import defines REST operations and endpoint bindings | 03.0 | done | test-rel03.0-rest-tools | docs/specs/use-cases/rel03.0-uc004-openapi-import.md |
+| rel03.0-uc005-ollama-openapi-model-listing | Qwen agent lists Ollama models through an OpenAPI REST tool | 03.0 | done | test-rel03.0-rest-tools | docs/specs/use-cases/rel03.0-uc005-ollama-openapi-model-listing.md |
+| rel03.0-uc006-documentation-curator | Knowledge Manager serves documentation curator UX and REST tools | 03.0 | done | test-rel03.0-rest-tools | docs/specs/use-cases/rel03.0-uc006-documentation-curator.md |
+| rel03.0-uc007-machine-request-documentation-ux | Knowledge Manager UX uses machine_request document resources | 03.0 | done | test-rel03.0-rest-tools | docs/specs/use-cases/rel03.0-uc007-machine-request-documentation-ux.md |
+| rel03.0-uc008-rest-await-any-fan-in | Staged REST await-any fan-in adds event sources | 03.0 | done | test-rel03.0-rest-tools | docs/specs/use-cases/rel03.0-uc008-rest-await-any-fan-in.md |
+| rel04.0-uc001-configurable-tool-metrics | Profile configures tool metrics for embedded monitoring | 04.0 | done | test-rel04.0-monitor | docs/specs/use-cases/rel04.0-uc001-configurable-tool-metrics.md |
+| rel04.0-uc002-monitor-rest-api | Supervisor reads monitor state through REST | 04.0 | done | test-rel04.0-monitor | docs/specs/use-cases/rel04.0-uc002-monitor-rest-api.md |
+| rel05.0-uc001-qwen-monitor-token-progress | Qwen run exposes increasing token metrics through embedded monitor | 05.0 | implemented | test-rel05.0-monitor-qwen | docs/specs/use-cases/rel05.0-uc001-qwen-monitor-token-progress.md |
+| rel06.0-uc001-mounted-profile-container-runtime | Runtime container runs an externally mounted agent profile | 06.0 | implemented | test-rel06.0-profile-migration | docs/specs/use-cases/rel06.0-uc001-mounted-profile-container-runtime.md |
+| rel07.0-uc001-command-state-threading | A REST word selects a non-adjacent prior word's output by label and resumes mid-chain | 07.0 | implemented | test-rel07.0-command-state | docs/specs/use-cases/rel07.0-uc001-command-state-threading.md |
+| rel07.0-uc002-two-plane-revert | Reverting to an earlier step reaps later two-plane rows while the receipt walk reverses the surviving step | 07.0 | implemented | test-rel07.0-command-state | docs/specs/use-cases/rel07.0-uc002-two-plane-revert.md |
+| rel08.0-uc001-http-trace-propagation | Two agents linked by a REST call produce one connected trace | 08.0 | implemented | test-rel08.0-trace-propagation | docs/specs/use-cases/rel08.0-uc001-http-trace-propagation.md |
+| rel09.0-uc001-scenario-rig-run | A rig machine runs one scenario hermetically to a verdict | 09.0 | specified | test-rel09.0-scenario-rig | docs/specs/use-cases/rel09.0-uc001-scenario-rig-run.md |
+| rel10.0-uc001-value-predicate-branch | A machine branches on a value it read from a service | 10.0 | implemented | test-rel10.0-value-predicate | docs/specs/use-cases/rel10.0-uc001-value-predicate-branch.md |
+| rel11.0-uc001-otlp-receiver-await | A persistent machine receives, records, and relays OTLP trace and metric batches | 11.0 | implemented | test-rel11.0-otlp-receiver | docs/specs/use-cases/rel11.0-uc001-otlp-receiver-await.md |
+| rel12.0-uc001-spool-query | A collector reads trace summaries and span detail from its NDJSON spool | 12.0 | implemented | test-rel12.0-spool-query | docs/specs/use-cases/rel12.0-uc001-spool-query.md |
+| rel13.0-uc001-span-analytics | Aggregate reads turn a spool into a latency heatmap and a divergence ranking | 13.0 | implemented | test-rel13.0-span-analytics | docs/specs/use-cases/rel13.0-uc001-span-analytics.md |
+| rel14.0-uc001-request-driven-signal | A model-free profile advances from a validated HTTP request | 14.0 | implemented | test-rel14.0-agent-input-and-dolt | docs/specs/use-cases/rel14.0-uc001-request-driven-signal.md |
+| rel14.0-uc002-dolt-boundary-word | Declared Dolt words provision and update a versioned store | 14.0 | implemented | test-rel14.0-agent-input-and-dolt | docs/specs/use-cases/rel14.0-uc002-dolt-boundary-word.md |
+| rel15.0-uc001-cohere-invoke | A profile selects Cohere for an invoke_llm classifier | 15.0 | implemented | test-rel15.0-cohere-invoke | docs/specs/use-cases/rel15.0-uc001-cohere-invoke.md |
+| rel16.0-uc001-pipeline-word | A profile folds a marshalling block into one pipeline word | 16.0 | implemented | test-rel16.0-pipeline-word | docs/specs/use-cases/rel16.0-uc001-pipeline-word.md |
+| rel17.0-uc001-declaration-imports | A profile composes named tool and REST declaration units | 17.0 | specified | test-rel17.0-declaration-imports | docs/specs/use-cases/rel17.0-uc001-declaration-imports.md |
+| rel18.0-uc001-declaration-fragments | A profile expands parameterized declaration fragments | 18.0 | specified | test-rel18.0-declaration-fragments | docs/specs/use-cases/rel18.0-uc001-declaration-fragments.md |
+| rel20.0-uc001-machine-templates | A machine file expands a whole-machine template | 20.0 | implemented | test-rel20.0-machine-templates | docs/specs/use-cases/rel20.0-uc001-machine-templates.md |
+| rel20.0-uc002-agent-blueprints | A profile expands an agent blueprint | 20.0 | specified | test-rel20.0-machine-templates | docs/specs/use-cases/rel20.0-uc002-agent-blueprints.md |
+| rel20.0-uc003-unit-libraries | A unit imports from a library root | 20.0 | implemented | test-rel20.0-unit-libraries | docs/specs/use-cases/rel20.0-uc003-unit-libraries.md |
+| rel21.0-uc001-capability-profiles | One capability profile is consumed by more than one form | 21.0 | specified | test-rel21.0-capability-profiles | docs/specs/use-cases/rel21.0-uc001-capability-profiles.md |
+| rel22.0-uc001-provider-libraries | A deployment changes and adds a model provider without editing an agent | 22.0 | implemented | test-rel22.0-provider-libraries | docs/specs/use-cases/rel22.0-uc001-provider-libraries.md |
+| rel23.0-uc001-provider-failure-signals | A machine retries a busy model provider and gives up on a misconfigured one | 23.0 | implemented | test-rel23.0-provider-failure-signals | docs/specs/use-cases/rel23.0-uc001-provider-failure-signals.md |
+| rel24.0-uc001-objectstore-tools | One profile writes objects on kind and on GCS through a values overlay | 24.0 | implemented | test-rel24.0-objectstore-tools | docs/specs/use-cases/rel24.0-uc001-objectstore-tools.md |
+| rel25.0-uc001-drain-outcome | A monitor exit on a loaded host succeeds and names its unfinished drain | 25.0 | implemented | test-rel25.0-drain-outcome | docs/specs/use-cases/rel25.0-uc001-drain-outcome.md |
+| rel26.0-uc001-retrieval-client-library | A chatbot queries its retrieval servers through the shared agent-core client | 26.0 | implemented | test-rel26.0-retrieval-client-library | docs/specs/use-cases/rel26.0-uc001-retrieval-client-library.md |
+| rel99.0-uc001-tool-dispatch-simplification | Maintainer simplifies tool dispatch wiring without changing core dispatch | 99.0 | done | test-rel99.0-tool-dispatch-simplification | docs/specs/use-cases/rel99.0-uc001-tool-dispatch-simplification.md |
+| rel99.0-uc002-application-catalog-migration | Maintainers migrate applications and reusable catalog blocks to explicit owner roots | 99.0 | done | test-rel99.0-application-catalog-migration | docs/specs/use-cases/rel99.0-uc002-application-catalog-migration.md |
 
 <!-- field: test_suite_index -->
 ## Test suite index
@@ -598,7 +598,7 @@ Source-of-truth note.
     - rel00.0-uc001-domain-agent-integration
     - rel00.0-uc002-spec-corpus-validation
   formal_test_cases: 99
-  path: docs/specs/test-suites/test-rel00.0.yaml
+  path: docs/specs/test-suites/test-rel00.0.md
 - id: test-rel01.0
   title: Test Suite for Release 01.0 Unified Agent Runtime
   release: "01.0"
@@ -607,7 +607,7 @@ Source-of-truth note.
     - rel01.0-uc002-evaluator-benchmark
     - rel01.0-uc003-bench-visualization
   formal_test_cases: 38
-  path: docs/specs/test-suites/test-rel01.0.yaml
+  path: docs/specs/test-suites/test-rel01.0.md
 - id: test-rel02.0-lifecycle
   title: Test Suite for Release 02.0 Checkpoint Port and Dolt Persistence
   release: "02.0"
@@ -615,7 +615,7 @@ Source-of-truth note.
     - rel02.0-uc001-approval-suspend-resume
     - rel02.0-uc002-history-rollback
   formal_test_cases: 15
-  path: docs/specs/test-suites/test-rel02.0-lifecycle.yaml
+  path: docs/specs/test-suites/test-rel02.0-lifecycle.md
 - id: test-rel02.0-tool-contracts
   title: Test Suite for Release 02.0 Tool Contracts
   release: "02.0"
@@ -623,7 +623,7 @@ Source-of-truth note.
     - rel02.0-uc003-tool-authoring
     - rel02.0-uc004-sentence-tool-migration
   formal_test_cases: 16
-  path: docs/specs/test-suites/test-rel02.0-tool-contracts.yaml
+  path: docs/specs/test-suites/test-rel02.0-tool-contracts.md
 - id: test-rel03.0-rest-tools
   title: Test Suite for Release 03.0 REST Tools
   release: "03.0"
@@ -638,7 +638,7 @@ Source-of-truth note.
     - rel03.0-uc008-rest-await-any-fan-in
   formal_test_cases: 50
   status: implemented
-  path: docs/specs/test-suites/test-rel03.0-rest-tools.yaml
+  path: docs/specs/test-suites/test-rel03.0-rest-tools.md
 - id: test-rel04.0-monitor
   title: Test Suite for Release 04.0 Embedded Monitor
   release: "04.0"
@@ -646,14 +646,14 @@ Source-of-truth note.
     - rel04.0-uc001-configurable-tool-metrics
     - rel04.0-uc002-monitor-rest-api
   formal_test_cases: 12
-  path: docs/specs/test-suites/test-rel04.0-monitor.yaml
+  path: docs/specs/test-suites/test-rel04.0-monitor.md
 - id: test-rel05.0-monitor-qwen
   title: Test Suite for Release 05.0 Qwen Monitor Integration
   release: "05.0"
   traces:
     - rel05.0-uc001-qwen-monitor-token-progress
   formal_test_cases: 1
-  path: docs/specs/test-suites/test-rel05.0-monitor-qwen.yaml
+  path: docs/specs/test-suites/test-rel05.0-monitor-qwen.md
 - id: test-rel06.0-profile-migration
   title: Test Suite for Release 06.0 Profile Migration
   release: "06.0"
@@ -661,7 +661,7 @@ Source-of-truth note.
     - rel06.0-uc001-mounted-profile-container-runtime
   formal_test_cases: 4
   status: implemented
-  path: docs/specs/test-suites/test-rel06.0-profile-migration.yaml
+  path: docs/specs/test-suites/test-rel06.0-profile-migration.md
 - id: test-rel07.0-command-state
   title: Test Suite for Release 07.0 Command-State Store and Two-Plane Persistence
   release: "07.0"
@@ -670,7 +670,7 @@ Source-of-truth note.
     - rel07.0-uc002-two-plane-revert
   formal_test_cases: 21
   status: implemented
-  path: docs/specs/test-suites/test-rel07.0-command-state.yaml
+  path: docs/specs/test-suites/test-rel07.0-command-state.md
 - id: test-rel08.0-trace-propagation
   title: Test Suite for Release 08.0 HTTP Trace Propagation
   release: "08.0"
@@ -678,7 +678,7 @@ Source-of-truth note.
     - rel08.0-uc001-http-trace-propagation
   formal_test_cases: 6
   status: implemented
-  path: docs/specs/test-suites/test-rel08.0-trace-propagation.yaml
+  path: docs/specs/test-suites/test-rel08.0-trace-propagation.md
 - id: test-rel09.0-scenario-rig
   title: Test Suite for Release 09.0 Scenario Rig Runtime
   release: "09.0"
@@ -686,7 +686,7 @@ Source-of-truth note.
     - rel09.0-uc001-scenario-rig-run
   formal_test_cases: 15
   status: specified
-  path: docs/specs/test-suites/test-rel09.0-scenario-rig.yaml
+  path: docs/specs/test-suites/test-rel09.0-scenario-rig.md
 - id: test-rel10.0-value-predicate
   title: Test Suite for Release 10.0 Value Predicate Tool
   release: "10.0"
@@ -694,7 +694,7 @@ Source-of-truth note.
     - rel10.0-uc001-value-predicate-branch
   formal_test_cases: 8
   status: implemented
-  path: docs/specs/test-suites/test-rel10.0-value-predicate.yaml
+  path: docs/specs/test-suites/test-rel10.0-value-predicate.md
 - id: test-rel11.0-otlp-receiver
   title: Test Suite for Release 11.0 OTLP Receiver Tools
   release: "11.0"
@@ -702,7 +702,7 @@ Source-of-truth note.
     - rel11.0-uc001-otlp-receiver-await
   formal_test_cases: 7
   status: implemented
-  path: docs/specs/test-suites/test-rel11.0-otlp-receiver.yaml
+  path: docs/specs/test-suites/test-rel11.0-otlp-receiver.md
 - id: test-rel12.0-spool-query
   title: Test Suite for Release 12.0 Spool Query Tools
   release: "12.0"
@@ -710,7 +710,7 @@ Source-of-truth note.
     - rel12.0-uc001-spool-query
   formal_test_cases: 10
   status: implemented
-  path: docs/specs/test-suites/test-rel12.0-spool-query.yaml
+  path: docs/specs/test-suites/test-rel12.0-spool-query.md
 - id: test-rel13.0-span-analytics
   title: Test Suite for Release 13.0 Span Analytics Tools
   release: "13.0"
@@ -718,7 +718,7 @@ Source-of-truth note.
     - rel13.0-uc001-span-analytics
   formal_test_cases: 8
   status: implemented
-  path: docs/specs/test-suites/test-rel13.0-span-analytics.yaml
+  path: docs/specs/test-suites/test-rel13.0-span-analytics.md
 - id: test-rel14.0-agent-input-and-dolt
   title: Test Suite for Release 14.0 Request Signals and Dolt Words
   release: "14.0"
@@ -727,7 +727,7 @@ Source-of-truth note.
     - rel14.0-uc002-dolt-boundary-word
   formal_test_cases: 13
   status: implemented
-  path: docs/specs/test-suites/test-rel14.0-agent-input-and-dolt.yaml
+  path: docs/specs/test-suites/test-rel14.0-agent-input-and-dolt.md
 - id: test-rel15.0-cohere-invoke
   title: Test Suite for Release 15.0 Cohere invoke_llm
   release: "15.0"
@@ -735,7 +735,7 @@ Source-of-truth note.
     - rel15.0-uc001-cohere-invoke
   formal_test_cases: 8
   status: implemented
-  path: docs/specs/test-suites/test-rel15.0-cohere-invoke.yaml
+  path: docs/specs/test-suites/test-rel15.0-cohere-invoke.md
 - id: test-rel16.0-pipeline-word
   title: Test Suite for Release 16.0 Pipeline Word
   release: "16.0"
@@ -743,7 +743,7 @@ Source-of-truth note.
     - rel16.0-uc001-pipeline-word
   formal_test_cases: 5
   status: implemented
-  path: docs/specs/test-suites/test-rel16.0-pipeline-word.yaml
+  path: docs/specs/test-suites/test-rel16.0-pipeline-word.md
 - id: test-rel17.0-declaration-imports
   title: Test Suite for Release 17.0 Declaration Imports
   release: "17.0"
@@ -751,7 +751,7 @@ Source-of-truth note.
     - rel17.0-uc001-declaration-imports
   formal_test_cases: 7
   status: specified
-  path: docs/specs/test-suites/test-rel17.0-declaration-imports.yaml
+  path: docs/specs/test-suites/test-rel17.0-declaration-imports.md
 - id: test-rel18.0-declaration-fragments
   title: Test Suite for Release 18.0 Declaration Fragments
   release: "18.0"
@@ -759,7 +759,7 @@ Source-of-truth note.
     - rel18.0-uc001-declaration-fragments
   formal_test_cases: 14
   status: specified
-  path: docs/specs/test-suites/test-rel18.0-declaration-fragments.yaml
+  path: docs/specs/test-suites/test-rel18.0-declaration-fragments.md
 - id: test-rel20.0-machine-templates
   title: Test Suite for Release 20.0 Machine Templates and Agent Blueprints
   release: "20.0"
@@ -768,7 +768,7 @@ Source-of-truth note.
     - rel20.0-uc002-agent-blueprints
   formal_test_cases: 23
   status: specified
-  path: docs/specs/test-suites/test-rel20.0-machine-templates.yaml
+  path: docs/specs/test-suites/test-rel20.0-machine-templates.md
 - id: test-rel20.0-unit-libraries
   title: Test Suite for Release 20.0 Unit Libraries
   release: "20.0"
@@ -776,7 +776,7 @@ Source-of-truth note.
     - rel20.0-uc003-unit-libraries
   formal_test_cases: 12
   status: implemented
-  path: docs/specs/test-suites/test-rel20.0-unit-libraries.yaml
+  path: docs/specs/test-suites/test-rel20.0-unit-libraries.md
 - id: test-rel21.0-capability-profiles
   title: Test Suite for Release 21.0 Capability Profiles
   release: "21.0"
@@ -784,7 +784,7 @@ Source-of-truth note.
     - rel21.0-uc001-capability-profiles
   formal_test_cases: 5
   status: specified
-  path: docs/specs/test-suites/test-rel21.0-capability-profiles.yaml
+  path: docs/specs/test-suites/test-rel21.0-capability-profiles.md
 - id: test-rel22.0-provider-libraries
   title: Test Suite for Release 22.0 Provider Libraries
   release: "22.0"
@@ -792,7 +792,7 @@ Source-of-truth note.
     - rel22.0-uc001-provider-libraries
   formal_test_cases: 10
   status: implemented
-  path: docs/specs/test-suites/test-rel22.0-provider-libraries.yaml
+  path: docs/specs/test-suites/test-rel22.0-provider-libraries.md
 - id: test-rel23.0-provider-failure-signals
   title: Test Suite for Release 23.0 Provider Failure Signals
   release: "23.0"
@@ -800,7 +800,7 @@ Source-of-truth note.
     - rel23.0-uc001-provider-failure-signals
   formal_test_cases: 6
   status: implemented
-  path: docs/specs/test-suites/test-rel23.0-provider-failure-signals.yaml
+  path: docs/specs/test-suites/test-rel23.0-provider-failure-signals.md
 - id: test-rel24.0-objectstore-tools
   title: Test Suite for Release 24.0 Objectstore Tools
   release: "24.0"
@@ -808,7 +808,7 @@ Source-of-truth note.
     - rel24.0-uc001-objectstore-tools
   formal_test_cases: 7
   status: implemented
-  path: docs/specs/test-suites/test-rel24.0-objectstore-tools.yaml
+  path: docs/specs/test-suites/test-rel24.0-objectstore-tools.md
 - id: test-rel25.0-drain-outcome
   title: Test Suite for Release 25.0 Drain Outcome
   release: "25.0"
@@ -816,7 +816,7 @@ Source-of-truth note.
     - rel25.0-uc001-drain-outcome
   formal_test_cases: 5
   status: implemented
-  path: docs/specs/test-suites/test-rel25.0-drain-outcome.yaml
+  path: docs/specs/test-suites/test-rel25.0-drain-outcome.md
 - id: test-rel26.0-retrieval-client-library
   title: Test Suite for Release 26.0 Retrieval Client Library
   release: "26.0"
@@ -824,7 +824,7 @@ Source-of-truth note.
     - rel26.0-uc001-retrieval-client-library
   formal_test_cases: 4
   status: implemented
-  path: docs/specs/test-suites/test-rel26.0-retrieval-client-library.yaml
+  path: docs/specs/test-suites/test-rel26.0-retrieval-client-library.md
 - id: test-rel99.0-tool-dispatch-simplification
   title: Test Suite for Release 99.0 Tool Dispatch Simplification
   release: "99.0"
@@ -832,7 +832,7 @@ Source-of-truth note.
     - rel99.0-uc001-tool-dispatch-simplification
   formal_test_cases: 5
   status: implemented
-  path: docs/specs/test-suites/test-rel99.0-tool-dispatch-simplification.yaml
+  path: docs/specs/test-suites/test-rel99.0-tool-dispatch-simplification.md
 - id: test-rel99.0-application-catalog-migration
   title: Test Suite for Release 99.0 Application and Catalog Migration
   release: "99.0"
@@ -840,7 +840,7 @@ Source-of-truth note.
     - rel99.0-uc002-application-catalog-migration
   formal_test_cases: 14
   status: implemented
-  path: docs/specs/test-suites/test-rel99.0-application-catalog-migration.yaml
+  path: docs/specs/test-suites/test-rel99.0-application-catalog-migration.md
 ```
 
 <!-- field: go_test_coverage -->

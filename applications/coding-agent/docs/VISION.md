@@ -93,11 +93,11 @@ composition consistently.
 <!-- field: canonical_documents -->
 ## Canonical documents
 
-- docs/ARCHITECTURE.yaml
-- docs/road-map.yaml
-- docs/SPECIFICATIONS.yaml
-- docs/specs/use-cases/rel01.0-uc001-coding-loop.yaml
-- docs/specs/test-suites/test-rel01.0-coding-loop.yaml
+- docs/ARCHITECTURE.md
+- docs/road-map.md
+- docs/SPECIFICATIONS.md
+- docs/specs/use-cases/rel01.0-uc001-coding-loop.md
+- docs/specs/test-suites/test-rel01.0-coding-loop.md
 - README.md
 
 <!-- field: library_references -->
