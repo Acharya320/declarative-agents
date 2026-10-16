@@ -206,12 +206,13 @@ monitor_snapshot_shape:
     recent_samples: Optional recent sample window for debugging and UI display.
     diagnostics: Recorder, store, export, or schema warnings.
 
-non_goals: |
-  This model does not make metrics a durable audit log or replace RunResult,
-  History, checkpoints, or OpenTelemetry traces.
-
-  Metric labels must not be defined by model text or tool output. Labels must
-  not contain raw prompts, full outputs, secrets, or unbounded paths.
+non_goals:
+  - >-
+    This model does not make metrics a durable audit log or replace RunResult,
+    History, checkpoints, or OpenTelemetry traces.
+  - >-
+    Metric labels must not be defined by model text or tool output. Labels must
+    not contain raw prompts, full outputs, secrets, or unbounded paths.
 
 related_documents:
   - sm-tool-language
