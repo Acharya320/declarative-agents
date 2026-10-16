@@ -250,6 +250,30 @@ document_types:
     - sections
     - references
     purpose: Defines repository-wide engineering practices shared by modules.
+    markdown:
+      location: docs/engineering/engNN-short-name.md
+      frontmatter:
+        required: [id, title]
+        allowed: [id, title]
+        id_matches_filename: true
+      nodes:
+        document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
+        section:
+          tag: section
+          level: 2
+          parent: document
+          id_pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+          heading: free
+          content: any
+          unique_id: true
+      fields:
+        introduction: {in: [document_field], shape: prose}
+        references: {in: [document_field], shape: list}
+      required_fields: [introduction, references]
+      required_nodes: {section: 1}
+      prose_containment:
+        keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
+        outside: [document_field, section]
   srd:
     location: docs/specs/software-requirements/srdNNN-short-name.yaml
     required_fields:
@@ -287,6 +311,67 @@ document_types:
 
       '
     purpose: Defines product or runtime requirements with checkable criteria.
+    markdown:
+      location: docs/specs/software-requirements/srdNNN-short-name.md
+      frontmatter:
+        required: [id, title]
+        allowed: [id, title, status, retired_in, replaced_by, depends_on, derived_from]
+        id_matches_filename: true
+      nodes:
+        document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
+        requirement_group:
+          tag: req
+          level: 2
+          parent: document
+          id_pattern: '^R[0-9]+$'
+          heading: id_title
+          content: none
+          unique_id: true
+        group_field: {tag: field, level: 3, parent: requirement_group, heading: free, content: any}
+        requirement_item:
+          tag: req
+          level: 3
+          parent: requirement_group
+          id_pattern: '^R[0-9]+(\.[0-9]+){1,2}[a-z]?$'
+          id_extends_parent: true
+          heading: id
+          content: prose
+          unique_id: true
+          attributes: [weight, status, retired_in, replaced_by, derived_from]
+        item_field: {tag: field, level: 4, parent: requirement_item, heading: free, content: any}
+        acceptance_criterion:
+          tag: ac
+          level: 3
+          parent: field:acceptance_criteria
+          id_pattern: '^AC[0-9]+$'
+          heading: id
+          content: prose
+          unique_id: true
+          attributes: [status, retired_in, replaced_by, derived_from]
+          required_fields: [traces]
+        criterion_field: {tag: field, level: 4, parent: acceptance_criterion, heading: free, content: any}
+      fields:
+        problem: {in: [document_field], shape: prose}
+        goals: {in: [document_field], shape: list, item_pattern: '^G[0-9]+: '}
+        non_goals: {in: [document_field], shape: list}
+        assumptions: {in: [document_field], shape: list, item_pattern: '^A[0-9]+: '}
+        acceptance_criteria: {in: [document_field], shape: empty}
+        needs_clarification: {in: [document_field], shape: table, columns: [id, question]}
+        evidence: {in: [item_field], shape: prose}
+        endpoints: {in: [item_field], shape: table, columns: [path, owner]}
+        traces: {in: [criterion_field], shape: list, item_pattern: '^R[0-9]+(\.[0-9]+){0,2}[a-z]?$'}
+      required_fields: [problem, goals, non_goals, acceptance_criteria]
+      required_nodes: {requirement_group: 1}
+      exempt_status: [relocated, retired]
+      attributes:
+        weight: integer
+        status: text
+        retired_in: text
+        replaced_by: list
+        derived_from: references
+      prose_containment:
+        keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
+        outside: [document_field, acceptance_criterion, criterion_field]
   use_case:
     location: docs/specs/use-cases/relNN.N-ucNNN-short-name.yaml
     required_fields:

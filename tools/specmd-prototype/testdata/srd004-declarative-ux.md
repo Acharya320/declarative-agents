@@ -497,66 +497,132 @@ only.
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
 
-<!-- ac: AC1 | traces: ["R1.1","R1.2","R1.3","R3.1"] -->
+<!-- ac: AC1 -->
 ### AC1
 
 The kit exports the closed endpoint list and contract version, every
 published panel names only listed endpoints and reads only owner-defined
 fields, and every current UI URL is classified as contract or domain.
 
-<!-- ac: AC2 | traces: ["R2.1","R2.2","R2.3","R2.4"] -->
+<!-- field: traces -->
+#### Traces
+
+- R1.1
+- R1.2
+- R1.3
+- R3.1
+
+<!-- ac: AC2 -->
 ### AC2
 
 Cross-agent reads use /monitor-proxy only, a proxy 404 hides the dependent
 panel, trace reads follow the declared trace backend, and no REST
 definition under applications/ declares /trace-proxy.
 
-<!-- ac: AC3 | traces: ["R3.2","R3.3"] -->
+<!-- field: traces -->
+#### Traces
+
+- R2.1
+- R2.2
+- R2.3
+- R2.4
+
+<!-- ac: AC3 -->
 ### AC3
 
 Recorded fixtures exist for every contract endpoint, every client and
 panel is tested against them, and owner changes update fixtures.
 
-<!-- ac: AC4 | traces: ["R4.1","R4.2","R4.3","R4.4"] -->
+<!-- field: traces -->
+#### Traces
+
+- R3.2
+- R3.3
+
+<!-- ac: AC4 -->
 ### AC4
 
 Each kit panel exports a manifest within the contract, imports nothing
 from an application, and performs I/O only through the client; the panel
 set matches R4.4.
 
-<!-- ac: AC5 | traces: ["R5.1","R5.2","R5.3"] -->
+<!-- field: traces -->
+#### Traces
+
+- R4.1
+- R4.2
+- R4.3
+- R4.4
+
+<!-- ac: AC5 -->
 ### AC5
 
 An application bundle derives routes and sidebar from ui.yaml at build
 time, fails the build for an unregistered panel, and keeps existing deep
 links.
 
-<!-- ac: AC6 | traces: ["R6.1","R6.2"] -->
+<!-- field: traces -->
+#### Traces
+
+- R5.1
+- R5.2
+- R5.3
+
+<!-- ac: AC6 -->
 ### AC6
 
 Every fetch and EventSource goes through the injectable client obtained
 from shell context.
 
-<!-- ac: AC7 | traces: ["R7.1","R7.2","R7.3","R7.4"] -->
+<!-- field: traces -->
+#### Traces
+
+- R6.1
+- R6.2
+
+<!-- ac: AC7 -->
 ### AC7
 
 ui.yaml version 2 validates with its rejections, stays Helm-renderable,
 accepts version 1 files unchanged, and replaces the routes.ts
 cross-check.
 
-<!-- ac: AC8 | traces: ["R8.1","R8.2","R8.3"] -->
+<!-- field: traces -->
+#### Traces
+
+- R7.1
+- R7.2
+- R7.3
+- R7.4
+
+<!-- ac: AC8 -->
 ### AC8
 
 applications/ui-kit owns the package and the design tokens, in-repository
 UIs consume it by file dependency, and the release tarball is the only
 external distribution.
 
-<!-- ac: AC9 | traces: ["R9.1","R9.2","R9.3","R9.4"] -->
+<!-- field: traces -->
+#### Traces
+
+- R8.1
+- R8.2
+- R8.3
+
+<!-- ac: AC9 -->
 ### AC9
 
 The REST tool serves a named embedded bundle and its declared config,
 the embedded observer is a manifest UI asset, and the chatbot-mesh
 observer directory holds declarations only.
+
+<!-- field: traces -->
+#### Traces
+
+- R9.1
+- R9.2
+- R9.3
+- R9.4
 
 <!-- field: applicability -->
 ## Applicability

@@ -15,9 +15,9 @@ import (
 )
 
 // A Finding is one diagnostic: a stable kebab-case name, where it is, what
-// the rule expected and what the document has, the rule it enforces, and how
-// to fix it. Tier 0 (canonical form) is never a finding: the formatter fixes
-// it.
+// the rule expected and what the document has, the declaration rule it
+// enforces, and how to fix it. Tier 0 (canonical form) is never a finding:
+// the formatter fixes it.
 type Finding struct {
 	Name     string
 	Tier     int
@@ -30,14 +30,32 @@ type Finding struct {
 }
 
 func (f Finding) String() string {
-	return fmt.Sprintf("%s:%d: %s: expected %s, found %s [rules/srd.yaml %s]; %s",
+	return fmt.Sprintf("%s:%d: %s: expected %s, found %s [design.yaml %s]; %s",
 		f.File, f.Line, f.Name, f.Expected, f.Found, f.Rule, f.Hint)
 }
+
+// findingCatalog is every finding name the diagnostics can report, by tier.
+var findingCatalog = map[string]int{
+	"document-type-unknown": 1, "frontmatter-missing": 1, "frontmatter-invalid": 1,
+	"frontmatter-missing-key": 1, "frontmatter-unknown-key": 1, "frontmatter-id-mismatch": 1,
+	"marker-malformed": 1, "marker-unknown-tag": 1, "marker-unknown-attribute": 1, "marker-orphan": 1,
+	"heading-untagged": 2, "heading-misplaced": 2, "id-malformed": 2, "id-outside-parent": 2,
+	"heading-id-mismatch": 2, "duplicate-id": 2, "field-disallowed": 2, "field-duplicate": 2,
+	"content-untagged": 2, "untagged-structure": 2, "missing-content": 2,
+	"missing-required-field": 2, "missing-required-node": 2,
+	"field-shape-mismatch": 3, "list-item-pattern": 3, "table-columns-mismatch": 3, "attribute-shape": 3,
+	"prose-containment": 4,
+}
+
+// maxHeadingLevel bounds the node stack: Markdown headings stop at level 6.
+const maxHeadingLevel = 6
 
 // dnode is a node the diagnostics have opened from a marker and heading.
 type dnode struct {
 	kind       string
+	tag        string
 	id         string
+	level      int
 	line       int
 	markerLine int
 	fields     map[string]bool
@@ -53,31 +71,36 @@ type diagnosis struct {
 	findings []Finding
 	pending  *marker
 	pendLine int
-	l2, l3   *dnode
+	doc      *dnode
+	stack    [maxHeadingLevel + 1]*dnode
 	open     *dnode
 	ids      map[string]int
-	docKeys  map[string]bool
-	groups   int
+	counts   map[string]int
 	status   string
 }
 
-// findingCatalog is every finding name the diagnostics can report, by tier.
-var findingCatalog = map[string]int{
-	"frontmatter-missing": 1, "frontmatter-invalid": 1, "frontmatter-missing-key": 1,
-	"frontmatter-unknown-key": 1, "frontmatter-id-mismatch": 1, "marker-malformed": 1,
-	"marker-unknown-tag": 1, "marker-unknown-attribute": 1, "marker-orphan": 1,
-	"heading-untagged": 2, "heading-misplaced": 2, "id-malformed": 2, "item-wrong-group": 2,
-	"heading-id-mismatch": 2, "duplicate-id": 2, "field-disallowed": 2, "field-duplicate": 2,
-	"content-untagged": 2, "untagged-structure": 2, "missing-content": 2,
-	"missing-required-field": 2, "missing-requirement-groups": 2,
-	"field-shape-mismatch": 3, "list-item-prefix": 3, "table-columns-mismatch": 3,
-	"attribute-shape": 3, "criterion-traces-missing": 3, "criterion-trace-invalid": 3,
-	"prose-containment": 4,
+// Diagnose reports every finding in a Markdown corpus document, against the
+// declaration design.yaml gives its document type.
+func Diagnose(data []byte, source string) []Finding {
+	declarations, err := declarationsFromRepository()
+	if err != nil {
+		return []Finding{{Name: "document-type-unknown", Tier: 1, File: source, Line: 1,
+			Expected: "document-type declarations in " + designPath, Found: err.Error(),
+			Rule: "document_types", Hint: "run inside the repository"}}
+	}
+	return diagnoseWith(declarations, data, source)
 }
 
-// Diagnose reports every finding in an SRD Markdown document.
-func Diagnose(data []byte, source string) []Finding {
-	d := &diagnosis{rules: srdRules, file: source, ids: map[string]int{}, docKeys: map[string]bool{}}
+func diagnoseWith(declarations map[string]*rules, data []byte, source string) []Finding {
+	r, ok := declarationFor(declarations, source)
+	if !ok {
+		return []Finding{{Name: "document-type-unknown", Tier: 1, File: source, Line: 1,
+			Expected: "a file name matching a declared Markdown location", Found: filepath.Base(source),
+			Rule: "document_types.*.markdown.location",
+			Hint: "name the file after its document type, or declare a markdown location for the type"}}
+	}
+	d := &diagnosis{rules: r, file: source, ids: map[string]int{}, counts: map[string]int{},
+		doc: &dnode{kind: "document", fields: map[string]bool{}}}
 	body, offset := d.frontmatter(data)
 	d.offset = offset
 	blocks, lines := topLevelBlocks(body)
@@ -86,6 +109,7 @@ func Diagnose(data []byte, source string) []Finding {
 		d.step(b)
 	}
 	d.closeOpen()
+	d.finishFrom(2)
 	if d.pending != nil {
 		d.orphan()
 	}
@@ -94,10 +118,12 @@ func Diagnose(data []byte, source string) []Finding {
 	return d.findings
 }
 
-func (d *diagnosis) add(name string, tier, line int, expected, found, rule, hint string) {
+// add records a finding; rule is a path inside this type's markdown block.
+func (d *diagnosis) add(name string, line int, expected, found, rule, hint string) {
 	d.findings = append(d.findings, Finding{
-		Name: name, Tier: tier, File: d.file, Line: line,
-		Expected: expected, Found: found, Rule: rule, Hint: hint,
+		Name: name, Tier: findingCatalog[name], File: d.file, Line: line,
+		Expected: expected, Found: found,
+		Rule: "document_types." + d.rules.documentType + ".markdown." + rule, Hint: hint,
 	})
 }
 
@@ -113,7 +139,7 @@ func (d *diagnosis) step(b block) {
 		return
 	}
 	if d.open == nil {
-		d.add("content-untagged", 2, d.fileLine(b), "content under a tagged heading",
+		d.add("content-untagged", d.fileLine(b), "content under a tagged heading",
 			"content before any marker and heading", "nodes",
 			"put a marker and heading above it, or move it under the section it belongs to")
 		return
@@ -125,15 +151,15 @@ func (d *diagnosis) comment(b block, text string) {
 	m, isMarker, err := parseMarker(text)
 	switch {
 	case err != nil:
-		d.add("marker-malformed", 1, d.fileLine(b), "<!-- <tag>: <value> | <key>: <value> -->",
-			text, "nodes.*.tag", "write the tag and its value separated by a colon, attributes after \" | \"")
+		d.add("marker-malformed", d.fileLine(b), "<!-- <tag>: <value> | <key>: <value> -->",
+			text, "nodes", "write the tag and its value separated by a colon, attributes after \" | \"")
 		return
 	case !isMarker:
 		return
 	}
-	if !knownTag(d.rules, m.Tag) {
-		d.add("marker-unknown-tag", 1, d.fileLine(b), "a tag the rules declare (ac, field, req)",
-			m.Tag, "nodes.*.tag", suggest(m.Tag, []string{"ac", "field", "req"}))
+	if tags := d.rules.tags(); !contains(tags, m.Tag) {
+		d.add("marker-unknown-tag", d.fileLine(b), "a declared tag ("+strings.Join(tags, ", ")+")",
+			m.Tag, "nodes", suggest(m.Tag, tags))
 		return
 	}
 	if d.pending != nil {
@@ -142,17 +168,8 @@ func (d *diagnosis) comment(b block, text string) {
 	d.pending, d.pendLine = &m, d.fileLine(b)
 }
 
-func knownTag(r *rules, tag string) bool {
-	for _, node := range r.Nodes {
-		if node.Tag == tag {
-			return true
-		}
-	}
-	return false
-}
-
 func (d *diagnosis) orphan() {
-	d.add("marker-orphan", 1, d.pendLine, "a heading directly below the marker",
+	d.add("marker-orphan", d.pendLine, "a heading directly below the marker",
 		"no heading before the next marker or the end of the document", "nodes",
 		"add the heading the marker tags, or delete the marker")
 	d.pending = nil
@@ -197,13 +214,13 @@ func editDistance(a, b string) int {
 func (d *diagnosis) frontmatter(data []byte) ([]byte, int) {
 	text := string(data)
 	if !strings.HasPrefix(text, "---\n") {
-		d.add("frontmatter-missing", 1, 1, "a \"---\" frontmatter block first", "no frontmatter",
+		d.add("frontmatter-missing", 1, "a \"---\" frontmatter block first", "no frontmatter",
 			"frontmatter", "start the file with ---, id and title, then ---")
 		return data, 0
 	}
 	closing := strings.Index(text[4:], "\n---\n")
 	if closing < 0 {
-		d.add("frontmatter-missing", 1, 1, "a closing \"---\"", "an unterminated frontmatter block",
+		d.add("frontmatter-missing", 1, "a closing \"---\"", "an unterminated frontmatter block",
 			"frontmatter", "close the frontmatter with a line holding only ---")
 		return data, 0
 	}
@@ -216,30 +233,31 @@ func (d *diagnosis) frontmatterKeys(head string) {
 	var doc yaml.Node
 	if err := yaml.Unmarshal([]byte(head), &doc); err != nil || len(doc.Content) == 0 ||
 		doc.Content[0].Kind != yaml.MappingNode {
-		d.add("frontmatter-invalid", 1, 2, "a YAML mapping", "text that is not a YAML mapping",
+		d.add("frontmatter-invalid", 2, "a YAML mapping", "text that is not a YAML mapping",
 			"frontmatter", "write the frontmatter as key: value lines")
 		return
 	}
 	root := doc.Content[0]
 	seen := map[string]string{}
+	allowed := d.rules.Frontmatter.Allowed
 	for i := 0; i+1 < len(root.Content); i += 2 {
 		key := root.Content[i]
 		seen[key.Value] = root.Content[i+1].Value
-		if !contains(d.rules.Frontmatter.Allowed, key.Value) {
-			d.add("frontmatter-unknown-key", 1, key.Line+1, "one of "+strings.Join(d.rules.Frontmatter.Allowed, ", "),
-				key.Value, "frontmatter.allowed", suggest(key.Value, d.rules.Frontmatter.Allowed))
+		if !contains(allowed, key.Value) {
+			d.add("frontmatter-unknown-key", key.Line+1, "one of "+strings.Join(allowed, ", "),
+				key.Value, "frontmatter.allowed", suggest(key.Value, allowed))
 		}
 	}
 	d.status = seen["status"]
 	for _, key := range d.rules.Frontmatter.Required {
 		if _, ok := seen[key]; !ok {
-			d.add("frontmatter-missing-key", 1, 2, "frontmatter key "+key, "none", "frontmatter.required",
+			d.add("frontmatter-missing-key", 2, "frontmatter key "+key, "none", "frontmatter.required",
 				"add \""+key+": ...\" to the frontmatter")
 		}
 	}
 	want := strings.TrimSuffix(filepath.Base(d.file), filepath.Ext(d.file))
 	if id, ok := seen["id"]; ok && d.rules.Frontmatter.IDMatchesFilename && id != want {
-		d.add("frontmatter-id-mismatch", 1, frontmatterLine(root, "id"), "id "+want+" (the file name)", id,
+		d.add("frontmatter-id-mismatch", frontmatterLine(root, "id"), "id "+want+" (the file name)", id,
 			"frontmatter.id_matches_filename", "rename the file or change the id so they agree")
 	}
 }
@@ -262,9 +280,14 @@ func contains(values []string, value string) bool {
 	return false
 }
 
+// exempt reports a stub whose status lifts the required-content checks.
+func (d *diagnosis) exempt() bool {
+	return d.status != "" && contains(d.rules.ExemptStatus, d.status)
+}
+
 // documentLevel checks what the whole document must carry.
 func (d *diagnosis) documentLevel() {
-	if contains(d.rules.RequiredFieldsExemptStatus, d.status) {
+	if d.exempt() {
 		return
 	}
 	end := len(d.lines) + d.offset
@@ -272,19 +295,28 @@ func (d *diagnosis) documentLevel() {
 		end--
 	}
 	for _, key := range d.rules.RequiredFields {
-		if !d.docKeys[key] {
-			d.add("missing-required-field", 2, end, "a "+key+" field", "none", "required_fields",
+		if !d.doc.fields[key] {
+			d.add("missing-required-field", end, "a "+key+" field", "none", "required_fields",
 				"add <!-- field: "+key+" --> with a level-2 heading and its content")
 		}
 	}
-	if d.rules.RequiresRequirementGroups && d.groups == 0 {
-		d.add("missing-requirement-groups", 2, end, "at least one requirement group", "none",
-			"requires_requirement_groups", "add <!-- req: R1 --> above \"## R1 - <title>\"")
+	kinds := make([]string, 0, len(d.rules.RequiredNodes))
+	for kind := range d.rules.RequiredNodes {
+		kinds = append(kinds, kind)
+	}
+	sort.Strings(kinds)
+	for _, kind := range kinds {
+		if want := d.rules.RequiredNodes[kind]; d.counts[kind] < want {
+			node := d.rules.Nodes[kind]
+			d.add("missing-required-node", end, fmt.Sprintf("at least %d %s", want, kind),
+				fmt.Sprintf("%d", d.counts[kind]), "required_nodes."+kind,
+				fmt.Sprintf("add a <!-- %s: <id> --> marker above a level-%d heading", node.Tag, node.Level))
+		}
 	}
 }
 
-// containsStructure reports whether any block is a table or a list: structure a
-// prose node must carry under its own tagged field.
+// containsStructure reports whether any block is a table or a list:
+// structure a prose node must carry under its own tagged field.
 func containsStructure(blocks []block) (block, string, bool) {
 	for _, b := range blocks {
 		switch b.node.(type) {

@@ -55,10 +55,15 @@ The kit shall export one constant.
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
 
-<!-- ac: AC1 | traces: ["R1.1"] -->
+<!-- ac: AC1 -->
 ### AC1
 
 A kit test fails on an unknown endpoint.
+
+<!-- field: traces -->
+#### Traces
+
+- R1.1
 `
 
 const validName = "srd900-sample.md"
@@ -81,8 +86,13 @@ func replaceOnce(old, replacement string) string {
 	return strings.Replace(validSRD, old, replacement, 1)
 }
 
+// lastLine marks a finding reported at the document's last line.
+const lastLine = -1
+
 func diagnosticCases() []diagnosticCase {
+	group := validSRD[strings.Index(validSRD, "<!-- req: R1 -->"):strings.Index(validSRD, "<!-- field: non_goals -->")]
 	return []diagnosticCase{
+		{"document-type-unknown", validSRD, "notes.md", 1, "name the file after its document type"},
 		{"frontmatter-missing", strings.SplitN(validSRD, "---\n", 3)[2], "", 1, "start the file with ---"},
 		{"frontmatter-invalid", replaceOnce("title: Sample", "title: [unclosed"), "", 2, "key: value lines"},
 		{"frontmatter-missing-key", replaceOnce("title: Sample\n", ""), "", 2, `add "title: ..."`},
@@ -94,8 +104,8 @@ func diagnosticCases() []diagnosticCase {
 		{"marker-orphan", replaceOnce("<!-- field: goals -->", "<!-- field: notes -->\n<!-- field: goals -->"), "", 13, "add the heading the marker tags"},
 		{"heading-untagged", replaceOnce("<!-- field: problem -->\n", ""), "", 8, "add the marker"},
 		{"heading-misplaced", replaceOnce("#### Endpoints", "##### Endpoints"), "", 27, "change the heading depth"},
-		{"id-malformed", replaceOnce("<!-- req: R1.1 -->\n### R1.1", "<!-- req: R1.x -->\n### R1.x"), "", 22, "renumber to the declared form"},
-		{"item-wrong-group", replaceOnce("<!-- req: R1.1 -->\n### R1.1", "<!-- req: R2.1 -->\n### R2.1"), "", 22, "move the item under its own group"},
+		{"id-malformed", replaceOnce("<!-- req: R1.1 -->\n### R1.1", "<!-- req: R1.x -->\n### R1.x"), "", 22, "use the declared id form"},
+		{"id-outside-parent", replaceOnce("<!-- req: R1.1 -->\n### R1.1", "<!-- req: R2.1 -->\n### R2.1"), "", 22, "move the node under the parent its id names"},
 		{"heading-id-mismatch", replaceOnce("### R1.1", "### R1.2"), "", 22, "make the heading say exactly the id"},
 		{"duplicate-id", replaceOnce("<!-- field: non_goals -->", "<!-- req: R1.1 -->\n### R1.1\n\nAgain.\n\n<!-- field: non_goals -->"), "", 34, "give the second node a new id"},
 		{"field-disallowed", replaceOnce("<!-- field: endpoints -->", "<!-- field: goals -->"), "", 27, "move the section to where the field belongs"},
@@ -103,14 +113,14 @@ func diagnosticCases() []diagnosticCase {
 		{"content-untagged", replaceOnce("## R1 - Contract\n", "## R1 - Contract\n\nStray text.\n"), "", 21, "tag it with <!-- field: <key> -->"},
 		{"untagged-structure", replaceOnce("The kit shall export one constant.\n", "The kit shall export one constant.\n\n- a bullet\n"), "", 26, "move the list under its own"},
 		{"missing-content", replaceOnce("The kit shall export one constant.\n\n", ""), "", 22, "write the requirement_item text"},
-		{"missing-required-field", replaceOnce("<!-- field: non_goals -->\n## Non-goals\n\n- Rewriting the shell.\n\n", ""), "", 39, "add <!-- field: non_goals -->"},
-		{"missing-requirement-groups", strings.Replace(validSRD, validSRD[strings.Index(validSRD, "<!-- req: R1 -->"):strings.Index(validSRD, "<!-- field: non_goals -->")], "", 1), "", 29, `add <!-- req: R1 -->`},
+		{"missing-required-field", replaceOnce("<!-- field: non_goals -->\n## Non-goals\n\n- Rewriting the shell.\n\n", ""), "", lastLine, "add <!-- field: non_goals -->"},
+		{"missing-required-field", replaceOnce("\n<!-- field: traces -->\n#### Traces\n\n- R1.1\n", ""), "", 42, "add <!-- field: traces --> with a level-4 heading under AC1"},
+		{"missing-required-node", strings.Replace(validSRD, group, "", 1), "", lastLine, "add a <!-- req: <id> --> marker above a level-2 heading"},
 		{"field-shape-mismatch", replaceOnce("- G1: Fix it.", "G1: Fix it."), "", 16, "write goals as list"},
-		{"list-item-prefix", replaceOnce("- G1: Fix it.", "- Fix it."), "", 16, `number the item`},
+		{"list-item-pattern", replaceOnce("- G1: Fix it.", "- Fix it."), "", 16, "rewrite the item in the declared form"},
+		{"list-item-pattern", replaceOnce("- R1.1\n", "- X9\n"), "", 49, "rewrite the item in the declared form"},
 		{"table-columns-mismatch", replaceOnce("| path | owner |", "| path | team |"), "", 29, "use exactly the declared columns"},
 		{"attribute-shape", replaceOnce("<!-- req: R1.1 -->", "<!-- req: R1.1 | weight: heavy -->"), "", 21, "write the value in its declared shape"},
-		{"criterion-traces-missing", replaceOnce(`<!-- ac: AC1 | traces: ["R1.1"] -->`, "<!-- ac: AC1 -->"), "", 41, `add | traces: ["R1.1"]`},
-		{"criterion-trace-invalid", replaceOnce(`traces: ["R1.1"]`, `traces: ["X9"]`), "", 41, "trace a requirement id"},
 		{"prose-containment", replaceOnce("Something is missing.", "The system SHALL do it."), "", 11, "move the obligation into a requirement item"},
 	}
 }
@@ -125,12 +135,16 @@ func TestEveryFindingIsDiagnosedAtItsLineWithAHint(t *testing.T) {
 				file = validName
 			}
 			findings := Diagnose([]byte(tc.doc), file)
+			line := tc.line
+			if line == lastLine {
+				line = strings.Count(tc.doc, "\n")
+			}
 			for _, f := range findings {
 				if f.Name != tc.name {
 					continue
 				}
-				if f.Line != tc.line || !strings.Contains(f.Hint, tc.hint) || f.Tier != findingCatalog[tc.name] {
-					t.Fatalf("got %s (tier %d), want line %d, tier %d, hint containing %q", f, f.Tier, tc.line, findingCatalog[tc.name], tc.hint)
+				if f.Line != line || !strings.Contains(f.Hint, tc.hint) || f.Tier != findingCatalog[tc.name] {
+					t.Fatalf("got %s (tier %d), want line %d, tier %d, hint containing %q", f, f.Tier, line, findingCatalog[tc.name], tc.hint)
 				}
 				return
 			}
@@ -154,21 +168,18 @@ func TestEveryCatalogFindingHasAFixture(t *testing.T) {
 	}
 }
 
-// printerFindings are the findings only a malformed printer could cause: the
-// markers, frontmatter, headings, and placement it writes. Findings about a
-// document's own content (its ids, traces, wording, missing sections) are
-// not the printer's.
-var printerFindings = map[string]bool{
-	"frontmatter-missing": true, "frontmatter-invalid": true, "frontmatter-missing-key": true,
-	"frontmatter-unknown-key": true, "marker-malformed": true, "marker-unknown-tag": true,
-	"marker-unknown-attribute": true, "marker-orphan": true, "heading-untagged": true,
-	"heading-misplaced": true, "heading-id-mismatch": true, "content-untagged": true,
-	"untagged-structure": true, "attribute-shape": true, "field-duplicate": true, "field-disallowed": true,
-}
+// corpusAllowed are the findings the printed corpus may still carry: prose
+// containment (normative wording in non-goals) is resolved file by file in
+// the corpus migration (GH-2581 decision 2). Every other finding on a printed
+// SRD is either a printer defect or a corpus fact the declaration should
+// already admit, such as the widened id grammar (decision 1).
+var corpusAllowed = map[string]bool{"prose-containment": true}
 
-// TestPrintedCorpusIsStructurallyClean diagnoses the printed form of every
-// tracked SRD: the printer must never produce a structural finding.
-func TestPrintedCorpusIsStructurallyClean(t *testing.T) {
+// TestPrintedCorpusIsClean diagnoses the printed form of every tracked SRD
+// against design.yaml's srd declaration: nothing but prose containment may
+// remain, so the printer is structurally sound, every id fits the declared
+// grammar, and every criterion carries a visible traces field.
+func TestPrintedCorpusIsClean(t *testing.T) {
 	repo, err := filepath.Abs("../..")
 	if err != nil {
 		t.Fatal(err)
@@ -193,8 +204,8 @@ func TestPrintedCorpusIsStructurallyClean(t *testing.T) {
 		}
 		name := strings.TrimSuffix(filepath.Base(path), ".yaml") + ".md"
 		for _, f := range Diagnose(md, name) {
-			if printerFindings[f.Name] {
-				t.Errorf("%s: printer produced %s", path, f)
+			if !corpusAllowed[f.Name] {
+				t.Errorf("%s: printed form has %s", path, f)
 			}
 		}
 	}

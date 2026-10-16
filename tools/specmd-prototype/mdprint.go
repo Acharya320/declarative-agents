@@ -27,6 +27,7 @@ const (
 	keyAcceptanceCriteria = "acceptance_criteria"
 	keyNeedsClarification = "needs_clarification"
 	keyEvidence           = "evidence"
+	keyTraces             = "traces"
 )
 
 // fieldHeadings names the visible heading of each typed field; an untyped
@@ -39,6 +40,7 @@ var fieldHeadings = map[string]string{
 	keyAcceptanceCriteria: "Acceptance criteria",
 	keyNeedsClarification: "Needs clarification",
 	keyEvidence:           "Evidence",
+	keyTraces:             "Traces",
 }
 
 func fieldHeading(key string) string {
@@ -211,6 +213,9 @@ func (p *printer) criteria(srd *spec.SRD) error {
 			text = stringNode(criterion.Criterion)
 		}
 		if err := p.section(m, 3, criterion.ID, text); err != nil {
+			return err
+		}
+		if err := p.stringList(4, keyTraces, criterion.Traces); err != nil {
 			return err
 		}
 		if err := p.extensions(4, criterion.Extensions); err != nil {
