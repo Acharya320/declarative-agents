@@ -107,15 +107,14 @@ func retiredSRDFindings(corpus *Corpus, tagged *taggedCorpusIDs, tag string) []F
 			// A retired SRD keeps its id; its items need no individual entries.
 			continue
 		}
-		findings = append(findings, retiredSRDEntryFindings(&srd, srdID, tagged, tag, tagFile)...)
+		findings = append(findings, retiredSRDEntryFindings(&srd, srdID, corpus.documentFile("srd", SRDSubdir, srdID), tagged, tag, tagFile)...)
 	}
 	return findings
 }
 
 // retiredSRDEntryFindings checks one live SRD's requirement items and
 // acceptance criteria against the ids the tag froze.
-func retiredSRDEntryFindings(srd *SRD, srdID string, tagged *taggedCorpusIDs, tag, tagFile string) []Finding {
-	headFile := path.Join(SRDSubdir, srdID+".yaml")
+func retiredSRDEntryFindings(srd *SRD, srdID, headFile string, tagged *taggedCorpusIDs, tag, tagFile string) []Finding {
 	var findings []Finding
 	headItems := make(map[string]RequirementItem)
 	for _, item := range srd.AllItems() {
@@ -155,7 +154,7 @@ func bareSRDRetirements(corpus *Corpus) []Finding {
 	for _, srdID := range sortedSRDIDs(corpus) {
 		srd := corpus.SRDs[srdID]
 		if srd.Status == statusRetired && srd.RetiredIn == "" {
-			findings = append(findings, bareRetirementFinding(srdID, path.Join(SRDSubdir, srdID+".yaml")))
+			findings = append(findings, bareRetirementFinding(srdID, corpus.documentFile("srd", SRDSubdir, srdID)))
 		}
 	}
 	return findings
@@ -172,7 +171,7 @@ func retiredDocFindings(corpus *Corpus, tagged *taggedCorpusIDs, tag string) []F
 			continue
 		}
 		if uc.Status == statusRetired && uc.RetiredIn == "" {
-			findings = append(findings, bareRetirementFinding(ucID, path.Join(UCSubdir, ucID+".yaml")))
+			findings = append(findings, bareRetirementFinding(ucID, corpus.documentFile("use_case", UCSubdir, ucID)))
 		}
 	}
 	for _, tsID := range sortedFileKeys(tagged.suites) {
@@ -182,7 +181,7 @@ func retiredDocFindings(corpus *Corpus, tagged *taggedCorpusIDs, tag string) []F
 			continue
 		}
 		if ts.Status == statusRetired && ts.RetiredIn == "" {
-			findings = append(findings, bareRetirementFinding(tsID, path.Join(TSSubdir, tsID+".yaml")))
+			findings = append(findings, bareRetirementFinding(tsID, corpus.documentFile("test_suite", TSSubdir, tsID)))
 		}
 	}
 	return findings
@@ -207,7 +206,7 @@ func loadTaggedCorpusIDs(dir, tag string) (*taggedCorpusIDs, error) {
 	}
 	for _, file := range strings.Split(listing, "\n") {
 		file = strings.TrimSpace(file)
-		if file == "" || !strings.HasSuffix(file, ".yaml") {
+		if file == "" || !isCorpusDocument(file) {
 			continue
 		}
 		base := path.Base(file)
@@ -234,7 +233,11 @@ func (t *taggedCorpusIDs) addTaggedSRD(dir, tag, file string) {
 	if err != nil {
 		return
 	}
-	srd, err := parseSRDBytes([]byte(content), tag+":"+file)
+	data, err := documentYAML(content, file)
+	if err != nil {
+		return
+	}
+	srd, err := parseSRDBytes(data, tag+":"+file)
 	if err != nil || srd.ID == "" {
 		return
 	}
@@ -257,10 +260,14 @@ func taggedDocumentID(dir, tag, file string) string {
 	if err != nil {
 		return ""
 	}
+	data, err := documentYAML(content, file)
+	if err != nil {
+		return ""
+	}
 	var doc struct {
 		ID string `yaml:"id"`
 	}
-	if err := yaml.Unmarshal([]byte(content), &doc); err != nil {
+	if err := yaml.Unmarshal(data, &doc); err != nil {
 		return ""
 	}
 	return doc.ID

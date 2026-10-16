@@ -33,6 +33,13 @@ const (
 	CFSubdir    = "docs/specs/config-formats"
 )
 
+// File-name prefixes of the corpus documents discovered in either format.
+const (
+	srdPrefix = "srd"
+	ucPrefix  = "rel"
+	tsPrefix  = "test-"
+)
+
 // Corpus holds all parsed specification artifacts for a project.
 type Corpus struct {
 	RootDir string
@@ -57,6 +64,14 @@ type Corpus struct {
 	SRDOrder     []string
 	UCOrder      []string
 	MachineOrder []string
+
+	// Files maps "<kind>/<id>" (srd, use_case, test_suite) to the file the
+	// document was read from, relative to RootDir, in whichever format it has.
+	Files map[string]string
+	// FormatFindings are the findings the documents' format raised while the
+	// corpus loaded (eng10): Markdown diagnostics, documents in both
+	// formats, and Markdown out of canonical form.
+	FormatFindings []Finding
 }
 
 // CorpusOption configures how LoadCorpus discovers and parses artifacts.
@@ -79,7 +94,7 @@ func WithOptionalCorpus() CorpusOption {
 // jurist's evidence-only audit variant for repositories whose broader
 // documentation schema is intentionally not an agent-core specification corpus.
 func LoadTestSuites(rootDir string) (map[string]TestSuite, error) {
-	return discoverAndParseTestSuites(rootDir)
+	return discoverAndParseTestSuites(newFormatScan(rootDir))
 }
 
 // LoadCorpus discovers, parses, and validates all specification artifacts
@@ -97,29 +112,28 @@ func LoadCorpus(rootDir string, opts ...CorpusOption) (*Corpus, error) {
 		}
 	}
 
-	srds, srdOrder, err := discoverAndParseSRDs(rootDir, options.optional)
+	scan := newFormatScan(rootDir)
+	srds, srdOrder, err := discoverAndParseSRDs(scan, options.optional)
 	if err != nil {
 		return nil, err
 	}
 
-	ucs, ucOrder, err := discoverAndParseUseCases(rootDir)
+	ucs, ucOrder, err := discoverAndParseUseCases(scan)
 	if err != nil {
 		return nil, err
 	}
 
-	tss, err := discoverAndParseTestSuites(rootDir)
+	tss, err := discoverAndParseTestSuites(scan)
 	if err != nil {
 		return nil, err
 	}
 
-	rmPath := filepath.Join(rootDir, RoadmapFile)
-	rm, err := loadRoadmap(rmPath, options.optional)
+	rm, err := loadRoadmap(scan, RoadmapFile, options.optional)
 	if err != nil {
 		return nil, err
 	}
 
-	siPath := filepath.Join(rootDir, SpecFile)
-	si, err := loadSpecIndex(siPath, options.optional)
+	si, err := loadSpecIndex(scan, SpecFile, options.optional)
 	if err != nil {
 		return nil, err
 	}
@@ -134,7 +148,7 @@ func LoadCorpus(rootDir string, opts ...CorpusOption) (*Corpus, error) {
 		return nil, err
 	}
 
-	docSpecs, err := discoverAndParseDocSpecs(rootDir)
+	docSpecs, err := discoverAndParseDocSpecs(scan)
 	if err != nil {
 		return nil, err
 	}
@@ -154,39 +168,45 @@ func LoadCorpus(rootDir string, opts ...CorpusOption) (*Corpus, error) {
 		SRDOrder:            srdOrder,
 		UCOrder:             ucOrder,
 		MachineOrder:        machineOrder,
+		Files:               scan.files,
+		FormatFindings:      scan.findings,
 	}
 
 	if err := c.validate(); err != nil {
-		return nil, err
+		return nil, scan.explain(err)
 	}
 	return c, nil
 }
 
-// loadRoadmap parses road-map.yaml, treating a missing file as an empty
-// roadmap when the corpus is optional.
-func loadRoadmap(path string, optional bool) (Roadmap, error) {
-	if optional {
-		if _, err := os.Stat(path); os.IsNotExist(err) {
-			return Roadmap{}, nil
-		}
+// loadRoadmap parses the road map, in either format, treating a missing
+// file as an empty roadmap when the corpus is optional.
+func loadRoadmap(scan *formatScan, file string, optional bool) (Roadmap, error) {
+	path := scan.single(filepath.Join(scan.rootDir, strings.TrimSuffix(file, yamlExt)))
+	if path == "" && optional {
+		return Roadmap{}, nil
+	}
+	if path == "" {
+		path = filepath.Join(scan.rootDir, file)
 	}
 	return ParseRoadmap(path)
 }
 
-// loadSpecIndex parses SPECIFICATIONS.yaml, treating a missing file as an empty
-// index when the corpus is optional.
-func loadSpecIndex(path string, optional bool) (SpecIndex, error) {
-	if optional {
-		if _, err := os.Stat(path); os.IsNotExist(err) {
-			return SpecIndex{}, nil
-		}
+// loadSpecIndex parses the specification index, in either format, treating a
+// missing file as an empty index when the corpus is optional.
+func loadSpecIndex(scan *formatScan, file string, optional bool) (SpecIndex, error) {
+	path := scan.single(filepath.Join(scan.rootDir, strings.TrimSuffix(file, yamlExt)))
+	if path == "" && optional {
+		return SpecIndex{}, nil
+	}
+	if path == "" {
+		path = filepath.Join(scan.rootDir, file)
 	}
 	return ParseSpecIndex(path)
 }
 
-func discoverAndParseSRDs(rootDir string, optional bool) (map[string]SRD, []string, error) {
-	pattern := filepath.Join(rootDir, SRDSubdir, SRDGlob)
-	matches, err := filepath.Glob(pattern)
+func discoverAndParseSRDs(scan *formatScan, optional bool) (map[string]SRD, []string, error) {
+	pattern := filepath.Join(scan.rootDir, SRDSubdir, SRDGlob)
+	matches, err := scan.documents(filepath.Join(scan.rootDir, SRDSubdir), srdPrefix)
 	if err != nil {
 		return nil, nil, fmt.Errorf("glob SRD files: %w", err)
 	}
@@ -215,13 +235,13 @@ func discoverAndParseSRDs(rootDir string, optional bool) (map[string]SRD, []stri
 		}
 		srds[srd.ID] = srd
 		order = append(order, srd.ID)
+		scan.record("srd", srd.ID, path)
 	}
 	return srds, order, nil
 }
 
-func discoverAndParseUseCases(rootDir string) (map[string]UseCase, []string, error) {
-	pattern := filepath.Join(rootDir, UCSubdir, UCGlob)
-	matches, err := filepath.Glob(pattern)
+func discoverAndParseUseCases(scan *formatScan) (map[string]UseCase, []string, error) {
+	matches, err := scan.documents(filepath.Join(scan.rootDir, UCSubdir), ucPrefix)
 	if err != nil {
 		return nil, nil, fmt.Errorf("glob use case files: %w", err)
 	}
@@ -244,13 +264,13 @@ func discoverAndParseUseCases(rootDir string) (map[string]UseCase, []string, err
 		}
 		ucs[uc.ID] = uc
 		order = append(order, uc.ID)
+		scan.record("use_case", uc.ID, path)
 	}
 	return ucs, order, nil
 }
 
-func discoverAndParseTestSuites(rootDir string) (map[string]TestSuite, error) {
-	pattern := filepath.Join(rootDir, TSSubdir, TSGlob)
-	matches, err := filepath.Glob(pattern)
+func discoverAndParseTestSuites(scan *formatScan) (map[string]TestSuite, error) {
+	matches, err := scan.documents(filepath.Join(scan.rootDir, TSSubdir), tsPrefix)
 	if err != nil {
 		return nil, fmt.Errorf("glob test suite files: %w", err)
 	}
@@ -266,6 +286,7 @@ func discoverAndParseTestSuites(rootDir string) (map[string]TestSuite, error) {
 			return nil, fmt.Errorf("test suite file %s has no id field", path)
 		}
 		tss[ts.ID] = ts
+		scan.record("test_suite", ts.ID, path)
 	}
 	return tss, nil
 }
@@ -358,19 +379,20 @@ func parseToolSelection(data []byte) ([]string, error) {
 	return sel.Tools, nil
 }
 
-func discoverAndParseDocSpecs(rootDir string) (map[string]DocSpec, error) {
+func discoverAndParseDocSpecs(scan *formatScan) (map[string]DocSpec, error) {
+	rootDir := scan.rootDir
 	specs := make(map[string]DocSpec)
 	dirs := []string{
 		filepath.Join(rootDir, SMSubdir),
 		filepath.Join(rootDir, CFSubdir),
 	}
 	for _, dir := range dirs {
-		matches, err := filepath.Glob(filepath.Join(dir, "*.yaml"))
+		matches, err := scan.documents(dir, "")
 		if err != nil {
 			return nil, fmt.Errorf("glob doc specs in %s: %w", dir, err)
 		}
 		for _, path := range matches {
-			data, err := os.ReadFile(path)
+			data, err := readDocument(path)
 			if err != nil {
 				return nil, fmt.Errorf("read doc spec %s: %w", path, err)
 			}

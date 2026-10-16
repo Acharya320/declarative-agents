@@ -5,14 +5,13 @@ package spec
 
 import (
 	"fmt"
-	"os"
 
 	"gopkg.in/yaml.v3"
 )
 
 // ParseSRD reads a single SRD YAML file and returns the parsed struct.
 func ParseSRD(path string) (SRD, error) {
-	data, err := os.ReadFile(path)
+	data, err := readDocument(path)
 	if err != nil {
 		return SRD{}, fmt.Errorf("read SRD %s: %w", path, err)
 	}
@@ -268,7 +267,7 @@ func scalarFields(item *yaml.Node) (map[string]string, error) {
 
 // ParseRoadmap reads a road-map.yaml file.
 func ParseRoadmap(path string) (Roadmap, error) {
-	data, err := os.ReadFile(path)
+	data, err := readDocument(path)
 	if err != nil {
 		return Roadmap{}, fmt.Errorf("read roadmap %s: %w", path, err)
 	}
@@ -281,7 +280,7 @@ func ParseRoadmap(path string) (Roadmap, error) {
 
 // ParseSpecIndex reads a SPECIFICATIONS.yaml file.
 func ParseSpecIndex(path string) (SpecIndex, error) {
-	data, err := os.ReadFile(path)
+	data, err := readDocument(path)
 	if err != nil {
 		return SpecIndex{}, fmt.Errorf("read spec index %s: %w", path, err)
 	}
@@ -315,7 +314,7 @@ type rawUseCase struct {
 
 // ParseUseCase reads a use case YAML file.
 func ParseUseCase(path string) (UseCase, error) {
-	data, err := os.ReadFile(path)
+	data, err := readDocument(path)
 	if err != nil {
 		return UseCase{}, fmt.Errorf("read use case %s: %w", path, err)
 	}
@@ -377,7 +376,7 @@ func useCaseFromRaw(raw *rawUseCase, flow, touchpoints, outOfScope []string) Use
 
 // ParseTestSuite reads a test suite YAML file.
 func ParseTestSuite(path string) (TestSuite, error) {
-	data, err := os.ReadFile(path)
+	data, err := readDocument(path)
 	if err != nil {
 		return TestSuite{}, fmt.Errorf("read test suite %s: %w", path, err)
 	}

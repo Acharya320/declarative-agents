@@ -5,7 +5,6 @@ package spec
 
 import (
 	"fmt"
-	"path"
 )
 
 // checkUnresolvedClarifications reports every needs_clarification entry in
@@ -18,13 +17,13 @@ func checkUnresolvedClarifications(corpus *Corpus) []Finding {
 	var findings []Finding
 	for _, srdID := range sortedSRDIDs(corpus) {
 		srd := corpus.SRDs[srdID]
-		file := path.Join(SRDSubdir, srdID+".yaml")
+		file := corpus.documentFile("srd", SRDSubdir, srdID)
 		findings = append(findings, clarificationFindings(
 			srdID, file, srd.NeedsClarification, srdClarificationTargets(&srd))...)
 	}
 	for _, ucID := range sortedUseCaseIDs(corpus) {
 		uc := corpus.UseCases[ucID]
-		file := path.Join(UCSubdir, ucID+".yaml")
+		file := corpus.documentFile("use_case", UCSubdir, ucID)
 		targets := map[string]bool{}
 		for _, sc := range uc.SuccessCriteria {
 			targets[sc.ID] = true
@@ -34,7 +33,7 @@ func checkUnresolvedClarifications(corpus *Corpus) []Finding {
 	}
 	for _, tsID := range sortedTestSuiteIDs(corpus) {
 		ts := corpus.TestSuites[tsID]
-		file := path.Join(TSSubdir, tsID+".yaml")
+		file := corpus.documentFile("test_suite", TSSubdir, tsID)
 		targets := map[string]bool{}
 		for _, tc := range ts.TestCases {
 			targets[tc.Name] = true

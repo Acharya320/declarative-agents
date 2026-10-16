@@ -20,6 +20,10 @@ public Go APIs. Placement rules are defined in
   planning and audit flows. Its tool-corpus view is converted from
   `internal/tools/catalog.ToolDef`, so runtime and audit share one recursive
   declaration loader.
+- `.` (package `agentcore`, the module root) embeds
+  `docs/constitutions/design.yaml` so the corpus reader carries the document
+  type declarations into binaries, images, and consumer repositories. It
+  imports nothing.
 - `pkg/spec/markdown` is the format engine of the Markdown specification
   corpus (eng10): marker grammar, block scanner, shapes, the design.yaml
   declaration loader, the tiered diagnostics, and the declaration-driven
@@ -121,6 +125,7 @@ apart from `br.Register` calls.
 
 Generated from `go list ./...`. The boundaries gate checks this list.
 
+- `.`
 - `cmd/agent`
 - `internal/boundaries`
 - `internal/doltsql`

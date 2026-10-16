@@ -5,7 +5,6 @@ package spec
 
 import (
 	"fmt"
-	"os"
 	"path/filepath"
 	"strings"
 )
@@ -130,7 +129,7 @@ func checkSpecIndexPaths(corpus *Corpus) []Finding {
 	var findings []Finding
 	for _, entry := range corpus.SpecIndex.SRDIndex {
 		if entry.Path != "" {
-			if _, err := os.Stat(filepath.Join(corpus.RootDir, entry.Path)); err != nil {
+			if !documentExists(filepath.Join(corpus.RootDir, entry.Path)) {
 				findings = append(findings, Finding{
 					Check:   "index-broken-path",
 					Level:   "error",
@@ -141,7 +140,7 @@ func checkSpecIndexPaths(corpus *Corpus) []Finding {
 	}
 	for _, entry := range corpus.SpecIndex.UseCaseIndex {
 		if entry.Path != "" {
-			if _, err := os.Stat(filepath.Join(corpus.RootDir, entry.Path)); err != nil {
+			if !documentExists(filepath.Join(corpus.RootDir, entry.Path)) {
 				findings = append(findings, Finding{
 					Check:   "index-broken-path",
 					Level:   "error",
@@ -152,7 +151,7 @@ func checkSpecIndexPaths(corpus *Corpus) []Finding {
 	}
 	for _, entry := range corpus.SpecIndex.TestSuiteIndex {
 		if entry.Path != "" {
-			if _, err := os.Stat(filepath.Join(corpus.RootDir, entry.Path)); err != nil {
+			if !documentExists(filepath.Join(corpus.RootDir, entry.Path)) {
 				findings = append(findings, Finding{
 					Check:   "index-broken-path",
 					Level:   "error",
@@ -174,7 +173,7 @@ func checkDocSpecRequirementsSources(corpus *Corpus) []Finding {
 	var findings []Finding
 	for id, ds := range corpus.DocSpecs {
 		for _, path := range ds.RequirementsSource.Canonical {
-			if _, err := os.Stat(filepath.Join(corpus.RootDir, path)); err != nil {
+			if !documentExists(filepath.Join(corpus.RootDir, path)) {
 				findings = append(findings, Finding{
 					Check:   "docspec-broken-requirement-source",
 					Level:   "error",
@@ -227,7 +226,7 @@ func checkDocSpecImplementationPaths(corpus *Corpus) []Finding {
 	var findings []Finding
 	for id, ds := range corpus.DocSpecs {
 		for _, path := range ds.Implementation.Paths {
-			if _, err := os.Stat(filepath.Join(corpus.RootDir, path)); err != nil {
+			if !documentExists(filepath.Join(corpus.RootDir, path)) {
 				findings = append(findings, Finding{
 					Check:   "docspec-broken-implementation-path",
 					Level:   "error",
@@ -252,7 +251,7 @@ func checkDocSpecExamplePaths(corpus *Corpus) []Finding {
 			if ex.File == "" {
 				continue
 			}
-			if _, err := os.Stat(filepath.Join(corpus.RootDir, ex.File)); err != nil {
+			if !documentExists(filepath.Join(corpus.RootDir, ex.File)) {
 				findings = append(findings, Finding{
 					Check:   "docspec-broken-example-path",
 					Level:   "warning",

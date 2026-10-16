@@ -140,6 +140,14 @@ func (c *canonicalizer) recordID(m nodeYAML, item *yaml.Node, path string) {
 	if item.Kind != yaml.MappingNode || (m.Keyed && len(item.Content) == 2 && item.Content[0].Value != m.ID) {
 		return
 	}
+	if m.Keyed && mapValue(item, m.ID) == nil && len(item.Content) > 2 && isString(item.Content[1]) {
+		// A keyed entry with metadata beside it ("R1.2: text" then
+		// "weight: 2") becomes the record form.
+		id, text := item.Content[0].Value, item.Content[1]
+		c.note(path, "keyed entry %s with more keys written as a record", id)
+		item.Content = append([]*yaml.Node{stringNode(m.ID), stringNode(id), stringNode(m.Content), text}, item.Content[2:]...)
+		return
+	}
 	id := mapValue(item, m.ID)
 	switch {
 	case id != nil && id.Kind == yaml.ScalarNode && id.ShortTag() != "!!str":

@@ -13,6 +13,7 @@ import:pkg/profileaudit -> internal/tools/catalog
 import:pkg/profileaudit -> internal/typesys
 import:pkg/profilestage -> internal/support/envexpand
 import:pkg/profileaudit -> internal/tools/rest
+pkg:. files=1 loc=22
 pkg:cmd/agent files=6 loc=1965
 pkg:internal/doltsql files=4 loc=274
 pkg:internal/evaluation files=23 loc=3867
@@ -75,6 +76,6 @@ pkg:internal/typesys files=4 loc=593
 pkg:internal/version files=1 loc=40
 pkg:pkg/profileaudit files=4 loc=1214
 pkg:pkg/profilestage files=2 loc=581
-pkg:pkg/spec files=37 loc=7956
-pkg:pkg/spec/markdown files=14 loc=3128
+pkg:pkg/spec files=38 loc=8261
+pkg:pkg/spec/markdown files=15 loc=3163
 pkg:internal/fragments files=2 loc=279

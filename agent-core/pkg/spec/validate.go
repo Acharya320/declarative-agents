@@ -40,6 +40,7 @@ func Validate(g *Graph, corpus *Corpus) []Finding {
 	all = append(all, checkUnresolvedClarifications(corpus)...)
 	all = append(all, checkInvalidPriorities(corpus)...)
 	all = append(all, checkExternalReferences(corpus)...)
+	all = append(all, checkDocumentFormat(corpus)...)
 	return all
 }
 
