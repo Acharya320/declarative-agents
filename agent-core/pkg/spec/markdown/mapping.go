@@ -1,0 +1,112 @@
+// Copyright (c) 2026 Nokia
+// SPDX-License-Identifier: BSD-3-Clause
+
+package markdown
+
+import (
+	"fmt"
+	"sort"
+	"strings"
+)
+
+// nodeYAML maps a node kind to the YAML records it comes from (eng10 Table 4):
+// the key holding them, whether they are a list or a map keyed by id, and the
+// record keys holding the id, the heading title, and the prose content. A
+// keyed record may be written as a one-entry map from id to content.
+type nodeYAML struct {
+	From    string `yaml:"from"`
+	Records string `yaml:"records"`
+	ID      string `yaml:"id"`
+	Title   string `yaml:"title"`
+	Content string `yaml:"content"`
+	Keyed   bool   `yaml:"keyed"`
+}
+
+// Record forms, field value conversions, and the field tag.
+const (
+	recordsList  = "list"
+	recordsMap   = "map"
+	valueKeyed   = "keyed"
+	valueOutline = "outline"
+	tagField     = "field"
+	headingFree  = "free"
+)
+
+// checkMapping rejects a YAML mapping the converter could not follow.
+func (r *Declaration) checkMapping() error {
+	for _, name := range sortedKeys(r.Nodes) {
+		m := r.Nodes[name].YAML
+		switch {
+		case m == (nodeYAML{}):
+		case m.From == "":
+			return fmt.Errorf("nodes.%s.yaml.from: required", name)
+		case m.Records != recordsList && m.Records != recordsMap:
+			return fmt.Errorf("nodes.%s.yaml.records: %q is neither list nor map", name, m.Records)
+		case m.Records == recordsList && m.ID == "":
+			return fmt.Errorf("nodes.%s.yaml.id: list records name their id key", name)
+		case m.Keyed && m.Content == "":
+			return fmt.Errorf("nodes.%s.yaml.content: keyed records name their content key", name)
+		}
+	}
+	for _, name := range sortedKeys(r.Fields) {
+		field := r.Fields[name]
+		switch {
+		case field.Value == "" || field.Value == valueKeyed:
+		case field.Value != valueOutline:
+			return fmt.Errorf("fields.%s.value: %q is neither keyed nor outline", name, field.Value)
+		case field.ID == "" || field.ContentKey == "":
+			return fmt.Errorf("fields.%s: an outline names its id and content keys", name)
+		}
+	}
+	return nil
+}
+
+// fieldKind finds the field node kind that opens at level under parent.
+func (r *Declaration) fieldKind(level int, parent string) (string, bool) {
+	return r.nodeFor(tagField, level, parent)
+}
+
+// directRecords finds the node kind whose records sit under key with no
+// field heading of their own, as requirement groups sit under requirements.
+func (r *Declaration) directRecords(level int, parent, key string) (string, bool) {
+	for _, name := range sortedKeys(r.Nodes) {
+		node := r.Nodes[name]
+		if node.Tag != tagField && node.Level == level && node.Parent == parent && node.YAML.From == key {
+			return name, true
+		}
+	}
+	return "", false
+}
+
+// fieldRecords finds the node kind whose records a field holds, as
+// acceptance criteria sit under the acceptance_criteria field.
+func (r *Declaration) fieldRecords(key string) (string, bool) {
+	for _, name := range sortedKeys(r.Nodes) {
+		if r.Nodes[name].Parent == "field:"+key {
+			return name, true
+		}
+	}
+	return "", false
+}
+
+// fieldHeading is the heading a field prints with: the declared one, or the
+// name with its first letter capitalized and underscores as spaces.
+func (r *Declaration) fieldHeading(key string) string {
+	if heading := r.Fields[key].Heading; heading != "" {
+		return heading
+	}
+	if key == "" {
+		return ""
+	}
+	words := strings.ReplaceAll(key, "_", " ")
+	return strings.ToUpper(words[:1]) + words[1:]
+}
+
+func sortedKeys[V any](m map[string]V) []string {
+	keys := make([]string, 0, len(m))
+	for key := range m {
+		keys = append(keys, key)
+	}
+	sort.Strings(keys)
+	return keys
+}

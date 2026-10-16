@@ -314,12 +314,14 @@ func splitRow(line string) []string {
 	return append(cells, strings.TrimSpace(cell.String()))
 }
 
-// explicitNulls copies a node tree, spelling every implicit null (a "!!null"
+// explicitNulls copies a node tree without its comments (eng10: YAML
+// comments are reported, not carried), spelling every implicit null (a "!!null"
 // scalar with an empty value, as a key without a value parses) as "null":
 // the encoder prints an empty null as "" otherwise, and it reads back as an
 // empty string.
 func explicitNulls(node *yaml.Node) *yaml.Node {
 	clone := *node
+	clone.HeadComment, clone.LineComment, clone.FootComment = "", "", ""
 	if clone.Kind == yaml.ScalarNode && clone.ShortTag() == "!!null" && clone.Value == "" {
 		clone.Value = "null"
 	}

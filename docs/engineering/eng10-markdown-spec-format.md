@@ -132,7 +132,7 @@ How each YAML value becomes one of these shapes is the job of the YAML mapping, 
 
 One converter serves every document type (GH-2582, split on 2026-10-16). It maps a Markdown document to the yaml.Node tree its YAML form parses into, and back, driven only by the type's declaration. Every consumer that reads the YAML tree today reads the same tree from a Markdown document: the typed parsers (ParseSRD, ParseUseCase, ParseTestSuite, ParseRoadmap, ParseSpecIndex), the corpus charter's YAML-path checks, and the reference checks in magefiles. The typed models stay the one document model; Markdown is a second way to reach them.
 
-The rendering rules above say how a document looks. The YAML mapping says where each piece lives in the tree, and it sits beside them in the declaration. Frontmatter fields are top-level scalar keys of the same name. A field maps to the record key of its name unless its declaration names another, and its value converts by Table 5. A node kind maps to records by the parts in Table 4.
+The rendering rules above say how a document looks. The YAML mapping says where each piece lives in the tree, and it sits beside them in the declaration. Frontmatter fields are top-level scalar keys of the same name. A field maps to the record key of its name, and its value converts by Table 5; a field declaration may name the keyed or outline conversion (value), an outline's id and content keys, and the heading the field prints with. A node kind maps to records by the parts in Table 4, given in the yaml block of its declaration.
 
 Table 4: YAML mapping of a node kind
 
@@ -144,7 +144,8 @@ Table 4: YAML mapping of a node kind
 | title | the record key whose value follows the id in an id_title heading |
 | content | the record key whose value is the node's prose |
 | keyed | the record may be written as a one-entry map from id to content |
-| fields | the child field kind that carries every other record key |
+
+Every other record key prints, in record order, under the field kind declared with the node kind as its parent, as SRD item fields sit under requirement items. A node kind whose records sit under a field names that field as its parent (field:acceptance_criteria); one whose records sit straight under a key, with no heading of their own, names the key in from and its parent node or the document as its parent, as requirement groups do.
 
 Table 5: Value conversions
 
@@ -158,12 +159,12 @@ Table 5: Value conversions
 | list of records with prose | nodes, one per record | requirement items, acceptance criteria, test cases |
 | anything else | fenced yaml block | nested passthrough values |
 
-A passthrough value, one no declaration types, takes the first conversion in the table that parses back to the same node: a string becomes prose, a list of plain strings becomes a list, and anything else becomes a fenced yaml block. Record keys keep their order, so a document's key order survives as its field order.
+A passthrough value, one no declaration types, takes the first conversion that parses back to the same node: a string becomes prose, a list of plain strings becomes a list, a list of flat records sharing one key order becomes a table, and anything else becomes a fenced yaml block. A declared field is held to its declaration instead: the printer refuses a value its declared shape or conversion cannot carry rather than fall back, so the normalization of the next sections, not the converter, decides what a field holds. Record keys keep their order, so a document's key order survives as its field order.
 
 <!-- section: round-trip-laws -->
 ## Round-trip laws
 
-The laws are stated on the node tree, with comments removed and after the one-time form normalization of the next section. For every tracked document of every structured type, yaml to node to Markdown to node is the identity, Markdown is a fixed point of parse then print on canonical form, and the converter is idempotent. For the types that have a typed model, the model parsed from the Markdown front end equals the model parsed from the YAML one. GH-2605 proves the laws on the real corpus, and GH-2606 adds the batch converter and its inverse.
+The laws are stated on the node tree, with comments removed and after the one-time form normalization of the next section. For every tracked document of every structured type, yaml to node to Markdown to node is the identity, Markdown is a fixed point of parse then print on canonical form, and the converter is idempotent. For the types that have a typed model, the model parsed from the Markdown front end equals the model parsed from the YAML one. Two details are part of the canonical form. Parsing returns a record's keys in one order, id, title, content, attributes, then its children in document order, and the one-time normalization puts the YAML records in that order too. Strings compare without their trailing newlines, the whitespace normalization the converter reports. GH-2605 proves the laws on the real corpus, and GH-2606 adds the batch converter and its inverse.
 
 <!-- section: comments-and-forms -->
 ## Comments and two-form fields
