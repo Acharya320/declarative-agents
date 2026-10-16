@@ -125,13 +125,6 @@ func itemMarker(item *spec.RequirementItem) (marker, error) {
 
 func criterionMarker(criterion *spec.AcceptanceCriterion) (marker, error) {
 	m := marker{Tag: "ac", Value: criterion.ID}
-	if len(criterion.Traces) > 0 {
-		encoded, err := encodeAttr(criterion.Traces)
-		if err != nil {
-			return marker{}, err
-		}
-		m.Attrs = append(m.Attrs, attr{Key: "traces", Value: encoded})
-	}
 	attrs, err := retirementAttrs(criterion.Status, criterion.RetiredIn, criterion.ReplacedBy, criterion.DerivedFrom)
 	if err != nil {
 		return marker{}, fmt.Errorf("criterion %s: %w", criterion.ID, err)
@@ -160,14 +153,8 @@ func applyItemAttrs(m marker, item *spec.RequirementItem) error {
 
 func applyCriterionAttrs(m marker, criterion *spec.AcceptanceCriterion) error {
 	for _, a := range m.Attrs {
-		var err error
-		switch a.Key {
-		case "traces":
-			err = decodeAttr(a.Value, &criterion.Traces)
-		default:
-			err = applyRetirementAttr(a, &criterion.Status, &criterion.RetiredIn,
-				&criterion.ReplacedBy, &criterion.DerivedFrom)
-		}
+		err := applyRetirementAttr(a, &criterion.Status, &criterion.RetiredIn,
+			&criterion.ReplacedBy, &criterion.DerivedFrom)
 		if err != nil {
 			return fmt.Errorf("ac %s: %w", m.Value, err)
 		}

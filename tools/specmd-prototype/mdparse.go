@@ -210,6 +210,9 @@ func (r *reader) store(open *openNode, value *yaml.Node) error {
 		return assignString(value, &r.lastCriterion().Criterion)
 	case nodeCriterionField:
 		criterion := r.lastCriterion()
+		if open.key == keyTraces {
+			return assignStrings(value, &criterion.Traces)
+		}
 		criterion.Extensions = append(criterion.Extensions, newExtension(open.key, value))
 	}
 	return nil
