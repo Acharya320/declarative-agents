@@ -656,7 +656,6 @@ document_types:
       frontmatter:
         required: [id, title, audit_date]
         allowed: [id, title, audit_date]
-        id_matches_filename: true
       nodes:
         document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
       fields:
@@ -725,6 +724,7 @@ document_types:
     purpose: Defines rules for agents and contributors working in this repo.
     markdown:
       location: docs/constitutions/name.md
+      exclude: [docs/constitutions/design.yaml]
       frontmatter:
         required: [id, title]
         allowed: [id, title]

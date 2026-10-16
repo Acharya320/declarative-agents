@@ -145,7 +145,7 @@ func (p *printer) record(kind, id string, record *yaml.Node) error {
 	}
 	p.block(marker.String(), strings.Repeat("#", rule.Level)+" "+heading)
 	if content := mapValue(record, rule.YAML.Content); content != nil {
-		lines, err := contentLines(content)
+		lines, err := contentLines(content, rule.Content == "any")
 		if err != nil {
 			return fmt.Errorf("%s %s: %w", kind, id, err)
 		}
@@ -163,13 +163,38 @@ func (p *printer) record(kind, id string, record *yaml.Node) error {
 	return nil
 }
 
-// contentLines prints a node's content as prose, or as a fenced yaml block
-// when the text would not read back as the same prose.
-func contentLines(content *yaml.Node) ([]string, error) {
-	if isString(content) && proseSafe(content.Value) {
+// contentLines prints a node's content as prose, as raw Markdown when the
+// node's content may be any and the text reads back exactly, or else as a
+// fenced yaml block.
+func contentLines(content *yaml.Node, anyContent bool) ([]string, error) {
+	switch {
+	case isString(content) && proseSafe(content.Value):
+		return proseLines(content.Value), nil
+	case anyContent && isString(content) && rawSafe(content.Value):
 		return proseLines(content.Value), nil
 	}
 	return fencedYAML(content)
+}
+
+// rawSafe reports Markdown text that reads back as itself under a node:
+// no heading or comment line that would open or tag a node, no fenced yaml
+// block standing alone (it would read back as a value), and no surrounding
+// whitespace Markdown would drop.
+func rawSafe(text string) bool {
+	trimmed := strings.TrimRight(text, "\n")
+	if trimmed == "" || strings.TrimSpace(trimmed) != trimmed || classifyContent(trimmed) == shapeYAML {
+		return false
+	}
+	blocks, lines := topLevelBlocks([]byte(trimmed))
+	for _, b := range blocks {
+		if _, _, heading := headingOf(b, lines); heading {
+			return false
+		}
+		if _, comment := commentLine(b, lines); comment {
+			return false
+		}
+	}
+	return len(blocks) > 0 && spanText(lines, blocks[0].Start, blocks[len(blocks)-1].End) == trimmed
 }
 
 func recordMarker(rule nodeRule, id string, record *yaml.Node) (Marker, error) {

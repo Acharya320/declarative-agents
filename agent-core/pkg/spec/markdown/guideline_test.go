@@ -99,3 +99,22 @@ func TestEng10IsClean(t *testing.T) {
 		t.Fatalf("eng10 reported findings:\n%v", findings)
 	}
 }
+
+// TestEng10IsAFixedPointOfFormat keeps hand-written Markdown stable under
+// the formatter: raw section content, code fences and tables included,
+// prints back as written.
+func TestEng10IsAFixedPointOfFormat(t *testing.T) {
+	const path = "../../../../docs/engineering/eng10-markdown-spec-format.md"
+	data, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	d := repositoryDeclarations(t)["engineering_guideline"]
+	formatted, findings, err := d.Format(data, path)
+	if err != nil || len(findings) > 0 {
+		t.Fatalf("format: %v %v", err, findings)
+	}
+	if string(formatted) != string(data) {
+		t.Fatalf("formatting eng10 changed it:\n%s", formatted)
+	}
+}
