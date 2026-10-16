@@ -1,0 +1,372 @@
+---
+id: cfg-jurist-charter-format
+title: Jurist Charter Format
+---
+<!-- Copyright (c) 2026 Nokia -->
+<!-- SPDX-License-Identifier: BSD-3-Clause -->
+
+<!-- field: purpose -->
+## Purpose
+
+Defines the YAML format for jurist check suites, also called charters.
+A charter is deterministic validation data for the specification-critic profile. It names
+checks, check kinds, input globs, reference sources, severity, and report
+provenance without adding Go workflow states or LLM behavior.
+
+<!-- field: ownership -->
+## Ownership
+
+Agent profiles own the choice of charter files. Agent Core owns the builtin
+check kinds and the interpreter that runs them. A caller supplies the target
+directory through --directory. The selected specification-critic profile supplies default
+suite paths or accepts suite paths as runtime request data when a profile
+chooses that contract.
+
+<!-- field: determinism -->
+## Determinism
+
+Jurist charter execution is local and deterministic. Check kinds must not call
+an LLM, access the network, depend on wall-clock time, or mutate the target
+directory. Implementations sort suites, files, matches, and findings before
+reporting so two runs over the same inputs produce the same pass/fail status
+and finding order.
+
+<!-- field: grep_execution -->
+## Grep execution
+
+load_corpus lowers each match-mode pattern to its own deterministic search
+plan containing the pattern, root, and effective include/exclude globs; this
+makes the producing rg invocation the attribution source without re-matching
+Rust regex results in Go. Missing mode keeps one combined any-match plan. The
+jurist MachineSpec iterates plans through the declared jurist_rg exec word and
+invokes reduce_grep_checks to map rg JSON events and exit-one no-match outcomes
+into findings. pkg/spec neither scans target files nor recompiles rg patterns.
+The rg executable is the same runtime dependency used by the filesystem find
+tool and is installed in the agent runtime image.
+
+<!-- field: ref_execution -->
+## Ref execution
+
+load_corpus lowers each ref_check to a deterministic plan containing target
+regex and glob policy plus trusted inventory paths and inline values. The
+specification-critic MachineSpec iterates plans through jurist_ref_scan, which
+uses rg for line evidence and find/cat for declared inventories, then invokes
+reduce_ref_checks for membership, allow_missing, provenance, and ordering.
+pkg/spec does not recursively scan target or inventory files for ref_check.
+
+<!-- field: consistency_execution -->
+## Consistency execution
+
+load_corpus lowers each consistency_check to an external file-scan plan. The
+MachineSpec runs jurist_consistency_scan: packaged rg emits the complete path
+inventory, lowers include/exclude/source-file globs before reading content,
+and base64-encodes only selected YAML bytes. reduce_consistency_checks then
+evaluates YAML paths, rules, and line provenance against that evidence.
+Required-path checks use the unfiltered external inventory; pkg/spec does not
+open, stat, walk, or re-filter target files.
+
+<!-- field: suite_selection -->
+## Suite selection
+
+The spec-validation builtin tools load charter suites from ToolDef config or
+runtime variables. ToolDef config accepts suite_paths, charter_suites, and
+charters; all three names are aliases for a list of charter file paths.
+Runtime variables accept comma-separated suite_paths and charter_suites.
+
+The default specification-critic profile uses the core load_corpus ToolDef config to load
+/opt/agent-core/tools/builtin/spec-validation/spec-corpus-charter.yaml. A
+profile or caller may replace that list with another charter list while
+keeping the same linear jurist machine.
+
+<!-- field: charter_only_targets -->
+## Charter only targets
+
+By default load_corpus requires a full SRD corpus under the target
+directory (docs/specs/software-requirements/srd*.yaml plus
+docs/SPECIFICATIONS.yaml and docs/road-map.yaml). To audit a repository that
+is not an SRD-governed codebase — for example a paper or experiments repo
+validated by grep, ref, and consistency charters alone — set the load_corpus
+ToolDef config corpus_optional: true (or the runtime variable
+corpus_optional=true). In that mode a missing docs directory, an empty SRD
+set, and a missing SPECIFICATIONS.yaml or road-map.yaml yield an empty corpus
+instead of an error, so the declared charters run against arbitrary targets.
+The flag is opt-in on purpose: without it a missing corpus stays a hard error
+so a genuine SRD repo cannot silently degrade to a charter-only audit.
+
+<!-- field: schema -->
+## Schema
+
+```yaml
+- field: id
+  type: string
+  required: true
+  description: |
+    Stable charter identifier. Finding provenance records this value as the
+    suite id.
+- field: title
+  type: string
+  required: false
+  description: Human-readable charter title.
+- field: target
+  type: object
+  required: false
+  description: |
+    Optional defaults for target-relative file discovery. The runtime target
+    root remains --directory. Checks may add narrower globs under this root.
+  properties:
+    root:
+        type: string
+        required: false
+        description: |
+            Target-relative root for this charter. Defaults to ".".
+    include:
+        type: "[]string"
+        required: false
+        description: Glob patterns included by default for checks that omit include.
+    exclude:
+        type: "[]string"
+        required: false
+        description: Glob patterns excluded by default.
+- field: checks
+  type: "[]object"
+  required: true
+  description: |
+    Ordered check declarations. Each check has an id, kind, severity, and
+    kind-specific config. The interpreter may run checks in declaration order
+    but must sort findings before reporting.
+  item_fields:
+    - field: id
+      type: string
+      required: true
+      description: Stable check identifier unique within the charter.
+    - field: kind
+      type: string
+      required: true
+      description: |
+        Check kind. Supported values are grep_check, ref_check,
+        consistency_check, and spec_corpus.
+    - field: severity
+      type: string
+      required: false
+      description: |
+        Finding severity. Supported values are error and warning. Defaults to
+        error.
+    - field: message
+      type: string
+      required: false
+      description: |
+        Optional message template used when the check emits a finding. The
+        runtime may append file, line, and referenced value details.
+    - field: include
+      type: "[]string"
+      required: false
+      description: Target-relative glob patterns for this check.
+    - field: exclude
+      type: "[]string"
+      required: false
+      description: Target-relative glob patterns excluded for this check.
+```
+
+<!-- field: check_kinds -->
+## Check kinds
+
+```yaml
+- kind: grep_check
+  purpose: |
+    Finds forbidden or required text patterns in target files. Use this for
+    constitution vocabulary rules, banned phrases, or local prose checks.
+  config_fields:
+    - field: patterns
+      type: "[]string"
+      required: true
+      description: Literal or regular-expression patterns to search.
+    - field: mode
+      type: string
+      required: false
+      description: |
+        match forbids matching text and emits a finding for each match.
+        missing requires at least one match and emits a finding when no file
+        matches. Defaults to match.
+        Supported values are match and missing.
+    - field: regex
+      type: bool
+      required: false
+      description: Treat patterns as regular expressions when true.
+- kind: ref_check
+  purpose: |
+    Resolves references found in target files against configured inventories.
+    Use this for citation keys, manifest IDs, data artifact names, or
+    target-relative file paths.
+  config_fields:
+    - field: references
+      type: object
+      required: true
+      description: |
+        Source of allowed reference values. Supported keys are values, keys,
+        inline, file, directory, and format.
+
+        values, keys, and inline are equivalent inline string lists. file is
+        a target-relative, charter-root-relative, or absolute file path. By
+        default, file lines are parsed as one reference per non-empty,
+        non-comment line. With format: bibtex_keys, file content is parsed for
+        BibTeX entry keys. directory is a target-relative, charter-root-
+        relative, or absolute directory path; every file below that directory
+        contributes its slash-normalized relative path as an allowed value.
+    - field: extract
+      type: object
+      required: true
+      description: |
+        Rule for extracting reference values from checked files. The current
+        implementation supports regex, with an optional group number.
+
+        regex is a regular expression evaluated against each line of each
+        checked file. group defaults to 1 and selects the capture group used
+        as the reference value. group may be 0 to use the full match.
+    - field: allow_missing
+      type: bool
+      required: false
+      description: Do not emit findings when no references are present.
+- kind: consistency_check
+  purpose: |
+    Compares simple facts across files or verifies declared artifacts exist.
+    Use this for manifest status versus artifact paths, MVP flags versus issue
+    IDs, or matching YAML field values.
+  config_fields:
+    - field: source
+      type: object
+      required: true
+      description: |
+        YAML source selector. source.yaml_path is required and uses the
+        jurist YAML path selector, such as $.field or $.items[*].id.
+        A segment may carry a filter predicate, $.items[?field=value].sub or
+        $.items[?field!=value].sub, which selects only the sequence items
+        whose mapping field equals (or, with !=, differs from) value and
+        then descends into each match. This expresses conditional checks such
+        as "experiments with status done have artifact paths that exist" via
+        $.experiments[?status=done].apparatus.artifacts[*] without flagging
+        planned or deferred entries. Filter field names and values must not
+        contain a dot or bracket.
+        This is a versioned JSONPath-like charter syntax, not a yq expression:
+        yq uses different traversal/filter grammar, typed comparison, and
+        zero-based line semantics. Implementations must preserve this syntax
+        and its lexical comparison/one-based provenance contract rather than
+        passing selectors unchanged to yq.
+        source.file is optional and selects one target-relative, charter-root-
+        relative, or absolute YAML file instead of the check include set.
+    - field: rule
+      type: string
+      required: true
+      description: |
+        Deterministic comparison rule. Supported values are equals,
+        required_path_exists, and required_when.
+    - field: target
+      type: object
+      required: false
+      description: |
+        Selector or value compared with source. equals supports target.value
+        for a literal value or target.yaml_path for another YAML path in the
+        same source document. required_path_exists supports target.path_root.
+        required_when uses target.yaml_path and emits a finding when the
+        source value is truthy and the target path has no values.
+- kind: spec_corpus
+  purpose: |
+    Runs the built-in Agent Core specification corpus checks that currently
+    back mage audit. This kind preserves srd014 behavior while making the
+    jurist default suite data-driven.
+  config_fields:
+    - field: checks
+      type: "[]string"
+      required: false
+      description: |
+        Optional subset of built-in spec check identifiers. Omitted means run
+        the full spec-corpus suite. Values must match existing spec-corpus
+        finding check identifiers, such as orphaned-srd or uncovered-ac.
+```
+
+<!-- field: kind_required_fields -->
+## Kind required fields
+
+```yaml
+- kind: grep_check
+  required_fields:
+    - patterns
+  notes: |
+    regex: true requires ripgrep-supported syntax; rg validates each lowered
+    plan and an invalid expression becomes a command error. mode defaults to
+    match. No Go/RE2 compatibility is required.
+- kind: ref_check
+  required_fields:
+    - references
+    - extract.regex
+  notes: |
+    references must produce at least one allowed value. extract.group
+    defaults to 1.
+- kind: consistency_check
+  required_fields:
+    - source.yaml_path
+    - rule
+  notes: |
+    Rule-specific target fields are required by behavior: equals needs either
+    target.value or target.yaml_path, and required_when needs
+    target.yaml_path.
+- kind: spec_corpus
+  required_fields: []
+  notes: |
+    checks is optional. When provided, each entry names a built-in
+    spec-corpus finding check identifier.
+```
+
+<!-- field: finding_provenance -->
+## Finding provenance
+
+Every charter finding records the suite id, check id, check kind, severity,
+message, and any available file and line. Built-in spec_corpus findings keep
+their existing check identifiers and add suite/check provenance through the
+default charter wrapper.
+
+<!-- field: example -->
+## Example
+
+```yaml
+|
+    id: manuscript-charter
+    title: Manuscript publication checks
+    target:
+      include: ["papers/**/*.md"]
+      exclude: ["papers/**/build/**"]
+    checks:
+      - id: no-internal-vocabulary
+        kind: grep_check
+        severity: error
+        patterns: ["cobbler", "agentic loop magic"]
+        message: "Publication prose must not leak internal vocabulary."
+
+      - id: citations-resolve
+        kind: ref_check
+        severity: error
+        include: ["papers/**/*.md"]
+        references:
+          file: "papers/references.bib"
+          format: bibtex_keys
+        extract:
+          regex: "@([A-Za-z0-9:_-]+)"
+
+      - id: artifacts-exist
+        kind: consistency_check
+        severity: error
+        include: ["experiments/manifest.yaml"]
+        source:
+          yaml_path: "$.experiments[*].artifact"
+        rule: required_path_exists
+
+      - id: built-in-agent-core-specs
+        kind: spec_corpus
+        severity: error
+```
+
+<!-- field: references -->
+## References
+
+- docs/specs/software-requirements/srd014-spec-graph.yaml
+- applications/catalog/agents/specification-critic/profile.yaml
+- applications/catalog/docs/specs/software-requirements/srd005-specification-critic.yaml

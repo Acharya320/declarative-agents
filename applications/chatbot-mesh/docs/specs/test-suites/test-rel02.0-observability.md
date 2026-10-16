@@ -1,0 +1,143 @@
+---
+id: test-rel02.0-observability
+title: Test Suite for Release 02.0 Observability
+release: "02.0"
+---
+<!-- Copyright (c) 2026 Nokia -->
+<!-- SPDX-License-Identifier: BSD-3-Clause -->
+
+<!-- field: overview -->
+## Overview
+
+This suite validates the observability surface (srd002 R5.1, R5.3): the per-agent
+monitor panels read through the same-origin monitor_proxy, and the cross-agent
+trace waterfall that renders a turn's connected trace from the trace backend. The
+connected-trace continuity is asserted live by Integration.Chatbot (a shared
+trace id across the chatbot and each rag-server, a rag-server span parented under
+a chatbot span); the panel rendering is browser-verified against the live mesh.
+
+<!-- field: traces -->
+## Traces
+
+- rel02.0-uc001-observability
+
+<!-- field: preconditions -->
+## Preconditions
+
+- agent-core is available with HTTP trace propagation (agent-core rel08.0), so the request-scoped machine exports spans and propagates traceparent.
+- The chatbot serves the SPA and the monitor_proxy binding; a trace backend is reachable for the waterfall (else the panel degrades to a notice).
+- This application owns the chatbot ui assets and ui.yaml monitored_agents, under applications/chatbot-mesh/agents/chatbot/ui/.
+- The integration-only shared OTLP ingress is healthy before telemetry-required host or kind scenarios start.
+
+<!-- field: test_cases -->
+## Test cases
+
+<!-- case: Connected cross-agent trace tracer | status: implemented -->
+### Connected cross-agent trace tracer
+
+Integration.Chatbot asserts one connected cross-agent trace: because the
+request-scoped machine exports its dispatch spans under the machine_request
+span and propagates traceparent to the RAG servers (GH-362), the chatbot turn
+and each rag-server share a trace id and a rag-server span is parented under a
+chatbot span. This is the trace continuity the observability waterfall renders
+(grouped by service.name). The per-agent monitor panels and the waterfall UI
+are browser-verified against the live mesh (GH-311, GH-312): each sub-panel
+shows an agent's run state and event feed read through the monitor_proxy, and
+selecting a turn renders its span waterfall, degrading to a backend-missing
+notice when the trace backend is absent. The named Go test covers response
+trace decoding only; the Mage target owns live cross-agent parenting evidence.
+
+<!-- field: use_case -->
+#### Use case
+
+rel02.0-uc001-observability
+
+<!-- field: integration_target -->
+#### Integration target
+
+mage integration:chatbot
+
+<!-- field: go_test -->
+#### Go test
+
+go test ./magefiles -run '^TestChatResponseDecodesTrace$'
+
+<!-- field: inputs -->
+#### Inputs
+
+```yaml
+chatbot_profile: agents/chatbot/profile.yaml
+rag_clients: [rag0, rag1]
+monitored_agents: [chatbot, rag0, rag1]
+trace_backend: jaeger (query API through monitor_proxy)
+```
+
+<!-- field: expected -->
+#### Expected
+
+```yaml
+each_rag_server_joins_the_connected_trace: true
+shared_trace_id_across_agents: true
+rag_span_parented_under_chatbot_span: true
+waterfall_degrades_without_backend: true
+```
+
+<!-- field: traces -->
+#### Traces
+
+- rel02.0-uc001-observability S1
+- rel02.0-uc001-observability S2
+- rel02.0-uc001-observability S3
+- srd002-chatbot-agent AC5
+
+<!-- case: Retained integration trace and metric evidence | status: implemented -->
+### Retained integration trace and metric evidence
+
+A representative kind mesh dual-exports file and OTLP evidence through
+the chart gateway to the shared host ingress. The test records run
+identity and representative services and metrics, tears down its owned
+cluster, then queries the host backends again. Agent and Chroma spans
+remain filterable by run id. Kubernetes control-plane traces are
+correlated by run id and time rather than parentage. Agent OTLP
+metrics remain queryable; the in-cluster Dolt Prometheus scrape is retired
+in agent mode (GH-1366). The production chart render still contains its
+self-contained Collector and Jaeger defaults.
+
+<!-- field: use_case -->
+#### Use case
+
+rel02.0-uc001-observability
+
+<!-- field: integration_target -->
+#### Integration target
+
+mage integration:helmSmoke
+
+<!-- field: inputs -->
+#### Inputs
+
+```yaml
+shared_trace_backend: jaeger
+shared_metric_backend: prometheus
+expected_trace_services: [chatbot, rag0, rag0-chroma, apiserver, kubelet]
+expected_metrics: [agent_runtime]
+```
+
+<!-- field: expected -->
+#### Expected
+
+```yaml
+file_and_otlp_dual_export: true
+run_identity_on_signals: true
+traces_queryable_after_cluster_teardown: true
+metrics_queryable_after_cluster_teardown: true
+production_chart_self_contained: true
+otel_logs_required: false
+native_ollama_server_trace_required: false
+```
+
+<!-- field: traces -->
+#### Traces
+
+- rel02.0-uc001-observability S4
+- srd003-chatbot-deployment AC5

@@ -1,0 +1,506 @@
+---
+id: srd043-application-catalog-layout
+title: Application and Catalog Source Layout
+depends_on:
+  - srd_id: srd034-external-agent-profiles
+    relationship: Refines the external profile ownership contract for the monorepo applications/catalog layout without changing mounted-profile runtime semantics.
+  - srd_id: srd013-standard-tool-library
+    relationship: Preserves core implementation and shared declaration ownership while naming catalog tool blocks separately.
+  - srd_id: srd022-builtin-tools
+    relationship: Preserves core builtin declaration and factory ownership.
+---
+<!-- Copyright (c) 2026 Nokia -->
+<!-- SPDX-License-Identifier: BSD-3-Clause -->
+
+<!-- field: problem -->
+## Problem
+
+Historical pre-migration layout: runnable products lived under examples/,
+reusable repository-specific programs lived in the top-level agent-profiles
+module, and Agent Core tests could discover those programs through
+checkout-relative paths. Source ownership, Go module identity, package
+layout, and runtime mount paths were consequently easy to conflate. Core test
+behavior could also depend on the launch directory and on a sibling catalog
+checkout.
+
+Release 99.0 needs one migration contract before filesystem, resolver,
+packaging, release, and documentation changes begin. The contract must make
+ownership and compatibility decisions once so the child issues of GH-1036 can
+implement them without reopening path semantics.
+
+<!-- field: goals -->
+## Goals
+
+- G1: Establish applications/catalog, applications/coding-agent, and applications/chatbot-mesh as the target source layout.
+- G2: Make Agent Core tests and integrations hermetic to agent-core.
+- G3: Separate core implementations and declarations, reusable catalog blocks, and application-local composition.
+- G4: Define deterministic source-root, owner-root, module-path, mount-path, environment-alias, and tag compatibility behavior.
+- G5: Map every GH-1036 child issue to requirements and executable evidence.
+
+<!-- req: R1 -->
+## R1 - Source layout and ownership
+
+<!-- req: R1.1 -->
+### R1.1
+
+The repository source layout SHALL contain applications/catalog, applications/coding-agent, and applications/chatbot-mesh; examples/ and top-level agent-profiles/ SHALL cease to be active source roots after migration.
+
+<!-- req: R1.2 -->
+### R1.2
+
+agent-core/testdata/integration SHALL be the only source root for integration profiles whose purpose is to prove Agent Core runtime behavior.
+
+<!-- req: R1.3 -->
+### R1.3
+
+Agent Core SHALL own cmd/agent, generic runtime and builtin tool implementations, core-owned shared declarations under agent-core/tools, runtime packaging, and core integration fixtures.
+
+<!-- req: R1.4 -->
+### R1.4
+
+applications/catalog SHALL own repository-specific reusable tool declaration blocks, reusable agent profile blocks, catalog conformance, catalog integration fixtures, catalog UIs, and catalog release evidence.
+
+<!-- req: R1.5 -->
+### R1.5
+
+Each runnable application SHALL own its application-local profiles and wrappers, topology, endpoint choices, packaging, deployment, UX, and end-to-end tests.
+
+<!-- req: R1.6 -->
+### R1.6
+
+The directory moves SHALL preserve internal catalog and application paths mechanically before any tool-first catalog taxonomy reorganization.
+
+<!-- req: R1.7 -->
+### R1.7
+
+A reusable catalog block SHALL have one canonical home; applications SHALL reference or package its closure and SHALL NOT fork its reusable declarations or machines.
+
+<!-- req: R2 -->
+## R2 - Tool and agent block boundaries
+
+<!-- req: R2.1 -->
+### R2.1
+
+Go implementations for generic tools SHALL remain in agent-core/internal/tools and SHALL NOT move into applications/catalog.
+
+<!-- req: R2.2 -->
+### R2.2
+
+Core-owned shared ToolDef declarations used as stable runtime vocabulary SHALL remain under agent-core/tools and installed runtime paths such as /opt/agent-core/tools.
+
+<!-- req: R2.3 -->
+### R2.3
+
+Reusable repository-specific tool declarations SHALL be catalog tool blocks, distinct from tools.yaml selection lists and profile-local overrides.
+
+<!-- req: R2.4 -->
+### R2.4
+
+Reusable agent programs SHALL be catalog agent blocks composed from machines, tool selections, declarations, and boundary config.
+
+<!-- req: R2.5 -->
+### R2.5
+
+Application-local composition SHALL select catalog blocks and add only application-owned configuration or wrappers; it SHALL NOT make application behavior a catalog member merely because the behavior is YAML.
+
+<!-- req: R2.6 -->
+### R2.6
+
+MachineSpec SHALL continue to own sequencing and ToolDef SHALL continue to define one vocabulary word, including boundary, side-effect, error, and undo behavior.
+
+<!-- req: R3 -->
+## R3 - Owner roots and working directories
+
+<!-- req: R3.1 -->
+### R3.1
+
+Root orchestration SHALL be invoked from the repository root; Agent Core commands from agent-core; catalog commands from applications/catalog; and application commands from the owning applications/<name> root.
+
+<!-- req: R3.2 -->
+### R3.2
+
+Tests and Mage targets SHALL resolve dependencies to absolute paths once and SHALL NOT call os.Chdir or otherwise change the current process working directory to discover files.
+
+<!-- req: R3.3 -->
+### R3.3
+
+Root orchestration MAY set a child process Dir to that child's owner root; the child command SHALL then resolve its own module-relative assets without internal directory jumping.
+
+<!-- req: R3.4 -->
+### R3.4
+
+Relative references inside profile, machine, declaration, REST, and application manifest YAML SHALL resolve from the file or root named by that format's existing contract, not from an incidental caller CWD.
+
+<!-- req: R3.5 -->
+### R3.5
+
+Agent Core go test ./..., mage audit, and mage integration:all SHALL run without applications/catalog and SHALL NOT invoke catalog discovery.
+
+<!-- req: R3.6 -->
+### R3.6
+
+Catalog and application gates that consume reusable blocks SHALL receive or resolve an explicit catalog root and SHALL keep execution in their owner root.
+
+<!-- req: R4 -->
+## R4 - Explicit catalog root and compatibility alias
+
+<!-- req: R4.1 -->
+### R4.1
+
+AGENT_CATALOG_ROOT SHALL be the canonical environment input for the applications/catalog source root.
+
+<!-- req: R4.2 -->
+### R4.2
+
+A non-empty catalog root SHALL resolve to an absolute, cleaned path once; a relative value SHALL be interpreted against the process CWD at startup and SHALL NOT be reinterpreted after command execution begins.
+
+<!-- req: R4.3 -->
+### R4.3
+
+During Release 99.0, AGENT_PROFILES_ROOT SHALL remain a deprecated compatibility alias only when AGENT_CATALOG_ROOT is unset.
+
+<!-- req: R4.4 -->
+### R4.4
+
+When both variables are set and clean to the same absolute path, AGENT_CATALOG_ROOT SHALL be authoritative and the resolver MAY emit one deprecation diagnostic; when they resolve to different paths, resolution SHALL fail before work begins and name both variables.
+
+<!-- req: R4.5 -->
+### R4.5
+
+Repository discovery, where a command explicitly permits compatibility discovery, SHALL search for applications/catalog and SHALL NOT recommend top-level agent-profiles as the current source path.
+
+<!-- req: R4.6 -->
+### R4.6
+
+Missing or invalid catalog roots SHALL fail with a diagnostic that names AGENT_CATALOG_ROOT, the attempted path, and the owner command; core-only commands SHALL not produce this error because they do not resolve the catalog.
+
+<!-- req: R4.7 -->
+### R4.7
+
+AGENT_PROFILES_ROOT support SHALL be removed after Release 99.0; callers that need a longer transition SHALL pin Release 99 tooling or migrate to AGENT_CATALOG_ROOT.
+
+<!-- req: R5 -->
+## R5 - Source, module, package, and mount path distinctions
+
+<!-- req: R5.1 -->
+### R5.1
+
+applications/catalog SHALL be the source path and github.com/Nokia-Bell-Labs/declarative-agents/applications/catalog SHALL be its Go module path; neither string defines a runtime mount.
+
+<!-- req: R5.2 -->
+### R5.2
+
+applications/coding-agent and applications/chatbot-mesh SHALL use matching github.com/Nokia-Bell-Labs/declarative-agents/applications/<name> Go module paths while preserving their ../../magefiles replacement from each module root.
+
+<!-- req: R5.3 -->
+### R5.3
+
+/profiles SHALL remain the default runtime mount root for a packaged profile closure; runtime profile paths such as /profiles/agents/<family>/profile.yaml SHALL not expose the source checkout path.
+
+<!-- req: R5.4 -->
+### R5.4
+
+/opt/agent-core/tools SHALL remain the installed mount path for core-owned shared declarations and SHALL not be treated as a catalog source or package destination.
+
+<!-- req: R5.5 -->
+### R5.5
+
+Catalog-root-relative agents/... references SHALL retain their relative destination under a packaged /profiles closure unless an application role shard deliberately selects a smaller closed root.
+
+<!-- req: R5.6 -->
+### R5.6
+
+Source relocation SHALL NOT silently rewrite runtime mount paths, role-sharded package paths, or profile-relative references.
+
+<!-- req: R6 -->
+## R6 - Tag and provenance transition
+
+<!-- req: R6.1 -->
+### R6.1
+
+The repository root tag v0.YYYYMMDD.N SHALL be the canonical catalog release identifier as of GH-1373; applications/catalog/v0.YYYYMMDD.N was the canonical module tag prefix from relocation until then.
+
+<!-- req: R6.2 -->
+### R6.2
+
+Existing applications/catalog/v0.* and agent-profiles/v0.* tags SHALL remain immutable valid compatibility identifiers and SHALL never be moved or recreated at another commit.
+
+<!-- req: R6.3 -->
+### R6.3
+
+Each new coordinated release SHALL create the single root tag v0.YYYYMMDD.N and no module-scoped or compatibility tags (GH-1373).
+
+<!-- req: R6.4 -->
+### R6.4
+
+v0 consumers and validators SHALL accept the root form v0.*, applications/catalog/v0.*, and agent-profiles/v0.* as compatible_release; newly authored manifests and documentation SHALL use the root form.
+
+<!-- req: R6.5 -->
+### R6.5
+
+A package SHALL record the exact compatible_release string it validated and independent source provenance; only a clean checkout exactly at that tag MAY record kind release, while any other source SHALL record kind checkout.
+
+<!-- req: R6.6 -->
+### R6.6
+
+Module-scoped tag prefixes SHALL receive no new tags after GH-1373; v1 migration notes SHALL identify v1.* as the only tag family.
+
+<!-- req: R7 -->
+## R7 - Migration gates and sequencing
+
+<!-- req: R7.1 -->
+### R7.1
+
+Filesystem moves in GH-1037 and GH-1041 SHALL precede resolver, application, root orchestration, and repository-wide documentation cutovers.
+
+<!-- req: R7.2 -->
+### R7.2
+
+Core fixture extraction in GH-1038 SHALL precede removal of catalog dependencies from core tests in GH-1039.
+
+<!-- req: R7.3 -->
+### R7.3
+
+Catalog-root resolution in GH-1043 and root orchestration in GH-1046 SHALL precede application migrations in GH-1044 and GH-1042.
+
+<!-- req: R7.4 -->
+### R7.4
+
+The taxonomy and path-reference sweep in GH-1045 SHALL run after all code and filesystem cutovers.
+
+<!-- req: R7.5 -->
+### R7.5
+
+Root release gates SHALL run root audit and test, Agent Core integration, catalog integration and conformance, then application-owned gates from their owner roots with unchanged fail-fast semantics.
+
+<!-- req: R7.6 -->
+### R7.6
+
+UI distribution checks and repository stats SHALL include the catalog and both runnable applications while distinguishing catalog references from application-owned blocks.
+
+<!-- field: compatibility_policy -->
+## Compatibility policy
+
+Source paths cut over to applications/ in Release 99.0. Runtime package mounts
+do not: /profiles remains the profile-closure root and /opt/agent-core/tools
+remains the core declaration root. AGENT_CATALOG_ROOT is canonical immediately.
+AGENT_PROFILES_ROOT is accepted only by Release 99.0 tooling under R4 and is
+then removed.
+
+Tag compatibility is longer because existing manifests pin immutable public
+v0 identifiers. Existing applications/catalog/v0.* and agent-profiles/v0.*
+tags remain valid, and since GH-1373 each new release receives the single
+root tag v0.YYYYMMDD.N. New manifests use the root form. Package
+provenance always records what was actually checked out; a compatible tag
+never turns a dirty or different checkout into a release.
+
+<!-- field: implementation_status -->
+## Implementation status
+
+```yaml
+current: |
+    This SRD, rel99.0-uc002-application-catalog-migration, and
+    test-rel99.0-application-catalog-migration govern the migration contract.
+    The source, resolver, core-isolation, root-orchestration, application, and
+    chatbot checkpoint cutovers, final taxonomy, active-path sweep, and complete
+    owner-root gate evidence are implemented.
+planned: |
+    No migration work remains. Future removal of the v0 compatibility aliases
+    requires a separately specified major-version transition.
+```
+
+<!-- field: implementation_plan -->
+## Implementation plan
+
+```yaml
+- issue: GH-1040
+  requirements: [R1.1, R1.2, R1.3, R1.4, R1.5, R2.1, R2.2, R2.3, R2.4, R2.5, R3.1, R3.2, R4.1, R4.3, R5.1, R5.3, R6.1, R6.2, R7.1, R7.2, R7.3, R7.4]
+  test_case: Migration contract is indexed and complete
+- issue: GH-1037
+  requirements: [R1.1, R1.5, R1.6, R3.1, R5.2, R7.1]
+  test_case: Runnable application source trees move mechanically
+- issue: GH-1038
+  requirements: [R1.2, R1.3, R3.2, R3.4, R3.5, R7.2]
+  test_case: Core integrations use only core-owned profiles
+- issue: GH-1039
+  requirements: [R1.2, R1.3, R3.2, R3.5, R4.6, R7.2]
+  test_case: Core tests and audit require no catalog
+- issue: GH-1041
+  requirements: [R1.1, R1.4, R1.6, R2.3, R2.4, R5.1, R7.1]
+  test_case: Catalog module relocates without semantic reorganization
+- issue: GH-1047
+  requirements: [R1.2, R1.3, R3.2, R3.5, R4.6, R7.2]
+  test_case: Obsolete core catalog discovery is absent
+- issue: GH-1043
+  requirements: [R3.2, R3.6, R4.1, R4.2, R4.3, R4.4, R4.5, R4.6, R4.7]
+  test_case: Catalog root and legacy alias resolve deterministically
+- issue: GH-1048
+  requirements: [R1.1, R3.1, R3.3, R7.5, R7.6]
+  test_case: Root module registry uses applications
+- issue: GH-1046
+  requirements: [R3.1, R3.3, R5.1, R6.1, R6.2, R6.3, R6.4, R6.6, R7.5, R7.6]
+  test_case: Root gates tags UIs and stats use applications
+- issue: GH-1044
+  requirements: [R1.5, R1.7, R3.6, R5.3, R5.5, R5.6, R6.4, R6.5, R7.3]
+  test_case: Coding agent packages catalog closures with provenance
+- issue: GH-1042
+  requirements: [R1.5, R1.7, R2.5, R3.6, R5.3, R5.5, R5.6, R7.3]
+  test_case: Chatbot mesh resolves catalog blocks from its owner root
+- issue: GH-1049
+  requirements: [R1.5, R3.2, R3.6, R4.1, R4.3, R5.3, R7.3]
+  test_case: Chatbot integrations use the canonical catalog root
+- issue: GH-1050
+  requirements: [R1.5, R3.1, R5.6, R7.5]
+  test_case: Chatbot checkpoint database initializes idempotently
+- issue: GH-1045
+  requirements: [R1.3, R1.4, R1.5, R1.7, R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R4.7, R6.4, R7.4]
+  test_case: Taxonomy and active path references match the new ownership
+```
+
+<!-- field: non_goals -->
+## Non-goals
+
+- Reorganizing catalog internals during the mechanical relocation.
+- Moving generic Go tool implementations or core shared declarations into the catalog.
+- Changing MachineSpec, ToolDef, profile-relative reference, or runtime dispatch semantics.
+- Changing the /profiles or /opt/agent-core/tools runtime mount contracts.
+- Making Agent Core tests validate catalog membership or product behavior.
+- Treating the runtime as a package resolver or profile registry.
+- Rewriting or deleting existing git tags.
+
+<!-- field: acceptance_criteria -->
+## Acceptance criteria
+
+<!-- ac: AC1 -->
+### AC1
+
+The contract assigns the target source trees and separates core, catalog, and application ownership.
+
+<!-- field: traces -->
+#### Traces
+
+- R1.1
+- R1.2
+- R1.3
+- R1.4
+- R1.5
+- R1.6
+- R1.7
+- R2.1
+- R2.2
+- R2.3
+- R2.4
+- R2.5
+- R2.6
+
+<!-- ac: AC2 -->
+### AC2
+
+Every owner runs tests and Mage commands from its root without process-wide directory changes or incidental-CWD path resolution.
+
+<!-- field: traces -->
+#### Traces
+
+- R3.1
+- R3.2
+- R3.3
+- R3.4
+- R3.6
+
+<!-- ac: AC3 -->
+### AC3
+
+Agent Core tests, audit, and integrations require only core-owned fixtures and no catalog checkout.
+
+<!-- field: traces -->
+#### Traces
+
+- R1.2
+- R1.3
+- R3.5
+- R4.6
+
+<!-- ac: AC4 -->
+### AC4
+
+Catalog root resolution defines canonical input, legacy alias precedence, conflict behavior, discovery, diagnostics, and retirement.
+
+<!-- field: traces -->
+#### Traces
+
+- R4.1
+- R4.2
+- R4.3
+- R4.4
+- R4.5
+- R4.6
+- R4.7
+
+<!-- ac: AC5 -->
+### AC5
+
+Source paths, Go module paths, packaged closure paths, and runtime mount paths remain distinct and checkable.
+
+<!-- field: traces -->
+#### Traces
+
+- R5.1
+- R5.2
+- R5.3
+- R5.4
+- R5.5
+- R5.6
+
+<!-- ac: AC6 -->
+### AC6
+
+Catalog tag transition preserves existing exact v0 pins, defines canonical tags and dual-tag duration, and keeps compatibility separate from provenance.
+
+<!-- field: traces -->
+#### Traces
+
+- R6.1
+- R6.2
+- R6.3
+- R6.4
+- R6.5
+- R6.6
+
+<!-- ac: AC7 -->
+### AC7
+
+Migration order and release gates are explicit and preserve fail-fast owner-root execution.
+
+<!-- field: traces -->
+#### Traces
+
+- R7.1
+- R7.2
+- R7.3
+- R7.4
+- R7.5
+- R7.6
+
+<!-- ac: AC8 -->
+### AC8
+
+Every child issue in GH-1036 maps to requirements and one named formal test case.
+
+<!-- field: traces -->
+#### Traces
+
+- R7.1
+- R7.2
+- R7.3
+- R7.4
+- R7.5
+- R7.6
+
+<!-- field: related_documents -->
+## Related documents
+
+- rel99.0-uc002-application-catalog-migration
+- test-rel99.0-application-catalog-migration
+- docs/road-map.yaml
+- docs/ARCHITECTURE.yaml
+- docs/constitutions/design.yaml

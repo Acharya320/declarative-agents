@@ -1,0 +1,102 @@
+---
+id: rel20.0-uc003-unit-libraries
+title: A unit imports from a library root
+status: implemented
+---
+<!-- Copyright (c) 2026 Nokia -->
+<!-- SPDX-License-Identifier: BSD-3-Clause -->
+
+<!-- field: summary -->
+## Summary
+
+A profile author needs a unit, a machine template, or a type that lives
+outside their declaration tree. For agent-core's library they import it by
+its install path, `/opt/agent-core/...`, which resolves in a checkout
+through `--core-root` and in the runtime image as written. For a directory
+inside their own application they declare a named root on the profile and
+import under `/opt/<name>/...`. The loader maps each rooted path explicitly,
+keeps libraries read-only, records rooted files in the closure, the digest,
+and the dump, and staging carries declared-root files into the staged tree.
+
+<!-- field: actor -->
+## Actor
+
+A profile author who imports shared units instead of restating them
+
+<!-- field: trigger -->
+## Trigger
+
+A declaration file, an expansion, a machine template instance, a
+blueprint machine mapping, or a profile-level list names a path under
+`/opt/<root>/`.
+
+<!-- field: flow -->
+## Flow
+
+- F1: The loader classifies the path as relative or rooted, rejects any other absolute path with srd050's wording, and applies the same rule to every path form srd050 governs.
+- F2: For `/opt/agent-core` it maps through the install root when one is set and uses the path as written otherwise.
+- F3: For any other root it looks up the name among the roots the closure's profile declares, applies a `--library` override, and rejects an undeclared prefix, a reserved or malformed name, and a conflicting redeclaration.
+- F4: It rejects a tool marked override and an escaping relative import inside a root, naming the root and the file.
+- F5: It records each rooted file in the closure inventory and the digest, marks it with its root in the dump, and staging copies declared-root files to the staged position of the declared directory while leaving agent-core-rooted files to the image.
+
+<!-- field: touchpoints -->
+## Touchpoints
+
+| id | target | reason |
+| --- | --- | --- |
+| T1 | srd056-unit-libraries R1.1, R1.2, R1.3 | import path forms |
+| T2 | srd056-unit-libraries R2.1, R2.2, R2.3, R2.4 | declared library roots |
+| T3 | srd056-unit-libraries R3.1, R3.2, R3.3 | closure, identity, dump, and staging |
+| T4 | srd056-unit-libraries R4.1, R4.2 | service libraries |
+| T5 | srd050-declaration-imports R1.1, R1.2, R1.3, R1.4, R1.6 | import path rule, as amended by srd056 |
+| T6 | srd051-declaration-types R1.1, R1.2, R1.3, R1.4, R1.5 | type unit reachability, as amended by srd056 |
+
+<!-- field: success_criteria -->
+## Success criteria
+
+<!-- sc: S1 -->
+### S1
+
+An application unit imports an agent-core type unit by its install path and loads from a checkout and from a staged tree; an absolute path outside a root fails.
+
+<!-- field: traces -->
+#### Traces
+
+- srd056-unit-libraries AC1
+
+<!-- sc: S2 -->
+### S2
+
+A declared root resolves, --library overrides it, and every misdeclaration and read-only violation fails naming the profile or the root and file.
+
+<!-- field: traces -->
+#### Traces
+
+- srd056-unit-libraries AC2
+
+<!-- sc: S3 -->
+### S3
+
+Rooted files are in the closure, the digest, and the dump, and a staged profile using a declared root loads with no checkout.
+
+<!-- field: traces -->
+#### Traces
+
+- srd056-unit-libraries AC3
+
+<!-- sc: S4 -->
+### S4
+
+The service-library convention is documented and no service library in the corpus has fewer than two importing profiles.
+
+<!-- field: traces -->
+#### Traces
+
+- srd056-unit-libraries AC4
+
+<!-- field: out_of_scope -->
+## Out of scope
+
+- Search paths, registries, and version constraints.
+- Cross-application libraries other than agent-core's.
+- The first service library instance, the retrieval query client (rel26.0-uc001-retrieval-client-library, GH-2527).

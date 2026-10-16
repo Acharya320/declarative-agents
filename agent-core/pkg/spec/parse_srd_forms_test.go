@@ -133,8 +133,9 @@ related_documents:
 
 func TestParseSRDReadsSRD004ObjectForm(t *testing.T) {
 	t.Parallel()
-	srd, err := ParseSRD(filepath.Join(filepath.Dir(repoAgentCoreRoot(t)),
-		"applications/docs/specs/software-requirements/srd004-declarative-ux.yaml"))
+	// The corpus SRD moved to Markdown (GH-2584); this fixture keeps the YAML
+	// object form it was written in.
+	srd, err := ParseSRD(filepath.Join("testdata", "forms", "srd004-declarative-ux.yaml"))
 	require.NoError(t, err)
 	items := srd.Requirements["R1"].Items
 	require.Equal(t, "R1.1", items[0].ID)
@@ -146,8 +147,9 @@ func TestParseSRDReadsSRD004ObjectForm(t *testing.T) {
 
 func TestParseSRDReadsAgentArchitectureListedGroups(t *testing.T) {
 	t.Parallel()
-	srd, err := ParseSRD(filepath.Join(filepath.Dir(repoAgentCoreRoot(t)),
-		"applications/agent-architecture/docs/specs/software-requirements/srd001-helm-deployment.yaml"))
+	// The corpus SRD moved to Markdown (GH-2584); this fixture keeps the
+	// listed-group YAML form it was written in.
+	srd, err := ParseSRD(filepath.Join("testdata", "forms", "srd001-helm-deployment.yaml"))
 	require.NoError(t, err)
 	require.Equal(t, []string{"R1", "R2", "R3"}, srd.OrderedGroups)
 	require.Equal(t, "R1.1", srd.Requirements["R1"].Items[0].ID)

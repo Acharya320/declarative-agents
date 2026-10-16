@@ -5,6 +5,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 	"go/ast"
 	"go/parser"
 	"go/token"
@@ -30,10 +31,10 @@ func TestSpecMageEvidenceTargetsResolve(t *testing.T) {
 
 	checked := 0
 	for _, entry := range entries {
-		if entry.IsDir() || !strings.HasSuffix(entry.Name(), ".yaml") {
+		if entry.IsDir() || !(strings.HasSuffix(entry.Name(), ".yaml") || strings.HasSuffix(entry.Name(), ".md")) {
 			continue
 		}
-		data, err := os.ReadFile(filepath.Join(suitesDir, entry.Name()))
+		data, err := markdown.ReadAsYAML(filepath.Join(suitesDir, entry.Name()))
 		if err != nil {
 			t.Fatalf("read %s: %v", entry.Name(), err)
 		}

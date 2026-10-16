@@ -38,34 +38,67 @@ func copyDocs(t *testing.T) string {
 	return root
 }
 
-func TestAuditDocumentationOnTheYAMLCorpus(t *testing.T) {
+// rollBack converts every declared Markdown corpus document under the copy
+// back to YAML, as mage convertBack does, so the audit can be proven on the
+// YAML form the corpus had before GH-2584.
+func rollBack(t *testing.T, root string) {
+	t.Helper()
+	declarations, err := markdown.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	rolled := 0
+	err = filepath.WalkDir(filepath.Join(root, "docs"), func(path string, entry os.DirEntry, err error) error {
+		if err != nil || entry.IsDir() || !strings.HasSuffix(path, ".md") {
+			return err
+		}
+		d, ok := declarations.ForMarkdown(filepath.ToSlash(path))
+		if !ok {
+			return nil
+		}
+		data, err := os.ReadFile(path)
+		if err != nil {
+			return err
+		}
+		out, report, err := d.ConvertMarkdown(data, path)
+		if err != nil {
+			return err
+		}
+		rolled++
+		if err := os.WriteFile(report.Target, out, 0o644); err != nil {
+			return err
+		}
+		return os.Remove(path)
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if rolled == 0 {
+		t.Fatal("rolled back no documents")
+	}
+}
+
+// TestAuditDocumentationOnTheCorpus audits the module's corpus as tracked,
+// in Markdown since GH-2584.
+func TestAuditDocumentationOnTheCorpus(t *testing.T) {
 	if err := auditDocumentation(".."); err != nil {
 		t.Fatal(err)
 	}
 }
 
-// TestAuditDocumentationOnTheMarkdownCorpus converts a copy of the corpus to
-// Markdown and requires the same audit to pass (eng10 migration window).
-func TestAuditDocumentationOnTheMarkdownCorpus(t *testing.T) {
+// TestAuditDocumentationOnTheYAMLCorpus rolls a copy back to YAML and
+// requires the same audit to pass on it.
+func TestAuditDocumentationOnTheYAMLCorpus(t *testing.T) {
 	root := copyDocs(t)
-	declarations, err := markdown.Default()
-	if err != nil {
-		t.Fatal(err)
-	}
-	reports, err := declarations.ConvertTree(filepath.Join(root, "docs"))
-	if err != nil {
-		t.Fatal(err)
-	}
-	if len(reports) == 0 {
-		t.Fatal("converted no documents")
-	}
+	rollBack(t, root)
 	if err := auditDocumentation(root); err != nil {
-		t.Fatalf("audit of the Markdown corpus: %v", err)
+		t.Fatalf("audit of the YAML corpus: %v", err)
 	}
 }
 
 func TestAuditDocumentationReportsAMissingField(t *testing.T) {
 	root := copyDocs(t)
+	rollBack(t, root)
 	vision := filepath.Join(root, "docs", "VISION.yaml")
 	data, err := os.ReadFile(vision)
 	if err != nil {

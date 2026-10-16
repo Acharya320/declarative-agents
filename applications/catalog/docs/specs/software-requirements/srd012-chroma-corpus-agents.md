@@ -1,0 +1,329 @@
+---
+id: srd012-chroma-corpus-agents
+title: Chroma Corpus Agents Functional Block
+depends_on:
+  - srd_id: srd001-agent-functional-blocks
+    symbols_used: [R1]
+  - srd_id: srd007-rest
+    symbols_used: [R1, R2, R3]
+---
+<!-- Copyright (c) 2026 Nokia -->
+<!-- SPDX-License-Identifier: BSD-3-Clause -->
+
+<!-- field: context -->
+## Context
+
+The Chroma corpus agents are two configured profiles that use a local Chroma
+vector database as a retrieval boundary: an ingest profile that loads
+repository documents into a Chroma collection, and a reader profile that
+answers a question grounded in retrieved chunks. Both are pure applications/catalog
+configuration over existing agent-core boundary words: REST client words, the
+read tool, and invoke_llm. This SRD owns the Chroma corpus family requirements.
+
+Chroma does not embed text server-side over its raw HTTP API (see spike #239);
+the client must supply vectors. The agents therefore compute embeddings at a
+configured provider and thread the resulting vector into the Chroma add and
+query words using the REST client previous-Result parameter threading defined
+by agent-core srd028-rest-client-tools R12 (body_source previous_result,
+input_mapping, and carry_forward). The ingest machine normalizes either a
+flat document vector or exactly one document-vector row before that threading
+reaches Chroma. The canonical profile binds the Ollama provider library,
+and a consuming wrapper selects another provider by binding a different
+library to the providers root (srd058). No embedding vector is authored
+by a model; the vector always rides between boundary words.
+
+The reusable HTTP runtime, the embedding transport, and the threading mechanism
+stay in agent-core. Provider and Chroma REST definitions, provider selection,
+the collection identity, the corpus selection, both machines, and the reader
+prompt stay profile-owned.
+
+<!-- field: problem -->
+## Problem
+
+The corpus family needs its own requirements document so that changes to
+retrieval behavior do not churn a shared cross-family file. The requirements
+must name the profile-owned REST vocabulary, the provider-embedding threading
+contract, the server-lifecycle precondition, and the persistence configuration
+separately from the agent-core HTTP runtime and threading capability.
+
+<!-- field: goals -->
+## Goals
+
+- G1: Model the ingest and reader profiles as configured Chroma retrieval boundary functional blocks.
+- G2: Define the profile-owned Chroma and embedding-provider REST vocabulary and the provider-embedding threading contract.
+- G3: Record the corpus actor boundary, inputs, tool selections, runtime dependencies, outputs, and terminal outcomes.
+- G4: Keep REST authority, collection identity, corpus selection, and prompts profile-owned while agent-core supplies the HTTP runtime and the previous-Result threading capability.
+
+<!-- req: R1 -->
+## R1 - Behavior model
+
+<!-- req: R1.1 -->
+### R1.1
+
+The corpus family SHALL ship two profiles -- an ingest profile and a reader profile -- that model Chroma retrieval as explicit MachineSpec boundary steps.
+
+<!-- req: R1.2 -->
+### R1.2
+
+The ingest machine SHALL sequence chroma_ready and an internal list_resource step before model control, then a per-document loop of model-selected read, the embed-document stage (embed_document, normalize_document_embedding; srd058 R4.1), create-or-get collection (which resolves the returned collection id and carries the embedding forward), and chroma_add; when the corpus is exhausted it SHALL re-resolve the collection and run a terminal chroma_count verification state. The model SHALL receive listed paths but SHALL NOT invoke list_resource or author discovery paths.
+
+<!-- req: R1.3 -->
+### R1.3
+
+The reader machine SHALL sequence chroma_ready, compose_question, the embed-query stage (embed_query, normalize_query_embedding; srd058 R4.1), create-or-get collection (which resolves the returned collection id and carries the query vector forward), chroma_query, then invoke_llm over the retrieved chunks.
+
+<!-- req: R1.5 -->
+### R1.5
+
+Because previous-Result threading is single-hop and read cannot carry the collection id across the loop, the create-or-get collection word SHALL sit immediately before chroma_add or chroma_query so the returned id and the carried vector thread together into the write or query body.
+
+<!-- req: R1.4 -->
+### R1.4
+
+The embed-to-Chroma vector step SHALL be machine-sequenced, because a model cannot author a raw embedding vector.
+
+<!-- req: R2 -->
+## R2 - REST vocabulary
+
+<!-- req: R2.1 -->
+### R2.1
+
+chroma_ready SHALL check the Chroma v2 heartbeat, failing fast when the server is unreachable. The embedding provider takes no readiness probe; its unavailability surfaces as the provider failure taxonomy on the first embed (srd058 R1.4, R4.2).
+
+<!-- req: R2.2 -->
+### R2.2
+
+chroma_collection SHALL create-or-get a plain collection and resolve the returned collection identifier for use in the add, query, and count paths; it SHALL NOT configure a server-side embedding function, because the agent supplies vectors.
+
+<!-- req: R2.3 -->
+### R2.3
+
+embed_document and embed_query SHALL be the agent-core provider words over the embed operations of the library the profile binds to the providers root (srd058 R4.2), mapping the returned vector into the word's Result output. The canonical profiles SHALL bind Ollama.
+
+<!-- req: R2.4 -->
+### R2.4
+
+chroma_add SHALL write documents, ids, and agent-supplied embeddings to the resolved collection, and chroma_query SHALL query the resolved collection with agent-supplied query embeddings and a configured result count.
+
+<!-- req: R2.5 -->
+### R2.5
+
+chroma_count SHALL read the collection item count for post-ingest verification.
+
+<!-- req: R2.6 -->
+### R2.6
+
+A consuming ingest wrapper SHALL select its embedding provider by binding the providers library root (srd058 R1.1), without renaming a client, overriding the catalog ToolDef, or copying the machine.
+
+<!-- req: R3 -->
+## R3 - Provider-embedding threading
+
+<!-- req: R3.1 -->
+### R3.1
+
+embed_document and embed_query SHALL declare carry_forward for the source text and identity so those declared inputs ride into the word's Result output for a downstream word to select (srd028 R12.3).
+
+<!-- req: R3.2 -->
+### R3.2
+
+chroma_add and chroma_query SHALL declare body_source previous_result with an input_mapping that selects the embedding vector from the embed word's Result output and, for chroma_add, the document text and id from the carried inputs (srd028 R12.1, R12.2).
+
+<!-- req: R3.3 -->
+### R3.3
+
+The Chroma request bodies SHALL place each selected vector inside a single-token array element so the flat vector renders as the nested array Chroma expects (srd028 R12.5).
+
+<!-- req: R3.4 -->
+### R3.4
+
+No embedding vector SHALL be authored by a model or supplied as free runtime input; the vector SHALL only be threaded between boundary words.
+
+<!-- req: R3.5 -->
+### R3.5
+
+normalize_document_embedding SHALL preserve a provider's non-empty flat numeric document vector or unwrap exactly one non-empty numeric document-vector row while preserving carried document text and identity. Invalid, empty, mixed, or multi-row shapes SHALL emit CommandError before collection resolution. This local collection operation SHALL NOT widen canonical command-state or REST selector syntax (srd022 R7.12).
+
+<!-- req: R4 -->
+## R4 - Inputs, tools, and runtime dependencies
+
+<!-- req: R4.1 -->
+### R4.1
+
+Corpus inputs SHALL include the profile-owned Chroma and provider REST definitions, the configured corpus file set, the configured embedding model, and, for the reader, the request question.
+
+<!-- req: R4.2 -->
+### R4.2
+
+The profiles SHALL select only existing agent-core tool families -- REST client words, read, and invoke_llm.
+
+<!-- req: R4.3 -->
+### R4.3
+
+The REST asset network policy SHALL permit only the configured Chroma, chat-provider, and embedding-provider endpoints, pair credentials with their allowed base URLs, and set a max_response_bytes bound.
+
+<!-- req: R4.4 -->
+### R4.4
+
+The reusable ingest machine, declarations, and trusted corpus-discovery policy SHALL be library-profile-owned, while an application MAY supply a wrapper profile with its own REST endpoints, collection/model values, and corpus fixture; agent-core supplies the HTTP runtime and previous-Result threading capability.
+
+<!-- req: R4.5 -->
+### R4.5
+
+Query-side and document-side embedding operations SHALL own their input_type values independently, so retrieval providers may declare search_query and search_document while both operations name the same configured model family.
+
+<!-- req: R5 -->
+## R5 - Lifecycle precondition and persistence
+
+<!-- req: R5.1 -->
+### R5.1
+
+The profiles SHALL treat a running Chroma server (started by the harness or operator as chroma run --path <dir>), the configured chat provider, and the configured embedding provider as external preconditions rather than services started by the agent. The canonical default surfaces Chroma through chroma_ready; the bound provider's embedding operation SHALL fail explicitly, with the srd058 R1.4 failure taxonomy, when its provider is unavailable.
+
+<!-- req: R5.2 -->
+### R5.2
+
+The Chroma persistence directory SHALL be a configuration input to the server lifecycle, not authored by the agent.
+
+<!-- req: R6 -->
+## R6 - Outputs and outcomes
+
+<!-- req: R6.1 -->
+### R6.1
+
+Ingest outputs SHALL include the created-or-resolved collection, the added document count, and the verifying count read; reader outputs SHALL include the retrieved chunk identities and a grounded answer.
+
+<!-- req: R6.2 -->
+### R6.2
+
+Corpus terminal outcomes SHALL be Succeeded or Failed, with REST, embedding, or vector-normalization failures routed to Failed.
+
+<!-- field: non_goals -->
+## Non-goals
+
+- Define Go package APIs for the agent-core HTTP runtime or the previous-Result threading capability.
+- Reimplement HTTP transport, embedding transport, or vector storage in applications/catalog.
+- Add server-side embedding to Chroma or a new embedding builtin word; embeddings come from the provider REST word threaded by srd028 R12.
+- Require all embedding providers to use Ollama request or response shapes.
+- Own cross-profile dependency-direction invariants; those stay in srd001.
+
+<!-- field: acceptance_criteria -->
+## Acceptance criteria
+
+<!-- ac: AC1 -->
+### AC1
+
+The ingest and reader profiles are described as configured Chroma retrieval boundary words and explicit machine steps rather than Go packages.
+
+<!-- field: traces -->
+#### Traces
+
+- R1.1
+- R1.2
+- R1.3
+- R1.4
+- R1.5
+
+<!-- ac: AC2 -->
+### AC2
+
+The Chroma and provider REST vocabulary is named with each word's boundary behavior, configurable document-provider binding, and create-or-get collection identity resolution.
+
+<!-- field: traces -->
+#### Traces
+
+- R2.1
+- R2.2
+- R2.3
+- R2.4
+- R2.5
+- R2.6
+
+<!-- ac: AC3 -->
+### AC3
+
+The provider-embedding threading contract normalizes flat and single-row document vectors, preserves carried fields, and uses srd028 R12 body_source previous_result, input_mapping, carry_forward, and one Chroma-side wrap, with no model-authored vectors or widened selectors.
+
+<!-- field: traces -->
+#### Traces
+
+- R3.1
+- R3.2
+- R3.3
+- R3.4
+- R3.5
+
+<!-- ac: AC4 -->
+### AC4
+
+Corpus inputs, selected tool families, network policy, independent query/document input types, and profile-owned authority are named and separated from agent-core runtime capability.
+
+<!-- field: traces -->
+#### Traces
+
+- R4.1
+- R4.2
+- R4.3
+- R4.4
+- R4.5
+
+<!-- ac: AC5 -->
+### AC5
+
+The server-lifecycle precondition and persistence-directory configuration are checkable by profile validation and the integration target.
+
+<!-- field: traces -->
+#### Traces
+
+- R5.1
+- R5.2
+
+<!-- ac: AC6 -->
+### AC6
+
+Corpus outputs and terminal outcomes are checkable by profile validation or the profile-owned integration target.
+
+<!-- field: traces -->
+#### Traces
+
+- R6.1
+- R6.2
+
+<!-- field: diagrams -->
+## Diagrams
+
+````yaml
+requirements_trace: |
+    ```mermaid
+    flowchart LR
+      Problem["Problem: Chroma corpus family needs its own requirements..."] --> Goals["Goals: Chroma Corpus Agents Functional Block"]
+      Goals --> R1["R1: Behavior model"]
+      Goals --> R2["R2: REST vocabulary"]
+      Goals --> R3["R3: Provider-embedding threading"]
+      Goals --> R4["R4: Inputs, tools, and runtime dependencies"]
+      Goals --> R5["R5: Lifecycle precondition and persistence"]
+      Goals --> R6["R6: Outputs and outcomes"]
+      R1 --> AC1["AC1: Configured boundary words and machine steps"]
+      R2 --> AC2["AC2: REST vocabulary named"]
+      R3 --> AC3["AC3: Threading contract via srd028 R12"]
+      R4 --> AC4["AC4: Inputs, tools, authority named"]
+      R5 --> AC5["AC5: Lifecycle and persistence checkable"]
+      R6 --> AC6["AC6: Outcomes checkable"]
+    ```
+````
+
+<!-- field: platform_dependencies_note -->
+## Platform dependencies note
+
+These SRDs live in the agent-core corpus, not this one; they are platform dependencies rather than in-corpus depends_on (GH-2310).
+
+<!-- field: platform_dependencies -->
+## Platform dependencies
+
+```yaml
+- srd_id: srd028-rest-client-tools
+  provider: agent-core
+  symbols_used: [R12]
+- srd_id: srd022-builtin-tools
+  provider: agent-core
+  symbols_used: [R7.12]
+```

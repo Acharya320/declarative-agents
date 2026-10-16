@@ -4,8 +4,8 @@
 package conformance
 
 import (
+	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 	"io/fs"
-	"os"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -45,7 +45,7 @@ func TestShippedProfilesMatchFoundationModels(t *testing.T) {
 		} `yaml:"bindings"`
 	}
 	authorityPath := filepath.Join(ProfilesRoot(), "..", "docs", "specs", "semantic-models", "agent-role-realizations.yaml")
-	data, err := os.ReadFile(authorityPath)
+	data, err := markdown.ReadAsYAML(authorityPath)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -37,7 +37,7 @@ func TestScenarioCriticAndMockAreSupportedTestTimeMembers(t *testing.T) {
 		if srd.Support != "supported-test-time" {
 			t.Errorf("%s support = %q, want supported-test-time", srd.ID, srd.Support)
 		}
-		if _, err := os.Stat(ProfilePath(srd.Path)); err != nil {
+		if err := corpusDocumentExists(ProfilePath(srd.Path)); err != nil {
 			t.Errorf("%s SRD path: %v", srd.ID, err)
 		}
 		if _, err := os.Stat(ProfilePath(profile)); err != nil {
@@ -94,7 +94,7 @@ func TestCatalogMembershipUsesSharedRealizationAndAliasAuthority(t *testing.T) {
 		} `yaml:"migration_aliases"`
 	}
 	modelPath := filepath.Join(ProfilesRoot(), "..", "docs", "specs", "semantic-models", "agent-role-realizations.yaml")
-	data, err := os.ReadFile(modelPath)
+	data, err := markdown.ReadAsYAML(modelPath)
 	if err != nil {
 		t.Fatal(err)
 	}

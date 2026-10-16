@@ -1,0 +1,1138 @@
+---
+id: test-rel07.1-profile-conformance
+title: Test Suite for Release 07.1 Profile Conformance
+release: "07.1"
+---
+<!-- Copyright (c) 2026 Nokia -->
+<!-- SPDX-License-Identifier: BSD-3-Clause -->
+
+<!-- field: overview -->
+## Overview
+
+This suite is the executable, per-family conformance layer for the profile
+boundaries that test-rel07.1-profile-boundaries specifies. Each test case runs
+one family's profile through the agent-core CLI, captures its OpenTelemetry
+trace, and asserts on the observed span vocabulary and terminal state rather
+than on prose. The suite covers all ten profile families and traces each one to
+its per-family SRD acceptance criteria (srd002 through srd011) and to its
+sm-agent-role-taxonomy role.
+
+The deterministic integration target is `mage conformance`, which runs `go
+test ./conformance` without live model inference. The dedicated `mage
+liveConformance` target passes `-args -live=true` and enables the six
+inventoried live paths: three executor variants, planner, the REST Ollama
+variant, and chatbot source routing. The tests build the agent binary from
+the sibling ../../agent-core checkout and parse the stdouttrace JSON the run
+emits; when that checkout is absent the affected suite cases skip rather than
+fail, so the proof line is honest about its precondition.
+
+The conformance harness is an independent test observer, not a product
+workflow: it owns testing.T failure reporting, child-process launch/death
+detection, loopback health polling, HTTP stimulus, bounded waits, and trace
+collection. It intentionally does not drive those checks through the agent's
+own rest/service words, which would make the proof circular and hide process
+death behind the system under test (#1388). Shipped profiles still own all
+runtime workflow sequencing being verified.
+
+Evidence is recorded honestly per family. A case is implemented when its test
+runs the flow and asserts the trace hermetically against the discovered checkout.
+
+Coverage is annotated per case with two dimensions so the shipped-vs-synthesized
+and representative-vs-variant boundary is explicit rather than implied:
+
+- shipped-behavioral: the case runs the wrapper an operator actually ships
+  (agents/<family>/profile.yaml or a named variant) through the CLI and asserts
+  its trace. Where the harness must control an environment-bound field it copies
+  the shipped profile tree and patches only that field — a listen address/port,
+  a corpus directory, or the iteration budget — never the machine, tools, or
+  wrapper (see conformance/serve.go CopyShippedProfile). The one exception is
+  the rest sample boundary case, classified bounded-behavioral below; every
+  other case runs the shipped wrapper without reconstructing a profile.
+- load-and-wiring: an ungated, model-free companion assertion that parses the
+  shipped profile and machine YAML and checks the load and machine wiring the
+  behavioral run assumes. It needs no model or server, so it holds in the fast
+  default and where a gate is absent. The generator, planner, and rest families
+  carry a load-and-wiring companion alongside their gated behavioral runs.
+- bounded-behavioral: the case runs the shipped REST config and declarations
+  and drives real shipped server behavior, but through a bounded machine and
+  tools list synthesized to a documented subset of the shipped machine (the
+  launch/await/stop server tail), because the shipped machine's client
+  read/create/await head cannot run in a profile machine. It is stronger than
+  load-and-wiring (it launches the server and routes a live inbound signal to a
+  terminal) but is not pure shipped-behavioral (it does not run the shipped
+  machine unmodified). Only the rest sample boundary case carries it; the
+  omitted client head is proven at the agent-core package level.
+
+Representative-vs-variant: the generator and rest families ship variants beyond
+the representative profile.yaml, and each shipped variant is annotated with its
+own coverage. The generator profile.yaml, profile-qwen35b.yaml, and
+profile-qwen27b.yaml all run shipped-behavioral (Ollama-gated on their declared
+model, skipping cleanly when it is absent). The rest ollama-profile.yaml runs
+shipped-behavioral (Ollama-gated); the rest sample profile's inbound webhook
+server boundary runs bounded-behavioral over the shipped REST config through a
+bounded launch/await/stop machine, because its client create/probe head cannot
+run in a profile machine — REST client tools enforce a declared-only runtime
+input contract that the loop's verbatim output threading does not satisfy, so
+the shipped machine's readiness policy is verified as explicit
+probe/delay/retry transitions by TestRestShippedProfileWiring.
+
+Gates: generator and its qwen variants, the planner behavioral run, the rest
+ollama-profile variant, and chatbot source routing first require the explicit
+`-live=true` test flag and then require their exact declared Ollama model.
+Installation alone never enables inference. Live agent runs use a five-minute
+timeout, configurable with `-live-timeout` as a positive Go duration. Lifecycle
+suspend/resume and history/rollback remain Dolt-gated
+(checkpoints persist only when --dolt-dsn names a running dolt sql-server).
+Load-and-wiring companions and the ungated families remain in the deterministic
+default. All ten families have implemented conformance: shipped-behavioral for
+nine, and bounded-behavioral for the rest sample server boundary (with the
+client head proven at the agent-core package level).
+
+<!-- field: traces -->
+## Traces
+
+- srd002-executor
+- srd003-critic
+- srd004-planner
+- srd005-specification-critic
+- srd006-bench
+- srd007-rest
+- srd008-runtime-state-reader
+- srd009-lifecycle
+- srd010-control
+- srd011-knowledge-manager
+- srd014-chatbot-agent
+- sm-agent-role-taxonomy
+
+<!-- field: integration_target -->
+## Integration target
+
+mage conformance
+
+<!-- field: live_integration_target -->
+## Live integration target
+
+mage liveConformance
+
+<!-- field: preconditions -->
+## Preconditions
+
+- agent-core is available as a sibling ../../agent-core checkout; when it is absent the suite skips.
+- applications/catalog owns all profile paths, machines, tool selections, REST definitions, and OpenAPI assets named by each test case.
+- The harness builds the agent binary from the discovered checkout and asserts on the stdouttrace OpenTelemetry output it captures per run.
+- Live-model cases require a local Ollama serving each exact configured model; use mage liveConformance, or go test ./conformance -args -live=true -live-timeout=10m, to run them.
+- The lifecycle case additionally requires a local dolt binary; it starts a throwaway dolt sql-server and skips where dolt is not installed.
+
+<!-- field: test_cases -->
+## Test cases
+
+<!-- case: Specification-critic charter validation conformance | status: implemented -->
+### Specification-critic charter validation conformance
+
+Runs the specification-critic profile against specification corpora and the
+built-in charter, then asserts the linear load, validate, and report pipeline in
+the trace with no LLM tool family, a single root span, and no error-status
+spans. Separate clean and failing fixtures demonstrate both terminal
+outcomes, deterministic findings, and read-only execution.
+
+<!-- field: family -->
+#### Family
+
+specification-critic
+
+<!-- field: test -->
+#### Test
+
+conformance/specification_critic_test.go
+
+<!-- field: coverage -->
+#### Coverage
+
+shipped-behavioral
+
+<!-- field: coverage_note -->
+#### Coverage note
+
+Behavioral coverage runs the shipped agents/specification-critic/profile.yaml
+directly with no field patching. It exercises the deterministic contract
+by repeating identical input, snapshots the workspace to prove read-only
+execution, runs clean and intentionally failing corpora, and asserts
+finding provenance.
+
+<!-- field: expected -->
+#### Expected
+
+```yaml
+asserted_tool_spans: [load_corpus, validate_specs, format_report]
+llm_tool_family_selected: false
+error_status_spans: 0
+terminal_states: [Passed, Failed]
+```
+
+<!-- field: traces -->
+#### Traces
+
+- srd005-specification-critic AC1
+- srd005-specification-critic AC2
+- srd005-specification-critic AC3
+- sm-agent-role-taxonomy specification-critic
+
+<!-- case: Critic session pipeline conformance | status: implemented -->
+### Critic session pipeline conformance
+
+Runs the critic profile with a shell-script stub standing in for the
+generator child on PATH, then asserts the deterministic session pipeline
+vocabulary in the trace under a single root with no error-status spans.
+
+<!-- field: family -->
+#### Family
+
+critic
+
+<!-- field: test -->
+#### Test
+
+conformance/critic_test.go
+
+<!-- field: coverage -->
+#### Coverage
+
+shipped-behavioral
+
+<!-- field: coverage_note -->
+#### Coverage note
+
+Runs the shipped agents/critic/profile.yaml directly with a stub generator child on PATH; no field patched.
+
+<!-- field: expected -->
+#### Expected
+
+```yaml
+asserted_tool_spans:
+    - parse_suite_config
+    - discover_suite_samples
+    - expand_eval_grid
+    - init_eval_session
+    - report_suite_summary
+    - materialize_eval_points
+    - run_point
+    - report_session
+error_status_spans: 0
+terminal_states: [Done]
+```
+
+<!-- field: traces -->
+#### Traces
+
+- srd003-critic AC1
+- srd003-critic AC2
+- srd003-critic AC3
+- sm-agent-role-taxonomy evaluator
+
+<!-- case: Critic shipped-profile sentence-word selection and machine wiring | status: implemented -->
+### Critic shipped-profile sentence-word selection and machine wiring
+
+Asserts, without a model, that the shipped critic selection asks for the
+six setup words and no longer asks for load_suite or next_point, that
+machine.yaml sequences those words into declared nested-point iteration, and
+that point.yaml routes harness, oracle, and version-mismatch failures
+onward to a summary rather than stranding the point.
+
+<!-- field: family -->
+#### Family
+
+critic
+
+<!-- field: test -->
+#### Test
+
+magefiles/critic_wiring_test.go
+
+<!-- field: coverage -->
+#### Coverage
+
+load-and-wiring
+
+<!-- field: coverage_note -->
+#### Coverage note
+
+Ungated and model-free; parses the shipped critic session and point assets
+only. This assertion previously lived in an agent-core package test that
+read these files across the module boundary, which srd034 assigns to the
+repository owning the profile (GH-512).
+
+<!-- field: expected -->
+#### Expected
+
+```yaml
+retired_word_absent: load_suite
+session_sequence:
+    - parse_suite_config
+    - discover_suite_samples
+    - expand_eval_grid
+    - init_eval_session
+    - report_suite_summary
+    - materialize_eval_points
+point_failure_signals_routed:
+    - HarnessFailed
+    - HarnessTimedOut
+    - OracleCheckFailed
+    - AgentVersionMismatch
+```
+
+<!-- field: traces -->
+#### Traces
+
+- srd003-critic AC1
+- srd003-critic AC3
+- sm-agent-role-taxonomy evaluator
+
+<!-- case: Control signal-intake conformance | status: implemented -->
+### Control signal-intake conformance
+
+Launches the control profile with the async serve harness, waits for its
+health endpoint, posts a lifecycle exit request, and waits for the agent to
+exit. Asserts the launch, await, and exit vocabulary in the trace and a
+Succeeded terminal state with no error-status spans.
+
+<!-- field: family -->
+#### Family
+
+control
+
+<!-- field: test -->
+#### Test
+
+conformance/control_test.go
+
+<!-- field: coverage -->
+#### Coverage
+
+shipped-behavioral
+
+<!-- field: coverage_note -->
+#### Coverage note
+
+Copies the shipped testdata/conformance/control/profile.yaml and patches only the harness-controlled loopback address and port.
+
+<!-- field: expected -->
+#### Expected
+
+```yaml
+asserted_tool_spans: [launch_agent_control, await_agent_control, exit_agent]
+error_status_spans: 0
+terminal_states: [Succeeded]
+```
+
+<!-- field: traces -->
+#### Traces
+
+- srd010-control AC1
+- srd010-control AC2
+- srd010-control AC3
+- sm-agent-role-taxonomy control
+
+<!-- case: Runtime state reader conformance | status: implemented -->
+### Runtime state reader conformance
+
+Launches the runtime-state-reader profile with the async serve harness,
+waits for its monitor state endpoint, posts a control exit request, and
+waits for the agent to exit. Asserts the launch, await, and stop vocabulary
+in the trace and a Done terminal state with no error-status spans.
+
+<!-- field: family -->
+#### Family
+
+runtime-state-reader
+
+<!-- field: test -->
+#### Test
+
+conformance/runtime_state_reader_test.go
+
+<!-- field: coverage -->
+#### Coverage
+
+shipped-behavioral
+
+<!-- field: coverage_note -->
+#### Coverage note
+
+Copies the shipped agents/runtime-state-reader/profile.yaml and patches only the harness-controlled loopback listen address.
+
+<!-- field: expected -->
+#### Expected
+
+```yaml
+asserted_tool_spans: [launch_monitor_rest, await_monitor_control, stop_monitor_rest]
+error_status_spans: 0
+terminal_states: [Done]
+```
+
+<!-- field: traces -->
+#### Traces
+
+- srd008-runtime-state-reader AC1
+- srd008-runtime-state-reader AC2
+- srd008-runtime-state-reader AC3
+- sm-agent-role-taxonomy runtime-state-reader
+
+<!-- case: Documentation-curator UX and REST workflow conformance | status: implemented -->
+### Documentation-curator UX and REST workflow conformance
+
+Launches the documentation-curator profile with the async serve harness and
+dynamic multi-server configuration, waits for the documentation API, posts a
+lifecycle exit, and waits for the agent to exit. Asserts the documentation
+generic curator server, control launch/await, monitor launch/stop, and exit_agent vocabulary
+in the trace and a Done terminal state with no error-status spans.
+
+<!-- field: family -->
+#### Family
+
+knowledge-manager
+
+<!-- field: test -->
+#### Test
+
+conformance/knowledge_manager_test.go
+
+<!-- field: coverage -->
+#### Coverage
+
+shipped-behavioral
+
+<!-- field: coverage_note -->
+#### Coverage note
+
+Copies the shipped documentation-curator profile and patches only the three generic REST listener addresses and ports.
+
+<!-- field: expected -->
+#### Expected
+
+```yaml
+asserted_tool_spans:
+    - launch_curator_http
+    - stop_curator_http
+    - launch_curator_control
+    - launch_monitor_rest
+    - await_curator_control
+    - exit_agent
+    - stop_monitor_rest
+error_status_spans: 0
+terminal_states: [Done]
+```
+
+<!-- field: traces -->
+#### Traces
+
+- srd011-knowledge-manager AC1
+- srd011-knowledge-manager AC2
+- srd011-knowledge-manager AC3
+- sm-agent-role-taxonomy knowledge-manager
+
+<!-- case: Bench declarative REST launcher conformance | status: implemented -->
+### Bench declarative REST launcher conformance
+
+Launches the profile-owned static UI and machine_request routes, exercises
+session/config/source reads, starts two overlapping critic runs through the
+experiments capability's start_service word, lists both as running, is
+refused a third with 429 at the bound, requests a lifecycle exit on the
+control server, and waits for the serve-machine-template host to exit and
+reap the runs.
+
+<!-- field: family -->
+#### Family
+
+bench
+
+<!-- field: test -->
+#### Test
+
+conformance/bench_test.go
+
+<!-- field: coverage -->
+#### Coverage
+
+shipped-behavioral
+
+<!-- field: coverage_note -->
+#### Coverage note
+
+Copies the shipped agents/bench profile, patches its request, control, and monitor listen addresses and lowers max_running to 2, and uses a fixture critic child that holds until reaped.
+
+<!-- field: expected -->
+#### Expected
+
+```yaml
+asserted_tool_spans: [launch_bench_http, launch_bench_control, launch_monitor_rest, await_bench_control, exit_agent, stop_monitor_rest, stop_bench_http, list_evaluation_sessions, list_resource, read_resource, launch_evaluator, list_experiments]
+overlapping_runs: 2
+bound_status: 429
+error_status_spans: 0
+terminal_states: [Done]
+```
+
+<!-- field: traces -->
+#### Traces
+
+- srd006-bench AC1
+- srd006-bench AC2
+- srd006-bench AC3
+- srd006-bench AC4
+- sm-agent-role-taxonomy bench
+
+<!-- case: Lifecycle approval suspend and resume conformance | status: implemented -->
+### Lifecycle approval suspend and resume conformance
+
+Drives the approval lifecycle profile across the two CLI invocations the
+suspend/resume flow requires. Run one dispatches the suspend tool, persists
+a checkpoint through the Dolt backend, and exits with a run.suspended
+signal; run two resumes the persisted run branch with an explicit signal.
+Asserts the Approved path reaches Succeeded through the done tool and the
+Rejected path reaches Rejected, with no error-status spans on either. The
+test starts a throwaway dolt sql-server and skips where dolt is not
+installed. History and rollback share srd009 and are covered by a separate
+case below.
+
+<!-- field: family -->
+#### Family
+
+lifecycle
+
+<!-- field: gate -->
+#### Gate
+
+dolt
+
+<!-- field: test -->
+#### Test
+
+conformance/lifecycle_test.go
+
+<!-- field: coverage -->
+#### Coverage
+
+shipped-behavioral
+
+<!-- field: coverage_note -->
+#### Coverage note
+
+Runs the shipped testdata/conformance/lifecycle/approval/profile.yaml directly across the two suspend/resume CLI invocations; no field patched.
+
+<!-- field: expected -->
+#### Expected
+
+```yaml
+asserted_tool_spans: [suspend, done]
+asserted_signals: [run.suspended]
+error_status_spans: 0
+terminal_states: [Succeeded, Rejected]
+```
+
+<!-- field: traces -->
+#### Traces
+
+- srd009-lifecycle AC1
+- srd009-lifecycle AC2
+- srd009-lifecycle AC3
+- sm-agent-role-taxonomy lifecycle
+
+<!-- case: Lifecycle history and rollback conformance | status: implemented -->
+### Lifecycle history and rollback conformance
+
+Drives the standalone history and rollback lifecycle families
+(rel02.0-uc002) against a checkpoint another run persisted. A suspend run
+leaves a resumable run branch; the history and rollback profiles then
+target that branch through the universal --request file (a checkpoint id
+and, for rollback, a to_iteration). Asserts checkpoint_history reads the
+target run and reaches Done, and checkpoint_rollback reverts the target run
+to the requested iteration and reaches Done, with no error-status spans on
+either. This closed the earlier agent-core gap where the request checkpoint
+and to_iteration were not routed into the checkpoint backend or the tool
+configs (#209); the read/rollback tools now run against a backend pinned to
+the target run so the inspecting machine never persists over it. The test
+starts a throwaway dolt sql-server and skips where dolt is not installed.
+
+<!-- field: family -->
+#### Family
+
+lifecycle
+
+<!-- field: gate -->
+#### Gate
+
+dolt
+
+<!-- field: test -->
+#### Test
+
+conformance/lifecycle_history_rollback_test.go
+
+<!-- field: coverage -->
+#### Coverage
+
+shipped-behavioral
+
+<!-- field: coverage_note -->
+#### Coverage note
+
+Runs the shipped testdata/conformance/lifecycle/{approval,history,rollback}/profile.yaml directly against a persisted checkpoint; no field patched.
+
+<!-- field: expected -->
+#### Expected
+
+```yaml
+asserted_tool_spans: [checkpoint_history, checkpoint_rollback]
+error_status_spans: 0
+terminal_states: [Done]
+```
+
+<!-- field: traces -->
+#### Traces
+
+- srd009-lifecycle AC1
+- srd009-lifecycle AC2
+- srd009-lifecycle AC3
+- sm-agent-role-taxonomy lifecycle
+
+<!-- case: Executor model-boundary conformance | status: implemented -->
+### Executor model-boundary conformance
+
+Runs each shipped generator profile (representative profile.yaml plus the
+profile-qwen35b and profile-qwen27b variants) with the machine bounded to a
+single iteration by patching only max_iterations on a copied shipped
+profile, so exactly one invoke_llm call fires and the run reaches
+BudgetExceeded deterministically rather than a full coding session. Asserts
+a gen_ai chat span for the configured model appears under a single root with
+no error-status spans. Each run is Ollama-gated on its declared model:
+invoke_llm pings Ollama at tool registration, so with no reachable model the
+profile cannot start and the variant skips cleanly. TestExecutorShippedProfileWiring
+is the ungated load-and-wiring companion (see the row below).
+
+<!-- field: family -->
+#### Family
+
+executor
+
+<!-- field: gate -->
+#### Gate
+
+ollama
+
+<!-- field: test -->
+#### Test
+
+conformance/executor_test.go
+
+<!-- field: coverage -->
+#### Coverage
+
+shipped-behavioral
+
+<!-- field: coverage_note -->
+#### Coverage note
+
+Copies the shipped generator profile and patches only the machine's
+max_iterations to 1, so exactly one invoke_llm fires and the run reaches
+BudgetExceeded — the shipped machine, tools, LLM declaration, and
+tool_config_dirs run as shipped. The variants below are annotated
+individually.
+
+<!-- field: variants -->
+#### Variants
+
+| profile | model | coverage | test |
+| --- | --- | --- | --- |
+| agents/executor/profile.yaml | qwen3.6:35b-mlx | shipped-behavioral | conformance/executor_test.go TestExecutorConformance |
+| agents/executor/profile-qwen35b.yaml | qwen3.6:35b-mlx | shipped-behavioral | conformance/executor_test.go TestExecutorQwen35bConformance |
+| agents/executor/profile-qwen27b.yaml | qwen3.6:27b-mlx | shipped-behavioral | conformance/executor_test.go TestExecutorQwen27bConformance |
+
+<!-- field: expected -->
+#### Expected
+
+```yaml
+asserted_span_prefixes: ["chat "]
+error_status_spans: 0
+terminal_states: [BudgetExceeded]
+```
+
+<!-- field: traces -->
+#### Traces
+
+- srd002-executor AC1
+- srd002-executor AC2
+- srd002-executor AC3
+- sm-agent-role-taxonomy generator
+
+<!-- case: Generator shipped-profile load and machine wiring | status: implemented -->
+### Generator shipped-profile load and machine wiring
+
+Asserts, without a model, that all three shipped generator profiles
+reference the shared machine.yaml, the tools manifest, and an invoke_llm LLM
+declaration, and that the shared machine seeds invoke_llm from Idle and
+drains its iteration budget to BudgetExceeded — the wiring the bounded
+behavioral runs assume. Holds in the fast default and where Ollama is absent.
+
+<!-- field: family -->
+#### Family
+
+executor
+
+<!-- field: test -->
+#### Test
+
+conformance/executor_test.go TestExecutorShippedProfileWiring
+
+<!-- field: coverage -->
+#### Coverage
+
+load-and-wiring
+
+<!-- field: coverage_note -->
+#### Coverage note
+
+Ungated, model-free; parses the three shipped generator profiles and the shared machine.
+
+<!-- field: traces -->
+#### Traces
+
+- srd002-executor AC1
+- srd002-executor AC3
+- sm-agent-role-taxonomy generator
+
+<!-- case: Planner requirement-graph conformance | status: implemented -->
+### Planner requirement-graph conformance
+
+Runs the shipped planner profile through its graph-loading boundary.
+load_graph reads the specification corpus from the run directory and builds
+the requirement graph into pipeline state, and extract_task traverses it.
+Asserts both actions appear as tool spans under a single root and a
+pipeline.graph_loaded event records the built graph. The run is Ollama-gated
+(the shipped machine's invoke_llm pings Ollama at tool registration) and is
+exercised to the graph boundary and no further; the remaining boundary
+wiring is proven ungated by TestPlannerShippedProfileWiring (see the row
+below). This closed the earlier agent-core gap where the planner had no
+graph-loading word and task extraction dereferenced a nil graph (#211).
+
+<!-- field: family -->
+#### Family
+
+planner
+
+<!-- field: gate -->
+#### Gate
+
+ollama
+
+<!-- field: test -->
+#### Test
+
+conformance/planner_test.go TestPlannerConformance
+
+<!-- field: coverage -->
+#### Coverage
+
+shipped-behavioral
+
+<!-- field: coverage_note -->
+#### Coverage note
+
+Runs the shipped agents/planner/profile.yaml directly against agent-core's
+valid spec fixture; no field patched. Exercised to the requirement-graph
+boundary only — the shipped machine declares invoke_llm (Ollama-gated), and
+the full pipeline tail beyond the graph boundary needs a beads project, a
+generator child, and the Go toolchain the harness does not provide, so no
+clean terminal is asserted.
+
+<!-- field: expected -->
+#### Expected
+
+```yaml
+asserted_tool_spans: [load_graph, extract_task]
+asserted_events: [pipeline.graph_loaded]
+```
+
+<!-- field: traces -->
+#### Traces
+
+- srd004-planner AC1
+- srd004-planner AC2
+- sm-agent-role-taxonomy planner
+
+<!-- case: Planner shipped-profile load and machine wiring | status: implemented -->
+### Planner shipped-profile load and machine wiring
+
+Asserts, without a model, that the shipped planner profile references its
+own machine and tools, the machine seeds load_graph from Idle, and the
+loaded graph hands off to extract_task — the graph-boundary wiring the
+Ollama-gated behavioral run assumes. Holds in the fast default and where
+Ollama is absent.
+
+<!-- field: family -->
+#### Family
+
+planner
+
+<!-- field: test -->
+#### Test
+
+conformance/planner_test.go TestPlannerShippedProfileWiring
+
+<!-- field: coverage -->
+#### Coverage
+
+load-and-wiring
+
+<!-- field: coverage_note -->
+#### Coverage note
+
+Ungated, model-free; parses the shipped planner profile and machine.
+
+<!-- field: traces -->
+#### Traces
+
+- srd004-planner AC1
+- sm-agent-role-taxonomy planner
+
+<!-- case: Planner declarative retry policy wiring | status: implemented -->
+### Planner declarative retry policy wiring
+
+Asserts labelled retry reset/increment steps, the value-predicate limit,
+focused task completion and remaining-work words, and explicit routes in
+both full and pass-through planner variants.
+
+<!-- field: family -->
+#### Family
+
+planner
+
+<!-- field: test -->
+#### Test
+
+conformance/planner_test.go TestPlannerRetryPolicyWiring
+
+<!-- field: coverage -->
+#### Coverage
+
+load-and-wiring
+
+<!-- field: coverage_note -->
+#### Coverage note
+
+Ungated, model-free; parses both shipped machines and planner declarations.
+
+<!-- field: traces -->
+#### Traces
+
+- srd004-planner AC4
+
+<!-- case: Planner canonical output contract and first response | status: implemented -->
+### Planner canonical output contract and first response
+
+Asserts every profile-owned prompt layer requests exactly one top-level
+YAML mapping with the six parser-owned ImplementationPlan fields and
+rejects root sequences, multiple plans, and wrapper envelopes. Serves one
+canonical mapping, observes one invoke_llm and one successful parse_plan,
+and proves report_parse_error does not run.
+
+<!-- field: family -->
+#### Family
+
+planner
+
+<!-- field: test -->
+#### Test
+
+conformance/planner_test.go TestPlannerCanonicalPlanFirstResponse
+
+<!-- field: coverage -->
+#### Coverage
+
+shipped-behavioral
+
+<!-- field: coverage_note -->
+#### Coverage note
+
+Uses a deterministic Ollama protocol fixture and the shipped planner
+prompt, model, and parser boundaries; only the successful post-parse
+transition is bounded. The paired
+magefiles/planner_wiring_test.go
+TestPlannerPromptLayersRequestCanonicalPlanDocument test statically
+checks the composed user, system, and tool prompt layers.
+
+<!-- field: traces -->
+#### Traces
+
+- srd004-planner AC5
+
+<!-- case: Planner shipped-profile terminal task execution | status: implemented -->
+### Planner shipped-profile terminal task execution
+
+Loads a real specification corpus, extracts all ready graph nodes, selects
+mark_nodes_executing, format_task_file, write, and invoke_executor; invokes the configured child executable, runs vet/build/test,
+marks the task done, queries remaining work, and reaches Completed.
+
+<!-- field: family -->
+#### Family
+
+planner
+
+<!-- field: test -->
+#### Test
+
+conformance/planner_test.go TestPlannerShippedProfileTerminalExecution
+
+<!-- field: coverage -->
+#### Coverage
+
+shipped-behavioral
+
+<!-- field: coverage_note -->
+#### Coverage note
+
+Runs the shipped pass-through machine and real write plus self_invoke factories with a
+controlled child executable; no planner builder or machine action is
+replaced.
+
+<!-- field: traces -->
+#### Traces
+
+- srd004-planner AC1
+- srd004-planner AC3
+- srd004-planner AC4
+- sm-agent-role-taxonomy planner
+
+<!-- case: Planner visible retry and exhaustion routing | status: implemented -->
+### Planner visible retry and exhaustion routing
+
+Proves two self_invoke attempts, two command-state retry increments, the
+value-predicate limit comparison, no graph completion mutation, and the
+final Stalled route through remaining_work.
+
+<!-- field: family -->
+#### Family
+
+planner
+
+<!-- field: test -->
+#### Test
+
+conformance/planner_test.go TestPlannerShippedProfileRetryExhaustion
+
+<!-- field: coverage -->
+#### Coverage
+
+shipped-behavioral
+
+<!-- field: coverage_note -->
+#### Coverage note
+
+Runs the shipped pass-through machine with a permanently failing test so
+the first declared comparison retries and the second exhausts the limit.
+
+<!-- field: traces -->
+#### Traces
+
+- srd004-planner AC3
+- srd004-planner AC4
+- sm-agent-role-taxonomy planner
+
+<!-- case: REST inbound webhook server boundary conformance | status: implemented -->
+### REST inbound webhook server boundary conformance
+
+Drives the rest sample profile's inbound webhook server boundary to a
+Succeeded terminal. A bounded machine reuses the shipped profile's REST
+config, declarations, and the launch/await/stop server words: the test binds
+the webhook server to a free loopback port (and points the OpenAPI import at
+its source), launches the server, posts the configured inbound webhook, and
+asserts the launch -> await -> stop vocabulary routes the enqueued signal to
+Succeeded with no error-status spans. The client read/create/probe head is
+not run in a profile machine: REST client tools enforce a declared-only
+runtime input contract while the loop threads each step's full output
+verbatim, so a client step cannot follow another tool step and cannot be the
+first action against the non-JSON default seed. The shipped grammar
+declares one-shot probe, delay, retry, and exhaustion behavior directly;
+legacy await_operation is rejected during validation.
+
+<!-- field: family -->
+#### Family
+
+rest
+
+<!-- field: test -->
+#### Test
+
+conformance/rest_test.go TestRestConformance
+
+<!-- field: coverage -->
+#### Coverage
+
+bounded-behavioral
+
+<!-- field: coverage_note -->
+#### Coverage note
+
+Runs the shipped rest sample REST config and declarations for the inbound
+webhook boundary, patching only the harness-controlled listen address and
+OpenAPI import path. The launch/await/stop server words run through a bounded
+machine and tools list synthesized to the shipped machine's server tail,
+because the shipped machine's client read/create/await head cannot run in a
+profile machine (recorded reason below). This is bounded-behavioral, not
+shipped-behavioral: real shipped server behavior over a synthesized subset
+machine, with the shipped full-machine wiring asserted separately by
+TestRestShippedProfileWiring and the client head by the agent-core package.
+
+<!-- field: expected -->
+#### Expected
+
+```yaml
+terminal_states: [Succeeded]
+asserted_tool_spans: [launch_payment_webhooks, await_payment_webhook, stop_payment_webhooks]
+```
+
+<!-- field: traces -->
+#### Traces
+
+- srd007-rest AC1
+- srd007-rest AC2
+- srd007-rest AC3
+- sm-agent-role-taxonomy rest
+
+<!-- case: REST ollama-profile variant conformance | status: implemented -->
+### REST ollama-profile variant conformance
+
+Runs the shipped rest ollama-profile variant exactly as shipped. The model
+boundary (invoke_llm, Qwen) selects the live OpenAPI-backed REST word
+ollama_list_models, whose upstream is the local Ollama. Asserts a chat
+model-boundary span and the ollama_list_models tool span under a single
+root, and a non-failure shipped terminal (Succeeded or BudgetExceeded). The
+exit code is not asserted because it varies with the terminal. Ollama-gated;
+skips cleanly when the model is absent.
+
+<!-- field: family -->
+#### Family
+
+rest
+
+<!-- field: gate -->
+#### Gate
+
+ollama
+
+<!-- field: test -->
+#### Test
+
+conformance/rest_test.go TestRestOllamaConformance
+
+<!-- field: coverage -->
+#### Coverage
+
+shipped-behavioral
+
+<!-- field: coverage_note -->
+#### Coverage note
+
+Runs the shipped testdata/conformance/rest/ollama-profile.yaml directly; no field patched.
+Unlike the sample machine's machine-sequenced client head, the model-selected
+REST client word runs in-profile because the model chooses it and its
+upstream is the local Ollama itself.
+
+<!-- field: expected -->
+#### Expected
+
+```yaml
+asserted_span_prefixes: ["chat "]
+asserted_tool_spans: [ollama_list_models]
+terminal_states: [Succeeded, BudgetExceeded]
+```
+
+<!-- field: traces -->
+#### Traces
+
+- srd007-rest AC1
+- srd007-rest AC2
+- sm-agent-role-taxonomy rest
+
+<!-- case: REST shipped-profile load and machine wiring | status: implemented -->
+### REST shipped-profile load and machine wiring
+
+Asserts, without a model or server, that the shipped rest sample machine
+wires the launch -> await -> stop inbound webhook boundary the bounded
+behavioral run drives, and that the shipped ollama-profile.yaml references
+its own machine, tools, Ollama LLM declaration, and REST definitions. Holds
+in the fast default and where Ollama is absent.
+
+<!-- field: family -->
+#### Family
+
+rest
+
+<!-- field: test -->
+#### Test
+
+conformance/rest_test.go TestRestShippedProfileWiring
+
+<!-- field: coverage -->
+#### Coverage
+
+load-and-wiring
+
+<!-- field: coverage_note -->
+#### Coverage note
+
+Ungated, model-free; parses the shipped rest sample machine and the ollama-profile variant.
+
+<!-- field: traces -->
+#### Traces
+
+- srd007-rest AC1
+- sm-agent-role-taxonomy rest
+
+<!-- case: Chatbot source-router live-model contract | status: implemented -->
+### Chatbot source-router live-model contract
+
+Sends the profile-owned select_sources prompt and names-and-descriptions-only
+catalog to the declared live model, then validates the names-only structured
+response and expected scoped selection. `mage liveConformance` is the
+discoverable opt-in; `-live-timeout` configures its HTTP client deadline
+for direct `go test` invocations.
+
+<!-- field: family -->
+#### Family
+
+chatbot
+
+<!-- field: gate -->
+#### Gate
+
+explicit-live-ollama
+
+<!-- field: test -->
+#### Test
+
+conformance/chatbot_source_router_test.go TestChatbotSourceRouterConformance
+
+<!-- field: coverage -->
+#### Coverage
+
+live-behavioral
+
+<!-- field: coverage_note -->
+#### Coverage note
+
+Runs only with `-live=true` and requires the exact qwen2.5:3b model.
+Installed-model presence alone does not enable it.
+
+<!-- field: expected -->
+#### Expected
+
+```yaml
+response_fields: [names]
+selected_names: [rag0]
+```
+
+<!-- field: traces -->
+#### Traces
+
+- srd014-chatbot-agent R2.4
+- srd014-chatbot-agent R2.5
+- rel09.1-uc001-routed-fanout F1

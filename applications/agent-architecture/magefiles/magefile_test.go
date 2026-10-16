@@ -223,15 +223,15 @@ func TestAuditApplication(t *testing.T) {
 
 func TestAuditRejectsBrokenReciprocalTrace(t *testing.T) {
 	root := copyApplicationFixture(t)
-	suite := filepath.Join(root, "docs", "specs", "test-suites", "test-rel00.0-guided-agent-architecture.yaml")
+	suite := filepath.Join(root, "docs", "specs", "test-suites", "test-rel00.0-guided-agent-architecture.md")
 	data, err := os.ReadFile(suite)
 	if err != nil {
 		t.Fatal(err)
 	}
 	changed := strings.Replace(
 		string(data),
-		"      - rel00.0-uc001-guided-agent-architecture S6",
-		"      - srd002-managed-application-services AC1",
+		"\n- rel00.0-uc001-guided-agent-architecture S6\n",
+		"\n- srd002-managed-application-services AC1\n",
 		1,
 	)
 	if changed == string(data) {
@@ -613,10 +613,10 @@ func copyApplicationFixture(t *testing.T) string {
 		writeFile(t, filepath.Join(root, relative), string(data))
 	}
 	for _, relative := range []string{
-		"applications/docs/specs/software-requirements/srd001-application-module-contract.yaml",
-		"applications/docs/specs/software-requirements/srd002-managed-application-services.yaml",
-		"applications/catalog/docs/specs/software-requirements/srd011-knowledge-manager.yaml",
-		"applications/catalog/docs/specs/use-cases/rel07.0-uc001-documentation-curator-profile-ux.yaml",
+		"applications/docs/specs/software-requirements/srd001-application-module-contract.md",
+		"applications/docs/specs/software-requirements/srd002-managed-application-services.md",
+		"applications/catalog/docs/specs/software-requirements/srd011-knowledge-manager.md",
+		"applications/catalog/docs/specs/use-cases/rel07.0-uc001-documentation-curator-profile-ux.md",
 	} {
 		data, err := os.ReadFile(filepath.Join(source, "..", "..", filepath.FromSlash(relative)))
 		if err != nil {
@@ -679,7 +679,7 @@ func writeFile(t *testing.T, path, content string) {
 
 func readTestYAML(t *testing.T, path string, out any) {
 	t.Helper()
-	data, err := os.ReadFile(path)
+	data, err := markdown.ReadAsYAML(path)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -690,20 +690,44 @@ func readTestYAML(t *testing.T, path string, out any) {
 
 // TestAuditApplicationReadsMarkdown runs the application audit on a copy
 // whose corpus is converted to Markdown, as after the migration (eng10).
-func TestAuditApplicationReadsMarkdown(t *testing.T) {
+// TestAuditApplicationReadsYAML rolls the copy's corpus back to YAML, the
+// form it had before GH-2584, and requires the same audit to pass on it.
+func TestAuditApplicationReadsYAML(t *testing.T) {
 	root := copyApplicationFixture(t)
 	declarations, err := markdown.Default()
 	if err != nil {
 		t.Fatal(err)
 	}
-	reports, err := declarations.ConvertTree(filepath.Join(root, "docs"))
+	rolled := 0
+	err = filepath.WalkDir(filepath.Join(root, "docs"), func(path string, entry os.DirEntry, err error) error {
+		if err != nil || entry.IsDir() || !strings.HasSuffix(path, ".md") {
+			return err
+		}
+		d, ok := declarations.ForMarkdown(filepath.ToSlash(path))
+		if !ok {
+			return nil
+		}
+		data, err := os.ReadFile(path)
+		if err != nil {
+			return err
+		}
+		out, report, err := d.ConvertMarkdown(data, path)
+		if err != nil {
+			return err
+		}
+		rolled++
+		if err := os.WriteFile(report.Target, out, 0o644); err != nil {
+			return err
+		}
+		return os.Remove(path)
+	})
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(reports) < len(requiredDocuments) {
-		t.Fatalf("converted %d documents, want at least %d", len(reports), len(requiredDocuments))
+	if rolled < len(requiredDocuments) {
+		t.Fatalf("rolled back %d documents, want at least %d", rolled, len(requiredDocuments))
 	}
 	if err := auditApplication(root); err != nil {
-		t.Fatalf("audit of the Markdown corpus: %v", err)
+		t.Fatalf("audit of the YAML corpus: %v", err)
 	}
 }

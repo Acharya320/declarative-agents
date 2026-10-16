@@ -1,0 +1,120 @@
+---
+id: rel03.0-uc005-ollama-openapi-model-listing
+title: Qwen agent lists Ollama models through an OpenAPI REST tool
+---
+<!-- Copyright (c) 2026 Nokia -->
+<!-- SPDX-License-Identifier: BSD-3-Clause -->
+
+<!-- field: summary -->
+## Summary
+
+In the live proof, a configured agent runs with a Qwen 3 family Ollama model.
+Only ollama_list_models is visible. Backed by the Ollama OpenAPI fixture, that
+word calls GET /api/tags. When the user asks which local Ollama models are
+available on the server, the model must call the tool instead of guessing from
+prior context or model training. The final answer names live response models.
+
+<!-- field: actor -->
+## Actor
+
+Release maintainer proving live Ollama REST tool use
+
+<!-- field: trigger -->
+## Trigger
+
+Package-level REST tests are not enough for release closure. Before closure, a
+maintainer needs proof that the tool manifest, model call, REST runtime, and
+final answer line up in one run. The profile exposes a narrow model-listing
+tool and keeps Ollama transport authority in configuration. MachineSpec routes
+the model and REST tool signals.
+
+<!-- field: flow -->
+## Flow
+
+- F1: The maintainer starts a local Ollama server on http://127.0.0.1:11434 with at least one Qwen 3 family model available.
+- F2: The profile loads rest/openapi/ollama.yaml under AGENT_CATALOG_ROOT and exposes only operationId listOllamaModels.
+- F3: The profile declares ollama_list_models as a boundary ToolDef backed by rest_client_invoke.
+- F4: The selected tools manifest gives the model ollama_list_models and does not expose mutating Ollama REST operations.
+- F5: The user asks the agent to list local Ollama models.
+- F6: invoke_llm sends the prompt and tool manifest to the configured Qwen 3 family model.
+- F7: The model emits a tool call for ollama_list_models instead of inventing model names.
+- F8: rest_client_invoke calls the configured GET /api/tags operation through net/http and maps the models array into Result output.
+- F9: MachineSpec returns the REST result to the model boundary for final answer generation.
+- F10: The final answer names at least one model from /api/tags and does not claim models that were absent from the REST response.
+
+<!-- field: touchpoints -->
+## Touchpoints
+
+| id | target | reason |
+| --- | --- | --- |
+| T1 | srd009-ollama-adapter R4.1, R4.2, R2.1, R2.3 | invoke_llm owns only the chat boundary; declared REST/OpenAPI words own model discovery |
+| T2 | srd024-blocking-input-tools R0.2, R1.1, R1.3, R2.1, R2.2 | invoke_llm blocks at the model boundary and returns one Result for MachineSpec routing |
+| T3 | srd027-rest-tool-runtime R2.1, R2.4, R2.5, R3.1, R3.3 | REST definitions and OpenAPI imports stay declarative and runtime input cannot choose transport authority |
+| T4 | srd028-rest-client-tools R1.2, R1.3, R2.1, R2.3, R2.6, R4.1, R4.3 | rest_client_invoke calls a configured OpenAPI-backed operation |
+| T5 | rest/openapi/ollama.yaml under AGENT_CATALOG_ROOT listOllamaModels | GET /api/tags is the only Ollama OpenAPI operation required for this proof |
+| T6 | test-rel03.0-rest-tools mage integration:ollamaRest | live proof shows tool invocation and final-answer grounding |
+
+<!-- field: success_criteria -->
+## Success criteria
+
+<!-- sc: S1 -->
+### S1
+
+The selected tool manifest exposes ollama_list_models and no mutating Ollama REST operation.
+
+<!-- field: traces -->
+#### Traces
+
+- srd027-rest-tool-runtime AC2
+- srd028-rest-client-tools AC1
+
+<!-- sc: S2 -->
+### S2
+
+The live run proves the model invoked ollama_list_models before producing the final answer.
+
+<!-- field: traces -->
+#### Traces
+
+- srd024-blocking-input-tools AC1
+- srd024-blocking-input-tools AC2
+
+<!-- sc: S3 -->
+### S3
+
+The REST call reaches GET /api/tags through the configured OpenAPI-backed operation.
+
+<!-- field: traces -->
+#### Traces
+
+- srd009-ollama-adapter AC1
+- srd027-rest-tool-runtime AC3
+- srd028-rest-client-tools AC4
+
+<!-- sc: S4 -->
+### S4
+
+The final answer includes model names returned by /api/tags and excludes names not present in the response.
+
+<!-- field: traces -->
+#### Traces
+
+- srd028-rest-client-tools AC7
+
+<!-- field: out_of_scope -->
+## Out of scope
+
+- Implementing the Ollama REST profile files.
+- Implementing the live integration target.
+- Pulling or installing Qwen models.
+- Exposing Ollama generation or mutation endpoints as REST tools.
+
+<!-- field: semantic_model -->
+## Semantic model
+
+sm-rest-tool-language
+
+<!-- field: config_format -->
+## Config format
+
+cfg-rest-tool-format
