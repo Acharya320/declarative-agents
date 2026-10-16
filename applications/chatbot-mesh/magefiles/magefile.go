@@ -16,6 +16,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Nokia-Bell-Labs/declarative-agents/applications/catalog/agentbuild"
 	"github.com/Nokia-Bell-Labs/declarative-agents/applications/catalog/catalogroot"
 	"gopkg.in/yaml.v3"
 )
@@ -345,17 +346,12 @@ func specificationCriticSucceeded(report string) (bool, error) {
 
 // buildAgent builds the production agent binary from the agent-core checkout, the
 // same binary the runtime image ships and the integration tests drive.
+// The binary's name is unique to the checkout and it is built atomically
+// (agentbuild), so a concurrent audit of another checkout cannot replace it.
 func buildAgent(coreRoot string) (string, error) {
-	binary := filepath.Join(os.TempDir(), "chatbot-mesh-application-agent")
-	cmd := exec.Command("go", "build", "-tags", "production", "-o", binary, "./cmd/agent")
-	cmd.Dir = coreRoot
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
+	binary := agentbuild.OutputPath("chatbot-mesh-application-agent", coreRoot)
 	fmt.Printf("building agent binary from %s...\n", coreRoot)
-	if err := cmd.Run(); err != nil {
-		return "", fmt.Errorf("build agent: %w", err)
-	}
-	return binary, nil
+	return agentbuild.Build(coreRoot, binary, os.Stdout)
 }
 
 // agentCoreAvailable reports whether coreRoot looks like an agent-core module

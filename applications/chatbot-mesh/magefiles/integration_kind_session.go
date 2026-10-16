@@ -240,9 +240,14 @@ func retainAggregateKindCluster(
 	run kindrig.Runner,
 	evidence kindrig.FailureEvidence,
 ) bool {
-	return adoptAggregateKindCluster(cluster, run, evidence)
+	return adoptAggregateKindCluster(cluster, run, sessionEvidence(evidence))
 }
 
+// releaseAggregateKindCluster hands a scenario's cluster to the session. A
+// failed scenario captures its own namespace evidence first, while its
+// kubeconfig and namespace still exist: the session captures later, from a
+// batch's end or its close, after the scenario's cleanup has removed both
+// (GH-2568).
 func releaseAggregateKindCluster(
 	cluster kindrig.Cluster,
 	run kindrig.Runner,
@@ -253,15 +258,35 @@ func releaseAggregateKindCluster(
 	if session == nil {
 		return false
 	}
-	if !adoptAggregateKindCluster(cluster, run, evidence) {
+	if !adoptAggregateKindCluster(cluster, run, sessionEvidence(evidence)) {
 		return false
 	}
 	if cause != nil {
+		if evidence.Directory != "" {
+			if err := evidence.CaptureNamespaces(cluster.Name); err != nil {
+				fmt.Printf("shared kind: capture scenario evidence failed: %v\n", err)
+			}
+		}
 		if !session.deferBatchPoison() {
 			session.poison(cause)
 		}
 	}
 	return true
+}
+
+// sessionEvidence is the part of a scenario's evidence the session keeps: the
+// cluster-wide kind log export, written under the scenario's directory in
+// cluster/ so it never overwrites the scenario's own manifest. It carries no
+// namespaces and no kubectl runner, since both are bound to the scenario's
+// kubeconfig, which its cleanup removes.
+func sessionEvidence(evidence kindrig.FailureEvidence) kindrig.FailureEvidence {
+	if evidence.Directory == "" {
+		return evidence
+	}
+	return kindrig.FailureEvidence{
+		Directory: filepath.Join(evidence.Directory, "cluster"),
+		Revision:  evidence.Revision,
+	}
 }
 
 func (session *integrationKindSession) beginConcurrentBatch() error {

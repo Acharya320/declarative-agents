@@ -209,7 +209,7 @@ func agentBinary(t *testing.T, coreRoot string) string {
 		t.Skip("builds and runs the agent binary; -short keeps the declaration-shape cases and the release conformance gate runs the rest")
 	}
 	binaryOnce.Do(func() {
-		out := filepath.Join(os.TempDir(), "application-catalog-conformance-agent")
+		out := agentbuild.OutputPath("application-catalog-conformance-agent", coreRoot)
 		var buf bytes.Buffer
 		if _, err := agentbuild.Build(coreRoot, out, &buf); err != nil {
 			binaryErr = err

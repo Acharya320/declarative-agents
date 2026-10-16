@@ -97,3 +97,12 @@ func TestValidateSelectorFormRejectsMalformedComponents(t *testing.T) {
 		})
 	}
 }
+
+// TestMachineResponseDollarMapsTheWholeOutput maps a body field to the whole
+// output object beside a selected field (srd030 R4.3).
+func TestMachineResponseDollarMapsTheWholeOutput(t *testing.T) {
+	t.Parallel()
+	output := map[string]interface{}{"status": "valid", "findings": []interface{}{}}
+	assert.Equal(t, output, machineSelectorValue("$", output))
+	assert.Equal(t, "valid", machineSelectorValue("$.status", output))
+}

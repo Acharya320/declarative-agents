@@ -72,7 +72,9 @@ async function runProof(browser: Browser) {
   assert(index.method === 'GET', 'index read used GET')
   assert(Array.isArray(index.body.data), 'index data is an array')
   assert(includesDocumentPath(index.body, 'specs/use-cases/rel03.0-uc007-machine-request-documentation-ux.md'), 'nested document path listed')
-  assertMachineRequestTrace(index.body, 'documents', 'DocumentIndexReady')
+  // The index's last transition runs doc_index_jq, so the run's last signal,
+  // which the trace reports, is that word's ToolDone.
+  assertMachineRequestTrace(index.body, 'documents', 'ToolDone')
 
   await expandCategories(page)
   const sidebarText = await page.$eval('.docs-sidebar', node => node.textContent ?? '')
@@ -107,7 +109,7 @@ async function runProof(browser: Browser) {
   await page.waitForSelector('.curator-status')
   const validation = await captureResponse(await validationResponse)
   assert(validation.status === 200, `validation response status ${validation.status}`)
-  assertMachineRequestTrace(validation.body, 'validate_action', 'RESTResponded')
+  assertMachineRequestTrace(validation.body, 'validate_action', 'ValidationReady')
 
   const rendered = await page.$eval('.doc-viewer', node => node.textContent ?? '')
   assert(rendered.includes('Agent Core Specification Index'), 'pretty view rendered title')

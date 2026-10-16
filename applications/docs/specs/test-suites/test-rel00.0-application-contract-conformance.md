@@ -56,10 +56,15 @@ executable_structural
 |
     python3 - <<'PY'
     from pathlib import Path
+    import subprocess
     import yaml
 
     root = Path("applications/docs")
-    docs = {p: yaml.safe_load(p.read_text()) for p in root.rglob("*.yaml")}
+    # Every corpus document under root, as the YAML tree its declaration
+    # parses it into (mage specYAML, GH-2627).
+    out = subprocess.run(["mage", "specYAML", str(root)], cwd="agent-core",
+                         check=True, capture_output=True, text=True).stdout
+    docs = {Path(p): tree for p, tree in yaml.safe_load(out).items()}
     required = {
         root / "VISION.md": {
             "id", "title", "executive_summary", "problem", "what_this_does",
@@ -102,7 +107,7 @@ executable_structural
         srd = docs[root / "specs/software-requirements" / srd_name]
         assert uc["id"] in srd["use_case_traces"]
         assert suite["id"] in srd["test_suite_traces"]
-    print(f"validated {len(docs)} shared application YAML documents")
+    print(f"validated {len(docs)} shared application corpus documents")
     PY
 ```
 

@@ -183,6 +183,9 @@ func machineResponseBody(mapping restdef.MachineResponseMapping, result MachineR
 }
 
 func machineSelectorValue(selector string, output map[string]interface{}) interface{} {
+	if selector == "$" {
+		return output // the whole output object (srd030 R4.3)
+	}
 	if !strings.HasPrefix(selector, "$.") {
 		return selector
 	}

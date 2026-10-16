@@ -320,9 +320,13 @@ func machineRequestServer(cfg restdef.MachineRequest) restdef.Server {
 	}
 }
 
+// machineRequestConfig builds a machine-request route whose machine answers
+// signal after delay. Its timeout leaves headroom that parallel test load
+// cannot erase, so only a test that sets a short timeout itself can see
+// machine_timeout (GH-2595).
 func machineRequestConfig(signal string, delay time.Duration, fail bool) restdef.MachineRequest {
 	return restdef.MachineRequest{
-		Timeout: "10ms",
+		Timeout: "5s",
 		Request: restdef.MachineRequestMapping{Body: map[string]string{
 			"name": "$.name",
 		}},

@@ -34,7 +34,7 @@ func requireProfilePaths(root string, rels ...string) error {
 }
 
 func buildIntegrationAgent(coreRoot string) (string, error) {
-	binary := filepath.Join(os.TempDir(), "application-catalog-integration-agent")
+	binary := agentbuild.OutputPath("application-catalog-integration-agent", coreRoot)
 	fmt.Printf("building agent binary from %s...\n", coreRoot)
 	return agentbuild.Build(coreRoot, binary, os.Stdout)
 }

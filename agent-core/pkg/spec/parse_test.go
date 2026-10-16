@@ -213,6 +213,35 @@ func TestParseUseCaseAcceptsExplicitFlowObjects(t *testing.T) {
 	require.Equal(t, []string{"F1: first step"}, useCase.Flow)
 }
 
+// TestParseUseCaseKeepsFlowStepTraces parses a flow step written as a record
+// with traces: the step folds to the keyed string and its traces stay on the
+// model (GH-2611).
+func TestParseUseCaseKeepsFlowStepTraces(t *testing.T) {
+	t.Parallel()
+	path := writeUseCaseFile(t, `id: traced-flow
+flow:
+  - id: F1
+    text: first step
+    traces:
+      - srd003-application-consistency R1
+      - srd003-application-consistency R6
+  - F2: second step
+`)
+	useCase, err := parseUseCaseYAMLFile(path)
+	require.NoError(t, err)
+	require.Equal(t, []string{"F1: first step", "F2: second step"}, useCase.Flow)
+	require.Equal(t, map[string][]string{
+		"F1": {"srd003-application-consistency R1", "srd003-application-consistency R6"},
+	}, useCase.FlowTraces)
+}
+
+func TestParseUseCaseRejectsFlowTracesWithoutAStepID(t *testing.T) {
+	t.Parallel()
+	path := writeUseCaseFile(t, "id: anonymous\nflow:\n  - text: a step\n    traces: [srd003 R1]\n")
+	_, err := parseUseCaseYAMLFile(path)
+	require.ErrorContains(t, err, "flow[0]: a step with traces needs an id")
+}
+
 func TestParseSRDRejectsMalformedGoalLists(t *testing.T) {
 	t.Parallel()
 	tests := []struct {

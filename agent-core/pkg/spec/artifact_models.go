@@ -193,17 +193,20 @@ func (s *SRD) ItemIDs() []string {
 
 // UseCase represents a parsed use case specification.
 type UseCase struct {
-	ID              string             `yaml:"id"`
-	Title           string             `yaml:"title"`
-	Status          string             `yaml:"status"`
-	Summary         string             `yaml:"summary"`
-	Actor           string             `yaml:"actor"`
-	Trigger         string             `yaml:"trigger"`
-	Flow            []string           `yaml:"-"`
-	Touchpoints     []string           `yaml:"-"`
-	SuccessCriteria []SuccessCriterion `yaml:"success_criteria"`
-	OutOfScope      []string           `yaml:"-"`
-	TestSuite       string             `yaml:"test_suite"`
+	ID      string   `yaml:"id"`
+	Title   string   `yaml:"title"`
+	Status  string   `yaml:"status"`
+	Summary string   `yaml:"summary"`
+	Actor   string   `yaml:"actor"`
+	Trigger string   `yaml:"trigger"`
+	Flow    []string `yaml:"-"`
+	// FlowTraces holds the requirement citations a flow step carries, keyed
+	// by step id, for a step written as a record with traces.
+	FlowTraces      map[string][]string `yaml:"-"`
+	Touchpoints     []string            `yaml:"-"`
+	SuccessCriteria []SuccessCriterion  `yaml:"success_criteria"`
+	OutOfScope      []string            `yaml:"-"`
+	TestSuite       string              `yaml:"test_suite"`
 
 	// Retirement fields (design.yaml D6). ParseUseCase copies the document's
 	// status only when it is the retirement marker; lifecycle statuses stay

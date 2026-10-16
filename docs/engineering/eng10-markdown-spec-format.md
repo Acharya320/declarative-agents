@@ -334,7 +334,7 @@ GitHub hides HTML comments and renders frontmatter as a table, so a converted do
 <!-- section: authoring-loop -->
 ## Authoring loop
 
-An author, human or agent, writes a document, runs mage fmt, runs mage audit, and fixes what the audit reports. mage fmt <scope> from the repository root applies Tier 0 in place, so the audit's findings concern meaning, plus not-canonical for a document edited since its last format. Every audit gate reads a corpus document as the YAML tree its declaration parses it into (GH-2614, GH-2615, GH-2616), and none reads a YAML corpus document in the working tree (GH-2626).
+An author, human or agent, writes a document, runs mage fmt, runs mage audit, and fixes what the audit reports. mage fmt <scope> from the repository root applies Tier 0 in place, so the audit's findings concern meaning, plus not-canonical for a document edited since its last format. Every audit gate reads a corpus document as the YAML tree its declaration parses it into (GH-2614, GH-2615, GH-2616), and none reads a YAML corpus document in the working tree (GH-2626). A script that checks document fields reads them from mage specYAML <path> in agent-core, which prints a document's tree, or for a directory a mapping from each document's path to its tree (GH-2627).
 
 The loop terminates on the hints alone. TestAuthoringLoopFollowsTheHints in agent-core/pkg/spec/markdown seeds an SRD with a finding of every tier and drives it to zero findings, one finding per round, with a fixer that may use only what a finding says: its line, its expected and found text, and its hint. A hint that stops naming what its fix needs stalls the loop and fails the test.
 
