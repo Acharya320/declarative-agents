@@ -150,6 +150,67 @@ func parseTaggedList(node *yaml.Node, field string) ([]string, error) {
 	return result, nil
 }
 
+// parseFlow parses a use case flow as a tagged list, where a step may also be
+// a record carrying the requirements it exercises ({id, text, traces}). The
+// record folds to the same "F<n>: text" string as the keyed form, and its
+// traces are returned by step id rather than dropped (GH-2611).
+func parseFlow(node *yaml.Node) ([]string, map[string][]string, error) {
+	n := node
+	if n != nil && n.Kind == yaml.DocumentNode && len(n.Content) > 0 {
+		n = n.Content[0]
+	}
+	if n == nil || n.Kind != yaml.SequenceNode {
+		flow, err := parseTaggedList(node, "flow")
+		return flow, nil, err
+	}
+	steps := &yaml.Node{Kind: yaml.SequenceNode}
+	var traces map[string][]string
+	for index, item := range n.Content {
+		step, stepTraces, err := splitStepTraces(item)
+		if err != nil {
+			return nil, nil, fmt.Errorf("flow[%d]: %w", index, err)
+		}
+		if stepTraces != nil {
+			if traces == nil {
+				traces = map[string][]string{}
+			}
+			traces[mappingScalar(step, "id")] = stepTraces
+		}
+		steps.Content = append(steps.Content, step)
+	}
+	flow, err := parseTaggedList(steps, "flow")
+	return flow, traces, err
+}
+
+// splitStepTraces returns a flow step without its traces key, and the traces
+// it held; a step with no traces key returns unchanged.
+func splitStepTraces(item *yaml.Node) (*yaml.Node, []string, error) {
+	if item.Kind != yaml.MappingNode {
+		return item, nil, nil
+	}
+	rest := &yaml.Node{Kind: yaml.MappingNode, Tag: item.Tag}
+	var traces []string
+	found := false
+	for i := 0; i+1 < len(item.Content); i += 2 {
+		key, value := item.Content[i], item.Content[i+1]
+		if key.Value != "traces" {
+			rest.Content = append(rest.Content, key, value)
+			continue
+		}
+		found = true
+		if err := value.Decode(&traces); err != nil {
+			return nil, nil, fmt.Errorf("traces: %w", err)
+		}
+	}
+	if !found {
+		return item, nil, nil
+	}
+	if mappingScalar(rest, "id") == "" {
+		return nil, nil, fmt.Errorf("a step with traces needs an id")
+	}
+	return rest, traces, nil
+}
+
 func taggedListMapping(item *yaml.Node) (string, error) {
 	if len(item.Content) == 2 && item.Content[0].Kind == yaml.ScalarNode && item.Content[1].Kind == yaml.ScalarNode {
 		return item.Content[0].Value + ": " + item.Content[1].Value, nil
@@ -338,7 +399,7 @@ func parseUseCaseBytes(data []byte, path string) (UseCase, error) {
 	if err := yaml.Unmarshal(data, &raw); err != nil {
 		return UseCase{}, fmt.Errorf("parse use case %s: %w", path, err)
 	}
-	flow, err := parseTaggedList(&raw.Flow, "flow")
+	flow, flowTraces, err := parseFlow(&raw.Flow)
 	if err != nil {
 		return UseCase{}, fmt.Errorf("parse use case %s: %w", path, err)
 	}
@@ -359,6 +420,7 @@ func parseUseCaseBytes(data []byte, path string) (UseCase, error) {
 		return UseCase{}, fmt.Errorf("parse use case %s: %w", path, err)
 	}
 	uc := useCaseFromRaw(&raw, flow, touchpoints, outOfScope)
+	uc.FlowTraces = flowTraces
 	uc.Assumptions = assumptions
 	uc.EdgeCases = edgeCases
 	return uc, nil
