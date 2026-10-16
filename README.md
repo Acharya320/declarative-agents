@@ -3,7 +3,7 @@
 
 # Declarative Agents
 
-> **Maintenance mode.** This repository accepts bug fixes only.
+> **Maintenance mode.** This repository accepts bug fixes only. One exception is open: the migration of the specification corpus from YAML to Markdown ([#2578](https://github.com/Nokia-Bell-Labs/declarative-agents/issues/2578)), granted by the maintainer in [#2580](https://github.com/Nokia-Bell-Labs/declarative-agents/issues/2580).
 
 Profile-driven runtime and design patterns for declarative, tool-augmented LLM agents: an agent is a YAML profile, interpreted by one Go runtime.
 
