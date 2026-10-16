@@ -22,6 +22,7 @@ var lintModuleDirs = []string{
 	"applications/agent-architecture",
 	"design-patterns/magefiles",
 	"application-dsl-spec/magefiles",
+	"tools/specmd-prototype",
 }
 
 const lintConcurrency = 2
