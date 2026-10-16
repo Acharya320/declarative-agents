@@ -44,7 +44,7 @@ type rules struct {
 	} `yaml:"prose_containment"`
 
 	documentType  string
-	filePattern   *regexp.Regexp
+	pathPattern   *regexp.Regexp
 	idPatterns    map[string]*regexp.Regexp
 	itemPatterns  map[string]*regexp.Regexp
 	keywordRegexp *regexp.Regexp
@@ -110,11 +110,11 @@ func loadDeclarations(data []byte) (map[string]*rules, error) {
 
 // compile prepares a declaration's patterns once.
 func (r *rules) compile() error {
-	pattern, err := locationFilePattern(filepath.Base(r.Location))
+	pattern, err := locationPattern(r.Location)
 	if err != nil {
 		return fmt.Errorf("location: %w", err)
 	}
-	r.filePattern = pattern
+	r.pathPattern = pattern
 	r.idPatterns = map[string]*regexp.Regexp{}
 	for name, node := range r.Nodes {
 		if node.IDPattern == "" {
@@ -137,40 +137,55 @@ func (r *rules) compile() error {
 	return nil
 }
 
-// locationFilePattern turns a declared file name such as
-// "srdNNN-short-name.md" into a pattern over real file names: a run of N is
-// that many digits, short-name is kebab-case, and name is any lowercase name.
-func locationFilePattern(base string) (*regexp.Regexp, error) {
-	if base == "" || base == "." {
-		return nil, errors.New("no file name")
+// locationPattern turns a declared location such as
+// "docs/specs/software-requirements/srdNNN-short-name.md" into a pattern over
+// real paths, matched at a path boundary so any module's docs directory
+// qualifies: a run of N after a lowercase letter or a dot is that many
+// digits, short-name is kebab-case, and name is any lowercase name. The
+// directory matters because several types share the name placeholder.
+func locationPattern(location string) (*regexp.Regexp, error) {
+	if !strings.HasPrefix(location, "docs/") || strings.HasSuffix(location, "/") {
+		return nil, errors.New("a location is a file path under docs/")
 	}
 	var pattern strings.Builder
-	pattern.WriteString("^")
-	for i := 0; i < len(base); {
+	pattern.WriteString(`(?:^|/)`)
+	for i := 0; i < len(location); {
 		switch {
-		case strings.HasPrefix(base[i:], "-short-name"):
+		case strings.HasPrefix(location[i:], "-short-name"):
 			pattern.WriteString(`(?:-[a-z0-9]+(?:-[a-z0-9]+)*)?`)
 			i += len("-short-name")
-		case strings.HasPrefix(base[i:], "short-name"):
+		case strings.HasPrefix(location[i:], "short-name"):
 			pattern.WriteString(`[a-z0-9]+(?:-[a-z0-9]+)*`)
 			i += len("short-name")
-		case strings.HasPrefix(base[i:], "name"):
+		case strings.HasPrefix(location[i:], "name"):
 			pattern.WriteString(`[a-z0-9][a-z0-9._-]*`)
 			i += len("name")
-		case base[i] == 'N':
+		case location[i] == 'N' && isNumericPlaceholder(location, i):
 			end := i
-			for end < len(base) && base[end] == 'N' {
+			for end < len(location) && location[end] == 'N' {
 				end++
 			}
 			fmt.Fprintf(&pattern, `[0-9]{%d}`, end-i)
 			i = end
 		default:
-			pattern.WriteString(regexp.QuoteMeta(base[i : i+1]))
+			pattern.WriteString(regexp.QuoteMeta(location[i : i+1]))
 			i++
 		}
 	}
 	pattern.WriteString("$")
 	return regexp.Compile(pattern.String())
+}
+
+// isNumericPlaceholder reports whether the N at index starts a digit
+// placeholder: at the start, or after a dot or a lowercase letter, so
+// "srdNNN" and "relNN.N" are placeholders and "VISION" is a word. The
+// placement gate in magefiles reads locations by the same rule.
+func isNumericPlaceholder(location string, index int) bool {
+	if index == 0 {
+		return true
+	}
+	previous := location[index-1]
+	return previous == '.' || (previous >= 'a' && previous <= 'z')
 }
 
 // keywordPattern matches any keyword as a whole word, longest first so
@@ -228,16 +243,28 @@ func (r *rules) tags() []string {
 	return tags
 }
 
-// declarationFor picks the declaration whose location names this file.
+// declarationFor picks the declaration whose location names this file: by
+// the path as given, else by its absolute path, so a relative name such as
+// "eng10-x.md" run inside docs/engineering still resolves.
 func declarationFor(declarations map[string]*rules, source string) (*rules, bool) {
-	base := filepath.Base(source)
+	if r, ok := declarationForPath(declarations, filepath.ToSlash(source)); ok {
+		return r, true
+	}
+	abs, err := filepath.Abs(source)
+	if err != nil {
+		return nil, false
+	}
+	return declarationForPath(declarations, filepath.ToSlash(abs))
+}
+
+func declarationForPath(declarations map[string]*rules, path string) (*rules, bool) {
 	names := make([]string, 0, len(declarations))
 	for name := range declarations {
 		names = append(names, name)
 	}
 	sort.Strings(names)
 	for _, name := range names {
-		if declarations[name].filePattern.MatchString(base) {
+		if declarations[name].pathPattern.MatchString(path) {
 			return declarations[name], true
 		}
 	}

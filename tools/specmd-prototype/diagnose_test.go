@@ -66,7 +66,7 @@ A kit test fails on an unknown endpoint.
 - R1.1
 `
 
-const validName = "srd900-sample.md"
+const validName = "docs/specs/software-requirements/srd900-sample.md"
 
 func TestValidSRDHasNoFindings(t *testing.T) {
 	if findings := Diagnose([]byte(validSRD), validName); len(findings) > 0 {
@@ -97,7 +97,7 @@ func diagnosticCases() []diagnosticCase {
 		{"frontmatter-invalid", replaceOnce("title: Sample", "title: [unclosed"), "", 2, "key: value lines"},
 		{"frontmatter-missing-key", replaceOnce("title: Sample\n", ""), "", 2, `add "title: ..."`},
 		{"frontmatter-unknown-key", replaceOnce("title: Sample\n", "title: Sample\nstatuss: draft\n"), "", 4, `did you mean "status"?`},
-		{"frontmatter-id-mismatch", validSRD, "srd901-other.md", 2, "rename the file or change the id"},
+		{"frontmatter-id-mismatch", validSRD, "docs/specs/software-requirements/srd901-other.md", 2, "rename the file or change the id"},
 		{"marker-malformed", replaceOnce("<!-- field: goals -->", "<!-- field goals -->"), "", 13, "separated by a colon"},
 		{"marker-unknown-tag", replaceOnce("<!-- field: goals -->", "<!-- feild: goals -->"), "", 13, `did you mean "field"?`},
 		{"marker-unknown-attribute", replaceOnce("<!-- req: R1.1 -->", "<!-- req: R1.1 | statsu: retired -->"), "", 21, `did you mean "status"?`},
@@ -202,7 +202,7 @@ func TestPrintedCorpusIsClean(t *testing.T) {
 			t.Errorf("%s: %v", path, err)
 			continue
 		}
-		name := strings.TrimSuffix(filepath.Base(path), ".yaml") + ".md"
+		name := strings.TrimSuffix(path, ".yaml") + ".md"
 		for _, f := range Diagnose(md, name) {
 			if !corpusAllowed[f.Name] {
 				t.Errorf("%s: printed form has %s", path, f)

@@ -4,6 +4,7 @@
 package specmd
 
 import (
+	"os"
 	"strings"
 	"testing"
 )
@@ -41,7 +42,7 @@ Table 1: Sample
 - docs/engineering/eng09-spec-kit-correspondence.yaml
 `
 
-const guidelineName = "eng90-sample.md"
+const guidelineName = "docs/engineering/eng90-sample.md"
 
 func TestValidGuidelineHasNoFindings(t *testing.T) {
 	if findings := Diagnose([]byte(validGuideline), guidelineName); len(findings) > 0 {
@@ -83,5 +84,18 @@ func TestGuidelineDiagnostics(t *testing.T) {
 			}
 			t.Fatalf("no %s finding; got:\n%v", tc.name, Diagnose([]byte(tc.doc), guidelineName))
 		})
+	}
+}
+
+// TestEng10IsClean keeps the format specification its own first conformance
+// test: eng10 is written in the format it specifies and reports nothing.
+func TestEng10IsClean(t *testing.T) {
+	const path = "../../docs/engineering/eng10-markdown-spec-format.md"
+	data, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if findings := Diagnose(data, path); len(findings) > 0 {
+		t.Fatalf("eng10 reported findings:\n%v", findings)
 	}
 }
