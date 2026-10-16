@@ -57,7 +57,9 @@ func TestConvertingTheCorpusAndBackKeepsEveryTree(t *testing.T) {
 			t.Errorf("%s: convert and back changed %s", path, diff)
 		}
 	}
-	if converted < 368 {
-		t.Errorf("converted %d documents, want every one of the 368 converted", converted)
+	markdownDocuments := len(trackedMarkdownDocuments(t, declarations))
+	if converted+markdownDocuments < 368 {
+		t.Errorf("checked %d YAML and %d Markdown documents, want at least the 368 of the corpus",
+			converted, markdownDocuments)
 	}
 }

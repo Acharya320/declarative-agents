@@ -62,8 +62,12 @@ func trackedDocuments(t *testing.T, declarations markdown.Declarations) map[stri
 // TestEveryCorpusDocumentRoundTrips states the round-trip laws on every
 // tracked document of every structured type besides the SRD (eng10).
 func TestEveryCorpusDocumentRoundTrips(t *testing.T) {
-	documents := trackedDocuments(t, repositoryDeclarations(t))
+	declarations := repositoryDeclarations(t)
+	documents := trackedDocuments(t, declarations)
 	seen := map[string]int{}
+	for _, d := range trackedMarkdownDocuments(t, declarations) {
+		seen[d.Type()]++ // TestEveryMarkdownCorpusDocumentIsCanonical checks these
+	}
 	for path, d := range documents {
 		seen[d.Type()]++
 		t.Run(path, func(t *testing.T) {

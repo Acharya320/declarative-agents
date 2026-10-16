@@ -334,7 +334,11 @@ GitHub hides HTML comments and renders frontmatter as a table, so a converted do
 <!-- section: authoring-loop -->
 ## Authoring loop
 
-An author, human or agent, writes a document, runs the audit, and fixes what it reports. The formatter, mage fmt <scope> from the repository root (GH-2615), applies Tier 0 in place, and the audit reports a document out of canonical form as not-canonical, so findings otherwise only concern meaning. A mage target in agent-core also runs the diagnostics on any file, with paths relative to agent-core and separated by commas:
+An author, human or agent, writes a document, runs mage fmt, runs mage audit, and fixes what the audit reports. mage fmt <scope> from the repository root applies Tier 0 in place, so the audit's findings concern meaning, plus not-canonical for a document edited since its last format. Every audit gate reads a corpus document in either format during the migration window (GH-2614, GH-2615, GH-2616).
+
+The loop terminates on the hints alone. TestAuthoringLoopFollowsTheHints in agent-core/pkg/spec/markdown seeds an SRD with a finding of every tier and drives it to zero findings, one finding per round, with a fixer that may use only what a finding says: its line, its expected and found text, and its hint. A hint that stops naming what its fix needs stalls the loop and fails the test.
+
+For one file at a time, a mage target in agent-core runs the same diagnostics, with paths relative to agent-core and separated by commas:
 
 ```text
 cd agent-core
