@@ -20,7 +20,8 @@ import (
 // Diagnostics read every constraint from here, so a new document type is a
 // new declaration, not new code.
 type Declaration struct {
-	Location    string `yaml:"location"`
+	Location    string   `yaml:"location"`
+	Exclude     []string `yaml:"exclude"` // source documents that stay in their format
 	Frontmatter struct {
 		Required          []string `yaml:"required"`
 		Allowed           []string `yaml:"allowed"`
@@ -37,12 +38,13 @@ type Declaration struct {
 		Outside  []string `yaml:"outside"`
 	} `yaml:"prose_containment"`
 
-	documentType  string
-	pathPattern   *regexp.Regexp
-	sourcePattern *regexp.Regexp
-	idPatterns    map[string]*regexp.Regexp
-	itemPatterns  map[string]*regexp.Regexp
-	keywordRegexp *regexp.Regexp
+	documentType   string
+	pathPattern    *regexp.Regexp
+	sourcePattern  *regexp.Regexp
+	sourceLocation string
+	idPatterns     map[string]*regexp.Regexp
+	itemPatterns   map[string]*regexp.Regexp
+	keywordRegexp  *regexp.Regexp
 }
 
 // Node heading forms and content kinds a declaration may name.
@@ -114,6 +116,7 @@ func LoadDeclarations(data []byte) (Declarations, error) {
 			return nil, fmt.Errorf("document_types.%s.location: %w", name, err)
 		}
 		r.sourcePattern = source
+		r.sourceLocation = entry.Location
 		declarations[name] = &r
 	}
 	return declarations, nil
@@ -290,9 +293,25 @@ func (r *Declaration) Type() string { return r.documentType }
 func (declarations Declarations) ForSource(path string) (*Declaration, bool) {
 	slashed := filepath.ToSlash(path)
 	for _, name := range sortedKeys(declarations) {
-		if declarations[name].sourcePattern.MatchString(slashed) {
+		if declarations[name].sourcePattern.MatchString(slashed) && !declarations[name].excluded(slashed) {
 			return declarations[name], true
 		}
 	}
 	return nil, false
+}
+
+// excluded reports a source document the declaration leaves in its format,
+// named by its path from a docs directory up (docs/constitutions/design.yaml).
+func (r *Declaration) excluded(path string) bool {
+	for _, exclude := range r.Exclude {
+		if path == exclude || strings.HasSuffix(path, "/"+exclude) {
+			return true
+		}
+	}
+	return false
+}
+
+// ForMarkdown finds the declaration whose Markdown location names the path.
+func (declarations Declarations) ForMarkdown(path string) (*Declaration, bool) {
+	return declarationFor(declarations, path)
 }
