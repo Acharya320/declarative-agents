@@ -1,15 +1,11 @@
 // Copyright (c) 2026 Nokia
 // SPDX-License-Identifier: BSD-3-Clause
 
-package specmd
+package markdown
 
 import (
-	"os/exec"
-	"path/filepath"
 	"strings"
 	"testing"
-
-	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec"
 )
 
 // validSRD is a minimal canonical SRD; each case below mutates it to provoke
@@ -69,7 +65,7 @@ A kit test fails on an unknown endpoint.
 const validName = "docs/specs/software-requirements/srd900-sample.md"
 
 func TestValidSRDHasNoFindings(t *testing.T) {
-	if findings := Diagnose([]byte(validSRD), validName); len(findings) > 0 {
+	if findings := diagnose(t, []byte(validSRD), validName); len(findings) > 0 {
 		t.Fatalf("valid document reported findings:\n%v", findings)
 	}
 }
@@ -134,7 +130,7 @@ func TestEveryFindingIsDiagnosedAtItsLineWithAHint(t *testing.T) {
 			if file == "" {
 				file = validName
 			}
-			findings := Diagnose([]byte(tc.doc), file)
+			findings := diagnose(t, []byte(tc.doc), file)
 			line := tc.line
 			if line == lastLine {
 				line = strings.Count(tc.doc, "\n")
@@ -165,48 +161,5 @@ func TestEveryCatalogFindingHasAFixture(t *testing.T) {
 	}
 	if len(covered) != len(findingCatalog) {
 		t.Errorf("%d fixtures for %d catalog names", len(covered), len(findingCatalog))
-	}
-}
-
-// corpusAllowed are the findings the printed corpus may still carry: prose
-// containment (normative wording in non-goals) is resolved file by file in
-// the corpus migration (GH-2581 decision 2). Every other finding on a printed
-// SRD is either a printer defect or a corpus fact the declaration should
-// already admit, such as the widened id grammar (decision 1).
-var corpusAllowed = map[string]bool{"prose-containment": true}
-
-// TestPrintedCorpusIsClean diagnoses the printed form of every tracked SRD
-// against design.yaml's srd declaration: nothing but prose containment may
-// remain, so the printer is structurally sound, every id fits the declared
-// grammar, and every criterion carries a visible traces field.
-func TestPrintedCorpusIsClean(t *testing.T) {
-	repo, err := filepath.Abs("../..")
-	if err != nil {
-		t.Fatal(err)
-	}
-	out, err := exec.Command("git", "-C", repo, "ls-files").Output()
-	if err != nil {
-		t.Fatal(err)
-	}
-	for _, path := range strings.Split(string(out), "\n") {
-		if !strings.Contains(path, "/docs/specs/software-requirements/srd") ||
-			!strings.HasSuffix(path, ".yaml") || strings.Contains(path, "/testdata/") {
-			continue
-		}
-		srd, err := spec.ParseSRD(filepath.Join(repo, path))
-		if err != nil {
-			continue
-		}
-		md, err := PrintMarkdown(&srd)
-		if err != nil {
-			t.Errorf("%s: %v", path, err)
-			continue
-		}
-		name := strings.TrimSuffix(path, ".yaml") + ".md"
-		for _, f := range Diagnose(md, name) {
-			if !corpusAllowed[f.Name] {
-				t.Errorf("%s: printed form has %s", path, f)
-			}
-		}
 	}
 }

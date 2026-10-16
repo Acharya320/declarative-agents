@@ -44,7 +44,7 @@ require (
 
 require (
 	github.com/Nokia-Bell-Labs/declarative-agents/agent-core v0.0.0
-	github.com/yuin/goldmark v1.4.13 // indirect
+	github.com/yuin/goldmark v1.8.6 // indirect
 	golang.org/x/net v0.57.0 // indirect
 	golang.org/x/tools v0.48.0 // indirect
 )

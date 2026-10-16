@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec"
+	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 	"gopkg.in/yaml.v3"
 )
 
@@ -60,12 +61,12 @@ func (p *printer) add(lines ...string) { p.lines = append(p.lines, lines...) }
 
 // section writes a marker, its heading, and the rendered value, followed by
 // one blank line.
-func (p *printer) section(m marker, level int, heading string, value *yaml.Node) error {
+func (p *printer) section(m markdown.Marker, level int, heading string, value *yaml.Node) error {
 	p.add(m.String(), strings.Repeat("#", level)+" "+heading, "")
 	if value == nil {
 		return nil
 	}
-	content, err := renderNode(value)
+	content, err := markdown.RenderNode(value)
 	if err != nil {
 		return fmt.Errorf("%s %s: %w", m.Tag, m.Value, err)
 	}
@@ -75,7 +76,7 @@ func (p *printer) section(m marker, level int, heading string, value *yaml.Node)
 }
 
 func (p *printer) field(level int, key string, value *yaml.Node) error {
-	return p.section(marker{Tag: "field", Value: key}, level, fieldHeading(key), value)
+	return p.section(markdown.Marker{Tag: "field", Value: key}, level, fieldHeading(key), value)
 }
 
 // PrintMarkdown renders an SRD in canonical Markdown form.
@@ -159,7 +160,7 @@ func (p *printer) groups(srd *spec.SRD) error {
 		if group.Title != "" {
 			heading += " - " + group.Title
 		}
-		if err := p.section(marker{Tag: "req", Value: groupID}, 2, heading, nil); err != nil {
+		if err := p.section(markdown.Marker{Tag: "req", Value: groupID}, 2, heading, nil); err != nil {
 			return err
 		}
 		if err := p.extensions(3, group.Extensions); err != nil {

@@ -1,7 +1,7 @@
 // Copyright (c) 2026 Nokia
 // SPDX-License-Identifier: BSD-3-Clause
 
-package specmd
+package markdown
 
 import (
 	"os"
@@ -15,15 +15,7 @@ import (
 // registry: each document type carries a markdown entry, either a rule
 // declaration that compiles or a note saying why the type takes none.
 func TestEveryDocumentTypeDeclaresMarkdown(t *testing.T) {
-	wd, err := os.Getwd()
-	if err != nil {
-		t.Fatal(err)
-	}
-	path, err := findDesign(wd)
-	if err != nil {
-		t.Fatal(err)
-	}
-	data, err := os.ReadFile(path)
+	data, err := os.ReadFile(designPath)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -33,7 +25,7 @@ func TestEveryDocumentTypeDeclaresMarkdown(t *testing.T) {
 	if err := yaml.Unmarshal(data, &design); err != nil {
 		t.Fatal(err)
 	}
-	declarations, err := loadDeclarations(data)
+	declarations, err := LoadDeclarations(data)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -55,10 +47,7 @@ func TestEveryDocumentTypeDeclaresMarkdown(t *testing.T) {
 // capitals hold an N that is not a digit placeholder, and the types that
 // share the name placeholder and differ only by directory.
 func TestDeclaredLocationsPickTheirType(t *testing.T) {
-	declarations, err := declarationsFromRepository()
-	if err != nil {
-		t.Fatal(err)
-	}
+	declarations := repositoryDeclarations(t)
 	cases := map[string]string{
 		"docs/VISION.md":                                        "vision",
 		"docs/ARCHITECTURE.md":                                  "architecture",
@@ -92,7 +81,7 @@ func TestDeclaredLocationsPickTheirType(t *testing.T) {
 // field that declares no columns accepts any header.
 func TestEmptyListAndUndeclaredColumns(t *testing.T) {
 	empty := strings.Replace(validSRD, "- Rewriting the shell.\n", "", 1)
-	if findings := Diagnose([]byte(empty), validName); len(findings) > 0 {
+	if findings := diagnose(t, []byte(empty), validName); len(findings) > 0 {
 		t.Fatalf("empty non_goals list reported findings:\n%v", findings)
 	}
 	index := "---\nid: sample-specifications\ntitle: Sample\n---\n"
@@ -106,7 +95,7 @@ func TestEmptyListAndUndeclaredColumns(t *testing.T) {
 			index += "| id | title | any column |\n| --- | --- | --- |\n| srd001 | One | x |\n"
 		}
 	}
-	if findings := Diagnose([]byte(index), "docs/SPECIFICATIONS.md"); len(findings) > 0 {
+	if findings := diagnose(t, []byte(index), "docs/SPECIFICATIONS.md"); len(findings) > 0 {
 		t.Fatalf("index with undeclared columns and empty tables reported findings:\n%v", findings)
 	}
 }

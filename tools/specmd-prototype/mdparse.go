@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec"
+	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 	"gopkg.in/yaml.v3"
 )
 
@@ -39,7 +40,7 @@ type reader struct {
 	srd        *spec.SRD
 	lines      []string
 	offset     int
-	pending    *marker
+	pending    *markdown.Marker
 	open       *openNode
 	groups     []*spec.RequirementGroup
 	criteria   bool
@@ -57,11 +58,11 @@ func ParseMarkdown(data []byte, source string) (spec.SRD, error) {
 		ReplacedBy: fm.ReplacedBy, DependsOn: fm.DependsOn, DerivedFrom: fm.DerivedFrom,
 		Requirements: map[string]spec.RequirementGroup{},
 	}
-	blocks, lines := topLevelBlocks(body)
+	blocks, lines := markdown.TopLevelBlocks(body)
 	r := &reader{srd: &srd, lines: lines, offset: offset}
 	for _, b := range blocks {
 		if err := r.step(b); err != nil {
-			return spec.SRD{}, fmt.Errorf("%s:%d: %w", source, b.start+offset+1, err)
+			return spec.SRD{}, fmt.Errorf("%s:%d: %w", source, b.Start+offset+1, err)
 		}
 	}
 	if err := r.close(); err != nil {
@@ -76,9 +77,9 @@ func ParseMarkdown(data []byte, source string) (spec.SRD, error) {
 	return srd, nil
 }
 
-func (r *reader) step(b block) error {
-	if text, ok := commentLine(b, r.lines); ok {
-		m, isMarker, err := parseMarker(text)
+func (r *reader) step(b markdown.Block) error {
+	if text, ok := markdown.CommentLine(b, r.lines); ok {
+		m, isMarker, err := markdown.ParseMarker(text)
 		if err != nil || !isMarker {
 			return err
 		}
@@ -91,20 +92,20 @@ func (r *reader) step(b block) error {
 		r.pending = &m
 		return nil
 	}
-	if level, heading, ok := headingOf(b, r.lines); ok {
+	if level, heading, ok := markdown.HeadingOf(b, r.lines); ok {
 		return r.heading(b, level, heading)
 	}
 	if r.open == nil {
 		return fmt.Errorf("content outside any tagged node")
 	}
 	if r.open.start < 0 {
-		r.open.start = b.start
+		r.open.start = b.Start
 	}
-	r.open.end = b.end
+	r.open.end = b.End
 	return nil
 }
 
-func (r *reader) heading(b block, level int, heading string) error {
+func (r *reader) heading(b markdown.Block, level int, heading string) error {
 	if r.pending == nil {
 		return fmt.Errorf("heading %q has no marker above it", heading)
 	}
@@ -114,13 +115,13 @@ func (r *reader) heading(b block, level int, heading string) error {
 	if err != nil {
 		return fmt.Errorf("heading %q: %w", heading, err)
 	}
-	r.open = &openNode{kind: kind, key: m.Value, line: b.start, start: -1, end: -1}
+	r.open = &openNode{kind: kind, key: m.Value, line: b.Start, start: -1, end: -1}
 	return r.begin(m, heading)
 }
 
 // nodeKind resolves what a marker and heading depth open in the current
 // context.
-func (r *reader) nodeKind(m marker, level int) (string, error) {
+func (r *reader) nodeKind(m markdown.Marker, level int) (string, error) {
 	switch {
 	case m.Tag == "field" && level == 2:
 		return nodeDocField, nil
@@ -141,7 +142,7 @@ func (r *reader) nodeKind(m marker, level int) (string, error) {
 }
 
 // begin records what a heading opens before its content arrives.
-func (r *reader) begin(m marker, heading string) error {
+func (r *reader) begin(m markdown.Marker, heading string) error {
 	switch r.open.kind {
 	case nodeDocField:
 		r.criteria = m.Value == keyAcceptanceCriteria
@@ -180,7 +181,7 @@ func (r *reader) close() error {
 	if open.start < 0 {
 		return r.store(open, nil)
 	}
-	value, err := parseContent(spanText(r.lines, open.start, open.end))
+	value, err := markdown.ParseContent(markdown.SpanText(r.lines, open.start, open.end))
 	if err != nil {
 		return fmt.Errorf("line %d: %s %s: %w", open.start+r.offset+1, open.kind, open.key, err)
 	}
@@ -274,7 +275,7 @@ func assignStrings(value *yaml.Node, target *[]string) error {
 	if value == nil {
 		return nil
 	}
-	if !isStringList(value) {
+	if !markdown.IsStringList(value) {
 		return fmt.Errorf("expected a list of text items, found a %s", nodeKindName(value))
 	}
 	for _, item := range value.Content {

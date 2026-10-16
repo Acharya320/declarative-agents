@@ -1,31 +1,25 @@
 // Copyright (c) 2026 Nokia
 // SPDX-License-Identifier: BSD-3-Clause
 
-package specmd
+package markdown
 
 import (
 	"errors"
 	"fmt"
-	"os"
 	"path/filepath"
 	"regexp"
 	"sort"
 	"strings"
-	"sync"
 
 	"gopkg.in/yaml.v3"
 )
 
-// designPath is where the document-type declarations live, relative to the
-// repository root.
-const designPath = "agent-core/docs/constitutions/design.yaml"
-
-// rules is one document type's Markdown declaration, read from the markdown
+// Declaration is one document type's Markdown declaration, read from the markdown
 // block of its entry in design.yaml's document_types: heading grammar, typed
 // fields and their shapes, attribute shapes, and prose containment.
 // Diagnostics read every constraint from here, so a new document type is a
 // new declaration, not new code.
-type rules struct {
+type Declaration struct {
 	Location    string `yaml:"location"`
 	Frontmatter struct {
 		Required          []string `yaml:"required"`
@@ -58,6 +52,10 @@ const (
 	contentProse   = "prose"    // required text, no untagged table or list
 )
 
+// Declarations holds every declared document type's Markdown declaration,
+// keyed by document type name.
+type Declarations map[string]*Declaration
+
 type nodeRule struct {
 	Tag             string   `yaml:"tag"`
 	Level           int      `yaml:"level"`
@@ -78,10 +76,10 @@ type fieldRule struct {
 	Columns     []string `yaml:"columns"`
 }
 
-// loadDeclarations reads every document type in design.yaml whose markdown
+// LoadDeclarations reads every document type in design.yaml whose markdown
 // entry is a declaration (a mapping); other markdown values, such as a note
 // that a type stays YAML, declare no Markdown rules.
-func loadDeclarations(data []byte) (map[string]*rules, error) {
+func LoadDeclarations(data []byte) (Declarations, error) {
 	var design struct {
 		DocumentTypes map[string]struct {
 			Markdown yaml.Node `yaml:"markdown"`
@@ -90,12 +88,12 @@ func loadDeclarations(data []byte) (map[string]*rules, error) {
 	if err := yaml.Unmarshal(data, &design); err != nil {
 		return nil, fmt.Errorf("design.yaml: %w", err)
 	}
-	declarations := map[string]*rules{}
+	declarations := Declarations{}
 	for name, entry := range design.DocumentTypes {
 		if entry.Markdown.Kind != yaml.MappingNode {
 			continue
 		}
-		var r rules
+		var r Declaration
 		if err := entry.Markdown.Decode(&r); err != nil {
 			return nil, fmt.Errorf("document_types.%s.markdown: %w", name, err)
 		}
@@ -109,7 +107,7 @@ func loadDeclarations(data []byte) (map[string]*rules, error) {
 }
 
 // compile prepares a declaration's patterns once.
-func (r *rules) compile() error {
+func (r *Declaration) compile() error {
 	pattern, err := locationPattern(r.Location)
 	if err != nil {
 		return fmt.Errorf("location: %w", err)
@@ -204,7 +202,7 @@ func keywordPattern(keywords []string) *regexp.Regexp {
 }
 
 // nodeFor finds the node a marker tag opens at a heading depth under parent.
-func (r *rules) nodeFor(tag string, level int, parent string) (string, bool) {
+func (r *Declaration) nodeFor(tag string, level int, parent string) (string, bool) {
 	for name, node := range r.Nodes {
 		if node.Tag == tag && node.Level == level && node.Parent == parent {
 			return name, true
@@ -215,7 +213,7 @@ func (r *rules) nodeFor(tag string, level int, parent string) (string, bool) {
 
 // allowedHere lists the "<tag> at level <n>" headings legal under parent,
 // for messages.
-func (r *rules) allowedHere(parent string) []string {
+func (r *Declaration) allowedHere(parent string) []string {
 	var allowed []string
 	for _, node := range r.Nodes {
 		if node.Parent == parent {
@@ -230,7 +228,7 @@ func (r *rules) allowedHere(parent string) []string {
 }
 
 // tags lists the marker tags a declaration uses, sorted.
-func (r *rules) tags() []string {
+func (r *Declaration) tags() []string {
 	seen := map[string]bool{}
 	var tags []string
 	for _, node := range r.Nodes {
@@ -246,7 +244,7 @@ func (r *rules) tags() []string {
 // declarationFor picks the declaration whose location names this file: by
 // the path as given, else by its absolute path, so a relative name such as
 // "eng10-x.md" run inside docs/engineering still resolves.
-func declarationFor(declarations map[string]*rules, source string) (*rules, bool) {
+func declarationFor(declarations Declarations, source string) (*Declaration, bool) {
 	if r, ok := declarationForPath(declarations, filepath.ToSlash(source)); ok {
 		return r, true
 	}
@@ -257,7 +255,7 @@ func declarationFor(declarations map[string]*rules, source string) (*rules, bool
 	return declarationForPath(declarations, filepath.ToSlash(abs))
 }
 
-func declarationForPath(declarations map[string]*rules, path string) (*rules, bool) {
+func declarationForPath(declarations Declarations, path string) (*Declaration, bool) {
 	names := make([]string, 0, len(declarations))
 	for name := range declarations {
 		names = append(names, name)
@@ -269,50 +267,4 @@ func declarationForPath(declarations map[string]*rules, path string) (*rules, bo
 		}
 	}
 	return nil, false
-}
-
-// findDesign walks up from dir to the repository directory holding
-// design.yaml.
-func findDesign(dir string) (string, error) {
-	for {
-		candidate := filepath.Join(dir, designPath)
-		if _, err := os.Stat(candidate); err == nil {
-			return candidate, nil
-		}
-		parent := filepath.Dir(dir)
-		if parent == dir {
-			return "", fmt.Errorf("%s not found above the working directory", designPath)
-		}
-		dir = parent
-	}
-}
-
-var (
-	defaultOnce         sync.Once
-	defaultDeclarations map[string]*rules
-	defaultErr          error
-)
-
-// declarationsFromRepository loads the declarations once from the design.yaml
-// of the repository enclosing the working directory.
-func declarationsFromRepository() (map[string]*rules, error) {
-	defaultOnce.Do(func() {
-		wd, err := os.Getwd()
-		if err != nil {
-			defaultErr = err
-			return
-		}
-		path, err := findDesign(wd)
-		if err != nil {
-			defaultErr = err
-			return
-		}
-		data, err := os.ReadFile(path)
-		if err != nil {
-			defaultErr = err
-			return
-		}
-		defaultDeclarations, defaultErr = loadDeclarations(data)
-	})
-	return defaultDeclarations, defaultErr
 }

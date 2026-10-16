@@ -1,7 +1,7 @@
 // Copyright (c) 2026 Nokia
 // SPDX-License-Identifier: BSD-3-Clause
 
-package specmd
+package markdown
 
 import (
 	"fmt"
@@ -59,17 +59,17 @@ type dnode struct {
 	line       int
 	markerLine int
 	fields     map[string]bool
-	content    []block
+	content    []Block
 }
 
 // diagnosis walks one document collecting findings; it never stops early.
 type diagnosis struct {
-	rules    *rules
+	rules    *Declaration
 	file     string
 	lines    []string
 	offset   int
 	findings []Finding
-	pending  *marker
+	pending  *Marker
 	pendLine int
 	doc      *dnode
 	stack    [maxHeadingLevel + 1]*dnode
@@ -80,18 +80,9 @@ type diagnosis struct {
 }
 
 // Diagnose reports every finding in a Markdown corpus document, against the
-// declaration design.yaml gives its document type.
-func Diagnose(data []byte, source string) []Finding {
-	declarations, err := declarationsFromRepository()
-	if err != nil {
-		return []Finding{{Name: "document-type-unknown", Tier: 1, File: source, Line: 1,
-			Expected: "document-type declarations in " + designPath, Found: err.Error(),
-			Rule: "document_types", Hint: "run inside the repository"}}
-	}
-	return diagnoseWith(declarations, data, source)
-}
-
-func diagnoseWith(declarations map[string]*rules, data []byte, source string) []Finding {
+// declaration whose location matches its path. The caller loads the
+// declarations from design.yaml; the package does not search for it.
+func Diagnose(declarations Declarations, data []byte, source string) []Finding {
 	r, ok := declarationFor(declarations, source)
 	if !ok {
 		return []Finding{{Name: "document-type-unknown", Tier: 1, File: source, Line: 1,
@@ -103,7 +94,7 @@ func diagnoseWith(declarations map[string]*rules, data []byte, source string) []
 		doc: &dnode{kind: "document", fields: map[string]bool{}}}
 	body, offset := d.frontmatter(data)
 	d.offset = offset
-	blocks, lines := topLevelBlocks(body)
+	blocks, lines := TopLevelBlocks(body)
 	d.lines = lines
 	for _, b := range blocks {
 		d.step(b)
@@ -127,14 +118,14 @@ func (d *diagnosis) add(name string, line int, expected, found, rule, hint strin
 	})
 }
 
-func (d *diagnosis) fileLine(b block) int { return b.start + d.offset + 1 }
+func (d *diagnosis) fileLine(b Block) int { return b.Start + d.offset + 1 }
 
-func (d *diagnosis) step(b block) {
-	if text, ok := commentLine(b, d.lines); ok {
+func (d *diagnosis) step(b Block) {
+	if text, ok := CommentLine(b, d.lines); ok {
 		d.comment(b, text)
 		return
 	}
-	if level, heading, ok := headingOf(b, d.lines); ok {
+	if level, heading, ok := HeadingOf(b, d.lines); ok {
 		d.heading(b, level, heading)
 		return
 	}
@@ -147,8 +138,8 @@ func (d *diagnosis) step(b block) {
 	d.open.content = append(d.open.content, b)
 }
 
-func (d *diagnosis) comment(b block, text string) {
-	m, isMarker, err := parseMarker(text)
+func (d *diagnosis) comment(b Block, text string) {
+	m, isMarker, err := ParseMarker(text)
 	switch {
 	case err != nil:
 		d.add("marker-malformed", d.fileLine(b), "<!-- <tag>: <value> | <key>: <value> -->",
@@ -317,14 +308,14 @@ func (d *diagnosis) documentLevel() {
 
 // containsStructure reports whether any block is a table or a list:
 // structure a prose node must carry under its own tagged field.
-func containsStructure(blocks []block) (block, string, bool) {
+func containsStructure(blocks []Block) (Block, string, bool) {
 	for _, b := range blocks {
-		switch b.node.(type) {
+		switch b.Node.(type) {
 		case *east.Table:
 			return b, "table", true
 		case *ast.List:
 			return b, "list", true
 		}
 	}
-	return block{}, "", false
+	return Block{}, "", false
 }

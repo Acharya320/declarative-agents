@@ -16,6 +16,7 @@ import (
 	"os"
 
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec"
+	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 	specmd "github.com/Nokia-Bell-Labs/declarative-agents/tools/specmd-prototype"
 )
 
@@ -87,13 +88,17 @@ func write(data []byte, err error) error {
 // check prints every finding in each file, one per line, and fails when any
 // file has one.
 func check(paths []string) error {
+	declarations, err := specmd.RepositoryDeclarations(".")
+	if err != nil {
+		return err
+	}
 	total := 0
 	for _, path := range paths {
 		data, err := os.ReadFile(path)
 		if err != nil {
 			return err
 		}
-		for _, finding := range specmd.Diagnose(data, path) {
+		for _, finding := range markdown.Diagnose(declarations, data, path) {
 			fmt.Println(finding)
 			total++
 		}
