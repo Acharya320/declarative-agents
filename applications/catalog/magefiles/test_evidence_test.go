@@ -6,6 +6,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 	"io"
 	"os"
 	"path/filepath"
@@ -217,7 +218,7 @@ func TestSpecificationCriticAuditProfileDeclaresEvidencePipeline(t *testing.T) {
 	if !strings.Contains(string(coreMachine), "test-evidence-audit-machine-template.yaml") {
 		t.Errorf("agent-core audit fixture does not instantiate the shared audit template")
 	}
-	suite, err := os.ReadFile(filepath.Join(
+	suite, err := markdown.ReadAsYAML(filepath.Join(
 		"..", "docs", "specs", "test-suites", "test-rel07.1-profile-boundaries.yaml"))
 	if err != nil {
 		t.Fatal(err)

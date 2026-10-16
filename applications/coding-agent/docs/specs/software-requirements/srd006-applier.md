@@ -1,0 +1,298 @@
+---
+id: srd006-applier
+title: Declarative Applier Agent
+status: implemented
+depends_on:
+  - srd_id: srd003-helm-topology
+    symbols_used: [R1, R2]
+  - srd_id: srd004-helm-package-validation
+    symbols_used: [R1]
+  - srd_id: srd005-live-helm-smoke
+    symbols_used: [R2, R3]
+---
+<!-- Copyright (c) 2026 Nokia -->
+<!-- SPDX-License-Identifier: BSD-3-Clause -->
+
+<!-- field: context -->
+## Context
+
+The applier is the coding application's deployment-plane actuator: a standalone
+declarative agent that realizes a decided values-plane change against the coding
+chart on Kubernetes. The coding application serves planner, executor, and critic
+roles plus a collector; it runs no control plane, no in-cluster creator, and no
+provisioning panel. The applier therefore takes its decided input from outside
+the cluster. An authorized operator or CI caller reaches the apply surface, submits
+a values-plane patch for the coding chart, and the applier validates it, applies it
+as a rollout, verifies the rollout, and rolls back on failure.
+
+The applier acts; it decides nothing. The caller decides the values change and
+submits it; the applier receives that decided document and realizes it. It edits
+deployment values and triggers rollouts only. It never submits a host, URL, method,
+or credential to a running planner, executor, or critic. Authority is set by
+declared, validated config, never by this actuation surface. The reusable
+lifecycle and validate-apply-verify-rollback machines and shared ToolDefs live
+in the catalog applier family (srd022). This application owns its endpoint,
+chart, schema, Helm and kubectl bindings, rollout targets, RBAC, and caller
+authorization; agent-core owns runtime execution.
+
+<!-- field: problem -->
+## Problem
+
+The coding chart (srd003) is installed and upgraded today by an operator running
+helm and kubectl by hand or from a CI script. The same actuation is expressible as
+a declarative agent: a state machine binding the helm and kubectl CLIs present in
+its container, with values validation moved to the chart's native
+values.schema.json (srd004) and the rollout phase read from a CLI exit code. The
+requirements must name the actuation surface, the validate-then-apply and
+verify-then-rollback machine, the authority boundary that keeps helm and kubectl off
+the serving pods, and how the applier receives its CLIs on the agent-core
+runtime without an image of its own (GH-2222). Because the coding application has no
+control plane, the applier is a standalone actuator with no panel state view and no
+in-cluster caller.
+
+<!-- field: goals -->
+## Goals
+
+- G1: Model the applier as a standalone deployment-plane agent that exposes an apply surface an authorized operator or CI caller reaches from outside the serving pods.
+- G2: Validate a submitted values patch against the coding chart's values.schema.json before applying, and apply it as a values-file rollout rather than per-field --set construction.
+- G3: Verify the rollout of the coding role Deployments from a CLI status read and roll the release back on an apply or verify failure.
+- G4: Hold helm and kubectl authority in the applier alone; planner, executor, and critic carry none, and authority is set by declared, validated config.
+- G5: Run the applier on the shared agent-core image with the helm and kubectl CLIs delivered at pod start from a digest-pinned CLI donor into a read-only volume, so no image diverges from the profile-free, binary-only image contract; the chart the applier installs is delivered to its pod as a mounted volume, not baked into an image.
+
+<!-- req: R1 -->
+## R1 - Actuation surface
+
+<!-- req: R1.1 -->
+### R1.1
+
+The applier shall expose one apply endpoint bound as a request-scoped machine_request (agent-core srd030) that accepts a decided values-plane patch for the coding chart and maps terminal signals to HTTP status.
+
+<!-- req: R1.2 -->
+### R1.2
+
+The applier shall run a control server for health and lifecycle exit and a monitor server (agent-core srd033), with loopback-configurable bind addresses.
+
+<!-- req: R1.3 -->
+### R1.3
+
+The apply request shall carry a schema_version-tagged, values-plane overrides document as its only content; the applier shall reject an unknown schema_version.
+
+<!-- req: R1.4 -->
+### R1.4
+
+The applier shall serve no panel state view and shall depend on no in-cluster creator, orchestrator, or provisioning panel, because the coding application runs no control plane; the caller is an authorized operator or CI process reaching the apply surface.
+
+<!-- req: R2 -->
+## R2 - Validate then apply
+
+<!-- req: R2.1 -->
+### R2.1
+
+The applier shall validate a submitted values document against the coding chart's values.schema.json (srd004) by a helm upgrade dry-run before applying, rejecting a non-conforming document with a client error and no rollout.
+
+<!-- req: R2.2 -->
+### R2.2
+
+The applier shall write the validated values document to an overrides file and apply it with helm upgrade --reuse-values -f overrides.yaml, returning without waiting so the role rollout is verified separately, re-rendering the prepared role topology, rather than constructing per-field --set arguments.
+
+<!-- req: R2.3 -->
+### R2.3
+
+The apply request shall be values-plane only; the applier shall not submit a host, URL, method, or credential to a running planner, executor, or critic.
+
+<!-- req: R3 -->
+## R3 - Verify and roll back
+
+<!-- req: R3.1 -->
+### R3.1
+
+After an apply, the applier shall verify the coding role Deployments (<release>-coding-agent-planner, <release>-coding-agent-executor, and <release>-coding-agent-critic) via kubectl rollout status and report the phase from its exit outcome.
+
+<!-- req: R3.2 -->
+### R3.2
+
+On a verify failure, the applier shall roll the release back with an explicit helm rollback and report the failure; an apply that fails at the helm upgrade command shall be reported as a failure for operator attention.
+
+<!-- req: R3.3 -->
+### R3.3
+
+A rollout status the cluster cannot serve shall return a gateway error rather than a phase, so a broken read is never reported as a progressing rollout.
+
+<!-- req: R4 -->
+## R4 - Authority boundary
+
+<!-- req: R4.1 -->
+### R4.1
+
+The applier alone shall hold the helm and kubectl CLIs bound as exec tools (agent-core srd021); the planner, executor, and critic profiles shall carry no deployment CLI and no actuation authority.
+
+<!-- req: R4.2 -->
+### R4.2
+
+Authority shall be set by declared, validated config, never by this actuation surface (agent-core srd028 V30); the applier shall accept no endpoint or credential for a running agent, and REST authority shall live in the applier's declared configuration with no runtime input supplying transport authority.
+
+<!-- req: R4.3 -->
+### R4.3
+
+The apply surface shall be unreachable from the planner, executor, critic, and collector pods, enforced at the network layer rather than in the profile, because the declarative REST servers carry no inbound authentication; the reachable caller is an authorized operator or CI process alone.
+
+<!-- req: R5 -->
+## R5 - Non-goals and packaging
+
+<!-- req: R5.1 -->
+### R5.1
+
+The applier shall not decide the values change; the authorized operator or CI caller decides it and submits it as the apply request's values-plane content.
+
+<!-- req: R5.2 -->
+### R5.2
+
+The applier shall not select role profiles or own agent lifecycle; those remain the packaging and chart's (srd002, srd003).
+
+<!-- req: R5.3 -->
+### R5.3
+
+The applier shall run the shared agent-core image and receive the helm and kubectl CLIs at pod start from a digest-pinned CLI donor image (applier.cliDonor.image) that an init container copies into a volume mounted read-only at /opt/tools and placed first on the applier's PATH, so the binaries it execs cannot be replaced at runtime; no image diverges from the profile-free, binary-only image contract (srd003 R1.2, GH-2222). The chart the applier installs shall be delivered to its pod at /chart as a mounted volume, so the chart bytes travel with the Helm release rather than an image rebuild.
+
+<!-- field: acceptance_criteria -->
+## Acceptance criteria
+
+<!-- ac: AC1 -->
+### AC1
+
+The applier exposes an apply endpoint bound as a request-scoped machine_request that accepts a schema_version-tagged values-plane document, alongside control and monitor servers on loopback-configurable addresses, and serves no panel state view and depends on no in-cluster caller.
+
+<!-- field: traces -->
+#### Traces
+
+- R1.1
+- R1.2
+- R1.3
+- R1.4
+
+<!-- ac: AC2 -->
+### AC2
+
+A submitted values document is validated against the coding chart's values.schema.json by a helm dry-run and, when valid, written to an overrides file and applied with helm upgrade --reuse-values -- values-plane only, with no per-field --set construction and no endpoint submitted to a running agent.
+
+<!-- field: traces -->
+#### Traces
+
+- R2.1
+- R2.2
+- R2.3
+
+<!-- ac: AC3 -->
+### AC3
+
+The rollout of the planner, executor, and critic Deployments is verified via kubectl rollout status and its phase reported, a status the cluster cannot serve returns a gateway error rather than a phase, and an apply or verify failure rolls the release back and reports the failure.
+
+<!-- field: traces -->
+#### Traces
+
+- R3.1
+- R3.2
+- R3.3
+
+<!-- ac: AC4 -->
+### AC4
+
+The applier alone holds helm and kubectl bound as exec tools, the serving roles carry none, authority is set by declared validated config and never by this surface (agent-core srd028 V30), and the apply surface is unreachable from the serving and collector pods at the network layer.
+
+<!-- field: traces -->
+#### Traces
+
+- R4.1
+- R4.2
+- R4.3
+
+<!-- ac: AC5 -->
+### AC5
+
+Deciding the values (the operator or CI caller) and profile selection or lifecycle (packaging and chart) are non-goals, and the applier runs the shared agent-core image with helm and kubectl from the pinned CLI donor on a read-only /opt/tools, with the chart it installs mounted at /chart, so no image diverges from the binary-only image contract.
+
+<!-- field: traces -->
+#### Traces
+
+- R5.1
+- R5.2
+- R5.3
+
+<!-- field: platform_dependencies_note -->
+## Platform dependencies note
+
+agent-core runtime contracts this agent builds on. External references, owned by agent-core, not part of this application's corpus.
+
+<!-- field: platform_dependencies -->
+## Platform dependencies
+
+```yaml
+- srd_id: srd022-applier
+  provider: applications/catalog
+  symbols_used: [R1, R2, R3, R4, R5]
+- srd_id: srd029-rest-server-tools
+  provider: agent-core
+  symbols_used: [R1]
+- srd_id: srd030-machine-request-rest-binding
+  provider: agent-core
+  symbols_used: [R1]
+- srd_id: srd033-monitor-rest-api
+  provider: agent-core
+  symbols_used: [R1]
+- srd_id: srd021-agent-cli-exec-tool
+  provider: agent-core
+  symbols_used: [R2, R3, R4]
+- srd_id: srd028-rest-client-tools
+  provider: agent-core
+  symbols_used: [V30]
+```
+
+<!-- field: implementation_status -->
+## Implementation status
+
+```yaml
+implemented: []
+planned:
+    - >-
+      The applier profile -- its apply, control, and monitor servers, the validate-apply-verify-rollback request machine, and the declared helm and kubectl exec bindings -- a coding chart values.schema.json validate step, the applier Deployment, image, and NetworkPolicy that keep the apply surface off the serving pods, and an integration target that drives a values patch through validate, apply, verify, and rollback against the packaged coding chart on the kind rig (srd005). The applier runs the agent-core image with helm and kubectl from a pinned CLI donor (GH-2222). The code lands in later sub-issues of the release; this document and its use case and test suite land first.
+```
+
+<!-- field: diagrams -->
+## Diagrams
+
+````yaml
+requirements_trace: |
+    ```mermaid
+    flowchart LR
+      Problem["Problem: chart actuation is hand-run helm and kubectl; the same actuation is a declarative agent binding container CLIs"] --> Goals["Goals: Declarative Applier Agent"]
+      Goals --> R1["R1: Actuation surface"]
+      Goals --> R2["R2: Validate then apply"]
+      Goals --> R3["R3: Verify and roll back"]
+      Goals --> R4["R4: Authority boundary"]
+      Goals --> R5["R5: Non-goals and packaging"]
+      R1 --> AC1["AC1: apply endpoint, control and monitor servers, no panel"]
+      R2 --> AC2["AC2: schema dry-run then values-file apply"]
+      R3 --> AC3["AC3: rollout verify and rollback"]
+      R4 --> AC4["AC4: applier holds the CLIs, authority by declared config"]
+      R5 --> AC5["AC5: not the decision or LCM; CLIs from a pinned donor"]
+    ```
+actuation_machine: |
+    ```mermaid
+    flowchart LR
+      Apply["POST apply (operator or CI caller)"] --> Validate["Validate: helm upgrade --dry-run -f overrides.yaml"]
+      Validate -->|Valid| ApplyStep["Apply: helm upgrade --reuse-values -f overrides.yaml"]
+      Validate -->|Invalid| Reject["400"]
+      ApplyStep -->|Applied| Verify["Verify: kubectl rollout status of the coding role Deployments"]
+      ApplyStep -->|CommandError| Failed["500"]
+      Verify -->|HealthReported| Done["200"]
+      Verify -->|RolloutStalled| Rollback["helm rollback"]
+      Rollback --> RolledBack["500"]
+    ```
+````
+
+<!-- field: non_goals -->
+## Non-goals
+
+- The applier does not decide the values change; the authorized operator or CI caller decides it and submits it as the apply request's values-plane content.
+- The applier does not select role profiles or own agent lifecycle; those remain the packaging and chart's (srd002, srd003).
+- The applier runs the shared agent-core image and receives the helm and kubectl CLIs at pod start from a digest-pinned CLI donor image (applier.cliDonor.image) that an init container copies into a volume mounted read-only at /opt/tools and placed first on the applier's PATH, so the binaries it execs cannot be replaced at runtime; no image diverges from the profile-free, binary-only image contract (srd003 R1.2, GH-2222). The chart the applier installs is delivered to its pod at /chart as a mounted volume, so the chart bytes travel with the Helm release rather than an image rebuild.

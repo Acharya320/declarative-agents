@@ -12,41 +12,47 @@ import (
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 )
 
-// TestKeynameTableReadsAConvertedConfigFormat converts a copy of a config
-// format to Markdown and requires the same table rows from its YAML path.
+// TestKeynameTableReadsAConvertedConfigFormat reads a config format by its
+// YAML path from its Markdown form, rolls a copy back to YAML, and requires
+// the same table rows from both.
 func TestKeynameTableReadsAConvertedConfigFormat(t *testing.T) {
 	source := filepath.Join("..", "..", "agent-core", "docs", "specs", "config-formats", "machine-format.yaml")
-	want, err := yamlSchemaRows(source)
+	got, err := yamlSchemaRows(source)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(want) == 0 {
-		t.Fatal("machine-format.yaml yields no schema rows")
-	}
-	root := t.TempDir()
-	target := filepath.Join(root, "docs", "specs", "config-formats", "machine-format.yaml")
-	data, err := os.ReadFile(source)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if err := os.MkdirAll(filepath.Dir(target), 0o755); err != nil {
-		t.Fatal(err)
-	}
-	if err := os.WriteFile(target, data, 0o644); err != nil {
-		t.Fatal(err)
+	if len(got) == 0 {
+		t.Fatal("machine-format yields no schema rows")
 	}
 	declarations, err := markdown.Default()
 	if err != nil {
 		t.Fatal(err)
 	}
-	if reports, err := declarations.ConvertTree(root); err != nil || len(reports) != 1 {
-		t.Fatalf("convert: %v (%d reports)", err, len(reports))
+	mdPath := filepath.Join("..", "..", "agent-core", "docs", "specs", "config-formats", "machine-format.md")
+	d, ok := declarations.ForMarkdown(filepath.ToSlash(mdPath))
+	if !ok {
+		t.Fatal("machine-format.md is not a declared config format")
 	}
-	got, err := yamlSchemaRows(target)
+	data, err := os.ReadFile(mdPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	rolled, _, err := d.ConvertMarkdown(data, mdPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	copyPath := filepath.Join(t.TempDir(), "docs", "specs", "config-formats", "machine-format.yaml")
+	if err := os.MkdirAll(filepath.Dir(copyPath), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(copyPath, rolled, 0o644); err != nil {
+		t.Fatal(err)
+	}
+	want, err := yamlSchemaRows(copyPath)
 	if err != nil {
 		t.Fatal(err)
 	}
 	if !reflect.DeepEqual(got, want) {
-		t.Fatalf("rows from Markdown differ:\n%v\nwant\n%v", got, want)
+		t.Fatalf("rows from Markdown differ from the YAML rollback:\n%v\nwant\n%v", got, want)
 	}
 }

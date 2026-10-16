@@ -1,0 +1,216 @@
+---
+id: rel00.0-uc001-domain-agent-integration
+title: Domain agent imports agent-core and runs an agentic loop
+test_suite: test-rel00.0
+---
+<!-- Copyright (c) 2026 Nokia -->
+<!-- SPDX-License-Identifier: BSD-3-Clause -->
+
+<!-- field: summary -->
+## Summary
+
+A domain agent (e.g., Go coding agent, research agent) imports the
+agent-core library to build and run an agentic loop. The agent creates
+a Registry, registers tools, defines a TransitionTable (programmatically
+or from YAML), supplies a Tracer, and calls Loop. The generic engine
+drives the state machine, dispatches commands, enforces budget, and
+returns a structured RunResult.
+
+<!-- field: actor -->
+## Actor
+
+Domain agent developer
+
+<!-- field: trigger -->
+## Trigger
+
+The domain agent calls core.Loop(params, ctx) with a configured
+LoopParams struct containing the registry, transition table, budget,
+and hooks.
+
+<!-- field: flow -->
+## Flow
+
+- F1: Domain agent imports internal/runtime/core for types, state machine, dispatch, registry, and loop. Imports internal/observability/tracing for the Tracer interface (srd001, srd007).
+- F2: Agent creates a Registry via NewRegistry and registers ToolSpec-Builder pairs for its domain tools (srd004).
+- F3: Agent defines a TransitionTable either programmatically or by loading a YAML MachineSpec via ParseMachineSpec and BuildTransitionTable (srd002, srd006).
+- F4: Agent sets up telemetry via telemetry.NewRoot with an ExporterConfig, receiving a Trace and shutdown function. Wraps Trace in a TraceAdapter to satisfy the Tracer interface (srd008, srd007).
+- F5: Agent can use shared conversation and prompt packages to assemble model input with conversation history, prompt sections, system templates, and registered tool text (srd010, srd011, srd012).
+- F6: Agent constructs LoopParams with InitialState, Registry, Table, IsTerminal, Trace, Budget, and optional LoopHooks (srd005).
+- F7: Agent calls Loop(params, ctx). Loop freezes the registry, creates OTel spans, and enters the iteration loop (srd005, srd015).
+- F8: Each iteration checks context cancellation and budget, steps the state machine, dispatches the command via Dispatch with tracing and timeout (srd003, srd005).
+- F9: Loop reaches a terminal state, resolves RunStatus, and returns RunResult with status, iterations, tokens, cost, events, and summary (srd005).
+- F10: Agent calls the shutdown function to flush exporters, end the root span, and close files. Offline OTLP protobuf-JSON batches are loaded and relayed by a dedicated MachineSpec (srd008).
+- F11: An integration launcher composes file and OTLP export, assigns bounded run identity and a stable service name, and propagates the shared endpoint with a child-specific service name (srd008, srd018).
+
+<!-- field: touchpoints -->
+## Touchpoints
+
+| id | target | reason |
+| --- | --- | --- |
+| T1 | srd001-core-types R1.1, R1.2, R1.3, R1.4, R1.5, R2.1, R2.2, R2.3, R3.1, R3.2, R4.1, R4.2, R4.3, R5.1, R5.2 | State, Signal, Command, Result, Cost, Builder, CommandResolver types |
+| T2 | srd002-state-machine R1.1, R1.2, R1.3, R1.4, R2.1, R2.2, R3.1, R3.2, R3.3, R3.4, R3.5 | TransitionTable, StateMachine, Step, TerminalFunc |
+| T3 | srd003-command-dispatch R1.1, R1.2, R1.3, R1.4, R1.5, R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R3.1, R3.2 | Dispatch, SafeExecute, FillDuration, ForceErrorSignal |
+| T4 | srd004-tool-registry R1.1, R1.2, R2.1, R2.2, R2.3, R2.4, R2.5, R3.1, R3.2, R4.1, R4.2, R5.1 | ToolSpec, Registry, Manifest, PhaseMatch |
+| T5 | srd005-agentic-loop R1.1, R1.2, R1.3, R1.4, R2.1, R2.2, R2.3, R2.4, R3.1, R3.2, R3.3, R3.4, R3.5, R3.6, R4.1, R4.2, R4.3, R4.4, R5.1, R5.2, R5.3, R5.4, R5.5, R5.6, R5.7, R5.8, R5.9, R5.10, R5.11, R5.12, R6.1 | Budget, RunResult, LoopHooks, LoopParams, Loop, ValidateBuilders |
+| T6 | srd006-yaml-machine-config R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R1.7, R1.8, R1.9, R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R2.7, R2.8, R2.9, R2.10, R2.11, R3.1, R3.2, R3.3, R3.4, R3.5, R4.1, R4.2, R4.3, R4.4 | MachineSpec, validation, BuildTransitionTable, LoadMachineSpec |
+| T7 | srd007-tracer-interface R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R2.1, R2.2 | Tracer interface, minimal dependencies |
+| T8 | srd008-telemetry R1.1, R1.2, R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R2.7, R3.1, R3.1b, R3.2, R3.3, R3.4, R3.5, R4.1, R4.2, R5.1, R5.2, R5.3, R6.1, R6.2, R6.3, R7.1, R7.2, R7.3, R7.4, R9.1, R9.2, R9.3, R9.4, R9.5, R9.6, R9.7 | ExporterConfig, Trace, NewRoot, file/OTLP exporters, TraceAdapter, declared OTLP replay, retained integration telemetry |
+| T9 | srd010-conversation R1.1, R1.2, R1.3, R1.4, R2.1, R2.2, R2.3, R4.1, R4.2, R4.3, R4.4, R5.1, R5.2, R5.3, R6.1, R6.2, R6.3, R7.1, R7.2, R7.3 | Message, Conversation, append-only history, assembly, system prompt, reset |
+| T10 | srd011-prompt-schema R1.1, R1.2, R1.3, R1.4, R1.5, R2.1, R2.2, R2.3, R2.4, R3.1, R3.2, R3.3, R3.4, R3.5, R4.1, R4.2, R4.3, R5.1, R5.2, R5.3, R5.4, R6.1, R6.2, R6.3, R6.4, R7.1, R7.2 | Prompt, YAML loading, defaults, validation, assembly |
+| T11 | srd012-system-prompt-template R1.1, R1.2, R1.3, R2.1, R2.2, R2.3, R2.4, R3.1, R4.1, R4.2, R4.3, R4.4, R4.5, R4.6, R5.1, R5.2, R6.1, R6.2, R6.3, R6.4, R6.5, R6.6, R6.7 | embedded system template, PromptData, Envelope, rendering, manifest serialization |
+| T12 | srd015-genai-semconv R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R1.7, R1.8, R2.1, R3.1, R3.2, R3.3, R4.1, R4.2, R4.3, R4.4, R5.1, R5.2, R5.3, R5.4, R5.5, R5.6 | GenAI attribute constants, operation names, providers, span names, attribute builders |
+| T13 | srd018-cli-flag-contract R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R1.7, R1.8, R1.9, R1.10, R2.1, R2.2, R2.3, R2.4, R2.5, R7.1, R7.2, R7.3, R7.4 | canonical live telemetry flags and child propagation |
+
+<!-- field: success_criteria -->
+## Success criteria
+
+<!-- sc: S1 -->
+### S1
+
+Domain agent can create a Registry, register ToolSpec-Builder pairs, and freeze it.
+
+<!-- field: traces -->
+#### Traces
+
+- srd004-tool-registry AC2
+- srd004-tool-registry AC5
+
+<!-- sc: S2 -->
+### S2
+
+Domain agent can build a TransitionTable from a YAML MachineSpec or programmatically.
+
+<!-- field: traces -->
+#### Traces
+
+- srd002-state-machine AC1
+- srd006-yaml-machine-config AC3
+
+<!-- sc: S3 -->
+### S3
+
+Domain agent can call Loop with LoopParams and receive a RunResult.
+
+<!-- field: traces -->
+#### Traces
+
+- srd005-agentic-loop AC4
+- srd005-agentic-loop AC5
+
+<!-- sc: S4 -->
+### S4
+
+Budget enforcement stops the loop when limits are exceeded.
+
+<!-- field: traces -->
+#### Traces
+
+- srd005-agentic-loop AC1
+- srd005-agentic-loop AC5
+
+<!-- sc: S5 -->
+### S5
+
+LoopHooks inject domain-specific behavior (validation, budget, status, result processing).
+
+<!-- field: traces -->
+#### Traces
+
+- srd005-agentic-loop AC3
+
+<!-- sc: S6 -->
+### S6
+
+Dispatch wraps command execution with tracing, timeout, and panic recovery.
+
+<!-- field: traces -->
+#### Traces
+
+- srd003-command-dispatch AC1
+- srd003-command-dispatch AC2
+
+<!-- sc: S7 -->
+### S7
+
+MachineSpec YAML is validated for referential integrity before building the table.
+
+<!-- field: traces -->
+#### Traces
+
+- srd006-yaml-machine-config AC2
+- srd006-yaml-machine-config AC4
+
+<!-- sc: S8 -->
+### S8
+
+Tracer interface is satisfied by TraceAdapter from internal/observability/telemetry.
+
+<!-- field: traces -->
+#### Traces
+
+- srd007-tracer-interface AC1
+- srd008-telemetry AC8
+
+<!-- sc: S9 -->
+### S9
+
+NewRoot creates providers from ExporterConfig and returns a Trace and shutdown function.
+
+<!-- field: traces -->
+#### Traces
+
+- srd008-telemetry AC1
+- srd008-telemetry AC4
+- srd008-telemetry AC5
+
+<!-- sc: S10 -->
+### S10
+
+Trace supports Push, Event, SetAttributes, Context, and Meter methods.
+
+<!-- field: traces -->
+#### Traces
+
+- srd008-telemetry AC2
+- srd008-telemetry AC3
+
+<!-- sc: S11 -->
+### S11
+
+File exporter writes atomically via temp file rename. OTLP exporter sends via gRPC.
+
+<!-- field: traces -->
+#### Traces
+
+- srd008-telemetry AC6
+- srd008-telemetry AC7
+
+<!-- sc: S12 -->
+### S12
+
+A replay MachineSpec loads a trusted OTLP protobuf-JSON batch and sends it unchanged through relay_spans.
+
+<!-- field: traces -->
+#### Traces
+
+- srd008-telemetry AC9
+
+<!-- sc: S13 -->
+### S13
+
+An integration launcher can dual-export attributable file and OTLP evidence, propagate the endpoint and child service identity, and query retained trace and metric backends after the run.
+
+<!-- field: traces -->
+#### Traces
+
+- srd008-telemetry AC10
+- srd018-cli-flag-contract AC2
+- srd018-cli-flag-contract AC7
+
+<!-- field: out_of_scope -->
+## Out of scope
+
+- Domain-specific tool implementations.
+- TLS or authenticated OTLP connections.
+- CLI integration (domain agent responsibility).

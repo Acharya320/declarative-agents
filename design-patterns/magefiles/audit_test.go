@@ -421,7 +421,7 @@ func TestOperatorPortChapterUsesShippedRoutesAndDiscovery(t *testing.T) {
 		}
 	}
 	srd, err := os.ReadFile(filepath.Join("..", "..", "agent-core", "docs", "specs",
-		"software-requirements", "srd033-monitor-rest-api.yaml"))
+		"software-requirements", "srd033-monitor-rest-api.md"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -632,7 +632,7 @@ func TestPhaseScopedToolsetUsesDerivedAvailabilityModel(t *testing.T) {
 	}
 
 	format, err := os.ReadFile(filepath.Join("..", "..", "agent-core", "docs",
-		"specs", "config-formats", "machine-format.yaml"))
+		"specs", "config-formats", "machine-format.md"))
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -63,9 +63,6 @@ func trackedSRDs(t *testing.T) []string {
 			paths = append(paths, path)
 		}
 	}
-	if len(paths) == 0 {
-		t.Fatal("no tracked YAML SRDs found")
-	}
 	return paths
 }
 
@@ -75,7 +72,17 @@ func trackedSRDs(t *testing.T) []string {
 // prose containment, and ParseSRD reads the same model from either form.
 func TestEveryCorpusSRDRoundTrips(t *testing.T) {
 	d := srdDeclaration(t)
-	for _, path := range trackedSRDs(t) {
+	yamlSRDs := trackedSRDs(t)
+	markdownSRDs := 0
+	for _, md := range trackedMarkdownDocuments(t, repositoryDeclarations(t)) {
+		if md.Type() == "srd" {
+			markdownSRDs++ // TestEveryMarkdownCorpusDocumentIsCanonical checks these
+		}
+	}
+	if len(yamlSRDs)+markdownSRDs < 106 {
+		t.Fatalf("found %d YAML and %d Markdown SRDs, want the 106 of the corpus", len(yamlSRDs), markdownSRDs)
+	}
+	for _, path := range yamlSRDs {
 		t.Run(path, func(t *testing.T) {
 			srdRoundTrip(t, d, filepath.Join(repositoryRoot, path), path)
 		})

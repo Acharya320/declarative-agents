@@ -1,0 +1,206 @@
+---
+id: srd056-unit-libraries
+title: Unit Libraries
+depends_on:
+  - srd_id: srd050-declaration-imports
+    symbols_used: [imports, relative path rule, canonical source identity, closure inventory, override]
+  - srd_id: srd051-declaration-types
+    symbols_used: [type units, unit reachability]
+  - srd_id: srd052-declaration-fragments
+    symbols_used: [expand fragment path]
+  - srd_id: srd054-machine-templates
+    symbols_used: [machine template instance path]
+  - srd_id: srd055-agent-blueprints
+    symbols_used: [blueprint machine mapping, blueprint path resolution]
+  - srd_id: srd013-standard-tool-library
+    symbols_used: [agent-core/tools, /opt/agent-core install prefix]
+---
+<!-- Copyright (c) 2026 Nokia -->
+<!-- SPDX-License-Identifier: BSD-3-Clause -->
+
+<!-- field: problem -->
+## Problem
+
+srd050 R1.2 made every import a path relative to the importing file, and
+that rule is why declaration closures are reproducible: nothing is found by
+searching. It also means a declaration tree can reach only what sits at a
+fixed relative distance from it. The Standard Tool Library (srd013, 96 files
+under agent-core/tools) is reached by 41 application files, but only
+through profile-level lists, where `/opt/agent-core` already maps through
+the install root. A unit cannot import it. srd051 R1.5 recorded the
+consequence: applications restate agent-core's type units character for
+character, because no single import path resolves both in a checkout and in
+the runtime image.
+
+Machine templates (srd054) and agent blueprints (srd055) raise the stakes.
+The serve-machine template is shared by agents in two applications, and a
+template that cannot be imported from where it lives must be copied beside
+every instance.
+
+A library is the `#include <...>` form beside the relative `#include "..."`
+form. An import may name a file under a library root: the implicit
+agent-core root, or a root the profile declares by name. Nothing is searched
+for. The root is either the install prefix or a directory the profile names
+explicitly, and staging carries rooted files into the container.
+
+<!-- field: goals -->
+## Goals
+
+- G1: Let a unit import agent-core's units and templates by one path that resolves in a checkout and in the runtime image.
+- G2: Let a profile declare further named library roots explicitly, with no search path, registry, or directory convention.
+- G3: Keep a library read-only to the programs that import it.
+- G4: Keep staging, the closure, the dump, and the program identity complete for rooted files.
+
+<!-- req: R1 -->
+## R1 - Import path forms
+
+<!-- req: R1.1 -->
+### R1.1
+
+An import path SHALL be either relative to the importing file's directory or absolute under a library root, `/opt/<root>/...`. Any other absolute path SHALL be a load error with srd050's wording. No search path, package registry, directory convention, or process working directory SHALL take part in resolution. srd050 R1.2 is amended to say exactly this.
+
+<!-- req: R1.2 -->
+### R1.2
+
+The two forms SHALL apply wherever srd050's import rules apply: tool and REST `imports`, `expand` fragment paths (srd052 R2.1), machine template instances (srd054 R2.2), and a blueprint's machine mapping (srd055 R2.3). Profile-level paths SHALL accept the rooted form in addition to what they accept today: a profile is the operator's entry point, and absolute paths there stay permitted and are used as written.
+
+<!-- req: R1.3 -->
+### R1.3
+
+`/opt/agent-core` SHALL be the implicit root for the Standard Tool Library, its type units, and its machine templates. It maps through the install root that `--core-root` sets, exactly as profile-level paths map today; with no install root set, the path is used as written, which is where the runtime image installs agent-core/tools.
+
+<!-- req: R2 -->
+## R2 - Declared library roots
+
+<!-- req: R2.1 -->
+### R2.1
+
+A profile MAY declare `libraries`, a mapping from a root name to a directory. A root name SHALL be lowercase kebab (srd050 R1.1's pattern) and SHALL NOT be `agent-core`. The directory SHALL resolve against the profile file's directory under the profile path rules. An import under `/opt/<name>` maps to that directory.
+
+<!-- req: R2.2 -->
+### R2.2
+
+A repeatable `--library <name>=<path>` flag SHALL override a declared root's directory for one run, the declared-root counterpart of `--core-root`. Naming a root the profile does not declare SHALL be a startup error.
+
+<!-- req: R2.3 -->
+### R2.3
+
+Roots SHALL be scoped to the closure of the profile that declares them; a child-agent profile declares its own. An import under `/opt/<name>` where no root of that name is declared in the closure SHALL be a load error naming the prefix and the profile. A profile and a blueprint it expands that declare one root name with two different directories SHALL be a load error naming both.
+
+<!-- req: R2.4 -->
+### R2.4
+
+A library SHALL be read-only to its importers. A tool declared in a file under a root SHALL NOT carry `override: true`, and a relative import in a file under a root SHALL NOT resolve outside that root's directory; it MAY import another root by its prefix. Each violation SHALL be a load error naming the root and the file.
+
+<!-- req: R3 -->
+## R3 - Closure, identity, dump, and staging
+
+<!-- req: R3.1 -->
+### R3.1
+
+Rooted files SHALL be closure files and program identity assets under srd050 R2.7, identified by their canonical mapped path, so a change to a library file changes the digest of every program that reaches it.
+
+<!-- req: R3.2 -->
+### R3.2
+
+The canonical dump's `files` section SHALL mark each file reached through a root with the root name.
+
+<!-- req: R3.3 -->
+### R3.3
+
+Staging (`pkg/profilestage`) SHALL copy every file reached through a declared root into the staged tree at the position the profile's declared directory resolves to, so a staged profile loads with no checkout and no `--library` flag. Files under the implicit agent-core root SHALL NOT be copied: the runtime image provides them, and a checkout supplies them through `--core-root`.
+
+<!-- req: R4 -->
+## R4 - Service libraries
+
+<!-- req: R4.1 -->
+### R4.1
+
+An agent that serves a REST surface MAY publish a service library: a REST unit or fragment with the client operations for that surface, a type unit for its request and response shapes, and the client words consumers share. A library consumed inside one application SHALL live in a directory beside that application's agents and be imported through a declared root. A library whose contract is served by more than one application SHALL live in agent-core, types under tools/units and client fragments under tools/rest/units, and be reached through /opt/agent-core with no declared root. Consumers SHALL NOT redeclare the client.
+
+<!-- req: R4.2 -->
+### R4.2
+
+A service library SHALL earn its place as any unit does: with at least two importing profiles, so single-importer rules keep a library with one consumer folded back into that consumer. A fragment instantiation (srd052) counts as an importer.
+
+<!-- field: non_goals -->
+## Non-goals
+
+- Search paths, registries, version constraints, or fetching a library from anywhere but a declared directory.
+- Libraries shared across applications other than agent-core's. An application declares roots inside its own tree; cross-application sharing goes through agent-core.
+- Writable or overridable libraries.
+- Promoting a served agent itself into a library; a service library carries the client contract, and the server stays in its application.
+
+<!-- field: acceptance_criteria -->
+## Acceptance criteria
+
+<!-- ac: AC1 -->
+### AC1
+
+A unit imports an agent-core type unit by its /opt/agent-core path and loads from a checkout with --core-root and from a staged tree; an absolute path outside any root fails with srd050's wording; the same forms work for expand, machine template instances, and blueprint machine mappings, and profile-level lists accept rooted paths while still accepting other absolute paths.
+
+<!-- field: traces -->
+#### Traces
+
+- R1.1
+- R1.2
+- R1.3
+
+<!-- ac: AC2 -->
+### AC2
+
+A profile declaring a root resolves imports under /opt/<name> to the declared directory; --library overrides it and an undeclared name fails at startup; an undeclared prefix, a reserved or malformed name, and a conflicting redeclaration fail naming the profile; an override and an escaping relative import inside a root each fail naming the root and file.
+
+<!-- field: traces -->
+#### Traces
+
+- R2.1
+- R2.2
+- R2.3
+- R2.4
+
+<!-- ac: AC3 -->
+### AC3
+
+A rooted file is in the closure and the digest, the dump marks it with its root, and a staged profile using a declared root loads with no checkout and no --library flag while agent-core-rooted files are not copied.
+
+<!-- field: traces -->
+#### Traces
+
+- R3.1
+- R3.2
+- R3.3
+
+<!-- ac: AC4 -->
+### AC4
+
+The service-library convention is documented in the REST format, and the corpus has no service library with fewer than two importing profiles.
+
+<!-- field: traces -->
+#### Traces
+
+- R4.1
+- R4.2
+
+<!-- field: related_documents -->
+## Related documents
+
+- cfg-agent-profile-format
+- cfg-tool-declaration-format
+- cfg-rest-tool-format
+- srd050-declaration-imports
+- srd051-declaration-types
+
+<!-- field: implementation_status -->
+## Implementation status
+
+```yaml
+complete:
+    - GH-2118 implements the agent-core root for tool and REST imports, their fragments, and machine stage fragments (R1.1, R1.3, the import and stage parts of R1.2), rooted files in the closure, digest, usedness, and dump (R3.1, R3.2), and staging that leaves agent-core's library to the image (the agent-core part of R3.3); it deletes the five application copies of agent-core types.
+    - GH-2114 extends R1.2 to machine template instances.
+    - GH-2119 implements declared roots (R2), rooted files in the dump for declared roots, and staging of declared-root files to the staged position of the declared directory (R3.3); library-one and library-two under testdata/integration/profiles are the two-importer proof. The profile-versus-blueprint redeclaration error of R2.3 waits for blueprints (GH-2123).
+planned:
+    - GH-2123 extends R1.2 to blueprint machine mappings and adds the redeclaration error of R2.3.
+    - GH-2527 publishes the first service library (R4), the retrieval query client in agent-core (srd060-retrieval-client-contract).
+    - GH-2119 implements declared roots, the --library flag, the read-only rules, and rooted staging (R2, R3.3).
+```

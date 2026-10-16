@@ -19,7 +19,7 @@ func TestCurrentRoleContractsUseCanonicalNames(t *testing.T) {
 		"docs/specs/software-requirements/srd004-planner.yaml",
 		"docs/specs/software-requirements/srd006-bench.yaml",
 	} {
-		data, err := os.ReadFile(ProfilePath(rel))
+		data, err := markdown.ReadAsYAML(ProfilePath(rel))
 		if err != nil {
 			t.Fatalf("read %s: %v", rel, err)
 		}
@@ -75,4 +75,14 @@ func readRoleYAML(t *testing.T, rel string, out any) {
 	if err := yaml.Unmarshal(data, out); err != nil {
 		t.Fatalf("parse %s: %v", rel, err)
 	}
+}
+
+// corpusDocumentExists reports nil for a path that exists, or for a corpus
+// document named by its YAML path that has moved to Markdown (eng10).
+func corpusDocumentExists(path string) error {
+	if _, err := os.Stat(path); err == nil {
+		return nil
+	}
+	_, err := markdown.ReadAsYAML(path)
+	return err
 }

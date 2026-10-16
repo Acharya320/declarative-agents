@@ -1,0 +1,165 @@
+---
+id: rel99.0-uc002-application-catalog-migration
+title: Maintainers migrate applications and reusable catalog blocks to explicit owner roots
+test_suite: test-rel99.0-application-catalog-migration
+---
+<!-- Copyright (c) 2026 Nokia -->
+<!-- SPDX-License-Identifier: BSD-3-Clause -->
+
+<!-- field: summary -->
+## Summary
+
+Maintainers move runnable products to applications/, relocate reusable
+repository-specific blocks to applications/catalog, isolate Agent Core
+integration fixtures, and cut consumers over to an explicit catalog root.
+Source paths and Go module paths change while packaged profile paths and
+runtime mounts remain stable. Compatibility aliases and tags make the
+transition deterministic without mislabeling checkout provenance.
+
+<!-- field: actor -->
+## Actor
+
+Maintainers of Agent Core, the application catalog, root release orchestration, and runnable applications
+
+<!-- field: trigger -->
+## Trigger
+
+Historical pre-migration state: the examples/ and top-level agent-profiles/
+layout obscured ownership and allowed core tests or application commands to
+depend on caller CWD and sibling discovery. GH-1036 begins after this contract
+is indexed.
+
+<!-- field: flow -->
+## Flow
+
+- F1: The documentation issue GH-1040 fixes the source layout, ownership, owner-root, environment, tag, module, package, and mount contracts in srd043.
+- F2: GH-1037 mechanically moves coding-agent and chatbot-mesh from examples/ to applications/ and updates their Go module identities and root participation.
+- F3: GH-1038 copies the minimal runtime programs required by core integrations into agent-core/testdata/integration and removes catalog discovery from those targets.
+- F4: GH-1041 mechanically moves the complete agent-profiles module to applications/catalog without reorganizing its internal taxonomy.
+- F5: GH-1047 retires obsolete core catalog discovery before GH-1039 replaces remaining catalog-backed core tests with core-owned fixtures and moves catalog membership assertions to catalog conformance.
+- F6: GH-1043 introduces AGENT_CATALOG_ROOT, applies deterministic AGENT_PROFILES_ROOT compatibility behavior, and resolves one absolute catalog root without changing CWD.
+- F7: GH-1048 aligns the root module registry before GH-1046 cuts release, UI, stats, and tag behavior to applications/, including canonical and legacy v0 catalog tags.
+- F8: GH-1044 migrates coding-agent catalog references and packages role-sharded closures while preserving /profiles paths and exact provenance.
+- F9: GH-1042 migrates chatbot-mesh catalog references; GH-1049 propagates the resolver through its integrations; GH-1050 initializes its checkpoint database idempotently.
+- F10: GH-1045 documents the tool-first catalog taxonomy and removes stale active examples/ and top-level agent-profiles/ source-path claims.
+- F11: Maintainers run root, core, catalog, and application gates from each owner root and verify the formal issue-to-evidence mapping.
+
+<!-- field: touchpoints -->
+## Touchpoints
+
+| id | target | reason |
+| --- | --- | --- |
+| T1 | srd043-application-catalog-layout R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R1.7 and R2.1, R2.2, R2.3, R2.4, R2.5, R2.6 | source layout, ownership, and tool/agent block boundaries |
+| T2 | srd043-application-catalog-layout R3.1, R3.2, R3.3, R3.4, R3.5, R3.6 | owner-root execution and CWD-independent resolution |
+| T3 | srd043-application-catalog-layout R4.1, R4.2, R4.3, R4.4, R4.5, R4.6, R4.7 | AGENT_CATALOG_ROOT and temporary AGENT_PROFILES_ROOT alias |
+| T4 | srd043-application-catalog-layout R5.1, R5.2, R5.3, R5.4, R5.5, R5.6 | source, module, package, and mount path distinctions |
+| T5 | srd043-application-catalog-layout R6.1, R6.2, R6.3, R6.4, R6.5, R6.6 | applications/catalog/v0.* and agent-profiles/v0.* compatibility |
+| T6 | srd043-application-catalog-layout R7.1, R7.2, R7.3, R7.4, R7.5, R7.6 | approved migration order and owner-root release gates |
+| T7 | agent-core/testdata/integration | sole source of core integration profiles |
+| T8 | applications/catalog | reusable repository-specific tool and agent blocks |
+| T9 | applications/coding-agent and applications/chatbot-mesh | application-owned composition and end-to-end proof |
+
+<!-- field: success_criteria -->
+## Success criteria
+
+<!-- sc: S1 -->
+### S1
+
+Active source ownership is visible under agent-core and applications/{catalog,coding-agent,chatbot-mesh}.
+
+<!-- field: traces -->
+#### Traces
+
+- srd043-application-catalog-layout AC1
+
+<!-- sc: S2 -->
+### S2
+
+Core tests and integrations use agent-core/testdata/integration and pass without a catalog checkout.
+
+<!-- field: traces -->
+#### Traces
+
+- srd043-application-catalog-layout AC3
+
+<!-- sc: S3 -->
+### S3
+
+Root, core, catalog, and application commands execute from their owner roots without os.Chdir or incidental-CWD discovery.
+
+<!-- field: traces -->
+#### Traces
+
+- srd043-application-catalog-layout AC2
+
+<!-- sc: S4 -->
+### S4
+
+AGENT_CATALOG_ROOT is canonical and legacy alias, conflict, discovery, missing-root, and retirement behavior are executable.
+
+<!-- field: traces -->
+#### Traces
+
+- srd043-application-catalog-layout AC4
+
+<!-- sc: S5 -->
+### S5
+
+Source and Go module paths use applications/ while packaged closures still mount under /profiles and core declarations under /opt/agent-core/tools.
+
+<!-- field: traces -->
+#### Traces
+
+- srd043-application-catalog-layout AC5
+
+<!-- sc: S6 -->
+### S6
+
+Canonical and compatibility v0 tags resolve the same release commit and package evidence records actual source provenance.
+
+<!-- field: traces -->
+#### Traces
+
+- srd043-application-catalog-layout AC6
+
+<!-- sc: S7 -->
+### S7
+
+All fourteen GH-1036 child issues have one formal test case and execute in the approved order.
+
+<!-- field: traces -->
+#### Traces
+
+- srd043-application-catalog-layout AC7
+- srd043-application-catalog-layout AC8
+
+<!-- field: failure_scenarios -->
+## Failure scenarios
+
+| id | scenario | expected |
+| --- | --- | --- |
+| E1 | A core test resolves applications/catalog or skips because no catalog environment variable is set. | Core isolation tests fail and identify the catalog dependency. |
+| E2 | AGENT_CATALOG_ROOT and AGENT_PROFILES_ROOT identify different directories. | Resolution fails before work begins and names both conflicting inputs. |
+| E3 | A source-path migration rewrites /profiles or /opt/agent-core/tools as if either were a checkout path. | Package, container, or path-contract tests fail. |
+| E4 | A dirty checkout that is merely compatible with a v0 tag is recorded as a release. | Provenance tests reject the package. |
+| E5 | Root orchestration or a module target changes process CWD to discover another module. | Owner-root and no-directory-jump regression tests fail. |
+| E6 | An active document still presents examples/ or top-level agent-profiles/ as the current source layout after the final sweep. | The repository-wide path-reference audit fails. |
+
+<!-- field: out_of_scope -->
+## Out of scope
+
+- Reorganizing catalog internals during its mechanical move.
+- Changing core runtime dispatch, MachineSpec, or ToolDef semantics.
+- Replacing /profiles or /opt/agent-core/tools runtime mounts.
+- Turning application-local agents into catalog members without satisfying the catalog membership contract.
+- Removing or retargeting immutable historical tags.
+
+<!-- field: implementation_status -->
+## Implementation status
+
+done
+
+<!-- field: srd -->
+## Srd
+
+srd043-application-catalog-layout

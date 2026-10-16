@@ -1,0 +1,189 @@
+---
+id: srd004-planner
+title: Planner Functional Block
+depends_on:
+  - srd_id: srd001-agent-functional-blocks
+    symbols_used: [R1]
+---
+<!-- Copyright (c) 2026 Nokia -->
+<!-- SPDX-License-Identifier: BSD-3-Clause -->
+
+<!-- field: context -->
+## Context
+
+The planner profile is a requirement planner and issue materializer. It
+traverses a requirement graph, assembles prompts, parses plans, materializes
+issues, executes the executor, and runs build-vet-test validation. This SRD
+owns the planner family requirements that srd001-agent-functional-blocks
+previously held as block R4.
+
+The block names the contract the planner presents to the rest of the profile
+system. It invokes the executor as a child profile; it does not implement
+executor behavior itself.
+
+<!-- field: problem -->
+## Problem
+
+The planner family needs its own requirements document so that changes to
+planner behavior do not churn a shared cross-family file. The requirements
+must name profile-owned planning behavior separately from the agent-core
+planning tool implementations and model boundary.
+
+<!-- field: goals -->
+## Goals
+
+- G1: Model the planner profile as a configured requirement planner functional block.
+- G2: Record the planner actor boundary, inputs, tool selections, runtime dependencies, outputs, and terminal outcomes.
+- G3: Keep planner behavior profile-owned while agent-core supplies planning tools and the model boundary.
+
+<!-- req: R1 -->
+## R1 - Behavior model
+
+<!-- req: R1.1 -->
+### R1.1
+
+The planner profile must model requirement graph traversal, prompt assembly, plan parsing, issue materialization, executor execution, and build-vet-test validation.
+
+<!-- req: R1.2 -->
+### R1.2
+
+Planner relationships must show that it invokes the executor as a child profile and does not implement executor behavior itself.
+
+<!-- req: R1.3 -->
+### R1.3
+
+Issue materialization must be a visible format, write, tracker exec, and result-recording sentence; the profile declaration selects the tracker binary, arguments, parameter sources, and output contract.
+
+<!-- req: R1.4 -->
+### R1.4
+
+Validation retry increment, retry-limit comparison, explicit exhausted-task failure, task completion, and remaining-work routing must be visible machine states and transitions composed from focused words; labelled command state is the sole retry counter.
+
+<!-- req: R1.5 -->
+### R1.5
+
+Planner persona, user-prompt sections, and output instructions must be profile-owned; prompt-neutral task and SRD projection plus labelled prior validation failure must feed the same declared prompt composition on initial and retry attempts.
+
+<!-- req: R1.6 -->
+### R1.6
+
+Every planner prompt layer must request exactly one top-level YAML mapping containing only title, summary, files, requirements, design_decisions, and acceptance_criteria; root sequences, multiple plans, and wrapper envelopes must be rejected rather than normalized.
+
+<!-- req: R2 -->
+## R2 - Inputs, tools, and runtime dependencies
+
+<!-- req: R2.1 -->
+### R2.1
+
+Planner inputs must include a requirement graph, SRD context, and a planning model config.
+
+<!-- req: R2.2 -->
+### R2.2
+
+The planner profile must select planner state adapters, the shared write word, a profile-owned tracker exec word, LLM, Go validation, and child profile execution tool families.
+
+<!-- req: R2.3 -->
+### R2.3
+
+Planner runtime dependencies are the agent-core planning tool implementations, the agent-core model boundary, and the tracker CLI selected by the external profile declaration; agent-core contains no tracker-specific subprocess integration.
+
+<!-- req: R3 -->
+## R3 - Outputs and outcomes
+
+<!-- req: R3.1 -->
+### R3.1
+
+Planner outputs must include created issues, graph status changes, execution outcomes, and terminal states for completed, stalled, or failed planning work.
+
+<!-- req: R3.2 -->
+### R3.2
+
+Planner terminal outcomes must be Completed, Stalled, or Failed; profiles must not declare pause outcomes without a reachable machine-selected budget check.
+
+<!-- field: non_goals -->
+## Non-goals
+
+- Define Go package APIs for the agent-core planning tools or model boundary.
+- Reimplement executor behavior inside the planner profile.
+- Own cross-profile dependency-direction invariants; those stay in srd001.
+
+<!-- field: acceptance_criteria -->
+## Acceptance criteria
+
+<!-- ac: AC1 -->
+### AC1
+
+The planner profile is described as a configured planner that invokes executor as a child profile rather than a Go package.
+
+<!-- field: traces -->
+#### Traces
+
+- R1.1
+- R1.2
+- R1.3
+- R1.5
+
+<!-- ac: AC2 -->
+### AC2
+
+Planner inputs, selected tool families, and runtime dependencies are named and separated from agent-core runtime capability.
+
+<!-- field: traces -->
+#### Traces
+
+- R2.1
+- R2.2
+- R2.3
+
+<!-- ac: AC3 -->
+### AC3
+
+Planner outputs and terminal outcomes are checkable by mounted execution or integration targets.
+
+<!-- field: traces -->
+#### Traces
+
+- R3.1
+- R3.2
+
+<!-- ac: AC4 -->
+### AC4
+
+Full and pass-through planner machines expose retry and graph-completion policy while preserving successful, exhausted, and blocked outcomes.
+
+<!-- field: traces -->
+#### Traces
+
+- R1.4
+- R3.1
+- R3.2
+
+<!-- ac: AC5 -->
+### AC5
+
+Profile and conformance tests prove the canonical planner prompt schema and parse a deterministic canonical first response without entering parse retry.
+
+<!-- field: traces -->
+#### Traces
+
+- R1.5
+- R1.6
+
+<!-- field: diagrams -->
+## Diagrams
+
+````yaml
+requirements_trace: |
+    ```mermaid
+    flowchart LR
+      Problem["Problem: Planner family needs its own requirements..."] --> Goals["Goals: Planner Functional Block"]
+      Goals --> R1["R1: Behavior model"]
+      Goals --> R2["R2: Inputs, tools, and runtime dependencies"]
+      Goals --> R3["R3: Outputs and outcomes"]
+      R1 --> AC1["AC1: Configured planner invoking executor"]
+      R2 --> AC2["AC2: Inputs, tools, dependencies named"]
+      R3 --> AC3["AC3: Outputs and outcomes checkable"]
+      R1 --> AC4["AC4: Visible retry and completion policy"]
+      R1 --> AC5["AC5: Canonical first response parses"]
+    ```
+````
