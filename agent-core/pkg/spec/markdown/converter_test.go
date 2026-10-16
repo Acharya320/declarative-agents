@@ -16,9 +16,9 @@ import (
 const toyDesign = `
 document_types:
   recipe:
-    location: docs/recipes/name.yaml
+    location: docs/recipes/name.md
+    converts_from: docs/recipes/name.yaml
     markdown:
-      location: docs/recipes/name.md
       frontmatter: {required: [id, title], allowed: [id, title, status], id_matches_filename: true}
       nodes:
         document_field: {tag: field, level: 2, parent: document, heading: free, content: any}

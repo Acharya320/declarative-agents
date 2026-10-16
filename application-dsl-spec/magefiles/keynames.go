@@ -10,6 +10,7 @@ import (
 	"go/parser"
 	"go/token"
 	"go/types"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -63,9 +64,14 @@ func renderKeynameTable(repositoryRoot, kind, source, typeName string) (string, 
 // yamlSchemaRows reads a config-format specification and returns one row per
 // top-level schema entry.
 func yamlSchemaRows(path string) ([][3]string, error) {
-	// The config format may have moved to Markdown (eng10); its YAML path
-	// still names it.
-	data, err := markdown.ReadAsYAML(path)
+	// A config format is a Markdown corpus document (eng10), read as the
+	// YAML tree its declaration parses it into; another schema source is a
+	// YAML file read as written.
+	read := os.ReadFile
+	if strings.HasSuffix(path, ".md") {
+		read = markdown.ReadAsYAML
+	}
+	data, err := read(path)
 	if err != nil {
 		return nil, err
 	}

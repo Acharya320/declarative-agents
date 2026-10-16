@@ -167,7 +167,7 @@ func demoSpecCriticProfile(applicationRoot, catalogRoot string) string {
 }
 
 // Audit runs the specification critic over this application's specification corpus, so the application
-// self-governs: load_corpus reads docs/SPECIFICATIONS.yaml, docs/specs, and
+// self-governs: load_corpus reads docs/SPECIFICATIONS.md, docs/specs, and
 // agents; validate_specs runs the corpus consistency checks; a single error
 // finding (a broken index path, touchpoint, or citation) fails the target. The
 // outcome is read from the specification critic's report rather than its exit code: a failing

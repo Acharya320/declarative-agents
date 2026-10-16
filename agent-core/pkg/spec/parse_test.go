@@ -15,7 +15,7 @@ import (
 
 func TestParseSRD(t *testing.T) {
 	srd, err := ParseSRD(filepath.Join("testdata", "valid", "docs", "specs",
-		"software-requirements", "srd001-auth.yaml"))
+		"software-requirements", "srd001-auth.md"))
 	require.NoError(t, err)
 
 	assert.Equal(t, "srd001-auth", srd.ID)
@@ -90,7 +90,7 @@ func TestParseSRDRejectsMalformedRequirementShapes(t *testing.T) {
 
 func TestParseSRD_NonGoals(t *testing.T) {
 	srd, err := ParseSRD(filepath.Join("testdata", "valid", "docs", "specs",
-		"software-requirements", "srd003-storage.yaml"))
+		"software-requirements", "srd003-storage.md"))
 	require.NoError(t, err)
 
 	assert.Equal(t, []string{"N1: NoSQL support.", "N2: Distributed transactions."}, srd.NonGoals)
@@ -99,7 +99,7 @@ func TestParseSRD_NonGoals(t *testing.T) {
 
 func TestParseSRD_DependsOn(t *testing.T) {
 	srd, err := ParseSRD(filepath.Join("testdata", "valid", "docs", "specs",
-		"software-requirements", "srd002-api.yaml"))
+		"software-requirements", "srd002-api.md"))
 	require.NoError(t, err)
 
 	require.Len(t, srd.DependsOn, 1)
@@ -108,7 +108,7 @@ func TestParseSRD_DependsOn(t *testing.T) {
 
 func TestParseUseCase(t *testing.T) {
 	uc, err := ParseUseCase(filepath.Join("testdata", "valid", "docs", "specs",
-		"use-cases", "rel00.0-uc001-login.yaml"))
+		"use-cases", "rel00.0-uc001-login.md"))
 	require.NoError(t, err)
 
 	assert.Equal(t, "rel00.0-uc001-login", uc.ID)
@@ -134,7 +134,7 @@ out_of_scope: []
 test_suite: test-rel00.0
 `)
 
-	uc, err := ParseUseCase(path)
+	uc, err := parseUseCaseYAMLFile(path)
 	require.NoError(t, err)
 
 	assert.Equal(t, []string{"T1: srd001-auth R1, R2 -- authentication flow"}, uc.Touchpoints)
@@ -160,7 +160,7 @@ out_of_scope: []
 test_suite: test-rel05.0
 `)
 
-	uc, err := ParseUseCase(path)
+	uc, err := parseUseCaseYAMLFile(path)
 	require.NoError(t, err)
 
 	// Each {id, target, reason} object folds into the string its tagged form
@@ -197,7 +197,7 @@ func TestParseUseCaseRejectsMalformedTaggedLists(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			path := writeUseCaseFile(t, "id: malformed\n"+tt.field+"\n")
-			_, err := ParseUseCase(path)
+			_, err := parseUseCaseYAMLFile(path)
 			require.Error(t, err)
 			assert.ErrorContains(t, err, path)
 			assert.ErrorContains(t, err, tt.wantErr)
@@ -208,7 +208,7 @@ func TestParseUseCaseRejectsMalformedTaggedLists(t *testing.T) {
 func TestParseUseCaseAcceptsExplicitFlowObjects(t *testing.T) {
 	t.Parallel()
 	path := writeUseCaseFile(t, "id: explicit-flow\nflow:\n  - id: F1\n    text: first step\n")
-	useCase, err := ParseUseCase(path)
+	useCase, err := parseUseCaseYAMLFile(path)
 	require.NoError(t, err)
 	require.Equal(t, []string{"F1: first step"}, useCase.Flow)
 }
@@ -260,7 +260,7 @@ func FuzzParseTaggedListNeverDropsAcceptedItems(f *testing.F) {
 
 func TestParseTestSuite(t *testing.T) {
 	ts, err := ParseTestSuite(filepath.Join("testdata", "valid", "docs", "specs",
-		"test-suites", "test-rel00.0.yaml"))
+		"test-suites", "test-rel00.0.md"))
 	require.NoError(t, err)
 
 	assert.Equal(t, "test-rel00.0", ts.ID)
@@ -278,13 +278,13 @@ func writeUseCaseFile(t *testing.T, content string) string {
 }
 
 func TestParseSRD_FileNotFound(t *testing.T) {
-	_, err := ParseSRD("nonexistent.yaml")
+	_, err := ParseSRD("nonexistent.md")
 	require.Error(t, err)
 	assert.Contains(t, err.Error(), "read SRD")
 }
 
 func TestParseRoadmap(t *testing.T) {
-	rm, err := ParseRoadmap(filepath.Join("testdata", "valid", "docs", "road-map.yaml"))
+	rm, err := ParseRoadmap(filepath.Join("testdata", "valid", "docs", "road-map.md"))
 	require.NoError(t, err)
 
 	assert.Len(t, rm.Releases, 2)
@@ -292,7 +292,7 @@ func TestParseRoadmap(t *testing.T) {
 }
 
 func TestParseSpecIndex(t *testing.T) {
-	si, err := ParseSpecIndex(filepath.Join("testdata", "valid", "docs", "SPECIFICATIONS.yaml"))
+	si, err := ParseSpecIndex(filepath.Join("testdata", "valid", "docs", "SPECIFICATIONS.md"))
 	require.NoError(t, err)
 
 	assert.Equal(t, []string{"srd001-auth", "srd002-api", "srd003-storage"}, si.SRDIDs())

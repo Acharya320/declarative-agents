@@ -8,8 +8,6 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
-
-	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 )
 
 // copyDocs copies the module's docs tree into a temporary application root.
@@ -38,46 +36,6 @@ func copyDocs(t *testing.T) string {
 	return root
 }
 
-// rollBack converts every declared Markdown corpus document under the copy
-// back to YAML, as mage convertBack does, so the audit can be proven on the
-// YAML form the corpus had before GH-2584.
-func rollBack(t *testing.T, root string) {
-	t.Helper()
-	declarations, err := markdown.Default()
-	if err != nil {
-		t.Fatal(err)
-	}
-	rolled := 0
-	err = filepath.WalkDir(filepath.Join(root, "docs"), func(path string, entry os.DirEntry, err error) error {
-		if err != nil || entry.IsDir() || !strings.HasSuffix(path, ".md") {
-			return err
-		}
-		d, ok := declarations.ForMarkdown(filepath.ToSlash(path))
-		if !ok {
-			return nil
-		}
-		data, err := os.ReadFile(path)
-		if err != nil {
-			return err
-		}
-		out, report, err := d.ConvertMarkdown(data, path)
-		if err != nil {
-			return err
-		}
-		rolled++
-		if err := os.WriteFile(report.Target, out, 0o644); err != nil {
-			return err
-		}
-		return os.Remove(path)
-	})
-	if err != nil {
-		t.Fatal(err)
-	}
-	if rolled == 0 {
-		t.Fatal("rolled back no documents")
-	}
-}
-
 // TestAuditDocumentationOnTheCorpus audits the module's corpus as tracked,
 // in Markdown since GH-2584.
 func TestAuditDocumentationOnTheCorpus(t *testing.T) {
@@ -86,32 +44,24 @@ func TestAuditDocumentationOnTheCorpus(t *testing.T) {
 	}
 }
 
-// TestAuditDocumentationOnTheYAMLCorpus rolls a copy back to YAML and
-// requires the same audit to pass on it.
-func TestAuditDocumentationOnTheYAMLCorpus(t *testing.T) {
-	root := copyDocs(t)
-	rollBack(t, root)
-	if err := auditDocumentation(root); err != nil {
-		t.Fatalf("audit of the YAML corpus: %v", err)
-	}
-}
-
+// TestAuditDocumentationReportsAMissingField deletes a required section
+// from the vision and requires the audit to name the document and the field.
 func TestAuditDocumentationReportsAMissingField(t *testing.T) {
 	root := copyDocs(t)
-	rollBack(t, root)
-	vision := filepath.Join(root, "docs", "VISION.yaml")
+	vision := filepath.Join(root, "docs", "VISION.md")
 	data, err := os.ReadFile(vision)
 	if err != nil {
 		t.Fatal(err)
 	}
-	changed := strings.Replace(string(data), "\nnot:", "\nnot_any_more:", 1)
-	if changed == string(data) {
-		t.Fatal("VISION.yaml has no top-level not field")
+	head, _, found := strings.Cut(string(data), "<!-- field: not -->\n")
+	if !found {
+		t.Fatal("VISION.md has no not field")
 	}
-	if err := os.WriteFile(vision, []byte(changed), 0o644); err != nil {
+	if err := os.WriteFile(vision, []byte(head), 0o644); err != nil {
 		t.Fatal(err)
 	}
-	if err := auditDocumentation(root); err == nil || !strings.Contains(err.Error(), "docs/VISION.yaml missing [not]") {
-		t.Fatalf("error = %v, want docs/VISION.yaml missing [not]", err)
+	err = auditDocumentation(root)
+	if err == nil || !strings.Contains(err.Error(), "docs/VISION.md") || !strings.Contains(err.Error(), "not") {
+		t.Fatalf("error = %v, want docs/VISION.md reported missing not", err)
 	}
 }

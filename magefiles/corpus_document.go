@@ -14,8 +14,9 @@ import (
 )
 
 // corpusDocumentNode reads a corpus document as the YAML tree the gates
-// inspect: a YAML file as written, and a Markdown document as the tree its
-// design.yaml declaration parses it into (eng10). A Markdown document no
+// inspect: a Markdown document as the tree its design.yaml declaration parses
+// it into (eng10), and one of the YAML documents that stay YAML (the design
+// constitution, a corpus charter) as written. A Markdown document no
 // declaration covers, such as a guide, returns ok false: it has no fields.
 func corpusDocumentNode(path, candidate string) (*yaml.Node, bool, error) {
 	data, err := os.ReadFile(path)
@@ -47,25 +48,15 @@ func corpusDocumentNode(path, candidate string) (*yaml.Node, bool, error) {
 	return document, true, nil
 }
 
-// readCorpusYAML reads a corpus document named by its YAML path as YAML. A
-// document that has moved to Markdown during the migration window is read
-// from its Markdown form, as the tree its declaration parses it into.
+// readCorpusYAML reads a Markdown corpus document as the YAML tree its
+// declaration parses it into.
 func readCorpusYAML(path string) ([]byte, error) {
-	if _, err := os.Stat(path); err == nil {
-		return os.ReadFile(path)
-	}
-	declarations, err := markdown.Default()
+	node, ok, err := corpusDocumentNode(path, filepath.ToSlash(path))
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("%s: %w", path, err)
 	}
-	d, ok := declarations.ForSource(filepath.ToSlash(path))
 	if !ok {
-		return os.ReadFile(path)
-	}
-	moved := d.MarkdownPath(path)
-	node, _, err := corpusDocumentNode(moved, filepath.ToSlash(moved))
-	if err != nil {
-		return nil, fmt.Errorf("%s: %w", moved, err)
+		return nil, fmt.Errorf("%s: not a declared Markdown corpus document", path)
 	}
 	return yaml.Marshal(node)
 }

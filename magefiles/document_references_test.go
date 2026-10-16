@@ -66,11 +66,11 @@ func TestReferencePathReadsTheCorpusShapes(t *testing.T) {
 func TestDocumentReferencesResolveAgainstEitherConvention(t *testing.T) {
 	t.Parallel()
 	root := t.TempDir()
-	write(t, root, "agent-core/docs/VISION.yaml", "id: vision\n")
+	write(t, root, "agent-core/docs/VISION.md", "vision\n")
 	write(t, root, "magefiles/kindrig/diagnose.go", "package kindrig\n")
 
 	write(t, root, "agent-core/docs/constitutions/design.yaml",
-		"id: design\nreferences:\n- docs/VISION.yaml\n")
+		"id: design\nreferences:\n- docs/VISION.md\n")
 	if failures := documentReferenceFailures(root, "agent-core/docs/constitutions/design.yaml"); len(failures) != 0 {
 		t.Errorf("module-relative reference reported %v, want it resolved against agent-core/", failures)
 	}
@@ -137,16 +137,17 @@ func write(t *testing.T, root, rel, body string) {
 	}
 }
 
-// A reference written against a document's YAML path still resolves once the
-// document has moved to Markdown during the migration window.
-func TestDocumentReferencesFollowAMoveToMarkdown(t *testing.T) {
+// A reference written against a document's former YAML path no longer
+// resolves to its Markdown form (GH-2626): references name the Markdown path.
+func TestDocumentReferencesNameTheMarkdownPath(t *testing.T) {
 	t.Parallel()
 	root := t.TempDir()
 	write(t, root, "docs/engineering/eng09-moved.md", "moved\n")
 	write(t, root, "docs/engineering/eng10-cites.yaml",
-		"id: eng10\nreferences:\n  - docs/engineering/eng09-moved.yaml\n")
-	if failures := documentReferenceFailures(root, "docs/engineering/eng10-cites.yaml"); len(failures) != 0 {
-		t.Errorf("reference to a moved document reported %v, want it resolved", failures)
+		"id: eng10\nreferences:\n  - docs/engineering/eng09-moved.yaml\n  - docs/engineering/eng09-moved.md\n")
+	failures := documentReferenceFailures(root, "docs/engineering/eng10-cites.yaml")
+	if len(failures) != 1 || !strings.Contains(failures[0], `"docs/engineering/eng09-moved.yaml", which does not exist`) {
+		t.Errorf("failures = %v, want only the former YAML path reported", failures)
 	}
 }
 
@@ -162,17 +163,20 @@ func TestDocumentReferencesFailAnUnparseableDocument(t *testing.T) {
 	}
 }
 
-// readCorpusYAML reads a document by its YAML path from its Markdown form
-// once it has moved.
-func TestReadCorpusYAMLFallsBackToMarkdown(t *testing.T) {
+// readCorpusYAML reads a Markdown document as its YAML tree, and refuses the
+// document's former YAML path.
+func TestReadCorpusYAMLReadsMarkdown(t *testing.T) {
 	t.Parallel()
 	root := t.TempDir()
 	write(t, root, "docs/engineering/eng10-markdown-spec-format.md", validGuidelineMarkdown)
-	data, err := readCorpusYAML(filepath.Join(root, "docs/engineering/eng10-markdown-spec-format.yaml"))
+	data, err := readCorpusYAML(filepath.Join(root, "docs/engineering/eng10-markdown-spec-format.md"))
 	if err != nil {
 		t.Fatal(err)
 	}
 	if !strings.Contains(string(data), "id: eng10-markdown-spec-format") || !strings.Contains(string(data), "introduction:") {
 		t.Errorf("read %q, want the guideline's YAML tree", data)
+	}
+	if _, err := readCorpusYAML(filepath.Join(root, "docs/engineering/eng10-markdown-spec-format.yaml")); err == nil {
+		t.Error("read a document by its former YAML path")
 	}
 }

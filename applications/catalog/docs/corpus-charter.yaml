@@ -61,8 +61,7 @@ checks:
       - retired-external-reference
       - stale-external-reference
       - unpinned-external-reference
-      # Markdown corpus documents parse under their declaration, sit in one
-      # format, and are in canonical form (eng10, GH-2614).
+      # Markdown corpus documents parse under their declaration and are in
+      # canonical form (eng10, GH-2614).
       - markdown-format
-      - dual-format-document
       - not-canonical

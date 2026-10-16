@@ -5,7 +5,6 @@ package spec
 
 import (
 	"fmt"
-	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
@@ -28,7 +27,7 @@ func corpusSRDPaths(t *testing.T, repo string) []string {
 	require.NoError(t, err)
 	var paths []string
 	for _, path := range strings.Split(string(out), "\n") {
-		if !strings.Contains(path, "/docs/specs/software-requirements/srd") || !strings.HasSuffix(path, ".yaml") {
+		if !strings.Contains(path, "/docs/specs/software-requirements/srd") || !strings.HasSuffix(path, markdownExt) {
 			continue
 		}
 		if strings.Contains(path, "/testdata/") && !strings.Contains(path, "pkg/spec/testdata/valid/") {
@@ -50,7 +49,7 @@ func TestSRDModelIsLosslessOverCorpus(t *testing.T) {
 	require.NotEmpty(t, paths)
 	var losses []string
 	for _, path := range paths {
-		data, err := os.ReadFile(filepath.Join(repo, path))
+		data, err := readDocument(filepath.Join(repo, path))
 		require.NoError(t, err)
 		srd, err := parseSRDBytes(data, path)
 		if err != nil {

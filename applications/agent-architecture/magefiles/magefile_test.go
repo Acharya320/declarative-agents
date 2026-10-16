@@ -404,7 +404,7 @@ func TestManagedServicesEvidenceContract(t *testing.T) {
 			} `yaml:"managed_services"`
 		} `yaml:"capability_classification"`
 	}
-	readTestYAML(t, filepath.Join(root, "docs", "ARCHITECTURE.yaml"), &architecture)
+	readTestYAML(t, filepath.Join(root, "docs", "ARCHITECTURE.md"), &architecture)
 	services := architecture.CapabilityClassification.ManagedServices
 	if len(services) != 2 {
 		t.Fatalf("managed services = %d, want 2", len(services))
@@ -677,9 +677,15 @@ func writeFile(t *testing.T, path, content string) {
 	}
 }
 
+// readTestYAML reads a Markdown corpus document as its YAML tree, and any
+// other YAML file, such as a profile, as written.
 func readTestYAML(t *testing.T, path string, out any) {
 	t.Helper()
-	data, err := markdown.ReadAsYAML(path)
+	read := os.ReadFile
+	if strings.HasSuffix(path, ".md") {
+		read = markdown.ReadAsYAML
+	}
+	data, err := read(path)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -688,46 +694,16 @@ func readTestYAML(t *testing.T, path string, out any) {
 	}
 }
 
-// TestAuditApplicationReadsMarkdown runs the application audit on a copy
-// whose corpus is converted to Markdown, as after the migration (eng10).
-// TestAuditApplicationReadsYAML rolls the copy's corpus back to YAML, the
-// form it had before GH-2584, and requires the same audit to pass on it.
-func TestAuditApplicationReadsYAML(t *testing.T) {
+// TestAuditApplicationRejectsAYAMLDocument moves the vision back to its
+// former YAML path and requires the audit to fail: the corpus has no YAML
+// front end since GH-2626.
+func TestAuditApplicationRejectsAYAMLDocument(t *testing.T) {
 	root := copyApplicationFixture(t)
-	declarations, err := markdown.Default()
-	if err != nil {
+	docs := filepath.Join(root, "docs")
+	if err := os.Rename(filepath.Join(docs, "VISION.md"), filepath.Join(docs, "VISION.yaml")); err != nil {
 		t.Fatal(err)
 	}
-	rolled := 0
-	err = filepath.WalkDir(filepath.Join(root, "docs"), func(path string, entry os.DirEntry, err error) error {
-		if err != nil || entry.IsDir() || !strings.HasSuffix(path, ".md") {
-			return err
-		}
-		d, ok := declarations.ForMarkdown(filepath.ToSlash(path))
-		if !ok {
-			return nil
-		}
-		data, err := os.ReadFile(path)
-		if err != nil {
-			return err
-		}
-		out, report, err := d.ConvertMarkdown(data, path)
-		if err != nil {
-			return err
-		}
-		rolled++
-		if err := os.WriteFile(report.Target, out, 0o644); err != nil {
-			return err
-		}
-		return os.Remove(path)
-	})
-	if err != nil {
-		t.Fatal(err)
-	}
-	if rolled < len(requiredDocuments) {
-		t.Fatalf("rolled back %d documents, want at least %d", rolled, len(requiredDocuments))
-	}
-	if err := auditApplication(root); err != nil {
-		t.Fatalf("audit of the YAML corpus: %v", err)
+	if err := auditApplication(root); err == nil || !strings.Contains(err.Error(), "VISION.md") {
+		t.Fatalf("audit error = %v, want the missing docs/VISION.md reported", err)
 	}
 }

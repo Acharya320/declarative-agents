@@ -18,16 +18,11 @@ import (
 // prints what the conversion changed beyond the content. The scope is a
 // document path relative to the repository root, a document type such as
 // use_case, or all. A Markdown document already in scope is rewritten in
-// canonical form, so converting twice changes nothing. Convert is the
-// migration bridge (GH-2578) and leaves with it (GH-2585).
+// canonical form, so converting twice changes nothing. Conversion runs one
+// way: it stays so a repository still on a YAML corpus can migrate, reading
+// each type's former YAML location from its converts_from (GH-2626).
 func Convert(scope string) error {
-	return convertScope(scope, false)
-}
-
-// ConvertBack converts corpus documents from Markdown back to YAML in place,
-// the rollback for the migration window. The scope is as for Convert.
-func ConvertBack(scope string) error {
-	return convertScope(scope, true)
+	return convertScope(scope)
 }
 
 type conversion struct {
@@ -36,7 +31,7 @@ type conversion struct {
 	markdown    bool
 }
 
-func convertScope(scope string, back bool) error {
+func convertScope(scope string) error {
 	root, err := repositoryRoot()
 	if err != nil {
 		return err
@@ -53,7 +48,7 @@ func convertScope(scope string, back bool) error {
 		return fmt.Errorf("convert: no corpus document matches %q", scope)
 	}
 	for _, document := range documents {
-		if err := convertDocument(root, document, back); err != nil {
+		if err := convertDocument(root, document); err != nil {
 			return err
 		}
 	}
@@ -107,9 +102,9 @@ func classify(declarations markdown.Declarations, path string) (conversion, bool
 	return conversion{path: path, declaration: d}, ok
 }
 
-// convertDocument converts one document in the direction asked, or puts a
-// document already in the target format in canonical form.
-func convertDocument(root string, document conversion, back bool) error {
+// convertDocument converts one YAML document to Markdown, or puts a Markdown
+// document in canonical form.
+func convertDocument(root string, document conversion) error {
 	source := filepath.Join(root, document.path)
 	data, err := os.ReadFile(source)
 	if err != nil {
@@ -118,20 +113,15 @@ func convertDocument(root string, document conversion, back bool) error {
 	d := document.declaration
 	var out []byte
 	var report markdown.Report
-	switch {
-	case back && document.markdown:
-		out, report, err = d.ConvertMarkdown(data, document.path)
-	case !back && !document.markdown:
-		out, report, err = d.ConvertYAML(data, document.path)
-	case !back:
+	if document.markdown {
 		var findings []markdown.Finding
 		out, findings, err = d.Format(data, document.path)
 		report = markdown.Report{Source: document.path, Target: document.path, Findings: findings}
 		if err == nil && out == nil {
 			err = fmt.Errorf("%s: %d finding(s) before it can be formatted", document.path, len(findings))
 		}
-	default:
-		return nil // a YAML document is already in the rollback format
+	} else {
+		out, report, err = d.ConvertYAML(data, document.path)
 	}
 	if err != nil {
 		return err

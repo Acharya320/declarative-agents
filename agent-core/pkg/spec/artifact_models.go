@@ -269,7 +269,7 @@ type TestCase struct {
 	Status string `yaml:"status"`
 }
 
-// Roadmap is the parsed road-map.yaml.
+// Roadmap is the parsed road-map.md.
 type Roadmap struct {
 	ID       string    `yaml:"id"`
 	Title    string    `yaml:"title"`
@@ -301,7 +301,7 @@ func (rm *Roadmap) ReleaseVersions() []string {
 	return versions
 }
 
-// SpecIndex is the parsed SPECIFICATIONS.yaml file.
+// SpecIndex is the parsed SPECIFICATIONS.md file.
 type SpecIndex struct {
 	ID             string           `yaml:"id"`
 	Title          string           `yaml:"title"`

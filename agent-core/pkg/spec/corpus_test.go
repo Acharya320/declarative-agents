@@ -94,15 +94,7 @@ func TestResolveProfilePathLeavesInstalledCorePathWithoutOverride(t *testing.T) 
 func TestLoadCorpus_NoAgentsDir(t *testing.T) {
 	tmp := t.TempDir()
 	setupTestCorpus(t, tmp)
-	writeTestSRD(t, tmp, "srd001-ok.yaml", `id: srd-ok
-title: OK
-problem: test
-requirements:
-  R1:
-    title: Stuff
-    items:
-      - R1.1: Do something.
-`)
+	writeTestSRD(t, tmp, "srd001-ok.yaml", completeSRD("srd001-ok", ""))
 
 	c, err := LoadCorpus(tmp)
 	require.NoError(t, err)
@@ -118,8 +110,8 @@ func TestLoadCorpus_NoDocsDir(t *testing.T) {
 func TestLoadCorpus_NoSRDFiles(t *testing.T) {
 	tmp := t.TempDir()
 	require.NoError(t, os.MkdirAll(filepath.Join(tmp, "docs", "specs", "software-requirements"), 0o755))
-	require.NoError(t, os.WriteFile(filepath.Join(tmp, "docs", "road-map.yaml"), []byte("id: test\n"), 0o644))
-	require.NoError(t, os.WriteFile(filepath.Join(tmp, "docs", "SPECIFICATIONS.yaml"), []byte("id: test\n"), 0o644))
+	writeCorpusDocument(t, tmp, "docs/road-map.yaml", minimalRoadmap)
+	writeCorpusDocument(t, tmp, "docs/SPECIFICATIONS.yaml", minimalSpecIndex)
 
 	_, err := LoadCorpus(tmp)
 	require.Error(t, err)
@@ -148,18 +140,10 @@ func TestLoadCorpus_OptionalAllowsMissingSRDCorpus(t *testing.T) {
 func TestLoadCorpus_InvalidDependsOn(t *testing.T) {
 	tmp := t.TempDir()
 	setupTestCorpus(t, tmp)
-	writeTestSRD(t, tmp, "srd001-bad.yaml", `id: srd-bad
-title: Bad
-problem: test
-requirements:
-  R1:
-    title: Stuff
-    items:
-      - R1.1: Do something.
-depends_on:
+	writeTestSRD(t, tmp, "srd001-bad.yaml", completeSRD("srd001-bad", `depends_on:
   - srd_id: nonexistent-srd
     symbols_used: [Foo]
-`)
+`))
 
 	_, err := LoadCorpus(tmp)
 	require.Error(t, err)
@@ -169,21 +153,44 @@ depends_on:
 func TestLoadCorpus_NoUseCases(t *testing.T) {
 	tmp := t.TempDir()
 	setupTestCorpus(t, tmp)
-	writeTestSRD(t, tmp, "srd001-ok.yaml", `id: srd-ok
-title: OK
-problem: test
-requirements:
-  R1:
-    title: Stuff
-    items:
-      - R1.1: Do something.
-`)
+	writeTestSRD(t, tmp, "srd001-ok.yaml", completeSRD("srd001-ok", ""))
 
 	c, err := LoadCorpus(tmp)
 	require.NoError(t, err)
 	assert.Empty(t, c.UseCases)
 	assert.Empty(t, c.TestSuites)
 }
+
+// minimalRoadmap is the smallest road map the Markdown declaration accepts:
+// one release with no use cases.
+const minimalRoadmap = `id: test
+title: Test
+releases:
+  - version: "00.0"
+    name: Foundation
+    description: The first release.
+    status: open
+`
+
+// minimalSpecIndex is the smallest specification index the Markdown
+// declaration accepts: every index present and empty.
+const minimalSpecIndex = `id: test
+title: Test
+overview: A test corpus.
+foundation_document_index: []
+config_format_index: []
+semantic_model_index: []
+coverage_gaps: None known.
+roadmap_summary:
+  - version: "00.0"
+    name: Foundation
+    use_cases_done: 0
+    use_cases_total: 0
+    status: open
+srd_index: []
+use_case_index: []
+test_suite_index: []
+`
 
 func setupTestCorpus(t *testing.T, root string) {
 	t.Helper()
@@ -194,14 +201,34 @@ func setupTestCorpus(t *testing.T, root string) {
 	} {
 		require.NoError(t, os.MkdirAll(filepath.Join(root, d), 0o755))
 	}
-	require.NoError(t, os.WriteFile(filepath.Join(root, "docs", "road-map.yaml"),
-		[]byte("id: test\ntitle: Test\nreleases: []\n"), 0o644))
-	require.NoError(t, os.WriteFile(filepath.Join(root, "docs", "SPECIFICATIONS.yaml"),
-		[]byte("id: test\ntitle: Test\n"), 0o644))
+	writeCorpusDocument(t, root, "docs/road-map.yaml", minimalRoadmap)
+	writeCorpusDocument(t, root, "docs/SPECIFICATIONS.yaml", minimalSpecIndex)
 }
 
+// completeSRD is an SRD with every field the SRD declaration requires,
+// followed by extra YAML.
+func completeSRD(id, extra string) string {
+	return "id: " + id + `
+title: Example
+problem: test
+goals:
+  - G1: A goal.
+requirements:
+  R1:
+    title: Stuff
+    items:
+      - R1.1: Do something.
+non_goals:
+  - Nothing else.
+acceptance_criteria:
+  - id: AC1
+    criterion: Works.
+    traces: [R1.1]
+` + extra
+}
+
+// writeTestSRD writes an SRD given in YAML as its Markdown document.
 func writeTestSRD(t *testing.T, root, filename, data string) {
 	t.Helper()
-	path := filepath.Join(root, "docs", "specs", "software-requirements", filename)
-	require.NoError(t, os.WriteFile(path, []byte(data), 0o644))
+	writeCorpusDocument(t, root, SRDSubdir+"/"+filename, data)
 }

@@ -4,7 +4,6 @@
 package markdown
 
 import (
-	"bytes"
 	"fmt"
 	"io/fs"
 	"os"
@@ -52,12 +51,10 @@ func (d *Declaration) MarkdownPath(source string) string {
 	return strings.TrimSuffix(source, path.Ext(source)) + d.markdownSuffix() + ".md"
 }
 
-// SourcePath names the YAML document a Markdown document converts back to.
-func (d *Declaration) SourcePath(markdownPath string) string {
-	return strings.TrimSuffix(strings.TrimSuffix(markdownPath, ".md"), d.markdownSuffix()) + ".yaml"
-}
-
 func (d *Declaration) markdownSuffix() string {
+	if d.sourceLocation == "" {
+		return ""
+	}
 	yamlBase := strings.TrimSuffix(path.Base(d.sourceLocation), path.Ext(d.sourceLocation))
 	mdBase := strings.TrimSuffix(path.Base(d.Location), ".md")
 	return strings.TrimPrefix(mdBase, yamlBase)
@@ -90,27 +87,6 @@ func (d *Declaration) ConvertYAML(data []byte, source string) ([]byte, Report, e
 	}
 	report.Whitespace = trailingNewlines(canonical, back, "$")
 	return md, report, nil
-}
-
-// ConvertMarkdown converts a Markdown document back to YAML for rollback;
-// the license lines return as the head comment.
-func (d *Declaration) ConvertMarkdown(data []byte, source string) ([]byte, Report, error) {
-	report := Report{Source: source, Target: d.SourcePath(source)}
-	doc, findings, err := d.Parse(data, source)
-	report.Findings = findings
-	if err != nil || doc == nil {
-		return nil, report, fmt.Errorf("%s: %v %v", source, err, findings)
-	}
-	var buf bytes.Buffer
-	encoder := yaml.NewEncoder(&buf)
-	encoder.SetIndent(2)
-	if err := encoder.Encode(doc); err != nil {
-		return nil, report, fmt.Errorf("%s: %w", source, err)
-	}
-	if err := encoder.Close(); err != nil {
-		return nil, report, fmt.Errorf("%s: %w", source, err)
-	}
-	return buf.Bytes(), report, nil
 }
 
 // droppedComments lists every non-license comment in a YAML tree with its
@@ -186,4 +162,27 @@ func (declarations Declarations) ConvertTree(dir string) ([]Report, error) {
 		return os.Remove(path)
 	})
 	return reports, err
+}
+
+// ConvertFile converts one YAML corpus document, given by its former path
+// and content, and writes its canonical Markdown at the declared Markdown
+// path, which it returns. It is mage convert for a single document, for a
+// tool or a test that authors a document in YAML.
+func ConvertFile(path string, data []byte) (string, error) {
+	declarations, err := Default()
+	if err != nil {
+		return "", err
+	}
+	d, ok := declarations.ForSource(filepath.ToSlash(path))
+	if !ok {
+		return "", fmt.Errorf("%s: no document type converts from this location", path)
+	}
+	md, report, err := d.ConvertYAML(data, path)
+	if err != nil {
+		return "", err
+	}
+	if err := os.MkdirAll(filepath.Dir(report.Target), 0o755); err != nil {
+		return "", err
+	}
+	return report.Target, os.WriteFile(report.Target, md, 0o644)
 }

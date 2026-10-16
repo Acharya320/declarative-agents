@@ -17,7 +17,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-const realizationModelPath = "../applications/docs/specs/semantic-models/agent-role-realizations.yaml"
+const realizationModelPath = "../applications/docs/specs/semantic-models/agent-role-realizations.md"
 
 type realizationModel struct {
 	CanonicalRoles    []canonicalRole                  `yaml:"canonical_roles"`

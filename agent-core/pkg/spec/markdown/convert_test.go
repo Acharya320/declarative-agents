@@ -8,13 +8,12 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
-
-	"gopkg.in/yaml.v3"
 )
 
 // TestConvertReportsWhatItChanges converts a recipe whose YAML carries a
 // note comment, a literal block, and a record in non-canonical order, and
-// checks that the report names each and the rollback restores the tree.
+// checks that the report names each and the Markdown parses back to the
+// canonical tree.
 func TestConvertReportsWhatItChanges(t *testing.T) {
 	d := toyDeclaration(t)
 	source := strings.Replace(toyRecipe, "tools:\n", "# Tools the cook needs.\ntools:\n", 1)
@@ -34,20 +33,13 @@ func TestConvertReportsWhatItChanges(t *testing.T) {
 			t.Errorf("report has no %s entry:\n%s", label, strings.Join(report.Lines(), "\n"))
 		}
 	}
-	back, _, err := d.ConvertMarkdown(md, report.Target)
-	if err != nil {
-		t.Fatal(err)
-	}
-	var doc yaml.Node
-	if err := yaml.Unmarshal(back, &doc); err != nil {
-		t.Fatal(err)
+	back, _, err := d.Parse(md, report.Target)
+	if err != nil || back == nil {
+		t.Fatalf("converted Markdown does not parse: %v", err)
 	}
 	canonical, _ := d.Canonicalize(yamlDoc(t, source))
-	if diff := Diff(canonical, &doc); diff != "" {
-		t.Fatalf("rollback changed %s", diff)
-	}
-	if !strings.HasPrefix(string(back), "# Copyright (c) 2026 Nokia\n# SPDX-License-Identifier: BSD-3-Clause\n") {
-		t.Errorf("rollback lost the license header:\n%s", back)
+	if diff := Diff(canonical, back); diff != "" {
+		t.Fatalf("conversion changed %s", diff)
 	}
 }
 
@@ -71,8 +63,8 @@ func TestPathsFollowTheDeclaredLocations(t *testing.T) {
 		if got := d.MarkdownPath(tc.source); got != tc.markdown {
 			t.Errorf("%s: MarkdownPath = %s, want %s", tc.kind, got, tc.markdown)
 		}
-		if got := d.SourcePath(tc.markdown); got != tc.source {
-			t.Errorf("%s: SourcePath = %s, want %s", tc.kind, got, tc.source)
+		if found, ok := declarations.ForSource(tc.source); !ok || found != d {
+			t.Errorf("%s: ForSource(%s) found the wrong type", tc.kind, tc.source)
 		}
 		if found, ok := declarations.ForMarkdown(tc.markdown); !ok || found != d {
 			t.Errorf("%s: ForMarkdown(%s) found the wrong type", tc.kind, tc.markdown)
@@ -93,7 +85,8 @@ func TestDesignConstitutionStaysYAML(t *testing.T) {
 }
 
 // TestConvertTreeAndReadAsYAML converts a small tree in place, leaving
-// testdata alone, and reads the moved document back by its YAML path.
+// testdata alone, and reads the converted document by its Markdown path; its
+// former YAML path no longer reads (GH-2626).
 func TestConvertTreeAndReadAsYAML(t *testing.T) {
 	root := t.TempDir()
 	guideline := "id: eng90-sample\ntitle: Sample\nintroduction: We describe a practice.\n" +
@@ -116,7 +109,7 @@ func TestConvertTreeAndReadAsYAML(t *testing.T) {
 	if _, err := os.Stat(filepath.Join(root, "testdata/docs/engineering/eng91-kept.yaml")); err != nil {
 		t.Fatalf("testdata was converted: %v", err)
 	}
-	data, err := ReadAsYAML(filepath.Join(root, "docs/engineering/eng90-sample.yaml"))
+	data, err := ReadAsYAML(filepath.Join(root, "docs/engineering/eng90-sample.md"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -125,7 +118,10 @@ func TestConvertTreeAndReadAsYAML(t *testing.T) {
 			t.Errorf("ReadAsYAML lacks %q:\n%s", want, data)
 		}
 	}
-	if _, err := ReadAsYAML(filepath.Join(root, "docs/engineering/eng92-absent.yaml")); err == nil {
-		t.Error("read a document that exists in neither format")
+	if _, err := ReadAsYAML(filepath.Join(root, "docs/engineering/eng90-sample.yaml")); err == nil {
+		t.Error("read a corpus document by its former YAML path")
+	}
+	if _, err := ReadAsYAML(filepath.Join(root, "docs/engineering/eng92-absent.md")); err == nil {
+		t.Error("read a document that does not exist")
 	}
 }

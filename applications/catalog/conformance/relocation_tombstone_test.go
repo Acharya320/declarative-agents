@@ -13,58 +13,58 @@ import (
 )
 
 var relocatedMeshRecords = map[string][]string{
-	"docs/specs/software-requirements/srd013-rag-server-agent.yaml": {
+	"docs/specs/software-requirements/srd013-rag-server-agent.md": {
 		"problem", "goals", "requirements", "non_goals", "acceptance_criteria",
 	},
-	"docs/specs/software-requirements/srd014-chatbot-agent.yaml": {
+	"docs/specs/software-requirements/srd014-chatbot-agent.md": {
 		"problem", "goals", "requirements", "non_goals", "acceptance_criteria",
 	},
-	"docs/specs/software-requirements/srd015-chatbot-deployment.yaml": {
+	"docs/specs/software-requirements/srd015-chatbot-deployment.md": {
 		"problem", "goals", "requirements", "non_goals", "acceptance_criteria",
 	},
-	"docs/specs/software-requirements/srd016-coordinator.yaml": {
+	"docs/specs/software-requirements/srd016-coordinator.md": {
 		"problem", "goals", "requirements", "non_goals", "acceptance_criteria",
 	},
-	"docs/specs/software-requirements/srd017-creator.yaml": {
+	"docs/specs/software-requirements/srd017-creator.md": {
 		"problem", "goals", "requirements", "non_goals", "acceptance_criteria",
 	},
-	"docs/specs/use-cases/rel09.0-uc001-rag-server-query.yaml": {
+	"docs/specs/use-cases/rel09.0-uc001-rag-server-query.md": {
 		"summary", "actor", "trigger", "flow", "touchpoints", "success_criteria", "out_of_scope",
 	},
-	"docs/specs/use-cases/rel09.0-uc002-chatbot-turn.yaml": {
+	"docs/specs/use-cases/rel09.0-uc002-chatbot-turn.md": {
 		"summary", "actor", "trigger", "flow", "touchpoints", "success_criteria", "out_of_scope",
 	},
-	"docs/specs/use-cases/rel09.1-uc001-routed-fanout.yaml": {
+	"docs/specs/use-cases/rel09.1-uc001-routed-fanout.md": {
 		"summary", "actor", "trigger", "flow", "touchpoints", "success_criteria", "out_of_scope",
 	},
-	"docs/specs/use-cases/rel09.2-uc001-observability.yaml": {
+	"docs/specs/use-cases/rel09.2-uc001-observability.md": {
 		"summary", "actor", "trigger", "flow", "touchpoints", "success_criteria", "out_of_scope",
 	},
-	"docs/specs/use-cases/rel09.3-uc001-mesh-deployment.yaml": {
+	"docs/specs/use-cases/rel09.3-uc001-mesh-deployment.md": {
 		"summary", "actor", "trigger", "flow", "touchpoints", "success_criteria", "out_of_scope",
 	},
-	"docs/specs/use-cases/rel09.4-uc001-control-plane-provisioning.yaml": {
+	"docs/specs/use-cases/rel09.4-uc001-control-plane-provisioning.md": {
 		"summary", "actor", "trigger", "flow", "touchpoints", "success_criteria", "out_of_scope",
 	},
-	"docs/specs/use-cases/rel09.5-uc001-in-cluster-llm-tier.yaml": {
+	"docs/specs/use-cases/rel09.5-uc001-in-cluster-llm-tier.md": {
 		"summary", "actor", "trigger", "flow", "touchpoints", "success_criteria", "out_of_scope",
 	},
-	"docs/specs/test-suites/test-rel09.0-chatbot-mesh.yaml": {
+	"docs/specs/test-suites/test-rel09.0-chatbot-mesh.md": {
 		"traces", "preconditions", "test_cases",
 	},
-	"docs/specs/test-suites/test-rel09.1-routing-fanout.yaml": {
+	"docs/specs/test-suites/test-rel09.1-routing-fanout.md": {
 		"traces", "preconditions", "test_cases",
 	},
-	"docs/specs/test-suites/test-rel09.2-observability.yaml": {
+	"docs/specs/test-suites/test-rel09.2-observability.md": {
 		"traces", "preconditions", "test_cases",
 	},
-	"docs/specs/test-suites/test-rel09.3-mesh-deployment.yaml": {
+	"docs/specs/test-suites/test-rel09.3-mesh-deployment.md": {
 		"traces", "preconditions", "test_cases",
 	},
-	"docs/specs/test-suites/test-rel09.4-control-plane.yaml": {
+	"docs/specs/test-suites/test-rel09.4-control-plane.md": {
 		"traces", "preconditions", "test_cases",
 	},
-	"docs/specs/test-suites/test-rel09.5-llm-tier.yaml": {
+	"docs/specs/test-suites/test-rel09.5-llm-tier.md": {
 		"traces", "preconditions", "test_cases",
 	},
 }
@@ -121,7 +121,7 @@ func isPointerSentinel(value any) bool {
 
 func TestRelocatedMeshSpecificationIndexPointsToCanonicalRecords(t *testing.T) {
 	t.Parallel()
-	data, err := markdown.ReadAsYAML(ProfilePath("docs/SPECIFICATIONS.yaml"))
+	data, err := markdown.ReadAsYAML(ProfilePath("docs/SPECIFICATIONS.md"))
 	if err != nil {
 		t.Fatal(err)
 	}

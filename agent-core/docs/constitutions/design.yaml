@@ -26,14 +26,24 @@ articles:
 
     '
 - id: D2
-  title: YAML-first structured docs
-  rule: 'Use YAML for structured project artifacts. This includes VISION,
+  title: Markdown structured docs
+  rule: 'Write structured project artifacts as Markdown corpus documents (eng10).
 
-    ARCHITECTURE, SPECIFICATIONS, road-map, SRDs, use cases, test suites,
+    This includes VISION, ARCHITECTURE, SPECIFICATIONS, road-map, SRDs, use
 
-    semantic models, config-format specs, and constitutions. Use Markdown for
+    cases, test suites, semantic models, config-format specs, engineering
 
-    prose-heavy operator guides and historical design notes.
+    guidelines, migrations, audit registers, and constitutions. Each type''s
+
+    declaration under document_types gives its layout; run mage fmt to put a
+
+    document in canonical form and mage audit to check it. This constitution
+
+    and corpus charters stay YAML: the first declares the types, and a charter
+
+    is a check plan the audit executes. Use plain Markdown for prose-heavy
+
+    operator guides and historical design notes.
 
     '
 - id: D3
@@ -112,14 +122,16 @@ documentation_standards:
       checklists. Keep table content short when tables are useful.
 
       '
-    yaml: 'Use lowercase snake_case field names. Use block literals for multi-sentence
+    yaml: 'Use lowercase snake_case field names, as YAML keys and in Markdown
 
-      prose. Keep IDs stable once referenced.
+      markers. In YAML, use block literals for multi-sentence prose. Keep IDs
+
+      stable once referenced.
 
       '
-    diagrams: 'Use Mermaid in multiline YAML strings for diagrams. Do not add generated
+    diagrams: 'Use Mermaid for diagrams, in a fenced block of a Markdown document
 
-      image files.
+      or a multiline YAML string. Do not add generated image files.
 
       '
   external_references: 'A requirement that exists because a parent repository''s requirement
@@ -185,7 +197,8 @@ documentation_standards:
     '
 document_types:
   vision:
-    location: docs/VISION.yaml
+    location: docs/VISION.md
+    converts_from: docs/VISION.yaml
     required_fields:
     - id
     - title
@@ -197,7 +210,6 @@ document_types:
     - not
     purpose: Defines what Agent Core is, why it exists, and what it excludes.
     markdown:
-      location: docs/VISION.md
       frontmatter:
         required: [id, title]
         allowed: [id, title]
@@ -216,7 +228,8 @@ document_types:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
         outside: [document_field]
   architecture:
-    location: docs/ARCHITECTURE.yaml
+    location: docs/ARCHITECTURE.md
+    converts_from: docs/ARCHITECTURE.yaml
     required_fields:
     - id
     - title
@@ -230,7 +243,6 @@ document_types:
     - related_documents
     purpose: Defines layers, components, flows, decisions, and source layout.
     markdown:
-      location: docs/ARCHITECTURE.md
       frontmatter:
         required: [id, title]
         allowed: [id, title]
@@ -277,7 +289,8 @@ document_types:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
         outside: [document_field, interface, component, component_field, decision, decision_field]
   specifications:
-    location: docs/SPECIFICATIONS.yaml
+    location: docs/SPECIFICATIONS.md
+    converts_from: docs/SPECIFICATIONS.yaml
     required_fields:
     - id
     - title
@@ -292,7 +305,6 @@ document_types:
     - coverage_gaps
     purpose: Indexes the specification corpus and records known coverage gaps.
     markdown:
-      location: docs/SPECIFICATIONS.md
       frontmatter:
         required: [id, title]
         allowed: [id, title]
@@ -305,14 +317,14 @@ document_types:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
         outside: [document_field]
   roadmap:
-    location: docs/road-map.yaml
+    location: docs/road-map.md
+    converts_from: docs/road-map.yaml
     required_fields:
     - id
     - title
     - releases
     purpose: Assigns SRDs and use cases to releases and status values.
     markdown:
-      location: docs/road-map.md
       frontmatter:
         required: [id, title]
         allowed: [id, title]
@@ -338,7 +350,8 @@ document_types:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
         outside: [document_field, release, release_field]
   pattern_language:
-    location: docs/pattern-language.yaml
+    location: docs/pattern-language.md
+    converts_from: docs/pattern-language.yaml
     required_fields:
     - title
     - version
@@ -347,7 +360,6 @@ document_types:
     - bibliography
     purpose: Defines the connected pattern grammar for a repository scope.
     markdown:
-      location: docs/pattern-language.md
       frontmatter:
         required: [title, version]
         allowed: [id, title, version, based_on, extends]
@@ -380,7 +392,8 @@ document_types:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
         outside: [document_field, pattern_field]
   engineering_guideline:
-    location: docs/engineering/engNN-short-name.yaml
+    location: docs/engineering/engNN-short-name.md
+    converts_from: docs/engineering/engNN-short-name.yaml
     required_fields:
     - id
     - title
@@ -389,7 +402,6 @@ document_types:
     - references
     purpose: Defines repository-wide engineering practices shared by modules.
     markdown:
-      location: docs/engineering/engNN-short-name.md
       frontmatter:
         required: [id, title]
         allowed: [id, title]
@@ -414,7 +426,8 @@ document_types:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
         outside: [document_field, section]
   srd:
-    location: docs/specs/software-requirements/srdNNN-short-name.yaml
+    location: docs/specs/software-requirements/srdNNN-short-name.md
+    converts_from: docs/specs/software-requirements/srdNNN-short-name.yaml
     required_fields:
     - id
     - title
@@ -451,7 +464,6 @@ document_types:
       '
     purpose: Defines product or runtime requirements with checkable criteria.
     markdown:
-      location: docs/specs/software-requirements/srdNNN-short-name.md
       frontmatter:
         required: [id, title]
         allowed: [id, title, status, retired_in, replaced_by, depends_on, derived_from]
@@ -515,7 +527,8 @@ document_types:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
         outside: [document_field, acceptance_criterion, criterion_field]
   use_case:
-    location: docs/specs/use-cases/relNN.N-ucNNN-short-name.yaml
+    location: docs/specs/use-cases/relNN.N-ucNNN-short-name.md
+    converts_from: docs/specs/use-cases/relNN.N-ucNNN-short-name.yaml
     required_fields:
     - id
     - title
@@ -551,7 +564,6 @@ document_types:
       '
     purpose: Describes one end-to-end path through the architecture.
     markdown:
-      location: docs/specs/use-cases/relNN.N-ucNNN-short-name.md
       frontmatter:
         required: [id, title]
         allowed: [id, title, status, priority, retired_in, replaced_by, test_suite]
@@ -593,7 +605,8 @@ document_types:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
         outside: [document_field, success_criterion, criterion_field]
   test_suite:
-    location: docs/specs/test-suites/test-relNN.N-short-name.yaml
+    location: docs/specs/test-suites/test-relNN.N-short-name.md
+    converts_from: docs/specs/test-suites/test-relNN.N-short-name.yaml
     required_fields:
     - id
     - title
@@ -608,7 +621,6 @@ document_types:
     - needs_clarification
     purpose: Maps release use cases and SRD criteria to named tests.
     markdown:
-      location: docs/specs/test-suites/test-relNN.N-short-name.md
       frontmatter:
         required: [id, title, release]
         allowed: [id, title, release, status, retired_in, replaced_by]
@@ -641,7 +653,8 @@ document_types:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
         outside: [document_field, test_case, case_field]
   audit_register:
-    location: docs/specs/audits/name.yaml
+    location: docs/specs/audits/name-register.md
+    converts_from: docs/specs/audits/name.yaml
     required_fields:
     - id
     - title
@@ -652,7 +665,6 @@ document_types:
     - rejected_candidates
     purpose: Records one recurring audit run and every candidate disposition.
     markdown:
-      location: docs/specs/audits/name-register.md
       frontmatter:
         required: [id, title, audit_date]
         allowed: [id, title, audit_date]
@@ -671,14 +683,14 @@ document_types:
     purpose: Preserves a prose-heavy audit narrative and its evidence.
     markdown: native Markdown already (format markdown); it declares no structure, so it takes no rule data.
   semantic_model:
-    location: docs/specs/semantic-models/name.yaml
+    location: docs/specs/semantic-models/name.md
+    converts_from: docs/specs/semantic-models/name.yaml
     required_fields:
     - id
     - title
     - purpose
     purpose: Defines vocabulary, state ownership, or cross-cutting concepts.
     markdown:
-      location: docs/specs/semantic-models/name.md
       frontmatter:
         required: [id, title]
         allowed: [id, title, status]
@@ -694,14 +706,14 @@ document_types:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
         outside: [document_field]
   config_format:
-    location: docs/specs/config-formats/name.yaml
+    location: docs/specs/config-formats/name.md
+    converts_from: docs/specs/config-formats/name.yaml
     required_fields:
     - id
     - title
     - purpose
     purpose: Defines machine-readable YAML formats used by the runtime.
     markdown:
-      location: docs/specs/config-formats/name.md
       frontmatter:
         required: [id, title]
         allowed: [id, title]
@@ -716,14 +728,14 @@ document_types:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
         outside: [document_field]
   constitution:
-    location: docs/constitutions/name.yaml
+    location: docs/constitutions/name.md
+    converts_from: docs/constitutions/name.yaml
     required_fields:
     - id
     - title
     - purpose
     purpose: Defines rules for agents and contributors working in this repo.
     markdown:
-      location: docs/constitutions/name.md
       exclude: [docs/constitutions/design.yaml]
       frontmatter:
         required: [id, title]
@@ -751,14 +763,14 @@ document_types:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
         outside: [document_field, article_field]
   migration:
-    location: docs/migrations/name.yaml
+    location: docs/migrations/name.md
+    converts_from: docs/migrations/name.yaml
     required_fields:
     - id
     - title
     - status
     purpose: Records a source-layout or compatibility transition.
     markdown:
-      location: docs/migrations/name.md
       frontmatter:
         required: [id, title, status]
         allowed: [id, title, status, release, root_release, legacy_release_alias, supersedes, issue]

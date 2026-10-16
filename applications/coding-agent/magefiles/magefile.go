@@ -76,19 +76,20 @@ func Audit() error {
 // codingAgentRequiredFields lists the top-level fields each foundation
 // document carries.
 var codingAgentRequiredFields = map[string][]string{
-	"docs/VISION.yaml": {"id", "title", "executive_summary", "problem", "what_this_does",
+	"docs/VISION.md": {"id", "title", "executive_summary", "problem", "what_this_does",
 		"why_we_build_this", "success_criteria", "not"},
-	"docs/ARCHITECTURE.yaml": {"id", "title", "overview", "interfaces", "components",
+	"docs/ARCHITECTURE.md": {"id", "title", "overview", "interfaces", "components",
 		"design_decisions", "technology_choices", "project_structure", "implementation_status", "related_documents"},
-	"docs/road-map.yaml": {"id", "title", "releases"},
-	"docs/SPECIFICATIONS.yaml": {"id", "title", "overview", "roadmap_summary", "foundation_document_index",
+	"docs/road-map.md": {"id", "title", "releases"},
+	"docs/SPECIFICATIONS.md": {"id", "title", "overview", "roadmap_summary", "foundation_document_index",
 		"srd_index", "config_format_index", "semantic_model_index", "use_case_index", "test_suite_index", "coverage_gaps"},
 }
 
 // auditDocumentation checks the coding-agent corpus: the foundation
 // documents carry their fields, every indexed path exists, every use case
 // names a test suite that traces it, and the coding-loop suite defines its
-// stages in order. Documents are read in either format (eng10).
+// stages in order. Corpus documents are Markdown, read as their YAML tree
+// (eng10).
 func auditDocumentation(root string) error {
 	parsed, errs := parseEveryDocument(root)
 	for path, fields := range codingAgentRequiredFields {
@@ -100,7 +101,7 @@ func auditDocumentation(root string) error {
 			errs = append(errs, fmt.Sprintf("%s missing %v", path, missing))
 		}
 	}
-	index, err := readCodingAgentDocument(root, "docs/SPECIFICATIONS.yaml")
+	index, err := readCodingAgentDocument(root, "docs/SPECIFICATIONS.md")
 	if err != nil {
 		return err
 	}
@@ -117,9 +118,9 @@ func auditDocumentation(root string) error {
 	return nil
 }
 
-// parseEveryDocument parses every YAML document under docs and every
-// Markdown document at a declared corpus location, and returns how many
-// parsed and the errors of those that did not.
+// parseEveryDocument parses every Markdown document at a declared corpus
+// location and every YAML file under docs (the corpus charter), and returns
+// how many parsed and the errors of those that did not.
 func parseEveryDocument(root string) (int, []string) {
 	parsed := 0
 	var errs []string
@@ -130,7 +131,7 @@ func parseEveryDocument(root string) (int, []string) {
 		if strings.HasSuffix(path, ".md") && !declaredMarkdown(path) {
 			return nil // native Markdown such as a guide
 		}
-		data, readErr := markdown.ReadAsYAML(path)
+		data, readErr := readDocsFile(path)
 		var document any
 		if readErr == nil {
 			readErr = yaml.Unmarshal(data, &document)
@@ -196,14 +197,19 @@ func indexPathErrors(root string, index map[string]any) []string {
 	return errs
 }
 
-// indexedPathExists reports an indexed file, or an indexed corpus document
-// that has moved to Markdown.
+// indexedPathExists reports an indexed file.
 func indexedPathExists(path string) bool {
-	if info, err := os.Stat(path); err == nil && !info.IsDir() {
-		return true
+	info, err := os.Stat(path)
+	return err == nil && !info.IsDir()
+}
+
+// readDocsFile reads a Markdown corpus document as its YAML tree and a YAML
+// file as written.
+func readDocsFile(path string) ([]byte, error) {
+	if strings.HasSuffix(path, ".md") {
+		return markdown.ReadAsYAML(path)
 	}
-	_, err := markdown.ReadAsYAML(path)
-	return err == nil
+	return os.ReadFile(path)
 }
 
 // traceabilityErrors requires every indexed use case to name an indexed test
@@ -237,11 +243,11 @@ func traceabilityErrors(root string, index map[string]any) ([]string, error) {
 }
 
 func codingLoopStageErrors(root string) ([]string, error) {
-	useCase, err := readCodingAgentDocument(root, "docs/specs/use-cases/rel01.0-uc001-coding-loop.yaml")
+	useCase, err := readCodingAgentDocument(root, "docs/specs/use-cases/rel01.0-uc001-coding-loop.md")
 	if err != nil {
 		return nil, err
 	}
-	suite, err := readCodingAgentDocument(root, "docs/specs/test-suites/test-rel01.0-coding-loop.yaml")
+	suite, err := readCodingAgentDocument(root, "docs/specs/test-suites/test-rel01.0-coding-loop.md")
 	if err != nil {
 		return nil, err
 	}

@@ -43,7 +43,7 @@ needs_clarification:
 	require.Equal(t, "error", findings[0].Level)
 	require.Contains(t, findings[0].Message, "srd091-example R1.1")
 	require.Contains(t, findings[0].Message, "How many retries before giving up?")
-	require.Equal(t, SRDSubdir+"/srd091-example.yaml", findings[0].File)
+	require.Equal(t, SRDSubdir+"/srd091-example.md", findings[0].File)
 }
 
 func TestUnresolvedClarificationOnAcceptanceCriterion(t *testing.T) {
@@ -116,9 +116,9 @@ func TestUnresolvedClarificationOnUseCaseAndTestSuite(t *testing.T) {
 	findings := checkUnresolvedClarifications(corpus)
 	require.Len(t, findings, 2)
 	require.Contains(t, findings[0].Message, "rel09.0-uc001-ex S1")
-	require.Equal(t, UCSubdir+"/rel09.0-uc001-ex.yaml", findings[0].File)
+	require.Equal(t, UCSubdir+"/rel09.0-uc001-ex.md", findings[0].File)
 	require.Contains(t, findings[1].Message, "test-rel09.0-ex roundtrip")
-	require.Equal(t, TSSubdir+"/test-rel09.0-ex.yaml", findings[1].File)
+	require.Equal(t, TSSubdir+"/test-rel09.0-ex.md", findings[1].File)
 }
 
 func TestUnresolvedClarificationCleanCorpusStaysSilent(t *testing.T) {

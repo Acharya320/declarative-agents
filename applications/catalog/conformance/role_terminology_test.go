@@ -15,9 +15,9 @@ import (
 func TestCurrentRoleContractsUseCanonicalNames(t *testing.T) {
 	t.Parallel()
 	for _, rel := range []string{
-		"docs/specs/software-requirements/srd001-agent-functional-blocks.yaml",
-		"docs/specs/software-requirements/srd004-planner.yaml",
-		"docs/specs/software-requirements/srd006-bench.yaml",
+		"docs/specs/software-requirements/srd001-agent-functional-blocks.md",
+		"docs/specs/software-requirements/srd004-planner.md",
+		"docs/specs/software-requirements/srd006-bench.md",
 	} {
 		data, err := markdown.ReadAsYAML(ProfilePath(rel))
 		if err != nil {
@@ -41,7 +41,7 @@ func TestCanonicalRoleIndexTitlesMatchSourceSRDs(t *testing.T) {
 			Path  string `yaml:"path"`
 		} `yaml:"srd_index"`
 	}
-	readRoleYAML(t, "docs/SPECIFICATIONS.yaml", &index)
+	readRoleYAML(t, "docs/SPECIFICATIONS.md", &index)
 
 	wanted := map[string]bool{"srd002-executor": false, "srd003-critic": false}
 	for _, entry := range index.SRDs {
@@ -77,12 +77,8 @@ func readRoleYAML(t *testing.T, rel string, out any) {
 	}
 }
 
-// corpusDocumentExists reports nil for a path that exists, or for a corpus
-// document named by its YAML path that has moved to Markdown (eng10).
+// corpusDocumentExists reports nil for a path that exists.
 func corpusDocumentExists(path string) error {
-	if _, err := os.Stat(path); err == nil {
-		return nil
-	}
-	_, err := markdown.ReadAsYAML(path)
+	_, err := os.Stat(path)
 	return err
 }

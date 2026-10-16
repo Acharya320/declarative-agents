@@ -64,32 +64,32 @@ func loadDemoConfig(applicationRoot string) (demoConfig, error) {
 }
 
 var requiredDocuments = map[string][]string{
-	"docs/VISION.yaml": {
+	"docs/VISION.md": {
 		"id", "title", "executive_summary", "problem", "what_this_does",
 		"why_we_build_this", "success_criteria", "not",
 	},
-	"docs/ARCHITECTURE.yaml": {
+	"docs/ARCHITECTURE.md": {
 		"id", "title", "overview", "interfaces", "components", "design_decisions",
 		"technology_choices", "project_structure", "implementation_status", "related_documents",
 	},
-	"docs/road-map.yaml": {"id", "title", "overview", "releases"},
-	"docs/SPECIFICATIONS.yaml": {
+	"docs/road-map.md": {"id", "title", "overview", "releases"},
+	"docs/SPECIFICATIONS.md": {
 		"id", "title", "overview", "roadmap_summary", "foundation_document_index",
 		"srd_index", "external_requirement_references", "config_format_index",
 		"semantic_model_index", "use_case_index", "test_suite_index", "coverage_gaps",
 	},
-	"docs/specs/use-cases/rel00.0-uc001-guided-agent-architecture.yaml": {
+	"docs/specs/use-cases/rel00.0-uc001-guided-agent-architecture.md": {
 		"id", "title", "summary", "actor", "trigger", "preconditions", "flow",
 		"touchpoints", "success_criteria", "out_of_scope", "test_suite", "status",
 	},
-	"docs/specs/test-suites/test-rel00.0-guided-agent-architecture.yaml": {
+	"docs/specs/test-suites/test-rel00.0-guided-agent-architecture.md": {
 		"id", "title", "release", "overview", "traces", "preconditions", "test_cases",
 	},
-	"docs/specs/use-cases/rel01.0-uc001-demo-trace-collection.yaml": {
+	"docs/specs/use-cases/rel01.0-uc001-demo-trace-collection.md": {
 		"id", "title", "summary", "actor", "trigger", "preconditions", "flow",
 		"success_criteria", "out_of_scope", "test_suite", "status",
 	},
-	"docs/specs/test-suites/test-rel01.0-demo-trace-collection.yaml": {
+	"docs/specs/test-suites/test-rel01.0-demo-trace-collection.md": {
 		"id", "title", "release", "overview", "traces", "preconditions", "test_cases",
 	},
 }
@@ -570,7 +570,7 @@ func auditApplication(root string) error {
 
 func auditTraceability(root string) error {
 	var index specificationIndex
-	if err := readYAML(filepath.Join(root, "docs", "SPECIFICATIONS.yaml"), &index); err != nil {
+	if err := readYAML(filepath.Join(root, "docs", "SPECIFICATIONS.md"), &index); err != nil {
 		return err
 	}
 	for _, entry := range append(append([]documentIndexEntry{}, index.Foundation...), index.External...) {
@@ -646,14 +646,10 @@ func auditTraceability(root string) error {
 	return nil
 }
 
-// requireIndexedFile requires an indexed path to exist; an indexed corpus
-// document also counts once it has moved to Markdown.
+// requireIndexedFile requires an indexed path to exist.
 func requireIndexedFile(root, path string) error {
 	full := filepath.Join(root, filepath.FromSlash(path))
 	if info, err := os.Stat(full); err == nil && !info.IsDir() {
-		return nil
-	}
-	if _, err := markdown.ReadAsYAML(full); err == nil {
 		return nil
 	}
 	return fmt.Errorf("indexed path does not exist: %s", path)
@@ -707,8 +703,8 @@ func auditOwnedSources(root string) error {
 	return nil
 }
 
-// readYAML reads a document by its YAML path into out, from its Markdown
-// form once the document has moved (eng10 migration window).
+// readYAML reads a Markdown corpus document into out as the YAML tree its
+// declaration parses it into (eng10).
 func readYAML(path string, out any) error {
 	data, err := markdown.ReadAsYAML(path)
 	if err != nil {

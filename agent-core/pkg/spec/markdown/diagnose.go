@@ -87,8 +87,8 @@ func Diagnose(declarations Declarations, data []byte, source string) []Finding {
 	if !ok {
 		return []Finding{{Name: "document-type-unknown", Tier: 1, File: source, Line: 1,
 			Expected: "a file name matching a declared Markdown location", Found: filepath.Base(source),
-			Rule: "document_types.*.markdown.location",
-			Hint: "name the file after its document type, or declare a markdown location for the type"}}
+			Rule: "document_types.*.location",
+			Hint: "name the file after its document type, or declare a location for the type"}}
 	}
 	return r.Diagnose(data, source)
 }
