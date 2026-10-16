@@ -15,9 +15,8 @@ import (
 // knownCorpusDefects lists SRDs whose source YAML is itself defective, so the
 // round trip cannot be judged on them. Each entry names its fix; once the fix
 // lands the entry must go, and the test fails until it does.
-var knownCorpusDefects = map[string]string{
-	"applications/catalog/docs/specs/software-requirements/srd021-observer.yaml": "duplicate mapping key provider (GH-2590)",
-}
+// GH-2590 fixed the last one, catalog srd021's duplicate mapping key.
+var knownCorpusDefects = map[string]string{}
 
 // TestEveryCorpusSRDRoundTrips runs the srd004 laws over the whole tracked
 // SRD corpus: yaml -> model -> md -> model loses nothing, and the printed

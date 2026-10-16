@@ -701,7 +701,7 @@ releases:
       - {id: gh-1070, summary: Rename mesh validators as Critic realizations, status: done}
       - {id: gh-1073, summary: Classify chatbot-mesh actors, status: done}
       - {id: gh-1077, summary: Rename mesh coordinator realization, status: done}
-      - {id: gh-1071, summary: Coordinate aliases, pins, package closures, and release evidence, status: done}
+      - {id: gh-1071, summary: "Coordinate aliases, pins, package closures, and release evidence", status: done}
     migration_note: docs/migrations/v0.20260727.0-agent-role-realization-alignment.yaml
     use_cases:
       - id: rel12.0-uc001-agent-role-realization-alignment
