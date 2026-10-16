@@ -37,22 +37,45 @@ type rawSRD struct {
 	DerivedFrom        []ExternalReference   `yaml:"derived_from"`
 }
 
+// srdTypedKeys are the top-level keys rawSRD types; any other top-level key
+// is kept as an extension.
+var srdTypedKeys = map[string]bool{
+	"id": true, "title": true, "problem": true, "goals": true,
+	"requirements": true, "non_goals": true, "acceptance_criteria": true,
+	"depends_on": true, "status": true, "retired_in": true, "replaced_by": true,
+	"needs_clarification": true, "assumptions": true, "derived_from": true,
+}
+
+// srdExtensions returns the document's untyped top-level keys in source
+// order.
+func srdExtensions(data []byte) ([]Extension, error) {
+	var doc yaml.Node
+	if err := yaml.Unmarshal(data, &doc); err != nil {
+		return nil, err
+	}
+	if doc.Kind != yaml.DocumentNode || len(doc.Content) == 0 {
+		return nil, nil
+	}
+	return untypedKeys(doc.Content[0], srdTypedKeys), nil
+}
+
 func parseSRDBytes(data []byte, source string) (SRD, error) {
 	var raw rawSRD
 	if err := yaml.Unmarshal(data, &raw); err != nil {
 		return SRD{}, fmt.Errorf("parse SRD %s: %w", source, err)
 	}
-
 	groups, orderedKeys, err := parseRequirements(&raw.Requirements)
 	if err != nil {
 		return SRD{}, fmt.Errorf("parse SRD %s requirements: %w", source, err)
 	}
-
 	goals, nonGoals, assumptions, err := parseSRDLists(&raw, source)
 	if err != nil {
 		return SRD{}, err
 	}
-
+	extensions, err := srdExtensions(data)
+	if err != nil {
+		return SRD{}, fmt.Errorf("parse SRD %s: %w", source, err)
+	}
 	return SRD{
 		ID:                 raw.ID,
 		Title:              raw.Title,
@@ -68,6 +91,7 @@ func parseSRDBytes(data []byte, source string) (SRD, error) {
 		NeedsClarification: raw.NeedsClarification,
 		Assumptions:        assumptions,
 		DerivedFrom:        raw.DerivedFrom,
+		Extensions:         extensions,
 		OrderedGroups:      orderedKeys,
 	}, nil
 }
@@ -226,130 +250,6 @@ func touchpointFromMapping(item *yaml.Node) (string, error) {
 		return target + " -- " + reason, nil
 	}
 	return target, nil
-}
-
-func parseRequirements(node *yaml.Node) (map[string]RequirementGroup, []string, error) {
-	if node == nil || node.Kind == 0 {
-		return nil, nil, nil
-	}
-
-	n := node
-	if n.Kind == yaml.DocumentNode && len(n.Content) > 0 {
-		n = n.Content[0]
-	}
-	if n.Kind != yaml.MappingNode {
-		return nil, nil, fmt.Errorf("requirements: expected mapping, got kind %d", n.Kind)
-	}
-
-	groups := make(map[string]RequirementGroup)
-	var orderedKeys []string
-
-	for i := 0; i+1 < len(n.Content); i += 2 {
-		keyNode := n.Content[i]
-		valNode := n.Content[i+1]
-		groupID := keyNode.Value
-		orderedKeys = append(orderedKeys, groupID)
-
-		group, err := parseRequirementGroup(groupID, valNode)
-		if err != nil {
-			return nil, nil, fmt.Errorf("group %s: %w", groupID, err)
-		}
-		groups[groupID] = group
-	}
-
-	return groups, orderedKeys, nil
-}
-
-type rawGroup struct {
-	Title string    `yaml:"title"`
-	Items yaml.Node `yaml:"items"`
-}
-
-func parseRequirementGroup(groupID string, node *yaml.Node) (RequirementGroup, error) {
-	var rg rawGroup
-	if err := node.Decode(&rg); err != nil {
-		return RequirementGroup{}, fmt.Errorf("decode group: %w", err)
-	}
-
-	items, err := parseRequirementItems(groupID, &rg.Items)
-	if err != nil {
-		return RequirementGroup{}, err
-	}
-
-	return RequirementGroup{Title: rg.Title, Items: items}, nil
-}
-
-func parseRequirementItems(groupID string, node *yaml.Node) ([]RequirementItem, error) {
-	if node == nil || node.Kind == 0 {
-		return nil, nil
-	}
-	if node.Kind != yaml.SequenceNode {
-		return nil, fmt.Errorf("items: expected sequence, got kind %d", node.Kind)
-	}
-
-	var items []RequirementItem
-	for _, itemNode := range node.Content {
-		if itemNode.Kind != yaml.MappingNode {
-			return nil, fmt.Errorf("items: expected mapping entry, got kind %d", itemNode.Kind)
-		}
-
-		item, err := parseOneItem(itemNode)
-		if err != nil {
-			return nil, err
-		}
-		items = append(items, item)
-	}
-	return items, nil
-}
-
-func parseOneItem(node *yaml.Node) (RequirementItem, error) {
-	var item RequirementItem
-	item.Weight = 1
-
-	for i := 0; i+1 < len(node.Content); i += 2 {
-		key := node.Content[i].Value
-		val := node.Content[i+1]
-
-		handled, err := parseItemMetadata(&item, key, val)
-		if err != nil {
-			return RequirementItem{}, err
-		}
-		if !handled {
-			item.ID = key
-			item.Text = val.Value
-		}
-	}
-
-	if item.ID == "" {
-		return RequirementItem{}, fmt.Errorf("requirement item has no ID key")
-	}
-	return item, nil
-}
-
-// parseItemMetadata decodes a requirement item's metadata keys; any other
-// key is the item's id and stays with the caller.
-func parseItemMetadata(item *RequirementItem, key string, val *yaml.Node) (bool, error) {
-	switch key {
-	case "weight":
-		if err := val.Decode(&item.Weight); err != nil {
-			return false, fmt.Errorf("decode weight: %w", err)
-		}
-	case "status":
-		item.Status = val.Value
-	case "retired_in":
-		item.RetiredIn = val.Value
-	case "replaced_by":
-		if err := val.Decode(&item.ReplacedBy); err != nil {
-			return false, fmt.Errorf("decode replaced_by: %w", err)
-		}
-	case "derived_from":
-		if err := val.Decode(&item.DerivedFrom); err != nil {
-			return false, fmt.Errorf("decode derived_from: %w", err)
-		}
-	default:
-		return false, nil
-	}
-	return true, nil
 }
 
 // ParseRoadmap reads a road-map.yaml file.
