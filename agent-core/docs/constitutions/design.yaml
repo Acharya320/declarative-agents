@@ -196,6 +196,25 @@ document_types:
     - success_criteria
     - not
     purpose: Defines what Agent Core is, why it exists, and what it excludes.
+    markdown:
+      location: docs/VISION.md
+      frontmatter:
+        required: [id, title]
+        allowed: [id, title]
+      nodes:
+        document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
+      fields:
+        executive_summary: {in: [document_field], shape: prose}
+        problem: {in: [document_field], shape: prose}
+        what_this_does: {in: [document_field], shape: prose}
+        why_we_build_this: {in: [document_field], shape: prose}
+        success_criteria: {in: [document_field], shape: list, item_pattern: '^[a-z][a-z0-9_]*: '}
+        not: {in: [document_field], shape: list}
+        canonical_documents: {in: [document_field], shape: list}
+      required_fields: [executive_summary, problem, what_this_does, why_we_build_this, success_criteria, not]
+      prose_containment:
+        keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
+        outside: [document_field]
   architecture:
     location: docs/ARCHITECTURE.yaml
     required_fields:
@@ -210,6 +229,38 @@ document_types:
     - implementation_status
     - related_documents
     purpose: Defines layers, components, flows, decisions, and source layout.
+    markdown:
+      location: docs/ARCHITECTURE.md
+      frontmatter:
+        required: [id, title]
+        allowed: [id, title]
+      nodes:
+        document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
+        interface: {tag: interface, level: 3, parent: 'field:interfaces', heading: id, content: prose, unique_id: true}
+        component: {tag: component, level: 3, parent: 'field:components', heading: id, content: prose, unique_id: true}
+        component_field: {tag: field, level: 4, parent: component, heading: free, content: any}
+        decision:
+          tag: decision
+          level: 3
+          parent: 'field:design_decisions'
+          id_pattern: '^[0-9]+$'
+          heading: id_title
+          content: prose
+          unique_id: true
+        decision_field: {tag: field, level: 4, parent: decision, heading: free, content: any}
+      fields:
+        interfaces: {in: [document_field], shape: empty}
+        components: {in: [document_field], shape: empty}
+        design_decisions: {in: [document_field], shape: empty}
+        technology_choices: {in: [document_field], shape: table, columns: [component, technology, purpose]}
+        related_documents: {in: [document_field], shape: table, columns: [doc, purpose]}
+        capabilities: {in: [component_field], shape: list}
+        benefits: {in: [decision_field], shape: list}
+        alternatives_rejected: {in: [decision_field], shape: list}
+      required_fields: [overview, interfaces, components, design_decisions, technology_choices, project_structure, implementation_status, related_documents]
+      prose_containment:
+        keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
+        outside: [document_field, interface, component, component_field, decision, decision_field]
   specifications:
     location: docs/SPECIFICATIONS.yaml
     required_fields:
@@ -225,6 +276,26 @@ document_types:
     - test_suite_index
     - coverage_gaps
     purpose: Indexes the specification corpus and records known coverage gaps.
+    markdown:
+      location: docs/SPECIFICATIONS.md
+      frontmatter:
+        required: [id, title]
+        allowed: [id, title]
+      nodes:
+        document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
+      fields:
+        overview: {in: [document_field], shape: prose}
+        roadmap_summary: {in: [document_field], shape: table}
+        foundation_document_index: {in: [document_field], shape: table}
+        srd_index: {in: [document_field], shape: table}
+        config_format_index: {in: [document_field], shape: table}
+        semantic_model_index: {in: [document_field], shape: table}
+        use_case_index: {in: [document_field], shape: table}
+        test_suite_index: {in: [document_field], shape: table}
+      required_fields: [overview, roadmap_summary, foundation_document_index, srd_index, config_format_index, semantic_model_index, use_case_index, test_suite_index, coverage_gaps]
+      prose_containment:
+        keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
+        outside: [document_field]
   roadmap:
     location: docs/road-map.yaml
     required_fields:
@@ -232,6 +303,34 @@ document_types:
     - title
     - releases
     purpose: Assigns SRDs and use cases to releases and status values.
+    markdown:
+      location: docs/road-map.md
+      frontmatter:
+        required: [id, title]
+        allowed: [id, title]
+      nodes:
+        document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
+        release:
+          tag: release
+          level: 2
+          parent: document
+          id_pattern: '^[0-9]{2}\.[0-9]+$'
+          heading: id_title
+          content: prose
+          unique_id: true
+          attributes: [status]
+        release_field: {tag: field, level: 3, parent: release, heading: free, content: any}
+      fields:
+        overview: {in: [document_field], shape: prose}
+        use_cases: {in: [release_field], shape: table}
+        srds: {in: [release_field], shape: list}
+        test_suites: {in: [release_field], shape: list}
+      required_nodes: {release: 1}
+      attributes:
+        status: text
+      prose_containment:
+        keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
+        outside: [document_field, release, release_field]
   pattern_language:
     location: docs/pattern-language.yaml
     required_fields:
@@ -241,6 +340,38 @@ document_types:
     - grammar_check
     - bibliography
     purpose: Defines the connected pattern grammar for a repository scope.
+    markdown:
+      location: docs/pattern-language.md
+      frontmatter:
+        required: [title, version]
+        allowed: [id, title, version, based_on, extends]
+      nodes:
+        document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
+        pattern:
+          tag: pattern
+          level: 3
+          parent: 'field:patterns'
+          id_pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+          heading: free
+          content: none
+          unique_id: true
+          attributes: [number]
+          required_fields: [intent, problem, solution]
+        pattern_field: {tag: field, level: 4, parent: pattern, heading: free, content: any}
+      fields:
+        patterns: {in: [document_field], shape: empty}
+        intent: {in: [pattern_field], shape: prose}
+        problem: {in: [pattern_field], shape: prose}
+        solution: {in: [pattern_field], shape: prose}
+        forces: {in: [pattern_field], shape: list}
+        also_known_as: {in: [pattern_field], shape: list}
+      required_fields: [patterns, grammar_check, bibliography]
+      required_nodes: {pattern: 1}
+      attributes:
+        number: integer
+      prose_containment:
+        keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
+        outside: [document_field, pattern_field]
   engineering_guideline:
     location: docs/engineering/engNN-short-name.yaml
     required_fields:
@@ -408,6 +539,48 @@ document_types:
 
       '
     purpose: Describes one end-to-end path through the architecture.
+    markdown:
+      location: docs/specs/use-cases/relNN.N-ucNNN-short-name.md
+      frontmatter:
+        required: [id, title]
+        allowed: [id, title, status, priority, retired_in, replaced_by, test_suite]
+        id_matches_filename: true
+      nodes:
+        document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
+        success_criterion:
+          tag: sc
+          level: 3
+          parent: 'field:success_criteria'
+          id_pattern: '^S[0-9]+$'
+          heading: id
+          content: prose
+          unique_id: true
+          attributes: [status, retired_in, replaced_by]
+          required_fields: [traces]
+        criterion_field: {tag: field, level: 4, parent: success_criterion, heading: free, content: any}
+      fields:
+        summary: {in: [document_field], shape: prose}
+        actor: {in: [document_field], shape: prose}
+        trigger: {in: [document_field], shape: prose}
+        preconditions: {in: [document_field], shape: list}
+        flow: {in: [document_field], shape: list, item_pattern: '^F[0-9]+: '}
+        touchpoints: {in: [document_field], shape: table, columns: [id, target, reason]}
+        success_criteria: {in: [document_field], shape: empty}
+        failure_scenarios: {in: [document_field], shape: table, columns: [id, scenario, expected]}
+        out_of_scope: {in: [document_field], shape: list}
+        assumptions: {in: [document_field], shape: list, item_pattern: '^A[0-9]+: '}
+        edge_cases: {in: [document_field], shape: list, item_pattern: '^E[0-9]+: '}
+        needs_clarification: {in: [document_field], shape: table, columns: [id, question]}
+        traces: {in: [criterion_field], shape: list}
+      required_fields: [summary, actor, trigger, flow, touchpoints, success_criteria, out_of_scope]
+      exempt_status: [relocated, retired]
+      attributes:
+        status: text
+        retired_in: text
+        replaced_by: list
+      prose_containment:
+        keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
+        outside: [document_field, success_criterion, criterion_field]
   test_suite:
     location: docs/specs/test-suites/test-relNN.N-short-name.yaml
     required_fields:
@@ -423,6 +596,43 @@ document_types:
     - replaced_by
     - needs_clarification
     purpose: Maps release use cases and SRD criteria to named tests.
+    markdown:
+      location: docs/specs/test-suites/test-relNN.N-short-name.md
+      frontmatter:
+        required: [id, title, release]
+        allowed: [id, title, release, status, retired_in, replaced_by]
+        id_matches_filename: true
+      nodes:
+        document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
+        test_case:
+          tag: case
+          level: 3
+          parent: 'field:test_cases'
+          heading: id
+          content: any
+          unique_id: true
+          attributes: [status, retired_in, replaced_by]
+          required_fields: [traces]
+        case_field: {tag: field, level: 4, parent: test_case, heading: free, content: any}
+      fields:
+        overview: {in: [document_field], shape: prose}
+        traces: {in: [document_field, case_field], shape: list}
+        preconditions: {in: [document_field], shape: list}
+        test_cases: {in: [document_field], shape: empty}
+        needs_clarification: {in: [document_field], shape: table, columns: [id, question]}
+        use_case: {in: [case_field], shape: prose}
+        go_test: {in: [case_field], shape: prose}
+        inputs: {in: [case_field], shape: yaml}
+        expected: {in: [case_field], shape: yaml}
+      required_fields: [traces, preconditions, test_cases]
+      exempt_status: [relocated, retired]
+      attributes:
+        status: text
+        retired_in: text
+        replaced_by: list
+      prose_containment:
+        keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
+        outside: [document_field, test_case, case_field]
   audit_register:
     location: docs/specs/audits/name.yaml
     required_fields:
@@ -434,11 +644,26 @@ document_types:
     - findings
     - rejected_candidates
     purpose: Records one recurring audit run and every candidate disposition.
+    markdown:
+      location: docs/specs/audits/name-register.md
+      frontmatter:
+        required: [id, title, audit_date]
+        allowed: [id, title, audit_date]
+        id_matches_filename: true
+      nodes:
+        document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
+      fields:
+        references: {in: [document_field], shape: list}
+      required_fields: [scope, candidates, findings, rejected_candidates]
+      prose_containment:
+        keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
+        outside: [document_field]
   audit_report:
     location: docs/specs/audits/name.md
     format: markdown
     required_fields: []
     purpose: Preserves a prose-heavy audit narrative and its evidence.
+    markdown: native Markdown already (format markdown); it declares no structure, so it takes no rule data.
   semantic_model:
     location: docs/specs/semantic-models/name.yaml
     required_fields:
@@ -446,6 +671,23 @@ document_types:
     - title
     - purpose
     purpose: Defines vocabulary, state ownership, or cross-cutting concepts.
+    markdown:
+      location: docs/specs/semantic-models/name.md
+      frontmatter:
+        required: [id, title]
+        allowed: [id, title, status]
+        id_matches_filename: true
+      nodes:
+        document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
+      fields:
+        purpose: {in: [document_field], shape: prose}
+        related_documents: {in: [document_field], shape: list}
+        non_goals: {in: [document_field], shape: list}
+        invariants: {in: [document_field], shape: list}
+      required_fields: [purpose]
+      prose_containment:
+        keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
+        outside: [document_field]
   config_format:
     location: docs/specs/config-formats/name.yaml
     required_fields:
@@ -453,6 +695,22 @@ document_types:
     - title
     - purpose
     purpose: Defines machine-readable YAML formats used by the runtime.
+    markdown:
+      location: docs/specs/config-formats/name.md
+      frontmatter:
+        required: [id, title]
+        allowed: [id, title]
+        id_matches_filename: true
+      nodes:
+        document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
+      fields:
+        purpose: {in: [document_field], shape: prose}
+        related_documents: {in: [document_field], shape: list}
+        implementation: {in: [document_field], shape: list}
+      required_fields: [purpose]
+      prose_containment:
+        keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
+        outside: [document_field]
   constitution:
     location: docs/constitutions/name.yaml
     required_fields:
@@ -460,6 +718,32 @@ document_types:
     - title
     - purpose
     purpose: Defines rules for agents and contributors working in this repo.
+    markdown:
+      location: docs/constitutions/name.md
+      frontmatter:
+        required: [id, title]
+        allowed: [id, title]
+        id_matches_filename: true
+      nodes:
+        document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
+        article:
+          tag: article
+          level: 3
+          parent: 'field:articles'
+          id_pattern: '^[A-Z][0-9]+$'
+          heading: id_title
+          content: prose
+          unique_id: true
+        article_field: {tag: field, level: 4, parent: article, heading: free, content: any}
+      fields:
+        purpose: {in: [document_field], shape: prose}
+        references: {in: [document_field], shape: list}
+        articles: {in: [document_field], shape: empty}
+        review_checklist: {in: [document_field], shape: list}
+      required_fields: [purpose]
+      prose_containment:
+        keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
+        outside: [document_field, article_field]
   migration:
     location: docs/migrations/name.yaml
     required_fields:
@@ -467,16 +751,32 @@ document_types:
     - title
     - status
     purpose: Records a source-layout or compatibility transition.
+    markdown:
+      location: docs/migrations/name.md
+      frontmatter:
+        required: [id, title, status]
+        allowed: [id, title, status, release, root_release, legacy_release_alias, supersedes, issue]
+        id_matches_filename: true
+      nodes:
+        document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
+      fields:
+        summary: {in: [document_field], shape: prose}
+        evidence: {in: [document_field], shape: list}
+      prose_containment:
+        keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
+        outside: [document_field]
   guide:
     location: docs/guides/name.md
     format: markdown
     required_fields: []
     purpose: Provides prose-heavy operator or developer guidance.
+    markdown: native Markdown already (format markdown); it declares no structure, so it takes no rule data.
   stats_baseline:
     location: docs/stats/name.json
     format: json
     required_fields: []
     purpose: Records deterministic generated metrics before a measured migration.
+    markdown: not applicable; generated JSON metrics, not a document a person authors.
   corpus_charter:
     location: docs/corpus-charter.yaml
     required_fields:
@@ -484,6 +784,7 @@ document_types:
     - title
     - checks
     purpose: Names the specification-corpus checks this module's audit gates on.
+    markdown: stays YAML; executable check plans the audit runs (spec.Charter), not prose a person reads.
 manual_invariant_schema:
   purpose: |
     A judge may adjudicate a manual pattern invariant only after the invariant

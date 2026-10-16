@@ -209,7 +209,8 @@ func (d *diagnosis) closeOpen() {
 const shapeEmpty = "empty"
 
 // checkShape enforces a typed field's content shape, list item patterns,
-// and table columns.
+// and table columns. A list or table field may be empty, and a table field
+// that declares no columns accepts any header.
 func (d *diagnosis) checkShape(node *dnode) {
 	field, typed := d.rules.Fields[node.id]
 	if !typed {
@@ -224,6 +225,9 @@ func (d *diagnosis) checkShape(node *dnode) {
 	if len(node.content) > 0 {
 		line = d.fileLine(node.content[0])
 	}
+	if shape == shapeEmpty && (field.Shape == shapeList || field.Shape == shapeTable) {
+		return // a list or table with no entries
+	}
 	if shape != field.Shape && (field.Shape != shapeProse || shape != shapeYAML) {
 		d.add("field-shape-mismatch", line, node.id+" as "+field.Shape, shape, "fields."+node.id+".shape",
 			"write "+node.id+" as "+field.Shape)
@@ -233,7 +237,8 @@ func (d *diagnosis) checkShape(node *dnode) {
 	case shapeList:
 		d.checkListItems(node, content, line)
 	case shapeTable:
-		if header := splitRow(strings.SplitN(content, "\n", 2)[0]); !sameStrings(header, field.Columns) {
+		header := splitRow(strings.SplitN(content, "\n", 2)[0])
+		if len(field.Columns) > 0 && !sameStrings(header, field.Columns) {
 			d.add("table-columns-mismatch", line, "columns "+strings.Join(field.Columns, " | "),
 				strings.Join(header, " | "), "fields."+node.id+".columns", "use exactly the declared columns, in order")
 		}

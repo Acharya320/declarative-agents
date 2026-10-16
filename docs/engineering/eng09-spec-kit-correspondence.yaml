@@ -85,6 +85,32 @@ sections:
       | Review checklist | Completeness checks C1 through C7 |
       | Stable requirement anchors | D6 immutable identifiers with retirement entries; Spec Kit has no equivalent rule |
 
+  - title: "Markdown format re-check"
+    content: |
+      The corpus is migrating from YAML to Markdown with marker
+      comments (eng10). Spec Kit's artifacts are Markdown checked by
+      convention, so the migration could have turned every row of
+      Table 2 back into a convention. It does not: Table 3 maps each
+      row to the parsed construct that carries it in the new format and
+      the finding that reports it when it breaks. Every row lands on a
+      construct; none degrades to convention.
+
+      Table 3: Spec artifact elements in the Markdown format
+
+      | Spec Kit element | Parsed construct | Finding when broken |
+      |------------------|------------------|---------------------|
+      | User stories with P1/P2/P3 | use case frontmatter priority | frontmatter-unknown-key; invalid-priority for the value |
+      | Given/When/Then scenarios | test case nodes (case marker) with a required visible traces field | missing-required-field, field-shape-mismatch |
+      | Success criteria | success criterion nodes (sc marker, S1 ids) with prose and a required traces field | id-malformed, missing-content, missing-required-field |
+      | Assumptions | assumptions list field with item pattern A1, A2 | list-item-pattern, field-shape-mismatch |
+      | Edge cases | edge_cases list field with item pattern E1, E2 | list-item-pattern, field-shape-mismatch |
+      | NEEDS CLARIFICATION markers | needs_clarification table field with columns id, question | table-columns-mismatch; unresolved-clarification |
+      | Review checklist | completeness checks C1 through C7 over the same model | the existing completeness findings, unchanged |
+      | Stable requirement anchors | req and ac markers with declared id patterns, unique ids, and retirement attributes | id-malformed, id-outside-parent, duplicate-id, attribute-shape; retired-id-missing |
+
+      The graph findings named after the semicolons are the audit's
+      existing checks; the rest are the format's own catalog in eng10.
+
   - title: "Differences and the converge gap"
     content: |
       Three differences remain after the mapping, and only one is a gap.
@@ -97,6 +123,17 @@ sections:
       clarifications, invalid priorities, untraced requirements. The
       correspondence holds element by element, and the corpus side is
       the stronger enforcement of the two.
+
+      The claim survives the move to Markdown (eng10, GH-2578). A
+      Markdown corpus document parses into the same document model, so
+      the graph checks above run unchanged, and the parse itself is
+      enforced: every element is a marker-tagged node or field whose
+      grammar, structure, and shape design.yaml declares, and a
+      document that breaks a declaration is a named finding with a
+      file, a line, and a fix hint. Prose containment closes the last
+      route around the parse, because a normative keyword outside a
+      requirement item is itself a finding. Table 3 re-checks Table 2
+      against the new format.
 
       Task store. Spec Kit appends tasks to a repo-local tasks.md, so
       the queue is versioned with the branch. Our backlog store is
@@ -133,6 +170,7 @@ sections:
 
 references:
   - agent-core/docs/constitutions/design.yaml
+  - docs/engineering/eng10-markdown-spec-format.md
   - agent-core/docs/constitutions/issue-format.yaml
   - agent-core/docs/specs/software-requirements/srd014-spec-graph.yaml
   - https://github.com/github/spec-kit
@@ -143,3 +181,4 @@ references:
   - https://github.com/Nokia-Bell-Labs/declarative-agents/issues/2552
   - https://github.com/Nokia-Bell-Labs/declarative-agents/issues/2557
   - https://github.com/Nokia-Bell-Labs/declarative-agents/issues/2558
+  - https://github.com/Nokia-Bell-Labs/declarative-agents/issues/2581
