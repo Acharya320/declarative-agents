@@ -4,6 +4,7 @@
 package main
 
 import (
+	"os"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -74,6 +75,33 @@ func TestConstitutionCitations(t *testing.T) {
 	t.Run("missing directory passes vacuously", func(t *testing.T) {
 		if err := checkConstitutionCitations(t.TempDir(), language); err != nil {
 			t.Fatal(err)
+		}
+	})
+	t.Run("directory without constitutions fails", func(t *testing.T) {
+		repo := t.TempDir()
+		dir := filepath.Join(repo, filepath.FromSlash(constitutionsDir))
+		if err := os.MkdirAll(dir, 0o755); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(filepath.Join(dir, "notes.txt"), []byte("R-INTRO-001\n"), 0o644); err != nil {
+			t.Fatal(err)
+		}
+		if err := checkConstitutionCitations(repo, language); err == nil || !strings.Contains(err.Error(), "no constitution to check") {
+			t.Fatalf("error = %v, want no constitution to check", err)
+		}
+	})
+	t.Run("markdown constitution is read", func(t *testing.T) {
+		repo := t.TempDir()
+		dir := filepath.Join(repo, filepath.FromSlash(constitutionsDir))
+		if err := os.MkdirAll(dir, 0o755); err != nil {
+			t.Fatal(err)
+		}
+		body := "---\nid: sample\ntitle: Sample\n---\n\n<!-- field: purpose -->\n## Purpose\n\nCites R-NOPE-999.\n"
+		if err := os.WriteFile(filepath.Join(dir, "sample.md"), []byte(body), 0o644); err != nil {
+			t.Fatal(err)
+		}
+		if err := checkConstitutionCitations(repo, language); err == nil || !strings.Contains(err.Error(), "R-NOPE-999") {
+			t.Fatalf("error = %v, want the unresolved citation from the Markdown constitution", err)
 		}
 	})
 	t.Run("resolvable citation passes", func(t *testing.T) {

@@ -10,10 +10,10 @@ import (
 	"go/parser"
 	"go/token"
 	"go/types"
-	"os"
 	"path/filepath"
 	"strings"
 
+	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 	"gopkg.in/yaml.v3"
 )
 
@@ -63,7 +63,9 @@ func renderKeynameTable(repositoryRoot, kind, source, typeName string) (string, 
 // yamlSchemaRows reads a config-format specification and returns one row per
 // top-level schema entry.
 func yamlSchemaRows(path string) ([][3]string, error) {
-	data, err := os.ReadFile(path)
+	// The config format may have moved to Markdown (eng10); its YAML path
+	// still names it.
+	data, err := markdown.ReadAsYAML(path)
 	if err != nil {
 		return nil, err
 	}

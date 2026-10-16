@@ -6,7 +6,10 @@ package markdown
 import (
 	"bytes"
 	"fmt"
+	"io/fs"
+	"os"
 	"path"
+	"path/filepath"
 	"strings"
 
 	"gopkg.in/yaml.v3"
@@ -147,4 +150,40 @@ func trailingNewlines(a, b *yaml.Node, where string) []string {
 		}
 	}
 	return found
+}
+
+// ConvertTree converts every declared YAML corpus document under dir to
+// Markdown in place, the way mage convert does for a repository's tracked
+// documents, and returns the reports. It serves temporary copies, such as a
+// test proving a gate reads the converted form; testdata is left alone.
+func (declarations Declarations) ConvertTree(dir string) ([]Report, error) {
+	var reports []Report
+	err := filepath.WalkDir(dir, func(path string, entry fs.DirEntry, err error) error {
+		switch {
+		case err != nil:
+			return err
+		case entry.IsDir() && entry.Name() == "testdata":
+			return filepath.SkipDir
+		case entry.IsDir() || !strings.HasSuffix(path, ".yaml"):
+			return nil
+		}
+		d, ok := declarations.ForSource(filepath.ToSlash(path))
+		if !ok {
+			return nil
+		}
+		data, err := os.ReadFile(path)
+		if err != nil {
+			return err
+		}
+		md, report, err := d.ConvertYAML(data, path)
+		if err != nil {
+			return err
+		}
+		if err := os.WriteFile(report.Target, md, 0o644); err != nil {
+			return err
+		}
+		reports = append(reports, report)
+		return os.Remove(path)
+	})
+	return reports, err
 }

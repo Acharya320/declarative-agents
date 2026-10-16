@@ -8,7 +8,11 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"sort"
 	"strings"
+
+	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
+	"gopkg.in/yaml.v3"
 )
 
 // Audit validates the application documentation, canonical profile boot
@@ -69,86 +73,206 @@ func Audit() error {
 	return runTestEvidenceAudit(binary, root, roots.Core, roots.Profiles)
 }
 
-func auditDocumentation(root string) error {
-	const validator = `
-import pathlib
-import sys
-import yaml
+// codingAgentRequiredFields lists the top-level fields each foundation
+// document carries.
+var codingAgentRequiredFields = map[string][]string{
+	"docs/VISION.yaml": {"id", "title", "executive_summary", "problem", "what_this_does",
+		"why_we_build_this", "success_criteria", "not"},
+	"docs/ARCHITECTURE.yaml": {"id", "title", "overview", "interfaces", "components",
+		"design_decisions", "technology_choices", "project_structure", "implementation_status", "related_documents"},
+	"docs/road-map.yaml": {"id", "title", "releases"},
+	"docs/SPECIFICATIONS.yaml": {"id", "title", "overview", "roadmap_summary", "foundation_document_index",
+		"srd_index", "config_format_index", "semantic_model_index", "use_case_index", "test_suite_index", "coverage_gaps"},
+}
 
-root = pathlib.Path(sys.argv[1])
-docs = root / "docs"
-paths = sorted(docs.rglob("*.yaml"))
-loaded = {path: yaml.safe_load(path.read_text()) for path in paths}
-required = {
-    docs / "VISION.yaml": {"id", "title", "executive_summary", "problem", "what_this_does", "why_we_build_this", "success_criteria", "not"},
-    docs / "ARCHITECTURE.yaml": {"id", "title", "overview", "interfaces", "components", "design_decisions", "technology_choices", "project_structure", "implementation_status", "related_documents"},
-    docs / "road-map.yaml": {"id", "title", "releases"},
-    docs / "SPECIFICATIONS.yaml": {"id", "title", "overview", "roadmap_summary", "foundation_document_index", "srd_index", "config_format_index", "semantic_model_index", "use_case_index", "test_suite_index", "coverage_gaps"},
-}
-errors = []
-for path, fields in required.items():
-    missing = fields - set(loaded.get(path, {}))
-    if missing:
-        errors.append(f"{path.relative_to(root)} missing {sorted(missing)}")
-index = loaded[docs / "SPECIFICATIONS.yaml"]
-for section in ("foundation_document_index", "srd_index", "use_case_index", "test_suite_index"):
-    for entry in index[section]:
-        if not (root / entry["path"]).is_file():
-            errors.append(f"{section} path does not exist: {entry['path']}")
-suite_by_id = {
-    entry["id"]: loaded[root / entry["path"]]
-    for entry in index["test_suite_index"]
-}
-for entry in index["use_case_index"]:
-    use_case_doc = loaded[root / entry["path"]]
-    suite_id = use_case_doc.get("test_suite")
-    suite_doc = suite_by_id.get(suite_id)
-    if suite_doc is None:
-        errors.append(f"use case {entry['id']} names unknown test suite {suite_id}")
-    elif entry["id"] not in suite_doc.get("traces", []):
-        errors.append(f"test suite {suite_id} does not trace use case {entry['id']}")
-use_case = loaded[docs / "specs/use-cases/rel01.0-uc001-coding-loop.yaml"]
-suite = loaded[docs / "specs/test-suites/test-rel01.0-coding-loop.yaml"]
-if use_case.get("test_suite") != suite.get("id"):
-    errors.append("use case does not name the coding-loop test suite")
-if use_case.get("id") not in suite.get("traces", []):
-    errors.append("test suite does not trace the coding-loop use case")
-if [case.get("stage") for case in suite.get("test_cases", [])] != ["A", "B", "C"]:
-    errors.append("test suite must define ordered stages A, B, and C")
-if errors:
-    raise SystemExit("\n".join(errors))
-print(f"audit: parsed and validated {len(paths)} coding-agent YAML documents")
-`
-	cmd, err := repositoryPython(root, "-c", validator, root)
+// auditDocumentation checks the coding-agent corpus: the foundation
+// documents carry their fields, every indexed path exists, every use case
+// names a test suite that traces it, and the coding-loop suite defines its
+// stages in order. Documents are read in either format (eng10).
+func auditDocumentation(root string) error {
+	parsed, errs := parseEveryDocument(root)
+	for path, fields := range codingAgentRequiredFields {
+		document, err := readCodingAgentDocument(root, path)
+		if err != nil {
+			return err
+		}
+		if missing := missingFields(document, fields); len(missing) > 0 {
+			errs = append(errs, fmt.Sprintf("%s missing %v", path, missing))
+		}
+	}
+	index, err := readCodingAgentDocument(root, "docs/SPECIFICATIONS.yaml")
 	if err != nil {
 		return err
 	}
-	cmd.Stdout, cmd.Stderr = os.Stdout, os.Stderr
-	if err := cmd.Run(); err != nil {
-		return fmt.Errorf("audit coding-agent docs: %w", err)
+	errs = append(errs, indexPathErrors(root, index)...)
+	traceErrs, err := traceabilityErrors(root, index)
+	if err != nil {
+		return err
 	}
+	errs = append(errs, traceErrs...)
+	if len(errs) > 0 {
+		return fmt.Errorf("audit coding-agent docs:\n%s", strings.Join(errs, "\n"))
+	}
+	fmt.Printf("audit: parsed and validated %d coding-agent documents\n", parsed)
 	return nil
 }
 
-// repositoryPython runs the interpreter pixi resolves from the repository's
-// pixi.toml, never the ambient python3. The audit needs PyYAML, and whichever
-// interpreter happens to lead a developer's PATH may not carry it: installing
-// an unrelated tool once put a Homebrew python ahead of the system one and
-// failed this gate with a bare import traceback (GH-2446). A declared,
-// locked environment is the repository's rule for Python.
-func repositoryPython(applicationRoot string, args ...string) (*exec.Cmd, error) {
-	manifest := filepath.Join(applicationRoot, "..", "..", "pixi.toml")
-	if _, err := os.Stat(manifest); err != nil {
-		return nil, fmt.Errorf(
-			"audit coding-agent docs: no pixi manifest at %s: %w", manifest, err)
+// parseEveryDocument parses every YAML document under docs and every
+// Markdown document at a declared corpus location, and returns how many
+// parsed and the errors of those that did not.
+func parseEveryDocument(root string) (int, []string) {
+	parsed := 0
+	var errs []string
+	err := filepath.WalkDir(filepath.Join(root, "docs"), func(path string, entry os.DirEntry, err error) error {
+		if err != nil || entry.IsDir() || !(strings.HasSuffix(path, ".yaml") || strings.HasSuffix(path, ".md")) {
+			return err
+		}
+		if strings.HasSuffix(path, ".md") && !declaredMarkdown(path) {
+			return nil // native Markdown such as a guide
+		}
+		data, readErr := markdown.ReadAsYAML(path)
+		var document any
+		if readErr == nil {
+			readErr = yaml.Unmarshal(data, &document)
+		}
+		if readErr != nil {
+			errs = append(errs, fmt.Sprintf("%s does not parse: %v", path, readErr))
+			return nil
+		}
+		parsed++
+		return nil
+	})
+	if err != nil {
+		errs = append(errs, err.Error())
 	}
-	if _, err := exec.LookPath("pixi"); err != nil {
-		return nil, fmt.Errorf(
-			"audit coding-agent docs: pixi is not installed; " +
-				"install it from https://pixi.sh and run pixi install")
+	return parsed, errs
+}
+
+func readCodingAgentDocument(root, path string) (map[string]any, error) {
+	data, err := markdown.ReadAsYAML(filepath.Join(root, filepath.FromSlash(path)))
+	if err != nil {
+		return nil, fmt.Errorf("audit coding-agent docs: read %s: %w", path, err)
 	}
-	pixiArgs := append([]string{"run", "--manifest-path", manifest, "python3"}, args...)
-	return exec.Command("pixi", pixiArgs...), nil
+	var document map[string]any
+	if err := yaml.Unmarshal(data, &document); err != nil {
+		return nil, fmt.Errorf("audit coding-agent docs: parse %s: %w", path, err)
+	}
+	return document, nil
+}
+
+func missingFields(document map[string]any, fields []string) []string {
+	var missing []string
+	for _, field := range fields {
+		if _, ok := document[field]; !ok {
+			missing = append(missing, field)
+		}
+	}
+	sort.Strings(missing)
+	return missing
+}
+
+// indexEntries returns the entries of one specification-index section.
+func indexEntries(index map[string]any, section string) []map[string]any {
+	list, _ := index[section].([]any)
+	entries := make([]map[string]any, 0, len(list))
+	for _, item := range list {
+		if entry, ok := item.(map[string]any); ok {
+			entries = append(entries, entry)
+		}
+	}
+	return entries
+}
+
+func indexPathErrors(root string, index map[string]any) []string {
+	var errs []string
+	for _, section := range []string{"foundation_document_index", "srd_index", "use_case_index", "test_suite_index"} {
+		for _, entry := range indexEntries(index, section) {
+			path, _ := entry["path"].(string)
+			if !indexedPathExists(filepath.Join(root, filepath.FromSlash(path))) {
+				errs = append(errs, fmt.Sprintf("%s path does not exist: %s", section, path))
+			}
+		}
+	}
+	return errs
+}
+
+// indexedPathExists reports an indexed file, or an indexed corpus document
+// that has moved to Markdown.
+func indexedPathExists(path string) bool {
+	if info, err := os.Stat(path); err == nil && !info.IsDir() {
+		return true
+	}
+	_, err := markdown.ReadAsYAML(path)
+	return err == nil
+}
+
+// traceabilityErrors requires every indexed use case to name an indexed test
+// suite that traces it back, and the coding-loop suite to stage A, B, C.
+func traceabilityErrors(root string, index map[string]any) ([]string, error) {
+	suites := map[string]map[string]any{}
+	for _, entry := range indexEntries(index, "test_suite_index") {
+		suite, err := readCodingAgentDocument(root, fmt.Sprint(entry["path"]))
+		if err != nil {
+			return nil, err
+		}
+		suites[fmt.Sprint(entry["id"])] = suite
+	}
+	var errs []string
+	for _, entry := range indexEntries(index, "use_case_index") {
+		useCase, err := readCodingAgentDocument(root, fmt.Sprint(entry["path"]))
+		if err != nil {
+			return nil, err
+		}
+		suiteID := fmt.Sprint(useCase["test_suite"])
+		suite, ok := suites[suiteID]
+		switch {
+		case !ok:
+			errs = append(errs, fmt.Sprintf("use case %v names unknown test suite %s", entry["id"], suiteID))
+		case !containsValue(suite["traces"], fmt.Sprint(entry["id"])):
+			errs = append(errs, fmt.Sprintf("test suite %s does not trace use case %v", suiteID, entry["id"]))
+		}
+	}
+	stageErrs, err := codingLoopStageErrors(root)
+	return append(errs, stageErrs...), err
+}
+
+func codingLoopStageErrors(root string) ([]string, error) {
+	useCase, err := readCodingAgentDocument(root, "docs/specs/use-cases/rel01.0-uc001-coding-loop.yaml")
+	if err != nil {
+		return nil, err
+	}
+	suite, err := readCodingAgentDocument(root, "docs/specs/test-suites/test-rel01.0-coding-loop.yaml")
+	if err != nil {
+		return nil, err
+	}
+	var errs []string
+	if fmt.Sprint(useCase["test_suite"]) != fmt.Sprint(suite["id"]) {
+		errs = append(errs, "use case does not name the coding-loop test suite")
+	}
+	if !containsValue(suite["traces"], fmt.Sprint(useCase["id"])) {
+		errs = append(errs, "test suite does not trace the coding-loop use case")
+	}
+	var stages []string
+	cases, _ := suite["test_cases"].([]any)
+	for _, item := range cases {
+		if testCase, ok := item.(map[string]any); ok {
+			stages = append(stages, fmt.Sprint(testCase["stage"]))
+		}
+	}
+	if strings.Join(stages, ",") != "A,B,C" {
+		errs = append(errs, "test suite must define ordered stages A, B, and C")
+	}
+	return errs, nil
+}
+
+func containsValue(list any, want string) bool {
+	items, _ := list.([]any)
+	for _, item := range items {
+		if fmt.Sprint(item) == want {
+			return true
+		}
+	}
+	return false
 }
 
 func bootSmokeProfiles(binary, coreRoot string, profiles []string) error {
@@ -176,4 +300,14 @@ func runAgentPreflight(binary string, args ...string) error {
 		return fmt.Errorf("%s", detail)
 	}
 	return nil
+}
+
+// declaredMarkdown reports a Markdown file at a declared corpus location.
+func declaredMarkdown(path string) bool {
+	declarations, err := markdown.Default()
+	if err != nil {
+		return false
+	}
+	_, ok := declarations.ForMarkdown(filepath.ToSlash(path))
+	return ok
 }
