@@ -1,0 +1,229 @@
+---
+id: chatbot-mesh-example-specifications
+title: Chatbot Mesh Example Specification Index
+---
+<!-- Copyright (c) 2026 Nokia -->
+<!-- SPDX-License-Identifier: BSD-3-Clause -->
+
+<!-- field: overview -->
+## Overview
+
+Specification index for the standalone chatbot mesh example. Eight SRDs define the
+program: three data-plane -- the RAG server agent (srd001), the chatbot agent
+(srd002), and the Helm deployment model (srd003) -- two control-plane -- the
+provisioning-workflow-orchestrator (srd004) and the creator (srd005) -- the deployment-plane applier
+(srd006), the collector agent (srd007), and the fleet observer agent (srd008).
+Ten use cases exercise them across nine releases (rel00.0 through rel08.0), each
+with a formal test suite.
+
+The application runs on the agent-core runtime and cites agent-core platform SRDs
+(srd021, srd028, srd029, srd030, srd033, srd034, srd035, srd036, and srd016
+traceparent) as external references rather than indexing them here. The control
+plane (provisioning-workflow-orchestrator, creator, and the provisioning surface) is release rel05.0; the
+applier (srd006) that replaces the Go provisioning surface with a declarative
+agent is release rel06.0.
+
+The corpus is validated by the specification critic (mage audit): it loads and validates with no
+errors. Advisory findings remain visible, including tool-undo-mismatch warnings;
+the gate does not report a warning-free corpus. The traceability chain is complete:
+every use case touchpoint builds an SRD edge (the object-format {id, target, reason} touchpoints
+parse since GH-448), every success criterion traces an acceptance criterion
+alongside its requirement groups, and every acceptance criterion is covered by a
+test case. Every SRD is indexed and placed in ARCHITECTURE, every use case targets
+its SRDs through touchpoints, and every test suite traces its use case.
+
+<!-- field: role_alignment_index -->
+## Role alignment index
+
+```yaml
+authority: ../../docs/specs/semantic-models/agent-role-realizations.yaml#bindings.chatbot_mesh
+architecture: docs/ARCHITECTURE.yaml#role_realization_alignment
+rule: Actors assume roles; profile, wrapper, Helm workload, and values-selected instance names are realization identities, not canonical role definitions.
+decisions:
+    - {current_actor: chatbot, canonical_role_sub_role: "Planner / Intent Handler; Executor / Workflow Orchestrator; Knowledge Manager / Recommendation Generator", retained_or_proposed_name: chatbot, evidence: srd002, migration_impact: none}
+    - {current_actor: rag-server, canonical_role_sub_role: "Knowledge Manager / Recommendation Generator", retained_or_proposed_name: rag-server, evidence: srd001, migration_impact: none}
+    - {current_actor: corpus-ingest, canonical_role_sub_role: "inherited Knowledge Manager / Ontology Manager", retained_or_proposed_name: corpus-ingest, evidence: "srd001 ingest boundary and wrapper profile", migration_impact: none}
+    - {current_actor: provisioning-workflow-orchestrator, canonical_role_sub_role: "Executor / Workflow Orchestrator; not Coordinator", retained_or_proposed_name: provisioning-workflow-orchestrator, evidence: srd004, migration_impact: GH-1077}
+    - {current_actor: creator, canonical_role_sub_role: "Creator / Instance Manager; Agent Owner / Agent Lifecycle Manager", retained_or_proposed_name: creator, evidence: srd005, migration_impact: none}
+    - {current_actor: applier, canonical_role_sub_role: "Executor / Actuation Agent and Change Manager", retained_or_proposed_name: applier, evidence: srd006, migration_impact: documentation-only}
+    - {current_actor: collector, canonical_role_sub_role: "Monitor / Telemetry Collector", retained_or_proposed_name: collector, evidence: srd007, migration_impact: none}
+    - {current_actor: observer, canonical_role_sub_role: "Monitor / Fleet Observer", retained_or_proposed_name: observer, evidence: srd008, migration_impact: none}
+deployment_evidence:
+    - helm/templates/chatbot.yaml
+    - helm/templates/rag-units.yaml
+    - helm/templates/provisioning-workflow-orchestrator.yaml
+    - helm/templates/creator.yaml
+    - helm/templates/applier.yaml
+    - helm/templates/collector.yaml
+    - helm/templates/observer.yaml
+```
+
+<!-- field: roadmap_summary -->
+## Roadmap summary
+
+```yaml
+- version: "00.0"
+  name: RAG server and single-RAG chatbot turn
+  use_cases_done: 2
+  use_cases_total: 2
+  status: implemented
+- version: "01.0"
+  name: Tier selection and multi-RAG fan-out
+  use_cases_done: 1
+  use_cases_total: 1
+  status: implemented
+- version: "02.0"
+  name: Observability
+  use_cases_done: 1
+  use_cases_total: 1
+  status: implemented
+- version: "03.0"
+  name: Mesh deployment and tiered swap
+  use_cases_done: 1
+  use_cases_total: 1
+  status: implemented
+- version: "04.0"
+  name: In-cluster LLM tier
+  use_cases_done: 1
+  use_cases_total: 1
+  status: implemented
+- version: "05.0"
+  name: Control plane
+  use_cases_done: 0
+  use_cases_total: 1
+  status: partial
+- version: "06.0"
+  name: Declarative applier agent
+  use_cases_done: 1
+  use_cases_total: 1
+  status: implemented
+- version: "07.0"
+  name: Declarative collector agent
+  use_cases_done: 0
+  use_cases_total: 1
+  status: partial
+- version: "08.0"
+  name: Fleet observer agent
+  use_cases_done: 0
+  use_cases_total: 1
+  status: planned
+- version: "09.0"
+  name: Canonical collector and Jaeger retirement
+  use_cases_done: 1
+  use_cases_total: 1
+  status: done
+```
+
+<!-- field: srd_index -->
+## Srd index
+
+| id | title | summary | path |
+| --- | --- | --- | --- |
+| srd001-rag-server-agent | RAG Server Agent Functional Block | Persistent vector-in retrieval service behind a machine_request query endpoint. | docs/specs/software-requirements/srd001-rag-server-agent.yaml |
+| srd002-chatbot-agent | Chatbot Agent Functional Block | Browser-facing agent whose request-scoped turn selects a model tier, fans out to RAG servers, composes, and answers. | docs/specs/software-requirements/srd002-chatbot-agent.yaml |
+| srd003-chatbot-deployment | Chatbot Mesh Deployment Model | One Helm chart with values-driven RAG pairs, co-generated client config, tiered hot swap, and an in-cluster LLM tier. | docs/specs/software-requirements/srd003-chatbot-deployment.yaml |
+| srd004-provisioning-workflow-orchestrator | Provisioning Workflow Orchestrator Agent Functional Block | The current provisioning-workflow-orchestrator actor assumes Executor / Workflow Orchestrator, binds a provisioning intent, and sequences ingestion and reconfiguration through the creator; GH-1077 completed its semantic rename. | docs/specs/software-requirements/srd004-provisioning-workflow-orchestrator.yaml |
+| srd005-creator | Creator Agent Functional Block | Actor assuming Creator / Instance Manager and Agent Owner / Agent Lifecycle Manager that realizes decided operations and alone holds deployment-API authority. | docs/specs/software-requirements/srd005-creator.yaml |
+| srd006-applier | Applier Agent Functional Block | Executor / Actuation Agent realization that validates a values patch, applies and verifies a rollout, and rolls back, binding helm and kubectl as exec tools. | docs/specs/software-requirements/srd006-applier.yaml |
+| srd007-collector-agent | Collector Agent Functional Block | Monitor / Telemetry Collector realization composing bounded OTLP receive, deterministic spool, unchanged relay, lifecycle surfaces, and self-loop prevention while contrib retains metrics. | docs/specs/software-requirements/srd007-collector-agent.yaml |
+| srd008-observer-agent | Observer Agent Functional Block | Monitor / Fleet Observer realization that discovers mesh agents and the deployment topology from the Kubernetes API, polls each agent's monitor surface and per-pod resource usage (metrics.k8s.io), and serves a fleet-level view. | docs/specs/software-requirements/srd008-observer-agent.yaml |
+
+<!-- field: use_case_index -->
+## Use case index
+
+| id | title | release | status | test_suite | path |
+| --- | --- | --- | --- | --- | --- |
+| rel00.0-uc001-rag-server-query | Persistent RAG Server Answers a Vector-In Query | 00.0 | implemented | test-rel00.0-chatbot-mesh | docs/specs/use-cases/rel00.0-uc001-rag-server-query.yaml |
+| rel00.0-uc002-chatbot-turn | Chatbot Turn Embeds, Retrieves From One RAG, and Answers | 00.0 | implemented | test-rel00.0-chatbot-mesh | docs/specs/use-cases/rel00.0-uc002-chatbot-turn.yaml |
+| rel01.0-uc001-routed-fanout | Chatbot Turn Selects Sources and a Model Tier Before Trusted RAG Fan-Out | 01.0 | implemented | test-rel01.0-routing-fanout | docs/specs/use-cases/rel01.0-uc001-routed-fanout.yaml |
+| rel02.0-uc001-observability | Observability Panel Shows Per-Agent State and a Cross-Agent Trace Waterfall | 02.0 | implemented | test-rel02.0-observability | docs/specs/use-cases/rel02.0-uc001-observability.yaml |
+| rel03.0-uc001-mesh-deployment | Helm Chart Deploys the Mesh and Hot-Swaps a RAG Source | 03.0 | implemented | test-rel03.0-mesh-deployment | docs/specs/use-cases/rel03.0-uc001-mesh-deployment.yaml |
+| rel04.0-uc001-in-cluster-llm-tier | A Fresh-Cluster Install Answers a Turn With No External LLM Dependency | 04.0 | implemented | test-rel04.0-llm-tier | docs/specs/use-cases/rel04.0-uc001-in-cluster-llm-tier.yaml |
+| rel05.0-uc001-control-plane-provisioning | A Provisioning Intent Flows Chatbot to Provisioning Workflow Orchestrator to Creator and Serves | 05.0 | partial | test-rel05.0-control-plane | docs/specs/use-cases/rel05.0-uc001-control-plane-provisioning.yaml |
+| rel06.0-uc001-declarative-applier | The Applier Agent Realizes the Deployment API and Rolls Out a Values Change | 06.0 | implemented | test-rel06.0-applier | docs/specs/use-cases/rel06.0-uc001-declarative-applier.yaml |
+| rel07.0-uc001-collector-ingress | The collector agent retains and relays an attributable trace batch | 07.0 | partial | test-rel07.0-collector | docs/specs/use-cases/rel07.0-uc001-collector-ingress.yaml |
+| rel08.0-uc001-mesh-observer | The observer agent discovers the mesh and shows a fleet view | 08.0 | implemented | test-rel08.0-observer | docs/specs/use-cases/rel08.0-uc001-mesh-observer.yaml |
+
+<!-- field: test_suite_index -->
+## Test suite index
+
+```yaml
+- id: test-rel00.0-chatbot-mesh
+  title: Test Suite for Release 00.0 RAG Server and Single-RAG Chatbot Turn
+  release: "00.0"
+  traces: [rel00.0-uc001-rag-server-query, rel00.0-uc002-chatbot-turn]
+  path: docs/specs/test-suites/test-rel00.0-chatbot-mesh.yaml
+- id: test-rel01.0-routing-fanout
+  title: Test Suite for Release 01.0 Source Routing, Tier Selection, and Multi-RAG Fan-Out
+  release: "01.0"
+  traces: [rel01.0-uc001-routed-fanout]
+  path: docs/specs/test-suites/test-rel01.0-routing-fanout.yaml
+- id: test-rel02.0-observability
+  title: Test Suite for Release 02.0 Observability
+  release: "02.0"
+  traces: [rel02.0-uc001-observability]
+  path: docs/specs/test-suites/test-rel02.0-observability.yaml
+- id: test-rel03.0-mesh-deployment
+  title: Test Suite for Release 03.0 Mesh Deployment and Tiered Swap
+  release: "03.0"
+  traces: [rel03.0-uc001-mesh-deployment]
+  path: docs/specs/test-suites/test-rel03.0-mesh-deployment.yaml
+- id: test-rel04.0-llm-tier
+  title: Test Suite for Release 04.0 In-Cluster LLM Tier
+  release: "04.0"
+  traces: [rel04.0-uc001-in-cluster-llm-tier]
+  path: docs/specs/test-suites/test-rel04.0-llm-tier.yaml
+- id: test-rel05.0-control-plane
+  title: Test Suite for Release 05.0 Control Plane
+  release: "05.0"
+  traces: [rel05.0-uc001-control-plane-provisioning]
+  path: docs/specs/test-suites/test-rel05.0-control-plane.yaml
+- id: test-rel06.0-applier
+  title: Test Suite for Release 06.0 Declarative Applier Agent
+  release: "06.0"
+  traces: [rel06.0-uc001-declarative-applier]
+  path: docs/specs/test-suites/test-rel06.0-applier.yaml
+- id: test-rel07.0-collector
+  title: Test Suite for Release 07.0 Collector Agent
+  release: "07.0"
+  traces: [rel07.0-uc001-collector-ingress]
+  path: docs/specs/test-suites/test-rel07.0-collector.yaml
+- id: test-rel08.0-observer
+  title: Test Suite for Release 08.0 Observer Agent
+  release: "08.0"
+  traces: [rel08.0-uc001-mesh-observer]
+  path: docs/specs/test-suites/test-rel08.0-observer.yaml
+```
+
+<!-- field: foundation_document_index -->
+## Foundation document index
+
+| id | title | summary | path |
+| --- | --- | --- | --- |
+| chatbot-mesh-example | Chatbot Mesh: A Copyable Declarative Agent Application | Goals, boundaries, and success criteria for the chatbot mesh. | docs/VISION.yaml |
+| architecture-chatbot-mesh-example | Chatbot Mesh Architecture | Components, ownership boundaries, deployment, and runtime flows. | docs/ARCHITECTURE.yaml |
+| chatbot-mesh-example-roadmap | Chatbot Mesh Example Road Map | Release plan and implementation status for the application. | docs/road-map.yaml |
+| chatbot-mesh-how-it-works | How the Chatbot Mesh Works | Operator and developer guide to the application flow. | docs/guides/how-it-works.md |
+
+<!-- field: config_format_index -->
+## Config format index
+
+```yaml
+[]
+```
+
+<!-- field: semantic_model_index -->
+## Semantic model index
+
+| id | title | summary | path |
+| --- | --- | --- | --- |
+| sm-agent-role-realizations | Agent Role Realizations and Bindings | Canonical role bindings for chatbot-mesh actors and profiles. | ../../docs/specs/semantic-models/agent-role-realizations.yaml |
+
+<!-- field: coverage_gaps -->
+## Coverage gaps
+
+| release | status | gap |
+| --- | --- | --- |
+| 05.0 | partial | Control-plane provisioning remains partially implemented. |
+| 07.0 | partial | Collector-agent evidence remains partial. |
+| 08.0 | planned | Fleet-observer evidence remains planned. |

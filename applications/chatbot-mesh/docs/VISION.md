@@ -1,0 +1,130 @@
+---
+id: chatbot-mesh-example
+title: "Chatbot Mesh: A Copyable Declarative Agent Application"
+---
+<!-- Copyright (c) 2026 Nokia -->
+<!-- SPDX-License-Identifier: BSD-3-Clause -->
+
+<!-- field: executive_summary -->
+## Executive summary
+
+The chatbot mesh is a copyable application program. It shows what a mesh of
+declarative agents can do: a browser-facing chatbot that routes a question to
+a chat model, fans one embedding out to several retrieval-augmented generation
+(RAG) servers, composes an answer from the surviving sources' chunks, exposes
+per-agent and cross-agent observability, and deploys as one Helm chart with an
+in-cluster model tier.
+
+The application is a copyable application, not a standalone runtime or profile
+library. It runs on the published agent-core image and resolves the reusable
+corpus-ingest program from a canonical applications/catalog checkout at build/test
+time. Packaging embeds that closure, so the resulting chart has no runtime
+dependency on the checkout.
+
+The application spans the data plane -- the chatbot, the RAG servers, a corpus-ingest
+agent that seeds the vector store, observability, and Helm deployment -- and the
+control plane: a provisioning-workflow-orchestrator that sequences a provisioning intent, a creator that
+manages agent lifecycle, and the provisioning surface (the deployment API and its
+panel). The control plane is release rel05.0.
+
+<!-- field: problem -->
+## Problem
+
+A framework claim is easier to trust when one artifact demonstrates it end to
+end. Spread across a shared profile catalog, the chatbot mesh is hard to read
+as a single program and hard to lift into another project: its agents sit in
+two family trees, its user interface is buried under one agent, and its Helm
+chart lives apart from the profiles it deploys.
+
+We want a reader to open one directory and see a complete declarative agent
+program: the agents, their user interface, their deployment, and their own
+specifications. We want that directory to be copyable, so it can seed a new
+project while declaring, rather than silently duplicating, its canonical
+profile dependency.
+
+<!-- field: what_this_does -->
+## What this does
+
+This directory collects the mesh as a self-governing project. The `agents/`
+tree holds the chatbot, the RAG server, and the corpus-ingest application
+wrapper. The canonical ingest machine, tools, and declarations remain owned by
+applications/catalog and are resolved during packaging. Each served UI lives
+under its serving agent: `agents/chatbot/ui/` holds the single-page
+application and its UI config. The observer's fleet view is the bundle
+compiled into agent-core, so `agents/observer/` holds declarations only. The
+`helm/` tree holds the
+deployment chart. The `docs/` tree holds this vision, the architecture, the
+road map, and the application's own software requirements, use cases, and test
+suites.
+
+The application carries its own build entry. A magefile validates the application's
+specification corpus and runs the mesh integration targets, so the application
+governs and tests itself without the surrounding repository.
+
+<!-- field: why_we_build_this -->
+## Why we build this
+
+A standalone application makes the framework's value legible. A reader sees that
+agent behavior is YAML a shared runtime loads, that a multi-agent topology is
+configuration rather than bespoke code, and that the same profiles run locally
+and in a cluster.
+
+A declared dependency boundary lets the application travel without forking shared
+behavior. Chroma retrieval config, the corpus-ingest wrapper, and the
+deployment chart live with the mesh. Packaging resolves the reusable ingest
+program from the canonical applications/catalog checkout and embeds that closure in
+the chart; the checkout is a build/test dependency, not a runtime dependency.
+
+<!-- field: success_criteria -->
+## Success criteria
+
+- copyable_application: The application runs on the published agent-core image. A copied directory uses
+  the documented demo.yaml catalog_root build/test dependency for the canonical
+  corpus-ingest program, and the packaged chart carries the resolved closure
+  without requiring that checkout at runtime.
+- self_contained_data_plane: The chatbot, the RAG server, and the corpus-ingest seed agent run end to end
+  from this directory after resolving the documented canonical build
+  dependency. Chroma retrieval config is owned by the mesh, not shared from
+  another family.
+- self_governing_docs: The application owns its VISION, ARCHITECTURE, road map, software requirements,
+  use cases, and test suites. Its magefile audit validates that corpus.
+- clear_layout: The deployment chart lives in its own top-level `helm/` directory, and each
+  served UI lives under the agent that serves it, so a reader locates the
+  deployment and finds an interface beside the agent whose binding hosts it.
+- portable_deployment: One Helm chart deploys the mesh on a fresh cluster, including an in-cluster
+  model tier, with values-driven RAG pairs and co-generated client config.
+
+<!-- field: not -->
+## Not
+
+- We do not own the agent-core runtime, its Go packages, or its builtin tools; the application is a program that runs on that runtime.
+- We do not restate agent-core platform requirements (REST client tools, machine_request binding, monitor, mounted profiles, checkpoint, command-state, traceparent); we cite them as external references.
+- We do not share Chroma retrieval config with the knowledge-manager corpus demo; the mesh owns its own copy.
+- We do not invert co-generation in this cut. The Helm chart renders the chatbot client config, user interface, and fan-out from values; making the profile the source is a separate follow-up.
+
+<!-- field: canonical_documents -->
+## Canonical documents
+
+- docs/ARCHITECTURE.yaml
+- docs/road-map.yaml
+- docs/specs/software-requirements/srd001-rag-server-agent.yaml
+- docs/specs/software-requirements/srd002-chatbot-agent.yaml
+- docs/specs/software-requirements/srd003-chatbot-deployment.yaml
+- README.md
+
+<!-- field: platform_references -->
+## Platform references
+
+```yaml
+note: |
+    These agent-core requirements are the runtime contracts the application builds
+    on. They are external references, owned by agent-core, not restated here.
+requirements:
+    - agent-core srd028 (REST client tools)
+    - agent-core srd030 (machine_request REST binding)
+    - agent-core srd033 (monitor REST API)
+    - agent-core srd034 (external mounted agent profiles)
+    - agent-core srd035 and srd036 (checkpoint port and persistence)
+    - agent-core srd038 (command-state store and $from selectors)
+    - agent-core srd016 (W3C traceparent propagation)
+```

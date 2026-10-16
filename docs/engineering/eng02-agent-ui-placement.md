@@ -1,0 +1,205 @@
+---
+id: eng02-agent-ui-placement
+title: "Placement of Agent-Served User Interfaces"
+---
+<!-- Copyright (c) 2026 Nokia -->
+<!-- SPDX-License-Identifier: BSD-3-Clause -->
+
+<!-- field: introduction -->
+## Introduction
+
+Every user interface this runtime serves is served by an agent. There is no
+standalone web server: a browser reaches a single-page application, a trace
+waterfall, or a documentation site only because some agent declares a
+static_assets binding in its rest.yaml and hosts the files at an HTTP route.
+The chatbot single-page application, the collector trace UI, the bench and
+documentation-curator panels, and the observer monitor view are all the same
+shape underneath, differing only in which agent owns the route.
+
+Placement of the source, however, diverged. Some UIs live under the agent
+that serves them (agents/bench/ui, agents/knowledge-manager/
+documentation-curator/ui); one lives at the application top level
+(chatbot-mesh ux/), and the observer keeps its view under the agent but in a
+directory named ux rather than ui. The root paths that address these trees
+diverged with them, because the runtime resolves that path relative to the
+serving process rather than to the profile, and different agents launch from
+different directories.
+
+This guideline fixes the convention. A served UI lives under the agent that
+serves it, in a directory named ui, with its declarative route configuration
+beside it as ui.yaml. The static_assets root that addresses it is written in
+one form. We state the runtime resolution rule the convention rests on, so
+the placement and the path that reaches it stay coupled, and we record the
+current inventory so the non-conforming cases are visible and tracked to
+migration rather than forgotten. This guideline covers where a served UI
+lives; what it may contain and when a component belongs in the shared kit
+is eng04-ui-kit-reuse.
+
+<!-- section: the-rule -->
+## The rule
+
+A user interface served by an agent's static_assets binding lives under
+that agent, at agents/<name>/ui/. The directory term is ui, never ux.
+An agent that serves more than one surface nests them under that single
+ui directory (agents/<name>/ui/docs, agents/<name>/ui/monitor), one
+built tree each, rather than spreading sibling directories across the
+agent root.
+
+The interface's declarative route and action configuration — the routes,
+sidebar, actions, and per-surface settings a co-generated REST surface
+reads — lives in the same directory as ui.yaml. Naming it for the
+directory that holds it, rather than for the application or the SPA
+framework, keeps the configuration discoverable from the agent that owns
+it.
+
+Two categories are out of scope because no agent serves them. Shared
+presentation assets that several UIs import but no static_assets binding
+hosts live in the UI kit, applications/ui-kit, published as the npm
+package @declarative-agents/ui-kit (srd004 R8). The design tokens at
+applications/ui-kit/src/tokens.css are the worked case; a UI imports
+them as @declarative-agents/ui-kit/tokens.css through a file:
+dependency on the kit. A platform UI that every agent of a kind
+shares, such as the fleet observer, is built from its source under
+applications/ui-kit/observer and committed as a built bundle under
+agent-core/internal/tools/rest/bundles/<name>/, because agent-core is
+its own Go module and go:embed reads only files inside it; mage
+uikit:observer refreshes the copy and mage uiDist fails when it differs
+from a clean rebuild. An agent selects the bundle by name in its
+rest.yaml static_assets binding and carries no UI files, so the bundle
+needs no ConfigMap delivery (srd004 R9). Runtime-internal assets that are
+never mounted into a served application, such as
+agent-core/internal/knowledge/documentation/ui, are part of the platform
+and this guideline does not reach them.
+
+<!-- section: how-the-runtime-resolves-the-root -->
+## How the runtime resolves the root
+
+The convention rests on one runtime fact. When an agent serves a
+static_assets endpoint, the handler opens files under
+http.Dir(filepath.Clean(cfg.Root)) — the root string verbatim, with no
+join against the profile directory or the agent directory
+(agent-core/internal/tools/rest/server_routes.go, serveStaticAssets).
+The root is therefore resolved relative to the working directory of the
+agent process, not relative to where the profile or the UI source sits
+on disk.
+
+That single fact explains the divergence this guideline closes. An agent
+launched from the application root addresses its UI as
+agents/<name>/ui/dist; an agent launched from its own directory would
+address the same tree as ui/dist. Both strings can be correct for the
+same files, depending only on the launch directory, which is why the
+path cannot be read off the source tree and has to be prescribed
+alongside a launch convention.
+
+Agents in this repository launch from the application root. The mage
+integration targets set it explicitly — cmd.Dir = profilesRoot for the
+bench agent, cmd.Dir = applicationRoot for the observer — so a root
+written relative to the application root resolves under local runs and
+under the release gates that exercise them.
+
+<!-- section: the-root-form -->
+## The root form
+
+Write the static_assets root as an environment override with the
+application-root-relative path as its default:
+
+  root: "${<AGENT>_UI_ROOT:-agents/<name>/ui/dist}"
+
+The default is what a local run resolves, addressed from the application
+root per the launch convention above. The override is what a packaged
+deployment supplies: the chart mounts the built UI under its profiles
+ConfigMap and sets <AGENT>_UI_ROOT to the absolute mount path, because
+the pod's working directory and mount layout are not the developer's
+checkout. The chatbot binding is the pattern —
+root: "${CHATBOT_UI_ROOT:-ux/app/dist}" today, becoming
+"${CHATBOT_UI_ROOT:-agents/chatbot/ui/dist}" once the source moves.
+
+This ${VAR:-default} form is the same mounted-declaration parameterization
+the runtime already applies to profile values (srd013 R5.6/R5.7): the
+default holds for local development, and the deployment overrides it
+without editing the declaration. A UI whose built output is served
+directly at the agent root, with no dist subdirectory, points the default
+at agents/<name>/ui instead; the override contract is unchanged.
+
+One case is exempt from the environment override, and the exemption is
+mandated rather than tolerated. When an agent's built UI ships in its own
+ConfigMap — held out of the shared profiles tree every pod mounts, because
+that tree carries a size limit — and the agent sets its working directory
+to that mount, the root is a literal path resolved against that working
+directory, declared with no environment variable. The collector is this
+case: srd020 R7.4 requires that the static_assets root be a literal path
+resolved relative to the profile directory, never introduced as a new
+environment variable, so the collector declares
+root: ui/dist while its charts mount the trace UI at a collector-local
+working directory (GH-1228). Where a spec forbids the environment variable,
+this literal, profile-directory-relative form is required, not merely
+permitted; the ${VAR:-default} form governs every agent a spec does not so
+constrain.
+
+Table 1: Root form by launch context
+
+| Context | Working directory | Root value |
+|---------|-------------------|------------|
+| Local run, release gate | application root | agents/<name>/ui/dist (the default) |
+| Packaged deployment | pod, mounted profiles | absolute mount path via <AGENT>_UI_ROOT |
+
+<!-- section: current-inventory-and-migration -->
+## Current inventory and migration
+
+Table 2 records where each served UI sits against this guideline at the
+time of writing. The compliant agents are the pattern the rest follow.
+
+Table 2: Served UIs against the rule
+
+| Serving agent | Application | Source location | Conforms |
+|---------------|-------------|-----------------|----------|
+| bench | catalog | agents/bench/ui | yes |
+| documentation-curator | catalog | agents/knowledge-manager/documentation-curator/ui | yes — literal roots against a chart-set working directory, the collector's exception (GH-2348) |
+| collector | catalog | agents/collector/ui | yes — literal ui/dist root is a sanctioned exception (srd020 R7.4) |
+| chatbot | chatbot-mesh | ux/ (application top level) | no — moves to agents/chatbot/ui |
+| observer | chatbot-mesh | none — the observer bundle compiled into agent-core | yes — out of scope as a platform bundle (srd004 R9.4) |
+
+The documentation-curator is the collector's case rather than the
+${VAR:-default} case, and this was recorded only after its UIs served 404
+in a cluster (GH-2348). Its browser UIs are too large for the shared
+profiles tree, so they ship as their own sharded ConfigMaps that an init
+container unpacks into the curator's workspace, exactly the held-out
+shape the exemption above describes. Its roots are literal and
+profile-relative, and its chart sets the container's working directory to
+the unpack path so they resolve; the chart had been relying on
+--directory, which sets the agent's workspace and not the process working
+directory the static_assets handler reads. A held-out UI therefore owes
+two things together — a literal root and a chart-set workingDir — and
+neither is evidence of the other.
+
+The chatbot-mesh cases migrated under GH-1316, which moved ux/ to
+agents/chatbot/ui (with ux.yaml becoming ui.yaml) and renamed the
+observer tree to agents/observer/ui. GH-2269 then deleted that observer
+tree: the observer's monitor-rest.yaml selects the embedded observer
+bundle with a config map, so the agent carries declaration files only and
+the chart delivers no ConfigMap, archive, volume, or root for it. The collector conforms in placement and
+writes its root as a literal ui/dist. That is not a pending normalization
+but a sanctioned exception: srd020 R7.4 forbids introducing an environment
+variable for the collector UI root, and the trace UI rides a
+collector-only ConfigMap mounted at a collector-local working directory
+(GH-1228), so the literal profile-directory-relative path is the required
+form. The collector rest configuration and both charts stay as they are.
+
+A new agent that serves a UI starts conforming: create agents/<name>/ui,
+put the built output under agents/<name>/ui/dist and the route
+configuration in agents/<name>/ui/ui.yaml, and write the binding root as
+"${<AGENT>_UI_ROOT:-agents/<name>/ui/dist}". No migration is then owed.
+
+<!-- field: references -->
+## References
+
+- agent-core/internal/tools/rest/server_routes.go (serveStaticAssets: http.Dir(cfg.Root) resolves the root against the process working directory)
+- agent-core/internal/tools/rest/definition/server.go (StaticAssetsConfig: root, index, spa)
+- applications/catalog/agents/bench/rest.yaml (conforming placement exemplar)
+- applications/catalog/agents/knowledge-manager/documentation-curator/rest.yaml (multi-surface UI under one ui directory)
+- applications/chatbot-mesh/agents/chatbot/rest.yaml (the ${VAR:-default} root form)
+- GH-1316 (chatbot-mesh ux/ to agents/chatbot/ui migration)
+- agent-core/docs/specs/software-requirements/srd013 R5.6/R5.7 (mounted-declaration ${VAR:-default} parameterization)
+- applications/catalog/docs/specs/software-requirements/srd020-collector.yaml R7.4 (collector static_assets root: literal, profile-directory-relative, no new environment variable)
+- applications/agent-architecture/helm/templates/curator.yaml (a held-out UI: literal roots with the container workingDir set to the unpack path)
+- GH-2348 (documentation-curator UIs served 404: literal root against the image's / working directory)

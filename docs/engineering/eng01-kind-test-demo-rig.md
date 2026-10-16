@@ -1,0 +1,598 @@
+---
+id: eng01-kind-test-demo-rig
+title: "Standard kind Rig for Agent Integration Tests and Demos"
+---
+<!-- Copyright (c) 2026 Nokia -->
+<!-- SPDX-License-Identifier: BSD-3-Clause -->
+
+<!-- field: introduction -->
+## Introduction
+
+Every application in this repository needs the same two capabilities: an
+integration test that proves the mesh works on a real Kubernetes
+cluster, and a demo a person can drive from a browser or terminal.
+The chatbot-mesh application grew a working rig for both in its magefiles:
+dependency gating, image bake, kind image load, a chart values overlay
+for cluster runs, leftover-cluster replacement, and teardown in all
+paths. Nothing in that rig is specific to chatbot-mesh, and each new
+application would otherwise re-invent it with small divergences.
+
+This guideline standardizes the rig and the persistent local application
+platform. It fixes the toolchain, platform and application lifecycles,
+durable object-storage boundary, image delivery, network access, Mage verbs,
+and failure evidence capture. We assume docker as the container engine and
+kind (Kubernetes in Docker) as the cluster
+runtime; helm delivers the charts. Podman support is deferred but the
+design keeps the engine behind an interface so it can be added without
+reworking the rig. ENG08 is this rig's cloud twin: the same charts and
+overlay discipline pointed at GKE, with the differences confined to the
+bootstrap layer.
+
+<!-- section: toolchain-and-preflight -->
+## Toolchain and preflight
+
+The rig depends on four host binaries. Nothing else may be assumed
+on the host; everything further runs inside the cluster.
+
+Table 1: Required host toolchain
+
+| Tool | Role | Failure mode when absent |
+|------|------|--------------------------|
+| docker | Builds images, hosts the kind nodes | Integration targets skip; demo targets fail with install instructions |
+| kind | Creates and deletes the cluster, loads images | Same as docker |
+| helm | Installs and upgrades the application charts | Same as docker |
+| kubectl | Waits, port-forwards, collects evidence | Same as docker |
+
+Integration targets keep the existing chatbot-mesh convention:
+when a binary is missing they skip and name the missing dependency
+rather than failing, so a laptop without docker can still run unit
+tests. Demo targets invert this: a person asked for the demo, so a
+missing tool is an error with a one-line install pointer.
+
+Versions are pinned in one checked-in place. The kind node image
+is coupled to the kind binary version, and helm and kubectl skew
+against the cluster version, so unpinned tools produce different
+clusters on different machines. A preflight target (mage doctor)
+checks binary presence, minimum versions, and, on macOS, that the
+docker virtual machine has enough CPU and memory for a mesh plus
+its observability stack; an undersized virtual machine presents as
+pods pending forever, and the preflight turns that into a clear
+message before any cluster is created.
+
+The shared implementation and minimum-version pins live in
+`magefiles/kindrig/preflight.go`. Both applications expose `mage doctor`,
+`mage demo:up`, and `mage demo:down`; doctor and requested-demo preflight
+execute only version and Docker resource queries.
+
+<!-- section: cluster-lifecycle -->
+## Cluster lifecycle
+
+The rig has two tiers (GH-2215). The cluster-services tier is one
+shared cluster, `da-platform`, that owns the kind node, the Traefik
+ingress controller, one fake-GCS object-storage endpoint,
+metrics-server, and storage provisioning. The application tier runs
+each manifest-selected application as one Helm release in its stable
+namespace, `da-<application>`, on that cluster. Integration scenarios
+use run-scoped releases or data prefixes inside that application
+boundary. A kind node costs
+about 1.3 GiB before any application pod, and releases paid that tax
+eight to nine times with three lanes concurrent; one control plane
+per release replaces those bootstraps.
+
+Every cluster is created from a checked-in kind configuration file.
+The configuration pins the node image by version and digest
+(`kindest/node:vX.Y.Z@sha256:...`) and declares any `extraMounts` or
+`extraPortMappings`. Creating a cluster without a configuration file
+is not permitted; the file is what makes two machines produce the same
+cluster. The platform configuration maps ingress ports and mounts the
+fake-GCS filesystem from one stable host path. Pod, node, and
+`da-platform` recreation therefore do not define object retention.
+
+Table 2: Checked-in kind configurations
+
+| Configuration | Cluster | Purpose |
+|---------------|---------|---------|
+| `magefiles/kindrig/platform-kind-config.yaml` | `da-platform` | Canonical application platform; ingress ports, control-plane tracing, and the stable object-data mount |
+| `applications/chatbot-mesh/testdata/kind-policy-config.yaml` | `da-chatbot-mesh-policy` | Cluster-mutating policy proof; default CNI disabled for Calico |
+
+`da-platform` is the canonical application and interactive-demo mode.
+`platform:up` creates it or reuses it after conformance and leaves it
+running. `platform:down` stops platform compute but preserves the stable
+object-data host path. `platform:reset` is the separate destructive
+operation that deletes that path; no release, scenario, or application
+teardown calls reset implicitly.
+
+A release may recreate platform compute for hermetic execution, but it
+preserves the configured object-data path and isolates assertions by
+application bucket and run identity rather than treating cluster
+deletion as data deletion. A developer platform is therefore reusable
+after a release once `platform:up` re-establishes conformance. An
+`integration:all` aggregate acquires the platform once and its
+namespaced scenarios reuse it.
+
+A scenario namespace is created by `PrepareScenarioNamespace` and torn
+down by its release on every exit path: Helm uninstall, workload
+controllers, pods, persistent volume claims, and the namespace, then a
+check that the namespace is gone and a data-plane recheck (kube-proxy
+Ready, CoreDNS rolled out, `/readyz`) before the next scenario
+installs. A namespace left by an interrupted run is torn down before
+the scenario creates its own. Cluster-scoped fixtures a scenario
+applies, such as the coding-agent workspace PersistentVolume, are the
+scenario's to delete explicitly.
+
+Table 3: Isolation guarantees
+
+| Guarantee | Mechanism before GH-2215 | Mechanism now |
+|-----------|--------------------------|---------------|
+| No leftover state between scenarios | Cluster delete and create | Namespace, claim, and controller deletion plus data-plane recheck |
+| No test-state collision between releases | Cluster delete and create | Run identity, application bucket/prefix identity, namespace cleanup, and optional platform-compute recreation without implicit data deletion |
+| Cluster-scoped configuration per scenario | Per-scenario kind configuration | Cluster-mutating scenarios keep owned clusters |
+
+The retained-data boundary is not the namespace boundary. Each
+application receives an application-specific bucket from the shared
+object service and may use prefixes within it. `app:down` removes the
+release and namespace but leaves that bucket. `app:purge` is the only
+application verb that deletes its retained objects. One application's
+down or purge never selects another application's namespace or bucket.
+
+Readiness is observed, never assumed. Targets wait with
+`kubectl wait --for=condition=Ready` and `kubectl rollout status`
+with explicit timeouts. Sleep loops are not permitted.
+
+<!-- section: scenario-classification -->
+## Scenario classification
+
+A scenario is namespaced or cluster-mutating, and the classification
+lives in the scenario definition (`kindrig.ScenarioClass`), not in a
+flag. Namespaced is the default: the scenario's chart carries only
+namespaced resources and it runs on `da-platform`. A scenario that
+needs cluster-scoped configuration, which a shared cluster cannot take,
+is cluster-mutating and keeps an owned cluster,
+`da-<application>-<scenario>`, acquired fresh from its own checked-in
+configuration and deleted on every exit path. The rules this guideline
+gave every scenario before GH-2215 apply to it verbatim.
+
+Table 4: Scenario classes
+
+| Class | Cluster | Isolation | Example |
+|-------|---------|-----------|---------|
+| Namespaced | `da-platform` | Namespace `da-<scenario>` | coding-agent helmSmoke, chatbot-mesh helmSwap |
+| Cluster-mutating | Owned `da-<application>-<scenario>` | Whole cluster | chatbot-mesh policyProof (`disableDefaultCNI` for Calico) |
+
+<!-- section: platform-conformance -->
+## Platform conformance
+
+Platform failures and application failures must not read alike. After
+`da-platform` boots, and before any application gate runs, a
+conformance suite proves the tier; a failure there stops the release as
+a platform failure and captures its evidence. A run that owns platform
+compute may stop it, but it preserves the stable object-data host path.
+
+Table 5: Platform conformance checks
+
+| Check | What it proves |
+|-------|----------------|
+| Readiness | kube-proxy Ready, CoreDNS rolled out, and the API server answers `/readyz` |
+| Storage | The local-path provisioner binds a claim |
+| Ingress route | Traefik routes an Ingress to a Service, probed through the node's port 80 |
+| Object storage | Fake GCS writes and reads an object through the stable filesystem backend |
+| Bucket separation | Two application-specific buckets retain distinct objects through a service restart |
+| Namespace churn | A full scenario-namespace teardown leaves no namespace and deletes the bound volume |
+
+The check workload reuses the kind-loaded Traefik image as its echo
+backend, so conformance pulls nothing. The suite runs at every release
+start, whenever a target starts its own platform, and on every
+`platform:up`.
+
+<!-- section: image-delivery -->
+## Image delivery
+
+An image reference must tell a reader, from `docker image ls` alone,
+who owns it, what role it plays, and which identity it names.
+Environment and cluster names are not image identity.
+
+Two forms exist. An upstream image keeps its fully qualified
+registry path, a version tag, and — when the cluster pulls it — a
+digest. A first-party image this checkout builds for a local cluster
+uses `localhost/declarative-agents/<role>/<component>:<typed-identity>`.
+A published first-party image uses the release registry
+(`ghcr.io/nokia-bell-labs/declarative-agents/<component>:<version>`
+or an Artifact Registry copy of that name).
+
+Table 6: Image reference classes
+
+| Class | Repository | Tag | Digest |
+|-------|------------|-----|--------|
+| Upstream runtime | Fully qualified registry path (`docker.io/...`, `registry.k8s.io/...`, `quay.io/...`) | Upstream version | Required when the cluster pulls it (C2) |
+| Local runtime | `localhost/declarative-agents/runtime/<component>` | `git-<12-hex>-linux-<arch>` | Not required; content is this checkout |
+| Local test | `localhost/declarative-agents/test/<component>` | `git-<12-hex>-linux-<arch>` | Not required |
+| Derived upstream | `localhost/declarative-agents/derived/<component>` | `upstream-<version>-recipe-<12-hex>-linux-<arch>` | Not required; the recipe names the derivation |
+| Materialization cache | `localhost/declarative-agents/cache/<component>` | `recipe-<12-hex>-linux-<arch>` | Not required |
+| Published first-party | `<registry>/.../declarative-agents/<component>` | Release version or fail-closed sentinel | Not required until published |
+
+The four local roles are `runtime`, `test`, `derived`, and `cache`.
+Typed tags start with `git-`, `recipe-`, or `upstream-` and end with
+the platform the image was built for. A 12-hex fragment without a
+type prefix is not an identity: it collides Git revisions with
+recipe hashes. The tag `local`, the tag `latest`, an absent tag, a
+`kindrig/*` alias, and a consumer-oriented `*-smoke` repository are
+not identities.
+
+The build target bakes the linux agent into a minimal runtime image
+and loads it into the cluster; on the shared platform each image is
+loaded once per typed identity and scenarios reuse it. Kind overlays
+set `pullPolicy: IfNotPresent` or `Never` so the loaded image is used
+and the cluster never reaches a registry.
+
+Table 7: Image lifecycle classification
+
+| Class | What retains it | When the host copy goes |
+|-------|-----------------|-------------------------|
+| Local runtime, test, derived | Per-cluster lease | After the last live cluster releases it |
+| Local materialization cache | Per-cluster lease | After the last cluster using the prepared data is down |
+| Upstream pinned source | The current configured pin | When the pin is retired and no cluster uses it |
+| Transient import tag | The import transaction | Immediately after a successful node import |
+| kind node image | Live clusters and the current pin | When the pin is retired and no cluster uses it |
+| Build parents and BuildKit cache | Build-cache metadata | Separate bounded build-cache cleanup |
+
+`mage clean:images` is the operator target that applies the local
+classes. It never removes an image an active lease still names, a
+container still uses, or a labeled image that names another source.
+`mage clean:imagesDryRun` lists the same set first. No release gate
+runs it.
+
+Image loading stays behind the runner interface the chatbot-mesh
+rig already uses for kind subcommands. When load times become a
+problem, or when podman support arrives, the documented kind
+local-registry pattern replaces `kind load` behind that interface
+without touching scenario code.
+
+<!-- section: chart-conformance-rules -->
+## Chart conformance rules
+
+The rules above are stated where they arise: image delivery states how
+images are tagged, network access states why a load balancer cannot
+work on kind. A reviewer enforcing them by reading has to hold all of
+them at once, and three chart images reached `main` on a floating tag
+before anything noticed. This section restates the gateable subset as
+numbered rules, so a check can cite one and a reader can find it.
+
+The rules apply to what a chart renders, not to what its templates
+look like. A value that is overridden in one overlay and not another
+produces two rendered manifests, and both are subject to the rules.
+
+Table 8: Chart conformance rules
+
+| Rule | Statement | Surface |
+|------|-----------|---------|
+| C1 | No image reference resolves to a floating tag: neither `latest` nor an absent tag | rendered manifest |
+| C2 | Every third-party image carries a digest alongside its tag; an image built from this checkout carries a non-floating tag and no digest | values file and rendered manifest |
+| C3 | Every container sets `imagePullPolicy` to `IfNotPresent` or `Never`; `Always` is not permitted | rendered manifest |
+| C4 | No Service of type `LoadBalancer` renders from any chart or values overlay | rendered manifest |
+| C5 | Every workload a Service selects declares a readiness probe | rendered manifest |
+| C6 | Every kind configuration pins its node image by version and digest | checked-in kind configuration |
+| C7 | Every image is a fully qualified upstream reference or `localhost/declarative-agents/<role>/<component>:<typed-identity>`; `kindrig/*`, `:local`, untyped 12-hex local tags, and `*-smoke` repositories are not permitted | rendered manifest |
+| C8 | An applier Role that may write grants get and update on every object kind its chart renders | rendered manifest |
+
+C2 covers every image the cluster pulls, not only the images the host
+pulls for a kind load. An image built from this checkout is
+exempt from the digest half: its digest does not exist until it is
+built, and its tag names a release, a typed git or recipe identity,
+or a fail-closed sentinel a run replaces. C1 already keeps that tag
+from floating. C7 is the name the digest attaches to: a third-party
+image keeps the upstream owner, and a local image names role,
+component, identity type, and platform. The two carry the same risk:
+a tag that moves upstream changes what installs, and neither the
+chart nor the lock file records that it moved. The alpine/k8s CLI
+donor already carries a digest in all three application charts; C2
+extends that to the rest. The cost is that a version bump now edits
+two fields, which is the maintenance this repository already accepts
+for the rig add-ons.
+
+C5 reads readiness as the rule that readiness is observed and never
+assumed, applied at the chart rather than at the wait: a Service that
+selects pods with no readiness probe routes to a pod that has not
+said it can serve.
+
+A rule may be suspended for a named resource through a checked-in
+exception baseline. An entry names the chart, the overlay, the
+resource, the rule, the issue that will remove it, and why it stands.
+The baseline shrinks and never grows: a violation absent from it fails
+the gate, and an entry whose violation no longer reproduces fails the
+gate as well, so a fixed exception cannot sit in the file pretending
+to be load-bearing.
+
+srd005-chart-conformance carries these rules as numbered requirements
+and owns their acceptance criteria.
+
+<!-- section: pin-currency -->
+## Pin currency
+
+The rules above make a pin exist. They say nothing about it staying
+true. A pin has two further properties, and they fail in opposite
+directions: an unpinned image changes under you, while a stale pin
+never changes at all.
+
+Integrity is the property that the digest a file records is still what
+the tag resolves to upstream. A tag that has been re-pushed breaks it,
+and that is a supply-chain signal rather than a maintenance one, so it
+is reported first and on its own.
+
+Currency is the property that no newer upstream release exists. Falling
+behind is ordinary and often correct; what is not acceptable is not
+knowing. A version bump is a decision, and the rig's job is to put the
+decision in front of a person, not to take it.
+
+The pins live in two kinds of place. Chart images are declared in
+values and reach a manifest through one library helper, so the
+inventory is read out of the rendered charts rather than restated
+anywhere. Everything else is invisible to a render — the add-on digests
+compiled into the kindrig package, the node image repeated across the
+checked-in cluster configurations, the smoke dependency registry — and
+those are enumerated in one checked-in list that names the file and the
+symbol holding each pin, so a report points at the line to edit. A
+restated list drifts from what it describes; a derived one cannot.
+
+`mage bump` reports both properties and changes nothing. It reaches the
+network, so it is not part of `mage audit`, which stays hermetic. A
+registry it cannot reach is reported as unknown and never as current:
+an unreachable registry is an absence of evidence, and reading it as a
+pass would make the report quietest exactly when it is least informed.
+
+srd006-pin-currency carries these properties as numbered requirements
+and owns their acceptance criteria.
+
+<!-- section: release-annotation -->
+## Release annotation
+
+A release is a tag, and the tag's annotation is its only record: the
+v0 line publishes no release objects, so what the annotation says is
+what the release said. The tag target creates a lightweight ref on the
+gated commit; the operator's session annotates it with a summary of
+what shipped and then pushes. Under release pressure the summary is
+the step that degrades, and a tag annotated with its own name is a
+record that says nothing.
+
+`mage tag:verify` stands at the push boundary. It refuses a tag that
+is missing or lightweight, an annotation whose subject is the tag
+name or empty, a summary under a minimum substance bar, and a tag not
+reachable from main. It reports one named reason per failure and
+mutates nothing; the remedy is re-annotating with a real summary and
+running it again. The release runbook and the release skill call it
+after annotating and before any push.
+
+srd007-release-annotation carries these rules as numbered
+requirements and owns their acceptance criteria.
+
+<!-- section: network-access -->
+## Network access
+
+Tests and demos reach the cluster differently. Integration tests
+use `kubectl port-forward` because the forward lives and dies with
+the test process. Interactive applications use the shared platform
+ingress: the platform kind configuration maps host ports to the
+ingress controller through `extraPortMappings`, `platform:up`
+installs one minimal Traefik controller, and every externally exposed
+agent is reachable
+at a stable `localhost:<port>/<agent>` path the README can print.
+The implemented demos pin Traefik by version and per-architecture image
+digest and use `.localhost` hostnames, which resolve to loopback without
+`/etc/hosts` edits. The controller enables only the standard Kubernetes
+Ingress provider: no dashboard, Traefik CRDs, Gateway API, admission
+webhook, certificate manager, or automatic TLS. The host container engine
+pulls the digest-pinned source, retags it under a rig-local name, and kind
+loads that tag into the node with `imagePullPolicy: Never`, so a node
+behind a TLS-intercepting proxy never reaches the registry itself.
+
+The repository retired ingress-nginx in GH-1321 after the upstream project
+ended maintenance in March 2026. Its validating admission webhook raced
+fresh demo installs even after the controller pod reported Ready. Traefik
+needs no admission webhook for standard Ingress resources; it reconciles
+them after startup, and the rig waits for its Deployment readiness before
+installing the application.
+
+Services of type LoadBalancer are not permitted in kind values
+overlays; kind has no load balancer, and the service would pend
+forever. A chart that needs one for production exposes it behind a
+values switch that the kind overlay turns off.
+
+Traefik is only the external HTTP boundary. Internal agent REST calls
+use Kubernetes Service DNS. Agent Core exports OTLP directly to the
+collector Service in the same application namespace. Collectors reach
+the object service directly and vector clients reach their declared
+vector Service directly. Internal REST, OTLP, object-storage, and
+vector-query traffic never detour through Traefik.
+
+<!-- section: standard-mage-verbs -->
+## Standard mage verbs
+
+Every application exposes the same verbs with the same contracts, so a
+person who has run one application can run them all.
+
+Table 9: Rig verbs each application exposes
+
+| Verb | Contract |
+|------|----------|
+| doctor | Checks toolchain presence, versions, and host resources; reports, never mutates |
+| diagnose | Captures a scenario snapshot into an evidence directory and runs the catalog rig-doctor over it; reads the cluster, never mutates it, and exits zero whatever the diagnosis says |
+| demo:up | Compatibility wrapper over platform:up plus app:up; deploys the selected application and prints its localhost URLs |
+| demo:down | Compatibility wrapper over app:down; removes application compute and preserves retained data |
+| integration:* | One verb per proof (smoke, swap, policy); skips on missing tools; a namespaced proof reuses a running da-platform or starts and deletes its own, a cluster-mutating proof creates and deletes its own cluster; prints a one-line PASS statement naming what was proven |
+
+The repository root exposes platform and application verbs. Platform
+verbs own shared compute. Application verbs are thin wrappers over the
+reusable `magefiles/apprig` package and derive release, namespace,
+routes, collector, and bucket identity from `agents/application.yaml`.
+Downstream repositories import a released root Mage module and expose
+the same thin verbs rather than copying lifecycle implementations.
+
+Table 10: Platform-tier verbs at the repository root
+
+| Verb | Contract |
+|------|----------|
+| platform:up | Creates da-platform, or reuses a healthy one and prunes its node images; installs Traefik, metrics-server, and the filesystem-backed fake-GCS object service; runs ingress, object, storage, and data-plane conformance; leaves it running |
+| platform:down | Stops da-platform compute, refuses while a managed application namespace remains, and preserves the stable object-data host path |
+| platform:reset | Deletes the stable local object-data host path; refuses while da-platform or a managed application is active, with no force bypass |
+| clean:images | Removes unleased local first-party images the lifecycle classification no longer retains, while keeping the newest requested revisions per role and component |
+| clean:imagesDryRun | Lists what clean:images would remove |
+| bump | Resolves every pin against its registry and reports integrity and currency; reaches the network, writes nothing, and exits zero whatever it finds |
+| tag:verify | Refuses a release tag whose annotation is missing, degenerate, or under the substance bar, or that is not reachable from main; mutates nothing and names one reason per failure |
+
+Table 11: Application-tier verbs at the repository root
+
+| Verb | Contract |
+|------|----------|
+| app:up | Validates one application manifest, creates or upgrades its release in its stable namespace, binds its application-specific bucket, and observes readiness |
+| app:status | Reports platform dependency, release, workload, route, collector, bucket binding, and retained-data status without mutation |
+| app:down | Removes the selected application's release and namespace while preserving its bucket data |
+| app:diagnose | Captures application and platform evidence without mutation and names which authority owns each failed boundary |
+| app:purge | Explicitly deletes only the selected application's retained objects; never runs as part of down |
+
+The cluster-lifecycle code (create from configuration, reuse
+detection, image load, teardown, log export) moves from the
+chatbot-mesh magefiles into a shared package under the repository
+root magefiles, and chatbot-mesh becomes the first consumer of the
+shared package rather than the owner of the pattern. Each application
+then ships only its scenario: a kind configuration, a chart with a
+`ci/kind-values.yaml` overlay, and the assertions that make its
+integration verbs meaningful.
+
+<!-- section: persistent-integration-observability -->
+## Persistent integration observability
+
+The repository names two observability modes rather than presenting two
+competing platform designs.
+
+In persistent-platform mode, every application retains its collector
+gateway. Agent Core exports OTLP directly to that namespace-local
+collector. The collector writes a local WAL before its first upload,
+persists immutable trace and metric objects into the application's
+application-specific bucket, serves application-scoped REST queries, and
+may relay OTLP when declared. The WAL records the final object key,
+stable batch identity, checksum, and upload state before any remote
+attempt; retries reuse that identity. An object envelope minimally names
+schema version, signal, application, namespace, run, collector instance,
+stable batch identity, receive time, payload format, and checksum.
+
+`app:down` removes the collector with the rest of application compute.
+Retained bucket data is then not a live query service: the collector REST
+API is unavailable. Redeploying the collector against the same bucket
+restores application-scoped query access to the same immutable history.
+This release adds no permanent platform query service or
+cross-application telemetry index.
+
+In hermetic integration-evidence mode, telemetry may additionally enter
+one host-level OTLP ingress that starts before scenario processes and
+kind clusters. The ingress is a contract, not a required Collector image:
+it accepts OTLP gRPC and HTTP, spools traces behind a bounded query
+surface, routes metrics to a Prometheus-compatible backend, and retains
+deterministic test evidence after a scenario tears down. It is not the
+durable application query authority.
+
+The stack has explicit `up`, `status`, `reset`, and `down` Mage verbs.
+`up` is idempotent and reuses a healthy operator-owned stack. A scenario
+may check or use that stack but never stops or resets it. Fixed ports are
+configurable. Preflight reports the process holding a configured port
+before starting containers instead of failing later with a bind error.
+The ingress must not export its own telemetry back to itself.
+
+Host agent processes dual-export: `--otel-log-file` remains the hermetic
+assertion artifact, while `--otel-otlp-endpoint` sends live traces and
+metrics to the shared ingress. `--otel-service-name` identifies the role.
+Provider resources stamp repository, module, target or scenario, git
+commit, and a unique run id on every signal. Scaled roles append their
+instance identity so concurrent RAG units and repeated runs are distinct.
+
+A kind chart keeps its application collector as a gateway. A hermetic
+integration values overlay may relay that gateway to the host ingress;
+persistent-platform defaults remain self-contained and object-backed.
+The platform kind configuration enables API-server and
+kubelet tracing to the host ingress at `host.docker.internal:4317`
+with static resource attributes (`k8s.cluster.name=da-platform`),
+since one control plane serves every scenario on it. helm and kubectl
+do not propagate traceparent, so control-plane traces are correlated
+to a scenario by time and namespace; they are not part of one agent
+waterfall.
+
+Chroma exports native OTLP traces with one stable service name per RAG
+unit. Agent REST calls to Chroma inject traceparent. Dolt exposes its
+Prometheus endpoint, which a Collector metric receiver scrapes and
+forwards to the shared metrics backend. Ollama is represented by the
+agent runtime's GenAI client spans until native Ollama server tracing is
+available. OTel Logs are not part of this rig.
+
+<!-- section: evidence-and-failure-capture -->
+## Evidence and failure capture
+
+A failed cluster run must leave enough behind to diagnose without
+re-running. On any integration failure the rig runs
+`kind export logs` into the scenario's persistent
+`build/kind-evidence/` directory, alongside `kubectl describe` and pod
+logs for the namespaces the scenario touched. A scenario on the shared
+platform captures this evidence while the platform keeps running, then
+tears its namespace down; only the platform's owner deletes the
+cluster. Before teardown, both
+failed runs and successful release gates record shared-sink health, the
+run identity, representative trace ids and service names, and the
+availability of expected agent and Dolt metrics. Backend data stays
+queryable after the subprocesses and cluster are gone.
+
+Successful runs keep the existing convention of a single PASS line
+stating what was proven, so transcript grep remains the audit trail.
+
+Evidence names the ownership boundary. An application-local failure
+names its release, namespace, route, collector, or bucket binding and
+leaves peer applications running. A shared Traefik, object-service,
+metrics-server, storage-provisioner, DNS, or API failure is reported as
+a platform failure. Captures record whether retained data exists even
+when its application query API is unavailable.
+
+The same capture runs on demand. `mage diagnose <scenario>` resolves the
+cluster and the `da-<scenario>` namespace from its argument, or resolves
+the selected application's stable namespace on `da-platform` when the
+argument is `demo`, captures events, cluster events, describe output,
+rollout counts, pod logs, and the trace spool tail while the cluster
+keeps running, and writes a
+`manifest.yaml` naming each file, its kind, and each capture error. A
+failed kubectl command becomes a recorded capture error, not an abort.
+The catalog rig-doctor (srd023) then reads that directory, and only
+that directory, and writes `diagnosis.yaml` beside the evidence. Doctor
+and diagnose split on timing: doctor is the preflight before a run,
+diagnose is the post-mortem after one. Neither mutates the cluster.
+The verb is one shared implementation
+(`magefiles/kindrig/diagnose.go`): each application supplies its demo
+cluster, its revision, its optional trace spool, and the roots that
+locate the rig-doctor, so adopting the verb is a declaration rather
+than a copy. Only the chatbot-mesh keeps a persistent trace ingress,
+so only its evidence carries a spool tail.
+
+<!-- section: deferred-podman -->
+## Deferred: podman
+
+Podman can host kind through an experimental provider, but its
+image-load path differs from docker's and its rootless mode adds
+host requirements we do not want in the standard preflight yet.
+We defer it. Two design constraints keep the door open: the rig
+invokes the engine and kind only through the runner interface, and
+no scenario code names docker outside the preflight. Adding podman
+later means teaching the preflight to detect the engine and set
+the kind provider environment variable, and swapping `kind load`
+for the local-registry pattern.
+
+<!-- field: references -->
+## References
+
+- kind Quick Start, https://kind.sigs.k8s.io/docs/user/quick-start/
+- kind Local Registry, https://kind.sigs.k8s.io/docs/user/local-registry/
+- kind Ingress, https://kind.sigs.k8s.io/docs/user/ingress/
+- applications/chatbot-mesh/magefiles/integration_helm.go (existing rig this guideline generalizes)
+- magefiles/kindrig/kindrig.go (shared cluster lifecycle and failure-evidence machinery)
+- magefiles/kindrig/platform.go (da-platform lifecycle, conformance suite, platform:up)
+- magefiles/kindrig/namespace.go (scenario classification and scenario-namespace lifecycle)
+- magefiles/kindrig/diagnose.go (shared on-demand diagnosis every application exposes as mage diagnose)
+- applications/catalog/docs/specs/software-requirements/srd023-rig-doctor.yaml (evidence directory contract and rig-doctor diagnosis)
+- magefiles/tag_platform.go (release-run platform gate and teardown)
+- applications/docs/specs/software-requirements/srd006-pin-currency.yaml (pin integrity and currency requirements behind mage bump)
+- docs/engineering/eng08-gcp-demo-rig.yaml (the cloud twin of this rig)
+- applications/docs/specs/software-requirements/srd007-release-annotation.yaml (release-annotation verification behind mage tag:verify)
+- applications/docs/specs/software-requirements/srd005-chart-conformance.yaml (numbered chart conformance requirements and the exception baseline)
