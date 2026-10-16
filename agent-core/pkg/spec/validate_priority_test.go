@@ -45,7 +45,7 @@ func TestInvalidPriorityOutsideVocabularyFails(t *testing.T) {
 		require.Equal(t, "error", f.Level)
 	}
 	require.Contains(t, findings[0].Message, `priority "P4"`)
-	require.Equal(t, UCSubdir+"/rel09.0-uc001-bad.yaml", findings[0].File)
+	require.Equal(t, UCSubdir+"/rel09.0-uc001-bad.md", findings[0].File)
 	require.Contains(t, findings[1].Message, `priority "p1"`)
 }
 
@@ -62,7 +62,7 @@ success_criteria:
   - id: S1
     criterion: The transfer completes within one retry.
 `), 0o644))
-	uc, err := ParseUseCase(path)
+	uc, err := parseUseCaseYAMLFile(path)
 	require.NoError(t, err)
 	require.Equal(t, "P2", uc.Priority)
 	require.Equal(t, []string{"A1: The backend is reachable."}, uc.Assumptions)

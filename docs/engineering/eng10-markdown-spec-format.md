@@ -26,7 +26,7 @@ We applied the rule to criterion traces (GH-2581 decision 3). A reader must see 
 <!-- section: file-layout -->
 ## File layout
 
-A document is one Markdown file at the location its type declares in markdown.location. It opens with the frontmatter, then the two license comment lines, then its nodes in order. The skeleton of an SRD follows.
+A document is one Markdown file at the location its type declares in location. It opens with the frontmatter, then the two license comment lines, then its nodes in order. The skeleton of an SRD follows.
 
 ```markdown
 ---
@@ -65,7 +65,7 @@ The criterion text.
 
 The frontmatter lists the fields frontmatter.required names and admits only those frontmatter.allowed names. Where a type sets id_matches_filename, the id equals the file name without its extension. The license comments are plain comments, not markers, and the copyright gate checks them as it does for any Markdown file.
 
-The migration waves (GH-2584) moved every corpus document to Markdown except design.yaml, which holds the declarations themselves, and GH-2625 pointed every link and guidance file at the Markdown paths. Until the code sunset (GH-2626), the audit still discovers a .yaml document and its dual-format-document finding keeps a document from existing as both .yaml and .md (GH-2614). After the sunset only the Markdown locations remain, and a .yaml file at a corpus location fails placement.
+The migration waves (GH-2584) moved every corpus document to Markdown except design.yaml, which holds the declarations themselves, and GH-2625 pointed every link and guidance file at the Markdown paths. The code sunset (GH-2626) removed the YAML front end: each type's location in design.yaml names its Markdown path, the audit discovers only Markdown documents, and a .yaml file at a corpus document's former location matches no declared location and fails placement. A type's converts_from keeps that former YAML location for one reader only, mage convert, so a repository still on a YAML corpus can migrate. The other reader of YAML documents is history: the retired-id checks read documents at a release tag, and the external-reference checks read a parent repository at its pinned ref, and both refs may predate the migration.
 
 <!-- section: marker-grammar -->
 ## Marker grammar
@@ -164,7 +164,7 @@ A passthrough value, one no declaration types, takes the first conversion that p
 <!-- section: round-trip-laws -->
 ## Round-trip laws
 
-The laws are stated on the node tree, with comments removed and after canonicalization (next section). For every tracked document of every structured type, yaml to node to Markdown to node is the identity, Markdown is a fixed point of parse then print on canonical form, and the converter is idempotent. For the types that have a typed model, the model parsed from the Markdown front end equals the model parsed from the YAML one. Two details are part of the canonical form. Parsing returns a record's keys in one order, id, title, content, attributes, then its children in document order, and canonicalization puts the YAML records in that order before printing. Strings compare without their trailing newlines, the whitespace normalization the converter reports. GH-2605 proves the laws on the real corpus. GH-2606 adds the batch converter: in agent-core, mage convert <scope> converts one document (a path from the repository root), one type, or all of them in place, verifies each conversion against the laws before it writes, and prints the report of canonical changes, dropped comments, trailing newlines, and findings. Converting a converted document changes nothing. mage convertBack <scope> reverses it for rollback during the transition window, and it converts every Markdown corpus document in scope, those first written in Markdown included.
+The laws are stated on the node tree, with comments removed and after canonicalization (next section). For every tracked document of every structured type, yaml to node to Markdown to node is the identity, Markdown is a fixed point of parse then print on canonical form, and the converter is idempotent. For the types that have a typed model, the model parsed from the Markdown front end equals the model parsed from the YAML one. Two details are part of the canonical form. Parsing returns a record's keys in one order, id, title, content, attributes, then its children in document order, and canonicalization puts the YAML records in that order before printing. Strings compare without their trailing newlines, the whitespace normalization the converter reports. GH-2605 proves the laws on the real corpus. GH-2606 adds the batch converter: in agent-core, mage convert <scope> converts one document (a path from the repository root), one type, or all of them in place, verifies each conversion against the laws before it writes, and prints the report of canonical changes, dropped comments, trailing newlines, and findings. Converting a converted document changes nothing. Conversion runs one way: the inverse, mage convertBack, served rollback during the migration and left with the sunset (GH-2626).
 
 <!-- section: comments-and-forms -->
 ## Comments and two-form fields
@@ -248,7 +248,7 @@ Table 8: Finding catalog
 | 3 | attribute-shape | an attribute value is not JSON of its declared shape |
 | 4 | prose-containment | a normative keyword appears in prose outside the normative nodes |
 
-The audit reads a Markdown corpus document through the same declarations, which agent-core embeds from design.yaml so a binary, an image, or a consumer repository reads them without locating the file (GH-2614). It reports each diagnostic under the audit check markdown-format, with the finding name as its check id and in its message. Two more audit checks guard the migration window: dual-format-document when a document exists as both .yaml and .md, and not-canonical when a Markdown document differs from its formatted form, which mage fmt fixes. A document with a finding of tiers 1 to 3 is left out of the corpus and the rest loads; when a reference to it then dangles, the load error names the format finding behind it.
+The audit reads a Markdown corpus document through the same declarations, which agent-core embeds from design.yaml so a binary, an image, or a consumer repository reads them without locating the file (GH-2614). It reports each diagnostic under the audit check markdown-format, with the finding name as its check id and in its message. One more audit check, not-canonical, reports a Markdown document that differs from its formatted form, which mage fmt fixes. The migration window had a second, dual-format-document, for a document present as both .yaml and .md; the sunset removed it with the YAML front end (GH-2626). A document with a finding of tiers 1 to 3 is left out of the corpus and the rest loads; when a reference to it then dangles, the load error names the format finding behind it.
 
 The graph and semantic checks the audit already runs (retired-id-missing, uncovered-req-item, unresolved-clarification, invalid-priority, and the rest) are unchanged. They run over the same model, so their names and coverage carry over to the Markdown corpus.
 
@@ -273,7 +273,7 @@ Every entry in document_types carries a markdown entry, and a test in agent-core
 
 Table 9: Markdown declarations by document type
 
-| Type | Markdown location | Declaration |
+| Type | Location | Declaration |
 | --- | --- | --- |
 | vision | docs/VISION.md | fields; success criteria as a keyed list |
 | architecture | docs/ARCHITECTURE.md | interface, component, and decision nodes; two tables |
@@ -334,7 +334,7 @@ GitHub hides HTML comments and renders frontmatter as a table, so a converted do
 <!-- section: authoring-loop -->
 ## Authoring loop
 
-An author, human or agent, writes a document, runs mage fmt, runs mage audit, and fixes what the audit reports. mage fmt <scope> from the repository root applies Tier 0 in place, so the audit's findings concern meaning, plus not-canonical for a document edited since its last format. Every audit gate reads a corpus document in either format during the migration window (GH-2614, GH-2615, GH-2616).
+An author, human or agent, writes a document, runs mage fmt, runs mage audit, and fixes what the audit reports. mage fmt <scope> from the repository root applies Tier 0 in place, so the audit's findings concern meaning, plus not-canonical for a document edited since its last format. Every audit gate reads a corpus document as the YAML tree its declaration parses it into (GH-2614, GH-2615, GH-2616), and none reads a YAML corpus document in the working tree (GH-2626).
 
 The loop terminates on the hints alone. TestAuthoringLoopFollowsTheHints in agent-core/pkg/spec/markdown seeds an SRD with a finding of every tier and drives it to zero findings, one finding per round, with a fixer that may use only what a finding says: its line, its expected and found text, and its hint. A hint that stops naming what its fix needs stalls the loop and fails the test.
 

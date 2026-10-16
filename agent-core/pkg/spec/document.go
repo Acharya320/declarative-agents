@@ -14,10 +14,11 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// Corpus documents are YAML or Markdown during the migration window
-// (docs/engineering/eng10-markdown-spec-format.md). A Markdown document
-// reaches every parser as the YAML tree its declaration parses it into, so
-// the typed models and every check stay format-blind.
+// Corpus documents are Markdown (docs/engineering/eng10-markdown-spec-format.md).
+// A document reaches every parser as the YAML tree its declaration parses it
+// into, so the typed models and every check read one document model. YAML is
+// read only at historical refs: release tags and pinned parent trees that
+// predate the migration (GH-2626).
 const (
 	yamlExt     = ".yaml"
 	markdownExt = ".md"
@@ -26,16 +27,19 @@ const (
 // Audit checks the document format raises.
 const (
 	checkMarkdownFormat = "markdown-format"
-	checkDualFormat     = "dual-format-document"
 	checkNotCanonical   = "not-canonical"
 )
 
-// readDocument returns a corpus document as YAML: the file itself, or the
-// YAML tree a Markdown document parses into.
+// readDocument returns a working-tree corpus document as the YAML tree its
+// Markdown parses into. A corpus document in any other format is an error:
+// mage convert migrates a YAML corpus once, and nothing reads it in place.
 func readDocument(path string) ([]byte, error) {
+	if !strings.HasSuffix(path, markdownExt) {
+		return nil, fmt.Errorf("%s: corpus documents are Markdown (eng10); run mage convert to migrate a YAML document", path)
+	}
 	data, err := os.ReadFile(path)
-	if err != nil || !strings.HasSuffix(path, markdownExt) {
-		return data, err
+	if err != nil {
+		return nil, err
 	}
 	return markdownAsYAML(data, path)
 }
@@ -70,15 +74,16 @@ func declarationFor(source string) (*markdown.Declaration, error) {
 	return d, nil
 }
 
-// formatScan picks each corpus document's file and records the findings its
-// format raises: the same document in both formats, a Markdown document out
-// of canonical form, and every finding the Markdown diagnostics report.
+// formatScan finds each corpus document's file and records the findings its
+// format raises: a document out of canonical form, and every finding the
+// Markdown diagnostics report.
 // Findings are collected, never fatal: a document whose structure cannot be
 // read is left out and the rest of the corpus loads.
 type formatScan struct {
 	rootDir  string
 	files    map[string]string
 	findings []Finding
+	leftOut  []string // documents whose structure kept them from loading
 }
 
 func newFormatScan(rootDir string) *formatScan {
@@ -90,63 +95,35 @@ func (s *formatScan) record(kind, id, path string) {
 	s.files[kind+"/"+id] = s.relative(path)
 }
 
-// documents lists the corpus documents in dir whose names start with prefix,
-// one file per document: the YAML file when both formats exist (and a
-// dual-format finding), and only Markdown documents that parse.
+// documents lists the Markdown corpus documents in dir whose names start
+// with prefix, keeping only those whose structure lets them load.
 func (s *formatScan) documents(dir, prefix string) ([]string, error) {
-	stems := map[string]map[string]bool{}
-	for _, ext := range []string{yamlExt, markdownExt} {
-		matches, err := filepath.Glob(filepath.Join(dir, prefix+"*"+ext))
-		if err != nil {
-			return nil, fmt.Errorf("glob %s: %w", dir, err)
-		}
-		for _, match := range matches {
-			stem := strings.TrimSuffix(match, ext)
-			if stems[stem] == nil {
-				stems[stem] = map[string]bool{}
-			}
-			stems[stem][ext] = true
-		}
+	matches, err := filepath.Glob(filepath.Join(dir, prefix+"*"+markdownExt))
+	if err != nil {
+		return nil, fmt.Errorf("glob %s: %w", dir, err)
 	}
+	sort.Strings(matches)
 	var paths []string
-	for _, stem := range sortedStems(stems) {
-		if path, ok := s.choose(stem, stems[stem]); ok {
-			paths = append(paths, path)
+	for _, match := range matches {
+		if s.checkMarkdown(match) {
+			paths = append(paths, match)
+		} else {
+			s.leftOut = append(s.leftOut, s.relative(match))
 		}
 	}
 	return paths, nil
 }
 
-// single picks the file of a document with one fixed name, such as
-// docs/road-map, or "" when neither format exists.
-func (s *formatScan) single(stem string) string {
-	present := map[string]bool{}
-	for _, ext := range []string{yamlExt, markdownExt} {
-		if _, err := os.Stat(stem + ext); err == nil {
-			present[ext] = true
-		}
-	}
-	if len(present) == 0 {
+// single finds the document with one fixed path, such as docs/road-map.md,
+// or "" when it is absent or cannot load.
+func (s *formatScan) single(path string) string {
+	if _, err := os.Stat(path); err != nil {
 		return ""
 	}
-	path, ok := s.choose(stem, present)
-	if !ok {
+	if !s.checkMarkdown(path) {
 		return ""
 	}
 	return path
-}
-
-func (s *formatScan) choose(stem string, present map[string]bool) (string, bool) {
-	if present[yamlExt] && present[markdownExt] {
-		s.add(Finding{Check: checkDualFormat, Level: "error", File: s.relative(stem + markdownExt), Line: 1,
-			Message: "document exists as both " + s.relative(stem+yamlExt) + " and " +
-				s.relative(stem+markdownExt) + "; keep one (mage convert or mage convertBack)"})
-		return stem + yamlExt, true
-	}
-	if present[yamlExt] {
-		return stem + yamlExt, true
-	}
-	return stem + markdownExt, s.checkMarkdown(stem + markdownExt)
 }
 
 // checkMarkdown diagnoses one Markdown document and reports whether its
@@ -184,64 +161,35 @@ func (s *formatScan) relative(path string) string {
 	return filepath.ToSlash(path)
 }
 
-func sortedStems(stems map[string]map[string]bool) []string {
-	keys := make([]string, 0, len(stems))
-	for stem := range stems {
-		keys = append(keys, stem)
-	}
-	sort.Strings(keys)
-	return keys
-}
-
 // checkDocumentFormat returns the findings the format scan recorded while
 // the corpus loaded.
 func checkDocumentFormat(corpus *Corpus) []Finding {
 	return corpus.FormatFindings
 }
 
-// documentFile names the file a document was read from, or the YAML path its
-// id implies when the corpus did not record one.
+// documentFile names the file a document was read from, or the path its id
+// implies when the corpus did not record one.
 func (c *Corpus) documentFile(kind, subdir, id string) string {
 	if file, ok := c.Files[kind+"/"+id]; ok {
 		return file
 	}
-	return filepath.ToSlash(filepath.Join(subdir, id+yamlExt))
+	return filepath.ToSlash(filepath.Join(subdir, id+markdownExt))
 }
 
-// isCorpusDocument reports a file name in either corpus format.
+// isCorpusDocument reports a corpus document at a historical ref, where it
+// may predate the migration and be YAML.
 func isCorpusDocument(file string) bool {
 	return strings.HasSuffix(file, yamlExt) || strings.HasSuffix(file, markdownExt)
 }
 
-// documentYAML returns a document's content as YAML, converting a Markdown
-// document read from a git ref.
+// documentYAML returns the content of a document read from a git ref as
+// YAML: a Markdown document as its parsed tree, and a YAML document, which
+// only a ref from before the migration holds, as written.
 func documentYAML(content, file string) ([]byte, error) {
 	if strings.HasSuffix(file, markdownExt) {
 		return markdownAsYAML([]byte(content), file)
 	}
 	return []byte(content), nil
-}
-
-// documentExists reports whether a path a document names exists. During the
-// migration window a corpus document named by its .yaml path may already be
-// Markdown, so a missing YAML document resolves to its Markdown form, which
-// an audit register names with its -register suffix.
-func documentExists(path string) bool {
-	if _, err := os.Stat(path); err == nil {
-		return true
-	}
-	if !strings.HasSuffix(path, yamlExt) {
-		return false
-	}
-	declarations, err := markdown.Default()
-	if err != nil {
-		return false
-	}
-	if d, ok := declarations.ForSource(filepath.ToSlash(path)); ok {
-		_, err := os.Stat(d.MarkdownPath(path))
-		return err == nil
-	}
-	return false
 }
 
 // explain adds to a corpus validation error the format findings of the
@@ -257,4 +205,10 @@ func (s *formatScan) explain(err error) error {
 		return err
 	}
 	return fmt.Errorf("%w\ndocuments left out for Markdown format findings:\n%s", err, strings.Join(lines, "\n"))
+}
+
+// fileExists reports whether a path a document names exists.
+func fileExists(path string) bool {
+	_, err := os.Stat(path)
+	return err == nil
 }

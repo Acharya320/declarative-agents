@@ -63,7 +63,7 @@ tools:
           modes: [raw_yaml, parsed_yaml, raw_markdown]
           max_bytes: 1048576
           category_rules:
-            - {pattern: road-map.yaml, category: release}
+            - {pattern: road-map.md, category: release}
             - {pattern: "*.yaml", category: overview}
             - {pattern: "*.yml", category: overview}
             - {pattern: "*.md", category: overview}

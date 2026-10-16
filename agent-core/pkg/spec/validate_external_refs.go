@@ -344,7 +344,7 @@ func releaseTagSortKey(tag string) string {
 }
 
 // isParentSRDFile reports the SRD file of srdID anywhere in a parent tree,
-// in either format.
+// in either format, since a pinned parent may predate the migration.
 func isParentSRDFile(file, srdID string) bool {
 	for _, ext := range []string{yamlExt, markdownExt} {
 		name := SRDSubdir + "/" + srdID + ext

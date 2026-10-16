@@ -70,7 +70,6 @@ var supportedSpecCorpusCheckIDs = map[string]bool{
 	"untraced-success-criterion":         true,
 	"use-case-missing-test-suite":        true,
 	checkMarkdownFormat:                  true,
-	checkDualFormat:                      true,
 	checkNotCanonical:                    true,
 }
 

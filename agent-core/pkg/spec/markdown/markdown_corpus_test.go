@@ -11,10 +11,11 @@ import (
 	"testing"
 
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
+	"gopkg.in/yaml.v3"
 )
 
 // trackedMarkdownDocuments lists every tracked Markdown document at a
-// declared corpus location: the documents already converted, and those
+// declared corpus location: the documents the migration converted, and those
 // written in Markdown.
 func trackedMarkdownDocuments(t *testing.T, declarations markdown.Declarations) map[string]*markdown.Declaration {
 	t.Helper()
@@ -34,10 +35,10 @@ func trackedMarkdownDocuments(t *testing.T, declarations markdown.Declarations) 
 	return documents
 }
 
-// TestEveryMarkdownCorpusDocumentIsCanonical holds the corpus already in
-// Markdown to the laws: it parses with no finding of tiers 1 to 3, it is
-// in canonical form, and rolling it back to YAML and converting again
-// reproduces it.
+// TestEveryMarkdownCorpusDocumentIsCanonical holds the corpus to the laws:
+// each document parses with no finding of tiers 1 to 3, it is in canonical
+// form, and converting the YAML tree it parses into reproduces it, so mage
+// convert and the readers agree on every document.
 func TestEveryMarkdownCorpusDocumentIsCanonical(t *testing.T) {
 	for path, d := range trackedMarkdownDocuments(t, repositoryDeclarations(t)) {
 		t.Run(path, func(t *testing.T) {
@@ -52,11 +53,15 @@ func TestEveryMarkdownCorpusDocumentIsCanonical(t *testing.T) {
 			if string(formatted) != string(data) {
 				t.Errorf("not in canonical form; run mage fmt")
 			}
-			back, _, err := d.ConvertMarkdown(data, path)
+			tree, _, err := d.Parse(data, path)
+			if err != nil || tree == nil {
+				t.Fatalf("does not parse: %v", err)
+			}
+			back, err := yaml.Marshal(tree)
 			if err != nil {
 				t.Fatal(err)
 			}
-			again, _, err := d.ConvertYAML(back, d.SourcePath(path))
+			again, _, err := d.ConvertYAML(back, formerYAMLPath(path))
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -65,4 +70,10 @@ func TestEveryMarkdownCorpusDocumentIsCanonical(t *testing.T) {
 			}
 		})
 	}
+}
+
+// formerYAMLPath names the YAML file a Markdown corpus document converted
+// from, which an audit register names without its -register suffix.
+func formerYAMLPath(path string) string {
+	return strings.TrimSuffix(strings.TrimSuffix(path, ".md"), "-register") + ".yaml"
 }

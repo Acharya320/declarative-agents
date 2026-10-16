@@ -300,7 +300,7 @@ func TestFreshWorkspaceIsPortableAndIsolated(t *testing.T) {
 		"greet.go",
 		"greet_test.go",
 		filepath.Join("doc", "specs", "software-requirements", "srd001-greet.yaml"),
-		filepath.Join("docs", "SPECIFICATIONS.yaml"),
+		filepath.Join("docs", "SPECIFICATIONS.md"),
 	} {
 		if _, err := os.Stat(filepath.Join(workspace, rel)); err != nil {
 			t.Errorf("fresh workspace missing %s: %v", rel, err)

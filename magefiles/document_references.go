@@ -9,8 +9,6 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
-
-	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 )
 
 // Every document type that declares a references field gets it checked for
@@ -78,7 +76,7 @@ func referencePath(entry string) string {
 // document writes repo-relative paths (docs/engineering/eng01 cites
 // magefiles/kindrig/diagnose.go). A module's own document writes them relative
 // to its module (agent-core/docs/constitutions/design.yaml cites
-// docs/VISION.yaml, meaning agent-core/docs/VISION.yaml). Resolving against
+// docs/VISION.md, meaning agent-core/docs/VISION.md). Resolving against
 // every ancestor accepts both without naming the modules, so a module added
 // later needs no change here.
 func referenceBases(candidate string) []string {
@@ -104,25 +102,9 @@ func referenceResolves(root, candidate, path string) bool {
 	return false
 }
 
-// corpusFileExists reports whether a file exists, or, for a corpus document
-// named by its .yaml path that has moved to Markdown during the migration
-// window, whether its Markdown form does.
+// corpusFileExists reports whether a file a references entry names exists.
 func corpusFileExists(path string) bool {
-	if _, err := os.Stat(path); err == nil {
-		return true
-	}
-	if !strings.HasSuffix(path, ".yaml") {
-		return false
-	}
-	declarations, err := markdown.Default()
-	if err != nil {
-		return false
-	}
-	d, ok := declarations.ForSource(filepath.ToSlash(path))
-	if !ok {
-		return false
-	}
-	_, err = os.Stat(d.MarkdownPath(path))
+	_, err := os.Stat(path)
 	return err == nil
 }
 

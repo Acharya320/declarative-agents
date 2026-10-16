@@ -166,9 +166,10 @@ func countLines(path string) (int, error) {
 	return n, s.Err()
 }
 
-// isMarkdownCorpusDocument reports a corpus document already converted to
-// Markdown (eng10): it counts where its YAML form did, so the corpus totals
-// survive the migration. Native Markdown such as guides is not counted.
+// isMarkdownCorpusDocument reports a Markdown corpus document (eng10): it
+// counts in the docs categories its YAML form did before the migration, so
+// the corpus totals stay comparable. Native Markdown such as guides is not
+// counted.
 func isMarkdownCorpusDocument(path string) bool {
 	if !strings.HasSuffix(path, ".md") {
 		return false

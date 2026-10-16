@@ -135,7 +135,7 @@ func TestParseSRDReadsSRD004ObjectForm(t *testing.T) {
 	t.Parallel()
 	// The corpus SRD moved to Markdown (GH-2584); this fixture keeps the YAML
 	// object form it was written in.
-	srd, err := ParseSRD(filepath.Join("testdata", "forms", "srd004-declarative-ux.yaml"))
+	srd, err := parseSRDYAMLFile(filepath.Join("testdata", "forms", "srd004-declarative-ux.yaml"))
 	require.NoError(t, err)
 	items := srd.Requirements["R1"].Items
 	require.Equal(t, "R1.1", items[0].ID)
@@ -149,7 +149,7 @@ func TestParseSRDReadsAgentArchitectureListedGroups(t *testing.T) {
 	t.Parallel()
 	// The corpus SRD moved to Markdown (GH-2584); this fixture keeps the
 	// listed-group YAML form it was written in.
-	srd, err := ParseSRD(filepath.Join("testdata", "forms", "srd001-helm-deployment.yaml"))
+	srd, err := parseSRDYAMLFile(filepath.Join("testdata", "forms", "srd001-helm-deployment.yaml"))
 	require.NoError(t, err)
 	require.Equal(t, []string{"R1", "R2", "R3"}, srd.OrderedGroups)
 	require.Equal(t, "R1.1", srd.Requirements["R1"].Items[0].ID)

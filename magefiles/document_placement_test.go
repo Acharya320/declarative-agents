@@ -27,23 +27,32 @@ type documentType struct {
 	Location       string   `yaml:"location"`
 	Format         string   `yaml:"format"`
 	RequiredFields []string `yaml:"required_fields"`
-	// Markdown is the type's Markdown declaration (GH-2578): a mapping whose
-	// location names where the Markdown form of the type lives. A scalar
-	// (a note that the type stays in its current format) declares none.
+	// Markdown is the type's Markdown declaration (GH-2578): a mapping when
+	// the type's location holds Markdown documents of a declared structure.
+	// A scalar (a note that the type stays in its current format) declares
+	// none.
 	Markdown yaml.Node `yaml:"markdown"`
 }
 
-// markdownLocation returns the declared Markdown location, if any.
-func (t documentType) markdownLocation() string {
-	if t.Markdown.Kind != yaml.MappingNode {
-		return ""
+// declared reports a type whose Markdown structure is declared.
+func (t documentType) declared() bool {
+	return t.Markdown.Kind == yaml.MappingNode
+}
+
+// excluded lists the documents the type's declaration keeps in their own
+// format, such as docs/constitutions/design.yaml: each is placed as the type
+// at exactly that path, with the type's required fields.
+func (t documentType) excluded() []string {
+	if !t.declared() {
+		return nil
 	}
-	for i := 0; i+1 < len(t.Markdown.Content); i += 2 {
-		if t.Markdown.Content[i].Value == "location" {
-			return t.Markdown.Content[i+1].Value
-		}
+	var declaration struct {
+		Exclude []string `yaml:"exclude"`
 	}
-	return ""
+	if err := t.Markdown.Decode(&declaration); err != nil {
+		return nil
+	}
+	return declaration.Exclude
 }
 
 type documentLocationMatcher struct {
@@ -52,9 +61,9 @@ type documentLocationMatcher struct {
 	format       string
 	required     []string
 	pattern      *regexp.Regexp
-	// declared marks a Markdown location whose type declares its Markdown
-	// structure: the document must parse under that declaration, whose
-	// diagnostics own its required fields.
+	// declared marks a location whose type declares its Markdown structure:
+	// the document must parse under that declaration, whose diagnostics own
+	// its required fields.
 	declared bool
 }
 
@@ -146,9 +155,10 @@ func TestDocumentPlacementAcceptsDeclaredMarkdownLocations(t *testing.T) {
 	const registry = `
 document_types:
   engineering_guideline:
-    location: docs/engineering/engNN-short-name.yaml
+    location: docs/engineering/engNN-short-name.md
+    converts_from: docs/engineering/engNN-short-name.yaml
     markdown:
-      location: docs/engineering/engNN-short-name.md
+      frontmatter: {required: [id, title]}
   constitution:
     location: docs/constitutions/name.yaml
     markdown: stays YAML
@@ -173,6 +183,64 @@ document_types:
 	if err := checkDocumentPlacement(undeclared); err == nil ||
 		!strings.Contains(err.Error(), "docs/constitutions/design.md") {
 		t.Fatalf("undeclared markdown location error = %v, want docs/constitutions/design.md", err)
+	}
+}
+
+// TestDocumentPlacementRejectsYAMLAtACorpusLocation proves the sunset
+// (GH-2626 AC2): a YAML file at a corpus document's former location matches
+// no declared location, so the corpus cannot regrow a second format.
+func TestDocumentPlacementRejectsYAMLAtACorpusLocation(t *testing.T) {
+	root := newDocumentPlacementRepository(t, `
+document_types:
+  engineering_guideline:
+    location: docs/engineering/engNN-short-name.md
+    converts_from: docs/engineering/engNN-short-name.yaml
+    markdown:
+      frontmatter: {required: [id, title]}
+`, map[string]string{
+		"docs/engineering/eng10-markdown-spec-format.md": validGuidelineMarkdown,
+		"docs/engineering/eng11-stray.yaml":              "id: eng11-stray\ntitle: Stray\n",
+	})
+	err := checkDocumentPlacement(root)
+	if err == nil || !strings.Contains(err.Error(), "docs/engineering/eng11-stray.yaml: matches no declared document type location") {
+		t.Fatalf("placement error = %v, want the stray YAML guideline rejected", err)
+	}
+	if strings.Contains(err.Error(), "eng10-markdown-spec-format.md") {
+		t.Fatalf("placement rejected the Markdown guideline: %v", err)
+	}
+}
+
+// TestDocumentPlacementPlacesExcludedDocuments proves a document a
+// declaration keeps in its own format, the design constitution, is placed
+// as its type and still owes the type's required fields.
+func TestDocumentPlacementPlacesExcludedDocuments(t *testing.T) {
+	// The registry is itself agent-core/docs/constitutions/design.yaml in
+	// the fixture repository, so it carries the constitution's fields.
+	const registry = `
+id: design
+title: Design
+document_types:
+  constitution:
+    location: docs/constitutions/name.md
+    converts_from: docs/constitutions/name.yaml
+    required_fields: [id, title]
+    markdown:
+      exclude: [docs/constitutions/design.yaml]
+`
+	placed := newDocumentPlacementRepository(t, registry, map[string]string{
+		"docs/constitutions/design.yaml": "id: design\ntitle: Design\n",
+	})
+	if err := checkDocumentPlacement(placed); err != nil {
+		t.Fatalf("excluded design constitution rejected: %v", err)
+	}
+	incomplete := newDocumentPlacementRepository(t, registry, map[string]string{
+		"docs/constitutions/design.yaml":  "id: design\n",
+		"docs/constitutions/testing.yaml": "id: testing\ntitle: Testing\n",
+	})
+	err := checkDocumentPlacement(incomplete)
+	if err == nil || !strings.Contains(err.Error(), "docs/constitutions/design.yaml: document type constitution missing required field title") ||
+		!strings.Contains(err.Error(), "docs/constitutions/testing.yaml: matches no declared document type location") {
+		t.Fatalf("placement error = %v, want design.yaml missing title and testing.yaml unplaced", err)
 	}
 }
 
@@ -386,28 +454,29 @@ func loadDocumentLocationMatchers(filename string) ([]documentLocationMatcher, e
 
 	matchers := make([]documentLocationMatcher, 0, len(names))
 	for _, name := range names {
-		location := registry.DocumentTypes[name].Location
-		pattern, err := compileDocumentLocation(location)
-		if err != nil {
-			return nil, fmt.Errorf("document type %q location %q: %w", name, location, err)
-		}
-		matchers = append(matchers, documentLocationMatcher{
-			documentType: name,
-			location:     location,
-			format:       registry.DocumentTypes[name].Format,
-			required:     append([]string(nil), registry.DocumentTypes[name].RequiredFields...),
-			pattern:      pattern,
-		})
-		if markdown := registry.DocumentTypes[name].markdownLocation(); markdown != "" {
-			pattern, err := compileDocumentLocation(markdown)
-			if err != nil {
-				return nil, fmt.Errorf("document type %q markdown location %q: %w", name, markdown, err)
-			}
+		entry := registry.DocumentTypes[name]
+		for _, exclude := range entry.excluded() {
 			matchers = append(matchers, documentLocationMatcher{
-				documentType: name + " (markdown)", location: markdown, format: "markdown", pattern: pattern,
-				declared: true,
+				documentType: name, location: exclude, format: "yaml",
+				required: append([]string(nil), entry.RequiredFields...),
+				pattern:  regexp.MustCompile(`(?:^|/)` + regexp.QuoteMeta(exclude) + `$`),
 			})
 		}
+	}
+	for _, name := range names {
+		entry := registry.DocumentTypes[name]
+		pattern, err := compileDocumentLocation(entry.Location)
+		if err != nil {
+			return nil, fmt.Errorf("document type %q location %q: %w", name, entry.Location, err)
+		}
+		matcher := documentLocationMatcher{
+			documentType: name, location: entry.Location, format: entry.Format,
+			pattern: pattern, declared: entry.declared(),
+		}
+		if !matcher.declared {
+			matcher.required = append([]string(nil), entry.RequiredFields...)
+		}
+		matchers = append(matchers, matcher)
 	}
 	return matchers, nil
 }

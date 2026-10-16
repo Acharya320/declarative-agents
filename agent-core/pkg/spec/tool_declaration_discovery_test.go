@@ -31,22 +31,11 @@ func stageDiscoveryCorpus(t *testing.T) string {
 		require.NoError(t, os.WriteFile(path, []byte(body), 0o644))
 	}
 
-	write("docs/road-map.yaml", "id: fixture\ntitle: Fixture\nreleases: []\n")
-	write("docs/SPECIFICATIONS.yaml", "id: fixture-specifications\ntitle: Fixture\n")
+	writeCorpusDocument(t, root, "docs/road-map.yaml", minimalRoadmap)
+	writeCorpusDocument(t, root, "docs/SPECIFICATIONS.yaml", minimalSpecIndex)
 	// LoadCorpus requires at least one SRD; the corpus under test here is the
 	// declaration vocabulary, so one minimal document is enough.
-	write("docs/specs/software-requirements/srd001-fixture.yaml", `id: srd001-fixture
-title: Fixture
-requirements:
-  R1:
-    title: Fixture
-    items:
-      - R1.1: The fixture declares words.
-acceptance_criteria:
-  - id: AC1
-    criterion: The fixture declares words.
-    traces: [R1.1]
-`)
+	writeCorpusDocument(t, root, "docs/specs/software-requirements/srd001-fixture.yaml", completeSRD("srd001-fixture", ""))
 
 	// A profile-less family fragment: machine.yaml makes it an agent
 	// directory, and declarations.yaml is the only place its word is written.

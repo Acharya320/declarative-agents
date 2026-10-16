@@ -23,7 +23,7 @@ func TestScenarioCriticAndMockAreSupportedTestTimeMembers(t *testing.T) {
 	var index struct {
 		SRDs []entry `yaml:"srd_index"`
 	}
-	readRoleYAML(t, "docs/SPECIFICATIONS.yaml", &index)
+	readRoleYAML(t, "docs/SPECIFICATIONS.md", &index)
 
 	wanted := map[string]string{
 		"srd018-scenario-critic": "agents/scenario-critic/profile.yaml",
@@ -52,7 +52,7 @@ func TestScenarioCriticAndMockAreSupportedTestTimeMembers(t *testing.T) {
 
 func TestMembershipNarrativeSeparatesMembersFromFixtures(t *testing.T) {
 	t.Parallel()
-	for _, rel := range []string{"README.md", "AGENTS.md", "docs/ARCHITECTURE.yaml", "docs/SPECIFICATIONS.yaml"} {
+	for _, rel := range []string{"README.md", "AGENTS.md", "docs/ARCHITECTURE.md", "docs/SPECIFICATIONS.md"} {
 		data, err := readDocumentText(rel)
 		if err != nil {
 			t.Fatalf("read %s: %v", rel, err)
@@ -93,7 +93,7 @@ func TestCatalogMembershipUsesSharedRealizationAndAliasAuthority(t *testing.T) {
 			Removal          string `yaml:"removal"`
 		} `yaml:"migration_aliases"`
 	}
-	modelPath := filepath.Join(ProfilesRoot(), "..", "docs", "specs", "semantic-models", "agent-role-realizations.yaml")
+	modelPath := filepath.Join(ProfilesRoot(), "..", "docs", "specs", "semantic-models", "agent-role-realizations.md")
 	data, err := markdown.ReadAsYAML(modelPath)
 	if err != nil {
 		t.Fatal(err)
@@ -259,12 +259,12 @@ func TestNoActiveAssemblerPathConsumers(t *testing.T) {
 	const retiredPath = "agents/" + "assembler"
 	roots := []string{ProfilesRoot(), ProfilePath("../chatbot-mesh")}
 	allowed := map[string]int{
-		filepath.Clean(ProfilePath("conformance/membership_contract_test.go")):                             1,
-		filepath.Clean(ProfilePath("conformance/release_alignment_test.go")):                               1,
-		filepath.Clean(ProfilePath("docs/migrations/v0.20260727.0-agent-role-realization-alignment.yaml")): 1,
-		filepath.Clean(ProfilePath("README.md")):                                                           1,
-		filepath.Clean(ProfilePath("docs/SPECIFICATIONS.yaml")):                                            1,
-		filepath.Clean(ProfilePath("docs/road-map.yaml")):                                                  1,
+		filepath.Clean(ProfilePath("conformance/membership_contract_test.go")):                           1,
+		filepath.Clean(ProfilePath("conformance/release_alignment_test.go")):                             1,
+		filepath.Clean(ProfilePath("docs/migrations/v0.20260727.0-agent-role-realization-alignment.md")): 1,
+		filepath.Clean(ProfilePath("README.md")):                                                         1,
+		filepath.Clean(ProfilePath("docs/SPECIFICATIONS.md")):                                            1,
+		filepath.Clean(ProfilePath("docs/road-map.md")):                                                  1,
 	}
 	seen := map[string]int{}
 	for _, root := range roots {
@@ -285,7 +285,7 @@ func TestNoActiveAssemblerPathConsumers(t *testing.T) {
 				return err
 			}
 			if count := strings.Count(string(data), retiredPath); count != 0 {
-				seen[allowanceKey(path)] = count
+				seen[filepath.Clean(path)] = count
 			}
 			return nil
 		})
@@ -313,9 +313,9 @@ func TestNoActiveMonitorProfilePathConsumers(t *testing.T) {
 		filepath.Clean(filepath.Join(ProfilesRoot(), "..", "..", "agent-core")),
 	}
 	allowed := map[string]int{
-		filepath.Clean(ProfilePath("conformance/release_alignment_test.go")):                               1,
-		filepath.Clean(ProfilePath("docs/migrations/v0.20260727.0-agent-role-realization-alignment.yaml")): 1,
-		filepath.Clean(ProfilePath("README.md")):                                                           1,
+		filepath.Clean(ProfilePath("conformance/release_alignment_test.go")):                             1,
+		filepath.Clean(ProfilePath("docs/migrations/v0.20260727.0-agent-role-realization-alignment.md")): 1,
+		filepath.Clean(ProfilePath("README.md")):                                                         1,
 	}
 	seen := map[string]int{}
 	for _, root := range roots {
@@ -336,7 +336,7 @@ func TestNoActiveMonitorProfilePathConsumers(t *testing.T) {
 				return err
 			}
 			if count := strings.Count(string(data), retiredPath); count != 0 {
-				seen[allowanceKey(path)] = count
+				seen[filepath.Clean(path)] = count
 			}
 			return nil
 		})
@@ -367,11 +367,11 @@ func TestNoActiveJuristProfilePathConsumers(t *testing.T) {
 		filepath.Clean(filepath.Join(ProfilesRoot(), "..", "..", "design-patterns")),
 	}
 	allowed := map[string]int{
-		filepath.Clean(ProfilePath("conformance/membership_contract_test.go")):                                                  1,
-		filepath.Clean(ProfilePath("conformance/release_alignment_test.go")):                                                    1,
-		filepath.Clean(ProfilePath("docs/migrations/v0.20260727.0-agent-role-realization-alignment.yaml")):                      1,
-		filepath.Clean(ProfilePath("README.md")):                                                                                1,
-		filepath.Clean(filepath.Join(ProfilesRoot(), "..", "docs", "specs", "semantic-models", "agent-role-realizations.yaml")): 2,
+		filepath.Clean(ProfilePath("conformance/membership_contract_test.go")):                                                1,
+		filepath.Clean(ProfilePath("conformance/release_alignment_test.go")):                                                  1,
+		filepath.Clean(ProfilePath("docs/migrations/v0.20260727.0-agent-role-realization-alignment.md")):                      1,
+		filepath.Clean(ProfilePath("README.md")):                                                                              1,
+		filepath.Clean(filepath.Join(ProfilesRoot(), "..", "docs", "specs", "semantic-models", "agent-role-realizations.md")): 2,
 	}
 	seen := map[string]int{}
 	for _, root := range roots {
@@ -392,7 +392,7 @@ func TestNoActiveJuristProfilePathConsumers(t *testing.T) {
 				return err
 			}
 			if count := strings.Count(string(data), retiredPath); count != 0 {
-				seen[allowanceKey(path)] = count
+				seen[filepath.Clean(path)] = count
 			}
 			return nil
 		})
@@ -412,29 +412,7 @@ func TestNoActiveJuristProfilePathConsumers(t *testing.T) {
 	}
 }
 
-// readDocumentText reads a catalog file as text; a corpus document named by
-// its YAML path reads from its Markdown form once it has moved.
+// readDocumentText reads a catalog file as text.
 func readDocumentText(rel string) ([]byte, error) {
-	if strings.HasSuffix(rel, ".yaml") {
-		return markdown.ReadAsYAML(ProfilePath(rel))
-	}
 	return os.ReadFile(ProfilePath(rel))
-}
-
-// allowanceKey names a walked file by its YAML path when it is a corpus
-// document converted to Markdown, so an allowance written for the YAML file
-// still applies after the move.
-func allowanceKey(path string) string {
-	clean := filepath.Clean(path)
-	if !strings.HasSuffix(clean, ".md") {
-		return clean
-	}
-	declarations, err := markdown.Default()
-	if err != nil {
-		return clean
-	}
-	if d, ok := declarations.ForMarkdown(filepath.ToSlash(clean)); ok {
-		return filepath.Clean(d.SourcePath(clean))
-	}
-	return clean
 }

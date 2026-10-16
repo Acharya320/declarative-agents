@@ -12,11 +12,11 @@ import (
 	"testing"
 )
 
-const alignmentMigrationPath = "docs/migrations/v0.20260727.0-agent-role-realization-alignment.yaml"
+const alignmentMigrationPath = "docs/migrations/v0.20260727.0-agent-role-realization-alignment.md"
 
 // currentReleaseNotePath names the newest release note; consumer pins must
 // reference this release because the collector family first exists here.
-const currentReleaseNotePath = "docs/migrations/v0.20260730.0-collector-family.yaml"
+const currentReleaseNotePath = "docs/migrations/v0.20260730.0-collector-family.md"
 
 func TestAlignmentMigrationReleaseAndConsumerPins(t *testing.T) {
 	t.Parallel()

@@ -16,11 +16,13 @@ import (
 
 // Declaration is one document type's Markdown declaration, read from the markdown
 // block of its entry in design.yaml's document_types: heading grammar, typed
-// fields and their shapes, attribute shapes, and prose containment.
+// fields and their shapes, attribute shapes, and prose containment. Its
+// location is the type's location, and the type's converts_from names the
+// former YAML location mage convert reads.
 // Diagnostics read every constraint from here, so a new document type is a
 // new declaration, not new code.
 type Declaration struct {
-	Location    string   `yaml:"location"`
+	Location    string   `yaml:"-"`       // the type's location
 	Exclude     []string `yaml:"exclude"` // source documents that stay in their format
 	Frontmatter struct {
 		Required          []string `yaml:"required"`
@@ -91,8 +93,9 @@ type fieldRule struct {
 func LoadDeclarations(data []byte) (Declarations, error) {
 	var design struct {
 		DocumentTypes map[string]struct {
-			Location string    `yaml:"location"`
-			Markdown yaml.Node `yaml:"markdown"`
+			Location     string    `yaml:"location"`
+			ConvertsFrom string    `yaml:"converts_from"`
+			Markdown     yaml.Node `yaml:"markdown"`
 		} `yaml:"document_types"`
 	}
 	if err := yaml.Unmarshal(data, &design); err != nil {
@@ -108,15 +111,18 @@ func LoadDeclarations(data []byte) (Declarations, error) {
 			return nil, fmt.Errorf("document_types.%s.markdown: %w", name, err)
 		}
 		r.documentType = name
+		r.Location = entry.Location
 		if err := r.compile(); err != nil {
 			return nil, fmt.Errorf("document_types.%s.markdown.%w", name, err)
 		}
-		source, err := locationPattern(entry.Location)
-		if err != nil {
-			return nil, fmt.Errorf("document_types.%s.location: %w", name, err)
+		if entry.ConvertsFrom != "" {
+			source, err := locationPattern(entry.ConvertsFrom)
+			if err != nil {
+				return nil, fmt.Errorf("document_types.%s.converts_from: %w", name, err)
+			}
+			r.sourcePattern = source
+			r.sourceLocation = entry.ConvertsFrom
 		}
-		r.sourcePattern = source
-		r.sourceLocation = entry.Location
 		declarations[name] = &r
 	}
 	return declarations, nil
@@ -288,13 +294,14 @@ func declarationForPath(declarations Declarations, path string) (*Declaration, b
 // Type names the document type the declaration belongs to.
 func (r *Declaration) Type() string { return r.documentType }
 
-// ForSource finds the declaration of the type whose YAML location names the
-// path, the document a conversion starts from.
+// ForSource finds the declaration of the type whose converts_from location
+// names the path, the YAML document a conversion starts from.
 func (declarations Declarations) ForSource(path string) (*Declaration, bool) {
 	slashed := filepath.ToSlash(path)
 	for _, name := range sortedKeys(declarations) {
-		if declarations[name].sourcePattern.MatchString(slashed) && !declarations[name].excluded(slashed) {
-			return declarations[name], true
+		d := declarations[name]
+		if d.sourcePattern != nil && d.sourcePattern.MatchString(slashed) && !d.excluded(slashed) {
+			return d, true
 		}
 	}
 	return nil, false

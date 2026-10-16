@@ -219,7 +219,7 @@ func TestSpecificationCriticAuditProfileDeclaresEvidencePipeline(t *testing.T) {
 		t.Errorf("agent-core audit fixture does not instantiate the shared audit template")
 	}
 	suite, err := markdown.ReadAsYAML(filepath.Join(
-		"..", "docs", "specs", "test-suites", "test-rel07.1-profile-boundaries.yaml"))
+		"..", "docs", "specs", "test-suites", "test-rel07.1-profile-boundaries.md"))
 	if err != nil {
 		t.Fatal(err)
 	}

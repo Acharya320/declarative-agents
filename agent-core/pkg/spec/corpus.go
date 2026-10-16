@@ -20,20 +20,20 @@ import (
 const (
 	DocsDir     = "docs"
 	SRDSubdir   = "docs/specs/software-requirements"
-	SRDGlob     = "srd*.yaml"
+	SRDGlob     = "srd*.md"
 	UCSubdir    = "docs/specs/use-cases"
-	UCGlob      = "rel*.yaml"
+	UCGlob      = "rel*.md"
 	TSSubdir    = "docs/specs/test-suites"
-	TSGlob      = "test-*.yaml"
-	RoadmapFile = "docs/road-map.yaml"
-	SpecFile    = "docs/SPECIFICATIONS.yaml"
+	TSGlob      = "test-*.md"
+	RoadmapFile = "docs/road-map.md"
+	SpecFile    = "docs/SPECIFICATIONS.md"
 	AgentsDir   = "agents"
 	CoreInstall = "/opt/agent-core"
 	SMSubdir    = "docs/specs/semantic-models"
 	CFSubdir    = "docs/specs/config-formats"
 )
 
-// File-name prefixes of the corpus documents discovered in either format.
+// File-name prefixes of the corpus documents.
 const (
 	srdPrefix = "srd"
 	ucPrefix  = "rel"
@@ -83,7 +83,7 @@ type corpusOptions struct {
 
 // WithOptionalCorpus relaxes the SRD-corpus requirement so charter-only audit
 // targets load. With this option a missing docs directory, an empty SRD set,
-// and missing road-map.yaml or SPECIFICATIONS.yaml yield an empty corpus rather
+// and missing road-map.md or SPECIFICATIONS.md yield an empty corpus rather
 // than an error, letting the jurist run data-driven charters against arbitrary
 // repositories. Without it, LoadCorpus keeps requiring a full SRD corpus.
 func WithOptionalCorpus() CorpusOption {
@@ -94,7 +94,16 @@ func WithOptionalCorpus() CorpusOption {
 // jurist's evidence-only audit variant for repositories whose broader
 // documentation schema is intentionally not an agent-core specification corpus.
 func LoadTestSuites(rootDir string) (map[string]TestSuite, error) {
-	return discoverAndParseTestSuites(newFormatScan(rootDir))
+	scan := newFormatScan(rootDir)
+	suites, err := discoverAndParseTestSuites(scan)
+	if err != nil {
+		return nil, err
+	}
+	if len(scan.leftOut) > 0 {
+		return nil, scan.explain(fmt.Errorf("%d test suite(s) cannot be read: %s",
+			len(scan.leftOut), strings.Join(scan.leftOut, ", ")))
+	}
+	return suites, nil
 }
 
 // LoadCorpus discovers, parses, and validates all specification artifacts
@@ -178,10 +187,10 @@ func LoadCorpus(rootDir string, opts ...CorpusOption) (*Corpus, error) {
 	return c, nil
 }
 
-// loadRoadmap parses the road map, in either format, treating a missing
+// loadRoadmap parses the road map, treating a missing
 // file as an empty roadmap when the corpus is optional.
 func loadRoadmap(scan *formatScan, file string, optional bool) (Roadmap, error) {
-	path := scan.single(filepath.Join(scan.rootDir, strings.TrimSuffix(file, yamlExt)))
+	path := scan.single(filepath.Join(scan.rootDir, file))
 	if path == "" && optional {
 		return Roadmap{}, nil
 	}
@@ -191,10 +200,10 @@ func loadRoadmap(scan *formatScan, file string, optional bool) (Roadmap, error) 
 	return ParseRoadmap(path)
 }
 
-// loadSpecIndex parses the specification index, in either format, treating a
+// loadSpecIndex parses the specification index, treating a
 // missing file as an empty index when the corpus is optional.
 func loadSpecIndex(scan *formatScan, file string, optional bool) (SpecIndex, error) {
-	path := scan.single(filepath.Join(scan.rootDir, strings.TrimSuffix(file, yamlExt)))
+	path := scan.single(filepath.Join(scan.rootDir, file))
 	if path == "" && optional {
 		return SpecIndex{}, nil
 	}
@@ -441,7 +450,7 @@ func (c *Corpus) validate() error {
 	for _, entry := range c.SpecIndex.SRDIndex {
 		if _, ok := c.SRDs[entry.ID]; !ok {
 			errs = append(errs, fmt.Sprintf(
-				"SPECIFICATIONS.yaml srd_index references %q which does not exist",
+				"SPECIFICATIONS.md srd_index references %q which does not exist",
 				entry.ID))
 		}
 	}

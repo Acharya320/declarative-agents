@@ -37,7 +37,7 @@ func evidenceFixture(t *testing.T, suite string, tests map[string]string) string
 		}
 	}
 	write("go.mod", "module example.test/fixture\n\ngo 1.24\n")
-	write(filepath.Join(TSSubdir, "test-rel09.0-example.yaml"), suite)
+	writeCorpusDocument(t, root, TSSubdir+"/test-rel09.0-example.yaml", suite+suiteHeader)
 	var body strings.Builder
 	body.WriteString("package subject\n\nimport \"testing\"\n")
 	for name, code := range tests {
@@ -119,6 +119,15 @@ func staticResults(byName map[string]string) moduleTestRunner {
 		return results, nil
 	}
 }
+
+// suiteHeader completes a fixture suite with the fields the test suite
+// declaration requires of its Markdown document.
+const suiteHeader = `release: "09.0"
+traces:
+  - rel09.0-uc001-example
+preconditions:
+  - None.
+`
 
 const passingSuite = `
 id: test-rel09.0-example

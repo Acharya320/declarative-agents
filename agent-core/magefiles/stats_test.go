@@ -12,12 +12,12 @@ func TestDocsYAMLCategory(t *testing.T) {
 		path string
 		want string
 	}{
-		{name: "top level", path: "docs/ARCHITECTURE.yaml", want: "top_level"},
-		{name: "config format", path: "docs/specs/config-formats/machine-format.yaml", want: "config_formats"},
-		{name: "semantic model", path: "docs/specs/semantic-models/tool-language.yaml", want: "semantic_models"},
-		{name: "software requirement", path: "docs/specs/software-requirements/srd001-core-types.yaml", want: "software_requirements"},
-		{name: "use case", path: "docs/specs/use-cases/rel01.0-uc001-generator-coding.yaml", want: "use_cases"},
-		{name: "test suite", path: "docs/specs/test-suites/test-rel00.0.yaml", want: "test_suites"},
+		{name: "top level", path: "docs/ARCHITECTURE.md", want: "top_level"},
+		{name: "config format", path: "docs/specs/config-formats/machine-format.md", want: "config_formats"},
+		{name: "semantic model", path: "docs/specs/semantic-models/tool-language.md", want: "semantic_models"},
+		{name: "software requirement", path: "docs/specs/software-requirements/srd001-core-types.md", want: "software_requirements"},
+		{name: "use case", path: "docs/specs/use-cases/rel01.0-uc001-generator-coding.md", want: "use_cases"},
+		{name: "test suite", path: "docs/specs/test-suites/test-rel00.0.md", want: "test_suites"},
 		{name: "other spec", path: "docs/specs/other/example.yaml", want: "specs_other"},
 		{name: "other docs", path: "docs/notes/internal/example.yaml", want: "docs_other"},
 	}
@@ -63,7 +63,7 @@ func TestAddYAMLStats(t *testing.T) {
 	stats.Docs.Categories = make(map[string]fileLineStats)
 	stats.Configs.Categories = make(map[string]fileLineStats)
 
-	addYAMLStats(&stats, "docs/specs/config-formats/machine-format.yaml", 10)
+	addYAMLStats(&stats, "docs/specs/config-formats/machine-format.md", 10)
 	addYAMLStats(&stats, "tools/builtin.yaml", 20)
 	addYAMLStats(&stats, "agents/executor/machine.yaml", 7)
 	addYAMLStats(&stats, "README.yaml", 3)

@@ -316,13 +316,13 @@ func assertDocumentationCuratorHTTP(addr string) error {
 	if err := requireJSONField(addr, "/api/v1/docs", "data"); err != nil {
 		return err
 	}
-	if err := requireDocumentTrace(addr, "/api/v1/docs/SPECIFICATIONS.yaml"); err != nil {
+	if err := requireDocumentTrace(addr, "/api/v1/docs/SPECIFICATIONS.md"); err != nil {
 		return err
 	}
 	if err := requireJSONField(addr, "/api/v1/ux", "data"); err != nil {
 		return err
 	}
-	if err := requirePOSTStatus(addr, "/api/v1/docs/validate", `{"paths":["SPECIFICATIONS.yaml"]}`, http.StatusOK); err != nil {
+	if err := requirePOSTStatus(addr, "/api/v1/docs/validate", `{"paths":["SPECIFICATIONS.md"]}`, http.StatusOK); err != nil {
 		return err
 	}
 	if err := requirePOSTStatus(addr, "/api/v1/docs/search", `{"query":"agent core","limit":2}`, http.StatusOK); err != nil {
@@ -345,11 +345,11 @@ func assertDocumentationCuratorHTTP(addr string) error {
 	if err := requirePOSTStatus(addr, "/api/v1/docs/patches/"+rejectedID+"/reopen", `{"decided_by":"integration","reason":"compensation proof"}`, http.StatusOK); err != nil {
 		return err
 	}
-	return requireHTML(addr, "/docs/SPECIFICATIONS.yaml")
+	return requireHTML(addr, "/docs/SPECIFICATIONS.md")
 }
 
 func createDocumentationSuggestion(addr, instruction string) (string, error) {
-	body := fmt.Sprintf(`{"path":"SPECIFICATIONS.yaml","instruction":%q,"context":""}`, instruction)
+	body := fmt.Sprintf(`{"path":"SPECIFICATIONS.md","instruction":%q,"context":""}`, instruction)
 	data, status, err := requestDocumentation(addr, http.MethodPost, "/api/v1/docs/suggestions", body)
 	if err != nil {
 		return "", err

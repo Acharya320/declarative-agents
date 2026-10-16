@@ -4,7 +4,6 @@
 package spec
 
 import (
-	"encoding/json"
 	"os"
 	"path/filepath"
 	"strings"
@@ -14,9 +13,8 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// formatsFixture is the valid fixture corpus completed to satisfy the
-// Markdown declarations, so every document converts.
-const formatsFixture = "testdata/formats"
+// validFixture is the fixture corpus in Markdown, the form LoadCorpus reads.
+const validFixture = "testdata/valid"
 
 // taggedSRDComplete is taggedSRD with the fields the SRD declaration
 // requires of a Markdown document.
@@ -61,86 +59,65 @@ func copyTree(t *testing.T, from string) string {
 	return to
 }
 
-// convertCorpus converts every declared corpus document under root to
-// Markdown the way mage convert does, removing the YAML.
-func convertCorpus(t *testing.T, root string) int {
+// writeCorpusDocument writes a corpus document, given as YAML at its former
+// path, as the Markdown mage convert makes of it, and returns the Markdown
+// path. Tests author fixtures in YAML; the corpus reads only Markdown.
+func writeCorpusDocument(t *testing.T, root, rel, yamlText string) string {
 	t.Helper()
-	declarations, err := markdown.Default()
-	require.NoError(t, err)
-	converted := 0
-	require.NoError(t, filepath.WalkDir(filepath.Join(root, DocsDir), func(path string, entry os.DirEntry, err error) error {
-		if err != nil || entry.IsDir() || !strings.HasSuffix(path, yamlExt) {
-			return err
-		}
-		d, ok := declarations.ForSource(path)
-		if !ok {
-			return nil
-		}
-		data, err := os.ReadFile(path)
-		require.NoError(t, err)
-		md, report, err := d.ConvertYAML(data, path)
-		require.NoError(t, err, path)
-		require.NoError(t, os.WriteFile(report.Target, md, 0o600))
-		converted++
-		return os.Remove(path)
-	}))
-	return converted
+	target, err := markdown.ConvertFile(filepath.Join(root, filepath.FromSlash(rel)), []byte(yamlText))
+	require.NoError(t, err, rel)
+	return target
 }
 
-func modelJSON(t *testing.T, value any) string {
-	t.Helper()
-	data, err := json.Marshal(value)
-	require.NoError(t, err)
-	return strings.ReplaceAll(string(data), `\n"`, `"`)
+// parseSRDYAMLFile decodes an SRD YAML form fixture, as a release tag that
+// predates the migration holds it.
+func parseSRDYAMLFile(path string) (SRD, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return SRD{}, err
+	}
+	return parseSRDBytes(data, path)
 }
 
-// TestMarkdownCorpusLoadsLikeYAML loads the valid fixture corpus and the same
-// corpus converted to Markdown, and requires equal models and equal findings,
-// with findings naming the Markdown files.
-func TestMarkdownCorpusLoadsLikeYAML(t *testing.T) {
-	yamlRoot := copyTree(t, formatsFixture)
-	mdRoot := copyTree(t, formatsFixture)
-	require.Positive(t, convertCorpus(t, mdRoot))
-
-	fromYAML, err := LoadCorpus(yamlRoot)
-	require.NoError(t, err)
-	fromMarkdown, err := LoadCorpus(mdRoot)
-	require.NoError(t, err)
-	require.Empty(t, fromMarkdown.FormatFindings)
-
-	for name, pair := range map[string][2]any{
-		"srds": {fromYAML.SRDs, fromMarkdown.SRDs}, "use cases": {fromYAML.UseCases, fromMarkdown.UseCases},
-		"test suites": {fromYAML.TestSuites, fromMarkdown.TestSuites}, "roadmap": {fromYAML.Roadmap, fromMarkdown.Roadmap},
-		"spec index": {fromYAML.SpecIndex, fromMarkdown.SpecIndex},
-	} {
-		require.Equal(t, modelJSON(t, pair[0]), modelJSON(t, pair[1]), name)
+// parseUseCaseYAMLFile decodes a use case YAML form fixture.
+func parseUseCaseYAMLFile(path string) (UseCase, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return UseCase{}, err
 	}
-	require.Equal(t, len(fromYAML.DocSpecs), len(fromMarkdown.DocSpecs))
-	for file := range fromMarkdown.Files {
-		require.True(t, strings.HasSuffix(fromMarkdown.Files[file], markdownExt), file)
-	}
-
-	yamlFindings := Validate(mustGraph(t, fromYAML), fromYAML)
-	mdFindings := Validate(mustGraph(t, fromMarkdown), fromMarkdown)
-	require.Equal(t, len(yamlFindings), len(mdFindings))
-	for i := range yamlFindings {
-		require.Equal(t, yamlFindings[i].Check, mdFindings[i].Check)
-		require.Equal(t, strings.TrimSuffix(yamlFindings[i].File, yamlExt),
-			strings.TrimSuffix(mdFindings[i].File, markdownExt))
-	}
+	return parseUseCaseBytes(data, path)
 }
 
-// TestFormatFindingsAreCollected seeds a converted corpus with a document in
-// both formats, a document out of canonical form, and a document whose
-// structure is broken, and requires one finding each while the rest loads.
+// TestCorpusLoadsMarkdownOnly loads the fixture corpus and requires every
+// document to come from its Markdown file with no format finding, and a
+// YAML document beside it to be ignored: the working tree has no YAML front
+// end, and the placement gate rejects the stray file (GH-2626).
+func TestCorpusLoadsMarkdownOnly(t *testing.T) {
+	root := copyTree(t, validFixture)
+	corpus, err := LoadCorpus(root)
+	require.NoError(t, err)
+	require.Empty(t, corpus.FormatFindings)
+	require.NotEmpty(t, corpus.Files)
+	for file := range corpus.Files {
+		require.True(t, strings.HasSuffix(corpus.Files[file], markdownExt), file)
+	}
+
+	require.NoError(t, os.WriteFile(filepath.Join(root, SRDSubdir, "srd009-stray.yaml"), []byte(taggedSRDComplete), 0o600))
+	again, err := LoadCorpus(root)
+	require.NoError(t, err)
+	require.Equal(t, len(corpus.SRDs), len(again.SRDs))
+	require.NotContains(t, again.SRDs, "srd090-example")
+
+	_, err = ParseSRD(filepath.Join(root, SRDSubdir, "srd009-stray.yaml"))
+	require.ErrorContains(t, err, "corpus documents are Markdown")
+}
+
+// TestFormatFindingsAreCollected seeds the corpus with a document out of
+// canonical form and a document whose structure is broken, and requires one
+// finding each while the rest loads.
 func TestFormatFindingsAreCollected(t *testing.T) {
-	root := copyTree(t, formatsFixture)
-	convertCorpus(t, root)
+	root := copyTree(t, validFixture)
 	srdDir := filepath.Join(root, SRDSubdir)
-	yamlTwin, err := os.ReadFile(filepath.Join(formatsFixture, SRDSubdir, "srd001-auth.yaml"))
-	require.NoError(t, err)
-	require.NoError(t, os.WriteFile(filepath.Join(srdDir, "srd001-auth.yaml"), yamlTwin, 0o600))
-
 	appendTo(t, filepath.Join(srdDir, "srd002-api.md"), "\n")
 	breakMarkdown(t, filepath.Join(root, CFSubdir, "test-format.md"), "<!-- field: purpose -->\n")
 
@@ -150,8 +127,6 @@ func TestFormatFindingsAreCollected(t *testing.T) {
 	for _, f := range corpus.FormatFindings {
 		byCheck[f.Check] = append(byCheck[f.Check], f)
 	}
-	require.Len(t, byCheck[checkDualFormat], 1)
-	require.Equal(t, SRDSubdir+"/srd001-auth.md", byCheck[checkDualFormat][0].File)
 	require.Len(t, byCheck[checkNotCanonical], 1)
 	require.Equal(t, SRDSubdir+"/srd002-api.md", byCheck[checkNotCanonical][0].File)
 	require.NotEmpty(t, byCheck[checkMarkdownFormat])
@@ -190,6 +165,8 @@ func TestRetiredIDsReadMarkdownAtATag(t *testing.T) {
 	require.Contains(t, findings[0].Message, "srd090-example R1.1")
 }
 
+// TestParentSRDFilesMatchEitherFormat keeps YAML for pinned parent trees,
+// which may predate the migration (GH-2626 R3).
 func TestParentSRDFilesMatchEitherFormat(t *testing.T) {
 	for file, want := range map[string]bool{
 		SRDSubdir + "/srd033-monitor.yaml":               true,
@@ -219,8 +196,7 @@ func breakMarkdown(t *testing.T, path, marker string) {
 // TestLoadErrorNamesTheFormatFinding breaks an indexed SRD: the index check
 // fails the load, and the error names the Markdown finding behind it.
 func TestLoadErrorNamesTheFormatFinding(t *testing.T) {
-	root := copyTree(t, formatsFixture)
-	convertCorpus(t, root)
+	root := copyTree(t, validFixture)
 	breakMarkdown(t, filepath.Join(root, SRDSubdir, "srd003-storage.md"), "<!-- field: problem -->\n")
 	_, err := LoadCorpus(root)
 	require.Error(t, err)

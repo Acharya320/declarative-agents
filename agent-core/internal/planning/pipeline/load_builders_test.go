@@ -14,6 +14,7 @@ import (
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/internal/observability/tracing"
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/internal/planning/extract"
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/internal/runtime/core"
+	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 )
 
 // shippedValidCorpus is the on-disk corpus used across the planning packages;
@@ -23,24 +24,42 @@ func shippedValidCorpus() string {
 	return filepath.Join("..", "..", "..", "pkg", "spec", "testdata", "valid")
 }
 
-const validLoadSRD = `id: srd-ok
+// validLoadSRD and invalidLoadSRD carry every field the SRD declaration
+// requires, so they convert to the Markdown the corpus reads.
+const validLoadSRD = `id: srd001-ok
 title: OK
 problem: test
+goals:
+  - G1: A goal.
 requirements:
   R1:
     title: Stuff
     items:
       - R1.1: Do something.
+non_goals:
+  - Nothing else.
+acceptance_criteria:
+  - id: AC1
+    criterion: Works.
+    traces: [R1.1]
 `
 
-const invalidLoadSRD = `id: srd-bad
+const invalidLoadSRD = `id: srd001-bad
 title: Bad
 problem: test
+goals:
+  - G1: A goal.
 requirements:
   R1:
     title: Stuff
     items:
       - R1.1: Do something.
+non_goals:
+  - Nothing else.
+acceptance_criteria:
+  - id: AC1
+    criterion: Works.
+    traces: [R1.1]
 depends_on:
   - srd_id: nonexistent-srd
     symbols_used: [Foo]
@@ -55,17 +74,44 @@ func writeCorpusScaffold(t *testing.T, root string) {
 	} {
 		require.NoError(t, os.MkdirAll(filepath.Join(root, d), 0o755))
 	}
-	require.NoError(t, os.WriteFile(filepath.Join(root, "docs", "road-map.yaml"),
-		[]byte("id: test\ntitle: Test\nreleases: []\n"), 0o644))
-	require.NoError(t, os.WriteFile(filepath.Join(root, "docs", "SPECIFICATIONS.yaml"),
-		[]byte("id: test\ntitle: Test\n"), 0o644))
+	writeCorpusDocument(t, filepath.Join(root, "docs", "road-map.yaml"), `id: test
+title: Test
+releases:
+  - version: "00.0"
+    name: Foundation
+    description: The first release.
+    status: open
+`)
+	writeCorpusDocument(t, filepath.Join(root, "docs", "SPECIFICATIONS.yaml"), `id: test
+title: Test
+overview: A test corpus.
+foundation_document_index: []
+config_format_index: []
+semantic_model_index: []
+coverage_gaps: None known.
+roadmap_summary:
+  - version: "00.0"
+    name: Foundation
+    use_cases_done: 0
+    use_cases_total: 0
+    status: open
+srd_index: []
+use_case_index: []
+test_suite_index: []
+`)
 }
 
 func writeCorpusSRD(t *testing.T, root, filename, data string) {
 	t.Helper()
-	require.NoError(t, os.WriteFile(
-		filepath.Join(root, "docs", "specs", "software-requirements", filename),
-		[]byte(data), 0o644))
+	writeCorpusDocument(t, filepath.Join(root, "docs", "specs", "software-requirements", filename), data)
+}
+
+// writeCorpusDocument writes a document authored in YAML at its former path
+// as the Markdown the corpus reads.
+func writeCorpusDocument(t *testing.T, path, data string) {
+	t.Helper()
+	_, err := markdown.ConvertFile(path, []byte(data))
+	require.NoError(t, err, path)
 }
 
 // loadableState is a pipeline State primed for load_graph: no graph, corpus, or

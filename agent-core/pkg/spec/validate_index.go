@@ -16,7 +16,7 @@ func checkUseCaseIndexRefs(corpus *Corpus) []Finding {
 			findings = append(findings, Finding{
 				Check:   "index-missing-use-case",
 				Level:   "error",
-				Message: fmt.Sprintf("SPECIFICATIONS.yaml use_case_index references %q which does not exist", entry.ID),
+				Message: fmt.Sprintf("SPECIFICATIONS.md use_case_index references %q which does not exist", entry.ID),
 			})
 		}
 	}
@@ -33,7 +33,7 @@ func checkTestSuiteIndexRefs(corpus *Corpus) []Finding {
 			findings = append(findings, Finding{
 				Check:   "index-missing-test-suite",
 				Level:   "error",
-				Message: fmt.Sprintf("SPECIFICATIONS.yaml test_suite_index references %q which does not exist", entry.ID),
+				Message: fmt.Sprintf("SPECIFICATIONS.md test_suite_index references %q which does not exist", entry.ID),
 			})
 		}
 	}
@@ -129,7 +129,7 @@ func checkSpecIndexPaths(corpus *Corpus) []Finding {
 	var findings []Finding
 	for _, entry := range corpus.SpecIndex.SRDIndex {
 		if entry.Path != "" {
-			if !documentExists(filepath.Join(corpus.RootDir, entry.Path)) {
+			if !fileExists(filepath.Join(corpus.RootDir, entry.Path)) {
 				findings = append(findings, Finding{
 					Check:   "index-broken-path",
 					Level:   "error",
@@ -140,7 +140,7 @@ func checkSpecIndexPaths(corpus *Corpus) []Finding {
 	}
 	for _, entry := range corpus.SpecIndex.UseCaseIndex {
 		if entry.Path != "" {
-			if !documentExists(filepath.Join(corpus.RootDir, entry.Path)) {
+			if !fileExists(filepath.Join(corpus.RootDir, entry.Path)) {
 				findings = append(findings, Finding{
 					Check:   "index-broken-path",
 					Level:   "error",
@@ -151,7 +151,7 @@ func checkSpecIndexPaths(corpus *Corpus) []Finding {
 	}
 	for _, entry := range corpus.SpecIndex.TestSuiteIndex {
 		if entry.Path != "" {
-			if !documentExists(filepath.Join(corpus.RootDir, entry.Path)) {
+			if !fileExists(filepath.Join(corpus.RootDir, entry.Path)) {
 				findings = append(findings, Finding{
 					Check:   "index-broken-path",
 					Level:   "error",
@@ -173,7 +173,7 @@ func checkDocSpecRequirementsSources(corpus *Corpus) []Finding {
 	var findings []Finding
 	for id, ds := range corpus.DocSpecs {
 		for _, path := range ds.RequirementsSource.Canonical {
-			if !documentExists(filepath.Join(corpus.RootDir, path)) {
+			if !fileExists(filepath.Join(corpus.RootDir, path)) {
 				findings = append(findings, Finding{
 					Check:   "docspec-broken-requirement-source",
 					Level:   "error",
@@ -226,7 +226,7 @@ func checkDocSpecImplementationPaths(corpus *Corpus) []Finding {
 	var findings []Finding
 	for id, ds := range corpus.DocSpecs {
 		for _, path := range ds.Implementation.Paths {
-			if !documentExists(filepath.Join(corpus.RootDir, path)) {
+			if !fileExists(filepath.Join(corpus.RootDir, path)) {
 				findings = append(findings, Finding{
 					Check:   "docspec-broken-implementation-path",
 					Level:   "error",
@@ -251,7 +251,7 @@ func checkDocSpecExamplePaths(corpus *Corpus) []Finding {
 			if ex.File == "" {
 				continue
 			}
-			if !documentExists(filepath.Join(corpus.RootDir, ex.File)) {
+			if !fileExists(filepath.Join(corpus.RootDir, ex.File)) {
 				findings = append(findings, Finding{
 					Check:   "docspec-broken-example-path",
 					Level:   "warning",
@@ -266,8 +266,8 @@ func checkDocSpecExamplePaths(corpus *Corpus) []Finding {
 // checkMachineDiagnostics runs core.DiagnoseMachineSpec on each loaded
 // machine and surfaces its diagnostics as findings.
 
-// checkRoadmapSummaryCoverage verifies that every release in road-map.yaml has
-// a row in SPECIFICATIONS.yaml's roadmap_summary. The two are maintained by
+// checkRoadmapSummaryCoverage verifies that every release in road-map.md has
+// a row in SPECIFICATIONS.md's roadmap_summary. The two are maintained by
 // hand, and a release that reaches the road map without reaching the summary
 // leaves the index quietly describing a smaller project than the one that
 // exists (GH-2310).
@@ -288,14 +288,14 @@ func checkRoadmapSummaryCoverage(corpus *Corpus) []Finding {
 			Check: "roadmap-summary-missing-release",
 			Level: "error",
 			Message: fmt.Sprintf(
-				"road-map.yaml release %s has no roadmap_summary row in SPECIFICATIONS.yaml",
+				"road-map.md release %s has no roadmap_summary row in SPECIFICATIONS.md",
 				release.Version),
 		})
 	}
 	return findings
 }
 
-// checkIndexDocumentAgreement verifies that what SPECIFICATIONS.yaml says
+// checkIndexDocumentAgreement verifies that what SPECIFICATIONS.md says
 // about a use case or test suite matches what that document says about
 // itself. An index is only useful while it agrees with what it indexes, and
 // nothing else compares the two (GH-2310).
@@ -338,7 +338,7 @@ func indexFieldMismatch(index, id, field, indexed, documented string) []Finding 
 		Check: "index-document-mismatch",
 		Level: "error",
 		Message: fmt.Sprintf(
-			"SPECIFICATIONS.yaml %s entry %s states %s %q but the document states %q",
+			"SPECIFICATIONS.md %s entry %s states %s %q but the document states %q",
 			index, id, field, indexed, documented),
 	}}
 }

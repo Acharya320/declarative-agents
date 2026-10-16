@@ -74,7 +74,7 @@ func parseACTrace(trace string) (string, string) {
 	return srdID, acID
 }
 
-// buildSRDReleaseMap parses the SPECIFICATIONS.yaml overview text
+// buildSRDReleaseMap parses the SPECIFICATIONS.md overview text
 // for explicit release assignments like "- 00.0: srd001 (...), srd002 (...)".
 // Short IDs (e.g. "srd001") are matched to full corpus IDs (e.g. "srd001-requirement-loader")
 // by prefix.

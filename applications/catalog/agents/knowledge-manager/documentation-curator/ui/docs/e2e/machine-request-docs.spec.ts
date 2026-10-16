@@ -71,7 +71,7 @@ async function runProof(browser: Browser) {
   assert(index.status === 200, `index response status ${index.status}`)
   assert(index.method === 'GET', 'index read used GET')
   assert(Array.isArray(index.body.data), 'index data is an array')
-  assert(includesDocumentPath(index.body, 'specs/use-cases/rel03.0-uc007-machine-request-documentation-ux.yaml'), 'nested document path listed')
+  assert(includesDocumentPath(index.body, 'specs/use-cases/rel03.0-uc007-machine-request-documentation-ux.md'), 'nested document path listed')
   assertMachineRequestTrace(index.body, 'documents', 'DocumentIndexReady')
 
   await expandCategories(page)
@@ -83,14 +83,14 @@ async function runProof(browser: Browser) {
 
   const walk = await walkDocumentation(page, index.body)
 
-  const semanticResponse = waitForGET(page, '/api/v1/docs/specs/semantic-models/machine-request-http.yaml')
+  const semanticResponse = waitForGET(page, '/api/v1/docs/specs/semantic-models/machine-request-http.md')
   await clickDocument(page, 'Machine Request Http')
   await page.waitForSelector('.semantic-model-figure .mermaid-container svg')
   const semantic = await captureResponse(await semanticResponse)
   assert(semantic.status === 200, `semantic model response status ${semantic.status}`)
   assertMachineRequestTrace(semantic.body, 'document', 'DocumentDetailReady')
 
-  const detailResponse = waitForGET(page, '/api/v1/docs/SPECIFICATIONS.yaml')
+  const detailResponse = waitForGET(page, '/api/v1/docs/SPECIFICATIONS.md')
   await clickDocument(page, 'SPECIFICATIONS')
   await page.waitForSelector('.doc-viewer')
   await page.waitForSelector('.doc-raw-section')
@@ -116,7 +116,7 @@ async function runProof(browser: Browser) {
   const rawText = await page.$eval('.doc-raw-section', node => node.textContent ?? '')
   assert(rawText.includes('id: agent-core-specifications'), 'raw YAML view visible')
 
-  const nestedPath = 'specs/use-cases/rel03.0-uc007-machine-request-documentation-ux.yaml'
+  const nestedPath = 'specs/use-cases/rel03.0-uc007-machine-request-documentation-ux.md'
   const nestedResponse = waitForGET(page, `/api/v1/docs/${nestedPath}`)
   await clickDocument(page, 'Machine Request Documentation Ux')
   await page.waitForFunction(
@@ -128,7 +128,7 @@ async function runProof(browser: Browser) {
   assert(String(nested.body.raw ?? '').includes('id: rel03.0-uc007-machine-request-documentation-ux'), 'nested raw YAML returned')
   assertMachineRequestTrace(nested.body, 'document', 'DocumentDetailReady')
 
-  const roadmapResponse = waitForGET(page, '/api/v1/docs/road-map.yaml')
+  const roadmapResponse = waitForGET(page, '/api/v1/docs/road-map.md')
   await clickDocument(page, 'Road Map')
   await page.waitForSelector('.roadmap-srd-table')
   const roadmapText = await page.$eval('.roadmap-srd-table', node => node.textContent ?? '')

@@ -14,6 +14,7 @@ import (
 
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/internal/runtime/core"
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec"
+	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 )
 
 const (
@@ -62,12 +63,21 @@ func evidenceState(suites map[string]spec.TestSuite) *SpecState {
 func TestLoadTestClaimsBuilder(t *testing.T) {
 	t.Parallel()
 
+	// writeSuiteDir writes a suite authored in YAML as the Markdown the
+	// corpus reads; writeRawSuite writes a Markdown file as given.
 	writeSuiteDir := func(t *testing.T, body string) string {
+		t.Helper()
+		root := t.TempDir()
+		_, err := markdown.ConvertFile(filepath.Join(root, spec.TSSubdir, "test-rel09.0-example.yaml"), []byte(body))
+		require.NoError(t, err)
+		return root
+	}
+	writeRawSuite := func(t *testing.T, body string) string {
 		t.Helper()
 		root := t.TempDir()
 		dir := filepath.Join(root, spec.TSSubdir)
 		require.NoError(t, os.MkdirAll(dir, 0o755))
-		require.NoError(t, os.WriteFile(filepath.Join(dir, "test-rel09.0-example.yaml"), []byte(body), 0o644))
+		require.NoError(t, os.WriteFile(filepath.Join(dir, "test-rel09.0-example.md"), []byte(body), 0o644))
 		return root
 	}
 
@@ -75,6 +85,11 @@ func TestLoadTestClaimsBuilder(t *testing.T) {
 		t.Parallel()
 		root := writeSuiteDir(t, `id: test-rel09.0-example
 title: Example
+release: "09.0"
+traces:
+  - rel09.0-uc001-example
+preconditions:
+  - None.
 test_cases:
   - name: A claim
     go_test: TestClaimed
@@ -97,7 +112,7 @@ test_cases:
 
 	t.Run("malformed suite yields a command error without seeding a corpus", func(t *testing.T) {
 		t.Parallel()
-		root := writeSuiteDir(t, "id: [unterminated\n")
+		root := writeRawSuite(t, "---\nid: [unterminated\n---\n")
 		vs := &SpecState{Directory: root}
 		cmd := (&LoadTestClaimsBuilder{VS: vs}).Build(core.Result{})
 

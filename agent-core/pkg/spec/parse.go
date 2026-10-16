@@ -9,7 +9,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// ParseSRD reads a single SRD YAML file and returns the parsed struct.
+// ParseSRD reads a single SRD document and returns the parsed struct.
 func ParseSRD(path string) (SRD, error) {
 	data, err := readDocument(path)
 	if err != nil {
@@ -265,12 +265,17 @@ func scalarFields(item *yaml.Node) (map[string]string, error) {
 	return fields, nil
 }
 
-// ParseRoadmap reads a road-map.yaml file.
+// ParseRoadmap reads a road-map.md file.
 func ParseRoadmap(path string) (Roadmap, error) {
 	data, err := readDocument(path)
 	if err != nil {
 		return Roadmap{}, fmt.Errorf("read roadmap %s: %w", path, err)
 	}
+	return parseRoadmapBytes(data, path)
+}
+
+// parseRoadmapBytes decodes a road map from its YAML tree.
+func parseRoadmapBytes(data []byte, path string) (Roadmap, error) {
 	var rm Roadmap
 	if err := yaml.Unmarshal(data, &rm); err != nil {
 		return Roadmap{}, fmt.Errorf("parse roadmap %s: %w", path, err)
@@ -278,12 +283,17 @@ func ParseRoadmap(path string) (Roadmap, error) {
 	return rm, nil
 }
 
-// ParseSpecIndex reads a SPECIFICATIONS.yaml file.
+// ParseSpecIndex reads a SPECIFICATIONS.md file.
 func ParseSpecIndex(path string) (SpecIndex, error) {
 	data, err := readDocument(path)
 	if err != nil {
 		return SpecIndex{}, fmt.Errorf("read spec index %s: %w", path, err)
 	}
+	return parseSpecIndexBytes(data, path)
+}
+
+// parseSpecIndexBytes decodes a specification index from its YAML tree.
+func parseSpecIndexBytes(data []byte, path string) (SpecIndex, error) {
 	var si SpecIndex
 	if err := yaml.Unmarshal(data, &si); err != nil {
 		return SpecIndex{}, fmt.Errorf("parse spec index %s: %w", path, err)
@@ -312,12 +322,18 @@ type rawUseCase struct {
 	Priority           string               `yaml:"priority"`
 }
 
-// ParseUseCase reads a use case YAML file.
+// ParseUseCase reads a use case document.
 func ParseUseCase(path string) (UseCase, error) {
 	data, err := readDocument(path)
 	if err != nil {
 		return UseCase{}, fmt.Errorf("read use case %s: %w", path, err)
 	}
+	return parseUseCaseBytes(data, path)
+}
+
+// parseUseCaseBytes decodes a use case from its YAML tree, in any of the
+// forms a document from before the migration may hold.
+func parseUseCaseBytes(data []byte, path string) (UseCase, error) {
 	var raw rawUseCase
 	if err := yaml.Unmarshal(data, &raw); err != nil {
 		return UseCase{}, fmt.Errorf("parse use case %s: %w", path, err)
@@ -374,12 +390,17 @@ func useCaseFromRaw(raw *rawUseCase, flow, touchpoints, outOfScope []string) Use
 	return uc
 }
 
-// ParseTestSuite reads a test suite YAML file.
+// ParseTestSuite reads a test suite document.
 func ParseTestSuite(path string) (TestSuite, error) {
 	data, err := readDocument(path)
 	if err != nil {
 		return TestSuite{}, fmt.Errorf("read test suite %s: %w", path, err)
 	}
+	return parseTestSuiteBytes(data, path)
+}
+
+// parseTestSuiteBytes decodes a test suite from its YAML tree.
+func parseTestSuiteBytes(data []byte, path string) (TestSuite, error) {
 	var ts TestSuite
 	if err := yaml.Unmarshal(data, &ts); err != nil {
 		return TestSuite{}, fmt.Errorf("parse test suite %s: %w", path, err)

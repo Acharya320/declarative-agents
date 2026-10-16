@@ -20,7 +20,7 @@ func TestPrepareDocumentationCuratorIntegrationWritesEphemeralProfile(t *testing
 	for _, name := range []string{"load-corpus.yaml", "validate-specs.yaml", "format-report.yaml"} {
 		writeFile(t, filepath.Join(coreRoot, "tools", "builtin", name), "tools: []\n")
 	}
-	writeFile(t, filepath.Join(coreRoot, "docs", "SPECIFICATIONS.yaml"), "id: specs\n")
+	writeFile(t, filepath.Join(coreRoot, "docs", "SPECIFICATIONS.md"), "---\nid: specs\n---\n")
 	writeFile(t, filepath.Join(coreRoot, "configs", "sample.yaml"), "id: sample\n")
 	writeFile(t, filepath.Join(coreRoot, "unrelated-dirty-file"), "preserve me\n")
 
@@ -82,7 +82,7 @@ func TestPrepareDocumentationCuratorIntegrationWritesEphemeralProfile(t *testing
 	if _, err := os.Stat(filepath.Join(tmpDir, "ui", "ux.yaml")); err != nil {
 		t.Fatalf("expected copied UX config: %v", err)
 	}
-	if _, err := os.Stat(filepath.Join(cfg.workspace, "docs", "SPECIFICATIONS.yaml")); err != nil {
+	if _, err := os.Stat(filepath.Join(cfg.workspace, "docs", "SPECIFICATIONS.md")); err != nil {
 		t.Fatalf("expected isolated documentation corpus: %v", err)
 	}
 	if cfg.workspace == coreRoot {
@@ -129,7 +129,7 @@ func TestRequireDocumentTraceAcceptsMachineRequestTrace(t *testing.T) {
 	}))
 	defer server.Close()
 
-	if err := requireDocumentTrace(strings.TrimPrefix(server.URL, "http://"), "/api/v1/docs/SPECIFICATIONS.yaml"); err != nil {
+	if err := requireDocumentTrace(strings.TrimPrefix(server.URL, "http://"), "/api/v1/docs/SPECIFICATIONS.md"); err != nil {
 		t.Fatalf("requireDocumentTrace returned error: %v", err)
 	}
 }
@@ -141,7 +141,7 @@ func TestRequireDocumentTraceRejectsMissingTraceFields(t *testing.T) {
 	}))
 	defer server.Close()
 
-	err := requireDocumentTrace(strings.TrimPrefix(server.URL, "http://"), "/api/v1/docs/SPECIFICATIONS.yaml")
+	err := requireDocumentTrace(strings.TrimPrefix(server.URL, "http://"), "/api/v1/docs/SPECIFICATIONS.md")
 	if err == nil {
 		t.Fatal("expected missing trace field error")
 	}

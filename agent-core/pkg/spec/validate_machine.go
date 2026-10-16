@@ -161,7 +161,7 @@ func checkMachineNameConsistency(corpus *Corpus) []Finding {
 }
 
 // checkUseCaseIndexRefs verifies that every use_case_index entry in
-// SPECIFICATIONS.yaml references a use case that exists in the corpus.
+// SPECIFICATIONS.md references a use case that exists in the corpus.
 
 func checkMachineDiagnostics(corpus *Corpus) []Finding {
 	var findings []Finding

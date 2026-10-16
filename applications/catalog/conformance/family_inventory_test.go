@@ -44,7 +44,7 @@ func TestShippedProfilesMatchFoundationModels(t *testing.T) {
 			Classification string `yaml:"classification"`
 		} `yaml:"bindings"`
 	}
-	authorityPath := filepath.Join(ProfilesRoot(), "..", "docs", "specs", "semantic-models", "agent-role-realizations.yaml")
+	authorityPath := filepath.Join(ProfilesRoot(), "..", "docs", "specs", "semantic-models", "agent-role-realizations.md")
 	data, err := markdown.ReadAsYAML(authorityPath)
 	if err != nil {
 		t.Fatal(err)
@@ -87,7 +87,7 @@ func TestShippedProfilesMatchFoundationModels(t *testing.T) {
 			ProfilePath string `yaml:"profile_path"`
 		} `yaml:"conformance_fixtures"`
 	}
-	readRoleYAML(t, "docs/specs/semantic-models/agent-role-taxonomy.yaml", &taxonomy)
+	readRoleYAML(t, "docs/specs/semantic-models/agent-role-taxonomy.md", &taxonomy)
 	roleIDs := map[string]bool{}
 	for _, role := range taxonomy.Roles {
 		if !shipped[role.ProfilePath] {
@@ -118,7 +118,7 @@ func TestShippedProfilesMatchFoundationModels(t *testing.T) {
 			Profile string `yaml:"profile"`
 		} `yaml:"actor_boundaries"`
 	}
-	readRoleYAML(t, "docs/specs/semantic-models/multi-agent-profile-system.yaml", &model)
+	readRoleYAML(t, "docs/specs/semantic-models/multi-agent-profile-system.md", &model)
 	grouped := map[string]bool{}
 	for _, group := range model.RoleGroups {
 		for _, profile := range group.Profiles {
@@ -145,14 +145,14 @@ func TestFamilySRDInventoryMatchesSpecificationIndex(t *testing.T) {
 		Families []string `yaml:"family_srds"`
 		Fixtures []string `yaml:"conformance_fixture_srds"`
 	}
-	readRoleYAML(t, "docs/specs/software-requirements/srd001-agent-functional-blocks.yaml", &foundation)
+	readRoleYAML(t, "docs/specs/software-requirements/srd001-agent-functional-blocks.md", &foundation)
 	var specifications struct {
 		SRDs []struct {
 			ID     string `yaml:"id"`
 			Status string `yaml:"status"`
 		} `yaml:"srd_index"`
 	}
-	readRoleYAML(t, "docs/SPECIFICATIONS.yaml", &specifications)
+	readRoleYAML(t, "docs/SPECIFICATIONS.md", &specifications)
 	indexed := map[string]string{}
 	for _, srd := range specifications.SRDs {
 		indexed[srd.ID] = srd.Status

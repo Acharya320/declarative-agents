@@ -151,9 +151,10 @@ func checkConstitutionCitations(repositoryRoot string, language languageFile) er
 	return nil
 }
 
-// isConstitutionFile reports a constitution in either corpus format (eng10).
+// isConstitutionFile reports a constitution, a Markdown corpus document
+// (eng10).
 func isConstitutionFile(name string) bool {
-	return strings.HasSuffix(name, ".yaml") || strings.HasSuffix(name, ".md")
+	return strings.HasSuffix(name, ".md")
 }
 
 func uniqueStrings(values []string) int {
