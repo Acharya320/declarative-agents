@@ -4,6 +4,8 @@
 package markdown
 
 import (
+	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 
@@ -87,5 +89,43 @@ func TestDesignConstitutionStaysYAML(t *testing.T) {
 	}
 	if d, ok := declarations.ForSource("agent-core/docs/constitutions/testing.yaml"); !ok || d.Type() != "constitution" {
 		t.Error("testing.yaml is not a constitution in scope")
+	}
+}
+
+// TestConvertTreeAndReadAsYAML converts a small tree in place, leaving
+// testdata alone, and reads the moved document back by its YAML path.
+func TestConvertTreeAndReadAsYAML(t *testing.T) {
+	root := t.TempDir()
+	guideline := "id: eng90-sample\ntitle: Sample\nintroduction: We describe a practice.\n" +
+		"sections:\n  - title: The practice\n    content: Each module follows it.\nreferences:\n  - https://example.com\n"
+	write := func(rel, body string) {
+		path := filepath.Join(root, filepath.FromSlash(rel))
+		if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(path, []byte(body), 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+	write("docs/engineering/eng90-sample.yaml", guideline)
+	write("testdata/docs/engineering/eng91-kept.yaml", guideline)
+	reports, err := repositoryDeclarations(t).ConvertTree(root)
+	if err != nil || len(reports) != 1 {
+		t.Fatalf("ConvertTree: %v (%d reports)", err, len(reports))
+	}
+	if _, err := os.Stat(filepath.Join(root, "testdata/docs/engineering/eng91-kept.yaml")); err != nil {
+		t.Fatalf("testdata was converted: %v", err)
+	}
+	data, err := ReadAsYAML(filepath.Join(root, "docs/engineering/eng90-sample.yaml"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, want := range []string{"id: eng90-sample", "introduction: We describe a practice.", "title: The practice"} {
+		if !strings.Contains(string(data), want) {
+			t.Errorf("ReadAsYAML lacks %q:\n%s", want, data)
+		}
+	}
+	if _, err := ReadAsYAML(filepath.Join(root, "docs/engineering/eng92-absent.yaml")); err == nil {
+		t.Error("read a document that exists in neither format")
 	}
 }

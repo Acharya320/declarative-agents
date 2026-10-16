@@ -97,9 +97,10 @@ var citationIDPattern = regexp.MustCompile(`\bR-[A-Z][A-Z0-9]*-[0-9]{3}\b`)
 // checkConstitutionCitations enforces the one-way binding from the other
 // side: every constitution cites at least one statement identifier, and every
 // identifier it cites resolves, so a renumbered or deleted statement cannot
-// leave a constitution claiming conformance to nothing. A repository without
-// the constitutions directory passes vacuously; the specification module does
-// not require its consumers to exist.
+// leave a constitution claiming conformance to nothing. Constitutions are
+// read in either corpus format (eng10). A repository without the
+// constitutions directory passes vacuously, since the specification module
+// does not require its consumers to exist; a directory holding none fails.
 func checkConstitutionCitations(repositoryRoot string, language languageFile) error {
 	dir := filepath.Join(repositoryRoot, filepath.FromSlash(constitutionsDir))
 	entries, err := os.ReadDir(dir)
@@ -117,7 +118,7 @@ func checkConstitutionCitations(repositoryRoot string, language languageFile) er
 	var findings []error
 	checked := 0
 	for _, entry := range entries {
-		if entry.IsDir() || !strings.HasSuffix(entry.Name(), ".yaml") {
+		if entry.IsDir() || !isConstitutionFile(entry.Name()) {
 			continue
 		}
 		checked++
@@ -137,13 +138,22 @@ func checkConstitutionCitations(repositoryRoot string, language languageFile) er
 			}
 		}
 	}
+	if checked == 0 {
+		// A constitutions directory with nothing this check reads has lost
+		// its documents or changed their format: say so instead of
+		// validating nothing.
+		findings = append(findings, fmt.Errorf("%s: no constitution to check", constitutionsDir))
+	}
 	if len(findings) > 0 {
 		return errors.Join(findings...)
 	}
-	if checked > 0 {
-		fmt.Printf("validated statement citations in %d constitutions\n", checked)
-	}
+	fmt.Printf("validated statement citations in %d constitutions\n", checked)
 	return nil
+}
+
+// isConstitutionFile reports a constitution in either corpus format (eng10).
+func isConstitutionFile(name string) bool {
+	return strings.HasSuffix(name, ".yaml") || strings.HasSuffix(name, ".md")
 }
 
 func uniqueStrings(values []string) int {

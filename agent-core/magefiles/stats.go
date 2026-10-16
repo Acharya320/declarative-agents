@@ -6,6 +6,7 @@ package main
 import (
 	"bufio"
 	"encoding/json"
+	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 	"os"
 	"path/filepath"
 	"strings"
@@ -67,7 +68,7 @@ func Stats() error {
 		case strings.HasSuffix(path, ".go"):
 			n, _ := countLines(path)
 			rec.Go.SrcLines += n
-		case strings.HasSuffix(path, ".yaml") || strings.HasSuffix(path, ".yml"):
+		case strings.HasSuffix(path, ".yaml") || strings.HasSuffix(path, ".yml"), isMarkdownCorpusDocument(path):
 			n, _ := countLines(path)
 			addYAMLStats(&rec.YAML, path, n)
 		}
@@ -163,4 +164,19 @@ func countLines(path string) (int, error) {
 		n++
 	}
 	return n, s.Err()
+}
+
+// isMarkdownCorpusDocument reports a corpus document already converted to
+// Markdown (eng10): it counts where its YAML form did, so the corpus totals
+// survive the migration. Native Markdown such as guides is not counted.
+func isMarkdownCorpusDocument(path string) bool {
+	if !strings.HasSuffix(path, ".md") {
+		return false
+	}
+	declarations, err := markdown.Default()
+	if err != nil {
+		return false
+	}
+	_, ok := declarations.ForMarkdown(filepath.ToSlash(path))
+	return ok
 }

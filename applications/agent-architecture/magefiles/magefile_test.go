@@ -5,6 +5,7 @@ package main
 
 import (
 	"encoding/json"
+	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -684,5 +685,25 @@ func readTestYAML(t *testing.T, path string, out any) {
 	}
 	if err := yaml.Unmarshal(data, out); err != nil {
 		t.Fatal(err)
+	}
+}
+
+// TestAuditApplicationReadsMarkdown runs the application audit on a copy
+// whose corpus is converted to Markdown, as after the migration (eng10).
+func TestAuditApplicationReadsMarkdown(t *testing.T) {
+	root := copyApplicationFixture(t)
+	declarations, err := markdown.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	reports, err := declarations.ConvertTree(filepath.Join(root, "docs"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(reports) < len(requiredDocuments) {
+		t.Fatalf("converted %d documents, want at least %d", len(reports), len(requiredDocuments))
+	}
+	if err := auditApplication(root); err != nil {
+		t.Fatalf("audit of the Markdown corpus: %v", err)
 	}
 }

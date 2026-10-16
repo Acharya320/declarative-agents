@@ -16,6 +16,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 	"github.com/Nokia-Bell-Labs/declarative-agents/magefiles/appmanifest"
 	"gopkg.in/yaml.v3"
 )
@@ -242,7 +243,7 @@ func Audit() error {
 	if err := auditApplication(root); err != nil {
 		return err
 	}
-	fmt.Printf("audit: validated %d Agent Architecture YAML documents\n", len(requiredDocuments))
+	fmt.Printf("audit: validated %d Agent Architecture documents\n", len(requiredDocuments))
 	return nil
 }
 
@@ -645,12 +646,17 @@ func auditTraceability(root string) error {
 	return nil
 }
 
+// requireIndexedFile requires an indexed path to exist; an indexed corpus
+// document also counts once it has moved to Markdown.
 func requireIndexedFile(root, path string) error {
-	info, err := os.Stat(filepath.Join(root, filepath.FromSlash(path)))
-	if err != nil || info.IsDir() {
-		return fmt.Errorf("indexed path does not exist: %s", path)
+	full := filepath.Join(root, filepath.FromSlash(path))
+	if info, err := os.Stat(full); err == nil && !info.IsDir() {
+		return nil
 	}
-	return nil
+	if _, err := markdown.ReadAsYAML(full); err == nil {
+		return nil
+	}
+	return fmt.Errorf("indexed path does not exist: %s", path)
 }
 
 func auditOwnedSources(root string) error {
@@ -701,8 +707,10 @@ func auditOwnedSources(root string) error {
 	return nil
 }
 
+// readYAML reads a document by its YAML path into out, from its Markdown
+// form once the document has moved (eng10 migration window).
 func readYAML(path string, out any) error {
-	data, err := os.ReadFile(path)
+	data, err := markdown.ReadAsYAML(path)
 	if err != nil {
 		return fmt.Errorf("read %s: %w", filepath.ToSlash(path), err)
 	}
