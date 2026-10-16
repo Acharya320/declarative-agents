@@ -82,6 +82,15 @@ func (e FailureEvidence) Capture(kindRun Runner, cluster string) error {
 	return e.capture(kindRun, cluster)
 }
 
+// CaptureNamespaces persists the kubectl half of Capture: cluster events, each
+// namespace's diagnostics, the trace tail, and the manifest, without the kind
+// log export. A scenario on a shared cluster calls it while its kubeconfig
+// and namespace still exist, and leaves the cluster-wide export to whoever
+// releases the cluster later (GH-2568).
+func (e FailureEvidence) CaptureNamespaces(cluster string) error {
+	return e.captureWith(nil, cluster)
+}
+
 // evidenceRecorder accumulates manifest entries and capture errors. A failed
 // step is recorded and capture continues (srd023 R1.4).
 type evidenceRecorder struct {
@@ -95,6 +104,11 @@ func (r *evidenceRecorder) fail(err error) {
 }
 
 func (e FailureEvidence) capture(kindRun Runner, cluster string) error {
+	return e.captureWith(kindRun, cluster)
+}
+
+// captureWith captures the evidence; a nil kindRun skips the kind log export.
+func (e FailureEvidence) captureWith(kindRun Runner, cluster string) error {
 	if e.Directory == "" {
 		return fmt.Errorf("evidence directory is required")
 	}
@@ -102,10 +116,12 @@ func (e FailureEvidence) capture(kindRun Runner, cluster string) error {
 		return fmt.Errorf("create evidence directory: %w", err)
 	}
 	rec := &evidenceRecorder{dir: e.Directory}
-	if err := ExportLogs(kindRun, cluster, filepath.Join(e.Directory, "kind")); err != nil {
-		rec.fail(err)
-	} else {
-		rec.files = append(rec.files, EvidenceFile{Path: "kind", Kind: EvidenceKindLogs})
+	if kindRun != nil {
+		if err := ExportLogs(kindRun, cluster, filepath.Join(e.Directory, "kind")); err != nil {
+			rec.fail(err)
+		} else {
+			rec.files = append(rec.files, EvidenceFile{Path: "kind", Kind: EvidenceKindLogs})
+		}
 	}
 	if e.Run == nil {
 		if len(e.Namespaces) > 0 {
