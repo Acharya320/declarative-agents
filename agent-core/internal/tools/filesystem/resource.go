@@ -16,6 +16,7 @@ import (
 	"gopkg.in/yaml.v3"
 
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/internal/runtime/core"
+	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 )
 
 const (
@@ -245,10 +246,10 @@ func readResourceDetail(abs, rel string, def ResourceDefinition) (resourceDetail
 	if IsBinary(data) {
 		return resourceDetail{}, resourceDenied("binary files are not allowed")
 	}
-	return buildResourceDetail(rel, data, info.Size(), def)
+	return buildResourceDetail(abs, rel, data, info.Size(), def)
 }
 
-func buildResourceDetail(rel string, data []byte, size int64, def ResourceDefinition) (resourceDetail, error) {
+func buildResourceDetail(abs, rel string, data []byte, size int64, def ResourceDefinition) (resourceDetail, error) {
 	detail := resourceDetail{
 		Path:        rel,
 		ContentType: resourceContentType(rel),
@@ -259,7 +260,7 @@ func buildResourceDetail(rel string, data []byte, size int64, def ResourceDefini
 		detail.Raw = string(data)
 	}
 	if hasMode(def.Modes, "parsed_yaml") {
-		parsed, err := parseYAML(data)
+		parsed, err := parseResourceYAML(abs, data)
 		if err != nil {
 			return resourceDetail{}, resourceParseFailed(err)
 		}
@@ -383,6 +384,41 @@ func resourceContentType(rel string) string {
 		return ct
 	}
 	return "text/plain; charset=utf-8"
+}
+
+// parseResourceYAML parses a resource for the parsed_yaml mode. A Markdown
+// document at a declared corpus location parses into the YAML tree its
+// design.yaml declaration gives it (eng10), the tree a YAML document parsed
+// into before the migration. Native Markdown, such as a guide, has no
+// structured fields, so it parses to an empty mapping and a reader shows its
+// raw text. Any other file parses as YAML (GH-2629).
+func parseResourceYAML(abs string, data []byte) (interface{}, error) {
+	if !strings.HasSuffix(abs, ".md") {
+		return parseYAML(data)
+	}
+	declarations, err := markdown.Default()
+	if err != nil {
+		return nil, err
+	}
+	if d, ok := declarations.ForMarkdown(filepath.ToSlash(abs)); ok {
+		return parseCorpusDocument(d, abs, data)
+	}
+	return map[string]interface{}{}, nil
+}
+
+func parseCorpusDocument(d *markdown.Declaration, abs string, data []byte) (interface{}, error) {
+	doc, findings, err := d.Parse(data, abs)
+	if err != nil {
+		return nil, err
+	}
+	if doc == nil {
+		return nil, fmt.Errorf("%d Markdown format finding(s), first %s", len(findings), findings[0])
+	}
+	var parsed interface{}
+	if err := doc.Decode(&parsed); err != nil {
+		return nil, err
+	}
+	return parsed, nil
 }
 
 func parseYAML(data []byte) (interface{}, error) {

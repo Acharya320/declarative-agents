@@ -186,7 +186,7 @@ Response words SHALL be the only bridge from machine output back to HTTP status,
 <!-- req: R4.3 -->
 ### R4.3
 
-Configuration SHALL map allowed terminal signals or response word output to status code, headers, body fields, and content type. When the terminal word emits plain text rather than a JSON object (for example invoke_llm's raw model answer), the binding SHALL expose it under an output key so a body selector can map $.output; JSON object outputs SHALL be mapped by their fields unchanged.
+Configuration SHALL map allowed terminal signals or response word output to status code, headers, body fields, and content type. When the terminal word emits plain text rather than a JSON object (for example invoke_llm's raw model answer), the binding SHALL expose it under an output key so a body selector can map $.output; JSON object outputs SHALL be mapped by their fields unchanged. A body selector of $ SHALL map the whole output object, so a body field can carry the complete response beside selected fields.
 
 <!-- req: R4.6 -->
 ### R4.6

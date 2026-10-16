@@ -264,7 +264,7 @@ rest:
                 SearchReady:
                   status: 200
                   content_type: application/json
-                  body: {data: "$.", query: $.query, matches: $.matches, count: $.count}
+                  body: {data: "$", query: $.query, matches: $.matches, count: $.count}
                 Failed: {status: 500, content_type: application/json, body: {error: command_error}}
         validate: &validate_endpoint
           method: POST
@@ -286,11 +286,11 @@ rest:
                 ValidationReady:
                   status: 200
                   content_type: application/json
-                  body: {data: "$.", status: $.status, findings: $.findings, checked_paths: $.checked_paths}
+                  body: {data: "$", status: $.status, findings: $.findings, checked_paths: $.checked_paths}
                 ValidationRejected:
                   status: 422
                   content_type: application/json
-                  body: {data: "$.", status: $.status, findings: $.findings, checked_paths: $.checked_paths, error: validation_failed}
+                  body: {data: "$", status: $.status, findings: $.findings, checked_paths: $.checked_paths, error: validation_failed}
                 Failed: {status: 500, content_type: application/json, body: {error: command_error}}
         validate_action:
           <<: *validate_endpoint
@@ -316,7 +316,7 @@ rest:
                 SuggestionReady:
                   status: 202
                   content_type: application/json
-                  body: {data: "$.", patch_id: $.patch_id, path: $.path, status: $.status, suggestions: $.suggestions, proposed_patch: $.proposed_patch}
+                  body: {data: "$", patch_id: $.patch_id, path: $.path, status: $.status, suggestions: $.suggestions, proposed_patch: $.proposed_patch}
                 DocumentNotFound: {status: 404, content_type: application/json, body: {error: document_missing}}
                 RequestDenied: {status: 403, content_type: application/json, body: {error: document_resource_denied}}
                 Failed: {status: 500, content_type: application/json, body: {error: command_error}}
@@ -346,7 +346,7 @@ rest:
                 DecisionReady:
                   status: 200
                   content_type: application/json
-                  body: {data: "$.", patch_id: $.patch_id, status: $.status, decided_by: $.decided_by, applied: $.applied}
+                  body: {data: "$", patch_id: $.patch_id, status: $.status, decided_by: $.decided_by, applied: $.applied}
                 ActionRejected: {status: 409, content_type: application/json, body: {error: invalid_patch_state}}
                 ActionMissing: {status: 404, content_type: application/json, body: {error: patch_missing}}
                 RequestDenied: {status: 403, content_type: application/json, body: {error: document_resource_denied}}
