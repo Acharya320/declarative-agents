@@ -125,7 +125,64 @@ Table 3: Field shapes
 
 A list or table field with no entries still has its shape, so an empty index is not a finding. A table field that declares no columns accepts any header, which the index documents need because their columns differ by module.
 
-The YAML forms convert by fixed rules. A string becomes prose; a list of strings becomes a list; a map of strings becomes a keyed list whose items read name, colon, text; a list of flat records becomes a table; a list of records with ids and prose becomes nodes; anything nested deeper becomes a fenced yaml block. The fenced block is the fallback, and the SRD declaration needs it nowhere.
+How each YAML value becomes one of these shapes is the job of the YAML mapping, in the next section. The fenced block is the fallback, and the SRD declaration needs it nowhere.
+
+<!-- section: yaml-mapping -->
+## YAML mapping
+
+One converter serves every document type (GH-2582, split on 2026-10-16). It maps a Markdown document to the yaml.Node tree its YAML form parses into, and back, driven only by the type's declaration. Every consumer that reads the YAML tree today reads the same tree from a Markdown document: the typed parsers (ParseSRD, ParseUseCase, ParseTestSuite, ParseRoadmap, ParseSpecIndex), the corpus charter's YAML-path checks, and the reference checks in magefiles. The typed models stay the one document model; Markdown is a second way to reach them.
+
+The rendering rules above say how a document looks. The YAML mapping says where each piece lives in the tree, and it sits beside them in the declaration. Frontmatter fields are top-level scalar keys of the same name. A field maps to the record key of its name unless its declaration names another, and its value converts by Table 5. A node kind maps to records by the parts in Table 4.
+
+Table 4: YAML mapping of a node kind
+
+| Part | Meaning |
+| --- | --- |
+| from | the key, in the parent's record or at the top level, that holds the records |
+| records | list (a sequence of records) or map (records keyed by id, as SRD requirement groups are) |
+| id | the record key that holds the id; for map records the id is the map key |
+| title | the record key whose value follows the id in an id_title heading |
+| content | the record key whose value is the node's prose |
+| keyed | the record may be written as a one-entry map from id to content |
+| fields | the child field kind that carries every other record key |
+
+Table 5: Value conversions
+
+| YAML value | Markdown | Used for |
+| --- | --- | --- |
+| string | prose | problem, summary, purpose |
+| list of strings | list | non_goals, references |
+| map of strings | keyed list: each item reads name, colon, text | vision success criteria |
+| list of keyed records | outline: each item reads id, colon, content, with every other record key as a nested item | goals, flow steps |
+| list of flat records | table, one column per record key | touchpoints, needs_clarification, index tables |
+| list of records with prose | nodes, one per record | requirement items, acceptance criteria, test cases |
+| anything else | fenced yaml block | nested passthrough values |
+
+A passthrough value, one no declaration types, takes the first conversion in the table that parses back to the same node: a string becomes prose, a list of plain strings becomes a list, and anything else becomes a fenced yaml block. Record keys keep their order, so a document's key order survives as its field order.
+
+<!-- section: round-trip-laws -->
+## Round-trip laws
+
+The laws are stated on the node tree, with comments removed and after the one-time form normalization of the next section. For every tracked document of every structured type, yaml to node to Markdown to node is the identity, Markdown is a fixed point of parse then print on canonical form, and the converter is idempotent. For the types that have a typed model, the model parsed from the Markdown front end equals the model parsed from the YAML one. GH-2605 proves the laws on the real corpus, and GH-2606 adds the batch converter and its inverse.
+
+<!-- section: comments-and-forms -->
+## Comments and two-form fields
+
+YAML comments do not survive conversion. The tracked corpus holds 270 non-license comment lines in 35 files of the structured types, and they fall into two groups. Some carry facts a reader needs, such as the note in four catalog SRDs that the agent-core SRDs they cite are platform dependencies. Others restate structure: 10 repeat the document title on its first line, and 26 are blank or divider lines. Neither group belongs in a marker, since the one-layer rule keeps markers for machine-only facts, and placing a free note inside a typed field would break its shape. The converter therefore reports every comment it does not carry, with file and line, and the corpus migration (GH-2584) turns each comment that states a fact into visible text in the same pull request, called out as a hand edit.
+
+Some fields are written in more than one YAML form, and one Markdown form cannot parse back to two. Before the round trips run, each such field is normalized to one canonical form in its own commit that changes no value: a record holding only its id and content takes the keyed form, any other record keeps the record form, and an unnumbered entry receives the next free number. Table 6 counts the entries the normalization touches.
+
+Table 6: Fields normalized before conversion
+
+| Field | Forms in the corpus | Entries normalized |
+| --- | --- | --- |
+| SRD goals | 404 keyed, 33 records with id and text, 36 numbered strings | 69 become keyed |
+| SRD requirement groups | 104 SRDs as a map, 2 as a list | 2 SRDs become a map |
+| SRD requirement items | 2467 keyed, 160 records with more keys | none |
+| use case flow | 403 keyed, 262 records with id and text, 47 records with traces, 1 unnumbered string | 262 become keyed, 1 is numbered |
+| use case touchpoints | 309 keyed strings, 272 records, 17 unnumbered strings | 309 split into records, 17 numbered |
+
+The keyed touchpoint strings split at their double hyphen into target and reason, and every one of the 309 has one. Lists inside passthrough values keep whatever forms they have, because the fenced yaml block holds any node exactly.
 
 <!-- section: identifiers -->
 ## Identifiers
@@ -143,9 +200,9 @@ A converter assigns new numbers only where the YAML had none: 17 unnumbered use 
 <!-- section: diagnostics -->
 ## Diagnostics
 
-An agent authoring a document iterates write, audit, fix, so every failure is a named finding that says how to fix it. Diagnostics come in tiers, and the run collects every finding rather than stopping at the first. Table 4 gives the tiers.
+An agent authoring a document iterates write, audit, fix, so every failure is a named finding that says how to fix it. Diagnostics come in tiers, and the run collects every finding rather than stopping at the first. Table 7 gives the tiers.
 
-Table 4: Diagnostic tiers
+Table 7: Diagnostic tiers
 
 | Tier | Covers | Handling |
 | --- | --- | --- |
@@ -155,9 +212,9 @@ Table 4: Diagnostic tiers
 | 3 | shapes: field shapes, list item patterns, table columns, attribute shapes | named finding |
 | 4 | prose containment | named finding |
 
-Each finding carries its name, tier, file, line, what the rule expected, what the document has, the rule path inside design.yaml (document_types.<type>.markdown.<rule>), and a fix hint. The names are stable: tools and agents match on them, so renaming one is a breaking change. Table 5 is the complete catalog.
+Each finding carries its name, tier, file, line, what the rule expected, what the document has, the rule path inside design.yaml (document_types.<type>.markdown.<rule>), and a fix hint. The names are stable: tools and agents match on them, so renaming one is a breaking change. Table 8 is the complete catalog.
 
-Table 5: Finding catalog
+Table 8: Finding catalog
 
 | Tier | Name | Reported when |
 | --- | --- | --- |
@@ -209,9 +266,9 @@ The check reports what the corpus migration (GH-2584) rewrites. On the printed S
 <!-- section: rules-as-data -->
 ## Rules as data
 
-Every entry in document_types carries a markdown entry, and a test in the prototype holds design.yaml to that. A structured type declares its rules there; a type that takes no rules says why in one line. Table 6 lists the types.
+Every entry in document_types carries a markdown entry, and a test in the prototype holds design.yaml to that. A structured type declares its rules there; a type that takes no rules says why in one line. Table 9 lists the types.
 
-Table 6: Markdown declarations by document type
+Table 9: Markdown declarations by document type
 
 | Type | Markdown location | Declaration |
 | --- | --- | --- |
@@ -236,14 +293,14 @@ Table 6: Markdown declarations by document type
 
 A file selects its declaration by its whole path, matched at a path boundary, because several types share the name placeholder and differ only by directory. A run of N is a digit placeholder only after a lowercase letter or a dot, so VISION stays a word; the placement gate reads locations by the same rule. Audit registers take a -register suffix so they do not collide with the audit reports beside them.
 
-Two types stay outside the format by design. The corpus charter is configuration the audit executes (spec.Charter), not a document a person reads, and the stats baseline is generated output. The design constitution converts with the other constitutions, but its machine-read sections, document_types among them, stay fenced yaml blocks so the loaders keep reading them; GH-2582 promotes the loader to read the block from design.md.
+Two types stay outside the format by design. The corpus charter is configuration the audit executes (spec.Charter), not a document a person reads, and the stats baseline is generated output. The design constitution converts with the other constitutions, but its machine-read sections, document_types among them, stay fenced yaml blocks so the loaders keep reading them; GH-2602 moves the loader into agent-core, and GH-2604 makes it read the block from design.md.
 
 <!-- section: corpus-fit -->
 ## Corpus fit
 
-We checked each new declaration against the corpus before any converter exists, comparing every YAML value with the shape its field declares. Table 7 gives the result; the SRD row is the prototype's measurement on printed Markdown, the others are estimates that GH-2582's round-trip tests replace.
+We checked each new declaration against the corpus before any converter exists, comparing every YAML value with the shape its field declares. Table 10 gives the result; the SRD row is the prototype's measurement on printed Markdown, the others are estimates that GH-2605's round-trip tests replace.
 
-Table 7: Corpus fit of the declarations
+Table 10: Corpus fit of the declarations
 
 | Type | Files | Fit as declared | Migration work |
 | --- | --- | --- | --- |
@@ -262,7 +319,7 @@ Table 7: Corpus fit of the declarations
 | constitution | 11 | 10 | go-style: 2 prose-containment hits |
 | migration | 4 | 4 | none |
 
-Use cases fit once two conversion rules apply. Flow steps come in two YAML forms, 403 keyed steps (F1: text) and 309 records with id and text; both print as one list of keyed items, and the 47 records that carry traces end their item with the traces in parentheses. Touchpoints come as 309 keyed strings and 272 records with id, target, and reason; every keyed string splits at its double hyphen into target and reason, so both print as one table.
+Use cases fit once their flow and touchpoints are normalized (Table 6). Flow then prints as an outline, where the 47 steps that carry traces show them as a nested traces item, and touchpoints print as one table with id, target, and reason columns.
 
 <!-- section: rendering -->
 ## Rendering
