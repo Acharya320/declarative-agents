@@ -1,0 +1,266 @@
+---
+id: applications-shared-contract
+title: Vision for Declarative Multi-Agent Applications
+---
+<!-- Copyright (c) 2026 Nokia -->
+<!-- SPDX-License-Identifier: BSD-3-Clause -->
+
+<!-- field: executive_summary -->
+## Executive summary
+
+We build runnable applications by composing declarative agent programs around
+an end-to-end scenario. Multiple actors are useful when responsibilities need
+independent authority, failure, scaling, or lifecycle boundaries. A single
+actor remains the right design when those boundaries add no value.
+
+applications/catalog is the reusable source of canonical declarative blocks.
+It is not a runnable application. Applications own composition and reference
+catalog members without copying canonical behavior or counting the same agent
+twice.
+
+The shared capability contract governs every runnable module under
+applications/. It separates baseline module governance from optional service,
+packaging, Helm, and kind-demo capabilities.
+
+<!-- field: problem -->
+## Problem
+
+A solution architecture must connect intent, policy, planning, coordination,
+actuation, assurance, feedback, knowledge, lifecycle, observability, and
+exceptional human decisions without prescribing one fixed agent topology.
+Splitting every responsibility into another agent adds remote failures and
+operating cost; collapsing responsibilities can combine authority, failure,
+scaling, or lifecycle concerns that should remain independent.
+
+The resulting composition must also be runnable and reviewable. Existing
+applications repeat ownership, lifecycle, orchestration, and observability
+rules in local documents. Without a shared contract, an application can
+over-claim conformance, duplicate catalog behavior, omit transitive profile
+assets, or inherit deployment obligations that its design does not need.
+
+<!-- field: what_this_does -->
+## What this does
+
+We join a multi-agent design model to the existing runnable-module contract.
+The model traces top-down intent through policy, planning, coordination, and
+actuation, then traces observations upward through assurance, analysis, and
+feedback. Knowledge, lifecycle, and observability support both directions.
+Humans set intent and policy, approve or reject exceptional decisions, and
+retain intervention and accountability at the application boundary.
+
+Canonical roles are semantic interfaces, not deployment units. An actor or
+profile realizes one or more roles for a domain and execution scope. The
+application chooses actor relationships, topology, endpoints, sequencing,
+authority, and evidence. agent-core interprets each selected profile; it does
+not own the relationships among application actors.
+
+The retained capability model defines four application capability classes
+and two SRDs. The baseline SRD governs canonical references,
+application-owned composition, local documents, root audit/test/stats/release
+participation, and ownership-aware agent accounting. The managed-services
+SRD applies lifecycle, health, control, telemetry, configuration, packaging,
+Helm, and kind-demo requirements only when the matching capability exists.
+
+One conformance use case and one test suite connect these requirements to
+structural evidence. Application-local documents add business behavior and
+cite shared requirement IDs.
+
+The persistent-platform contract adds the operating boundary for
+Helm-managed applications. One local or cloud platform supplies shared
+ingress and object-storage service, while each application retains one
+namespace, release, collector gateway, application-specific bucket, and
+lifecycle authority. Compute teardown preserves retained data; explicit
+purge and reset operations own deletion.
+
+<!-- field: why_we_build_this -->
+## Why we build this
+
+Some outcomes cross responsibilities that cannot safely share authority,
+failure, scaling, or lifecycle. A deliberate multi-agent composition makes
+those boundaries explicit and gives each actor a narrow, attributable scope.
+It also lets a simpler application remain one actor when separation would
+provide no operational or governance benefit.
+
+The shared contract turns that solution design into a governed runnable
+module. It keeps reusable behavior canonical, makes application ownership and
+root orchestration explicit, and avoids copying an existing topology as a
+default.
+
+<!-- field: multi_agent_system_thesis -->
+## Multi agent system thesis
+
+```yaml
+responsibility_test: |
+    Start from scenario responsibilities, not an agent count. Separate actors
+    only where independent authority, failure isolation, scaling, or lifecycle
+    is required. Co-locate tightly coupled work when another boundary would add
+    no corresponding control or operating benefit.
+role_realization: |
+    Use the canonical roles in sm-agent-role-realizations as semantic
+    interfaces. Bind each application actor or profile to the roles it actually
+    performs. A role may have many realizations, and one descriptive actor may
+    bind several roles; neither case changes the canonical role catalog.
+topology: |
+    Cover the responsibilities required by the scenario, which may include
+    intent, policy, planning, coordination, actuation, assurance, feedback,
+    knowledge, lifecycle, observability, and exceptional human decisions.
+    Allocate and connect them according to the scenario rather than imposing a
+    universal control plane, role count, or deployment shape.
+```
+
+<!-- field: operational_flows -->
+## Operational flows
+
+```yaml
+intent_to_actuation: |
+    A human, external system, or application actor supplies intent. Declared
+    policy constrains planning; coordination turns the accepted plan into
+    bounded work; an authorized actor performs actuation. The trace preserves
+    the originating intent and decisions across actor boundaries.
+observation_to_feedback: |
+    Runtime and environment observations feed monitoring and assurance.
+    Analysis and evaluation compare outcomes with intent and policy, then return
+    feedback for re-planning, remediation, knowledge updates, or escalation.
+human_governance_boundary: |
+    Humans own intent and policy authority and remain available for exceptions,
+    approvals, intervention, and accountability. An application must expose
+    where autonomous authority ends and which conditions require a human
+    decision; adding agents does not remove that boundary.
+```
+
+<!-- field: construction_sequence -->
+## Construction sequence
+
+```yaml
+- step: 1
+  name: Define scenarios and evidence
+  guidance: |
+    State the initiating intent, expected outcome, operating constraints,
+    exceptional human decisions, and the end-to-end observations that will
+    prove the outcome.
+- step: 2
+  name: Allocate roles and authority
+  guidance: |
+    Map scenario responsibilities to canonical role interfaces. Group them
+    into actors, splitting only for justified authority, failure, scaling, or
+    lifecycle boundaries. Record each realization in the shared semantic
+    model when it is shipped.
+- step: 3
+  name: Reuse canonical programs
+  guidance: |
+    Select independently useful profiles from applications/catalog by
+    canonical path. Keep one canonical implementation owner, and create a
+    thin application wrapper only for local endpoints, configuration,
+    serving, or packaging.
+- step: 4
+  name: Declare composition
+  guidance: |
+    Let the application own actor relationships, sequencing, boundary tools,
+    topology, policy attachment, configuration authority, and human
+    touchpoints. agent-core continues to interpret one profile at a time.
+- step: 5
+  name: Close the package
+  guidance: |
+    For packaged applications, resolve every direct profile and transitive
+    machine, declaration, tool, REST, child-profile, and configuration
+    reference at package time. Record source provenance and mount the verified
+    closure into a profile-free runtime image.
+- step: 6
+  name: Prove the scenario
+  guidance: |
+    Add structural checks and application-owned end-to-end evidence for the
+    real actor boundaries, authority, failure paths, telemetry, terminal
+    outcome, and applicable capability claims. Register the module in root
+    audit, test, stats, and release orchestration as required.
+```
+
+<!-- field: source_provenance -->
+## Source provenance
+
+```yaml
+repository: https://gitlabe1.ext.net.nokia.com/architecture/self-evolving-networks.git
+revision: 779a654fcfd3e5418991cb154a6cb3cc894be6ae
+source_documents:
+    - agentic-framework/reference-architecture/overview/01-introduction.md
+    - agentic-framework/reference-architecture/overview/02-design-principles.md
+    - agentic-framework/reference-architecture/agent-view/01-introduction.md
+    - agentic-framework/reference-architecture/agent-view/02-agent-roles.md
+    - agentic-framework/reference-architecture/agent-view/03-role-catalog.md
+    - agentic-framework/reference-architecture/agent-view/04-activity-catalog.md
+    - agentic-framework/reference-architecture/functional-view/02-functional-architecture.md
+    - agentic-framework/self-evolving-vision/from-code-to-configuration/01-introduction.md
+    - agentic-framework/self-evolving-vision/from-code-to-configuration/04-integration-without-integration.md
+authority_boundary: |
+    The pinned reference architecture supplies conceptual vocabulary for roles,
+    activities, flows, governance, and architecture views. It does not impose
+    implementation requirements on this repository. This VISION and its linked
+    architecture, semantic model, pattern language, SRDs, application profiles,
+    packaging rules, and executable evidence remain authoritative here.
+portability: |
+    Provenance uses repository-relative source paths. Validation and builds must
+    not depend on a developer-local checkout or absolute filesystem path.
+```
+
+<!-- field: success_criteria -->
+## Success criteria
+
+- baseline_is_uniform: Every runnable application has application-owned composition, the required
+  documentation corpus, root Mage participation, and ownership-aware stats.
+- applicability_is_explicit: Every requirement names its capability class and observable evidence.
+  Packaging, Helm, and kind-demo obligations do not apply when the application
+  does not claim those capabilities.
+- catalog_boundary_is_preserved: applications/catalog remains a reusable catalog module. Applications
+  reference canonical blocks and do not duplicate their behavior or agent
+  accounting.
+- boundaries_are_justified: Every multi-actor design states the authority, failure, scaling, or
+  lifecycle boundary that justifies separation. A scenario may use one actor.
+- flows_are_closed: Application evidence traces intent through actuation and observations
+  through assurance and feedback, including policy and human decision points.
+- realizations_are_traceable: Canonical roles remain semantic interfaces. Shipped actors and profiles
+  identify their role bindings while the application owns their relationships.
+- packages_are_closed: A packaged application resolves and validates its complete transitive
+  profile closure before deployment and supplies it to a profile-free runtime.
+- local_extensions_are_traceable: Application-local architecture and SRDs cite this contract, then define
+  application-specific behavior and evidence without copying shared text.
+- platform_and_application_ownership_are_separate: Shared platform services, application compute, and retained data have
+  distinct authorities. One application's lifecycle cannot stop another
+  application or delete its bucket.
+- retained_data_has_an_explicit_lifecycle: Application and platform down preserve immutable telemetry objects.
+  Retained history is not a live query service while its application
+  collector is absent, and redeployment against the same bucket restores
+  scoped query access.
+- local_and_cloud_declarations_match: Kind fake GCS and cloud GCS or S3 differ in bootstrap, identity, and values
+  overlays, not application or collector declarations. Cloud bucket IAM
+  enforces tenant isolation; local fake GCS claims configuration separation
+  only.
+- lifecycle_mechanics_are_reused: First-party and downstream applications expose thin Mage verbs over one
+  released application-rig package rather than copying namespace, Helm,
+  collector, bucket, or evidence orchestration.
+- structural_evidence_is_executable: Root Go tests, root Mage gates, YAML parsing, and application-local targets
+  provide commands that verify every implemented conformance claim.
+
+<!-- field: not -->
+## Not
+
+- We do not require every application to use several agents or prescribe one role set, workflow, control plane, or deployment topology.
+- We do not transfer human intent, policy, exception, or accountability authority to an autonomous composition.
+- We do not treat the upstream reference architecture as an implementation specification for this repository.
+- We do not classify applications/catalog as a runnable application.
+- We do not define application business behavior or catalog member behavior.
+- We do not require every runnable application to package artifacts, ship a Helm chart, run on Kubernetes, or provide a kind demo.
+- We do not restate ENG01; kind-demo applications cite and implement it.
+- We do not replace agent-core runtime contracts.
+- We do not make prose or directory presence sufficient evidence of runtime behavior.
+- We do not provide a permanent global telemetry query service or cross-application telemetry index.
+- We do not claim authenticated adversarial isolation for local fake GCS.
+- We do not share vector storage before collection authorization and embedding-identity isolation are specified.
+
+<!-- field: canonical_documents -->
+## Canonical documents
+
+- docs/ARCHITECTURE.yaml
+- docs/road-map.yaml
+- docs/SPECIFICATIONS.yaml
+- docs/specs/software-requirements/srd001-application-module-contract.yaml
+- docs/specs/software-requirements/srd002-managed-application-services.yaml
+- docs/specs/software-requirements/srd008-persistent-application-platform.yaml
