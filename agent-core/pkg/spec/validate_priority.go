@@ -5,7 +5,6 @@ package spec
 
 import (
 	"fmt"
-	"path"
 )
 
 // validPriorities is the use-case priority vocabulary (design.yaml
@@ -28,7 +27,7 @@ func checkInvalidPriorities(corpus *Corpus) []Finding {
 			Message: fmt.Sprintf(
 				"use case %s has priority %q; valid values are P1, P2, and P3, and an absent priority means unranked (design.yaml use_case priority)",
 				ucID, uc.Priority),
-			File: path.Join(UCSubdir, ucID+".yaml"),
+			File: corpus.documentFile("use_case", UCSubdir, ucID),
 		})
 	}
 	return findings

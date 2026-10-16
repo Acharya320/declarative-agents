@@ -248,6 +248,8 @@ Table 8: Finding catalog
 | 3 | attribute-shape | an attribute value is not JSON of its declared shape |
 | 4 | prose-containment | a normative keyword appears in prose outside the normative nodes |
 
+The audit reads a Markdown corpus document through the same declarations, which agent-core embeds from design.yaml so a binary, an image, or a consumer repository reads them without locating the file (GH-2614). It reports each diagnostic under the audit check markdown-format, with the finding name as its check id and in its message. Two more audit checks guard the migration window: dual-format-document when a document exists as both .yaml and .md, and not-canonical when a Markdown document differs from its formatted form, which mage fmt fixes. A document with a finding of tiers 1 to 3 is left out of the corpus and the rest loads; when a reference to it then dangles, the load error names the format finding behind it.
+
 The graph and semantic checks the audit already runs (retired-id-missing, uncovered-req-item, unresolved-clarification, invalid-priority, and the rest) are unchanged. They run over the same model, so their names and coverage carry over to the Markdown corpus.
 
 <!-- section: prose-containment -->

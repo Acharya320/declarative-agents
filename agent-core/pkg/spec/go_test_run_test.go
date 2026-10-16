@@ -54,7 +54,7 @@ func runGoTestEvidenceWith(root string, run moduleTestRunner) ([]Finding, error)
 	if err != nil {
 		return nil, err
 	}
-	suites, err := discoverAndParseTestSuites(root)
+	suites, err := discoverAndParseTestSuites(newFormatScan(root))
 	if err != nil {
 		return nil, err
 	}

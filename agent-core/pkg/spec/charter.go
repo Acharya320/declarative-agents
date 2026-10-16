@@ -69,6 +69,9 @@ var supportedSpecCorpusCheckIDs = map[string]bool{
 	"unverifiable-external-reference":    true,
 	"untraced-success-criterion":         true,
 	"use-case-missing-test-suite":        true,
+	checkMarkdownFormat:                  true,
+	checkDualFormat:                      true,
+	checkNotCanonical:                    true,
 }
 
 func init() {

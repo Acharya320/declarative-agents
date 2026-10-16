@@ -57,7 +57,7 @@ func collectExternalRefCitations(corpus *Corpus) []externalRefCitation {
 	}
 	for _, srdID := range sortedSRDIDs(corpus) {
 		srd := corpus.SRDs[srdID]
-		file := path.Join(SRDSubdir, srdID+".yaml")
+		file := corpus.documentFile("srd", SRDSubdir, srdID)
 		add(srdID, file, srd.DerivedFrom)
 		for _, item := range srd.AllItems() {
 			add(srdID+" "+item.ID, file, item.DerivedFrom)
@@ -261,17 +261,20 @@ func (r *externalRefResolver) parentSRD(cache, ref, srdID string) *SRD {
 	if err != nil {
 		return nil
 	}
-	suffix := "/" + SRDSubdir + "/" + srdID + ".yaml"
 	for _, file := range strings.Split(listing, "\n") {
 		file = strings.TrimSpace(file)
-		if file != SRDSubdir+"/"+srdID+".yaml" && !strings.HasSuffix(file, suffix) {
+		if !isParentSRDFile(file, srdID) {
 			continue
 		}
 		content, err := gitOutput(cache, "show", ref+":"+file)
 		if err != nil {
 			return nil
 		}
-		srd, err := parseSRDBytes([]byte(content), ref+":"+file)
+		data, err := documentYAML(content, file)
+		if err != nil {
+			return nil
+		}
+		srd, err := parseSRDBytes(data, ref+":"+file)
 		if err != nil {
 			return nil
 		}
@@ -338,4 +341,16 @@ func releaseTagSortKey(tag string) string {
 		return tag
 	}
 	return fmt.Sprintf("%08s.%08s.%08s", parts[0], parts[1], parts[2])
+}
+
+// isParentSRDFile reports the SRD file of srdID anywhere in a parent tree,
+// in either format.
+func isParentSRDFile(file, srdID string) bool {
+	for _, ext := range []string{yamlExt, markdownExt} {
+		name := SRDSubdir + "/" + srdID + ext
+		if file == name || strings.HasSuffix(file, "/"+name) {
+			return true
+		}
+	}
+	return false
 }
