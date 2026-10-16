@@ -4,6 +4,7 @@
 package conformance
 
 import (
+	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 	"os"
 	"path/filepath"
 	"strings"
@@ -52,7 +53,7 @@ func TestScenarioCriticAndMockAreSupportedTestTimeMembers(t *testing.T) {
 func TestMembershipNarrativeSeparatesMembersFromFixtures(t *testing.T) {
 	t.Parallel()
 	for _, rel := range []string{"README.md", "AGENTS.md", "docs/ARCHITECTURE.yaml", "docs/SPECIFICATIONS.yaml"} {
-		data, err := os.ReadFile(ProfilePath(rel))
+		data, err := readDocumentText(rel)
 		if err != nil {
 			t.Fatalf("read %s: %v", rel, err)
 		}
@@ -284,7 +285,7 @@ func TestNoActiveAssemblerPathConsumers(t *testing.T) {
 				return err
 			}
 			if count := strings.Count(string(data), retiredPath); count != 0 {
-				seen[filepath.Clean(path)] = count
+				seen[allowanceKey(path)] = count
 			}
 			return nil
 		})
@@ -335,7 +336,7 @@ func TestNoActiveMonitorProfilePathConsumers(t *testing.T) {
 				return err
 			}
 			if count := strings.Count(string(data), retiredPath); count != 0 {
-				seen[filepath.Clean(path)] = count
+				seen[allowanceKey(path)] = count
 			}
 			return nil
 		})
@@ -391,7 +392,7 @@ func TestNoActiveJuristProfilePathConsumers(t *testing.T) {
 				return err
 			}
 			if count := strings.Count(string(data), retiredPath); count != 0 {
-				seen[filepath.Clean(path)] = count
+				seen[allowanceKey(path)] = count
 			}
 			return nil
 		})
@@ -409,4 +410,31 @@ func TestNoActiveJuristProfilePathConsumers(t *testing.T) {
 			t.Errorf("historical compatibility allowlist drift for %s: got %d occurrences, want %d", path, seen[path], count)
 		}
 	}
+}
+
+// readDocumentText reads a catalog file as text; a corpus document named by
+// its YAML path reads from its Markdown form once it has moved.
+func readDocumentText(rel string) ([]byte, error) {
+	if strings.HasSuffix(rel, ".yaml") {
+		return markdown.ReadAsYAML(ProfilePath(rel))
+	}
+	return os.ReadFile(ProfilePath(rel))
+}
+
+// allowanceKey names a walked file by its YAML path when it is a corpus
+// document converted to Markdown, so an allowance written for the YAML file
+// still applies after the move.
+func allowanceKey(path string) string {
+	clean := filepath.Clean(path)
+	if !strings.HasSuffix(clean, ".md") {
+		return clean
+	}
+	declarations, err := markdown.Default()
+	if err != nil {
+		return clean
+	}
+	if d, ok := declarations.ForMarkdown(filepath.ToSlash(clean)); ok {
+		return filepath.Clean(d.SourcePath(clean))
+	}
+	return clean
 }

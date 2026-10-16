@@ -4,6 +4,7 @@
 package conformance
 
 import (
+	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 	"os"
 	"path/filepath"
 	"strings"
@@ -121,7 +122,7 @@ func isPointerSentinel(value any) bool {
 
 func TestRelocatedMeshSpecificationIndexPointsToCanonicalRecords(t *testing.T) {
 	t.Parallel()
-	data, err := os.ReadFile(ProfilePath("docs/SPECIFICATIONS.yaml"))
+	data, err := markdown.ReadAsYAML(ProfilePath("docs/SPECIFICATIONS.yaml"))
 	if err != nil {
 		t.Fatal(err)
 	}

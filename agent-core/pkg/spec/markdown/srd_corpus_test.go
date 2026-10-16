@@ -64,7 +64,7 @@ func trackedSRDs(t *testing.T) []string {
 		}
 	}
 	if len(paths) == 0 {
-		t.Fatal("no tracked SRDs found")
+		t.Fatal("no tracked YAML SRDs found")
 	}
 	return paths
 }

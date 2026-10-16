@@ -4,6 +4,7 @@
 package conformance
 
 import (
+	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 	"os"
 	"strings"
 	"testing"
@@ -63,9 +64,11 @@ func TestCanonicalRoleIndexTitlesMatchSourceSRDs(t *testing.T) {
 	}
 }
 
+// readRoleYAML reads a catalog document by its YAML path, from its Markdown
+// form once it has moved (eng10 migration window).
 func readRoleYAML(t *testing.T, rel string, out any) {
 	t.Helper()
-	data, err := os.ReadFile(ProfilePath(rel))
+	data, err := markdown.ReadAsYAML(ProfilePath(rel))
 	if err != nil {
 		t.Fatalf("read %s: %v", rel, err)
 	}
