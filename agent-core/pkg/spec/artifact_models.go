@@ -3,7 +3,11 @@
 
 package spec
 
-import "sort"
+import (
+	"sort"
+
+	"gopkg.in/yaml.v3"
+)
 
 // SRD represents a parsed Software Requirements Document.
 type SRD struct {
@@ -35,7 +39,18 @@ type SRD struct {
 	// this SRD exists to satisfy (design.yaml external_references).
 	DerivedFrom []ExternalReference `yaml:"derived_from"`
 
+	// Extensions keeps every top-level key the model does not type, in
+	// source order, so the document survives a parse unchanged.
+	Extensions []Extension `yaml:"-"`
+
 	OrderedGroups []string `yaml:"-"`
+}
+
+// Extension is one source key the model does not type, kept with its value
+// in source order. The model does not interpret it; a printer reproduces it.
+type Extension struct {
+	Key   string
+	Value yaml.Node
 }
 
 // ClarificationEntry is one unmade decision: the id it blocks and the
@@ -63,6 +78,9 @@ type ExternalReference struct {
 type RequirementGroup struct {
 	Title string
 	Items []RequirementItem
+
+	// Extensions keeps the group's untyped keys (e.g. applicability).
+	Extensions []Extension
 }
 
 // RequirementItem is a single requirement within a group (e.g. R1.1).
@@ -80,6 +98,13 @@ type RequirementItem struct {
 	// DerivedFrom records why this item exists: the parent requirements it
 	// derives from, each validated against a parent release.
 	DerivedFrom []ExternalReference
+
+	// Evidence says how the requirement is shown to hold; object-form items
+	// carry it beside their text.
+	Evidence string
+
+	// Extensions keeps the item's untyped keys (e.g. endpoints).
+	Extensions []Extension
 }
 
 // Dependency records an inter-SRD dependency.
@@ -102,6 +127,47 @@ type AcceptanceCriterion struct {
 	// DerivedFrom records why this criterion exists (design.yaml
 	// external_references).
 	DerivedFrom []ExternalReference `yaml:"derived_from"`
+
+	// Extensions keeps the criterion's untyped keys (e.g. tests,
+	// applicability).
+	Extensions []Extension `yaml:"-"`
+}
+
+// acceptanceCriterionKeys are the keys AcceptanceCriterion types; any other
+// key is kept as an extension.
+var acceptanceCriterionKeys = map[string]bool{
+	"id": true, "criterion": true, "traces": true, "status": true,
+	"retired_in": true, "replaced_by": true, "derived_from": true,
+}
+
+// UnmarshalYAML decodes the typed fields and keeps every other key, in
+// source order, as an extension.
+func (ac *AcceptanceCriterion) UnmarshalYAML(value *yaml.Node) error {
+	type plain AcceptanceCriterion
+	var decoded plain
+	if err := value.Decode(&decoded); err != nil {
+		return err
+	}
+	*ac = AcceptanceCriterion(decoded)
+	ac.Extensions = untypedKeys(value, acceptanceCriterionKeys)
+	return nil
+}
+
+// untypedKeys returns a mapping node's entries whose keys are not in typed,
+// in source order. A non-mapping node has none.
+func untypedKeys(node *yaml.Node, typed map[string]bool) []Extension {
+	if node == nil || node.Kind != yaml.MappingNode {
+		return nil
+	}
+	var extensions []Extension
+	for i := 0; i+1 < len(node.Content); i += 2 {
+		key := node.Content[i].Value
+		if typed[key] {
+			continue
+		}
+		extensions = append(extensions, Extension{Key: key, Value: *node.Content[i+1]})
+	}
+	return extensions
 }
 
 // AllItems returns all requirement items from the SRD in group order.
