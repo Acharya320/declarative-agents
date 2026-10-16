@@ -309,7 +309,9 @@ func deleteKey(mapping *yaml.Node, key string) {
 func splitFrontmatter(data []byte) (string, []byte) {
 	text := string(data)
 	closing := strings.Index(text[4:], "\n---\n")
-	return text[4 : 4+closing], []byte(text[4+closing+5:])
+	// Keep the newline before the closing delimiter: a block scalar that
+	// ends the frontmatter keeps its own final newline only with it.
+	return text[4 : 4+closing+1], []byte(text[4+closing+5:])
 }
 
 func frontmatterInto(root *yaml.Node, head string) error {

@@ -217,17 +217,9 @@ func parseTouchpointList(node *yaml.Node, field string) ([]string, error) {
 // target key is the tagged form ({T1: "srdNNN R1 -- desc"}) and keeps its
 // "key: value" flattening.
 func touchpointFromMapping(item *yaml.Node) (string, error) {
-	fields := make(map[string]string, len(item.Content)/2)
-	for i := 0; i+1 < len(item.Content); i += 2 {
-		keyNode, valueNode := item.Content[i], item.Content[i+1]
-		if keyNode.Kind != yaml.ScalarNode || valueNode.Kind != yaml.ScalarNode || valueNode.Tag == "!!null" {
-			return "", fmt.Errorf("mapping keys and values must be scalars")
-		}
-		k, v := keyNode.Value, valueNode.Value
-		if _, duplicate := fields[k]; duplicate {
-			return "", fmt.Errorf("duplicate key %q", k)
-		}
-		fields[k] = v
+	fields, err := scalarFields(item)
+	if err != nil {
+		return "", err
 	}
 	target := fields["target"]
 	if target == "" {
@@ -246,10 +238,32 @@ func touchpointFromMapping(item *yaml.Node) (string, error) {
 			return "", fmt.Errorf("object mapping contains unknown key %q", key)
 		}
 	}
+	folded := target
 	if reason := fields["reason"]; reason != "" {
-		return target + " -- " + reason, nil
+		folded += " -- " + reason
 	}
-	return target, nil
+	if id := fields["id"]; id != "" {
+		// Keep the label as the tagged form ("T1: target -- reason") does, so
+		// both forms fold to one string (eng10, Comments and two-form fields).
+		folded = id + ": " + folded
+	}
+	return folded, nil
+}
+
+// scalarFields reads a mapping whose keys and values are non-null scalars.
+func scalarFields(item *yaml.Node) (map[string]string, error) {
+	fields := make(map[string]string, len(item.Content)/2)
+	for i := 0; i+1 < len(item.Content); i += 2 {
+		keyNode, valueNode := item.Content[i], item.Content[i+1]
+		if keyNode.Kind != yaml.ScalarNode || valueNode.Kind != yaml.ScalarNode || valueNode.Tag == "!!null" {
+			return nil, fmt.Errorf("mapping keys and values must be scalars")
+		}
+		if _, duplicate := fields[keyNode.Value]; duplicate {
+			return nil, fmt.Errorf("duplicate key %q", keyNode.Value)
+		}
+		fields[keyNode.Value] = valueNode.Value
+	}
+	return fields, nil
 }
 
 // ParseRoadmap reads a road-map.yaml file.

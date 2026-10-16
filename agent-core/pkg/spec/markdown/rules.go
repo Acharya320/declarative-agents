@@ -39,6 +39,7 @@ type Declaration struct {
 
 	documentType  string
 	pathPattern   *regexp.Regexp
+	sourcePattern *regexp.Regexp
 	idPatterns    map[string]*regexp.Regexp
 	itemPatterns  map[string]*regexp.Regexp
 	keywordRegexp *regexp.Regexp
@@ -79,6 +80,7 @@ type fieldRule struct {
 	Value       string   `yaml:"value"`   // keyed or outline; default by value
 	ID          string   `yaml:"id"`      // outline: the record key holding the id
 	ContentKey  string   `yaml:"content"` // outline: the record key holding the text
+	Split       string   `yaml:"split"`   // table: separator of a keyed "<id>: <a><split><b>" row
 }
 
 // LoadDeclarations reads every document type in design.yaml whose markdown
@@ -87,6 +89,7 @@ type fieldRule struct {
 func LoadDeclarations(data []byte) (Declarations, error) {
 	var design struct {
 		DocumentTypes map[string]struct {
+			Location string    `yaml:"location"`
 			Markdown yaml.Node `yaml:"markdown"`
 		} `yaml:"document_types"`
 	}
@@ -106,6 +109,11 @@ func LoadDeclarations(data []byte) (Declarations, error) {
 		if err := r.compile(); err != nil {
 			return nil, fmt.Errorf("document_types.%s.markdown.%w", name, err)
 		}
+		source, err := locationPattern(entry.Location)
+		if err != nil {
+			return nil, fmt.Errorf("document_types.%s.location: %w", name, err)
+		}
+		r.sourcePattern = source
 		declarations[name] = &r
 	}
 	return declarations, nil
@@ -268,6 +276,21 @@ func declarationForPath(declarations Declarations, path string) (*Declaration, b
 	sort.Strings(names)
 	for _, name := range names {
 		if declarations[name].pathPattern.MatchString(path) {
+			return declarations[name], true
+		}
+	}
+	return nil, false
+}
+
+// Type names the document type the declaration belongs to.
+func (r *Declaration) Type() string { return r.documentType }
+
+// ForSource finds the declaration of the type whose YAML location names the
+// path, the document a conversion starts from.
+func (declarations Declarations) ForSource(path string) (*Declaration, bool) {
+	slashed := filepath.ToSlash(path)
+	for _, name := range sortedKeys(declarations) {
+		if declarations[name].sourcePattern.MatchString(slashed) {
 			return declarations[name], true
 		}
 	}

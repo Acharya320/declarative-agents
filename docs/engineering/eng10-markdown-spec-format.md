@@ -171,7 +171,7 @@ The laws are stated on the node tree, with comments removed and after canonicali
 
 YAML comments do not survive conversion. The tracked corpus holds 270 non-license comment lines in 35 files of the structured types, and they fall into two groups. Some carry facts a reader needs, such as the note in four catalog SRDs that the agent-core SRDs they cite are platform dependencies. Others restate structure: 10 repeat the document title on its first line, and 26 are blank or divider lines. Neither group belongs in a marker, since the one-layer rule keeps markers for machine-only facts, and placing a free note inside a typed field would break its shape. The converter therefore reports every comment it does not carry, with file and line, and the corpus migration (GH-2584) turns each comment that states a fact into visible text in the same pull request, called out as a hand edit.
 
-Some fields are written in more than one YAML form, and one Markdown form cannot parse back to two. The converter canonicalizes each document in memory, once, before it prints, and reports every change it makes: frontmatter keys move first, a record holding only its id and content takes the keyed form, any other record keeps the record form with its keys in canonical order, map records written as a list become a map, a key whose records have no heading and which holds none is dropped, and an unnumbered entry receives the next free number. We first planned a commit that rewrote the YAML into canonical form; it would have re-emitted every SRD through a YAML encoder just before the sunset deletes the YAML, so the canonical form exists only on the way to Markdown. The typed-model equality of the round-trip laws proves it changes no value. Table 6 counts the entries canonicalization touches.
+Some fields are written in more than one YAML form, and one Markdown form cannot parse back to two. The converter canonicalizes each document in memory, once, before it prints, and reports every change it makes: frontmatter keys move first, a record holding only its id and content takes the keyed form, any other record keeps the record form with its keys in canonical order, map records written as a list become a map, a key whose records have no heading and which holds none is dropped, a non-text id becomes text, a record without an id derives one from its title where its mapping says so, and a keyed table row splits at its declared separator. We first planned a commit that rewrote the YAML into canonical form; it would have re-emitted every SRD through a YAML encoder just before the sunset deletes the YAML, so the canonical form exists only on the way to Markdown. The typed-model equality of the round-trip laws proves it changes no value. Table 6 counts the entries canonicalization touches.
 
 Table 6: Fields canonicalized at conversion
 
@@ -180,10 +180,10 @@ Table 6: Fields canonicalized at conversion
 | SRD goals | 404 keyed, 33 records with id and text, 36 numbered strings | 69 become keyed |
 | SRD requirement groups | 99 SRDs as a map, 2 as a list, 5 relocated stubs with an empty map | 2 SRDs become a map; 5 empty maps are dropped |
 | SRD requirement items | 2467 keyed, 160 records with more keys | none |
-| use case flow | 403 keyed, 262 records with id and text, 47 records with traces, 1 unnumbered string | 262 become keyed, 1 is numbered |
-| use case touchpoints | 309 keyed strings, 272 records, 17 unnumbered strings | 309 split into records, 17 numbered |
+| use case flow | 403 keyed, 262 records with id and text, 47 records with traces, 1 numbered string | 263 become keyed |
+| use case touchpoints | 309 keyed strings, 272 records, 17 unnumbered strings | 17 numbered in a corpus commit; 326 keyed strings split into records |
 
-The keyed touchpoint strings split at their double hyphen into target and reason, and every one of the 309 has one. Lists inside passthrough values keep whatever forms they have, because the fenced yaml block holds any node exactly.
+The keyed touchpoint strings split at their double hyphen into target and reason, and every one of them has one. Lists inside passthrough values keep whatever forms they have, because the fenced yaml block holds any node exactly.
 
 <!-- section: identifiers -->
 ## Identifiers
@@ -262,7 +262,7 @@ RECOMMENDED, MAY, OPTIONAL, shall, shall not
 
 The normative nodes are the SRD requirement items and the constitution articles; everywhere else the check applies. Non-goals stay inside it (GH-2581 decision 2): a non-goal phrased as an obligation is a requirement nobody traces, or a scope statement in the wrong voice.
 
-The check reports what the corpus migration (GH-2584) rewrites. On the printed SRDs it finds 15 hits in 5 files, 14 of them in non-goals. A scan of the YAML sources of the other types finds 2 hits in one engineering guideline (eng02 quoting srd020 R7.4), 2 in one constitution (go-style), and 61 in 4 config formats, 56 of them in rest-tool-format.
+The check reports what the corpus migration (GH-2584) rewrites. On the printed form of every tracked document it finds 17 hits: 15 in 5 SRDs, 14 of them in non-goals, and 2 in one engineering guideline (eng02 quoting srd020 R7.4). A scan of the YAML sources had also counted 61 hits in 4 config formats and 2 in one constitution; every one of them sits inside a value that prints as a fenced yaml block, which is code, so the check does not read it. A normative keyword inside a nested passthrough value therefore escapes prose containment, and a reviewer of the migration reads those blocks.
 
 <!-- section: rules-as-data -->
 ## Rules as data
@@ -275,7 +275,7 @@ Table 9: Markdown declarations by document type
 | --- | --- | --- |
 | vision | docs/VISION.md | fields; success criteria as a keyed list |
 | architecture | docs/ARCHITECTURE.md | interface, component, and decision nodes; two tables |
-| specifications | docs/SPECIFICATIONS.md | index tables with module-specific columns |
+| specifications | docs/SPECIFICATIONS.md | overview; index tables pass through |
 | roadmap | docs/road-map.md | release nodes with a status attribute |
 | pattern_language | docs/pattern-language.md | pattern nodes requiring intent, problem, solution |
 | engineering_guideline | docs/engineering/engNN-short-name.md | titled section nodes |
@@ -299,28 +299,30 @@ Two types stay outside the format by design. The corpus charter is configuration
 <!-- section: corpus-fit -->
 ## Corpus fit
 
-We checked each new declaration against the corpus before any converter exists, comparing every YAML value with the shape its field declares. Table 10 gives the result; the SRD row is the prototype's measurement on printed Markdown, the others are estimates that GH-2605's round-trip tests replace.
+Every tracked document of every structured type round-trips under the round-trip laws: 379 documents, from canonical YAML to Markdown and back to the same tree, with Markdown a fixed point of Format and the typed model unchanged where the type has one (TestEveryCorpusSRDRoundTrips and TestEveryCorpusDocumentRoundTrips in agent-core/pkg/spec/markdown). Table 10 gives the counts by type.
 
 Table 10: Corpus fit of the declarations
 
-| Type | Files | Fit as declared | Migration work |
+| Type | Documents | Round-trip | Prose-containment hits |
 | --- | --- | --- | --- |
-| vision | 6 | 6 | none |
-| architecture | 6 | 6 | none |
-| specifications | 6 | 6 | none |
-| roadmap | 6 | 6 | none |
-| pattern_language | 1 | 1 | none |
-| engineering_guideline | 9 | 8 | eng02: 2 prose-containment hits |
-| srd | 106 | 101 | 15 prose-containment hits in 5 files |
-| use_case | 110 | 110 | conversion rules below |
-| test_suite | 82 | 82 | none |
-| audit_register | 2 | 2 | rename with the -register suffix |
-| semantic_model | 11 | 10 | one non_goals block becomes a list |
-| config_format | 9 | 5 | 61 prose-containment hits in 4 files; one implementation value becomes a list |
-| constitution | 11 | 10 | go-style: 2 prose-containment hits |
-| migration | 4 | 4 | none |
+| vision | 6 | 6 | 0 |
+| architecture | 6 | 6 | 0 |
+| specifications | 6 | 6 | 0 |
+| roadmap | 6 | 6 | 0 |
+| pattern_language | 1 | 1 | 0 |
+| engineering_guideline | 9 | 9 | 2 in eng02 |
+| srd | 106 | 106 | 15 in 5 files |
+| use_case | 110 | 110 | 0 |
+| test_suite | 82 | 82 | 0 |
+| audit_register | 2 | 2 | 0 |
+| semantic_model | 11 | 11 | 0 |
+| config_format | 9 | 9 | 0 |
+| constitution | 11 | 11 | 0 |
+| migration | 4 | 4 | 0 |
 
-Use cases fit once their flow and touchpoints are normalized (Table 6). Flow then prints as an outline, where the 47 steps that carry traces show them as a nested traces item, and touchpoints print as one table with id, target, and reason columns.
+The corpus forced several changes to the declarations of GH-2581, and we made them rather than bend the corpus to a guess. Ids in config formats, semantic models, and migrations carry a type prefix (cfg-, sm-, migration-), so those types no longer require the id to equal the file name. The specification indexes, the roadmap's per-release lists, and the architecture's related documents differ in columns, cell types, or line wrapping between modules, so they pass through instead of being typed. Some records lack a field the declaration required: 7 of 88 releases have no description, 25 of 491 use case success criteria and 1 of 757 test cases have no traces, so those fields are optional for those kinds. Ids are unique within their kind, since an architecture names one interface and one component lifecycle-exit client. Integer design-decision ids are written as text, guideline sections, which have no ids, take one derived from their title, and keyed touchpoints split at their double hyphen into id, target, and reason.
+
+Three kinds of corpus change landed in their own commit, because no canonical form could express them without inventing a value: the 17 unnumbered touchpoints in three chatbot-mesh use cases received numbers, one config format's implementation became a one-item list, and one semantic model's two-paragraph non-goals became a two-item list. The typed parser also changed in one place: a record-form touchpoint now keeps its id label in the model string, as the keyed form does, so both forms read the same; every consumer strips the label. One gap stays open as GH-2611: ParseUseCase rejects a flow step record that carries traces, which six use cases under applications/docs use, so the round trip checks that the typed parser rejects them the same way from either form.
 
 <!-- section: rendering -->
 ## Rendering

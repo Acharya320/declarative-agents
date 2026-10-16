@@ -163,11 +163,11 @@ test_suite: test-rel05.0
 	uc, err := ParseUseCase(path)
 	require.NoError(t, err)
 
-	// Each {id, target, reason} object folds into one canonical string; the id
-	// label is dropped and the reason follows the "--" separator.
+	// Each {id, target, reason} object folds into the string its tagged form
+	// reads: the id label, then the target, then the reason after "--".
 	assert.Equal(t, []string{
-		"srd004-coordinator AC1 -- The coordinator binds the provisioning intent.",
-		"srd005-creator AC2 -- The creator realizes the instance.",
+		"T1: srd004-coordinator AC1 -- The coordinator binds the provisioning intent.",
+		"T2: srd005-creator AC2 -- The creator realizes the instance.",
 	}, uc.Touchpoints)
 
 	// The folded string parses back into an SRD touches edge and an AC citation.

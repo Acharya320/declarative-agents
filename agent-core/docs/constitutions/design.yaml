@@ -208,7 +208,7 @@ document_types:
         problem: {in: [document_field], shape: prose}
         what_this_does: {in: [document_field], shape: prose}
         why_we_build_this: {in: [document_field], shape: prose}
-        success_criteria: {in: [document_field], shape: list, item_pattern: '^[a-z][a-z0-9_]*: '}
+        success_criteria: {in: [document_field], shape: list, item_pattern: '^[a-z][a-z0-9_]*: ', value: keyed}
         not: {in: [document_field], shape: list}
         canonical_documents: {in: [document_field], shape: list}
       required_fields: [executive_summary, problem, what_this_does, why_we_build_this, success_criteria, not]
@@ -236,8 +236,23 @@ document_types:
         allowed: [id, title]
       nodes:
         document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
-        interface: {tag: interface, level: 3, parent: 'field:interfaces', heading: id, content: prose, unique_id: true}
-        component: {tag: component, level: 3, parent: 'field:components', heading: id, content: prose, unique_id: true}
+        interface:
+          tag: interface
+          level: 3
+          parent: 'field:interfaces'
+          heading: id
+          content: prose
+          unique_id: true
+          yaml: {from: interfaces, records: list, id: name, content: summary}
+        interface_field: {tag: field, level: 4, parent: interface, heading: free, content: any}
+        component:
+          tag: component
+          level: 3
+          parent: 'field:components'
+          heading: id
+          content: prose
+          unique_id: true
+          yaml: {from: components, records: list, id: name, content: responsibility}
         component_field: {tag: field, level: 4, parent: component, heading: free, content: any}
         decision:
           tag: decision
@@ -247,13 +262,13 @@ document_types:
           heading: id_title
           content: prose
           unique_id: true
+          yaml: {from: design_decisions, records: list, id: id, title: title, content: decision}
         decision_field: {tag: field, level: 4, parent: decision, heading: free, content: any}
       fields:
         interfaces: {in: [document_field], shape: empty}
         components: {in: [document_field], shape: empty}
         design_decisions: {in: [document_field], shape: empty}
         technology_choices: {in: [document_field], shape: table, columns: [component, technology, purpose]}
-        related_documents: {in: [document_field], shape: table, columns: [doc, purpose]}
         capabilities: {in: [component_field], shape: list}
         benefits: {in: [decision_field], shape: list}
         alternatives_rejected: {in: [decision_field], shape: list}
@@ -285,13 +300,6 @@ document_types:
         document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
       fields:
         overview: {in: [document_field], shape: prose}
-        roadmap_summary: {in: [document_field], shape: table}
-        foundation_document_index: {in: [document_field], shape: table}
-        srd_index: {in: [document_field], shape: table}
-        config_format_index: {in: [document_field], shape: table}
-        semantic_model_index: {in: [document_field], shape: table}
-        use_case_index: {in: [document_field], shape: table}
-        test_suite_index: {in: [document_field], shape: table}
       required_fields: [overview, roadmap_summary, foundation_document_index, srd_index, config_format_index, semantic_model_index, use_case_index, test_suite_index, coverage_gaps]
       prose_containment:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
@@ -316,15 +324,13 @@ document_types:
           parent: document
           id_pattern: '^[0-9]{2}\.[0-9]+$'
           heading: id_title
-          content: prose
+          content: any
           unique_id: true
           attributes: [status]
+          yaml: {from: releases, records: list, id: version, title: name, content: description}
         release_field: {tag: field, level: 3, parent: release, heading: free, content: any}
       fields:
         overview: {in: [document_field], shape: prose}
-        use_cases: {in: [release_field], shape: table}
-        srds: {in: [release_field], shape: list}
-        test_suites: {in: [release_field], shape: list}
       required_nodes: {release: 1}
       attributes:
         status: text
@@ -357,6 +363,7 @@ document_types:
           unique_id: true
           attributes: [number]
           required_fields: [intent, problem, solution]
+          yaml: {from: patterns, records: list, id: id, title: name}
         pattern_field: {tag: field, level: 4, parent: pattern, heading: free, content: any}
       fields:
         patterns: {in: [document_field], shape: empty}
@@ -397,6 +404,7 @@ document_types:
           heading: free
           content: any
           unique_id: true
+          yaml: {from: sections, records: list, id: id, title: title, content: content, derive_id: slug}
       fields:
         introduction: {in: [document_field], shape: prose}
         references: {in: [document_field], shape: list}
@@ -559,15 +567,15 @@ document_types:
           content: prose
           unique_id: true
           attributes: [status, retired_in, replaced_by]
-          required_fields: [traces]
+          yaml: {from: success_criteria, records: list, id: id, content: criterion}
         criterion_field: {tag: field, level: 4, parent: success_criterion, heading: free, content: any}
       fields:
         summary: {in: [document_field], shape: prose}
         actor: {in: [document_field], shape: prose}
         trigger: {in: [document_field], shape: prose}
         preconditions: {in: [document_field], shape: list}
-        flow: {in: [document_field], shape: list, item_pattern: '^F[0-9]+: '}
-        touchpoints: {in: [document_field], shape: table, columns: [id, target, reason]}
+        flow: {in: [document_field], shape: list, item_pattern: '^F[0-9]+: ', value: outline, id: id, content: text}
+        touchpoints: {in: [document_field], shape: table, columns: [id, target, reason], split: ' -- '}
         success_criteria: {in: [document_field], shape: empty}
         failure_scenarios: {in: [document_field], shape: table, columns: [id, scenario, expected]}
         out_of_scope: {in: [document_field], shape: list}
@@ -615,7 +623,7 @@ document_types:
           content: any
           unique_id: true
           attributes: [status, retired_in, replaced_by]
-          required_fields: [traces]
+          yaml: {from: test_cases, records: list, id: name, content: description}
         case_field: {tag: field, level: 4, parent: test_case, heading: free, content: any}
       fields:
         overview: {in: [document_field], shape: prose}
@@ -623,10 +631,6 @@ document_types:
         preconditions: {in: [document_field], shape: list}
         test_cases: {in: [document_field], shape: empty}
         needs_clarification: {in: [document_field], shape: table, columns: [id, question]}
-        use_case: {in: [case_field], shape: prose}
-        go_test: {in: [case_field], shape: prose}
-        inputs: {in: [case_field], shape: yaml}
-        expected: {in: [case_field], shape: yaml}
       required_fields: [traces, preconditions, test_cases]
       exempt_status: [relocated, retired]
       attributes:
@@ -679,7 +683,6 @@ document_types:
       frontmatter:
         required: [id, title]
         allowed: [id, title, status]
-        id_matches_filename: true
       nodes:
         document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
       fields:
@@ -703,7 +706,6 @@ document_types:
       frontmatter:
         required: [id, title]
         allowed: [id, title]
-        id_matches_filename: true
       nodes:
         document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
       fields:
@@ -737,6 +739,7 @@ document_types:
           heading: id_title
           content: prose
           unique_id: true
+          yaml: {from: articles, records: list, id: id, title: title, content: rule}
         article_field: {tag: field, level: 4, parent: article, heading: free, content: any}
       fields:
         purpose: {in: [document_field], shape: prose}
@@ -759,7 +762,6 @@ document_types:
       frontmatter:
         required: [id, title, status]
         allowed: [id, title, status, release, root_release, legacy_release_alias, supersedes, issue]
-        id_matches_filename: true
       nodes:
         document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
       fields:
