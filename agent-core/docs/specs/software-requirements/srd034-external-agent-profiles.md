@@ -247,11 +247,11 @@ Container proof requirements show agent execution with mounted profiles and moun
 ## Related documents
 
 - docs/guides/repository-migration.md
-- docs/specs/config-formats/runtime-contract.yaml
+- docs/specs/config-formats/runtime-contract.md
 - rel06.0-uc001-mounted-profile-container-runtime
 - test-rel06.0-profile-migration
-- docs/ARCHITECTURE.yaml
-- docs/road-map.yaml
+- docs/ARCHITECTURE.md
+- docs/road-map.md
 
 <!-- field: diagrams -->
 ## Diagrams

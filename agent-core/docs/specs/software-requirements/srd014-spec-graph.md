@@ -18,7 +18,7 @@ property graph and runs automated consistency checks.
 <!-- field: goals -->
 ## Goals
 
-- G1: Parse SRDs, use cases, test suites, roadmaps, and SPECIFICATIONS.yaml into typed structs.
+- G1: Parse SRDs, use cases, test suites, roadmaps, and SPECIFICATIONS.md into typed structs.
 - G2: Build a labeled property graph connecting all artifacts by their relationships.
 - G3: Validate cross-artifact consistency and report findings.
 - G4: Corpus-level loading from a project directory.
@@ -45,12 +45,12 @@ ParseTestSuite reads a test suite YAML file into a TestSuite struct with test ca
 <!-- req: R1.4 -->
 ### R1.4
 
-ParseRoadmap reads road-map.yaml into a Roadmap struct with releases and use case references.
+ParseRoadmap reads road-map.md into a Roadmap struct with releases and use case references.
 
 <!-- req: R1.5 -->
 ### R1.5
 
-ParseSpecIndex reads SPECIFICATIONS.yaml into a SpecIndex struct.
+ParseSpecIndex reads SPECIFICATIONS.md into a SpecIndex struct.
 
 <!-- req: R1.6 -->
 ### R1.6
@@ -126,7 +126,7 @@ Findings carry check identifier, severity level, human-readable message, and ava
 <!-- req: R3.9 -->
 ### R3.9
 
-Detect releases in the road map that have no roadmap_summary row in SPECIFICATIONS.yaml.
+Detect releases in the road map that have no roadmap_summary row in SPECIFICATIONS.md.
 
 <!-- req: R3.10 -->
 ### R3.10
@@ -189,7 +189,7 @@ Use case files under docs/specs/use-cases/, test suites under docs/specs/test-su
 <!-- req: R4.4 -->
 ### R4.4
 
-Road-map from docs/road-map.yaml, spec index from docs/SPECIFICATIONS.yaml.
+Road-map from docs/road-map.md, spec index from docs/SPECIFICATIONS.md.
 
 <!-- req: R5 -->
 ## R5 - Jurist charter suites

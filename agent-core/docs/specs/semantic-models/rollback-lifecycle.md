@@ -23,10 +23,10 @@ or Workspace split, a CheckpointPolicy, or an engine-owned undo-walk.
 
 ```yaml
 canonical:
-    - docs/specs/software-requirements/srd035-checkpoint-port.yaml
-    - docs/specs/software-requirements/srd036-dolt-state-persistence.yaml
-    - docs/specs/software-requirements/srd025-rollback-lifecycle.yaml
-    - docs/specs/software-requirements/srd026-lifecycle-tools.yaml
+    - docs/specs/software-requirements/srd035-checkpoint-port.md
+    - docs/specs/software-requirements/srd036-dolt-state-persistence.md
+    - docs/specs/software-requirements/srd025-rollback-lifecycle.md
+    - docs/specs/software-requirements/srd026-lifecycle-tools.md
 historical_background:
     - docs/guides/roll-backs.md
 ```

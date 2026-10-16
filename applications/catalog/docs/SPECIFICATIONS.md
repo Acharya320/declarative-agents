@@ -271,11 +271,11 @@ targets that set catalog_root in demo.yaml.
 
 | id | title | summary | path |
 | --- | --- | --- | --- |
-| agent-profiles | Agent Profiles Repository Vision | Goals, boundaries, ownership, and success criteria for external profile assets. | docs/VISION.yaml |
-| architecture-agent-profiles | Agent Profiles Architecture | Repository layout, runtime mount interfaces, ownership decisions, and implementation status. | docs/ARCHITECTURE.yaml |
-| agent-profiles-roadmap | Agent Profiles Release Road Map | Bootstrap and migration release plan. | docs/road-map.yaml |
-| issue-format | Issue Format Constitution | Required issue fields and scope rules for future work. | docs/constitutions/issue-format.yaml |
-| migration-v0.20260727.0-agent-role-realization-alignment | Agent Role-Realization Naming Migration | Old-to-new names and paths, compatibility durations and mechanisms, exact release pins, consumer provenance, and post-merge tag policy. | docs/migrations/v0.20260727.0-agent-role-realization-alignment.yaml |
+| agent-profiles | Agent Profiles Repository Vision | Goals, boundaries, ownership, and success criteria for external profile assets. | docs/VISION.md |
+| architecture-agent-profiles | Agent Profiles Architecture | Repository layout, runtime mount interfaces, ownership decisions, and implementation status. | docs/ARCHITECTURE.md |
+| agent-profiles-roadmap | Agent Profiles Release Road Map | Bootstrap and migration release plan. | docs/road-map.md |
+| issue-format | Issue Format Constitution | Required issue fields and scope rules for future work. | docs/constitutions/issue-format.md |
+| migration-v0.20260727.0-agent-role-realization-alignment | Agent Role-Realization Naming Migration | Old-to-new names and paths, compatibility durations and mechanisms, exact release pins, consumer provenance, and post-merge tag policy. | docs/migrations/v0.20260727.0-agent-role-realization-alignment.md |
 
 <!-- field: srd_index -->
 ## Srd index
@@ -285,126 +285,126 @@ targets that set catalog_root in demo.yaml.
   title: Agent Functional Blocks
   summary: Cross-cutting profile ownership boundary and cross-profile dependency-direction invariants shared by every profile family, with machine-readable shipped-family and fixture-contract inventories.
   status: implemented
-  path: docs/specs/software-requirements/srd001-agent-functional-blocks.yaml
+  path: docs/specs/software-requirements/srd001-agent-functional-blocks.md
 - id: srd002-executor
   title: Executor Functional Block
   summary: Executor coding-agent boundary, inputs, tool selections, runtime dependencies, outputs, and terminal outcomes.
   status: implemented
-  path: docs/specs/software-requirements/srd002-executor.yaml
+  path: docs/specs/software-requirements/srd002-executor.md
 - id: srd003-critic
   title: Critic Functional Block
   summary: Critic session and point pipeline boundary, inputs, tool selections, runtime dependencies, outputs, and terminal outcomes.
   status: implemented
-  path: docs/specs/software-requirements/srd003-critic.yaml
+  path: docs/specs/software-requirements/srd003-critic.md
 - id: srd004-planner
   title: Planner Functional Block
   summary: Planner requirement-graph boundary, inputs, tool selections, runtime dependencies, outputs, and terminal outcomes.
   status: implemented
-  path: docs/specs/software-requirements/srd004-planner.yaml
+  path: docs/specs/software-requirements/srd004-planner.md
 - id: srd005-specification-critic
   title: Specification Critic Functional Block
   historical_aliases: [srd005-jurist]
   summary: Specification-critic deterministic validator boundary, inputs, tool selection, responsibilities, provenance-rich findings, and terminal outcomes.
   status: implemented
-  path: docs/specs/software-requirements/srd005-specification-critic.yaml
+  path: docs/specs/software-requirements/srd005-specification-critic.md
 - id: srd006-bench
   title: Bench Functional Block
   summary: Bench human-operated launcher boundary, inputs, tool selections, runtime dependencies, outputs, and terminal outcomes.
   status: implemented
-  path: docs/specs/software-requirements/srd006-bench.yaml
+  path: docs/specs/software-requirements/srd006-bench.md
 - id: srd007-rest
   title: REST Functional Block
   summary: REST client and server boundary words, inputs, tool selections, profile-owned authority, outcomes, and terminal outcomes.
   status: implemented
-  path: docs/specs/software-requirements/srd007-rest.yaml
+  path: docs/specs/software-requirements/srd007-rest.md
 - id: srd008-runtime-state-reader
   title: Runtime State Reader Functional Block
   summary: Runtime-state-reader infrastructure-adapter boundary, cached monitor inputs, tool selections, runtime dependencies, outputs, and terminal outcomes.
   status: implemented
-  path: docs/specs/software-requirements/srd008-runtime-state-reader.yaml
+  path: docs/specs/software-requirements/srd008-runtime-state-reader.md
 - id: srd009-lifecycle
   title: Lifecycle Functional Blocks
   summary: Lifecycle history, rollback, and approval machine-action boundaries, inputs, tool selections, runtime dependencies, outputs, and terminal outcomes.
   status: implemented
-  path: docs/specs/software-requirements/srd009-lifecycle.yaml
+  path: docs/specs/software-requirements/srd009-lifecycle.md
 - id: srd010-control
   title: Control Functional Block
   summary: Control signal-intake boundary, inputs, tool selections, runtime dependencies, outputs, and terminal outcomes.
   status: implemented
-  path: docs/specs/software-requirements/srd010-control.yaml
+  path: docs/specs/software-requirements/srd010-control.md
 - id: srd011-knowledge-manager
   title: Knowledge Manager Functional Block
   summary: Documentation-curator UX and REST workflow boundary, inputs, tool selections, runtime dependencies, outputs, and terminal outcomes.
   status: implemented
-  path: docs/specs/software-requirements/srd011-knowledge-manager.yaml
+  path: docs/specs/software-requirements/srd011-knowledge-manager.md
 - id: srd012-chroma-corpus-agents
   title: Chroma Corpus Agents Functional Block
   summary: Ingest and reader Chroma retrieval boundary, REST vocabulary, provider-embedding threading (srd028 R12), inputs, tool selections, server lifecycle precondition, and terminal outcomes.
   status: implemented
-  path: docs/specs/software-requirements/srd012-chroma-corpus-agents.yaml
+  path: docs/specs/software-requirements/srd012-chroma-corpus-agents.md
 - id: srd013-rag-server-agent
   title: RAG Server Agent Functional Block (Relocated)
   summary: Pointer-only historical identifier; canonical RAG server requirements and evidence live with applications/chatbot-mesh.
   status: relocated
-  path: docs/specs/software-requirements/srd013-rag-server-agent.yaml
-  canonical_path: applications/chatbot-mesh/docs/specs/software-requirements/srd001-rag-server-agent.yaml
+  path: docs/specs/software-requirements/srd013-rag-server-agent.md
+  canonical_path: applications/chatbot-mesh/docs/specs/software-requirements/srd001-rag-server-agent.md
 - id: srd014-chatbot-agent
   title: Chatbot Agent Functional Block (Relocated)
   summary: Pointer-only historical identifier; canonical chatbot requirements and evidence live with applications/chatbot-mesh.
   status: relocated
-  path: docs/specs/software-requirements/srd014-chatbot-agent.yaml
-  canonical_path: applications/chatbot-mesh/docs/specs/software-requirements/srd002-chatbot-agent.yaml
+  path: docs/specs/software-requirements/srd014-chatbot-agent.md
+  canonical_path: applications/chatbot-mesh/docs/specs/software-requirements/srd002-chatbot-agent.md
 - id: srd015-chatbot-deployment
   title: Chatbot Mesh Deployment Model (Relocated)
   summary: Pointer-only historical identifier; canonical deployment requirements and evidence live with applications/chatbot-mesh.
   status: relocated
-  path: docs/specs/software-requirements/srd015-chatbot-deployment.yaml
-  canonical_path: applications/chatbot-mesh/docs/specs/software-requirements/srd003-chatbot-deployment.yaml
+  path: docs/specs/software-requirements/srd015-chatbot-deployment.md
+  canonical_path: applications/chatbot-mesh/docs/specs/software-requirements/srd003-chatbot-deployment.md
 - id: srd016-coordinator
   title: Coordinator Agent Functional Block (Relocated)
   summary: Pointer-only historical identifier; canonical coordinator requirements and evidence live with applications/chatbot-mesh.
   status: relocated
-  path: docs/specs/software-requirements/srd016-coordinator.yaml
-  canonical_path: applications/chatbot-mesh/docs/specs/software-requirements/srd004-provisioning-workflow-orchestrator.yaml
+  path: docs/specs/software-requirements/srd016-coordinator.md
+  canonical_path: applications/chatbot-mesh/docs/specs/software-requirements/srd004-provisioning-workflow-orchestrator.md
 - id: srd017-creator
   title: Creator Agent Functional Block (Relocated)
   summary: Pointer-only historical identifier; canonical creator requirements and evidence live with applications/chatbot-mesh.
   status: relocated
-  path: docs/specs/software-requirements/srd017-creator.yaml
-  canonical_path: applications/chatbot-mesh/docs/specs/software-requirements/srd005-creator.yaml
+  path: docs/specs/software-requirements/srd017-creator.md
+  canonical_path: applications/chatbot-mesh/docs/specs/software-requirements/srd005-creator.md
 - id: srd018-scenario-critic
   title: Scenario Critic Functional Block
   historical_aliases: [srd018-assembler]
   summary: The repository's Critic-bound test rig. It composes scenarios as an actor function without claiming the canonical Assembler responsibility. It discovers scenarios under configurable roots covering the agent families and the examples tree, and for each starts the scenario's mocks, starts the subject with its REST dependencies redirected through base_url environment expansion, runs the scenario's validators against a fresh subject instance, reduces their terminal states to a verdict that names a failing validator, and tears every child down. Scenarios are profile-owned data in tests/<scenario>/ beside the agent, so one subject carries several tests and adding one never edits the rig.
   status: in-progress
   support: supported-test-time
-  path: docs/specs/software-requirements/srd018-scenario-critic.yaml
+  path: docs/specs/software-requirements/srd018-scenario-critic.md
 - id: srd019-mock
   title: Mock Functional Block
   summary: One generic mock profile standing in for any REST dependency a subject calls. It serves the canned, scripted responses a scenario fixture declares through the agent-core mock endpoint binding, selects that fixture by environment so a new dependency needs a fixture rather than a profile or an image, exposes a health route, and records a per-instance request log validators read to verify a subject's outbound calls.
   status: in-progress
   support: supported-test-time
-  path: docs/specs/software-requirements/srd019-mock.yaml
+  path: docs/specs/software-requirements/srd019-mock.md
 - id: srd020-collector
   title: Collector Agent Family
   summary: Canonical OTLP trace collector promoted from the chatbot-mesh, defaulting to spool mode with no relay endpoint. Exercises agent-core OTLP builtins (receive, spool, relay) in a reusable catalog family, serves its own trace UI same-origin with the query surface (R7), and exposes an Explore panel over span analytics (R8-R9).
   status: implemented
-  path: docs/specs/software-requirements/srd020-collector.yaml
+  path: docs/specs/software-requirements/srd020-collector.md
 - id: srd021-observer
   title: Observer Agent Family
   summary: Generalized fleet observer promoted from the chatbot-mesh (srd008) to a catalog-owned monitor/fleet-observer family, parameterized by namespace and label selector for per-application adoption. Specification only; the profile, UX, and realization rows are the adoption implementation.
   status: planned
-  path: docs/specs/software-requirements/srd021-observer.yaml
+  path: docs/specs/software-requirements/srd021-observer.md
 - id: srd022-applier
   title: Canonical Deployment Applier Family
   summary: Shared lifecycle host, request-machine sequencing, name-only selections, and ToolDefs used by three application-owned wrappers whose endpoints, charts, rollout commands, and authority remain local, plus the host-side deploy and undeploy machines that install a release from the developer's machine through the same declared sequence.
   status: implemented
-  path: docs/specs/software-requirements/srd022-applier.yaml
+  path: docs/specs/software-requirements/srd022-applier.md
 - id: srd023-rig-doctor
   title: Rig Doctor Root-Cause Analyst
   summary: Catalog root-cause-analyst that reads one captured kind evidence directory and the trace spool tail, never the live cluster, and writes a diagnosis whose every claim cites a captured file and line.
   status: implemented
-  path: docs/specs/software-requirements/srd023-rig-doctor.yaml
+  path: docs/specs/software-requirements/srd023-rig-doctor.md
 ```
 
 <!-- field: config_format_index -->
@@ -424,18 +424,18 @@ targets that set catalog_root in demo.yaml.
     Shared authority for canonical role IDs, concrete actor/profile bindings,
     naming grammar, classifications, inheritance, and migration aliases.
   status: implemented
-  path: ../docs/specs/semantic-models/agent-role-realizations.yaml
-  reciprocal_index: ../docs/SPECIFICATIONS.yaml#semantic_model_index
+  path: ../docs/specs/semantic-models/agent-role-realizations.md
+  reciprocal_index: ../docs/SPECIFICATIONS.md#semantic_model_index
 - id: sm-multi-agent-profile-system
   title: Multi-Agent Profile System
   summary: Role groups, actor boundaries, dependency directions, and validation views for profile-owned agent programs.
   status: implemented
-  path: docs/specs/semantic-models/multi-agent-profile-system.yaml
+  path: docs/specs/semantic-models/multi-agent-profile-system.md
 - id: sm-agent-role-taxonomy
   title: Agent Role Taxonomy
   summary: Per-profile role, inputs, outputs, selected tool families, runtime dependencies, outcomes, and checks.
   status: implemented
-  path: docs/specs/semantic-models/agent-role-taxonomy.yaml
+  path: docs/specs/semantic-models/agent-role-taxonomy.md
 ```
 
 <!-- field: use_case_index_notes -->
@@ -467,171 +467,171 @@ is canonical.
   title: Mounted Profile Execution
   summary: Mounted execution path for running agent-core with canonical profiles, profile-local assets, fixtures, and workspaces supplied from applications/catalog; applications own presentation composition.
   status: implemented
-  path: docs/specs/use-cases/rel06.0-uc001-mounted-profile-execution.yaml
+  path: docs/specs/use-cases/rel06.0-uc001-mounted-profile-execution.md
 - id: rel06.0-uc002-profile-validation
   title: Profile Validation and Release Bundle Readiness
   summary: Validation path for profile reference checks, mounted container smoke execution, and profile bundle tag readiness.
   status: implemented
-  path: docs/specs/use-cases/rel06.0-uc002-profile-validation.yaml
+  path: docs/specs/use-cases/rel06.0-uc002-profile-validation.md
 - id: rel07.0-uc001-documentation-curator-profile-ux
   title: Documentation Curator Profile UX Tracer
   summary: Profile-owned Knowledge Manager browser, machine_request, trace, and lifecycle proof.
   status: implemented
-  path: docs/specs/use-cases/rel07.0-uc001-documentation-curator-profile-ux.yaml
+  path: docs/specs/use-cases/rel07.0-uc001-documentation-curator-profile-ux.md
 - id: rel07.0-uc002-evaluator-generator-profile-boundary
   title: Evaluator to Generator Profile Boundary
   summary: Retired library tracer; applications/coding-agent owns the real critic-to-executor replacement target.
   status: planned
-  path: docs/specs/use-cases/rel07.0-uc002-evaluator-generator-profile-boundary.yaml
+  path: docs/specs/use-cases/rel07.0-uc002-evaluator-generator-profile-boundary.md
 - id: rel07.0-uc003-planner-generator-profile-boundary
   title: Planner to Generator Profile Boundary
   summary: Retired library tracer; applications/coding-agent owns the real planner-to-executor replacement target.
   status: planned
-  path: docs/specs/use-cases/rel07.0-uc003-planner-generator-profile-boundary.yaml
+  path: docs/specs/use-cases/rel07.0-uc003-planner-generator-profile-boundary.md
 - id: rel07.0-uc004-bench-evaluator-profile-boundary
   title: Bench to Critic Profile Boundary
   summary: Bench launches the critic role from a human/operator boundary action; the historical use-case id retains the former evaluator name.
   status: implemented
-  path: docs/specs/use-cases/rel07.0-uc004-bench-evaluator-profile-boundary.yaml
+  path: docs/specs/use-cases/rel07.0-uc004-bench-evaluator-profile-boundary.md
 - id: rel07.0-uc005-monitor-control-profile-boundary
   title: Runtime State Reader and Control Profile Boundary
   summary: Monitor/control profile boundary and lifecycle tracer evidence.
   status: implemented
-  path: docs/specs/use-cases/rel07.0-uc005-monitor-control-profile-boundary.yaml
+  path: docs/specs/use-cases/rel07.0-uc005-monitor-control-profile-boundary.md
 - id: rel07.1-uc001-specification-critic-profile-boundary
   title: Specification Critic Profile Boundary
   historical_aliases: [rel07.1-uc001-jurist-profile-boundary]
   summary: Deterministic, LLM-free charter validation from load through report to a Passed or Failed terminal state.
   status: specified
-  path: docs/specs/use-cases/rel07.1-uc001-specification-critic-profile-boundary.yaml
+  path: docs/specs/use-cases/rel07.1-uc001-specification-critic-profile-boundary.md
 - id: rel07.1-uc002-lifecycle-profile-boundary
   title: Lifecycle Profile Boundary
   summary: History, rollback, and approval as machine actions with explicit Approved or Rejected resume signals.
   status: specified
-  path: docs/specs/use-cases/rel07.1-uc002-lifecycle-profile-boundary.yaml
+  path: docs/specs/use-cases/rel07.1-uc002-lifecycle-profile-boundary.md
 - id: rel07.1-uc003-rest-profile-boundary
   title: REST Profile Boundary
   summary: Configured client and server boundary words, profile-owned REST authority, OpenAPI imports, and the ollama-* variant.
   status: specified
-  path: docs/specs/use-cases/rel07.1-uc003-rest-profile-boundary.yaml
+  path: docs/specs/use-cases/rel07.1-uc003-rest-profile-boundary.md
 - id: rel08.0-uc001-corpus-ingest
   title: Corpus Ingest into Chroma
   summary: Ingest profile reads a corpus, embeds each document at Ollama, and threads the vector and carried document and id into Chroma add, then verifies the collection count.
   status: implemented
-  path: docs/specs/use-cases/rel08.0-uc001-corpus-ingest.yaml
+  path: docs/specs/use-cases/rel08.0-uc001-corpus-ingest.md
 - id: rel08.0-uc002-corpus-query
   title: Corpus Query from Chroma
   summary: Reader profile embeds a question at Ollama, threads the vector into Chroma query, and answers grounded in the retrieved chunks.
   status: implemented
-  path: docs/specs/use-cases/rel08.0-uc002-corpus-query.yaml
+  path: docs/specs/use-cases/rel08.0-uc002-corpus-query.md
 - id: rel09.0-uc001-rag-server-query
   title: Persistent RAG Server Answers a Vector-In Query (Relocated)
   summary: Pointer-only historical identifier; the canonical use case and traces live with applications/chatbot-mesh release 00.0.
   status: relocated
-  path: docs/specs/use-cases/rel09.0-uc001-rag-server-query.yaml
-  canonical_path: applications/chatbot-mesh/docs/specs/use-cases/rel00.0-uc001-rag-server-query.yaml
+  path: docs/specs/use-cases/rel09.0-uc001-rag-server-query.md
+  canonical_path: applications/chatbot-mesh/docs/specs/use-cases/rel00.0-uc001-rag-server-query.md
 - id: rel09.0-uc002-chatbot-turn
   title: Chatbot Turn Embeds, Retrieves From One RAG, and Answers (Relocated)
   summary: Pointer-only historical identifier; the canonical use case and traces live with applications/chatbot-mesh release 00.0.
   status: relocated
-  path: docs/specs/use-cases/rel09.0-uc002-chatbot-turn.yaml
-  canonical_path: applications/chatbot-mesh/docs/specs/use-cases/rel00.0-uc002-chatbot-turn.yaml
+  path: docs/specs/use-cases/rel09.0-uc002-chatbot-turn.md
+  canonical_path: applications/chatbot-mesh/docs/specs/use-cases/rel00.0-uc002-chatbot-turn.md
 - id: rel09.1-uc001-routed-fanout
   title: Chatbot Turn Selects a Model Tier and Fans Out Over Two RAGs (Relocated)
   summary: Pointer-only historical identifier; the canonical use case and traces live with applications/chatbot-mesh release 01.0.
   status: relocated
-  path: docs/specs/use-cases/rel09.1-uc001-routed-fanout.yaml
-  canonical_path: applications/chatbot-mesh/docs/specs/use-cases/rel01.0-uc001-routed-fanout.yaml
+  path: docs/specs/use-cases/rel09.1-uc001-routed-fanout.md
+  canonical_path: applications/chatbot-mesh/docs/specs/use-cases/rel01.0-uc001-routed-fanout.md
 - id: rel09.2-uc001-observability
   title: Observability Panel and Cross-Agent Trace Waterfall (Relocated)
   summary: Pointer-only historical identifier; the canonical use case and traces live with applications/chatbot-mesh release 02.0.
   status: relocated
-  path: docs/specs/use-cases/rel09.2-uc001-observability.yaml
-  canonical_path: applications/chatbot-mesh/docs/specs/use-cases/rel02.0-uc001-observability.yaml
+  path: docs/specs/use-cases/rel09.2-uc001-observability.md
+  canonical_path: applications/chatbot-mesh/docs/specs/use-cases/rel02.0-uc001-observability.md
 - id: rel09.3-uc001-mesh-deployment
   title: Mesh Deployment and Tiered Swap (Relocated)
   summary: Pointer-only historical identifier; the canonical use case and traces live with applications/chatbot-mesh release 03.0.
   status: relocated
-  path: docs/specs/use-cases/rel09.3-uc001-mesh-deployment.yaml
-  canonical_path: applications/chatbot-mesh/docs/specs/use-cases/rel03.0-uc001-mesh-deployment.yaml
+  path: docs/specs/use-cases/rel09.3-uc001-mesh-deployment.md
+  canonical_path: applications/chatbot-mesh/docs/specs/use-cases/rel03.0-uc001-mesh-deployment.md
 - id: rel09.4-uc001-control-plane-provisioning
   title: Control-Plane Provisioning (Relocated)
   summary: Pointer-only historical identifier; the canonical use case and traces live with applications/chatbot-mesh release 05.0.
   status: relocated
-  path: docs/specs/use-cases/rel09.4-uc001-control-plane-provisioning.yaml
-  canonical_path: applications/chatbot-mesh/docs/specs/use-cases/rel05.0-uc001-control-plane-provisioning.yaml
+  path: docs/specs/use-cases/rel09.4-uc001-control-plane-provisioning.md
+  canonical_path: applications/chatbot-mesh/docs/specs/use-cases/rel05.0-uc001-control-plane-provisioning.md
 - id: rel09.5-uc001-in-cluster-llm-tier
   title: In-Cluster LLM Tier (Relocated)
   summary: Pointer-only historical identifier; the canonical use case and traces live with applications/chatbot-mesh release 04.0.
   status: relocated
-  path: docs/specs/use-cases/rel09.5-uc001-in-cluster-llm-tier.yaml
-  canonical_path: applications/chatbot-mesh/docs/specs/use-cases/rel04.0-uc001-in-cluster-llm-tier.yaml
+  path: docs/specs/use-cases/rel09.5-uc001-in-cluster-llm-tier.md
+  canonical_path: applications/chatbot-mesh/docs/specs/use-cases/rel04.0-uc001-in-cluster-llm-tier.md
 - id: rel10.0-uc001-role-catalog-renames
   title: Evaluator and Generator Families Renamed to Critic and Executor
   summary: The evaluator family is renamed to critic and generator to executor (reference role names) across agents/, the SRD ids, the taxonomy, and the agent-core builtin tool dirs, with profile wiring and conformance intact.
   status: implemented
-  path: docs/specs/use-cases/rel10.0-uc001-role-catalog-renames.yaml
+  path: docs/specs/use-cases/rel10.0-uc001-role-catalog-renames.md
 - id: rel10.0-uc002-knowledge-family-rescope
   title: Chroma Profiles Rescoped Under Knowledge Management as Corpus Ingest and Reader
   summary: The vendor-named chroma family moves under knowledge-manager as corpus-ingest and corpus-reader; Integration.Chroma passes from the new paths and agents/chroma is removed.
   status: implemented
-  path: docs/specs/use-cases/rel10.0-uc002-knowledge-family-rescope.yaml
+  path: docs/specs/use-cases/rel10.0-uc002-knowledge-family-rescope.md
 - id: rel10.0-uc003-conformance-fixture-relocation
   title: Conformance Grammar Fixtures Relocated to testdata/conformance
   summary: The rest, control, and lifecycle conformance fixtures move out of agents/ to testdata/conformance so agents/ lists only role families; conformance and Integration.MonitorControl pass from the new paths.
   status: implemented
-  path: docs/specs/use-cases/rel10.0-uc003-conformance-fixture-relocation.yaml
+  path: docs/specs/use-cases/rel10.0-uc003-conformance-fixture-relocation.md
 - id: rel11.0-uc001-scenario-critic-scenario-run
   title: The Scenario Critic Runs an Agent's Scenarios to a Verdict Without Live Services
   historical_aliases: [rel11.0-uc001-assembler-scenario-run]
   summary: The scenario critic discovers scenarios beside an agent, starts mocks and a redirected subject, dispatches validators, reports ordered pass/fail verdicts, exposes child-stop spans, and repeats without observed port or state leakage. Named validator causes and process non-survival are not yet asserted.
   status: in-progress
-  path: docs/specs/use-cases/rel11.0-uc001-scenario-critic-scenario-run.yaml
+  path: docs/specs/use-cases/rel11.0-uc001-scenario-critic-scenario-run.md
 - id: rel11.0-uc002-mock-serves-fixtures
   title: One Mock Profile Stands In for Any REST Dependency and Records What It Received
   summary: One shipped mock serves fixture routes, scripts response sequences, records unmatched calls, and exposes a per-instance request log inspected directly by conformance tests; malformed fixtures are rejected by --validate-config, while serving-startup rejection remains unproven.
   status: in-progress
-  path: docs/specs/use-cases/rel11.0-uc002-mock-serves-fixtures.yaml
+  path: docs/specs/use-cases/rel11.0-uc002-mock-serves-fixtures.md
 - id: rel12.0-uc001-agent-role-realization-alignment
   title: Migrate Concrete Agent Names as One Versioned Compatibility Release
   summary: Coordinate migration aliases, exact catalog pins, package closures, tag semantics, generated artifacts, and scoped zero-hit evidence.
   status: implemented
-  path: docs/specs/use-cases/rel12.0-uc001-agent-role-realization-alignment.yaml
+  path: docs/specs/use-cases/rel12.0-uc001-agent-role-realization-alignment.md
 - id: rel13.0-uc001-collector-family
   title: A standalone collector receives, spools, and shuts down in spool mode
   summary: Canonical catalog collector launches in default spool mode, spools received traces, skips relay, and shuts down cleanly on exit signal.
   status: implemented
-  path: docs/specs/use-cases/rel13.0-uc001-collector-family.yaml
+  path: docs/specs/use-cases/rel13.0-uc001-collector-family.md
 - id: rel14.0-uc001-served-trace-ui
   title: The collector serves its own trace UI at the query origin
   summary: The collector_query server serves the shipped ui/dist SPA same-origin with /query/*, resolving deep links to the index and leaving query responses unchanged.
   status: implemented
-  path: docs/specs/use-cases/rel14.0-uc001-served-trace-ui.yaml
+  path: docs/specs/use-cases/rel14.0-uc001-served-trace-ui.md
 - id: rel15.0-uc001-explore-panel
   title: An operator narrows a latency band to a responsible attribute and lands on a trace
   summary: The Explore page renders a duration heatmap from /query/spans/stats, drag-selects a region, shows the ranked attribute divergence from /query/spans/breakdown, and links exemplar spans into the waterfall.
   status: implemented
-  path: docs/specs/use-cases/rel15.0-uc001-explore-panel.yaml
+  path: docs/specs/use-cases/rel15.0-uc001-explore-panel.md
 - id: rel16.0-uc001-applier-family
   title: Three applications compose one canonical applier family
   summary: Catalog-owned lifecycle and request machines are packaged with thin application wrappers that retain local deployment authority.
   status: implemented
-  path: docs/specs/use-cases/rel16.0-uc001-applier-family.yaml
+  path: docs/specs/use-cases/rel16.0-uc001-applier-family.md
 - id: rel17.0-uc001-rig-doctor
   title: An operator runs mage diagnose after a failed scenario and reads a cited diagnosis
   summary: The diagnose target captures a scenario snapshot with a manifest and runs the rig-doctor over it; the operator reads a cited diagnosis and runs the suggested read-only command.
   status: implemented
-  path: docs/specs/use-cases/rel17.0-uc001-rig-doctor.yaml
+  path: docs/specs/use-cases/rel17.0-uc001-rig-doctor.md
 - id: rel18.0-uc001-host-side-deploy
   title: An operator runs mage deploy and the applier's deploy machine installs the release
   summary: The deploy target renders the applier's declarations with this application's coordinates, seeds the deploy machine with the values document, and gates the build on the terminal state.
   status: implemented
-  path: docs/specs/use-cases/rel18.0-uc001-host-side-deploy.yaml
+  path: docs/specs/use-cases/rel18.0-uc001-host-side-deploy.md
 - id: rel99.0-uc001-observer-family
   title: The observer is a catalog-owned family adopted across applications
   summary: The fleet observer becomes a catalog-owned family generalized from the chatbot-mesh observer, parameterized per application; coding-agent, agent-architecture, and the chatbot-mesh adopt it by reference.
   status: planned
-  path: docs/specs/use-cases/rel99.0-uc001-observer-family.yaml
+  path: docs/specs/use-cases/rel99.0-uc001-observer-family.md
 ```
 
 <!-- field: test_suite_index -->
@@ -642,114 +642,114 @@ is canonical.
   title: Test Suite for Release 06.0 Agent Profiles
   summary: Executable proof index for mage validate, mage containerSmoke, mage tag, and agent-core integration targets that consume the demo.yaml catalog_root.
   status: implemented
-  path: docs/specs/test-suites/test-rel06.0-agent-profiles.yaml
+  path: docs/specs/test-suites/test-rel06.0-agent-profiles.md
 - id: test-rel07.0-profile-integrations
   title: Test Suite for Release 07.0 Profile Integrations
   summary: Implemented profile-owned tracer bullets for documentation-curator UX, bench-to-critic, and monitor/control boundaries, plus retired critic-to-executor and planner-to-executor entries that point to application-owned replacement targets.
   status: implemented
-  path: docs/specs/test-suites/test-rel07.0-profile-integrations.yaml
+  path: docs/specs/test-suites/test-rel07.0-profile-integrations.md
 - id: test-rel07.1-profile-boundaries
   title: Test Suite for Release 07.1 Profile Boundaries
   summary: Boundary use-case validation for the specification-critic, lifecycle, and rest families against their per-family SRD acceptance criteria.
   status: specified
-  path: docs/specs/test-suites/test-rel07.1-profile-boundaries.yaml
+  path: docs/specs/test-suites/test-rel07.1-profile-boundaries.md
 - id: test-rel07.1-profile-conformance
   title: Test Suite for Release 07.1 Profile Conformance
   summary: Executable per-family OpenTelemetry conformance for the ten Release 07 contracts, traced to srd002-srd011 and sm-agent-role-taxonomy; integration target mage conformance. Nine families run the shipped profile.yaml wrapper or a named shipped variant (copy-and-patch only harness-controlled fields), so their coverage is shipped-behavioral rather than synthesized; the rest sample server boundary is bounded-behavioral (shipped REST config and declarations over a synthesized launch/await/stop machine, with the client probe/delay grammar covered by shipped wiring). The executor and rest families also run their shipped variants and carry an ungated load-and-wiring companion. Executor (with qwen27b/qwen35b variants), the planner behavioral run, and the rest ollama-profile variant are Ollama-gated; lifecycle suspend/resume and history/rollback are Dolt-gated; rest proves its inbound webhook server boundary and explicitly declares asynchronous readiness probe/delay polling in MachineSpec.
   status: implemented
-  path: docs/specs/test-suites/test-rel07.1-profile-conformance.yaml
+  path: docs/specs/test-suites/test-rel07.1-profile-conformance.md
 - id: test-rel08.0-corpus-agents
   title: Test Suite for Release 08.0 Chroma Corpus Agents
   summary: Deterministic profile-owned evidence for corpus-ingest trust ordering and the shipped corpus-reader embed, query, grounded-answer, and readiness-failure paths.
   status: implemented
-  path: docs/specs/test-suites/test-rel08.0-corpus-agents.yaml
+  path: docs/specs/test-suites/test-rel08.0-corpus-agents.md
 - id: test-rel09.0-chatbot-mesh
   title: Test Suite for Release 09.0 RAG Server and Chatbot Turn (Relocated)
   summary: Pointer-only historical identifier; the canonical suite and proof commands live with applications/chatbot-mesh release 00.0.
   status: relocated
-  path: docs/specs/test-suites/test-rel09.0-chatbot-mesh.yaml
-  canonical_path: applications/chatbot-mesh/docs/specs/test-suites/test-rel00.0-chatbot-mesh.yaml
+  path: docs/specs/test-suites/test-rel09.0-chatbot-mesh.md
+  canonical_path: applications/chatbot-mesh/docs/specs/test-suites/test-rel00.0-chatbot-mesh.md
 - id: test-rel09.1-routing-fanout
   title: Test Suite for Release 09.1 Tier Selection and Fan-Out (Relocated)
   summary: Pointer-only historical identifier; the canonical suite and proof commands live with applications/chatbot-mesh release 01.0.
   status: relocated
-  path: docs/specs/test-suites/test-rel09.1-routing-fanout.yaml
-  canonical_path: applications/chatbot-mesh/docs/specs/test-suites/test-rel01.0-routing-fanout.yaml
+  path: docs/specs/test-suites/test-rel09.1-routing-fanout.md
+  canonical_path: applications/chatbot-mesh/docs/specs/test-suites/test-rel01.0-routing-fanout.md
 - id: test-rel09.2-observability
   title: Test Suite for Release 09.2 Observability (Relocated)
   summary: Pointer-only historical identifier; the canonical suite and proof commands live with applications/chatbot-mesh release 02.0.
   status: relocated
-  path: docs/specs/test-suites/test-rel09.2-observability.yaml
-  canonical_path: applications/chatbot-mesh/docs/specs/test-suites/test-rel02.0-observability.yaml
+  path: docs/specs/test-suites/test-rel09.2-observability.md
+  canonical_path: applications/chatbot-mesh/docs/specs/test-suites/test-rel02.0-observability.md
 - id: test-rel09.3-mesh-deployment
   title: Test Suite for Release 09.3 Mesh Deployment and Tiered Swap (Relocated)
   summary: Pointer-only historical identifier; the canonical suite and proof commands live with applications/chatbot-mesh release 03.0.
   status: relocated
-  path: docs/specs/test-suites/test-rel09.3-mesh-deployment.yaml
-  canonical_path: applications/chatbot-mesh/docs/specs/test-suites/test-rel03.0-mesh-deployment.yaml
+  path: docs/specs/test-suites/test-rel09.3-mesh-deployment.md
+  canonical_path: applications/chatbot-mesh/docs/specs/test-suites/test-rel03.0-mesh-deployment.md
 - id: test-rel09.4-control-plane
   title: Test Suite for Release 09.4 Control Plane (Relocated)
   summary: Pointer-only historical identifier; the canonical suite and proof commands live with applications/chatbot-mesh release 05.0.
   status: relocated
-  path: docs/specs/test-suites/test-rel09.4-control-plane.yaml
-  canonical_path: applications/chatbot-mesh/docs/specs/test-suites/test-rel05.0-control-plane.yaml
+  path: docs/specs/test-suites/test-rel09.4-control-plane.md
+  canonical_path: applications/chatbot-mesh/docs/specs/test-suites/test-rel05.0-control-plane.md
 - id: test-rel09.5-llm-tier
   title: Test Suite for Release 09.5 In-Cluster LLM Tier (Relocated)
   summary: Pointer-only historical identifier; the canonical suite and proof commands live with applications/chatbot-mesh release 04.0.
   status: relocated
-  path: docs/specs/test-suites/test-rel09.5-llm-tier.yaml
-  canonical_path: applications/chatbot-mesh/docs/specs/test-suites/test-rel04.0-llm-tier.yaml
+  path: docs/specs/test-suites/test-rel09.5-llm-tier.md
+  canonical_path: applications/chatbot-mesh/docs/specs/test-suites/test-rel04.0-llm-tier.md
 - id: test-rel10.0-role-catalog
   title: Test Suite for Release 10.0 Reference-Architecture Role Alignment
   summary: Implemented cases validate the critic/executor renames, the Chroma rescope under knowledge-manager, and the conformance-fixture relocation with mage validate, mage conformance, go test, and zero-hit greps.
   status: implemented
-  path: docs/specs/test-suites/test-rel10.0-role-catalog.yaml
+  path: docs/specs/test-suites/test-rel10.0-role-catalog.md
 - id: test-rel11.0-scenario-critic-rig
   title: Test Suite for Release 11.0 Scenario Critic Test Rig
   historical_aliases: [test-rel11.0-assembler-rig]
   summary: Implemented cases cover fixture serving and sequencing, two mocks from one profile, direct request-log inspection, malformed-fixture --validate-config rejection, ordered scenario verdicts, visible child-stop dispatches, repeatable runs, cross-root discovery, and shipped-profile validation. Validator pass/fail assertions, serving-startup rejection, process survival, named causes, and mock-start-failure cleanup remain evidence gaps.
   status: in-progress
-  path: docs/specs/test-suites/test-rel11.0-scenario-critic-rig.yaml
+  path: docs/specs/test-suites/test-rel11.0-scenario-critic-rig.md
 - id: test-rel12.0-agent-role-realization-alignment
   title: Test Suite for Release 12.0 Agent Role-Realization Alignment
   summary: Executable aliases, exact release metadata, package closures, Helm render/drift, tag semantics, and zero-hit evidence.
   status: implemented
-  path: docs/specs/test-suites/test-rel12.0-agent-role-realization-alignment.yaml
+  path: docs/specs/test-suites/test-rel12.0-agent-role-realization-alignment.md
 - id: test-rel13.0-collector
   title: Test Suite for Release 13.0 Collector Family
   summary: Conformance test launching the canonical collector in spool mode and verifying clean shutdown with expected tool spans.
   status: implemented
-  path: docs/specs/test-suites/test-rel13.0-collector.yaml
+  path: docs/specs/test-suites/test-rel13.0-collector.md
 - id: test-rel14.0-served-ui
   title: Test Suite for Release 14.0 Served Collector Trace UI
   summary: Conformance cases for the served SPA index at root, deep-link fallback, query API unaffected by the catch-all, and an explicit error on a missing UI root.
   status: implemented
-  path: docs/specs/test-suites/test-rel14.0-served-ui.yaml
+  path: docs/specs/test-suites/test-rel14.0-served-ui.md
 - id: test-rel15.0-explore
   title: Test Suite for Release 15.0 Collector Explore Panel
   summary: Conformance cases for the /query/spans/stats and /query/spans/breakdown response contracts, config-driven caps, empty-spool responses, the Explore UI route declaration, and uiDist reproducibility.
   status: implemented
-  path: docs/specs/test-suites/test-rel15.0-explore.yaml
+  path: docs/specs/test-suites/test-rel15.0-explore.md
 - id: test-rel16.0-applier
   title: Canonical Applier Family Conformance
   summary: Boot, machine, wrapper, duplicate, package, application, and statistics evidence for the promoted applier family.
   status: implemented
-  path: docs/specs/test-suites/test-rel16.0-applier.yaml
+  path: docs/specs/test-suites/test-rel16.0-applier.md
 - id: test-rel17.0-rig-doctor
   title: Rig Doctor Root-Cause Analyst Conformance
   summary: Closure, mock-provider diagnosis, empty-evidence, capture-manifest, registration, and dependency-gated live cases for the rig-doctor.
   status: implemented
-  path: docs/specs/test-suites/test-rel17.0-rig-doctor.yaml
+  path: docs/specs/test-suites/test-rel17.0-rig-doctor.md
 - id: test-rel18.0-host-side-deploy
   title: Host-Side Deployer Conformance
   summary: Closure, terminal-state, compensation, rendering-guard, and build-gating cases for the deploy and undeploy machines, with one live case for the atomic install contract.
   status: implemented
-  path: docs/specs/test-suites/test-rel18.0-host-side-deploy.yaml
+  path: docs/specs/test-suites/test-rel18.0-host-side-deploy.md
 - id: test-rel99.0-observer
   title: Test Suite for Release 99.0 Observer Family Promotion
   summary: Specification-graph cases for the generalized observer-family SRD, the carried capabilities, and the named adopters with deferred realization rows.
   status: planned
-  path: docs/specs/test-suites/test-rel99.0-observer.yaml
+  path: docs/specs/test-suites/test-rel99.0-observer.md
 ```
 
 <!-- field: coverage_gaps -->

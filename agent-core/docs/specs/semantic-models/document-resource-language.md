@@ -18,12 +18,12 @@ definitions decide when the resource is used.
 
 ```yaml
 canonical:
-    - docs/specs/software-requirements/srd031-declarative-document-resources.yaml
+    - docs/specs/software-requirements/srd031-declarative-document-resources.md
 supporting:
-    - docs/specs/software-requirements/srd027-rest-tool-runtime.yaml
-    - docs/specs/software-requirements/srd030-machine-request-rest-binding.yaml
-    - docs/specs/semantic-models/machine-request-http.yaml
-    - docs/specs/semantic-models/rest-tool-language.yaml
+    - docs/specs/software-requirements/srd027-rest-tool-runtime.md
+    - docs/specs/software-requirements/srd030-machine-request-rest-binding.md
+    - docs/specs/semantic-models/machine-request-http.md
+    - docs/specs/semantic-models/rest-tool-language.md
     - docs/guides/declarative-programming-pattern.md
 ```
 

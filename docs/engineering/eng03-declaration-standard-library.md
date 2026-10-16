@@ -150,13 +150,13 @@ happen, and the release proof blocks record the trend.
 <!-- field: references -->
 ## References
 
-- agent-core/docs/specs/software-requirements/srd050-declaration-imports.yaml (named units and explicit imports)
-- agent-core/docs/specs/software-requirements/srd051-declaration-types.yaml (type units)
-- agent-core/docs/specs/software-requirements/srd052-declaration-fragments.yaml (parameterized fragments, stage fragments, hygienic substitution)
-- agent-core/docs/specs/software-requirements/srd054-machine-templates.yaml (whole-machine templates)
-- agent-core/docs/specs/software-requirements/srd056-unit-libraries.yaml (library roots and the published tools/ library)
-- agent-core/docs/specs/software-requirements/srd057-capability-profiles.yaml (capability profiles and consumption forms)
-- agent-core/docs/specs/software-requirements/srd058-provider-libraries.yaml (provider libraries and the chat dialect)
+- agent-core/docs/specs/software-requirements/srd050-declaration-imports.md (named units and explicit imports)
+- agent-core/docs/specs/software-requirements/srd051-declaration-types.md (type units)
+- agent-core/docs/specs/software-requirements/srd052-declaration-fragments.md (parameterized fragments, stage fragments, hygienic substitution)
+- agent-core/docs/specs/software-requirements/srd054-machine-templates.md (whole-machine templates)
+- agent-core/docs/specs/software-requirements/srd056-unit-libraries.md (library roots and the published tools/ library)
+- agent-core/docs/specs/software-requirements/srd057-capability-profiles.md (capability profiles and consumption forms)
+- agent-core/docs/specs/software-requirements/srd058-provider-libraries.md (provider libraries and the chat dialect)
 - docs/guides/composition-model.md (how a profile composes)
 - docs/guides/fragments.md (fragment and template mechanics)
 - docs/guides/capability-profiles.md (capability profile mechanics)

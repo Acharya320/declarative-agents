@@ -153,7 +153,7 @@ FillDuration and ForceErrorSignal are exported and operate on Result pointers.
 <!-- field: related_documents -->
 ## Related documents
 
-- docs/specs/semantic-models/tool-metrics-monitoring.yaml
+- docs/specs/semantic-models/tool-metrics-monitoring.md
 
 <!-- field: diagrams -->
 ## Diagrams

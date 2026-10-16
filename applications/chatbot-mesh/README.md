@@ -239,6 +239,6 @@ explains why the shared package owns `puppeteer-core` and downloads no browser.
 
 ## Documentation
 
-Start with `docs/VISION.yaml`, `docs/ARCHITECTURE.yaml`, `docs/road-map.yaml`,
-and `docs/SPECIFICATIONS.yaml`. Deployment package details are in
+Start with `docs/VISION.md`, `docs/ARCHITECTURE.md`, `docs/road-map.md`,
+and `docs/SPECIFICATIONS.md`. Deployment package details are in
 `helm/PACKAGING.md`; the operator walkthrough is in `docs/guides/how-it-works.md`.

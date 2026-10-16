@@ -125,27 +125,27 @@ application.
 <!-- field: canonical_documents -->
 ## Canonical documents
 
-- docs/ARCHITECTURE.yaml
-- docs/road-map.yaml
-- docs/SPECIFICATIONS.yaml
-- docs/specs/use-cases/rel00.0-uc001-guided-agent-architecture.yaml
-- docs/specs/test-suites/test-rel00.0-guided-agent-architecture.yaml
+- docs/ARCHITECTURE.md
+- docs/road-map.md
+- docs/SPECIFICATIONS.md
+- docs/specs/use-cases/rel00.0-uc001-guided-agent-architecture.md
+- docs/specs/test-suites/test-rel00.0-guided-agent-architecture.md
 
 <!-- field: external_references -->
 ## External references
 
 ```yaml
 - owner: applications
-  document: docs/specs/software-requirements/srd001-application-module-contract.yaml
+  document: docs/specs/software-requirements/srd001-application-module-contract.md
   purpose: Shared runnable-module, canonical-reference, documentation, Mage, and accounting requirements.
 - owner: applications
-  document: docs/specs/software-requirements/srd002-managed-application-services.yaml
+  document: docs/specs/software-requirements/srd002-managed-application-services.md
   requirements: [R1, R2, R3, R4, R5, R6]
   purpose: Shared lifecycle and operator requirements for both managed servers, and the package, chart, and kind capability groups for the planned deployment.
 - owner: applications/catalog
-  document: docs/specs/software-requirements/srd011-knowledge-manager.yaml
+  document: docs/specs/software-requirements/srd011-knowledge-manager.md
   purpose: Canonical documentation-curator family requirements.
 - owner: applications/catalog
-  document: docs/specs/use-cases/rel07.0-uc001-documentation-curator-profile-ux.yaml
+  document: docs/specs/use-cases/rel07.0-uc001-documentation-curator-profile-ux.md
   purpose: Canonical profile and user-interface integration proof.
 ```

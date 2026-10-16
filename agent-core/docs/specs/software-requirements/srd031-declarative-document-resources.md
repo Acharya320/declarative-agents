@@ -330,11 +330,11 @@ Resource operation requirements define list and get behavior, optional higher-le
 <!-- field: related_documents -->
 ## Related documents
 
-- docs/specs/semantic-models/document-resource-language.yaml
-- docs/specs/semantic-models/machine-request-http.yaml
-- docs/specs/config-formats/rest-tool-format.yaml
-- docs/VISION.yaml
-- docs/ARCHITECTURE.yaml
+- docs/specs/semantic-models/document-resource-language.md
+- docs/specs/semantic-models/machine-request-http.md
+- docs/specs/config-formats/rest-tool-format.md
+- docs/VISION.md
+- docs/ARCHITECTURE.md
 
 <!-- field: implementation_status -->
 ## Implementation status

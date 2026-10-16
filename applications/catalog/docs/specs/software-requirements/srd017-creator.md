@@ -9,7 +9,7 @@ status: relocated
 <!-- field: canonical_path -->
 ## Canonical path
 
-applications/chatbot-mesh/docs/specs/software-requirements/srd005-creator.yaml
+applications/chatbot-mesh/docs/specs/software-requirements/srd005-creator.md
 
 <!-- field: note -->
 ## Note

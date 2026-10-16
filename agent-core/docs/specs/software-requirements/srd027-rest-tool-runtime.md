@@ -356,12 +356,12 @@ Shared REST builtin declarations SHALL live under tools/builtin/rest.
 <!-- req: R9.3 -->
 ### R9.3
 
-REST config format documentation SHALL live at docs/specs/config-formats/rest-tool-format.yaml.
+REST config format documentation SHALL live at docs/specs/config-formats/rest-tool-format.md.
 
 <!-- req: R9.4 -->
 ### R9.4
 
-Shared REST semantic model documentation SHALL live at docs/specs/semantic-models/rest-tool-language.yaml.
+Shared REST semantic model documentation SHALL live at docs/specs/semantic-models/rest-tool-language.md.
 
 <!-- req: R9.5 -->
 ### R9.5
@@ -554,7 +554,7 @@ Side-effect, reversibility, undo, compensation, command-state, and confirmation 
 <!-- ac: AC9 -->
 ### AC9
 
-Planned layout names internal/tools/rest, tools/builtin/rest, rest-tool-format.yaml, rest-tool-language.yaml, and future release 03.0 test traces.
+Planned layout names internal/tools/rest, tools/builtin/rest, rest-tool-format.md, rest-tool-language.md, and future release 03.0 test traces.
 
 <!-- field: traces -->
 #### Traces
@@ -585,12 +585,12 @@ Generic REST event aggregation waits across configured server sources, applies s
 <!-- field: related_documents -->
 ## Related documents
 
-- docs/ARCHITECTURE.yaml
-- docs/specs/semantic-models/tool-language.yaml
-- docs/specs/semantic-models/tool-metrics-monitoring.yaml
-- docs/specs/config-formats/tool-declaration-format.yaml
-- docs/specs/config-formats/rest-tool-format.yaml
-- docs/specs/semantic-models/rest-tool-language.yaml
+- docs/ARCHITECTURE.md
+- docs/specs/semantic-models/tool-language.md
+- docs/specs/semantic-models/tool-metrics-monitoring.md
+- docs/specs/config-formats/tool-declaration-format.md
+- docs/specs/config-formats/rest-tool-format.md
+- docs/specs/semantic-models/rest-tool-language.md
 - docs/guides/boundary-tools-and-async.md
 - docs/guides/rest-tool.md
 
@@ -601,8 +601,8 @@ Generic REST event aggregation waits across configured server sources, applies s
 implemented:
     - internal/tools/rest package with declarative client, async client, server, OpenAPI import, machine_request, monitor, and fan-in support.
     - tools/builtin/rest declarations selected by REST profiles and tests.
-    - docs/specs/config-formats/rest-tool-format.yaml and docs/specs/semantic-models/rest-tool-language.yaml.
-    - Release 03.0 formal test-suite entries in docs/specs/test-suites/test-rel03.0-rest-tools.yaml.
+    - docs/specs/config-formats/rest-tool-format.md and docs/specs/semantic-models/rest-tool-language.md.
+    - Release 03.0 formal test-suite entries in docs/specs/test-suites/test-rel03.0-rest-tools.md.
     - Client safety and async request metadata: CIDR enforcement, response schema validation, domain_error_code output, correlation lookup, idempotency headers, and explicit MachineSpec probe/delay polling.
     - OpenAPI endpoint config preservation while importing transport and schema fields.
     - REST compensation undo mementos and rollback-time compensation execution for mutating client operations that declare compensation metadata.

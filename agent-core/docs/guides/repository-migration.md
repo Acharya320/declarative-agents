@@ -97,8 +97,8 @@ profiles/
 
 specs/
   docs/specs/
-  docs/SPECIFICATIONS.yaml
-  docs/road-map.yaml
+  docs/SPECIFICATIONS.md
+  docs/road-map.md
 
 evaluation/
   internal/evaluation/
@@ -176,8 +176,8 @@ runtime code.
 Expected contents:
 
 - `docs/specs/`
-- `docs/SPECIFICATIONS.yaml`
-- `docs/road-map.yaml`
+- `docs/SPECIFICATIONS.md`
+- `docs/road-map.md`
 - spec validation fixtures
 
 Keep `pkg/spec` in `agent-core` unless the spec model is needed by other

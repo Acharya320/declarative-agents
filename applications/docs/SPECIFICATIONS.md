@@ -131,22 +131,22 @@ dependency-gated where project credentials are unavailable.
     Recurring application-composition, package-time closure, deployment
     topology, and module-governance patterns linked to the single-agent
     language and the role-realization semantic model.
-  path: docs/pattern-language.yaml
+  path: docs/pattern-language.md
 - id: applications-shared-contract
   title: Vision for Declarative Multi-Agent Applications
   summary: |
     Multi-agent rationale, intent and assurance flows, role realization,
     human governance, construction sequence, runnable-module contract, and
     capability-aware success criteria.
-  path: docs/VISION.yaml
+  path: docs/VISION.md
 - id: architecture-applications-shared-contract
   title: Shared Applications Architecture
   summary: Ownership layers, module classes, capability layers, and Mage interfaces.
-  path: docs/ARCHITECTURE.yaml
+  path: docs/ARCHITECTURE.md
 - id: applications-shared-contract-roadmap
   title: Shared Applications Contract Road Map
   summary: Release status tied to executable structural evidence.
-  path: docs/road-map.yaml
+  path: docs/road-map.md
 - id: applications-readme
   title: Applications
   summary: Human entry point, terminology, and current classifications.
@@ -154,15 +154,15 @@ dependency-gated where project credentials are unavailable.
 - id: eng01-kind-test-demo-rig
   title: Standard kind Rig for Agent Integration Tests and Demos
   summary: External engineering contract used only by kind-demo applications.
-  path: ../docs/engineering/eng01-kind-test-demo-rig.yaml
+  path: ../docs/engineering/eng01-kind-test-demo-rig.md
 - id: architecture-application-catalog
   title: Application Catalog Architecture
   summary: Canonical reusable catalog ownership and consumer boundary.
-  path: catalog/docs/ARCHITECTURE.yaml
+  path: catalog/docs/ARCHITECTURE.md
 - id: architecture-agent-architecture
   title: Agent Architecture Application Architecture
   summary: Composition-only ownership, capability status, and local evidence boundary.
-  path: agent-architecture/docs/ARCHITECTURE.yaml
+  path: agent-architecture/docs/ARCHITECTURE.md
 ```
 
 <!-- field: srd_index -->
@@ -173,14 +173,14 @@ dependency-gated where project credentials are unavailable.
   title: Runnable Application Module Contract
   status: implemented
   applicability: Every runnable application; excludes applications/catalog.
-  path: docs/specs/software-requirements/srd001-application-module-contract.yaml
+  path: docs/specs/software-requirements/srd001-application-module-contract.md
   use_cases: [rel00.0-uc001-application-contract-conformance]
   test_suites: [test-rel00.0-application-contract-conformance]
 - id: srd002-managed-application-services
   title: Capability-Dependent Application Services
   status: implemented
   applicability: Requirement groups apply only to declared managed_service, packaged, helm_managed, or kind_demo capabilities.
-  path: docs/specs/software-requirements/srd002-managed-application-services.yaml
+  path: docs/specs/software-requirements/srd002-managed-application-services.md
   use_cases: [rel00.0-uc001-application-contract-conformance]
   test_suites: [test-rel00.0-application-contract-conformance]
 - id: srd003-application-consistency
@@ -190,7 +190,7 @@ dependency-gated where project credentials are unavailable.
     Manifest, actor, naming, README, status, and ownership requirements apply
     to runnable or audit-only applications; package, deployment, kind, and UI
     requirements apply only when the matching capability or asset exists.
-  path: docs/specs/software-requirements/srd003-application-consistency.yaml
+  path: docs/specs/software-requirements/srd003-application-consistency.md
   use_cases: [rel14.0-uc001-application-consistency]
   test_suites: [test-rel14.0-application-consistency]
 - id: srd004-declarative-ux
@@ -199,7 +199,7 @@ dependency-gated where project credentials are unavailable.
   applicability: |
     Applications and actors that ship UI assets; R9 applies only to REST
     definitions that select an embedded bundle.
-  path: docs/specs/software-requirements/srd004-declarative-ux.yaml
+  path: docs/specs/software-requirements/srd004-declarative-ux.md
   use_cases: [rel15.0-uc001-declarative-ux]
   test_suites: [test-rel15.0-declarative-ux]
 - id: srd005-chart-conformance
@@ -209,7 +209,7 @@ dependency-gated where project credentials are unavailable.
     R1 through R5, R8, and R11 apply to every application that ships a chart; R6
     applies to every checked-in kind configuration; R7 governs the
     exception baseline.
-  path: docs/specs/software-requirements/srd005-chart-conformance.yaml
+  path: docs/specs/software-requirements/srd005-chart-conformance.md
   use_cases: [rel16.0-uc001-chart-conformance]
   test_suites: [test-rel16.0-chart-conformance]
 - id: srd006-pin-currency
@@ -218,7 +218,7 @@ dependency-gated where project credentials are unavailable.
   applicability: |
     Applies to every pinned upstream dependency this repository resolves
     from a registry; Go module versions stay outside it.
-  path: docs/specs/software-requirements/srd006-pin-currency.yaml
+  path: docs/specs/software-requirements/srd006-pin-currency.md
   use_cases: [rel17.0-uc001-pin-currency]
   test_suites: [test-rel17.0-pin-currency]
 - id: srd007-release-annotation
@@ -227,7 +227,7 @@ dependency-gated where project credentials are unavailable.
   applicability: |
     Applies to every tag on the v0 release line, on demand at the push
     boundary; gates no build and joins no audit.
-  path: docs/specs/software-requirements/srd007-release-annotation.yaml
+  path: docs/specs/software-requirements/srd007-release-annotation.md
   use_cases: [rel18.0-uc001-release-annotation]
   test_suites: [test-rel18.0-release-annotation]
 - id: srd008-persistent-application-platform
@@ -236,7 +236,7 @@ dependency-gated where project credentials are unavailable.
   applicability: |
     Helm-managed applications on the shared platform; cluster-mutating
     integration scenarios retain ENG01's owned-cluster exception.
-  path: docs/specs/software-requirements/srd008-persistent-application-platform.yaml
+  path: docs/specs/software-requirements/srd008-persistent-application-platform.md
   use_cases: [rel19.0-uc001-persistent-application-platform]
   test_suites: [test-rel19.0-persistent-application-platform]
 ```
@@ -259,10 +259,10 @@ dependency-gated where project credentials are unavailable.
     actor-role bindings, wrapper inheritance, classifications, and migration
     aliases shared by the catalog and runnable applications.
   status: implemented
-  path: docs/specs/semantic-models/agent-role-realizations.yaml
+  path: docs/specs/semantic-models/agent-role-realizations.md
   reciprocal_indexes:
-    - catalog/docs/SPECIFICATIONS.yaml#semantic_model_index
-    - catalog/docs/specs/semantic-models/agent-role-taxonomy.yaml#shared_authority
+    - catalog/docs/SPECIFICATIONS.md#semantic_model_index
+    - catalog/docs/specs/semantic-models/agent-role-taxonomy.md#shared_authority
 ```
 
 <!-- field: use_case_index -->
@@ -277,7 +277,7 @@ dependency-gated where project credentials are unavailable.
     - srd001-application-module-contract
     - srd002-managed-application-services
   test_suite: test-rel00.0-application-contract-conformance
-  path: docs/specs/use-cases/rel00.0-uc001-application-contract-conformance.yaml
+  path: docs/specs/use-cases/rel00.0-uc001-application-contract-conformance.md
 - id: rel14.0-uc001-application-consistency
   title: Normalize and Verify a Showcase Application Composition
   release: "14.0"
@@ -285,7 +285,7 @@ dependency-gated where project credentials are unavailable.
   srds:
     - srd003-application-consistency
   test_suite: test-rel14.0-application-consistency
-  path: docs/specs/use-cases/rel14.0-uc001-application-consistency.yaml
+  path: docs/specs/use-cases/rel14.0-uc001-application-consistency.md
 - id: rel15.0-uc001-declarative-ux
   title: Compose an Application UI from Declared Panels
   release: "15.0"
@@ -293,7 +293,7 @@ dependency-gated where project credentials are unavailable.
   srds:
     - srd004-declarative-ux
   test_suite: test-rel15.0-declarative-ux
-  path: docs/specs/use-cases/rel15.0-uc001-declarative-ux.yaml
+  path: docs/specs/use-cases/rel15.0-uc001-declarative-ux.md
 - id: rel16.0-uc001-chart-conformance
   title: Add a Workload and Learn at Audit Time That Its Image Floats
   release: "16.0"
@@ -301,7 +301,7 @@ dependency-gated where project credentials are unavailable.
   srds:
     - srd005-chart-conformance
   test_suite: test-rel16.0-chart-conformance
-  path: docs/specs/use-cases/rel16.0-uc001-chart-conformance.yaml
+  path: docs/specs/use-cases/rel16.0-uc001-chart-conformance.md
 - id: rel17.0-uc001-pin-currency
   title: Read Which Pins Moved and Which Aged, Then Decide
   release: "17.0"
@@ -309,7 +309,7 @@ dependency-gated where project credentials are unavailable.
   srds:
     - srd006-pin-currency
   test_suite: test-rel17.0-pin-currency
-  path: docs/specs/use-cases/rel17.0-uc001-pin-currency.yaml
+  path: docs/specs/use-cases/rel17.0-uc001-pin-currency.md
 - id: rel18.0-uc001-release-annotation
   title: A Degenerate Release Annotation Is Refused Before the Push
   release: "18.0"
@@ -317,7 +317,7 @@ dependency-gated where project credentials are unavailable.
   srds:
     - srd007-release-annotation
   test_suite: test-rel18.0-release-annotation
-  path: docs/specs/use-cases/rel18.0-uc001-release-annotation.yaml
+  path: docs/specs/use-cases/rel18.0-uc001-release-annotation.md
 - id: rel19.0-uc001-persistent-application-platform
   title: Operate Two Namespaced Applications Without Losing Retained Telemetry
   release: "19.0"
@@ -325,7 +325,7 @@ dependency-gated where project credentials are unavailable.
   srds:
     - srd008-persistent-application-platform
   test_suite: test-rel19.0-persistent-application-platform
-  path: docs/specs/use-cases/rel19.0-uc001-persistent-application-platform.yaml
+  path: docs/specs/use-cases/rel19.0-uc001-persistent-application-platform.md
 ```
 
 <!-- field: test_suite_index -->
@@ -341,7 +341,7 @@ dependency-gated where project credentials are unavailable.
   srds:
     - srd001-application-module-contract
     - srd002-managed-application-services
-  path: docs/specs/test-suites/test-rel00.0-application-contract-conformance.yaml
+  path: docs/specs/test-suites/test-rel00.0-application-contract-conformance.md
 - id: test-rel14.0-application-consistency
   title: Release 14.0 Application Consistency Test Suite
   release: "14.0"
@@ -350,7 +350,7 @@ dependency-gated where project credentials are unavailable.
   traces: [rel14.0-uc001-application-consistency]
   srds:
     - srd003-application-consistency
-  path: docs/specs/test-suites/test-rel14.0-application-consistency.yaml
+  path: docs/specs/test-suites/test-rel14.0-application-consistency.md
 - id: test-rel15.0-declarative-ux
   title: Release 15.0 Declarative UX Test Suite
   release: "15.0"
@@ -359,7 +359,7 @@ dependency-gated where project credentials are unavailable.
   traces: [rel15.0-uc001-declarative-ux]
   srds:
     - srd004-declarative-ux
-  path: docs/specs/test-suites/test-rel15.0-declarative-ux.yaml
+  path: docs/specs/test-suites/test-rel15.0-declarative-ux.md
 - id: test-rel16.0-chart-conformance
   title: Release 16.0 Chart Conformance Test Suite
   release: "16.0"
@@ -368,7 +368,7 @@ dependency-gated where project credentials are unavailable.
   traces: [rel16.0-uc001-chart-conformance]
   srds:
     - srd005-chart-conformance
-  path: docs/specs/test-suites/test-rel16.0-chart-conformance.yaml
+  path: docs/specs/test-suites/test-rel16.0-chart-conformance.md
 - id: test-rel17.0-pin-currency
   title: Release 17.0 Pin Currency Test Suite
   release: "17.0"
@@ -377,7 +377,7 @@ dependency-gated where project credentials are unavailable.
   traces: [rel17.0-uc001-pin-currency]
   srds:
     - srd006-pin-currency
-  path: docs/specs/test-suites/test-rel17.0-pin-currency.yaml
+  path: docs/specs/test-suites/test-rel17.0-pin-currency.md
 - id: test-rel18.0-release-annotation
   title: Release 18.0 Release Annotation Test Suite
   release: "18.0"
@@ -386,7 +386,7 @@ dependency-gated where project credentials are unavailable.
   traces: [rel18.0-uc001-release-annotation]
   srds:
     - srd007-release-annotation
-  path: docs/specs/test-suites/test-rel18.0-release-annotation.yaml
+  path: docs/specs/test-suites/test-rel18.0-release-annotation.md
 - id: test-rel19.0-persistent-application-platform
   title: Release 19.0 Persistent Application Platform Test Suite
   release: "19.0"
@@ -395,7 +395,7 @@ dependency-gated where project credentials are unavailable.
   traces: [rel19.0-uc001-persistent-application-platform]
   srds:
     - srd008-persistent-application-platform
-  path: docs/specs/test-suites/test-rel19.0-persistent-application-platform.yaml
+  path: docs/specs/test-suites/test-rel19.0-persistent-application-platform.md
 ```
 
 <!-- field: coverage_gaps -->

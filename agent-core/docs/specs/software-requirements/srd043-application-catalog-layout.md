@@ -501,6 +501,6 @@ Every child issue in GH-1036 maps to requirements and one named formal test case
 
 - rel99.0-uc002-application-catalog-migration
 - test-rel99.0-application-catalog-migration
-- docs/road-map.yaml
-- docs/ARCHITECTURE.yaml
+- docs/road-map.md
+- docs/ARCHITECTURE.md
 - docs/constitutions/design.yaml

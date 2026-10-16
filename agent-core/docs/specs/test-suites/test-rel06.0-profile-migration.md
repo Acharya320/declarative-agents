@@ -74,9 +74,9 @@ mage audit
 #### Inputs
 
 ```yaml
-srd: docs/specs/software-requirements/srd034-external-agent-profiles.yaml
-use_case: docs/specs/use-cases/rel06.0-uc001-mounted-profile-container-runtime.yaml
-test_suite: docs/specs/test-suites/test-rel06.0-profile-migration.yaml
+srd: docs/specs/software-requirements/srd034-external-agent-profiles.md
+use_case: docs/specs/use-cases/rel06.0-uc001-mounted-profile-container-runtime.md
+test_suite: docs/specs/test-suites/test-rel06.0-profile-migration.md
 ```
 
 <!-- field: expected -->

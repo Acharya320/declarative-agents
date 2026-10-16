@@ -421,10 +421,10 @@ Generic trace and lifecycle requirements record request-scoped machine execution
 <!-- field: related_documents -->
 ## Related documents
 
-- docs/specs/semantic-models/machine-request-http.yaml
-- docs/specs/semantic-models/rest-tool-language.yaml
-- docs/specs/config-formats/rest-tool-format.yaml
-- docs/ARCHITECTURE.yaml
+- docs/specs/semantic-models/machine-request-http.md
+- docs/specs/semantic-models/rest-tool-language.md
+- docs/specs/config-formats/rest-tool-format.md
+- docs/ARCHITECTURE.md
 
 <!-- field: implementation_status -->
 ## Implementation status

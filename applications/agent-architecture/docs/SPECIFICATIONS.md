@@ -72,17 +72,17 @@ requirements.
 
 | id | title | summary | path |
 | --- | --- | --- | --- |
-| agent-architecture | Agent Architecture Application Vision | Application purpose, ownership boundary, dependencies, and success criteria. | docs/VISION.yaml |
-| architecture-agent-architecture | Agent Architecture Application Architecture | Presentation flow, components, interfaces, dependency direction, and decisions. | docs/ARCHITECTURE.yaml |
-| agent-architecture-roadmap | Agent Architecture Application Road Map | Release 00.0 contract, implemented deterministic evidence, and dependency-gated live observations. | docs/road-map.yaml |
+| agent-architecture | Agent Architecture Application Vision | Application purpose, ownership boundary, dependencies, and success criteria. | docs/VISION.md |
+| architecture-agent-architecture | Agent Architecture Application Architecture | Presentation flow, components, interfaces, dependency direction, and decisions. | docs/ARCHITECTURE.md |
+| agent-architecture-roadmap | Agent Architecture Application Road Map | Release 00.0 contract, implemented deterministic evidence, and dependency-gated live observations. | docs/road-map.md |
 
 <!-- field: srd_index -->
 ## Srd index
 
 | id | title | status | path |
 | --- | --- | --- | --- |
-| srd001-helm-deployment | Agent Architecture Helm Deployment | planned | docs/specs/software-requirements/srd001-helm-deployment.yaml |
-| srd002-applier | Declarative Applier Agent | implemented | docs/specs/software-requirements/srd002-applier.yaml |
+| srd001-helm-deployment | Agent Architecture Helm Deployment | planned | docs/specs/software-requirements/srd001-helm-deployment.md |
+| srd002-applier | Declarative Applier Agent | implemented | docs/specs/software-requirements/srd002-applier.md |
 
 <!-- field: external_requirement_references -->
 ## External requirement references
@@ -90,7 +90,7 @@ requirements.
 ```yaml
 - id: srd001-application-module-contract
   owner: applications
-  path: ../docs/specs/software-requirements/srd001-application-module-contract.yaml
+  path: ../docs/specs/software-requirements/srd001-application-module-contract.md
   requirements: [R1, R2, R3, R4, R5, R6]
   usage: |
     Governs runnable-module identity, canonical references, local
@@ -99,7 +99,7 @@ requirements.
     requirements.
 - id: srd002-managed-application-services
   owner: applications
-  path: ../docs/specs/software-requirements/srd002-managed-application-services.yaml
+  path: ../docs/specs/software-requirements/srd002-managed-application-services.md
   requirements: [R1, R2, R3, R4, R5, R6]
   applies_to:
     - documentation-curator server launched by this application
@@ -112,13 +112,13 @@ requirements.
     supplying their evidence through srd001-helm-deployment.
 - id: srd011-knowledge-manager
   owner: applications/catalog
-  path: ../catalog/docs/specs/software-requirements/srd011-knowledge-manager.yaml
+  path: ../catalog/docs/specs/software-requirements/srd011-knowledge-manager.md
   usage: |
     Defines the canonical documentation-curator profile, catalog-owned UI and
     resources, agent-core runtime dependencies, and lifecycle outcomes.
 - id: rel07.0-uc001-documentation-curator-profile-ux
   owner: applications/catalog
-  path: ../catalog/docs/specs/use-cases/rel07.0-uc001-documentation-curator-profile-ux.yaml
+  path: ../catalog/docs/specs/use-cases/rel07.0-uc001-documentation-curator-profile-ux.md
   usage: |
     Proves the catalog profile's browser, action-route, and lifecycle behavior.
     Release 00.0 composes that behavior into a guided presentation.
@@ -143,11 +143,11 @@ requirements.
 
 | id | title | release | status | test_suite | path |
 | --- | --- | --- | --- | --- | --- |
-| rel00.0-uc001-guided-agent-architecture | Operator Runs the Guided Agent Architecture | 00.0 | partial | test-rel00.0-guided-agent-architecture | docs/specs/use-cases/rel00.0-uc001-guided-agent-architecture.yaml |
-| rel01.0-uc001-demo-trace-collection | Demo Run Collects and Serves Traces | 01.0 | implemented | test-rel01.0-demo-trace-collection | docs/specs/use-cases/rel01.0-uc001-demo-trace-collection.yaml |
-| rel02.0-uc001-render-packaged-chart | Render and Validate the Packaged Agent Architecture Chart | 02.0 | planned | test-rel02.0-render-packaged-chart | docs/specs/use-cases/rel02.0-uc001-render-packaged-chart.yaml |
-| rel03.0-uc001-live-helm-smoke | Prove the Packaged Agent Architecture Chart on Kind | 03.0 | planned | test-rel03.0-live-helm-smoke | docs/specs/use-cases/rel03.0-uc001-live-helm-smoke.yaml |
-| rel04.0-uc001-declarative-applier | The Applier Agent Validates, Applies, and Verifies an Agent Architecture Values Change | 04.0 | planned | test-rel04.0-declarative-applier | docs/specs/use-cases/rel04.0-uc001-declarative-applier.yaml |
+| rel00.0-uc001-guided-agent-architecture | Operator Runs the Guided Agent Architecture | 00.0 | partial | test-rel00.0-guided-agent-architecture | docs/specs/use-cases/rel00.0-uc001-guided-agent-architecture.md |
+| rel01.0-uc001-demo-trace-collection | Demo Run Collects and Serves Traces | 01.0 | implemented | test-rel01.0-demo-trace-collection | docs/specs/use-cases/rel01.0-uc001-demo-trace-collection.md |
+| rel02.0-uc001-render-packaged-chart | Render and Validate the Packaged Agent Architecture Chart | 02.0 | planned | test-rel02.0-render-packaged-chart | docs/specs/use-cases/rel02.0-uc001-render-packaged-chart.md |
+| rel03.0-uc001-live-helm-smoke | Prove the Packaged Agent Architecture Chart on Kind | 03.0 | planned | test-rel03.0-live-helm-smoke | docs/specs/use-cases/rel03.0-uc001-live-helm-smoke.md |
+| rel04.0-uc001-declarative-applier | The Applier Agent Validates, Applies, and Verifies an Agent Architecture Values Change | 04.0 | planned | test-rel04.0-declarative-applier | docs/specs/use-cases/rel04.0-uc001-declarative-applier.md |
 
 <!-- field: test_suite_index -->
 ## Test suite index
@@ -160,7 +160,7 @@ requirements.
   test_case_count: 5
   traces:
     - rel00.0-uc001-guided-agent-architecture
-  path: docs/specs/test-suites/test-rel00.0-guided-agent-architecture.yaml
+  path: docs/specs/test-suites/test-rel00.0-guided-agent-architecture.md
 - id: test-rel01.0-demo-trace-collection
   title: Test Suite for Release 01.0 Demo Trace Collection
   release: "01.0"
@@ -168,7 +168,7 @@ requirements.
   test_case_count: 3
   traces:
     - rel01.0-uc001-demo-trace-collection
-  path: docs/specs/test-suites/test-rel01.0-demo-trace-collection.yaml
+  path: docs/specs/test-suites/test-rel01.0-demo-trace-collection.md
 - id: test-rel02.0-render-packaged-chart
   title: Test Suite for Release 02.0 Packaged Chart Render and Validation
   release: "02.0"
@@ -176,7 +176,7 @@ requirements.
   test_case_count: 4
   traces:
     - rel02.0-uc001-render-packaged-chart
-  path: docs/specs/test-suites/test-rel02.0-render-packaged-chart.yaml
+  path: docs/specs/test-suites/test-rel02.0-render-packaged-chart.md
 - id: test-rel03.0-live-helm-smoke
   title: Test Suite for Release 03.0 Live Helm Smoke
   release: "03.0"
@@ -184,7 +184,7 @@ requirements.
   test_case_count: 4
   traces:
     - rel03.0-uc001-live-helm-smoke
-  path: docs/specs/test-suites/test-rel03.0-live-helm-smoke.yaml
+  path: docs/specs/test-suites/test-rel03.0-live-helm-smoke.md
 - id: test-rel04.0-declarative-applier
   title: Test Suite for Release 04.0 Declarative Applier Agent
   release: "04.0"
@@ -192,7 +192,7 @@ requirements.
   test_case_count: 5
   traces:
     - rel04.0-uc001-declarative-applier
-  path: docs/specs/test-suites/test-rel04.0-declarative-applier.yaml
+  path: docs/specs/test-suites/test-rel04.0-declarative-applier.md
 ```
 
 <!-- field: coverage_gaps -->

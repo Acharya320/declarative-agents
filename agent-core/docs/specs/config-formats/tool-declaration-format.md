@@ -336,7 +336,7 @@ examples:
               modes: [raw_yaml, parsed_yaml, raw_markdown]
               max_bytes: 65536
               category_rules:
-                - {pattern: road-map.yaml, category: release}
+                - {pattern: road-map.md, category: release}
                 - {pattern: "specs/software-requirements/**", category: srd}
 ```
 

@@ -71,11 +71,11 @@ executable_structural
 
     root = Path("applications/docs")
     paths = {
-        "srd": root / "specs/software-requirements/srd004-declarative-ux.yaml",
-        "use_case": root / "specs/use-cases/rel15.0-uc001-declarative-ux.yaml",
-        "suite": root / "specs/test-suites/test-rel15.0-declarative-ux.yaml",
-        "index": root / "SPECIFICATIONS.yaml",
-        "roadmap": root / "road-map.yaml",
+        "srd": root / "specs/software-requirements/srd004-declarative-ux.md",
+        "use_case": root / "specs/use-cases/rel15.0-uc001-declarative-ux.md",
+        "suite": root / "specs/test-suites/test-rel15.0-declarative-ux.md",
+        "index": root / "SPECIFICATIONS.md",
+        "roadmap": root / "road-map.md",
     }
     docs = {name: yaml.safe_load(path.read_text()) for name, path in paths.items()}
     required = {

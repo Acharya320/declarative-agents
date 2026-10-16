@@ -646,10 +646,10 @@ tool_language_architecture:
           F --> G[Mark aggregate deprecated compatibility]
         ```
     references:
-        - docs/specs/config-formats/tool-authoring-standard.yaml
-        - docs/specs/semantic-models/tool-language.yaml
-        - docs/specs/semantic-models/tool-vocabulary-audit.yaml
-        - docs/specs/test-suites/test-rel02.0-tool-contracts.yaml
+        - docs/specs/config-formats/tool-authoring-standard.md
+        - docs/specs/semantic-models/tool-language.md
+        - docs/specs/semantic-models/tool-vocabulary-audit.md
+        - docs/specs/test-suites/test-rel02.0-tool-contracts.md
 rest_tool_runtime_architecture:
     status: implemented
     summary: |
@@ -758,21 +758,21 @@ rest_tool_runtime_architecture:
             - tools/builtin/rest/all.yaml
             - external applications/catalog/testdata/conformance/rest/
             - testdata/integration/rel03-rest-tools/
-            - docs/specs/software-requirements/srd027-rest-tool-runtime.yaml
-            - docs/specs/software-requirements/srd028-rest-client-tools.yaml
-            - docs/specs/software-requirements/srd029-rest-server-tools.yaml
-            - docs/specs/software-requirements/srd030-machine-request-rest-binding.yaml
-            - docs/specs/software-requirements/srd031-declarative-document-resources.yaml
-            - docs/specs/semantic-models/rest-tool-language.yaml
-            - docs/specs/semantic-models/machine-request-http.yaml
-            - docs/specs/semantic-models/document-resource-language.yaml
-            - docs/specs/config-formats/rest-tool-format.yaml
-            - docs/specs/use-cases/rel03.0-uc001-rest-client-sync.yaml
-            - docs/specs/use-cases/rel03.0-uc002-rest-client-async.yaml
-            - docs/specs/use-cases/rel03.0-uc003-rest-server-signals.yaml
-            - docs/specs/use-cases/rel03.0-uc004-openapi-import.yaml
-            - docs/specs/use-cases/rel03.0-uc007-machine-request-documentation-ux.yaml
-            - docs/specs/test-suites/test-rel03.0-rest-tools.yaml
+            - docs/specs/software-requirements/srd027-rest-tool-runtime.md
+            - docs/specs/software-requirements/srd028-rest-client-tools.md
+            - docs/specs/software-requirements/srd029-rest-server-tools.md
+            - docs/specs/software-requirements/srd030-machine-request-rest-binding.md
+            - docs/specs/software-requirements/srd031-declarative-document-resources.md
+            - docs/specs/semantic-models/rest-tool-language.md
+            - docs/specs/semantic-models/machine-request-http.md
+            - docs/specs/semantic-models/document-resource-language.md
+            - docs/specs/config-formats/rest-tool-format.md
+            - docs/specs/use-cases/rel03.0-uc001-rest-client-sync.md
+            - docs/specs/use-cases/rel03.0-uc002-rest-client-async.md
+            - docs/specs/use-cases/rel03.0-uc003-rest-server-signals.md
+            - docs/specs/use-cases/rel03.0-uc004-openapi-import.md
+            - docs/specs/use-cases/rel03.0-uc007-machine-request-documentation-ux.md
+            - docs/specs/test-suites/test-rel03.0-rest-tools.md
 request_signal_source_architecture:
     status: implemented
     summary: |
@@ -949,10 +949,10 @@ embedded_monitor_runtime_architecture:
             - internal/tools/exec/metrics.go
             - external applications/catalog/agents/runtime-state-reader/ profile adapter
             - external applications/catalog/testdata/integration/rel04-monitor/
-            - docs/specs/software-requirements/srd032-tool-metrics-monitor-store.yaml
-            - docs/specs/software-requirements/srd033-monitor-rest-api.yaml
-            - docs/specs/semantic-models/tool-metrics-monitoring.yaml
-            - docs/specs/test-suites/test-rel04.0-monitor.yaml
+            - docs/specs/software-requirements/srd032-tool-metrics-monitor-store.md
+            - docs/specs/software-requirements/srd033-monitor-rest-api.md
+            - docs/specs/semantic-models/tool-metrics-monitoring.md
+            - docs/specs/test-suites/test-rel04.0-monitor.md
         proof:
             - cmd/agent/main_test.go: TestMonitorReleaseProfileProof
             - internal/tools/rest/monitor_test.go: TestMonitorREST_FactoryUsesLiveMonitorState
@@ -1133,11 +1133,11 @@ rollback_lifecycle_architecture:
         - MachineSpec owns approval and suspend routing through explicit states and signals.
         - Loop owns checkpoint save timing and lifecycle status, but not domain-specific compensation logic.
     references:
-        - docs/specs/software-requirements/srd025-rollback-lifecycle.yaml
-        - docs/specs/software-requirements/srd026-lifecycle-tools.yaml
-        - docs/specs/semantic-models/rollback-lifecycle.yaml
-        - docs/specs/test-suites/test-rel02.0-lifecycle.yaml
-        - docs/specs/test-suites/test-rel02.0-tool-contracts.yaml
+        - docs/specs/software-requirements/srd025-rollback-lifecycle.md
+        - docs/specs/software-requirements/srd026-lifecycle-tools.md
+        - docs/specs/semantic-models/rollback-lifecycle.md
+        - docs/specs/test-suites/test-rel02.0-lifecycle.md
+        - docs/specs/test-suites/test-rel02.0-tool-contracts.md
         - docs/guides/roll-backs.md
 engine_operations:
     summary: |
@@ -1732,10 +1732,10 @@ progress:
 
 | doc | purpose |
 | --- | --- |
-| docs/VISION.yaml | What we build and why; success criteria and boundaries |
-| docs/SPECIFICATIONS.yaml | Canonical specification index for SRDs, use cases, semantic models, and test suites |
-| docs/specs/config-formats/tool-authoring-standard.yaml | Tool vocabulary authoring contract used by tool declarations |
-| docs/specs/semantic-models/tool-language.yaml | Semantic model for MachineSpec composition, ToolDef vocabulary, boundaries, and sentence-tool migration |
-| docs/specs/semantic-models/rollback-lifecycle.yaml | Semantic model for checkpoint, suspend/resume, rollback traversal, and state layer ownership |
-| docs/specs/software-requirements/srd025-rollback-lifecycle.yaml | Requirements for lifecycle state, history, rollback, suspend, resume, and approval gates |
-| docs/specs/software-requirements/srd026-lifecycle-tools.yaml | Requirements for lifecycle tool adapters and their core checkpoint operation boundary |
+| docs/VISION.md | What we build and why; success criteria and boundaries |
+| docs/SPECIFICATIONS.md | Canonical specification index for SRDs, use cases, semantic models, and test suites |
+| docs/specs/config-formats/tool-authoring-standard.md | Tool vocabulary authoring contract used by tool declarations |
+| docs/specs/semantic-models/tool-language.md | Semantic model for MachineSpec composition, ToolDef vocabulary, boundaries, and sentence-tool migration |
+| docs/specs/semantic-models/rollback-lifecycle.md | Semantic model for checkpoint, suspend/resume, rollback traversal, and state layer ownership |
+| docs/specs/software-requirements/srd025-rollback-lifecycle.md | Requirements for lifecycle state, history, rollback, suspend, resume, and approval gates |
+| docs/specs/software-requirements/srd026-lifecycle-tools.md | Requirements for lifecycle tool adapters and their core checkpoint operation boundary |

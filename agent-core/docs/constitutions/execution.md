@@ -151,6 +151,6 @@ commit_message: 'Use a concise message that names the outcome and, when applicab
 ## References
 
 - docs/constitutions/design.yaml
-- docs/constitutions/go-style.yaml
-- docs/constitutions/testing.yaml
+- docs/constitutions/go-style.md
+- docs/constitutions/testing.md
 - AGENTS.md

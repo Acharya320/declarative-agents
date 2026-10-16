@@ -18,14 +18,14 @@ Only response words bridge machine output back to HTTP.
 
 ```yaml
 canonical:
-    - docs/specs/software-requirements/srd030-machine-request-rest-binding.yaml
+    - docs/specs/software-requirements/srd030-machine-request-rest-binding.md
 supporting:
-    - docs/specs/software-requirements/srd005-agentic-loop.yaml
-    - docs/specs/software-requirements/srd006-yaml-machine-config.yaml
-    - docs/specs/software-requirements/srd027-rest-tool-runtime.yaml
-    - docs/specs/software-requirements/srd029-rest-server-tools.yaml
-    - docs/specs/semantic-models/tool-language.yaml
-    - docs/specs/semantic-models/rest-tool-language.yaml
+    - docs/specs/software-requirements/srd005-agentic-loop.md
+    - docs/specs/software-requirements/srd006-yaml-machine-config.md
+    - docs/specs/software-requirements/srd027-rest-tool-runtime.md
+    - docs/specs/software-requirements/srd029-rest-server-tools.md
+    - docs/specs/semantic-models/tool-language.md
+    - docs/specs/semantic-models/rest-tool-language.md
 ```
 
 <!-- field: primary_entities -->

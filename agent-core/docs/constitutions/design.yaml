@@ -176,7 +176,7 @@ documentation_standards:
 
     the corpus and keep the inline literal marker [NEEDS CLARIFICATION:
 
-    question] instead (issue-format.yaml). mage clarify lists every open
+    question] instead (issue-format.md). mage clarify lists every open
 
     entry across participating modules; run it and resolve the entries
 
@@ -965,21 +965,21 @@ manual_invariant_schema:
         Record why the quoted sequence is protocol or validation structure
         inside one declared boundary operation.
 naming_conventions:
-  srd: srdNNN-short-name.yaml
-  use_case: relNN.N-ucNNN-short-name.yaml
-  test_suite: test-relNN.N-short-name.yaml
-  audit_register: kebab-case.yaml
+  srd: srdNNN-short-name.md
+  use_case: relNN.N-ucNNN-short-name.md
+  test_suite: test-relNN.N-short-name.md
+  audit_register: kebab-case-register.md
   audit_report: kebab-case.md
-  config_format: kebab-case.yaml
-  engineering_guideline: engNN-short-name.yaml
+  config_format: kebab-case.md
+  engineering_guideline: engNN-short-name.md
   guide: kebab-case.md
-  migration: kebab-case.yaml
-  pattern_language: pattern-language.yaml
-  semantic_model: kebab-case.yaml
-  constitution: kebab-case.yaml
+  migration: kebab-case.md
+  pattern_language: pattern-language.md
+  semantic_model: kebab-case.md
+  constitution: kebab-case.md
 completeness_checks:
 - id: C1
-  check: YAML parses.
+  check: The document parses; mage audit reports no markdown-format finding.
 - id: C2
   check: IDs match filenames or existing corpus conventions.
 - id: C3
@@ -994,8 +994,8 @@ completeness_checks:
 - id: C7
   check: mage audit reports no unresolved-clarification finding.
 references:
-- docs/VISION.yaml
-- docs/ARCHITECTURE.yaml
-- docs/SPECIFICATIONS.yaml
-- docs/specs/semantic-models/tool-language.yaml
-- docs/specs/semantic-models/rollback-lifecycle.yaml
+- docs/VISION.md
+- docs/ARCHITECTURE.md
+- docs/SPECIFICATIONS.md
+- docs/specs/semantic-models/tool-language.md
+- docs/specs/semantic-models/rollback-lifecycle.md

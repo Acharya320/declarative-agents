@@ -25,8 +25,8 @@ examined:
     - applications/catalog/agents/knowledge-manager/
     - applications/coding-agent/agents/application.yaml
     - applications/agent-architecture/agents/application.yaml
-    - applications/catalog/docs/specs/software-requirements/srd012-chroma-corpus-agents.yaml
-    - docs/engineering/eng01-kind-test-demo-rig.yaml
+    - applications/catalog/docs/specs/software-requirements/srd012-chroma-corpus-agents.md
+    - docs/engineering/eng01-kind-test-demo-rig.md
 ```
 
 <!-- field: inventory -->
@@ -62,7 +62,7 @@ first_party:
 downstream:
     - application: prose-editor
       availability: documented downstream owner; source absent from this repository and inaccessible to this audit
-      evidence: applications/catalog/docs/specs/software-requirements/srd021-observer.yaml R4.3
+      evidence: applications/catalog/docs/specs/software-requirements/srd021-observer.md R4.3
     - application: second-downstream-consumer
       availability: not named in repository documentation and not discoverable through accessible organization code search
       disposition: No implementation facts inferred.
@@ -214,6 +214,6 @@ epic_effect: Record per-application vector storage as canonical for GH-2474; fil
 - applications/chatbot-mesh/agents/rag-server/
 - applications/catalog/agents/knowledge-manager/
 - applications/chatbot-mesh/docs/specs/software-requirements/
-- docs/engineering/eng01-kind-test-demo-rig.yaml
-- applications/docs/specs/software-requirements/srd008-persistent-application-platform.yaml
+- docs/engineering/eng01-kind-test-demo-rig.md
+- applications/docs/specs/software-requirements/srd008-persistent-application-platform.md
 - GH-2481

@@ -870,9 +870,9 @@ A trusted REST operation resolves the composed authority's port per item through
 <!-- field: related_documents -->
 ## Related documents
 
-- docs/specs/config-formats/tool-declaration-format.yaml
-- docs/specs/config-formats/tool-authoring-standard.yaml
-- docs/specs/semantic-models/tool-language.yaml
+- docs/specs/config-formats/tool-declaration-format.md
+- docs/specs/config-formats/tool-authoring-standard.md
+- docs/specs/semantic-models/tool-language.md
 - docs/guides/rest-tool.md
 
 <!-- field: implementation_status -->

@@ -24,13 +24,13 @@ visible grammar flow.
 
 ```yaml
 canonical:
-    - docs/specs/software-requirements/srd027-rest-tool-runtime.yaml
-    - docs/specs/software-requirements/srd028-rest-client-tools.yaml
-    - docs/specs/software-requirements/srd029-rest-server-tools.yaml
-    - docs/specs/software-requirements/srd030-machine-request-rest-binding.yaml
+    - docs/specs/software-requirements/srd027-rest-tool-runtime.md
+    - docs/specs/software-requirements/srd028-rest-client-tools.md
+    - docs/specs/software-requirements/srd029-rest-server-tools.md
+    - docs/specs/software-requirements/srd030-machine-request-rest-binding.md
 supporting:
-    - docs/specs/semantic-models/tool-language.yaml
-    - docs/specs/semantic-models/rollback-lifecycle.yaml
+    - docs/specs/semantic-models/tool-language.md
+    - docs/specs/semantic-models/rollback-lifecycle.md
     - docs/guides/declarative-programming-pattern.md
     - docs/guides/boundary-tools-and-async.md
 ```
@@ -407,7 +407,7 @@ openapi_import_to_internal_definition: |
 ```yaml
 implemented:
     - internal/tools/rest and tools/builtin/rest.
-    - docs/specs/config-formats/rest-tool-format.yaml.
+    - docs/specs/config-formats/rest-tool-format.md.
     - REST client resource, invoke, send, and await words.
     - REST server launch, await, stop, and rest_await_event fan-in words.
     - exit_agent lifecycle control word selected by MachineSpec after REST control events.

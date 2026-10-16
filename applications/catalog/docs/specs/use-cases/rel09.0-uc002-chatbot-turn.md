@@ -9,7 +9,7 @@ status: relocated
 <!-- field: canonical_path -->
 ## Canonical path
 
-applications/chatbot-mesh/docs/specs/use-cases/rel00.0-uc002-chatbot-turn.yaml
+applications/chatbot-mesh/docs/specs/use-cases/rel00.0-uc002-chatbot-turn.md
 
 <!-- field: note -->
 ## Note

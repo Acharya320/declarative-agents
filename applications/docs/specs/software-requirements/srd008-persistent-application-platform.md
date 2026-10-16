@@ -639,9 +639,9 @@ reusable application-rig integration contract.
 <!-- field: related_documents -->
 ## Related documents
 
-- docs/engineering/eng01-kind-test-demo-rig.yaml
-- docs/engineering/eng08-gcp-demo-rig.yaml
-- agent-core/docs/specs/software-requirements/srd008-telemetry.yaml
-- agent-core/docs/specs/software-requirements/srd042-otlp-receiver-tools.yaml
-- agent-core/docs/specs/software-requirements/srd044-spool-query-tools.yaml
-- agent-core/docs/specs/software-requirements/srd059-objectstore-tools.yaml
+- docs/engineering/eng01-kind-test-demo-rig.md
+- docs/engineering/eng08-gcp-demo-rig.md
+- agent-core/docs/specs/software-requirements/srd008-telemetry.md
+- agent-core/docs/specs/software-requirements/srd042-otlp-receiver-tools.md
+- agent-core/docs/specs/software-requirements/srd044-spool-query-tools.md
+- agent-core/docs/specs/software-requirements/srd059-objectstore-tools.md

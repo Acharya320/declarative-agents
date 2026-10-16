@@ -385,9 +385,9 @@ Word and checkpoint databases are independently configured and cannot share one 
 <!-- field: related_documents -->
 ## Related documents
 
-- docs/ARCHITECTURE.yaml
-- docs/specs/config-formats/tool-authoring-standard.yaml
-- docs/specs/software-requirements/srd027-rest-tool-runtime.yaml
+- docs/ARCHITECTURE.md
+- docs/specs/config-formats/tool-authoring-standard.md
+- docs/specs/software-requirements/srd027-rest-tool-runtime.md
 - docs/guides/rest-tool.md
 
 <!-- field: implementation_status -->

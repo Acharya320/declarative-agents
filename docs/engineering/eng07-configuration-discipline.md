@@ -79,10 +79,10 @@ shows.
 <!-- field: references -->
 ## References
 
-- agent-core/docs/specs/software-requirements/srd048-cohere-adapter.yaml (R3.5: the named exception to the go-style environment ban)
-- agent-core/docs/specs/software-requirements/srd033-monitor-rest-api.yaml (R9.6: the monitor serves authored credential references, never resolved values)
-- agent-core/docs/specs/config-formats/rest-tool-format.yaml (environment_expansion rules)
-- agent-core/docs/specs/config-formats/machine-format.yaml (finite defaults for environment-overridable timeouts)
+- agent-core/docs/specs/software-requirements/srd048-cohere-adapter.md (R3.5: the named exception to the go-style environment ban)
+- agent-core/docs/specs/software-requirements/srd033-monitor-rest-api.md (R9.6: the monitor serves authored credential references, never resolved values)
+- agent-core/docs/specs/config-formats/rest-tool-format.md (environment_expansion rules)
+- agent-core/docs/specs/config-formats/machine-format.md (finite defaults for environment-overridable timeouts)
 - applications/agent-architecture/magefiles/magefile.go (the demo.yaml pattern)
-- docs/engineering/eng04-ui-kit-reuse.yaml (values knobs map to real bindings)
+- docs/engineering/eng04-ui-kit-reuse.md (values knobs map to real bindings)
 - GH-1228 (the demo.yaml decision: optional file, literal defaults, no environment variables)

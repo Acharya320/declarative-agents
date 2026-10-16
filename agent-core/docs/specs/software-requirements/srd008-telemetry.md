@@ -389,7 +389,7 @@ Integration runs dual-export file and OTLP evidence with bounded run identity an
 <!-- field: related_documents -->
 ## Related documents
 
-- docs/specs/semantic-models/tool-metrics-monitoring.yaml
+- docs/specs/semantic-models/tool-metrics-monitoring.md
 
 <!-- field: diagrams -->
 ## Diagrams

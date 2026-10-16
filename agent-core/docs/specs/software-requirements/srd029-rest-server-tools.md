@@ -686,8 +686,8 @@ Server event queues expose named sources for rest_await_event, stopped-source be
 <!-- field: related_documents -->
 ## Related documents
 
-- docs/specs/semantic-models/tool-language.yaml
-- docs/specs/semantic-models/tool-metrics-monitoring.yaml
+- docs/specs/semantic-models/tool-language.md
+- docs/specs/semantic-models/tool-metrics-monitoring.md
 - docs/guides/boundary-tools-and-async.md
 - docs/guides/rest-tool.md
 

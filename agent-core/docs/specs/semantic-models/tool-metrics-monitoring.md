@@ -27,14 +27,14 @@ redefining those terms.
 
 ```yaml
 canonical:
-    - docs/ARCHITECTURE.yaml
-    - docs/specs/semantic-models/tool-language.yaml
-    - docs/specs/semantic-models/rest-tool-language.yaml
-    - docs/specs/semantic-models/rollback-lifecycle.yaml
-    - docs/specs/config-formats/tool-declaration-format.yaml
-    - docs/specs/config-formats/machine-format.yaml
-    - docs/specs/software-requirements/srd032-tool-metrics-monitor-store.yaml
-    - docs/specs/software-requirements/srd033-monitor-rest-api.yaml
+    - docs/ARCHITECTURE.md
+    - docs/specs/semantic-models/tool-language.md
+    - docs/specs/semantic-models/rest-tool-language.md
+    - docs/specs/semantic-models/rollback-lifecycle.md
+    - docs/specs/config-formats/tool-declaration-format.md
+    - docs/specs/config-formats/machine-format.md
+    - docs/specs/software-requirements/srd032-tool-metrics-monitor-store.md
+    - docs/specs/software-requirements/srd033-monitor-rest-api.md
 ```
 
 <!-- field: vocabulary -->

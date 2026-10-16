@@ -207,10 +207,10 @@ applications/coding-agent/
     critic/
     applier/
   docs/
-    VISION.yaml
-    ARCHITECTURE.yaml
-    road-map.yaml
-    SPECIFICATIONS.yaml
+    VISION.md
+    ARCHITECTURE.md
+    road-map.md
+    SPECIFICATIONS.md
     specs/
       use-cases/
       test-suites/
@@ -305,11 +305,11 @@ connected collector agent trace. It skips only for missing host prerequisites.
 
 ## Documentation
 
-- [Vision](docs/VISION.yaml)
-- [Architecture](docs/ARCHITECTURE.yaml)
-- [Road map](docs/road-map.yaml)
-- [Specification index](docs/SPECIFICATIONS.yaml)
+- [Vision](docs/VISION.md)
+- [Architecture](docs/ARCHITECTURE.md)
+- [Road map](docs/road-map.md)
+- [Specification index](docs/SPECIFICATIONS.md)
 - [Deployment and operations](docs/guides/deployment.md)
-- [Release 14 actor-directory migration](docs/migrations/rel14.0-actor-directories.yaml)
-- [Coding-loop use case](docs/specs/use-cases/rel01.0-uc001-coding-loop.yaml)
-- [Coding-loop test suite](docs/specs/test-suites/test-rel01.0-coding-loop.yaml)
+- [Release 14 actor-directory migration](docs/migrations/rel14.0-actor-directories.md)
+- [Coding-loop use case](docs/specs/use-cases/rel01.0-uc001-coding-loop.md)
+- [Coding-loop test suite](docs/specs/test-suites/test-rel01.0-coding-loop.md)

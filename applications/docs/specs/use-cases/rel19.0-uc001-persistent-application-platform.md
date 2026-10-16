@@ -138,10 +138,10 @@ teardown.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | docs/engineering/eng01-kind-test-demo-rig.yaml | Local platform lifecycle, canonical modes, persistence, routing, and verbs. |
-| T2 | docs/engineering/eng08-gcp-demo-rig.yaml | Cloud realization, bucket IAM, workload identity, and durable cluster-independent data. |
-| T3 | applications/docs/ARCHITECTURE.yaml | Ownership, protocol paths, failure boundaries, and the reusable runner component. |
-| T4 | applications/docs/pattern-language.yaml | Persistent platform and retained-data lifecycle construction patterns. |
+| T1 | docs/engineering/eng01-kind-test-demo-rig.md | Local platform lifecycle, canonical modes, persistence, routing, and verbs. |
+| T2 | docs/engineering/eng08-gcp-demo-rig.md | Cloud realization, bucket IAM, workload identity, and durable cluster-independent data. |
+| T3 | applications/docs/ARCHITECTURE.md | Ownership, protocol paths, failure boundaries, and the reusable runner component. |
+| T4 | applications/docs/pattern-language.md | Persistent platform and retained-data lifecycle construction patterns. |
 | T5 | srd008-persistent-application-platform AC1 | Ownership and complete trace closure. |
 | T6 | srd008-persistent-application-platform AC2 | Distinct protocol paths. |
 | T7 | srd008-persistent-application-platform AC3 | Concurrent application and platform lifecycle. |

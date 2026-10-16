@@ -144,8 +144,8 @@ runnable_module
 <!-- req: R3.1 -->
 ### R3.1
 
-The application shall own docs/VISION.yaml, docs/ARCHITECTURE.yaml,
-docs/road-map.yaml, and docs/SPECIFICATIONS.yaml.
+The application shall own docs/VISION.md, docs/ARCHITECTURE.md,
+docs/road-map.md, and docs/SPECIFICATIONS.md.
 
 <!-- field: evidence -->
 #### Evidence

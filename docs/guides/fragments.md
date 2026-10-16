@@ -35,4 +35,4 @@ Two rules shape where that expansion goes. An expansion none of whose produced d
 
 We cut a fragment when the same block appears in a third place, or in a second repository. The reuse statistics (`mage stats:reuse`, [declaration-statistics.md](declaration-statistics.md)) surface the candidates: duplication and ceremony scores identify blocks that repeat, and the files-per-change table identifies wiring that a fragment would collapse to one expand line. A fragment takes parameters for what varies and nothing else; a fragment with many parameters is usually two fragments.
 
-Where a unit lives, what earns it a shared location, and which reuse form fits a given repetition are conventions, not mechanics: [eng03-declaration-standard-library](../engineering/eng03-declaration-standard-library.yaml) states them.
+Where a unit lives, what earns it a shared location, and which reuse form fits a given repetition are conventions, not mechanics: [eng03-declaration-standard-library](../engineering/eng03-declaration-standard-library.md) states them.

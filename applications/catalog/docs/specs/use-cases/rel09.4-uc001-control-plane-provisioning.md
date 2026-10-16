@@ -9,7 +9,7 @@ status: relocated
 <!-- field: canonical_path -->
 ## Canonical path
 
-applications/chatbot-mesh/docs/specs/use-cases/rel05.0-uc001-control-plane-provisioning.yaml
+applications/chatbot-mesh/docs/specs/use-cases/rel05.0-uc001-control-plane-provisioning.md
 
 <!-- field: note -->
 ## Note

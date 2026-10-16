@@ -10,7 +10,7 @@ status: relocated
 <!-- field: canonical_path -->
 ## Canonical path
 
-applications/chatbot-mesh/docs/specs/test-suites/test-rel05.0-control-plane.yaml
+applications/chatbot-mesh/docs/specs/test-suites/test-rel05.0-control-plane.md
 
 <!-- field: note -->
 ## Note

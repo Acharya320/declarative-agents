@@ -42,28 +42,29 @@ paths and are not scheduled for relocation.
 
 ## Documentation authority
 
-YAML under `docs/` is this catalog's specification corpus. Document types and
-locations are declared in `agent-core/docs/constitutions/design.yaml`. Place a
-new document at the path for its type. Required fields live in that
-constitution; do not copy them here.
+Markdown documents under `docs/` form this catalog's specification corpus;
+`docs/corpus-charter.yaml` stays YAML because the audit executes it. Document
+types and locations are declared in
+`agent-core/docs/constitutions/design.yaml`. Place a new document at the path
+for its type. Required fields live in that constitution; do not copy them here.
 
 | Type | Location |
 |------|----------|
-| vision | `docs/VISION.yaml` |
-| architecture | `docs/ARCHITECTURE.yaml` |
-| specifications | `docs/SPECIFICATIONS.yaml` |
-| roadmap | `docs/road-map.yaml` |
-| pattern_language | `docs/pattern-language.yaml` |
-| engineering_guideline | `docs/engineering/engNN-short-name.yaml` |
-| srd | `docs/specs/software-requirements/srdNNN-short-name.yaml` |
-| use_case | `docs/specs/use-cases/relNN.N-ucNNN-short-name.yaml` |
-| test_suite | `docs/specs/test-suites/test-relNN.N-short-name.yaml` |
-| audit_register | `docs/specs/audits/name.yaml` |
+| vision | `docs/VISION.md` |
+| architecture | `docs/ARCHITECTURE.md` |
+| specifications | `docs/SPECIFICATIONS.md` |
+| roadmap | `docs/road-map.md` |
+| pattern_language | `docs/pattern-language.md` |
+| engineering_guideline | `docs/engineering/engNN-short-name.md` |
+| srd | `docs/specs/software-requirements/srdNNN-short-name.md` |
+| use_case | `docs/specs/use-cases/relNN.N-ucNNN-short-name.md` |
+| test_suite | `docs/specs/test-suites/test-relNN.N-short-name.md` |
+| audit_register | `docs/specs/audits/name-register.md` |
 | audit_report | `docs/specs/audits/name.md` |
-| semantic_model | `docs/specs/semantic-models/name.yaml` |
-| config_format | `docs/specs/config-formats/name.yaml` |
-| constitution | `docs/constitutions/name.yaml` |
-| migration | `docs/migrations/name.yaml` |
+| semantic_model | `docs/specs/semantic-models/name.md` |
+| config_format | `docs/specs/config-formats/name.md` |
+| constitution | `docs/constitutions/name.md` |
+| migration | `docs/migrations/name.md` |
 | guide | `docs/guides/name.md` |
 
 Do not create a document that matches no declared type. Register the type in
@@ -73,7 +74,7 @@ Do not create a document that matches no declared type. Register the type in
 ## Package layout
 
 `cmd` packages hold entry points and adapter wiring only, per
-`agent-core/docs/constitutions/go-style.yaml`. Runtime logic belongs in
+`agent-core/docs/constitutions/go-style.md`. Runtime logic belongs in
 `internal` packages.
 
 ## Non-Interactive Shell Commands

@@ -115,7 +115,7 @@ configuration variants inherit bindings without redefining roles.
 <!-- interface: ENG01 kind rig -->
 ### ENG01 kind rig
 
-docs/engineering/eng01-kind-test-demo-rig.yaml governs an application that
+docs/engineering/eng01-kind-test-demo-rig.md governs an application that
 claims kind_demo. This architecture does not copy its toolchain, cluster,
 image, network, observability, evidence, or verb requirements.
 
@@ -195,7 +195,7 @@ this contract.
 <!-- field: path -->
 #### Path
 
-applications/<application>/docs/ARCHITECTURE.yaml
+applications/<application>/docs/ARCHITECTURE.md
 
 <!-- component: application-local requirements -->
 ### application-local requirements
@@ -219,7 +219,7 @@ incompatible canonical-name collisions for migration.
 <!-- field: path -->
 #### Path
 
-applications/docs/specs/semantic-models/agent-role-realizations.yaml
+applications/docs/specs/semantic-models/agent-role-realizations.md
 
 <!-- component: application composition authority -->
 ### application composition authority
@@ -659,7 +659,7 @@ embedding compatibility, lifecycle, and backup contracts.
 <!-- field: evidence -->
 #### Evidence
 
-applications/docs/specs/audits/tenant-isolated-vector-storage.yaml
+applications/docs/specs/audits/tenant-isolated-vector-storage-register.md
 
 <!-- field: benefits -->
 #### Benefits
@@ -720,21 +720,21 @@ shared:
       role: |
         Human entry point for the shared vision, multi-agent construction
         sequence, capability vocabulary, and current module classification.
-    - path: applications/docs/pattern-language.yaml
+    - path: applications/docs/pattern-language.md
       role: |
         Application composition patterns for catalog consumption, package-time
         closure, deployment topology, and module governance. It extends the
         single-agent language instead of restating agent internals.
-    - path: applications/docs/VISION.yaml
+    - path: applications/docs/VISION.md
       role: |
         Canonical multi-agent application rationale, intent and feedback flows,
         human governance boundary, construction sequence, source provenance,
         shared capability contract, and success criteria.
-    - path: applications/docs/ARCHITECTURE.yaml
+    - path: applications/docs/ARCHITECTURE.md
       role: Ownership layers, capability model, interfaces, and decisions.
-    - path: applications/docs/SPECIFICATIONS.yaml
+    - path: applications/docs/SPECIFICATIONS.md
       role: Shared specification and traceability index.
-    - path: applications/docs/road-map.yaml
+    - path: applications/docs/road-map.md
       role: Shared contract implementation status.
     - path: applications/docs/specs/
       role: Shared SRDs, conformance use case, and structural test suite.
@@ -815,46 +815,46 @@ progress:
 ## Related documents
 
 ```yaml
-- doc: docs/pattern-language.yaml
+- doc: docs/pattern-language.md
   purpose: |
     Sibling Alexandrian language for application composition, package-time
     closure, deployment topology, and module governance. Single-agent
     machines, tools, execution, and controls remain in
     ../../design-patterns/pattern-language.yaml.
-- doc: docs/VISION.yaml
+- doc: docs/VISION.md
   purpose: |
     Canonical rationale and construction guide for declarative multi-agent
     applications, including operating flows, human governance, role
     realizations, package closure, capability-aware goals, and exclusions.
-- doc: docs/SPECIFICATIONS.yaml
+- doc: docs/SPECIFICATIONS.md
   purpose: Shared SRD, use-case, and test-suite index.
-- doc: ../../docs/engineering/eng01-kind-test-demo-rig.yaml
+- doc: ../../docs/engineering/eng01-kind-test-demo-rig.md
   purpose: Referenced kind-demo engineering contract.
-- doc: ../catalog/docs/ARCHITECTURE.yaml
+- doc: ../catalog/docs/ARCHITECTURE.md
   purpose: Canonical catalog ownership and consumer contract.
-- doc: docs/specs/semantic-models/agent-role-realizations.yaml
+- doc: docs/specs/semantic-models/agent-role-realizations.md
   purpose: Canonical role provenance, realization naming, bindings, classifications, and aliases.
-- doc: docs/specs/software-requirements/srd003-application-consistency.yaml
+- doc: docs/specs/software-requirements/srd003-application-consistency.md
   purpose: Release 14.0 normalized manifest, ownership, naming, package, UI, README, status, and boundary contract.
-- doc: docs/specs/use-cases/rel14.0-uc001-application-consistency.yaml
+- doc: docs/specs/use-cases/rel14.0-uc001-application-consistency.md
   purpose: Completed cross-application normalization flow for the current runnable applications.
-- doc: docs/specs/test-suites/test-rel14.0-application-consistency.yaml
+- doc: docs/specs/test-suites/test-rel14.0-application-consistency.md
   purpose: Structural and capability-gated executable conformance evidence.
-- doc: docs/specs/software-requirements/srd004-declarative-ux.yaml
+- doc: docs/specs/software-requirements/srd004-declarative-ux.md
   purpose: Release 15.0 presentation contract, panel unit, build-time composition, UI kit, and embedded bundles.
-- doc: docs/specs/use-cases/rel15.0-uc001-declarative-ux.yaml
+- doc: docs/specs/use-cases/rel15.0-uc001-declarative-ux.md
   purpose: Panel composition flow and the endpoint-usage review of all three repositories.
-- doc: docs/specs/test-suites/test-rel15.0-declarative-ux.yaml
+- doc: docs/specs/test-suites/test-rel15.0-declarative-ux.md
   purpose: Release 15.0 structural and planned executable evidence.
-- doc: ../chatbot-mesh/docs/ARCHITECTURE.yaml
+- doc: ../chatbot-mesh/docs/ARCHITECTURE.md
   purpose: Local-agent runnable application reference.
-- doc: ../coding-agent/docs/ARCHITECTURE.yaml
+- doc: ../coding-agent/docs/ARCHITECTURE.md
   purpose: Composition-only runnable application reference.
-- doc: ../agent-architecture/docs/ARCHITECTURE.yaml
+- doc: ../agent-architecture/docs/ARCHITECTURE.md
   purpose: Composition-only demo classification and partial managed-service evidence boundary.
-- doc: docs/specs/software-requirements/srd008-persistent-application-platform.yaml
+- doc: docs/specs/software-requirements/srd008-persistent-application-platform.md
   purpose: Persistent platform ownership, lifecycle, routing, storage, query, threat, and reusable runner contract.
-- doc: ../../docs/engineering/eng08-gcp-demo-rig.yaml
+- doc: ../../docs/engineering/eng08-gcp-demo-rig.md
   purpose: Cloud realization of the persistent application platform.
 - doc: ../../magefiles/build.go
   purpose: Executable module classification.

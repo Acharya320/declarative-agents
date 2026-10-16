@@ -83,12 +83,12 @@ keeping the same linear jurist machine.
 
 By default load_corpus requires a full SRD corpus under the target
 directory (docs/specs/software-requirements/srd*.yaml plus
-docs/SPECIFICATIONS.yaml and docs/road-map.yaml). To audit a repository that
+docs/SPECIFICATIONS.md and docs/road-map.md). To audit a repository that
 is not an SRD-governed codebase — for example a paper or experiments repo
 validated by grep, ref, and consistency charters alone — set the load_corpus
 ToolDef config corpus_optional: true (or the runtime variable
 corpus_optional=true). In that mode a missing docs directory, an empty SRD
-set, and a missing SPECIFICATIONS.yaml or road-map.yaml yield an empty corpus
+set, and a missing SPECIFICATIONS.md or road-map.md yield an empty corpus
 instead of an error, so the declared charters run against arbitrary targets.
 The flag is opt-in on purpose: without it a missing corpus stays a hard error
 so a genuine SRD repo cannot silently degrade to a charter-only audit.
@@ -367,6 +367,6 @@ default charter wrapper.
 <!-- field: references -->
 ## References
 
-- docs/specs/software-requirements/srd014-spec-graph.yaml
+- docs/specs/software-requirements/srd014-spec-graph.md
 - applications/catalog/agents/specification-critic/profile.yaml
-- applications/catalog/docs/specs/software-requirements/srd005-specification-critic.yaml
+- applications/catalog/docs/specs/software-requirements/srd005-specification-critic.md

@@ -28,7 +28,7 @@ summary: |
     Bootstrap authority for argv, mounts, and file-only configuration lives in
     agent-core docs and constitutions. Track the umbrella work there as
     epic agent-core-tj96; the runtime contract text is anchored in
-    docs/specs/config-formats/runtime-contract.yaml (see agent-core-tj96.1).
+    docs/specs/config-formats/runtime-contract.md (see agent-core-tj96.1).
 runtime_mount_diagram: |
     ```mermaid
     flowchart LR
@@ -267,15 +267,15 @@ configuration:
     - path: testdata/integration/
       role: Profile-owned fixtures consumed by agent-core integration targets.
 documentation:
-    - path: docs/VISION.yaml
+    - path: docs/VISION.md
       role: Goals, boundaries, and success criteria.
-    - path: docs/ARCHITECTURE.yaml
+    - path: docs/ARCHITECTURE.md
       role: Repository ownership, interfaces, components, and decisions.
-    - path: docs/SPECIFICATIONS.yaml
+    - path: docs/SPECIFICATIONS.md
       role: Specification index and coverage notes.
-    - path: docs/road-map.yaml
+    - path: docs/road-map.md
       role: Migration release plan.
-    - path: docs/constitutions/issue-format.yaml
+    - path: docs/constitutions/issue-format.md
       role: Issue shape for future work.
 ```
 
@@ -308,14 +308,14 @@ progress:
 
 | doc | purpose |
 | --- | --- |
-| ../../agent-core/docs/specs/config-formats/runtime-contract.yaml | Canonical cmd/agent startup, argv flags, and file-only operator path contract. |
-| ../../agent-core/docs/specs/software-requirements/srd034-external-agent-profiles.yaml | External profile ownership and mounted-profile requirements owned by agent-core. |
-| docs/VISION.yaml | Goals, boundaries, and success criteria. |
-| docs/SPECIFICATIONS.yaml | Specification index for future requirements and semantic models. |
-| docs/road-map.yaml | Release plan for profile extraction and mounted runtime usage. |
-| docs/constitutions/issue-format.yaml | Required shape for future issues. |
-| docs/specs/software-requirements/srd001-agent-functional-blocks.yaml | Cross-cutting profile ownership boundary and dependency-direction invariants shared by every profile family. |
+| ../../agent-core/docs/specs/config-formats/runtime-contract.md | Canonical cmd/agent startup, argv flags, and file-only operator path contract. |
+| ../../agent-core/docs/specs/software-requirements/srd034-external-agent-profiles.md | External profile ownership and mounted-profile requirements owned by agent-core. |
+| docs/VISION.md | Goals, boundaries, and success criteria. |
+| docs/SPECIFICATIONS.md | Specification index for future requirements and semantic models. |
+| docs/road-map.md | Release plan for profile extraction and mounted runtime usage. |
+| docs/constitutions/issue-format.md | Required shape for future issues. |
+| docs/specs/software-requirements/srd001-agent-functional-blocks.md | Cross-cutting profile ownership boundary and dependency-direction invariants shared by every profile family. |
 | docs/specs/software-requirements/ | Per-family functional block requirements in srd002-executor through srd011-knowledge-manager. |
-| docs/specs/semantic-models/multi-agent-profile-system.yaml | Profile role groups, actor boundaries, and dependency directions. |
-| docs/specs/semantic-models/agent-role-taxonomy.yaml | Per-profile role taxonomy for migration and validation work. |
-| ../chatbot-mesh/docs/ARCHITECTURE.yaml | The deployable chatbot mesh application (a chatbot fanning one embedding out to N Chroma-backed RAG servers, plus a control plane of a coordinator and creator that turn a provisioning intent into an ingest and a rollout), located at applications/chatbot-mesh/ as a standalone, copyable program with its own docs/specs, Helm chart, and ux SPA. Its mesh agents derive from the chatbot and knowledge-manager profile families here. |
+| docs/specs/semantic-models/multi-agent-profile-system.md | Profile role groups, actor boundaries, and dependency directions. |
+| docs/specs/semantic-models/agent-role-taxonomy.md | Per-profile role taxonomy for migration and validation work. |
+| ../chatbot-mesh/docs/ARCHITECTURE.md | The deployable chatbot mesh application (a chatbot fanning one embedding out to N Chroma-backed RAG servers, plus a control plane of a coordinator and creator that turn a provisioning intent into an ingest and a rollout), located at applications/chatbot-mesh/ as a standalone, copyable program with its own docs/specs, Helm chart, and ux SPA. Its mesh agents derive from the chatbot and knowledge-manager profile families here. |

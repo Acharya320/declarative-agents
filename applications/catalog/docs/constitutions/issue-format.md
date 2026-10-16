@@ -88,8 +88,8 @@ acceptance_criteria: AC1, AC2, AC3
 documentation: |
     deliverable_type: documentation
     required_reading:
-      - docs/VISION.yaml
-      - docs/ARCHITECTURE.yaml
+      - docs/VISION.md
+      - docs/ARCHITECTURE.md
     files:
       - path: docs/path.yaml
         action: create
@@ -102,7 +102,7 @@ documentation: |
 migration: |
     deliverable_type: migration
     required_reading:
-      - docs/ARCHITECTURE.yaml
+      - docs/ARCHITECTURE.md
       - ../../agent-core/path/to/source
     files:
       - path: agents/name/

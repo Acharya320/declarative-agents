@@ -42,7 +42,7 @@ topology, wrappers, deployment, and UX are excluded from catalog membership.
 
 ```yaml
 id: sm-agent-role-realizations
-path: ../../../../docs/specs/semantic-models/agent-role-realizations.yaml
+path: ../../../../docs/specs/semantic-models/agent-role-realizations.md
 owns:
     - pinned canonical role and sub-role IDs
     - actor-to-role and actor-to-sub-role bindings
@@ -50,7 +50,7 @@ owns:
     - realization classifications
     - wrapper and variant inheritance
     - migration aliases
-reciprocal_index: ../../SPECIFICATIONS.yaml#semantic_model_index
+reciprocal_index: ../../SPECIFICATIONS.md#semantic_model_index
 compatibility_note: |
     The `roles` sequence below is retained until executable governance migrates
     existing readers. Its IDs identify catalog profile entries, not a second

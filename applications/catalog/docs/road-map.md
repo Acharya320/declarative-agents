@@ -30,13 +30,13 @@ decision.
 ### Deliverables
 
 - README.md documents local usage, container usage, and ownership.
-- docs/VISION.yaml defines goals and boundaries.
-- docs/ARCHITECTURE.yaml defines repository structure and mount interfaces.
-- docs/SPECIFICATIONS.yaml indexes the initial docs.
-- docs/constitutions/issue-format.yaml defines future issue fields.
-- docs/specs/software-requirements/srd001-agent-functional-blocks.yaml defines migrated profile families as functional blocks.
-- docs/specs/semantic-models/multi-agent-profile-system.yaml defines profile role groups and dependency directions.
-- docs/specs/semantic-models/agent-role-taxonomy.yaml classifies each profile family by boundary, inputs, outputs, tools, and checks.
+- docs/VISION.md defines goals and boundaries.
+- docs/ARCHITECTURE.md defines repository structure and mount interfaces.
+- docs/SPECIFICATIONS.md indexes the initial docs.
+- docs/constitutions/issue-format.md defines future issue fields.
+- docs/specs/software-requirements/srd001-agent-functional-blocks.md defines migrated profile families as functional blocks.
+- docs/specs/semantic-models/multi-agent-profile-system.md defines profile role groups and dependency directions.
+- docs/specs/semantic-models/agent-role-taxonomy.md classifies each profile family by boundary, inputs, outputs, tools, and checks.
 - magefiles/release.go adds profile bundle release tagging.
 - magefiles/validation.go validates migrated profiles and mounted container usage against an external agent-core runtime.
 
@@ -211,11 +211,11 @@ terminal outcomes for its family and traces to the family SRD.
 <!-- field: deliverables -->
 ### Deliverables
 
-- docs/specs/software-requirements/srd002-executor.yaml through srd011-knowledge-manager.yaml define per-family functional blocks.
-- docs/specs/software-requirements/srd001-agent-functional-blocks.yaml keeps the profile ownership boundary and cross-profile dependency-direction invariants.
-- docs/specs/use-cases/rel07.1-uc001-specification-critic-profile-boundary.yaml, rel07.1-uc002-lifecycle-profile-boundary.yaml, and rel07.1-uc003-rest-profile-boundary.yaml add per-family boundary use cases for the previously uncovered families.
-- docs/specs/test-suites/test-rel07.1-profile-boundaries.yaml validates the three boundary use cases against the family SRD acceptance criteria.
-- docs/specs/test-suites/test-rel07.1-profile-conformance.yaml records the executable per-family conformance suite that runs each family through the agent-core CLI and asserts on captured OpenTelemetry traces. Every case runs the shipped profile.yaml wrapper (or a named shipped variant), copying it only to patch harness-controlled fields; the generator and rest families additionally run their shipped variants and carry an ungated load-and-wiring companion. Coverage is annotated per family and per variant (shipped-behavioral vs load-and-wiring).
+- docs/specs/software-requirements/srd002-executor.md through srd011-knowledge-manager.md define per-family functional blocks.
+- docs/specs/software-requirements/srd001-agent-functional-blocks.md keeps the profile ownership boundary and cross-profile dependency-direction invariants.
+- docs/specs/use-cases/rel07.1-uc001-specification-critic-profile-boundary.md, rel07.1-uc002-lifecycle-profile-boundary.md, and rel07.1-uc003-rest-profile-boundary.md add per-family boundary use cases for the previously uncovered families.
+- docs/specs/test-suites/test-rel07.1-profile-boundaries.md validates the three boundary use cases against the family SRD acceptance criteria.
+- docs/specs/test-suites/test-rel07.1-profile-conformance.md records the executable per-family conformance suite that runs each family through the agent-core CLI and asserts on captured OpenTelemetry traces. Every case runs the shipped profile.yaml wrapper (or a named shipped variant), copying it only to patch harness-controlled fields; the generator and rest families additionally run their shipped variants and carry an ungated load-and-wiring companion. Coverage is annotated per family and per variant (shipped-behavioral vs load-and-wiring).
 
 <!-- field: use_cases -->
 ### Use cases
@@ -752,7 +752,7 @@ root, canonical catalog, and legacy alias tags atomically.
 <!-- field: migration_note -->
 ### Migration note
 
-docs/migrations/v0.20260727.0-agent-role-realization-alignment.yaml
+docs/migrations/v0.20260727.0-agent-role-realization-alignment.md
 
 <!-- field: use_cases -->
 ### Use cases
@@ -987,7 +987,7 @@ status: implemented
 <!-- field: migration -->
 ### Migration
 
-docs/migrations/v0.20260804.0-applier-family.yaml
+docs/migrations/v0.20260804.0-applier-family.md
 
 <!-- field: use_cases -->
 ### Use cases

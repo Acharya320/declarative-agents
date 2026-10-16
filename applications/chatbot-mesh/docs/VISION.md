@@ -105,11 +105,11 @@ the chart; the checkout is a build/test dependency, not a runtime dependency.
 <!-- field: canonical_documents -->
 ## Canonical documents
 
-- docs/ARCHITECTURE.yaml
-- docs/road-map.yaml
-- docs/specs/software-requirements/srd001-rag-server-agent.yaml
-- docs/specs/software-requirements/srd002-chatbot-agent.yaml
-- docs/specs/software-requirements/srd003-chatbot-deployment.yaml
+- docs/ARCHITECTURE.md
+- docs/road-map.md
+- docs/specs/software-requirements/srd001-rag-server-agent.md
+- docs/specs/software-requirements/srd002-chatbot-agent.md
+- docs/specs/software-requirements/srd003-chatbot-deployment.md
 - README.md
 
 <!-- field: platform_references -->

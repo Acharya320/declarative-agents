@@ -96,7 +96,7 @@ added or edited, or a kind configuration is written.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | docs/engineering/eng01-kind-test-demo-rig.yaml | States the numbered chart conformance rules the gate cites. |
+| T1 | docs/engineering/eng01-kind-test-demo-rig.md | States the numbered chart conformance rules the gate cites. |
 | T2 | applications/<application>/helm/ | The chart and the values overlays rendered and checked. |
 | T3 | applications/charts/agent-services/ | Shared library chart vendored into each application chart before rendering. |
 | T4 | magefiles/audit.go | Repository audit that dispatches the conformance check. |

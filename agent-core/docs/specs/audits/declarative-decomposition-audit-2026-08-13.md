@@ -220,7 +220,7 @@ What the machine format can express today. A decomposition finding that needs a
 construct absent from this list must be filed as an expressiveness gap against
 the format rather than routed around in Go.
 
-Source of truth: `agent-core/docs/specs/config-formats/machine-format.yaml`
+Source of truth: `agent-core/docs/specs/config-formats/machine-format.md`
 and `agent-core/internal/runtime/core/machine.go`.
 
 | Construct | Support | Evidence |

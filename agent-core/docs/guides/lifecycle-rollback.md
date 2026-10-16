@@ -7,11 +7,11 @@ This guide explains how to turn on lifecycle features, how to operate approval
 gates, and what rollback can and cannot make safe.
 
 The design requirements live in
-`docs/specs/software-requirements/srd025-rollback-lifecycle.yaml`.
+`docs/specs/software-requirements/srd025-rollback-lifecycle.md`.
 Lifecycle tool adapter requirements live in
-`docs/specs/software-requirements/srd026-lifecycle-tools.yaml`. The tool
+`docs/specs/software-requirements/srd026-lifecycle-tools.md`. The tool
 authoring contract for side effects, reversibility, undo, and confirmation
-lives in `docs/specs/config-formats/tool-authoring-standard.yaml`. The
+lives in `docs/specs/config-formats/tool-authoring-standard.md`. The
 historical design note in `roll-backs.md` is useful background, but the spec
 files are the source of truth.
 
@@ -281,12 +281,12 @@ tool config.
 ## Related Documents
 
 Canonical requirements live in
-`docs/specs/software-requirements/srd025-rollback-lifecycle.yaml` and
-`docs/specs/software-requirements/srd026-lifecycle-tools.yaml`. Runtime and tool
-contracts live in `docs/specs/config-formats/runtime-contract.yaml` and
-`docs/specs/config-formats/tool-authoring-standard.yaml`. Semantic detail lives
-in `docs/specs/semantic-models/rollback-lifecycle.yaml` and
-`docs/specs/semantic-models/command-undo-audit.yaml`. Operator scenarios live in
-`docs/specs/use-cases/rel02.0-uc001-approval-suspend-resume.yaml` and
-`docs/specs/use-cases/rel02.0-uc002-history-rollback.yaml`. Historical notes
+`docs/specs/software-requirements/srd025-rollback-lifecycle.md` and
+`docs/specs/software-requirements/srd026-lifecycle-tools.md`. Runtime and tool
+contracts live in `docs/specs/config-formats/runtime-contract.md` and
+`docs/specs/config-formats/tool-authoring-standard.md`. Semantic detail lives
+in `docs/specs/semantic-models/rollback-lifecycle.md` and
+`docs/specs/semantic-models/command-undo-audit.md`. Operator scenarios live in
+`docs/specs/use-cases/rel02.0-uc001-approval-suspend-resume.md` and
+`docs/specs/use-cases/rel02.0-uc002-history-rollback.md`. Historical notes
 remain in `roll-backs.md` and `tools-as-dsl.md`.

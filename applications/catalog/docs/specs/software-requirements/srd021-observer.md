@@ -62,7 +62,7 @@ The family SHALL bind as classification role_realization, primary_role monitor, 
 <!-- req: R2.3 -->
 ### R2.3
 
-The bindings.catalog and deployment_realizations rows in agent-role-realizations.yaml SHALL be added by the adoption implementation, not this specification, because the inventory gate rejects a binding whose profile path does not yet exist.
+The bindings.catalog and deployment_realizations rows in agent-role-realizations.md SHALL be added by the adoption implementation, not this specification, because the inventory gate rejects a binding whose profile path does not yet exist.
 
 <!-- req: R3 -->
 ## R3 - Carried capabilities
@@ -162,7 +162,7 @@ The specification names coding-agent, agent-architecture, and the chatbot-mesh a
 ```yaml
 planned:
     - "The generalized catalog observer profile, tools, declarations, REST definitions, and UX, promoted from applications/chatbot-mesh/agents/observer."
-    - "bindings.catalog and per-application deployment_realizations rows in agent-role-realizations.yaml, added when the catalog observer profile and per-application workloads exist."
+    - "bindings.catalog and per-application deployment_realizations rows in agent-role-realizations.md, added when the catalog observer profile and per-application workloads exist."
     - "Coding-agent and agent-architecture adoption of the family against their release selectors; chatbot-mesh observer rebinding to the catalog family."
 ```
 

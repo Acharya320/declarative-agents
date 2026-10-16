@@ -51,9 +51,9 @@ mage audit
 ```yaml
 owner_root: repository_root
 artifacts:
-    - agent-core/docs/specs/software-requirements/srd043-application-catalog-layout.yaml
-    - agent-core/docs/specs/use-cases/rel99.0-uc002-application-catalog-migration.yaml
-    - agent-core/docs/specs/test-suites/test-rel99.0-application-catalog-migration.yaml
+    - agent-core/docs/specs/software-requirements/srd043-application-catalog-layout.md
+    - agent-core/docs/specs/use-cases/rel99.0-uc002-application-catalog-migration.md
+    - agent-core/docs/specs/test-suites/test-rel99.0-application-catalog-migration.md
 ```
 
 <!-- field: expected -->

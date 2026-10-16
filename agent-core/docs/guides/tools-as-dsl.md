@@ -12,16 +12,16 @@
 
 ## Canonical Documents
 
-- Tool authoring standard: `docs/specs/config-formats/tool-authoring-standard.yaml`
-- Tool language semantic model: `docs/specs/semantic-models/tool-language.yaml`
-- Tool vocabulary audit: `docs/specs/semantic-models/tool-vocabulary-audit.yaml`
-- Builtin tool requirements: `docs/specs/software-requirements/srd022-builtin-tools.yaml`
-- CLI/exec tool requirements: `docs/specs/software-requirements/srd023-cli-exec-tools.yaml`
-- Blocking/boundary tool requirements: `docs/specs/software-requirements/srd024-blocking-input-tools.yaml`
-- Rollback lifecycle requirements for undo/reversibility: `docs/specs/software-requirements/srd025-rollback-lifecycle.yaml`
-- New tool authoring use case: `docs/specs/use-cases/rel02.0-uc003-tool-authoring.yaml`
-- Sentence-tool migration use case: `docs/specs/use-cases/rel02.0-uc004-sentence-tool-migration.yaml`
-- Tool contract formal tests: `docs/specs/test-suites/test-rel02.0-tool-contracts.yaml`
+- Tool authoring standard: `docs/specs/config-formats/tool-authoring-standard.md`
+- Tool language semantic model: `docs/specs/semantic-models/tool-language.md`
+- Tool vocabulary audit: `docs/specs/semantic-models/tool-vocabulary-audit.md`
+- Builtin tool requirements: `docs/specs/software-requirements/srd022-builtin-tools.md`
+- CLI/exec tool requirements: `docs/specs/software-requirements/srd023-cli-exec-tools.md`
+- Blocking/boundary tool requirements: `docs/specs/software-requirements/srd024-blocking-input-tools.md`
+- Rollback lifecycle requirements for undo/reversibility: `docs/specs/software-requirements/srd025-rollback-lifecycle.md`
+- New tool authoring use case: `docs/specs/use-cases/rel02.0-uc003-tool-authoring.md`
+- Sentence-tool migration use case: `docs/specs/use-cases/rel02.0-uc004-sentence-tool-migration.md`
+- Tool contract formal tests: `docs/specs/test-suites/test-rel02.0-tool-contracts.md`
 
 ## Coverage Map
 

@@ -19,12 +19,12 @@ words, boundary tools, and legacy sentence tools.
 
 ```yaml
 canonical:
-    - docs/specs/config-formats/tool-authoring-standard.yaml
-    - docs/specs/software-requirements/srd022-builtin-tools.yaml
-    - docs/specs/software-requirements/srd023-cli-exec-tools.yaml
-    - docs/specs/software-requirements/srd024-blocking-input-tools.yaml
-    - docs/specs/software-requirements/srd025-rollback-lifecycle.yaml
-    - docs/specs/software-requirements/srd026-lifecycle-tools.yaml
+    - docs/specs/config-formats/tool-authoring-standard.md
+    - docs/specs/software-requirements/srd022-builtin-tools.md
+    - docs/specs/software-requirements/srd023-cli-exec-tools.md
+    - docs/specs/software-requirements/srd024-blocking-input-tools.md
+    - docs/specs/software-requirements/srd025-rollback-lifecycle.md
+    - docs/specs/software-requirements/srd026-lifecycle-tools.md
 historical_background:
     - docs/guides/tools-as-dsl.md
 ```

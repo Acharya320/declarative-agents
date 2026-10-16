@@ -61,7 +61,7 @@ A separate query surface, collector_query, SHALL serve bounded spool reads throu
 <!-- req: R3.1 -->
 ### R3.1
 
-The family SHALL enter the membership contract with a bindings.catalog entry in agent-role-realizations.yaml.
+The family SHALL enter the membership contract with a bindings.catalog entry in agent-role-realizations.md.
 
 <!-- req: R3.2 -->
 ### R3.2
@@ -428,7 +428,7 @@ A mismatched confirmation reaches Refused without a storage call; exact confirma
 implemented:
     - "applications/catalog/agents/collector/ owns the canonical collector family."
     - "applications/catalog/conformance/collector_test.go proves receive-spool-exit in spool mode."
-    - "applications/docs/specs/semantic-models/agent-role-realizations.yaml carries the catalog binding."
+    - "applications/docs/specs/semantic-models/agent-role-realizations.md carries the catalog binding."
     - "R10: the collector spool and query declarations select an object backend through env-templated storage config (filesystem default), so the spool persists to and the query reads the configured application bucket via the srd042 R10/R11 engine; the profile boot-smokes with these declarations (GH-2484, GH-2489, GH-2490)."
     - "R10.2/R10.4: every /query/* REST response surfaces storage_status, and the shared agent-services chart readiness/liveness probes target control lifecycle health identically for both backends, pinned by chatbot-mesh render tests, so a bucket outage never flips a WAL-backed collector unready (GH-2484 R6, GH-2491 R6)."
     - "R10.5: the shipped trace UI performs a bounded storage-status read and renders complete, partial, unavailable, or unknown with explicit incomplete-history language; catalog conformance pins the source/API contract (GH-2490)."

@@ -197,7 +197,7 @@ design_decisions:
 ## Examples
 
 ```yaml
-documentation_issue: "deliverable_type: documentation\nrequired_reading:\n  - docs/VISION.yaml\n  - docs/ARCHITECTURE.yaml\nfiles:\n  - docs/specs/use-cases/rel02.0-uc001-example.yaml\nrequirements:\n  - Add the use case in the existing schema.\n  - Link every success criterion to SRD acceptance criteria.\nacceptance_criteria:\n  - The YAML parses.\n  - mage audit reports no new warnings for the file.\n"
+documentation_issue: "deliverable_type: documentation\nrequired_reading:\n  - docs/VISION.md\n  - docs/ARCHITECTURE.md\nfiles:\n  - docs/specs/use-cases/rel02.0-uc001-example.yaml\nrequirements:\n  - Add the use case in the existing schema.\n  - Link every success criterion to SRD acceptance criteria.\nacceptance_criteria:\n  - The YAML parses.\n  - mage audit reports no new warnings for the file.\n"
 documentation_issue_with_clarification: 'An unresolved item reads
 
     "requirements: [Retry the fetch N times, where N is [NEEDS CLARIFICATION:
@@ -209,12 +209,12 @@ documentation_issue_with_clarification: 'An unresolved item reads
     the fetch 3 times]". No marker survives into a worked issue.
 
 '
-code_issue: "deliverable_type: code\nrequired_reading:\n  - docs/specs/software-requirements/srd014-spec-graph.yaml\n  - pkg/spec/validate.go\nfiles:\n  - pkg/spec/validate.go\n  - pkg/spec/validate_test.go\nrequirements:\n  - id: R1\n    text: Add the validator behavior described by the SRD.\nacceptance_criteria:\n  - id: AC1\n    text: go test ./pkg/spec passes.\n"
+code_issue: "deliverable_type: code\nrequired_reading:\n  - docs/specs/software-requirements/srd014-spec-graph.md\n  - pkg/spec/validate.go\nfiles:\n  - pkg/spec/validate.go\n  - pkg/spec/validate_test.go\nrequirements:\n  - id: R1\n    text: Add the validator behavior described by the SRD.\nacceptance_criteria:\n  - id: AC1\n    text: go test ./pkg/spec passes.\n"
 ```
 
 <!-- field: references -->
 ## References
 
 - docs/constitutions/design.yaml
-- docs/constitutions/execution.yaml
+- docs/constitutions/execution.md
 - AGENTS.md

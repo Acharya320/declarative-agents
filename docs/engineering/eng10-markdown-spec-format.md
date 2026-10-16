@@ -65,7 +65,7 @@ The criterion text.
 
 The frontmatter lists the fields frontmatter.required names and admits only those frontmatter.allowed names. Where a type sets id_matches_filename, the id equals the file name without its extension. The license comments are plain comments, not markers, and the copyright gate checks them as it does for any Markdown file.
 
-During the migration window a document exists as .yaml or as .md, never both; the audit's dual-format-document finding enforces this (GH-2614). After the sunset (GH-2585) only the Markdown locations remain.
+The migration waves (GH-2584) moved every corpus document to Markdown except design.yaml, which holds the declarations themselves, and GH-2625 pointed every link and guidance file at the Markdown paths. Until the code sunset (GH-2626), the audit still discovers a .yaml document and its dual-format-document finding keeps a document from existing as both .yaml and .md (GH-2614). After the sunset only the Markdown locations remain, and a .yaml file at a corpus location fails placement.
 
 <!-- section: marker-grammar -->
 ## Marker grammar
@@ -351,8 +351,8 @@ Each finding names the rule in design.yaml it enforces, so an author who disagre
 ## References
 
 - agent-core/docs/constitutions/design.yaml
-- docs/engineering/eng09-spec-kit-correspondence.yaml
-- docs/engineering/eng03-declaration-standard-library.yaml
+- docs/engineering/eng09-spec-kit-correspondence.md
+- docs/engineering/eng03-declaration-standard-library.md
 - agent-core/pkg/spec/markdown/FINDINGS.md
 - https://www.rfc-editor.org/rfc/rfc2119
 - https://docs.gitlab.com/user/markdown/

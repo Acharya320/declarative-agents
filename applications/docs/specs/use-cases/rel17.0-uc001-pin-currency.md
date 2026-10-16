@@ -85,7 +85,7 @@ operator is doing periodic maintenance.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | docs/engineering/eng01-kind-test-demo-rig.yaml | States the two pin properties and the report-never-mutate contract for the verb. |
+| T1 | docs/engineering/eng01-kind-test-demo-rig.md | States the two pin properties and the report-never-mutate contract for the verb. |
 | T2 | magefiles/chartconf/ | Renders the charts whose images become the derived half of the inventory. |
 | T3 | magefiles/pinsurvey/ | Registry client, inventory, verdicts, and report. |
 | T4 | magefiles/kindrig/ | Holds the add-on digests and the node image the declared half enumerates. |

@@ -46,7 +46,7 @@ machine-instance's actions. The agent-profile is the class side of
 instantiation: the lifecycle primitives take one agent-profile per
 agent-instance.
 
-{{keyname-table yaml:agent-core/docs/specs/config-formats/agent-profile-format.yaml}}
+{{keyname-table yaml:agent-core/docs/specs/config-formats/agent-profile-format.md}}
 
 {{statement R-PROF-001}}
 
@@ -92,7 +92,7 @@ agent-instance's loop. Its states, signals, and transitions define all behavior
 either contains this body directly or is built through expansion, as the model
 describes.
 
-{{keyname-table yaml:agent-core/docs/specs/config-formats/machine-format.yaml}}
+{{keyname-table yaml:agent-core/docs/specs/config-formats/machine-format.md}}
 
 {{statement R-MACH-001}}
 
