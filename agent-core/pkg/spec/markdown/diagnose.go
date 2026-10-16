@@ -90,6 +90,12 @@ func Diagnose(declarations Declarations, data []byte, source string) []Finding {
 			Rule: "document_types.*.markdown.location",
 			Hint: "name the file after its document type, or declare a markdown location for the type"}}
 	}
+	return r.Diagnose(data, source)
+}
+
+// Diagnose reports every finding in a Markdown document of this declaration's
+// type.
+func (r *Declaration) Diagnose(data []byte, source string) []Finding {
 	d := &diagnosis{rules: r, file: source, ids: map[string]int{}, counts: map[string]int{},
 		doc: &dnode{kind: "document", fields: map[string]bool{}}}
 	body, offset := d.frontmatter(data)

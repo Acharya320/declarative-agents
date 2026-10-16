@@ -67,6 +67,7 @@ type nodeRule struct {
 	UniqueID        bool     `yaml:"unique_id"`
 	Attributes      []string `yaml:"attributes"`
 	RequiredFields  []string `yaml:"required_fields"`
+	YAML            nodeYAML `yaml:"yaml"`
 }
 
 type fieldRule struct {
@@ -74,6 +75,10 @@ type fieldRule struct {
 	Shape       string   `yaml:"shape"`
 	ItemPattern string   `yaml:"item_pattern"`
 	Columns     []string `yaml:"columns"`
+	Heading     string   `yaml:"heading"` // printed heading; default from the name
+	Value       string   `yaml:"value"`   // keyed or outline; default by value
+	ID          string   `yaml:"id"`      // outline: the record key holding the id
+	ContentKey  string   `yaml:"content"` // outline: the record key holding the text
 }
 
 // LoadDeclarations reads every document type in design.yaml whose markdown
@@ -132,7 +137,7 @@ func (r *Declaration) compile() error {
 		}
 	}
 	r.keywordRegexp = keywordPattern(r.ProseContainment.Keywords)
-	return nil
+	return r.checkMapping()
 }
 
 // locationPattern turns a declared location such as
