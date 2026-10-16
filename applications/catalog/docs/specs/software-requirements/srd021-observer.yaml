@@ -84,5 +84,4 @@ implementation_status:
 platform_dependencies:
   - srd_id: srd033-monitor
     provider: agent-core
-    provider: agent-core
     symbols_used: [monitor read-state views, REST client get, REST server launch/await/stop]

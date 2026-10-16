@@ -11,7 +11,7 @@ The epic asked whether Tier 3 shape rules stay around a dozen with clean failure
 
 ## Round trip
 
-The four functions around the shared model hold their laws on srd004: yaml to model to Markdown to model loses no field, Markdown is a fixed point of parse-then-print, model to yaml to model is the identity, and the formatter is idempotent and converges non-canonical spellings. Over the whole corpus, 105 of 106 tracked SRDs pass the same laws. The exception, catalog srd021, has a duplicate mapping key in its source YAML; GH-2590 tracks it with ten values that unquoted commas silently split in flow mappings. All eleven are defects in the corpus, not in the processor.
+The four functions around the shared model hold their laws on srd004: yaml to model to Markdown to model loses no field, Markdown is a fixed point of parse-then-print, model to yaml to model is the identity, and the formatter is idempotent and converges non-canonical spellings. Over the whole corpus, all 106 tracked SRDs pass the same laws. The sweep first failed on catalog srd021, whose source YAML had a duplicate mapping key, and it led to ten values that unquoted commas silently split in flow mappings. All eleven were defects in the corpus, not in the processor, and GH-2590 fixed them.
 
 Table 1: Lossy spots and normalization
 

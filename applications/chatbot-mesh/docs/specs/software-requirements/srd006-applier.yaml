@@ -106,7 +106,7 @@ deployment_api_contract:
   apply_request:
     endpoint: POST /provisioning/api/apply
     fields:
-      - {name: schema_version, type: string, required: true, note: the contract version, "1"}
+      - {name: schema_version, type: string, required: true, note: 'the contract version, "1"'}
       - {name: content, type: string, required: true, note: the decided values-plane overrides document (YAML) the applier writes and applies}
     constraints: Values-plane only; no host, URL, method, or credential for a running agent (R2.3, R4.2).
   apply_response:
@@ -118,12 +118,12 @@ deployment_api_contract:
     endpoint: GET /provisioning/api/rollout
     fields:
       - {name: schema_version, type: string, required: true}
-      - {name: phase, type: string, required: true, note: progressing | complete; absent on the 502, which carries status and error instead}
+      - {name: phase, type: string, required: true, note: "progressing | complete; absent on the 502, which carries status and error instead"}
       - {name: ready, type: integer, required: true, note: ready replicas of the chatbot Deployment}
       - {name: desired, type: integer, required: true, note: desired replicas of the chatbot Deployment}
       - {name: revision, type: integer, required: true, note: the Deployment's current rollout revision}
-      - {name: status, type: string, required: false, note: unavailable, on the 502 alone}
-      - {name: error, type: string, required: false, note: rollout_read_failed, on the 502 alone}
+      - {name: status, type: string, required: false, note: "unavailable, on the 502 alone"}
+      - {name: error, type: string, required: false, note: "rollout_read_failed, on the 502 alone"}
   state_response:
     endpoint: GET /provisioning/api/state
     description: |
@@ -138,7 +138,7 @@ deployment_api_contract:
       - {name: schema_version, type: string, required: true}
       - {name: rags, type: array, required: true, note: "the deployed ragUnits list, each {name, collection, embeddingModel, replicas}; absent on the 502, which carries status and error instead"}
       - {name: llmInCluster, type: boolean, required: true, note: whether the in-cluster Ollama tier is enabled}
-      - {name: llmExternalURL, type: string, required: true, note: the external LLM endpoint, used when the in-cluster tier is disabled}
+      - {name: llmExternalURL, type: string, required: true, note: "the external LLM endpoint, used when the in-cluster tier is disabled"}
       - {name: llmChatModel, type: string, required: true, note: the panel's configured default chat model}
       - {name: llmEmbedModel, type: string, required: true, note: the embedding model the chatbot uses to embed a query}
       - {name: llmChatModels, type: array, required: true, note: the in-cluster tier's configured chat models}
@@ -147,8 +147,8 @@ deployment_api_contract:
       - {name: paramsNResults, type: integer, required: true, note: the per-RAG retrieval bound}
       - {name: paramsChunkCap, type: integer, required: true, note: the chunk cap parameter}
       - {name: paramsTierDefault, type: string, required: true, note: the tier selector's default word}
-      - {name: status, type: string, required: false, note: unavailable, on the 502 alone}
-      - {name: error, type: string, required: false, note: state_read_failed, on the 502 alone}
+      - {name: status, type: string, required: false, note: "unavailable, on the 502 alone"}
+      - {name: error, type: string, required: false, note: "state_read_failed, on the 502 alone"}
 
 acceptance_criteria:
   - id: AC1
