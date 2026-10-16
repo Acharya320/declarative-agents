@@ -41,7 +41,7 @@ func convertScope(scope string, back bool) error {
 	if err != nil {
 		return err
 	}
-	declarations, err := loadSpecDeclarations()
+	declarations, err := loadSpecDeclarationsFrom(root)
 	if err != nil {
 		return err
 	}
@@ -60,8 +60,10 @@ func convertScope(scope string, back bool) error {
 	return nil
 }
 
-func loadSpecDeclarations() (markdown.Declarations, error) {
-	data, err := os.ReadFile(specCheckDesign)
+// loadSpecDeclarationsFrom reads the declarations from the design
+// constitution of the repository at root.
+func loadSpecDeclarationsFrom(root string) (markdown.Declarations, error) {
+	data, err := os.ReadFile(filepath.Join(root, "agent-core", specCheckDesign))
 	if err != nil {
 		return nil, err
 	}

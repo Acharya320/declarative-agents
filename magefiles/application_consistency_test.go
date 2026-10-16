@@ -448,7 +448,7 @@ func TestApplicationReadmeStatusAndRootClassification(t *testing.T) {
 			if !strings.Contains(readme, "`"+manifest.ModuleStatus+"`") {
 				t.Errorf("README does not name module_status %q", manifest.ModuleStatus)
 			}
-			architecture := string(readRelease14File(t,
+			architecture := string(readCorpusDocument(t,
 				filepath.Join(release14ApplicationRoot(application), "docs", "ARCHITECTURE.yaml")))
 			if !strings.Contains(architecture, "ownership: "+manifest.Ownership) {
 				t.Errorf("architecture does not name manifest ownership %q", manifest.Ownership)
@@ -518,8 +518,11 @@ func TestRelease14ApplicationMatrix(t *testing.T) {
 			PlannedCommand string `yaml:"planned_command"`
 		} `yaml:"test_cases"`
 	}
-	readRelease14YAML(t, filepath.Join("..", "applications", "docs", "specs",
-		"test-suites", "test-rel14.0-application-consistency.yaml"), &suite)
+	suitePath := filepath.Join("..", "applications", "docs", "specs",
+		"test-suites", "test-rel14.0-application-consistency.yaml")
+	if err := yaml.Unmarshal(readCorpusDocument(t, suitePath), &suite); err != nil {
+		t.Fatalf("parse %s: %v", relativeToRepo(suitePath), err)
+	}
 	if suite.Status != "implemented" {
 		t.Errorf("Release 14 suite status = %q, want implemented", suite.Status)
 	}
@@ -900,4 +903,15 @@ func containsString(values []string, want string) bool {
 		}
 	}
 	return false
+}
+
+// readCorpusDocument reads a corpus document by its YAML path in whichever
+// format it has (readCorpusYAML).
+func readCorpusDocument(t *testing.T, path string) []byte {
+	t.Helper()
+	data, err := readCorpusYAML(path)
+	if err != nil {
+		t.Fatalf("read %s: %v", relativeToRepo(path), err)
+	}
+	return data
 }

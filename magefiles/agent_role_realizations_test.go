@@ -275,7 +275,7 @@ func repositoryRoot(t *testing.T) string {
 
 func readRealizationModel(t *testing.T) realizationModel {
 	t.Helper()
-	data, err := os.ReadFile(realizationModelPath)
+	data, err := readCorpusYAML(realizationModelPath)
 	if err != nil {
 		t.Fatalf("read %s: %v", realizationModelPath, err)
 	}
