@@ -45,10 +45,13 @@ spec:
             # extraMount from a stable host directory: objects survive a
             # fake-gcs pod restart and da-platform deletion/recreation, and are
             # removed only by the explicit platform:reset (srd008 R5; #2477 R3).
+            # The root is /storage, never the image's seed directory: the
+            # entrypoint passes -data for startup seeding, and a root there
+            # re-imports the store into itself on every boot (#2646).
             - -backend
             - filesystem
             - -filesystem-root
-            - /data
+            - /storage
           ports:
             - name: http
               containerPort: 4443
@@ -60,7 +63,7 @@ spec:
             requests: {cpu: 10m, memory: 32Mi}
             limits: {cpu: 200m, memory: 128Mi}
           volumeMounts:
-            - {name: objects, mountPath: /data}
+            - {name: objects, mountPath: /storage}
       volumes:
         # The node path is a kind extraMount from the stable host object
         # directory (platform-kind-config.yaml), so retained objects outlive
