@@ -311,6 +311,36 @@ migrations, durable collector/query/WAL evidence, explicit purge,
 platform failure separation, external-module apprig use, and cloud IAM
 policy fixtures.
 
+<!-- roadmap_summary_entry: 20.0 -->
+### 20.0
+
+<!-- field: name -->
+#### Name
+
+Agent operator
+
+<!-- field: use_cases_done | form: "scalar" -->
+#### Use cases done
+
+0
+
+<!-- field: use_cases_total | form: "scalar" -->
+#### Use cases total
+
+1
+
+<!-- field: status -->
+#### Status
+
+planned
+
+<!-- field: evidence -->
+#### Evidence
+
+srd009, its use case, and the five-case suite define the Agent resource,
+reconciliation, status, artifacts, platform install, and the collector
+proof; the cases are planned under GH-2681.
+
 <!-- field: foundation_document_index -->
 ## Foundation document index
 
@@ -737,6 +767,41 @@ docs/specs/software-requirements/srd008-persistent-application-platform.md
 
 - [test-rel19.0-persistent-application-platform](specs/test-suites/test-rel19.0-persistent-application-platform.md)
 
+<!-- srd_index_entry: srd009-agent-operator -->
+### srd009-agent-operator
+
+<!-- field: title -->
+#### Title
+
+The Agent Operator and the Agent Resource
+
+<!-- field: summary -->
+#### Summary
+
+One namespaced Agent resource reconciled into the Deployment and Service
+the charts write by hand, with status, CRD-on-boot, platform install, and
+a collector proof.
+
+<!-- field: status -->
+#### Status
+
+implemented
+
+<!-- field: path -->
+#### Path
+
+docs/specs/software-requirements/srd009-agent-operator.md
+
+<!-- field: use_cases -->
+#### Use cases
+
+- [rel20.0-uc001-agent-operator](specs/use-cases/rel20.0-uc001-agent-operator.md)
+
+<!-- field: test_suites -->
+#### Test suites
+
+- [test-rel20.0-agent-operator](specs/test-suites/test-rel20.0-agent-operator.md)
+
 <!-- field: config_format_index -->
 ## Config format index
 
@@ -786,6 +851,7 @@ docs/specs/semantic-models/agent-role-realizations.md
 | [rel17.0-uc001-pin-currency](specs/use-cases/rel17.0-uc001-pin-currency.md) | Read Which Pins Moved and Which Aged, Then Decide | "17.0" | implemented | [[srd006-pin-currency](specs/software-requirements/srd006-pin-currency.md)] | [test-rel17.0-pin-currency](specs/test-suites/test-rel17.0-pin-currency.md) | docs/specs/use-cases/rel17.0-uc001-pin-currency.md |
 | [rel18.0-uc001-release-annotation](specs/use-cases/rel18.0-uc001-release-annotation.md) | A Degenerate Release Annotation Is Refused Before the Push | "18.0" | implemented | [[srd007-release-annotation](specs/software-requirements/srd007-release-annotation.md)] | [test-rel18.0-release-annotation](specs/test-suites/test-rel18.0-release-annotation.md) | docs/specs/use-cases/rel18.0-uc001-release-annotation.md |
 | [rel19.0-uc001-persistent-application-platform](specs/use-cases/rel19.0-uc001-persistent-application-platform.md) | Operate Two Namespaced Applications Without Losing Retained Telemetry | "19.0" | implemented | [[srd008-persistent-application-platform](specs/software-requirements/srd008-persistent-application-platform.md)] | [test-rel19.0-persistent-application-platform](specs/test-suites/test-rel19.0-persistent-application-platform.md) | docs/specs/use-cases/rel19.0-uc001-persistent-application-platform.md |
+| [rel20.0-uc001-agent-operator](specs/use-cases/rel20.0-uc001-agent-operator.md) | Apply an Agent for the Catalog Collector and Watch It Become Ready | "20.0" | implemented | [[srd009-agent-operator](specs/software-requirements/srd009-agent-operator.md)] | [test-rel20.0-agent-operator](specs/test-suites/test-rel20.0-agent-operator.md) | docs/specs/use-cases/rel20.0-uc001-agent-operator.md |
 
 <!-- field: test_suite_index | form: "typed table" -->
 ## Test suite index
@@ -799,6 +865,7 @@ docs/specs/semantic-models/agent-role-realizations.md
 | [test-rel17.0-pin-currency](specs/test-suites/test-rel17.0-pin-currency.md) | Release 17.0 Pin Currency Test Suite | "17.0" | 9 | [[rel17.0-uc001-pin-currency](specs/use-cases/rel17.0-uc001-pin-currency.md)] | implemented | [[srd006-pin-currency](specs/software-requirements/srd006-pin-currency.md)] | docs/specs/test-suites/test-rel17.0-pin-currency.md |
 | [test-rel18.0-release-annotation](specs/test-suites/test-rel18.0-release-annotation.md) | Release 18.0 Release Annotation Test Suite | "18.0" | 6 | [[rel18.0-uc001-release-annotation](specs/use-cases/rel18.0-uc001-release-annotation.md)] | implemented | [[srd007-release-annotation](specs/software-requirements/srd007-release-annotation.md)] | docs/specs/test-suites/test-rel18.0-release-annotation.md |
 | [test-rel19.0-persistent-application-platform](specs/test-suites/test-rel19.0-persistent-application-platform.md) | Release 19.0 Persistent Application Platform Test Suite | "19.0" | 8 | [[rel19.0-uc001-persistent-application-platform](specs/use-cases/rel19.0-uc001-persistent-application-platform.md)] | implemented | [[srd008-persistent-application-platform](specs/software-requirements/srd008-persistent-application-platform.md)] | docs/specs/test-suites/test-rel19.0-persistent-application-platform.md |
+| [test-rel20.0-agent-operator](specs/test-suites/test-rel20.0-agent-operator.md) | Release 20.0 Agent Operator Test Suite | "20.0" | 5 | [[rel20.0-uc001-agent-operator](specs/use-cases/rel20.0-uc001-agent-operator.md)] | implemented | [[srd009-agent-operator](specs/software-requirements/srd009-agent-operator.md)] | docs/specs/test-suites/test-rel20.0-agent-operator.md |
 
 <!-- field: coverage_gaps -->
 ## Coverage gaps

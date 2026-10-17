@@ -270,6 +270,14 @@ func releaseGates(root string) []releaseGate {
 			priority:  priority,
 		})
 	}
+	// The operator's collector proof runs on the shared platform, which
+	// installed the operator at boot (applications srd009 R5.2). It takes a
+	// docker slot after the applications, so their start order is unchanged.
+	gates = append(gates, releaseGate{
+		name: "operator proof", dir: filepath.Join(root, "operator"),
+		args: []string{"mage", "integration:all"}, lane: "operator",
+		resources: []releaseResourceClass{releaseResourceDocker},
+	})
 	return gates
 }
 

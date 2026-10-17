@@ -16,6 +16,8 @@ var lintModuleDirs = []string{
 	"magefiles",
 	"agent-core",
 	"agent-core/magefiles",
+	"operator",
+	"operator/magefiles",
 	"applications/catalog",
 	"applications/chatbot-mesh",
 	"applications/coding-agent",

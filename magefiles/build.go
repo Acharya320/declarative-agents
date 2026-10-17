@@ -20,6 +20,7 @@ var subModules = []string{
 	"applications/catalog",
 	"design-patterns",
 	"application-dsl-spec",
+	"operator",
 }
 
 // applicationModules are runnable application modules that participate in the root

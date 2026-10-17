@@ -958,3 +958,107 @@ None
 | docs/engineering/eng01-kind-test-demo-rig.md |  | Canonical local platform, exception modes, application verbs, persistence, and query availability. |
 | docs/engineering/eng08-gcp-demo-rig.md |  | Cloud application buckets, workload identity, bucket IAM, and cluster-independent retention. |
 |  | mage audit | Structured documents parse and reciprocal traceability remains valid. |
+
+<!-- release: 20.0 | status: implemented -->
+## 20.0 - Agent operator
+
+Add a Kubernetes operator that reconciles an Agent resource into the
+Deployment and Service the application charts write by hand: a profile
+ConfigMap, the agent-core image, a readiness probe on the control port,
+and the declared ports. The CRD ships in the operator binary, the image
+and chart build from the checkout, the kind platform installs the operator
+at boot, and a proof with the catalog collector runs as a release gate.
+
+<!-- field: parent -->
+### Parent
+
+gh-2681-agent-operator
+
+<!-- field: dependencies -->
+### Dependencies
+
+| id | status | reason |
+| --- | --- | --- |
+| srd008-persistent-application-platform | implemented | Supplies the platform the operator installs into and the component install pattern it follows. |
+| eng01-kind-test-demo-rig | implemented | Supplies the kind platform boot, image loading, and readiness bounds. |
+
+<!-- field: srds -->
+### SRDs
+
+- srd009-agent-operator
+
+<!-- field: use_cases -->
+### Use cases
+
+<!-- use_case_entry: rel20.0-uc001-agent-operator -->
+#### rel20.0-uc001-agent-operator
+
+<!-- field: summary -->
+##### Summary
+
+Apply an Agent for the catalog collector, watch it become Ready, read its
+health endpoint through the Service, and delete it.
+
+<!-- field: status -->
+##### Status
+
+implemented
+
+<!-- field: implementation_sequence | form: "tree" -->
+### Implementation sequence
+
+1. - order: 1
+   - action:
+     - "Specify the operator": srd009, the use case, the suite, and this release (GH-2682).
+   - status: implemented
+1. - order: 2
+   - action: Agent CRD and reconciler with status (GH-2683).
+   - status: implemented
+1. - order: 3
+   - action: Operator image, chart, and platform install at boot (GH-2684).
+   - status: implemented
+1. - order: 4
+   - action: Collector proof on kind and its release gate (GH-2685).
+   - status: implemented
+
+<!-- field: test_suites -->
+### Test suites
+
+<!-- test_suite_entry: test-rel20.0-agent-operator -->
+#### test-rel20.0-agent-operator
+
+<!-- field: summary -->
+##### Summary
+
+Trace the release documents, unit-test the reconciler and the CRD on
+boot, prove the platform boots with the operator, and run the collector
+proof.
+
+<!-- field: status -->
+##### Status
+
+implemented
+
+<!-- field: implemented_cases -->
+##### Implemented cases
+
+- TC1
+- TC2
+- TC3
+- TC4
+- TC5
+
+<!-- field: planned_cases | form: "empty list" -->
+##### Planned cases
+
+None
+
+<!-- field: implementation_evidence | form: "typed table" -->
+### Implementation evidence
+
+| path | command | proves |
+| --- | --- | --- |
+| applications/docs/specs/software-requirements/srd009-agent-operator.md |  | The Agent resource, reconciliation, status, artifacts, install, and proof requirements. |
+| applications/docs/specs/use-cases/rel20.0-uc001-agent-operator.md |  | The collector walk from platform boot to deletion. |
+| applications/docs/specs/test-suites/test-rel20.0-agent-operator.md |  | Requirement-to-acceptance and acceptance-to-test traceability. |
+|  | mage audit | Structured documents parse and reciprocal traceability remains valid. |
