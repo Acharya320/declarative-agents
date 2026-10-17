@@ -213,8 +213,8 @@ typed config decoding helpers.
 
 Registry owns BuiltinRegistry, RegisterSingleBuiltin, RegisterUnifiedTools,
 selected builtin init discovery, and the standard factory catalog.
-Factory coordination belongs here, but tool command
-implementations.
+Factory coordination belongs here; tool command implementations do
+not.
 
 <!-- field: dependencies | form: "tree" -->
 ###### Dependencies
