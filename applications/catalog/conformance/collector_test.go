@@ -88,6 +88,7 @@ func bootCollectorAtSpool(t *testing.T, spoolPath string) (control, queryURL str
 	})
 	control = "http://127.0.0.1:" + controlPort
 	server.WaitHealthy(control+"/api/lifecycle/health", 15*time.Second)
+	server.WaitListening(15*time.Second, "127.0.0.1:"+queryPort)
 	return control, "http://127.0.0.1:" + queryPort, server
 }
 
@@ -229,6 +230,7 @@ func TestCollectorSpoolModeConformance(t *testing.T) {
 
 	server := Serve(t, ServeConfig{Profile: profilePath, Env: collectorEnv(receiverAddr)})
 	server.WaitHealthy("http://"+controlAddr+"/api/lifecycle/health", 15*time.Second)
+	server.WaitListening(15*time.Second, queryAddr)
 
 	if status := server.Post("http://"+controlAddr+"/api/lifecycle/exit", `{"reason":"conformance"}`); status != http.StatusAccepted {
 		t.Fatalf("control exit POST status = %d, want %d", status, http.StatusAccepted)
@@ -280,6 +282,7 @@ func TestCollectorQueryResponseContract(t *testing.T) {
 
 	server := Serve(t, ServeConfig{Profile: profilePath, Env: collectorEnv(receiverAddr)})
 	server.WaitHealthy("http://"+controlAddr+"/api/lifecycle/health", 15*time.Second)
+	server.WaitListening(15*time.Second, queryAddr)
 
 	assertKeys := func(url, listField string, want []string) {
 		t.Helper()
@@ -342,6 +345,7 @@ func TestCollectorQueryListTraces(t *testing.T) {
 
 	server := Serve(t, ServeConfig{Profile: profilePath, Env: collectorEnv(receiverAddr)})
 	server.WaitHealthy("http://"+controlAddr+"/api/lifecycle/health", 15*time.Second)
+	server.WaitListening(15*time.Second, queryAddr)
 
 	resp, err := http.Get("http://" + queryAddr + "/query/traces?page_size=1")
 	if err != nil {
@@ -399,6 +403,7 @@ func TestCollectorQueryGetTrace(t *testing.T) {
 
 	server := Serve(t, ServeConfig{Profile: profilePath, Env: collectorEnv(receiverAddr)})
 	server.WaitHealthy("http://"+controlAddr+"/api/lifecycle/health", 15*time.Second)
+	server.WaitListening(15*time.Second, queryAddr)
 
 	resp, err := http.Get("http://" + queryAddr + "/query/traces/trace-aaa")
 	if err != nil {
@@ -451,6 +456,7 @@ func TestCollectorQueryListMetrics(t *testing.T) {
 
 	server := Serve(t, ServeConfig{Profile: profilePath, Env: collectorEnv(receiverAddr)})
 	server.WaitHealthy("http://"+controlAddr+"/api/lifecycle/health", 15*time.Second)
+	server.WaitListening(15*time.Second, queryAddr)
 
 	resp, err := http.Get("http://" + queryAddr + "/query/metrics?page_size=1")
 	if err != nil {
@@ -516,6 +522,7 @@ func TestCollectorQueryGetMetric(t *testing.T) {
 
 	server := Serve(t, ServeConfig{Profile: profilePath, Env: collectorEnv(receiverAddr)})
 	server.WaitHealthy("http://"+controlAddr+"/api/lifecycle/health", 15*time.Second)
+	server.WaitListening(15*time.Second, queryAddr)
 
 	resp, err := http.Get("http://" + queryAddr + "/query/metrics/dispatch_count?page_size=1&offset=1")
 	if err != nil {
@@ -678,6 +685,7 @@ func serveCollectorUI(t *testing.T, profilePath string, a collectorAddrs) *Serve
 	t.Helper()
 	server := Serve(t, ServeConfig{Profile: profilePath, WorkDir: filepath.Dir(profilePath), Env: collectorEnv(a.receiver)})
 	server.WaitHealthy("http://"+a.control+"/api/lifecycle/health", 15*time.Second)
+	server.WaitListening(15*time.Second, a.query)
 	return server
 }
 
@@ -865,6 +873,7 @@ func TestCollectorMonitorServesNoSpanPayloads(t *testing.T) {
 
 	server := Serve(t, ServeConfig{Profile: profilePath, Env: collectorEnv(receiverAddr)})
 	server.WaitHealthy("http://"+controlAddr+"/api/lifecycle/health", 15*time.Second)
+	server.WaitListening(15*time.Second, queryAddr, monitorAddr)
 
 	// Every monitor read answers, and none of them carries span content.
 	for _, path := range []string{
