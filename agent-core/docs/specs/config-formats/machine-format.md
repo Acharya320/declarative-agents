@@ -18,561 +18,886 @@ invariants, lifecycle narrative, configuration cross-references, and
 a pipeline diagram — that make the YAML file a self-contained
 specification of agent behavior.
 
-<!-- field: schema | form: "tree" -->
-## Schema
-
-1. - field: name
-   - type: string
-   - required: true
-   - description:
-     Unique agent identifier. Used in logging, metrics, and
-     cross-references between agents.
-1. - field: purpose
-   - type: string
-   - required: false
-   - description:
-     Free-form prose describing the agent's role, architecture, and
-     high-level behavior. Intended for human readers and tooling that
-     presents machine descriptions. All production agents include a
-     multi-line purpose block.
-1. - field: invariants
-   - type: "[]string"
-   - required: false
-   - description:
-     Behavioral invariants the machine is expected to uphold. Each
-     entry is a single prose statement. These are documentation only
-     and are not enforced by the runtime, but specification tooling
-     may reference them for consistency checks.
-1. - field: lifecycle
-   - type: string
-   - required: false
-   - description:
-     A numbered narrative describing the agent's typical execution
-     flow — the sequence of states, transitions, and actions from
-     startup to termination. Captures the "story" that the transition
-     table encodes declaratively.
-1. - field: configuration
-   - type: map[string]any
-   - required: false
-   - description:
-     Cross-references to related configuration files. Common entries
-     include machine (self-reference), tools (tool selection file),
-     llm_configs (LLM config glob), tool_declarations (shared YAML
-     declaration files), and variants (alternative machine files).
-     Not consumed by the runtime; serves as a documentation index.
-1. - field: metric_labels
-   - type: object
-   - required: false
-   - status: planned
-   - description:
-     Planned monitor metadata for stable workflow labels. These labels come
-     from trusted MachineSpec YAML and may be attached to tool metric samples
-     by the runtime recorder. They are documentation only until monitor
-     validation and recorder code land.
-
-     Values must be low-cardinality. They should name workflow phases,
-     profile-owned use cases, or other bounded categories. They must not
-     include raw prompts, full outputs, secrets, unbounded paths, arbitrary
-     URLs, request IDs, timestamps, or user free text.
-1. - field: pipeline_diagram
-   - type: string
-   - required: false
-   - description:
-     A Mermaid diagram (or other markup) depicting the agent's state
-     flow. Embedded in the YAML as a multi-line string. Renderers
-     that support Mermaid can display it as a visual graph.
-1. - field: view_tags
-   - type: "[]object"
-   - required: false
-   - status: implemented
-   - description:
-     Ordered presentation metadata for renderers that divide one large
-     machine into named views. The monitor declared_machines view preserves
-     this list as authored. The engine does not interpret it during
-     validation, transition lookup, dispatch, or run-state tracking.
-   - sub_fields:
-     1. - field: tag
-        - type: string
-        - required: true
-        - description: Stable tag referenced by StateSpec.tags.
-     1. - field: label
-        - type: string
-        - required: true
-        - description: Human-facing label for the tagged view.
-1. - field: initial_state
-   - type: string
-   - required: true
-   - description:
-     The state the machine enters on startup. Must reference a state
-     present in the states list.
-1. - field: summary_signal
-   - type: string
-   - required: false
-   - description:
-     Signal whose Result.Output becomes RunResult.summary. Must name a declared
-     signal. When omitted, no signal implicitly supplies the run summary;
-     a transition may instead declare summary: true.
-1. - field: resume_signal
-   - type: string
-   - required: when signals declares AwaitApproval
-   - description:
-     Signal used when a checkpoint resumes without an operator
-     --resume-signal override. A resumable approval machine must declare it
-     and it must name a declared signal. Machines without approval suspension
-     have no implicit resume signal. The paired suspend signal is the engine
-     lifecycle signal AwaitApproval emitted by the suspend word; it is
-     protocol vocabulary rather than profile policy.
-1. - field: budget
-   - type: object
-   - required: true
-   - description:
-     Resource limits that bound the agent's execution. MachineSpec is the sole
-     authority for run-level max_tokens and max_duration; invoke_llm word
-     configuration cannot replace either value.
-   - sub_fields:
-     1. - field: max_iterations
-        - type: int
-        - required: true
-        - description:
-          Maximum number of state transitions before halting. When
-          exceeded, the machine transitions via the BudgetExhausted
-          signal. Must be a positive integer.
-     1. - field: max_tokens
-        - type: int
-        - description:
-          Maximum total tokens consumed across all LLM calls. When
-          exceeded, transitions via BudgetExhausted.
-     1. - field: max_duration
-        - type: duration string
-        - description:
-          Wall-clock time limit (e.g. "5m0s"). Enforced via
-          context.WithTimeout — when elapsed, the loop terminates
-          with StatusCancelled (not BudgetExhausted).
-     1. - field: command_timeout
-        - type: duration string
-        - required: true
-        - description:
-          Positive per-dispatch timeout applied to every command in this
-          machine. Runtime profiles fail validation when it is omitted.
-
-          The value must exceed the longest legitimate duration of every action
-          reachable in the machine, plus scheduling margin. Authorities include
-          ToolDef timeout config, REST limits and machine_request timeout,
-          model or child-process limits, and blocking await duration. A copied
-          repository-wide value is not calibration evidence when workloads
-          differ. Environment-overridable operation timeouts must have a finite
-          maximum no greater than this bound.
-
-          Examples:
-          - a request machine whose longest REST operation is 30s may use 1m;
-          - a host with a 10m blocking control await may use 11m;
-          - an evaluator with a 24h await or child operation may use 25h.
-
-          Startup validates this relationship from the executable profile
-          closure. The inspector follows declaration includes and override
-          precedence, selected actions, REST definitions and machine_request
-          profiles, child profiles, evaluator point machines, and compatibility
-          wrappers. It reports the machine, action, authority source, operation
-          duration, and command timeout for each failure.
-
-          Environment expansion happens before authority comparison. The active
-          machine command_timeout is the finite maximum for every expanded
-          operation timeout in that machine; an equal or larger value is
-          rejected before dispatch. A deployment schema may impose a tighter
-          input bound, but it is not the runtime safety boundary.
-     1. - field: max_consecutive_parse_errors
-        - type: int
-        - description:
-          Maximum consecutive LLM parse failures before the machine
-          transitions via BudgetExhausted. The profile must select
-          report_parse_error, route ParseFailed through that word, and route
-          BudgetExhausted from the report transition's destination state.
-          Startup validation rejects the budget when any of that wiring is
-          absent; profiles that do not retry parse failures must omit it.
-1. - field: states
-   - type: StateSpecs ([]string | []StateSpec)
-   - required: true
-   - description:
-     The set of valid machine states. Accepts two forms:
-
-     Scalar form (legacy): a plain list of state name strings.
-       states:
-       - Idle
-       - Running
-       - Done
-
-     Rich object form: a list of objects with name and optional meaning
-     metadata. The meaning field documents the state's semantic purpose.
-     The optional tags field is an ordered string list of presentation tags
-     declared by top-level view_tags. Renderers may use tags to select a
-     subgraph, but the engine does not interpret tags when validating or
-     executing the machine.
-     Every terminal state must declare run_status as succeeded, failed,
-     budget_exceeded, cancelled, or suspended.
-       states:
-       - name: Idle
-         meaning: Initial state before any work begins.
-         tags: [intake]
-       - name: Running
-         meaning: The main working state where tools execute.
-         tags: [work]
-       - name: Done
-         meaning: Terminal. All work completed.
-         run_status: succeeded
-         tags: [work]
-
-     Both forms may be mixed in the same list. The parser
-     (StateSpecs.UnmarshalYAML) detects scalars vs mappings
-     per element.
-
-     Every state referenced in transitions, initial_state, and
-     terminal_states must appear here.
-     run_status is valid only on terminal states and is required for each name
-     listed by terminal_states.
-
-     StateSpec fields are name, meaning, run_status, and tags. tags is
-     presentation-only metadata. Scalar states have no tags.
-1. - field: terminal_states
-   - type: "[]string"
-   - required: true
-   - description:
-     Subset of states where the machine halts. Once the machine
-     enters a terminal state, no further transitions are processed.
-1. - field: signals
-   - type: SignalSpecs ([]string | []SignalSpec)
-   - required: true
-   - description:
-     The set of valid signals. Accepts two forms:
-
-     Scalar form (legacy): a plain list of signal name strings.
-       signals:
-       - Seed
-       - ToolDone
-       - CommandError
-
-     Rich object form: a list of objects with name and optional
-     trigger metadata. The trigger field documents what event
-     causes the signal to be emitted.
-       signals:
-       - name: Seed
-         trigger: Loop initialization.
-       - name: ToolDone
-         trigger: A tool executed successfully.
-       - name: CommandError
-         trigger: Infrastructure-level error.
-
-     Both forms may be mixed in the same list. The parser
-     (SignalSpecs.UnmarshalYAML) detects scalars vs mappings
-     per element.
-1. - field: transitions
-   - type: "[]object"
-   - required: true
-   - description:
-     The transition table. Each entry maps a (state, signal) pair to
-     a next state, an optional action, and an optional stable
-     command-state label for the completed action step.
-   - sub_fields:
-     1. - field: state
-        - type: string
-        - description: Current state the machine must be in.
-     1. - field: signal
-        - type: string
-        - description: Signal that triggers this transition.
-     1. - field: next
-        - type: string
-        - description: Target state after the transition.
-     1. - field: action
-        - type: string
-        - description:
-          Tool to execute during the transition. See action_semantics
-          for the three modes. May be omitted for terminal transitions.
-     1. - field: label
-        - type: string
-        - required: false
-        - description:
-          Stable authored address for the action's completed execution step.
-          A later word selects its output with $from(label).path. The label
-          belongs to this transition because MachineSpec owns workflow order
-          and step identity.
-
-          The label must be non-empty when present and must not contain dots,
-          parentheses, whitespace, or control characters. Duplicate labels are
-          valid; lookup resolves the most recent matching completed step.
-
-          When omitted, the step remains addressable by its executed command
-          name. On a $tool transition, label remains the stable authored
-          address while command_name records the tool selected at runtime.
-     1. - field: report_output
-        - type: string
-        - required: false
-        - description:
-          Operator-facing field selected from this action's Result.Output using
-          the canonical $.path grammar (for example $.address). Requires an
-          action. The CLI may report the selected scalar without hard-coding a
-          command name.
-     1. - field: summary
-        - type: bool
-        - required: false
-        - description:
-          When true, this action's complete Result.Output becomes the run
-          summary and is not overwritten by later dispatches. Use this for
-          machines with more than one summary-producing signal. A machine-level
-          summary_signal remains the concise option when one signal owns every
-          summary.
-     1. - field: metric_labels
-        - type: object
-        - status: planned
-        - description:
-          Planned transition-level metric labels. These labels refine the
-          workflow context for samples emitted by the action on this
-          transition. Transition labels override or extend machine-level
-          labels by label name. They must follow the same low-cardinality safety
-          policy as top-level metric_labels.
-     1. - field: for_each
-        - type: object
-        - required: false
-        - description:
-          Expand this transition's named action over an array selected from a
-          prior command-state entry. Dispatch is sequential by default or
-          bounded parallel when max_concurrency is declared.
-          Each item is a normal registry-built command dispatch and therefore
-          gets its own trace, checkpoint Entry, receipt, cancellation boundary,
-          budget iteration, and rollback visibility.
-        - sub_fields:
-          1. - field: items
-             - type: string
-             - description: A required $from(label).path selector resolving to a JSON array.
-          1. - field: as
-             - type: string
-             - description: Command-state binding label for the current item.
-          1. - field: mode
-             - type: string
-             - description: sequential (default) or parallel.
-          1. - field: max_concurrency
-             - type: int
-             - description: Required positive worker bound for parallel mode; invalid for sequential mode.
-          1. - field: failure
-             - type: string
-             - description: fail_fast (default) or collect_all.
-          1. - field: continue_on
-             - type: "[]string"
-             - description: Item result signals counted as successful.
-          1. - field: abort_on
-             - type: "[]string"
-             - description: Item signals that stop scheduling and cancel contextual siblings.
-          1. - field: join
-             - type: object
-             - description:
-               Declares the receiving state, optional output label, and signals
-               for all_success, partial (collect_all), failed, and empty.
-
-<!-- field: action_semantics | form: "tree" -->
+<!-- field: action_semantics -->
 ## Action semantics
 
-1. - mode: Named tool
-   - description:
-     A literal tool name (e.g. invoke_llm, prepare_workspace, build).
-     The tool is resolved from the tool registry at build time via
-     BuildTransitionTable. If the name is not found, the build fails.
-   - example: invoke_llm
-1. - mode: $tool
-   - description:
-     Dynamic dispatch sentinel. At runtime, the actual tool name is
-     extracted from the parsed LLM output. This lets the LLM
-     choose one state-valid external word (e.g. read, write, edit,
-     build). Used in the generator's Parsing -> Composing transition.
-   - example: $tool
-1. - mode: Empty/omitted
-   - description:
-     No command is executed. Used for terminal transitions where the
-     machine simply moves to a halting state (e.g. Succeeded, Failed,
-     BudgetExceeded).
+<!-- action_semantic: Named tool -->
+### Named tool
 
-<!-- field: data_driven_iteration | form: "tree" -->
+<!-- field: description -->
+#### Description
+
+A literal tool name (e.g. invoke_llm, prepare_workspace, build).
+The tool is resolved from the tool registry at build time via
+BuildTransitionTable. If the name is not found, the build fails.
+
+<!-- field: example -->
+#### Example
+
+invoke_llm
+
+<!-- action_semantic: $tool -->
+### $tool
+
+<!-- field: description -->
+#### Description
+
+Dynamic dispatch sentinel. At runtime, the actual tool name is
+extracted from the parsed LLM output. This lets the LLM
+choose one state-valid external word (e.g. read, write, edit,
+build). Used in the generator's Parsing -> Composing transition.
+
+<!-- field: example -->
+#### Example
+
+$tool
+
+<!-- action_semantic: Empty/omitted -->
+### Empty/omitted
+
+<!-- field: description -->
+#### Description
+
+No command is executed. Used for terminal transitions where the
+machine simply moves to a halting state (e.g. Succeeded, Failed,
+BudgetExceeded).
+
+<!-- field: schema -->
+## Schema
+
+<!-- schema_entry: name -->
+### name
+
+<!-- field: type -->
+#### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+true
+
+<!-- field: description -->
+#### Description
+
+Unique agent identifier. Used in logging, metrics, and
+cross-references between agents.
+
+<!-- schema_entry: purpose -->
+### purpose
+
+<!-- field: type -->
+#### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+false
+
+<!-- field: description -->
+#### Description
+
+Free-form prose describing the agent's role, architecture, and
+high-level behavior. Intended for human readers and tooling that
+presents machine descriptions. All production agents include a
+multi-line purpose block.
+
+<!-- schema_entry: invariants -->
+### invariants
+
+<!-- field: type -->
+#### Type
+
+[]string
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+false
+
+<!-- field: description -->
+#### Description
+
+Behavioral invariants the machine is expected to uphold. Each
+entry is a single prose statement. These are documentation only
+and are not enforced by the runtime, but specification tooling
+may reference them for consistency checks.
+
+<!-- schema_entry: lifecycle -->
+### lifecycle
+
+<!-- field: type -->
+#### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+false
+
+<!-- field: description -->
+#### Description
+
+A numbered narrative describing the agent's typical execution
+flow — the sequence of states, transitions, and actions from
+startup to termination. Captures the "story" that the transition
+table encodes declaratively.
+
+<!-- schema_entry: configuration -->
+### configuration
+
+<!-- field: type -->
+#### Type
+
+map[string]any
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+false
+
+<!-- field: description -->
+#### Description
+
+Cross-references to related configuration files. Common entries
+include machine (self-reference), tools (tool selection file),
+llm_configs (LLM config glob), tool_declarations (shared YAML
+declaration files), and variants (alternative machine files).
+Not consumed by the runtime; serves as a documentation index.
+
+<!-- schema_entry: metric_labels -->
+### metric_labels
+
+<!-- field: type -->
+#### Type
+
+object
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+false
+
+<!-- field: status -->
+#### Status
+
+planned
+
+<!-- field: description -->
+#### Description
+
+Planned monitor metadata for stable workflow labels. These labels come
+from trusted MachineSpec YAML and may be attached to tool metric samples
+by the runtime recorder. They are documentation only until monitor
+validation and recorder code land.
+
+Values must be low-cardinality. They should name workflow phases,
+profile-owned use cases, or other bounded categories. They must not
+include raw prompts, full outputs, secrets, unbounded paths, arbitrary
+URLs, request IDs, timestamps, or user free text.
+
+<!-- schema_entry: pipeline_diagram -->
+### pipeline_diagram
+
+<!-- field: type -->
+#### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+false
+
+<!-- field: description -->
+#### Description
+
+A Mermaid diagram (or other markup) depicting the agent's state
+flow. Embedded in the YAML as a multi-line string. Renderers
+that support Mermaid can display it as a visual graph.
+
+<!-- schema_entry: view_tags -->
+### view_tags
+
+<!-- field: type -->
+#### Type
+
+[]object
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+false
+
+<!-- field: status -->
+#### Status
+
+implemented
+
+<!-- field: description -->
+#### Description
+
+Ordered presentation metadata for renderers that divide one large
+machine into named views. The monitor declared_machines view preserves
+this list as authored. The engine does not interpret it during
+validation, transition lookup, dispatch, or run-state tracking.
+
+<!-- field: sub_fields | form: "typed table" -->
+#### Sub fields
+
+| field | type | required | description |
+| --- | --- | --- | --- |
+| tag | string | true | Stable tag referenced by StateSpec.tags. |
+| label | string | true | Human-facing label for the tagged view. |
+
+<!-- schema_entry: initial_state -->
+### initial_state
+
+<!-- field: type -->
+#### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+true
+
+<!-- field: description -->
+#### Description
+
+The state the machine enters on startup. Must reference a state
+present in the states list.
+
+<!-- schema_entry: summary_signal -->
+### summary_signal
+
+<!-- field: type -->
+#### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+false
+
+<!-- field: description -->
+#### Description
+
+Signal whose Result.Output becomes RunResult.summary. Must name a declared
+signal. When omitted, no signal implicitly supplies the run summary;
+a transition may instead declare summary: true.
+
+<!-- schema_entry: resume_signal -->
+### resume_signal
+
+<!-- field: type -->
+#### Type
+
+string
+
+<!-- field: required -->
+#### Required
+
+when signals declares AwaitApproval
+
+<!-- field: description -->
+#### Description
+
+Signal used when a checkpoint resumes without an operator
+--resume-signal override. A resumable approval machine must declare it
+and it must name a declared signal. Machines without approval suspension
+have no implicit resume signal. The paired suspend signal is the engine
+lifecycle signal AwaitApproval emitted by the suspend word; it is
+protocol vocabulary rather than profile policy.
+
+<!-- schema_entry: budget -->
+### budget
+
+<!-- field: type -->
+#### Type
+
+object
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+true
+
+<!-- field: description -->
+#### Description
+
+Resource limits that bound the agent's execution. MachineSpec is the sole
+authority for run-level max_tokens and max_duration; invoke_llm word
+configuration cannot replace either value.
+
+<!-- field: sub_fields | form: "tree" -->
+#### Sub fields
+
+1. - field: max_iterations
+   - type: int
+   - required: true
+   - description:
+     Maximum number of state transitions before halting. When
+     exceeded, the machine transitions via the BudgetExhausted
+     signal. Must be a positive integer.
+1. - field: max_tokens
+   - type: int
+   - description:
+     Maximum total tokens consumed across all LLM calls. When
+     exceeded, transitions via BudgetExhausted.
+1. - field: max_duration
+   - type: duration string
+   - description:
+     Wall-clock time limit (e.g. "5m0s"). Enforced via
+     context.WithTimeout — when elapsed, the loop terminates
+     with StatusCancelled (not BudgetExhausted).
+1. - field: command_timeout
+   - type: duration string
+   - required: true
+   - description:
+     Positive per-dispatch timeout applied to every command in this
+     machine. Runtime profiles fail validation when it is omitted.
+
+     The value must exceed the longest legitimate duration of every action
+     reachable in the machine, plus scheduling margin. Authorities include
+     ToolDef timeout config, REST limits and machine_request timeout,
+     model or child-process limits, and blocking await duration. A copied
+     repository-wide value is not calibration evidence when workloads
+     differ. Environment-overridable operation timeouts must have a finite
+     maximum no greater than this bound.
+
+     Examples:
+     - a request machine whose longest REST operation is 30s may use 1m;
+     - a host with a 10m blocking control await may use 11m;
+     - an evaluator with a 24h await or child operation may use 25h.
+
+     Startup validates this relationship from the executable profile
+     closure. The inspector follows declaration includes and override
+     precedence, selected actions, REST definitions and machine_request
+     profiles, child profiles, evaluator point machines, and compatibility
+     wrappers. It reports the machine, action, authority source, operation
+     duration, and command timeout for each failure.
+
+     Environment expansion happens before authority comparison. The active
+     machine command_timeout is the finite maximum for every expanded
+     operation timeout in that machine; an equal or larger value is
+     rejected before dispatch. A deployment schema may impose a tighter
+     input bound, but it is not the runtime safety boundary.
+1. - field: max_consecutive_parse_errors
+   - type: int
+   - description:
+     Maximum consecutive LLM parse failures before the machine
+     transitions via BudgetExhausted. The profile must select
+     report_parse_error, route ParseFailed through that word, and route
+     BudgetExhausted from the report transition's destination state.
+     Startup validation rejects the budget when any of that wiring is
+     absent; profiles that do not retry parse failures must omit it.
+
+<!-- schema_entry: states -->
+### states
+
+<!-- field: type -->
+#### Type
+
+StateSpecs ([]string | []StateSpec)
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+true
+
+<!-- field: description -->
+#### Description
+
+The set of valid machine states. Accepts two forms:
+
+Scalar form (legacy): a plain list of state name strings.
+  states:
+  - Idle
+  - Running
+  - Done
+
+Rich object form: a list of objects with name and optional meaning
+metadata. The meaning field documents the state's semantic purpose.
+The optional tags field is an ordered string list of presentation tags
+declared by top-level view_tags. Renderers may use tags to select a
+subgraph, but the engine does not interpret tags when validating or
+executing the machine.
+Every terminal state must declare run_status as succeeded, failed,
+budget_exceeded, cancelled, or suspended.
+  states:
+  - name: Idle
+    meaning: Initial state before any work begins.
+    tags: [intake]
+  - name: Running
+    meaning: The main working state where tools execute.
+    tags: [work]
+  - name: Done
+    meaning: Terminal. All work completed.
+    run_status: succeeded
+    tags: [work]
+
+Both forms may be mixed in the same list. The parser
+(StateSpecs.UnmarshalYAML) detects scalars vs mappings
+per element.
+
+Every state referenced in transitions, initial_state, and
+terminal_states must appear here.
+run_status is valid only on terminal states and is required for each name
+listed by terminal_states.
+
+StateSpec fields are name, meaning, run_status, and tags. tags is
+presentation-only metadata. Scalar states have no tags.
+
+<!-- schema_entry: terminal_states -->
+### terminal_states
+
+<!-- field: type -->
+#### Type
+
+[]string
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+true
+
+<!-- field: description -->
+#### Description
+
+Subset of states where the machine halts. Once the machine
+enters a terminal state, no further transitions are processed.
+
+<!-- schema_entry: signals -->
+### signals
+
+<!-- field: type -->
+#### Type
+
+SignalSpecs ([]string | []SignalSpec)
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+true
+
+<!-- field: description -->
+#### Description
+
+The set of valid signals. Accepts two forms:
+
+Scalar form (legacy): a plain list of signal name strings.
+  signals:
+  - Seed
+  - ToolDone
+  - CommandError
+
+Rich object form: a list of objects with name and optional
+trigger metadata. The trigger field documents what event
+causes the signal to be emitted.
+  signals:
+  - name: Seed
+    trigger: Loop initialization.
+  - name: ToolDone
+    trigger: A tool executed successfully.
+  - name: CommandError
+    trigger: Infrastructure-level error.
+
+Both forms may be mixed in the same list. The parser
+(SignalSpecs.UnmarshalYAML) detects scalars vs mappings
+per element.
+
+<!-- schema_entry: transitions -->
+### transitions
+
+<!-- field: type -->
+#### Type
+
+[]object
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+true
+
+<!-- field: description -->
+#### Description
+
+The transition table. Each entry maps a (state, signal) pair to
+a next state, an optional action, and an optional stable
+command-state label for the completed action step.
+
+<!-- field: sub_fields | form: "tree" -->
+#### Sub fields
+
+1. - field: state
+   - type: string
+   - description: Current state the machine must be in.
+1. - field: signal
+   - type: string
+   - description: Signal that triggers this transition.
+1. - field: next
+   - type: string
+   - description: Target state after the transition.
+1. - field: action
+   - type: string
+   - description:
+     Tool to execute during the transition. See action_semantics
+     for the three modes. May be omitted for terminal transitions.
+1. - field: label
+   - type: string
+   - required: false
+   - description:
+     Stable authored address for the action's completed execution step.
+     A later word selects its output with $from(label).path. The label
+     belongs to this transition because MachineSpec owns workflow order
+     and step identity.
+
+     The label must be non-empty when present and must not contain dots,
+     parentheses, whitespace, or control characters. Duplicate labels are
+     valid; lookup resolves the most recent matching completed step.
+
+     When omitted, the step remains addressable by its executed command
+     name. On a $tool transition, label remains the stable authored
+     address while command_name records the tool selected at runtime.
+1. - field: report_output
+   - type: string
+   - required: false
+   - description:
+     Operator-facing field selected from this action's Result.Output using
+     the canonical $.path grammar (for example $.address). Requires an
+     action. The CLI may report the selected scalar without hard-coding a
+     command name.
+1. - field: summary
+   - type: bool
+   - required: false
+   - description:
+     When true, this action's complete Result.Output becomes the run
+     summary and is not overwritten by later dispatches. Use this for
+     machines with more than one summary-producing signal. A machine-level
+     summary_signal remains the concise option when one signal owns every
+     summary.
+1. - field: metric_labels
+   - type: object
+   - status: planned
+   - description:
+     Planned transition-level metric labels. These labels refine the
+     workflow context for samples emitted by the action on this
+     transition. Transition labels override or extend machine-level
+     labels by label name. They must follow the same low-cardinality safety
+     policy as top-level metric_labels.
+1. - field: for_each
+   - type: object
+   - required: false
+   - description:
+     Expand this transition's named action over an array selected from a
+     prior command-state entry. Dispatch is sequential by default or
+     bounded parallel when max_concurrency is declared.
+     Each item is a normal registry-built command dispatch and therefore
+     gets its own trace, checkpoint Entry, receipt, cancellation boundary,
+     budget iteration, and rollback visibility.
+   - sub_fields:
+     1. - field: items
+        - type: string
+        - description: A required $from(label).path selector resolving to a JSON array.
+     1. - field: as
+        - type: string
+        - description: Command-state binding label for the current item.
+     1. - field: mode
+        - type: string
+        - description: sequential (default) or parallel.
+     1. - field: max_concurrency
+        - type: int
+        - description: Required positive worker bound for parallel mode; invalid for sequential mode.
+     1. - field: failure
+        - type: string
+        - description: fail_fast (default) or collect_all.
+     1. - field: continue_on
+        - type: "[]string"
+        - description: Item result signals counted as successful.
+     1. - field: abort_on
+        - type: "[]string"
+        - description: Item signals that stop scheduling and cancel contextual siblings.
+     1. - field: join
+        - type: object
+        - description:
+          Declares the receiving state, optional output label, and signals
+          for all_success, partial (collect_all), failed, and empty.
+
+<!-- field: data_driven_iteration -->
 ## Data driven iteration
 
-- trust_boundary:
-  items must come from a $from(label).path command-state selector. MachineSpec
-  supplies the action and binding name; runtime data cannot choose an action
-  or introduce executable expressions.
-- item_binding:
-  Object items are exposed directly at $from(as).field. Scalar items are
-  exposed as $from(as).value. The binding exists only while that item is
-  dispatched and does not create a fake Execution entry.
-- join:
-  for_each.join emits one engine-owned for_each.join Entry containing ordered
-  item outcomes and succeeded/failed counts. The join signal is selected by
-  the declared outcome map and is then routed through the normal transition
-  table. Each outcome retains result.output as a string. When that
-  already-redacted ResultDigest output is valid JSON with recognized applied
-  redaction metadata, result.structured_output also exposes its parsed object,
-  array, or scalar shape for dotted-path traversal. Plain text and
-  output_omitted results have no structured_output.
-- checkpoint_resume:
-  AgentSnapshot persists the selected items, next index, ordered outcomes, and
-  iterator grammar. Resume continues at the next undispatched item.
-  Parallel completions are committed in deterministic input order, so each
-  item retains its own checkpoint Entry and receipt.
-  structured_output is shaped only when the join payload is emitted and is not
-  added to IteratorSnapshot, preserving the persisted outcome format.
-- concurrency:
-  parallel requires a positive max_concurrency. Workers execute normal
-  registry-built commands concurrently, while outcomes, RunEvents, checkpoint
-  entries, and join output are reduced in input order. fail_fast cancels
-  contextual siblings and waits for all started work; legacy non-contextual
-  commands are allowed to finish before join so no work is orphaned.
-- non_goal:
-  for_each is not a scripting language: it has no expressions, mutation,
-  dynamic action names, nested programs, or unbounded concurrency.
+<!-- field: trust_boundary -->
+### Trust boundary
 
-<!-- field: command_state_step_labels | form: "tree" -->
+items must come from a $from(label).path command-state selector. MachineSpec
+supplies the action and binding name; runtime data cannot choose an action
+or introduce executable expressions.
+
+<!-- field: item_binding -->
+### Item binding
+
+Object items are exposed directly at $from(as).field. Scalar items are
+exposed as $from(as).value. The binding exists only while that item is
+dispatched and does not create a fake Execution entry.
+
+<!-- field: join -->
+### Join
+
+for_each.join emits one engine-owned for_each.join Entry containing ordered
+item outcomes and succeeded/failed counts. The join signal is selected by
+the declared outcome map and is then routed through the normal transition
+table. Each outcome retains result.output as a string. When that
+already-redacted ResultDigest output is valid JSON with recognized applied
+redaction metadata, result.structured_output also exposes its parsed object,
+array, or scalar shape for dotted-path traversal. Plain text and
+output_omitted results have no structured_output.
+
+<!-- field: checkpoint_resume -->
+### Checkpoint resume
+
+AgentSnapshot persists the selected items, next index, ordered outcomes, and
+iterator grammar. Resume continues at the next undispatched item.
+Parallel completions are committed in deterministic input order, so each
+item retains its own checkpoint Entry and receipt.
+structured_output is shaped only when the join payload is emitted and is not
+added to IteratorSnapshot, preserving the persisted outcome format.
+
+<!-- field: concurrency -->
+### Concurrency
+
+parallel requires a positive max_concurrency. Workers execute normal
+registry-built commands concurrently, while outcomes, RunEvents, checkpoint
+entries, and join output are reduced in input order. fail_fast cancels
+contextual siblings and waits for all started work; legacy non-contextual
+commands are allowed to finish before join so no work is orphaned.
+
+<!-- field: non_goal -->
+### Non goal
+
+for_each is not a scripting language: it has no expressions, mutation,
+dynamic action names, nested programs, or unbounded concurrency.
+
+<!-- field: command_state_step_labels -->
 ## Command state step labels
 
-- purpose:
-  Defines the stable authoring surface for command-state selectors. The
-  transition label identifies one workflow step independently of the tool
-  that implements it. This lets two transitions execute the same tool under
-  different addresses, and lets a $tool transition keep one address while
-  runtime dispatch chooses different commands.
-- addressing:
-  1. A completed labeled transition is addressable by both label and its executed command name.
-  1. A completed unlabeled transition is addressable by its executed command name.
-  1. A programmatic TransitionTable run without MachineSpec metadata has command-name addressing only.
-  1. Lookup scans completed steps from newest to oldest and matches either address.
-  1. If one step's authored label equals another step's command name, the same newest-match rule resolves the collision.
-  1. Absolute step indices are persistence keys and are not part of selector syntax.
-- persistence:
-  1. Entry records label separately from command_name.
-  1. Checkpoint adapters persist and restore both fields.
-  1. Legacy persisted entries with no label remain addressable by command_name.
-  1. A schema upgrade adds nullable label storage without invalidating existing rows.
-- relationship_to_metric_labels:
-  label is one command-state address. metric_labels is a map of bounded
-  observability attributes. A command-state selector never reads
-  metric_labels, and monitor grouping never changes command-state identity.
-- example:
-  transitions:
-    - state: ReadingCorpus
-      signal: Seed
-      next: CorpusRead
-      action: read
-      label: source_document
-    - state: ChoosingTool
-      signal: LLMResponded
-      next: RunningTool
-      action: $tool
-      label: selected_operation
+<!-- field: purpose -->
+### Purpose
 
-<!-- field: state_scoped_dynamic_dispatch | form: "tree" -->
+Defines the stable authoring surface for command-state selectors. The
+transition label identifies one workflow step independently of the tool
+that implements it. This lets two transitions execute the same tool under
+different addresses, and lets a $tool transition keep one address while
+runtime dispatch chooses different commands.
+
+<!-- field: addressing -->
+### Addressing
+
+- A completed labeled transition is addressable by both label and its executed command name.
+- A completed unlabeled transition is addressable by its executed command name.
+- A programmatic TransitionTable run without MachineSpec metadata has command-name addressing only.
+- Lookup scans completed steps from newest to oldest and matches either address.
+- If one step's authored label equals another step's command name, the same newest-match rule resolves the collision.
+- Absolute step indices are persistence keys and are not part of selector syntax.
+
+<!-- field: persistence -->
+### Persistence
+
+- Entry records label separately from command_name.
+- Checkpoint adapters persist and restore both fields.
+- Legacy persisted entries with no label remain addressable by command_name.
+- A schema upgrade adds nullable label storage without invalidating existing rows.
+
+<!-- field: relationship_to_metric_labels -->
+### Relationship to metric labels
+
+label is one command-state address. metric_labels is a map of bounded
+observability attributes. A command-state selector never reads
+metric_labels, and monitor grouping never changes command-state identity.
+
+<!-- field: example -->
+### Example
+
+transitions:
+  - state: ReadingCorpus
+    signal: Seed
+    next: CorpusRead
+    action: read
+    label: source_document
+  - state: ChoosingTool
+    signal: LLMResponded
+    next: RunningTool
+    action: $tool
+    label: selected_operation
+
+<!-- field: state_scoped_dynamic_dispatch -->
 ## State scoped dynamic dispatch
 
-- purpose:
-  Defines the availability contract for LLM-selected `$tool` dispatch.
-  A state is a grammar phase. The model may choose only tools that are valid
-  in the current phase.
-- source_of_truth:
-  MachineSpec transitions are the source of truth for dynamic tool
-  availability. A tool is available from the state that invokes the LLM when
-  the next `$tool` transition can dispatch that tool and every declared
-  signal emitted by that tool is accepted by the target state or the target
-  state is terminal.
+<!-- field: purpose -->
+### Purpose
 
-  Explicit ToolSpec phases may further narrow availability for compatibility
-  with registry manifests. They must not make a tool available where the
-  MachineSpec transition graph cannot route that tool's declared signals.
-- manifest_rule:
-  The LLM manifest is built for the machine's current state. It includes
-  external tools that satisfy the state-scoped dynamic availability contract.
-  Internal tools and tools outside the current state are omitted from the
-  manifest.
-- validation_rule:
-  Runtime parsing and dispatch validate the parsed tool name against the same
-  current-state availability set used for the manifest. Unknown tools,
-  internal tools, and tools not valid in the current state are rejected before
-  command execution.
+Defines the availability contract for LLM-selected `$tool` dispatch.
+A state is a grammar phase. The model may choose only tools that are valid
+in the current phase.
 
-  Before registration, the invoke_llm selector and parse_response word on an
-  actual selector-to-$tool machine path must each declare the `$tool` target
-  as manifest_state. Unrelated invoke words are not selectors for that path
-  and do not participate. Every external word must derive at least one target
-  phase. A mismatch, empty explicit-phase intersection, missing emitted-signal
-  declaration, or unroutable emitted signal rejects startup with the word and
-  cause.
-- rejection_signal:
-  A parsed tool call that names a registered external tool outside the
-  current state's availability set emits ParseFailed. The diagnostic should
-  distinguish the out-of-state tool from an unknown tool so the machine can
-  route recovery deterministically through its ParseFailed transition.
-- ownership_rules:
-  1. MachineSpec owns phase-specific availability because transitions own workflow order.
-  1. ToolDef owns vocabulary metadata such as emitted signals, visibility, parameters, and side effects.
-  1. ToolSpec phases are derived runtime metadata or an additional restriction; they are not a second workflow definition.
+<!-- field: source_of_truth -->
+### Source of truth
 
-<!-- field: workflow_metric_labels | form: "tree" -->
+MachineSpec transitions are the source of truth for dynamic tool
+availability. A tool is available from the state that invokes the LLM when
+the next `$tool` transition can dispatch that tool and every declared
+signal emitted by that tool is accepted by the target state or the target
+state is terminal.
+
+Explicit ToolSpec phases may further narrow availability for compatibility
+with registry manifests. They must not make a tool available where the
+MachineSpec transition graph cannot route that tool's declared signals.
+
+<!-- field: manifest_rule -->
+### Manifest rule
+
+The LLM manifest is built for the machine's current state. It includes
+external tools that satisfy the state-scoped dynamic availability contract.
+Internal tools and tools outside the current state are omitted from the
+manifest.
+
+<!-- field: validation_rule -->
+### Validation rule
+
+Runtime parsing and dispatch validate the parsed tool name against the same
+current-state availability set used for the manifest. Unknown tools,
+internal tools, and tools not valid in the current state are rejected before
+command execution.
+
+Before registration, the invoke_llm selector and parse_response word on an
+actual selector-to-$tool machine path must each declare the `$tool` target
+as manifest_state. Unrelated invoke words are not selectors for that path
+and do not participate. Every external word must derive at least one target
+phase. A mismatch, empty explicit-phase intersection, missing emitted-signal
+declaration, or unroutable emitted signal rejects startup with the word and
+cause.
+
+<!-- field: rejection_signal -->
+### Rejection signal
+
+A parsed tool call that names a registered external tool outside the
+current state's availability set emits ParseFailed. The diagnostic should
+distinguish the out-of-state tool from an unknown tool so the machine can
+route recovery deterministically through its ParseFailed transition.
+
+<!-- field: ownership_rules -->
+### Ownership rules
+
+- MachineSpec owns phase-specific availability because transitions own workflow order.
+- ToolDef owns vocabulary metadata such as emitted signals, visibility, parameters, and side effects.
+- ToolSpec phases are derived runtime metadata or an additional restriction; they are not a second workflow definition.
+
+<!-- field: workflow_metric_labels -->
 ## Workflow metric labels
 
-- status: planned
-- purpose:
-  Defines planned MachineSpec metadata for grouping embedded monitor metrics
-  by workflow context. Tool declarations define metric instruments.
-  MachineSpec labels define where in the grammar those instruments ran.
-- ownership_rules:
-  1. MachineSpec owns workflow label values because it owns sequencing.
-  1. ToolDef owns metric instrument names and specialized metric meaning.
-  1. Runtime dispatch may attach machine and transition labels to samples.
-  1. Labels are trusted config values, not runtime input chosen by the model.
-- allowed_label_examples:
-  1. - phase: validation
-  1. - use_case: rel04.0-monitor
-  1. - boundary: rest_server
-  1. - checkpoint_policy: disabled
-- prohibited_label_sources:
-  1. raw prompts
-  1. full tool outputs
-  1. secrets
-  1. absolute paths
-  1. arbitrary URLs
-  1. request IDs
-  1. timestamps
-  1. user free text
-- example:
-  metric_labels:
-    use_case: rel04.0-monitor
-    phase: main_loop
+<!-- field: status -->
+### Status
 
-  transitions:
-    - state: WaitingForRequest
-      signal: ServerLaunched
-      next: ReadingMonitor
-      action: monitor_snapshot
-      metric_labels:
-        phase: monitor_read
+planned
 
-<!-- field: machine_presentation_views | form: "tree" -->
+<!-- field: purpose -->
+### Purpose
+
+Defines planned MachineSpec metadata for grouping embedded monitor metrics
+by workflow context. Tool declarations define metric instruments.
+MachineSpec labels define where in the grammar those instruments ran.
+
+<!-- field: ownership_rules -->
+### Ownership rules
+
+- MachineSpec owns workflow label values because it owns sequencing.
+- ToolDef owns metric instrument names and specialized metric meaning.
+- Runtime dispatch may attach machine and transition labels to samples.
+- Labels are trusted config values, not runtime input chosen by the model.
+
+<!-- field: allowed_label_examples | form: "typed table" -->
+### Allowed label examples
+
+| phase | use_case | boundary | checkpoint_policy |
+| --- | --- | --- | --- |
+| validation |  |  |  |
+|  | rel04.0-monitor |  |  |
+|  |  | rest_server |  |
+|  |  |  | disabled |
+
+<!-- field: prohibited_label_sources -->
+### Prohibited label sources
+
+- raw prompts
+- full tool outputs
+- secrets
+- absolute paths
+- arbitrary URLs
+- request IDs
+- timestamps
+- user free text
+
+<!-- field: example -->
+### Example
+
+metric_labels:
+  use_case: rel04.0-monitor
+  phase: main_loop
+
+transitions:
+  - state: WaitingForRequest
+    signal: ServerLaunched
+    next: ReadingMonitor
+    action: monitor_snapshot
+    metric_labels:
+      phase: monitor_read
+
+<!-- field: machine_presentation_views -->
 ## Machine presentation views
 
-- status: implemented
-- purpose:
-  view_tags and StateSpec.tags let a renderer present named subgraphs from
-  one authored machine declaration. They do not create nested machines,
-  alter state membership, or constrain transitions.
-- monitor_contract:
-  The srd033 declared_machines view preserves top-level view_tags and each
-  state's tags. The existing machine_spec view remains a names-only root
-  projection and does not define this presentation contract.
-- authored_shape:
-  view_tags:
-    - {tag: intake, label: Intake}
-    - {tag: answer, label: Answer composition}
-  states:
-    - {name: AwaitingRequest, meaning: Waiting for input., tags: [intake]}
-    - {name: Composing, meaning: Building the response., tags: [answer]}
-    - {name: Done, run_status: succeeded, tags: [answer]}
-- ownership_rules:
-  1. Machine authors own view tag names, labels, ordering, and state membership.
-  1. Renderers decide how to draw a tagged view.
-  1. The engine preserves these named fields but does not interpret them.
-  1. Unknown MachineSpec fields remain outside this named presentation contract.
+<!-- field: status -->
+### Status
+
+implemented
+
+<!-- field: purpose -->
+### Purpose
+
+view_tags and StateSpec.tags let a renderer present named subgraphs from
+one authored machine declaration. They do not create nested machines,
+alter state membership, or constrain transitions.
+
+<!-- field: monitor_contract -->
+### Monitor contract
+
+The srd033 declared_machines view preserves top-level view_tags and each
+state's tags. The existing machine_spec view remains a names-only root
+projection and does not define this presentation contract.
+
+<!-- field: authored_shape -->
+### Authored shape
+
+view_tags:
+  - {tag: intake, label: Intake}
+  - {tag: answer, label: Answer composition}
+states:
+  - {name: AwaitingRequest, meaning: Waiting for input., tags: [intake]}
+  - {name: Composing, meaning: Building the response., tags: [answer]}
+  - {name: Done, run_status: succeeded, tags: [answer]}
+
+<!-- field: ownership_rules -->
+### Ownership rules
+
+- Machine authors own view tag names, labels, ordering, and state membership.
+- Renderers decide how to draw a tagged view.
+- The engine preserves these named fields but does not interpret them.
+- Unknown MachineSpec fields remain outside this named presentation contract.
 
 <!-- field: validation_rules -->
 ## Validation rules
@@ -644,48 +969,77 @@ May indicate a removed feature or a typo.
 Diagnostics are returned as []MachineDiagnostic with severity,
 code, message, and the affected state/signal/transition index.
 
-<!-- field: examples | form: "tree" -->
+<!-- field: examples -->
 ## Examples
 
-1. - file: ../applications/catalog/agents/executor/machine.yaml
-   - description:
-     7 states, 11 signals, rich state/signal metadata. LLM-driven
-     loop with $tool dispatch. The generator iterates between
-     Composing and Parsing, using dynamic tool dispatch to execute
-     LLM-chosen tools. Includes purpose, invariants, lifecycle,
-     configuration cross-references, and a Mermaid pipeline diagram.
-1. - file: ../applications/catalog/agents/critic/machine.yaml
-   - description:
-     11 states, session-level orchestration with nested core.Loop.
-     Drives grid iteration over (harness, model, sample, rep) points.
-     Each point runs the per-point pipeline via a nested core.Loop
-     using ../applications/catalog/agents/critic/point.yaml. Rich state/signal metadata
-     throughout.
-1. - file: ../applications/catalog/agents/critic/point.yaml
-   - description:
-     15 states, 17 signals, linear pipeline with no LLM interaction.
-     Walks through workspace preparation, config snapshot, agent
-     execution, oracle check, trace collection, and metrics in a
-     fixed sequence with error handling. All states carry meaning
-     metadata and all signals carry trigger metadata.
-1. - file: ../applications/catalog/agents/planner/machine.yaml
-   - description:
-     16 states, complex branching with retry logic. Orchestrates
-     multi-step planning with LLM reasoning, sub-task decomposition,
-     issue creation, and error recovery paths. Rich metadata
-     including a Mermaid pipeline diagram.
-1. - file: ../applications/catalog/agents/bench/machine.yaml
-   - description:
-     Human-in-the-loop host machine. It launches the generic REST server,
-     awaits declared operator events, validates launch input, invokes the
-     critic through self_invoke, and drains the server on shutdown.
-1. - file: ../applications/catalog/agents/specification-critic/machine.yaml
-   - description:
-     6 states, linear 3-tool pipeline. The jurist
-     loads the specification corpus, runs consistency checks across
-     SRDs, machine grammars, and tool declarations, and formats the
-     report. No LLM calls. Rich state/signal metadata with purpose,
-     invariants, and lifecycle narrative.
+<!-- example: ../applications/catalog/agents/executor/machine.yaml -->
+### ../applications/catalog/agents/executor/machine.yaml
+
+<!-- field: description -->
+#### Description
+
+7 states, 11 signals, rich state/signal metadata. LLM-driven
+loop with $tool dispatch. The generator iterates between
+Composing and Parsing, using dynamic tool dispatch to execute
+LLM-chosen tools. Includes purpose, invariants, lifecycle,
+configuration cross-references, and a Mermaid pipeline diagram.
+
+<!-- example: ../applications/catalog/agents/critic/machine.yaml -->
+### ../applications/catalog/agents/critic/machine.yaml
+
+<!-- field: description -->
+#### Description
+
+11 states, session-level orchestration with nested core.Loop.
+Drives grid iteration over (harness, model, sample, rep) points.
+Each point runs the per-point pipeline via a nested core.Loop
+using ../applications/catalog/agents/critic/point.yaml. Rich state/signal metadata
+throughout.
+
+<!-- example: ../applications/catalog/agents/critic/point.yaml -->
+### ../applications/catalog/agents/critic/point.yaml
+
+<!-- field: description -->
+#### Description
+
+15 states, 17 signals, linear pipeline with no LLM interaction.
+Walks through workspace preparation, config snapshot, agent
+execution, oracle check, trace collection, and metrics in a
+fixed sequence with error handling. All states carry meaning
+metadata and all signals carry trigger metadata.
+
+<!-- example: ../applications/catalog/agents/planner/machine.yaml -->
+### ../applications/catalog/agents/planner/machine.yaml
+
+<!-- field: description -->
+#### Description
+
+16 states, complex branching with retry logic. Orchestrates
+multi-step planning with LLM reasoning, sub-task decomposition,
+issue creation, and error recovery paths. Rich metadata
+including a Mermaid pipeline diagram.
+
+<!-- example: ../applications/catalog/agents/bench/machine.yaml -->
+### ../applications/catalog/agents/bench/machine.yaml
+
+<!-- field: description -->
+#### Description
+
+Human-in-the-loop host machine. It launches the generic REST server,
+awaits declared operator events, validates launch input, invokes the
+critic through self_invoke, and drains the server on shutdown.
+
+<!-- example: ../applications/catalog/agents/specification-critic/machine.yaml -->
+### ../applications/catalog/agents/specification-critic/machine.yaml
+
+<!-- field: description -->
+#### Description
+
+6 states, linear 3-tool pipeline. The jurist
+loads the specification corpus, runs consistency checks across
+SRDs, machine grammars, and tool declarations, and formats the
+report. No LLM calls. Rich state/signal metadata with purpose,
+invariants, and lifecycle narrative.
 
 <!-- field: stage_fragments -->
 ## Stage fragments

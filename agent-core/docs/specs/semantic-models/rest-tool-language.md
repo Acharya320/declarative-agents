@@ -106,6 +106,122 @@ visible grammar flow.
 | workspace_environment_state | Workspace | [REST tools normally do not mutate workspace files., Future REST tools may write downloaded artifacts only when ToolDef declares filesystem side effects.] | Workspace restore applies only when a REST word declares workspace effects. |
 | external_service_state | remote_http_service | ["Resources created, updated, deleted, approved, triggered, or cancelled through outbound REST calls.", Network listeners exposed by REST server tools.] | External effects use noop, configured compensation, cancellation, or confirmation rules. The lifecycle model cannot erase remote audit history. |
 
+<!-- field: diagrams -->
+## Diagrams
+
+<!-- field: outbound_sync -->
+### Outbound sync
+
+```mermaid
+sequenceDiagram
+  participant M as MachineSpec
+  participant T as REST client word
+  participant D as RestDefinition
+  participant H as net/http
+  participant R as Result
+  M->>T: dispatch rest_client_get or invoke
+  T->>D: resolve client, resource, operation
+  T->>D: bind declared request fields
+  T->>H: send configured HTTP request
+  H-->>T: status, headers, body
+  T->>D: apply ResponseMapping
+  T-->>R: structured output and signal
+  R-->>M: route next transition
+```
+
+<!-- field: outbound_async_send_await -->
+### Outbound async send await
+
+```mermaid
+sequenceDiagram
+  participant M as MachineSpec
+  participant S as rest_client_send
+  participant A as AsyncRequest
+  participant H as net/http
+  participant W as rest_client_await
+  M->>S: dispatch send
+  S->>H: submit configured outbound work
+  H-->>S: accepted status and response
+  S->>A: store accepted request state
+  S-->>M: RESTAccepted
+  M->>W: dispatch await later
+  W->>A: read request state
+  W-->>M: RESTResponded, RESTDomainFailed, RESTMissing, RESTAwaitTimedOut, or CommandError
+```
+
+<!-- field: inbound_server_launch_await -->
+### Inbound server launch await
+
+```mermaid
+sequenceDiagram
+  participant M as MachineSpec
+  participant L as rest_server_launch
+  participant S as RestServer
+  participant E as Endpoint handler
+  participant Q as InboundEvent queue
+  participant A as rest_server_await
+  M->>L: dispatch launch
+  L->>S: bind address and register routes
+  L-->>M: ServerLaunched
+  E->>E: validate inbound HTTP request
+  E->>Q: enqueue configured signal and payload
+  M->>A: dispatch await
+  A->>Q: receive event
+  A-->>M: configured event signal
+```
+
+<!-- field: multi_source_rest_await_event -->
+### Multi source REST await event
+
+```mermaid
+sequenceDiagram
+  participant H1 as Control endpoint
+  participant H2 as Domain endpoint
+  participant Q as Server event queues
+  participant A as rest_await_event
+  participant M as MachineSpec
+  H1->>Q: enqueue AgentExitRequested
+  H2->>Q: enqueue DomainEventReceived
+  M->>A: dispatch with source and signal filters
+  A->>Q: select first matching event
+  A-->>M: selected event signal and payload
+  M->>M: route to visible lifecycle or domain action
+```
+
+<!-- field: machine_request_binding -->
+### Machine request binding
+
+```mermaid
+sequenceDiagram
+  participant H as HTTP handler
+  participant B as machine_request binding
+  participant M as MachineSpec
+  participant W as request words
+  participant R as response word
+  H->>H: validate request
+  H->>B: accepted request fields
+  B->>M: seed RequestEvent
+  M->>W: compose request sentence
+  W-->>M: declared signals
+  M->>R: prepare response
+  R-->>B: response output
+  B-->>H: mapped HTTP response
+```
+
+<!-- field: openapi_import_to_internal_definition -->
+### OpenAPI import to internal definition
+
+```mermaid
+flowchart LR
+  O[OpenAPI 3 document] --> I[OpenAPIImport]
+  I --> V[openapi3 validation]
+  V --> D[RestDefinition]
+  D --> C[RestClient operations]
+  D --> S[RestServer endpoints]
+  C --> T[REST client ToolDefs]
+  S --> U[REST server ToolDefs]
+```
+
 <!-- field: invariants -->
 ## Invariants
 
@@ -142,105 +258,6 @@ visible grammar flow.
 - Allowing model text or inbound callers to choose transport authority.
 - Modeling every provider-specific REST API.
 
-<!-- field: diagrams | form: "tree" -->
-## Diagrams
-
-- outbound_sync:
-  ```mermaid
-  sequenceDiagram
-    participant M as MachineSpec
-    participant T as REST client word
-    participant D as RestDefinition
-    participant H as net/http
-    participant R as Result
-    M->>T: dispatch rest_client_get or invoke
-    T->>D: resolve client, resource, operation
-    T->>D: bind declared request fields
-    T->>H: send configured HTTP request
-    H-->>T: status, headers, body
-    T->>D: apply ResponseMapping
-    T-->>R: structured output and signal
-    R-->>M: route next transition
-  ```
-- outbound_async_send_await:
-  ```mermaid
-  sequenceDiagram
-    participant M as MachineSpec
-    participant S as rest_client_send
-    participant A as AsyncRequest
-    participant H as net/http
-    participant W as rest_client_await
-    M->>S: dispatch send
-    S->>H: submit configured outbound work
-    H-->>S: accepted status and response
-    S->>A: store accepted request state
-    S-->>M: RESTAccepted
-    M->>W: dispatch await later
-    W->>A: read request state
-    W-->>M: RESTResponded, RESTDomainFailed, RESTMissing, RESTAwaitTimedOut, or CommandError
-  ```
-- inbound_server_launch_await:
-  ```mermaid
-  sequenceDiagram
-    participant M as MachineSpec
-    participant L as rest_server_launch
-    participant S as RestServer
-    participant E as Endpoint handler
-    participant Q as InboundEvent queue
-    participant A as rest_server_await
-    M->>L: dispatch launch
-    L->>S: bind address and register routes
-    L-->>M: ServerLaunched
-    E->>E: validate inbound HTTP request
-    E->>Q: enqueue configured signal and payload
-    M->>A: dispatch await
-    A->>Q: receive event
-    A-->>M: configured event signal
-  ```
-- multi_source_rest_await_event:
-  ```mermaid
-  sequenceDiagram
-    participant H1 as Control endpoint
-    participant H2 as Domain endpoint
-    participant Q as Server event queues
-    participant A as rest_await_event
-    participant M as MachineSpec
-    H1->>Q: enqueue AgentExitRequested
-    H2->>Q: enqueue DomainEventReceived
-    M->>A: dispatch with source and signal filters
-    A->>Q: select first matching event
-    A-->>M: selected event signal and payload
-    M->>M: route to visible lifecycle or domain action
-  ```
-- machine_request_binding:
-  ```mermaid
-  sequenceDiagram
-    participant H as HTTP handler
-    participant B as machine_request binding
-    participant M as MachineSpec
-    participant W as request words
-    participant R as response word
-    H->>H: validate request
-    H->>B: accepted request fields
-    B->>M: seed RequestEvent
-    M->>W: compose request sentence
-    W-->>M: declared signals
-    M->>R: prepare response
-    R-->>B: response output
-    B-->>H: mapped HTTP response
-  ```
-- openapi_import_to_internal_definition:
-  ```mermaid
-  flowchart LR
-    O[OpenAPI 3 document] --> I[OpenAPIImport]
-    I --> V[openapi3 validation]
-    V --> D[RestDefinition]
-    D --> C[RestClient operations]
-    D --> S[RestServer endpoints]
-    C --> T[REST client ToolDefs]
-    S --> U[REST server ToolDefs]
-  ```
-
 <!-- field: related_documents -->
 ## Related documents
 
@@ -255,20 +272,25 @@ visible grammar flow.
 - cfg-tool-declaration-format
 - cfg-tool-authoring-standard
 
-<!-- field: implementation_status | form: "tree" -->
+<!-- field: implementation_status -->
 ## Implementation status
 
-- implemented:
-  1. internal/tools/rest and tools/builtin/rest.
-  1. docs/specs/config-formats/rest-tool-format.md.
-  1. REST client resource, invoke, send, and await words.
-  1. REST server launch, await, stop, and rest_await_event fan-in words.
-  1. exit_agent lifecycle control word selected by MachineSpec after REST control events.
-  1. machine_request endpoint binding for short-lived request-machine runs.
-  1. OpenAPIImport preserves configured endpoint behavior while importing transport and schema fields.
-  1. ResponseMapping schema validation is enforced for client responses and machine_request terminal responses.
-  1. External service compensation metadata produces REST client undo mementos for mutating operations and drives rollback-time compensation execution through receipt rollback.
-  1. Top-level REST document_resources and machine_request.document_resources are typed target-format fields and are rejected explicitly until generic loading exists.
-- partial:
-  1. LifecycleControlEndpoint remains a target semantic entity. Current release 03.0 control routes use emit_signal endpoint bindings and MachineSpec transitions; modeled lifecycle_control endpoint config remains reserved.
-  1. RestEventSource non-default read_policy behavior remains reserved; unsupported values are rejected during ToolDef factory validation.
+<!-- field: implemented -->
+### Implemented
+
+- internal/tools/rest and tools/builtin/rest.
+- docs/specs/config-formats/rest-tool-format.md.
+- REST client resource, invoke, send, and await words.
+- REST server launch, await, stop, and rest_await_event fan-in words.
+- exit_agent lifecycle control word selected by MachineSpec after REST control events.
+- machine_request endpoint binding for short-lived request-machine runs.
+- OpenAPIImport preserves configured endpoint behavior while importing transport and schema fields.
+- ResponseMapping schema validation is enforced for client responses and machine_request terminal responses.
+- External service compensation metadata produces REST client undo mementos for mutating operations and drives rollback-time compensation execution through receipt rollback.
+- Top-level REST document_resources and machine_request.document_resources are typed target-format fields and are rejected explicitly until generic loading exists.
+
+<!-- field: partial -->
+### Partial
+
+- LifecycleControlEndpoint remains a target semantic entity. Current release 03.0 control routes use emit_signal endpoint bindings and MachineSpec transitions; modeled lifecycle_control endpoint config remains reserved.
+- RestEventSource non-default read_policy behavior remains reserved; unsupported values are rejected during ToolDef factory validation.

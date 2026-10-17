@@ -86,102 +86,205 @@ machine.yaml as a sequence of tool actions.
 | AP4 | undeclared_side_effect | A tool writes files, mutates state, calls APIs, or emits warnings without declaring it. | Add structured side_effects entries and undo/reversibility metadata. |
 | AP5 | implementation_name | A tool named for how it is implemented rather than what it means. | Rename around the vocabulary verb. |
 
-<!-- field: required_contract_sections | form: "tree" -->
+<!-- field: required_contract_sections -->
 ## Required contract sections
 
-- problem:
-  One paragraph explaining why the word exists and what vocabulary gap it
-  fills. If the gap cannot be stated clearly, do not add the tool.
-- goals:
-  Numbered, measurable success statements. Goals describe what becomes
-  possible when the tool is correct.
-- requirements:
-  - input: What the tool accepts, including formats, defaults, and preconditions.
-  - output: What the tool produces, including schema, signals, and result fields.
-  - side_effects: What the tool changes in files, memory, APIs, subprocesses, stderr/stdout, or human/model state.
-  - undo: How effects are reversed or compensated, or why they are not.
-  - errors: How the tool fails, which signal it emits, and what state remains.
-- non_goals:
-  Specific things the tool does not do. Non-goals prevent
-  one word from being misused as a hidden workflow.
-- output_schema:
-  Use output.description and output.schema to describe the structured output
-  contract. During migration, core.Result.Output may still be a string, but
-  the schema is the target contract and should be precise.
-- side_effects:
-  Use structured side_effects entries. Include kind, target, state, paths
-  when relevant, and a description. Use kind: none only when the tool truly
-  has no effects beyond output.
-- reversibility:
-  classification is required for new tools: reversible, compensatable, or
-  irreversible. requires_confirmation should be true for irreversible tools
-  that affect external systems or user data. A reversible or compensatable
-  state-mutating tool encodes an opaque receipt during Execute; a read-only
-  tool returns an empty receipt.
-- undo:
-  Name the exact strategy. Common strategies are noop,
-  conversation_truncate, session_state_restore, point_context_restore,
-  file_snapshot_restore, child_command_undo, or compensating_action. Undo is
-  receipt-consuming: it decodes the receipt the tool encoded during Execute
-  (prior content, resource ids, or a workspace commit hash) from the restored
-  Result and reverses the effect. The engine never interprets the receipt.
-  Builtin strategy names describe the typed Undo implementation registered by
-  that word. Exec declarations use the closed generic-exec set: noop,
-  workspace_restore, compensating_action, or irreversible. Startup rejects an
-  exec strategy the shared interpreter cannot honor.
-- errors:
-  Each expected failure mode should list signal, condition, message_shape,
-  and state_after_failure.
-- relationships:
-  Describe common neighbors. before lists likely preceding words, after lists
-  likely consumers, and overlaps explains similar tools and differences.
+<!-- field: problem -->
+### Problem
 
-<!-- field: machine_composition | form: "tree" -->
+One paragraph explaining why the word exists and what vocabulary gap it
+fills. If the gap cannot be stated clearly, do not add the tool.
+
+<!-- field: goals -->
+### Goals
+
+Numbered, measurable success statements. Goals describe what becomes
+possible when the tool is correct.
+
+<!-- field: requirements -->
+### Requirements
+
+<!-- field: input -->
+#### Input
+
+What the tool accepts, including formats, defaults, and preconditions.
+
+<!-- field: output -->
+#### Output
+
+What the tool produces, including schema, signals, and result fields.
+
+<!-- field: side_effects -->
+#### Side effects
+
+What the tool changes in files, memory, APIs, subprocesses, stderr/stdout, or human/model state.
+
+<!-- field: undo -->
+#### Undo
+
+How effects are reversed or compensated, or why they are not.
+
+<!-- field: errors -->
+#### Errors
+
+How the tool fails, which signal it emits, and what state remains.
+
+<!-- field: non_goals -->
+### Non goals
+
+Specific things the tool does not do. Non-goals prevent
+one word from being misused as a hidden workflow.
+
+<!-- field: output_schema -->
+### Output schema
+
+Use output.description and output.schema to describe the structured output
+contract. During migration, core.Result.Output may still be a string, but
+the schema is the target contract and should be precise.
+
+<!-- field: side_effects -->
+### Side effects
+
+Use structured side_effects entries. Include kind, target, state, paths
+when relevant, and a description. Use kind: none only when the tool truly
+has no effects beyond output.
+
+<!-- field: reversibility -->
+### Reversibility
+
+classification is required for new tools: reversible, compensatable, or
+irreversible. requires_confirmation should be true for irreversible tools
+that affect external systems or user data. A reversible or compensatable
+state-mutating tool encodes an opaque receipt during Execute; a read-only
+tool returns an empty receipt.
+
+<!-- field: undo -->
+### Undo
+
+Name the exact strategy. Common strategies are noop,
+conversation_truncate, session_state_restore, point_context_restore,
+file_snapshot_restore, child_command_undo, or compensating_action. Undo is
+receipt-consuming: it decodes the receipt the tool encoded during Execute
+(prior content, resource ids, or a workspace commit hash) from the restored
+Result and reverses the effect. The engine never interprets the receipt.
+Builtin strategy names describe the typed Undo implementation registered by
+that word. Exec declarations use the closed generic-exec set: noop,
+workspace_restore, compensating_action, or irreversible. Startup rejects an
+exec strategy the shared interpreter cannot honor.
+
+<!-- field: errors -->
+### Errors
+
+Each expected failure mode should list signal, condition, message_shape,
+and state_after_failure.
+
+<!-- field: relationships -->
+### Relationships
+
+Describe common neighbors. before lists likely preceding words, after lists
+likely consumers, and overlaps explains similar tools and differences.
+
+<!-- field: machine_composition -->
 ## Machine composition
 
-- rule:
-  machine.yaml owns sentences. If a behavior is a sequence, each step should
-  be a tool action with an emitted signal and transition. This makes the
-  program auditable, resumable, testable, and rollback-aware.
-- allowed_tool_composition:
-  A tool may call helpers internally to implement one verb. It must not hide
-  program flow. A boundary tool may run a nested machine or child process only
-  when that boundary is the declared word, and the contract must state that
-  a nested program can mutate state or workspace.
-- examples:
-  - good:
-    1. - sequence: create_point_dir -> copy_dir -> sample_docs -> conditional copy_dir -> git_init -> stage_all -> commit_workspace_baseline
-       - reason: Workspace preparation is visible in point.yaml as separate words.
-    1. - sequence: run_oracle_check -> record_oracle_result -> collect_trace_tokens -> check_agent_version -> summarize_point_results
-       - reason: Correctness, metrics, version checks, and summary are distinct point words.
-  - bad:
-    1. - tool: prepare_workspace
-       - reason: Creates directories, copies files, initializes git, stages, and commits in one command.
-    1. - tool: check_results
-       - reason: Runs oracle tests, parses trace tokens, checks version, and summarizes in one command.
+<!-- field: rule -->
+### Rule
 
-<!-- field: rollback_model | form: "tree" -->
+machine.yaml owns sentences. If a behavior is a sequence, each step should
+be a tool action with an emitted signal and transition. This makes the
+program auditable, resumable, testable, and rollback-aware.
+
+<!-- field: allowed_tool_composition -->
+### Allowed tool composition
+
+A tool may call helpers internally to implement one verb. It must not hide
+program flow. A boundary tool may run a nested machine or child process only
+when that boundary is the declared word, and the contract must state that
+a nested program can mutate state or workspace.
+
+<!-- field: examples -->
+### Examples
+
+<!-- field: good -->
+#### Good
+
+| sequence | reason |
+| --- | --- |
+| create_point_dir -> copy_dir -> sample_docs -> conditional copy_dir -> git_init -> stage_all -> commit_workspace_baseline | Workspace preparation is visible in point.yaml as separate words. |
+| run_oracle_check -> record_oracle_result -> collect_trace_tokens -> check_agent_version -> summarize_point_results | Correctness, metrics, version checks, and summary are distinct point words. |
+
+<!-- field: bad -->
+#### Bad
+
+| tool | reason |
+| --- | --- |
+| prepare_workspace | Creates directories, copies files, initializes git, stages, and commits in one command. |
+| check_results | Runs oracle tests, parses trace tokens, checks version, and summarizes in one command. |
+
+<!-- field: rollback_model -->
 ## Rollback model
 
-- persistence:
-  - description: Runtime state persists through the srd035 two-method checkpoint port (Save/Load), backed by the srd036 Dolt adapter by default and NoopCheckpoint when disabled. Each dispatched step is one ordered execution entry, and each entry carries the tool's opaque receipt.
-  - tracked_by: checkpoint port + Dolt commit history
-- receipt:
-  - description: "A state-mutating tool encodes an opaque Receipt during Execute capturing exactly what its Undo needs: prior file content, external resource ids, or a workspace git commit hash the tool manages itself. Read-only tools return an empty receipt."
-  - owned_by: the originating tool; the engine and the checkpoint adapters never interpret it
-- rollback:
-  - db_state: Dolt Revert(run_id, step_index) rewinds recorded state to a target step.
-  - external_effects: The checkpoint_rollback lifecycle tool walks the reverted entries in reverse and hands each restored, receipt-bearing Result to the tool's receipt-consuming Undo.
-- enforcement:
-  - presence: The validator checks receipt presence for reversible state-mutating tools.
-  - sufficiency: Receipt sufficiency is each tool's own round-trip test (Execute then Undo restores prior state).
-- authoring_rules:
-  1. State-mutating tools must encode a receipt during Execute and reverse the effect in a receipt-consuming Undo; read-only tools return an empty receipt and no-op undo.
-  1. Filesystem-mutating tools encode prior content or a workspace commit hash the tool manages as their receipt, and undo via file_snapshot_restore or compensating_action.
-  1. Boundary tools encode compensation metadata (child run id, resource id, artifact path) in the receipt when the effect can only be compensated, not erased.
-  1. No-op undo with an empty receipt is acceptable only for truly read-only/stateless words or temporary migration steps explicitly tracked in an audit.
-  1. Irreversible tools require requires_confirmation and declare why no receipt can reverse the effect.
-  1. The engine and checkpoint adapters treat receipts as opaque; only the originating tool decodes its receipt.
+<!-- field: persistence -->
+### Persistence
+
+<!-- field: description -->
+#### Description
+
+Runtime state persists through the srd035 two-method checkpoint port (Save/Load), backed by the srd036 Dolt adapter by default and NoopCheckpoint when disabled. Each dispatched step is one ordered execution entry, and each entry carries the tool's opaque receipt.
+
+<!-- field: tracked_by -->
+#### Tracked by
+
+checkpoint port + Dolt commit history
+
+<!-- field: receipt -->
+### Receipt
+
+<!-- field: description -->
+#### Description
+
+A state-mutating tool encodes an opaque Receipt during Execute capturing exactly what its Undo needs: prior file content, external resource ids, or a workspace git commit hash the tool manages itself. Read-only tools return an empty receipt.
+
+<!-- field: owned_by -->
+#### Owned by
+
+the originating tool; the engine and the checkpoint adapters never interpret it
+
+<!-- field: rollback -->
+### Rollback
+
+<!-- field: db_state -->
+#### Db state
+
+Dolt Revert(run_id, step_index) rewinds recorded state to a target step.
+
+<!-- field: external_effects -->
+#### External effects
+
+The checkpoint_rollback lifecycle tool walks the reverted entries in reverse and hands each restored, receipt-bearing Result to the tool's receipt-consuming Undo.
+
+<!-- field: enforcement -->
+### Enforcement
+
+<!-- field: presence -->
+#### Presence
+
+The validator checks receipt presence for reversible state-mutating tools.
+
+<!-- field: sufficiency -->
+#### Sufficiency
+
+Receipt sufficiency is each tool's own round-trip test (Execute then Undo restores prior state).
+
+<!-- field: authoring_rules -->
+### Authoring rules
+
+- State-mutating tools must encode a receipt during Execute and reverse the effect in a receipt-consuming Undo; read-only tools return an empty receipt and no-op undo.
+- Filesystem-mutating tools encode prior content or a workspace commit hash the tool manages as their receipt, and undo via file_snapshot_restore or compensating_action.
+- Boundary tools encode compensation metadata (child run id, resource id, artifact path) in the receipt when the effect can only be compensated, not erased.
+- No-op undo with an empty receipt is acceptable only for truly read-only/stateless words or temporary migration steps explicitly tracked in an audit.
+- Irreversible tools require requires_confirmation and declare why no receipt can reverse the effect.
+- The engine and checkpoint adapters treat receipts as opaque; only the originating tool decodes its receipt.
 
 <!-- field: authoring_workflow | form: "typed table" -->
 ## Authoring workflow
@@ -196,64 +299,80 @@ machine.yaml as a sequence of tool actions.
 | 6 | document_relationships | List before/after neighbors and overlapping tools. |
 | 7 | add_tests | Test success, domain failure, command error, side effects, and important undo/reversibility behavior. |
 
-<!-- field: declaration_placement | form: "tree" -->
+<!-- field: declaration_placement -->
 ## Declaration placement
 
-- status: planned
-- rule:
-  Place a tool declaration in the smallest shared group that owns its
-  vocabulary family. Keep behavior-shaping profile config in agent-local
-  declarations. Keep tools.yaml files name-only.
-- placement_steps:
-  1. Classify the tool as builtin or exec.
-  1. Classify the tool as shared reusable declaration, agent-local override, or compatibility bundle member.
-  1. Choose the group that matches the tool's primary vocabulary family.
-  1. Add profile-specific config only in agents/<agent>/builtin.yaml or agents/<agent>/llm/*.yaml.
-  1. Add the tool name to the agent tools.yaml selection only when that agent should use it.
-  1. Keep workflow order in machine.yaml transitions.
-- shared_builtin_groups:
-  - filesystem: tools/builtin/filesystem/
-  - llm: tools/builtin/llm/
-  - lifecycle: tools/builtin/lifecycle/
-  - control: tools/builtin/control/
-  - planner: tools/builtin/planner/
-  - evaluator_session: tools/builtin/critic-session/
-  - evaluator_point: tools/builtin/critic-point/
-  - bench: tools/builtin/bench/
-  - spec_validation: tools/builtin/spec-validation/
-  - objectstore: tools/builtin/objectstore/
-- shared_exec_groups:
-  - go: tools/exec/go/
-  - workspace: tools/exec/workspace/
-  - git: tools/exec/git/
-  - issues: tools/exec/issues/
-- compatibility_bundles:
-  1. tools/builtin.yaml
-  1. tools/exec.yaml
-  1. tools/builtin/all.yaml
-  1. tools/exec/all.yaml
-- override_rules:
-  1. Shared declarations define the stable vocabulary word and reusable contract.
-  1. Agent-local overrides define profile-bound config such as child profile, server address, prompt, suite paths, or model.
-  1. Agent-local overrides keep the same name and init unless the change intentionally replaces the capability.
-  1. Includes load first; local declarations override included declarations with the same tool name.
-  1. Compatibility bundles include grouped files and do not become the source of new tool contracts.
-- examples:
-  1. - tool: read
-     - placement: tools/builtin/filesystem/
-     - reason: Shared file word with no agent-local config.
-  1. - tool: invoke_llm
-     - placement: agents/<agent>/llm/*.yaml
-     - reason: Model, provider, prompt, and manifest state are profile-bound config.
-  1. - tool: invoke_executor
-     - placement: agents/planner/builtin.yaml as a self_invoke alias
-     - reason: Shared child-agent boundary word with planner-local child profile config.
-  1. - tool: build
-     - placement: tools/exec/go/
-     - reason: Shared Go CLI word.
-  1. - tool: issue_create
-     - placement: tools/exec/issues/
-     - reason: Shared issue tracker CLI boundary word.
+<!-- field: status -->
+### Status
+
+planned
+
+<!-- field: rule -->
+### Rule
+
+Place a tool declaration in the smallest shared group that owns its
+vocabulary family. Keep behavior-shaping profile config in agent-local
+declarations. Keep tools.yaml files name-only.
+
+<!-- field: placement_steps -->
+### Placement steps
+
+- Classify the tool as builtin or exec.
+- Classify the tool as shared reusable declaration, agent-local override, or compatibility bundle member.
+- Choose the group that matches the tool's primary vocabulary family.
+- Add profile-specific config only in agents/<agent>/builtin.yaml or agents/<agent>/llm/*.yaml.
+- Add the tool name to the agent tools.yaml selection only when that agent should use it.
+- Keep workflow order in machine.yaml transitions.
+
+<!-- field: shared_builtin_groups | form: "tree" -->
+### Shared builtin groups
+
+- filesystem: tools/builtin/filesystem/
+- llm: tools/builtin/llm/
+- lifecycle: tools/builtin/lifecycle/
+- control: tools/builtin/control/
+- planner: tools/builtin/planner/
+- evaluator_session: tools/builtin/critic-session/
+- evaluator_point: tools/builtin/critic-point/
+- bench: tools/builtin/bench/
+- spec_validation: tools/builtin/spec-validation/
+- objectstore: tools/builtin/objectstore/
+
+<!-- field: shared_exec_groups | form: "tree" -->
+### Shared exec groups
+
+- go: tools/exec/go/
+- workspace: tools/exec/workspace/
+- git: tools/exec/git/
+- issues: tools/exec/issues/
+
+<!-- field: compatibility_bundles -->
+### Compatibility bundles
+
+- tools/builtin.yaml
+- tools/exec.yaml
+- tools/builtin/all.yaml
+- tools/exec/all.yaml
+
+<!-- field: override_rules -->
+### Override rules
+
+- Shared declarations define the stable vocabulary word and reusable contract.
+- Agent-local overrides define profile-bound config such as child profile, server address, prompt, suite paths, or model.
+- Agent-local overrides keep the same name and init unless the change intentionally replaces the capability.
+- Includes load first; local declarations override included declarations with the same tool name.
+- Compatibility bundles include grouped files and do not become the source of new tool contracts.
+
+<!-- field: examples -->
+### Examples
+
+| tool | placement | reason |
+| --- | --- | --- |
+| read | tools/builtin/filesystem/ | Shared file word with no agent-local config. |
+| invoke_llm | agents/<agent>/llm/*.yaml | Model, provider, prompt, and manifest state are profile-bound config. |
+| invoke_executor | agents/planner/builtin.yaml as a self_invoke alias | Shared child-agent boundary word with planner-local child profile config. |
+| build | tools/exec/go/ | Shared Go CLI word. |
+| issue_create | tools/exec/issues/ | Shared issue tracker CLI boundary word. |
 
 <!-- field: acceptance_tests_for_authors -->
 ## Acceptance tests for authors
@@ -265,146 +384,356 @@ machine.yaml as a sequence of tool actions.
 - Can rollback machinery find all state layers the tool changed?
 - Can similar tools be distinguished from the relationships.overlaps entries?
 
-<!-- field: example_tools | form: "tree" -->
+<!-- field: example_tools -->
 ## Example tools
 
-- readonly_noop_word:
-  - name: read
-  - category: word
-  - problem: The machine needs a deterministic word that returns file contents without changing agent, command, or workspace state.
-  - emits:
-    1. ToolDone
-    1. CommandError
-  - side_effects:
-    1. - kind: none
-       - description: Read-only filesystem access; no state changes beyond Result.Output.
-  - reversibility:
-    - classification: reversible
-    - undo: noop
-    - receipt: empty
-  - undo:
-    - strategy: noop
-    - description: There is no effect to reverse because the word only observes state; it returns an empty receipt.
-  - why_good:
-    1. The verb is singular and deterministic.
-    1. "No-op undo is justified by an explicit side_effects: none contract."
-- reversible_state_word:
-  - name: report_parse_error
-  - category: stateful_internal
-  - problem: The generator grammar needs a word that turns parse errors into feedback and tracks consecutive retry count.
-  - emits:
-    1. ToolDone
-    1. BudgetExhausted
-  - side_effects:
-    1. - kind: command_state
-       - target: parse_retry_counter
-       - description: Increments the retry counter and may emit BudgetExhausted at the configured limit.
-  - reversibility:
-    - classification: reversible
-    - undo: parse_retry_counter_restore
-    - receipt: reversible_parse_retry_counter_snapshot
-  - undo:
-    - strategy: parse_retry_counter_restore
-    - description: Decode the retry-counter snapshot from the receipt encoded before the word executed and restore it.
-  - why_good:
-    1. The retry policy is grammar-visible through ParseFailed -> report_parse_error.
-    1. The command-owned state mutation has an exact undo strategy.
-- compensatable_boundary:
-  - name: create_tracker_issue
-  - category: boundary
-  - problem: The planner profile needs an exec word that creates an issue through its selected tracker CLI.
-  - emits:
-    1. ToolDone
-    1. ToolFailed
-    1. CommandError
-  - side_effects:
-    1. - kind: external_service_write
-       - target: issue_tracker
-       - description: Creates an issue outside the agent workspace.
-  - reversibility:
-    - classification: compensatable
-    - undo: close_or_mark_superseded
-    - receipt: compensatable_created_issue_id
-  - undo:
-    - strategy: compensating_action
-    - description: Decode the created issue id from the receipt and close it or mark it superseded; external audit history cannot be erased.
-  - why_good:
-    1. The external profile owns the tracker binary, arguments, and common output contract.
-    1. The contract does not pretend the external write is perfectly reversible.
-- irreversible_confirmation:
-  - name: publish_release
-  - category: boundary
-  - problem: A release machine may need a word that publishes an immutable artifact to external users.
-  - emits:
-    1. Published
-    1. PublishFailed
-    1. CommandError
-  - side_effects:
-    1. - kind: external_service_write
-       - target: release_registry
-       - description: Publishes an artifact that downstream users may consume immediately.
-  - reversibility:
-    - classification: irreversible
-    - requires_confirmation: true
-    - undo: none
-    - receipt: empty
-  - undo:
-    - strategy: irreversible
-    - description: The artifact may be deprecated later, but publication cannot be undone safely; no receipt can reverse it.
-  - why_good:
-    1. The irreversible effect is explicit before the tool is selected.
-    1. Human or policy confirmation is required before affecting external users.
-- good_word:
-  - name: collect_trace_tokens
-  - category: word
-  - problem: The point machine needs a word that extracts token counts from trace.ndjson without also judging correctness or writing metadata.
-  - emits:
-    1. TraceTokensCollected
-    1. CommandError
-  - side_effects:
-    1. - kind: state_mutation
-       - target: point_context
-       - state: trace_tokens_recorded
-       - description: Sets PointContext.Tokens.
-  - non_goals:
-    1. Does not run oracle tests.
-    1. Does not write meta.json.
-    1. Does not classify convergence.
-- good_boundary:
-  - name: run_point
-  - category: boundary
-  - problem: The evaluator session machine needs a word that enters the point machine for one PointContext.
-  - emits:
-    1. PointDone
-    1. CommandError
-  - side_effects:
-    1. - kind: nested_machine_execution
-       - target: evaluator_point_machine
-       - description: Runs agents/critic/point.yaml with point tools.
-    1. - kind: state_mutation
-       - target: eval_session_state
-       - description: Records the completed point result.
-  - non_goals:
-    1. Does not choose the point sequence; point.yaml does.
-- bad_sentence:
-  - name: prepare_workspace
-  - category: sentence
-  - problem: Creates a point directory, copies workspace and docs, initializes git, stages files, and commits.
-  - why_bad:
-    1. The description contains several verbs.
-    1. Intermediate failures leave ambiguous state unless each step is visible.
-    1. The sequence belongs in the point machine.
-  - replacement:
-    1. create_point_dir
-    1. copy_dir
-    1. sample_docs
-    1. conditional copy_dir
-    1. git_init
-    1. stage_all
-    1. commit_workspace_baseline
-  - why_replacement_is_better:
-    1. Each intermediate filesystem or git side effect has its own emitted signal.
-    1. Rollback can restore or compensate the exact word that failed.
+<!-- field: readonly_noop_word -->
+### Readonly noop word
+
+<!-- field: name -->
+#### Name
+
+read
+
+<!-- field: category -->
+#### Category
+
+word
+
+<!-- field: problem -->
+#### Problem
+
+The machine needs a deterministic word that returns file contents without changing agent, command, or workspace state.
+
+<!-- field: emits -->
+#### Emits
+
+- ToolDone
+- CommandError
+
+<!-- field: side_effects -->
+#### Side effects
+
+| kind | description |
+| --- | --- |
+| none | Read-only filesystem access; no state changes beyond Result.Output. |
+
+<!-- field: reversibility | form: "tree" -->
+#### Reversibility
+
+- classification: reversible
+- undo: noop
+- receipt: empty
+
+<!-- field: undo -->
+#### Undo
+
+<!-- field: strategy -->
+##### Strategy
+
+noop
+
+<!-- field: description -->
+##### Description
+
+There is no effect to reverse because the word only observes state; it returns an empty receipt.
+
+<!-- field: why_good -->
+#### Why good
+
+- The verb is singular and deterministic.
+- No-op undo is justified by an explicit side_effects: none contract.
+
+<!-- field: reversible_state_word -->
+### Reversible state word
+
+<!-- field: name -->
+#### Name
+
+report_parse_error
+
+<!-- field: category -->
+#### Category
+
+stateful_internal
+
+<!-- field: problem -->
+#### Problem
+
+The generator grammar needs a word that turns parse errors into feedback and tracks consecutive retry count.
+
+<!-- field: emits -->
+#### Emits
+
+- ToolDone
+- BudgetExhausted
+
+<!-- field: side_effects -->
+#### Side effects
+
+| kind | target | description |
+| --- | --- | --- |
+| command_state | parse_retry_counter | Increments the retry counter and may emit BudgetExhausted at the configured limit. |
+
+<!-- field: reversibility | form: "tree" -->
+#### Reversibility
+
+- classification: reversible
+- undo: parse_retry_counter_restore
+- receipt: reversible_parse_retry_counter_snapshot
+
+<!-- field: undo -->
+#### Undo
+
+<!-- field: strategy -->
+##### Strategy
+
+parse_retry_counter_restore
+
+<!-- field: description -->
+##### Description
+
+Decode the retry-counter snapshot from the receipt encoded before the word executed and restore it.
+
+<!-- field: why_good -->
+#### Why good
+
+- The retry policy is grammar-visible through ParseFailed -> report_parse_error.
+- The command-owned state mutation has an exact undo strategy.
+
+<!-- field: compensatable_boundary -->
+### Compensatable boundary
+
+<!-- field: name -->
+#### Name
+
+create_tracker_issue
+
+<!-- field: category -->
+#### Category
+
+boundary
+
+<!-- field: problem -->
+#### Problem
+
+The planner profile needs an exec word that creates an issue through its selected tracker CLI.
+
+<!-- field: emits -->
+#### Emits
+
+- ToolDone
+- ToolFailed
+- CommandError
+
+<!-- field: side_effects -->
+#### Side effects
+
+| kind | target | description |
+| --- | --- | --- |
+| external_service_write | issue_tracker | Creates an issue outside the agent workspace. |
+
+<!-- field: reversibility | form: "tree" -->
+#### Reversibility
+
+- classification: compensatable
+- undo: close_or_mark_superseded
+- receipt: compensatable_created_issue_id
+
+<!-- field: undo -->
+#### Undo
+
+<!-- field: strategy -->
+##### Strategy
+
+compensating_action
+
+<!-- field: description -->
+##### Description
+
+Decode the created issue id from the receipt and close it or mark it superseded; external audit history cannot be erased.
+
+<!-- field: why_good -->
+#### Why good
+
+- The external profile owns the tracker binary, arguments, and common output contract.
+- The contract does not pretend the external write is perfectly reversible.
+
+<!-- field: irreversible_confirmation -->
+### Irreversible confirmation
+
+<!-- field: name -->
+#### Name
+
+publish_release
+
+<!-- field: category -->
+#### Category
+
+boundary
+
+<!-- field: problem -->
+#### Problem
+
+A release machine may need a word that publishes an immutable artifact to external users.
+
+<!-- field: emits -->
+#### Emits
+
+- Published
+- PublishFailed
+- CommandError
+
+<!-- field: side_effects -->
+#### Side effects
+
+| kind | target | description |
+| --- | --- | --- |
+| external_service_write | release_registry | Publishes an artifact that downstream users may consume immediately. |
+
+<!-- field: reversibility | form: "tree" -->
+#### Reversibility
+
+- classification: irreversible
+- requires_confirmation: true
+- undo: none
+- receipt: empty
+
+<!-- field: undo -->
+#### Undo
+
+<!-- field: strategy -->
+##### Strategy
+
+irreversible
+
+<!-- field: description -->
+##### Description
+
+The artifact may be deprecated later, but publication cannot be undone safely; no receipt can reverse it.
+
+<!-- field: why_good -->
+#### Why good
+
+- The irreversible effect is explicit before the tool is selected.
+- Human or policy confirmation is required before affecting external users.
+
+<!-- field: good_word -->
+### Good word
+
+<!-- field: name -->
+#### Name
+
+collect_trace_tokens
+
+<!-- field: category -->
+#### Category
+
+word
+
+<!-- field: problem -->
+#### Problem
+
+The point machine needs a word that extracts token counts from trace.ndjson without also judging correctness or writing metadata.
+
+<!-- field: emits -->
+#### Emits
+
+- TraceTokensCollected
+- CommandError
+
+<!-- field: side_effects -->
+#### Side effects
+
+| kind | target | state | description |
+| --- | --- | --- | --- |
+| state_mutation | point_context | trace_tokens_recorded | Sets PointContext.Tokens. |
+
+<!-- field: non_goals -->
+#### Non goals
+
+- Does not run oracle tests.
+- Does not write meta.json.
+- Does not classify convergence.
+
+<!-- field: good_boundary -->
+### Good boundary
+
+<!-- field: name -->
+#### Name
+
+run_point
+
+<!-- field: category -->
+#### Category
+
+boundary
+
+<!-- field: problem -->
+#### Problem
+
+The evaluator session machine needs a word that enters the point machine for one PointContext.
+
+<!-- field: emits -->
+#### Emits
+
+- PointDone
+- CommandError
+
+<!-- field: side_effects -->
+#### Side effects
+
+| kind | target | description |
+| --- | --- | --- |
+| nested_machine_execution | evaluator_point_machine | Runs agents/critic/point.yaml with point tools. |
+| state_mutation | eval_session_state | Records the completed point result. |
+
+<!-- field: non_goals -->
+#### Non goals
+
+- Does not choose the point sequence; point.yaml does.
+
+<!-- field: bad_sentence -->
+### Bad sentence
+
+<!-- field: name -->
+#### Name
+
+prepare_workspace
+
+<!-- field: category -->
+#### Category
+
+sentence
+
+<!-- field: problem -->
+#### Problem
+
+Creates a point directory, copies workspace and docs, initializes git, stages files, and commits.
+
+<!-- field: why_bad -->
+#### Why bad
+
+- The description contains several verbs.
+- Intermediate failures leave ambiguous state unless each step is visible.
+- The sequence belongs in the point machine.
+
+<!-- field: replacement -->
+#### Replacement
+
+- create_point_dir
+- copy_dir
+- sample_docs
+- conditional copy_dir
+- git_init
+- stage_all
+- commit_workspace_baseline
+
+<!-- field: why_replacement_is_better -->
+#### Why replacement is better
+
+- Each intermediate filesystem or git side effect has its own emitted signal.
+- Rollback can restore or compensate the exact word that failed.
 
 <!-- field: migration_guidance -->
 ## Migration guidance

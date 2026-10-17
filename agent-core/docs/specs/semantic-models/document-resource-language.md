@@ -38,25 +38,36 @@ definitions decide when the resource is used.
 | DocumentResourceWord | vocabulary_word | Executes one declared document operation such as list, get, search, validate, or suggest. | [operation_signal, result_output] | [DocumentResource, ToolDef, MachineSpec] |
 | UIActorConfig | human_actor_configuration | Defines Knowledge Manager UI assets, labels, route/action mapping, grouping, and presentation rules for a human actor. | [ui_surface, human_action_contract] | [DocumentResource] |
 
-<!-- field: language_model | form: "tree" -->
+<!-- field: language_model -->
 ## Language model
 
-- corpus_as_resource:
-  A documentation corpus is a configured resource, not a Go route table. The
-  resource definition supplies authority. Runtime input supplies only declared
-  selectors inside that authority.
-- operations_as_words:
-  Document list, get, search, validate, and suggest behavior should be
-  visible as resource operations or MachineSpec words. A host may transport
-  requests, but it should not choose a hidden document workflow.
-- ui_as_actor_config:
-  The Knowledge Manager UI is human actor configuration. It shapes what the
-  human sees and which actions are available, just as a prompt shapes a model
-  actor. Generic server code only serves configured assets and dispatches
-  declared actions.
-- response_modes:
-  Response modes make output shape explicit. YAML and Markdown can be returned
-  raw, parsed, or both when configuration allows it.
+<!-- field: corpus_as_resource -->
+### Corpus as resource
+
+A documentation corpus is a configured resource, not a Go route table. The
+resource definition supplies authority. Runtime input supplies only declared
+selectors inside that authority.
+
+<!-- field: operations_as_words -->
+### Operations as words
+
+Document list, get, search, validate, and suggest behavior should be
+visible as resource operations or MachineSpec words. A host may transport
+requests, but it should not choose a hidden document workflow.
+
+<!-- field: ui_as_actor_config -->
+### UI as actor config
+
+The Knowledge Manager UI is human actor configuration. It shapes what the
+human sees and which actions are available, just as a prompt shapes a model
+actor. Generic server code only serves configured assets and dispatches
+declared actions.
+
+<!-- field: response_modes -->
+### Response modes
+
+Response modes make output shape explicit. YAML and Markdown can be returned
+raw, parsed, or both when configuration allows it.
 
 <!-- field: relationships | form: "keyed table" -->
 ## Relationships
@@ -81,36 +92,41 @@ definitions decide when the resource is used.
 | validate | Resource-relative paths or configured validation scope. | status, findings, checked paths, and parser diagnostics. | [DocumentValidationPassed, DocumentValidationFailed, DocumentResourceDenied, CommandError] |
 | suggest | Resource-relative path and instruction payload from a trusted machine or UI action. | suggestion ID, path, suggestions, and redacted patch preview. | [DocumentSuggestionReady, DocumentResourceDenied, CommandError] |
 
-<!-- field: diagrams | form: "tree" -->
+<!-- field: diagrams -->
 ## Diagrams
 
-- profile_configures_resource_and_ui:
-  ```mermaid
-  flowchart LR
-    P[Profile] --> R[DocumentResource]
-    P --> U[UIActorConfig]
-    R --> ROOT[CorpusRoot docs/]
-    R --> POLICY[PathPolicy]
-    R --> MODE[Response modes]
-    U --> ACTIONS[UI route and action config]
-    ACTIONS --> R
-  ```
-- request_machine_reads_document:
-  ```mermaid
-  sequenceDiagram
-    participant H as HTTP request
-    participant M as MachineSpec
-    participant W as document resource word
-    participant R as DocumentResource
-    participant P as PathPolicy
-    H->>M: RequestEvent
-    M->>W: dispatch get_document
-    W->>R: resolve configured resource
-    R->>P: validate selector
-    P-->>R: accepted relative path
-    R-->>W: raw or parsed response output
-    W-->>M: DocumentReady signal
-  ```
+<!-- field: profile_configures_resource_and_ui -->
+### Profile configures resource and UI
+
+```mermaid
+flowchart LR
+  P[Profile] --> R[DocumentResource]
+  P --> U[UIActorConfig]
+  R --> ROOT[CorpusRoot docs/]
+  R --> POLICY[PathPolicy]
+  R --> MODE[Response modes]
+  U --> ACTIONS[UI route and action config]
+  ACTIONS --> R
+```
+
+<!-- field: request_machine_reads_document -->
+### Request machine reads document
+
+```mermaid
+sequenceDiagram
+  participant H as HTTP request
+  participant M as MachineSpec
+  participant W as document resource word
+  participant R as DocumentResource
+  participant P as PathPolicy
+  H->>M: RequestEvent
+  M->>W: dispatch get_document
+  W->>R: resolve configured resource
+  R->>P: validate selector
+  P-->>R: accepted relative path
+  R-->>W: raw or parsed response output
+  W-->>M: DocumentReady signal
+```
 
 <!-- field: invariants -->
 ## Invariants

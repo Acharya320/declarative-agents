@@ -32,80 +32,145 @@ repository. They name configuration, actor contracts, and dependency
 direction. MachineSpec interpretation, tool dispatch, nested loop execution,
 and reusable runtime ports remain in agent-core.
 
-<!-- field: system_boundary | form: "tree" -->
+<!-- field: system_boundary -->
 ## System boundary
 
-- profile_repository: applications/catalog
-- runtime_repository: agent-core
-- rule:
-  applications/catalog owns configured agent programs and profile-local assets.
-  agent-core owns runtime execution, builtin implementations, shared runtime
-  assets, and container build mechanics.
+<!-- field: profile_repository -->
+### Profile repository
 
-<!-- field: role_groups | form: "tree" -->
+applications/catalog
+
+<!-- field: runtime_repository -->
+### Runtime repository
+
+agent-core
+
+<!-- field: rule -->
+### Rule
+
+applications/catalog owns configured agent programs and profile-local assets.
+agent-core owns runtime execution, builtin implementations, shared runtime
+assets, and container build mechanics.
+
+<!-- field: role_groups -->
 ## Role groups
 
-1. - id: production_work
-   - profiles:
-     1. executor
-     1. planner
-     1. deployment-applier
-   - summary:
-     Production work covers task planning, coding, and deployment actuation.
-     Planner decomposes requirements and invokes executor. Executor edits a
-     target workspace, while applier realizes a caller-decided deployment
-     change through application-owned rollout boundaries.
-1. - id: evaluation_work
-   - profiles:
-     1. critic
-     1. bench
-   - summary:
-     Evaluation work measures agent behavior. Bench accepts human launch
-     requests, while critic expands suites and runs point pipelines.
-     Configured child profile execution stays inside the critic point flow.
-1. - id: validation_work
-   - profiles:
-     1. specification-critic
-   - summary:
-     Validation work reads documentation and specification corpora through a
-     deterministic tool pipeline. No model boundary participates in this role.
-1. - id: knowledge_work
-   - profiles:
-     1. documentation-curator
-     1. corpus-ingest
-     1. corpus-reader
-   - summary:
-     Knowledge work curates documentation and maintains a reusable retrieval
-     corpus. Corpus profiles compute provider embeddings and sequence explicit
-     Chroma boundaries; documentation-curator serves human-facing workflows.
-1. - id: test_infrastructure
-   - profiles:
-     1. scenario-critic
-     1. mock
-   - summary:
-     Supported test-time members compose profile-owned scenarios and replace
-     external REST dependencies with deterministic fixtures.
-1. - id: diagnostic_work
-   - profiles:
-     1. rig-doctor
-   - summary:
-     Diagnostic work reads one captured rig evidence directory and the trace
-     spool tail it carries, correlates events, rollout counts, logs, and
-     spans, and writes a diagnosis whose claims cite the captured files. No
-     cluster boundary participates; the snapshot is the only input.
-1. - id: boundary_runtime_work
-   - profiles:
-     1. rest
-     1. runtime-state-reader
-     1. collector
-     1. control
-     1. lifecycle
-     1. lifecycle-exit
-     1. application-purge
-   - summary:
-     Boundary runtime work exercises REST, monitor, control, and lifecycle
-     vocabulary. Each boundary appears as explicit MachineSpec steps rather
-     than hidden runtime branching.
+<!-- role_group: production_work -->
+### production_work
+
+<!-- field: profiles -->
+#### Profiles
+
+- executor
+- planner
+- deployment-applier
+
+<!-- field: summary -->
+#### Summary
+
+Production work covers task planning, coding, and deployment actuation.
+Planner decomposes requirements and invokes executor. Executor edits a
+target workspace, while applier realizes a caller-decided deployment
+change through application-owned rollout boundaries.
+
+<!-- role_group: evaluation_work -->
+### evaluation_work
+
+<!-- field: profiles -->
+#### Profiles
+
+- critic
+- bench
+
+<!-- field: summary -->
+#### Summary
+
+Evaluation work measures agent behavior. Bench accepts human launch
+requests, while critic expands suites and runs point pipelines.
+Configured child profile execution stays inside the critic point flow.
+
+<!-- role_group: validation_work -->
+### validation_work
+
+<!-- field: profiles -->
+#### Profiles
+
+- specification-critic
+
+<!-- field: summary -->
+#### Summary
+
+Validation work reads documentation and specification corpora through a
+deterministic tool pipeline. No model boundary participates in this role.
+
+<!-- role_group: knowledge_work -->
+### knowledge_work
+
+<!-- field: profiles -->
+#### Profiles
+
+- documentation-curator
+- corpus-ingest
+- corpus-reader
+
+<!-- field: summary -->
+#### Summary
+
+Knowledge work curates documentation and maintains a reusable retrieval
+corpus. Corpus profiles compute provider embeddings and sequence explicit
+Chroma boundaries; documentation-curator serves human-facing workflows.
+
+<!-- role_group: test_infrastructure -->
+### test_infrastructure
+
+<!-- field: profiles -->
+#### Profiles
+
+- scenario-critic
+- mock
+
+<!-- field: summary -->
+#### Summary
+
+Supported test-time members compose profile-owned scenarios and replace
+external REST dependencies with deterministic fixtures.
+
+<!-- role_group: diagnostic_work -->
+### diagnostic_work
+
+<!-- field: profiles -->
+#### Profiles
+
+- rig-doctor
+
+<!-- field: summary -->
+#### Summary
+
+Diagnostic work reads one captured rig evidence directory and the trace
+spool tail it carries, correlates events, rollout counts, logs, and
+spans, and writes a diagnosis whose claims cite the captured files. No
+cluster boundary participates; the snapshot is the only input.
+
+<!-- role_group: boundary_runtime_work -->
+### boundary_runtime_work
+
+<!-- field: profiles -->
+#### Profiles
+
+- rest
+- runtime-state-reader
+- collector
+- control
+- lifecycle
+- lifecycle-exit
+- application-purge
+
+<!-- field: summary -->
+#### Summary
+
+Boundary runtime work exercises REST, monitor, control, and lifecycle
+vocabulary. Each boundary appears as explicit MachineSpec steps rather
+than hidden runtime branching.
 
 <!-- field: dependency_directions | form: "typed table" -->
 ## Dependency directions

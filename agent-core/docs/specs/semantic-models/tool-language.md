@@ -46,22 +46,33 @@ words, boundary tools, and legacy sentence tools.
 | LifecycleProfile | configured_program | Selects lifecycle MachineSpec, ToolDef declarations, and runtime lifecycle ports through the normal profile contract. |
 | LifecycleToolAdapter | executable_tool_instance | Exposes core lifecycle operations as declared STL builtin Commands selected by MachineSpec actions. |
 
-<!-- field: language_model | form: "tree" -->
+<!-- field: language_model -->
 ## Language model
 
-- vocabulary_word:
-  A tool is one clear verb. It has typed input, typed output, declared side
-  effects, explicit error semantics, and a reversibility/undo strategy.
-- sentence:
-  A workflow is a sequence of words. Workflows belong in MachineSpec
-  transitions, not hidden inside a single tool implementation.
-- grammar:
-  MachineSpec is the grammar. States are positions in the sentence, Signals
-  are punctuation/outcomes, and transition actions select the next word to
-  execute.
-- runtime:
-  Loop interprets the grammar by asking Registry/Builder for a Command,
-  dispatching it, then routing on Result.Signal.
+<!-- field: vocabulary_word -->
+### Vocabulary word
+
+A tool is one clear verb. It has typed input, typed output, declared side
+effects, explicit error semantics, and a reversibility/undo strategy.
+
+<!-- field: sentence -->
+### Sentence
+
+A workflow is a sequence of words. Workflows belong in MachineSpec
+transitions, not hidden inside a single tool implementation.
+
+<!-- field: grammar -->
+### Grammar
+
+MachineSpec is the grammar. States are positions in the sentence, Signals
+are punctuation/outcomes, and transition actions select the next word to
+execute.
+
+<!-- field: runtime -->
+### Runtime
+
+Loop interprets the grammar by asking Registry/Builder for a Command,
+dispatching it, then routing on Result.Signal.
 
 <!-- field: tool_categories | form: "keyed table" -->
 ## Tool categories
@@ -87,48 +98,62 @@ words, boundary tools, and legacy sentence tools.
 | LifecycleProfile_to_LifecycleToolAdapter | A lifecycle profile selects the lifecycle machine and the checkpoint_history or checkpoint_rollback ToolDefs. | Lifecycle behavior is still a configured program, not a hidden CLI workflow. |
 | LifecycleToolAdapter_to_CoreCheckpointOperations | Lifecycle adapters execute one declared tool action and delegate checkpoint algorithms to internal/runtime/core. | The adapter owns ToolDef config and Result signals; core owns traversal and checkpoint data rules. |
 
-<!-- field: machine_composition | form: "tree" -->
+<!-- field: machine_composition -->
 ## Machine composition
 
-- static_actions:
-  A transition action names a specific tool. This is appropriate for internal
-  workflow steps such as build -> lint -> test or evaluator point setup.
-- dynamic_tool_dispatch:
-  The $tool sentinel resolves a parsed LLM tool call through Registry at
-  dispatch time. Dynamic dispatch still executes one selected word.
+<!-- field: static_actions -->
+### Static actions
 
-  The current MachineSpec state is the current grammar phase. For an LLM
-  boundary in that state, the tool manifest contains only external words that
-  the next $tool transition may dispatch and whose declared Result.Signal
-  values can route from the target state. Terminal target states need no
-  further outgoing signal routes.
+A transition action names a specific tool. This is appropriate for internal
+workflow steps such as build -> lint -> test or evaluator point setup.
 
-  ToolSpec phases are runtime metadata for registry manifests. They may
-  narrow the transition-derived availability set, but they do not define
-  workflow order. MachineSpec remains the source of truth for which words are
-  legal in a phase.
+<!-- field: dynamic_tool_dispatch -->
+### Dynamic tool dispatch
 
-  Runtime parsing and dispatch check the parsed tool name against the same
-  current-state availability set. A model request for a registered external
-  tool that is not valid in the current state emits ParseFailed with an
-  out-of-state diagnostic. Unknown tool names and schema mismatches also use
-  ParseFailed, with distinct diagnostic text.
-- boundary_or_nested_machine:
-  A boundary tool may run a child process or nested machine, but the boundary
-  must be explicit in ToolDef. The parent MachineSpec sees one boundary word
-  and declared Signals; the child MachineSpec owns the nested sentence.
-  Child-agent boundaries prefer config.profile and invoke children with
-  --profile. Legacy machine/tools/tool_declarations triples are compatibility
-  fallback only.
-- lifecycle_profiles:
-  Lifecycle history and rollback are ordinary configured programs. A profile
-  selects a lifecycle MachineSpec and lifecycle ToolDefs. The machine invokes
-  checkpoint_history or checkpoint_rollback by name. Legacy exec wrappers or
-  hidden Cobra subcommands are migration artifacts only.
-- validation_sequence:
-  Validation is a visible sentence in machine.yaml. Atomic validation words
-  execute through ordinary machine transitions; no aggregate runtime path
-  replays skipped tools.
+The $tool sentinel resolves a parsed LLM tool call through Registry at
+dispatch time. Dynamic dispatch still executes one selected word.
+
+The current MachineSpec state is the current grammar phase. For an LLM
+boundary in that state, the tool manifest contains only external words that
+the next $tool transition may dispatch and whose declared Result.Signal
+values can route from the target state. Terminal target states need no
+further outgoing signal routes.
+
+ToolSpec phases are runtime metadata for registry manifests. They may
+narrow the transition-derived availability set, but they do not define
+workflow order. MachineSpec remains the source of truth for which words are
+legal in a phase.
+
+Runtime parsing and dispatch check the parsed tool name against the same
+current-state availability set. A model request for a registered external
+tool that is not valid in the current state emits ParseFailed with an
+out-of-state diagnostic. Unknown tool names and schema mismatches also use
+ParseFailed, with distinct diagnostic text.
+
+<!-- field: boundary_or_nested_machine -->
+### Boundary or nested machine
+
+A boundary tool may run a child process or nested machine, but the boundary
+must be explicit in ToolDef. The parent MachineSpec sees one boundary word
+and declared Signals; the child MachineSpec owns the nested sentence.
+Child-agent boundaries prefer config.profile and invoke children with
+--profile. Legacy machine/tools/tool_declarations triples are compatibility
+fallback only.
+
+<!-- field: lifecycle_profiles -->
+### Lifecycle profiles
+
+Lifecycle history and rollback are ordinary configured programs. A profile
+selects a lifecycle MachineSpec and lifecycle ToolDefs. The machine invokes
+checkpoint_history or checkpoint_rollback by name. Legacy exec wrappers or
+hidden Cobra subcommands are migration artifacts only.
+
+<!-- field: validation_sequence -->
+### Validation sequence
+
+Validation is a visible sentence in machine.yaml. Atomic validation words
+execute through ordinary machine transitions; no aggregate runtime path
+replays skipped tools.
 
 <!-- field: migration_states | form: "keyed table" -->
 ## Migration states
@@ -142,69 +167,83 @@ words, boundary tools, and legacy sentence tools.
 | deprecated_compatibility | Tool remains for old machines but should not be used for new workflows. | hide from LLM tool lists, document replacement sequence, and remove when callers migrate. |
 | transitional_cli_adapter | Command-line entry point remains only to bridge users to profile-first lifecycle programs. | replace with lifecycle profiles and first-class lifecycle ToolDefs. |
 
-<!-- field: diagrams | form: "tree" -->
+<!-- field: diagrams -->
 ## Diagrams
 
-- machine_as_sentence_composer:
-  ```mermaid
-  flowchart TD
-    M[MachineSpec] --> S1[State A]
-    S1 -->|Signal X| W1[Tool word: build]
-    W1 --> R1[Result.Signal ToolDone]
-    R1 --> S2[State B]
-    S2 -->|ToolDone| W2[Tool word: lint]
-    W2 --> R2[Result.Signal ToolDone]
-    R2 --> S3[State C]
-    S3 -->|ToolDone| W3[Tool word: test]
-  ```
-- declaration_to_execution:
-  ```mermaid
-  sequenceDiagram
-    participant D as ToolDef
-    participant R as Registry
-    participant B as Builder
-    participant C as Command
-    participant M as MachineSpec
-    participant L as Loop
-    D->>R: register selected ToolSpec
-    L->>M: step(state, signal)
-    M-->>L: action name
-    L->>R: resolve builder
-    R-->>L: Builder
-    L->>B: Build(previous Result)
-    B-->>L: Command
-    L->>C: Execute
-    C-->>L: Result.Signal
-  ```
-- boundary_tool:
-  ```mermaid
-  flowchart LR
-    P[Parent MachineSpec] --> B[Boundary Tool]
-    B --> E[External actor or child machine]
-    E --> B
-    B -->|declared Signal| P
-    B -->|declared side effects| L[Lifecycle model]
-  ```
-- legacy_sentence_migration:
-  ```mermaid
-  flowchart LR
-    A[Legacy sentence tool] --> B[Identify verbs]
-    B --> C[Create word ToolDefs]
-    C --> D[Declare emits and side effects]
-    D --> E[Move sequence to machine.yaml]
-    E --> F[Mark aggregate deprecated]
-  ```
-- lifecycle_adapter_word:
-  ```mermaid
-  flowchart LR
-    P[LifecycleProfile] --> M[MachineSpec]
-    M -->|action checkpoint_history| H[LifecycleToolAdapter]
-    M -->|action checkpoint_rollback| R[LifecycleToolAdapter]
-    H --> C[Core checkpoint operations]
-    R --> C
-    H -->|Result.Signal| M
-    R -->|Result.Signal| M
-  ```
+<!-- field: machine_as_sentence_composer -->
+### Machine as sentence composer
+
+```mermaid
+flowchart TD
+  M[MachineSpec] --> S1[State A]
+  S1 -->|Signal X| W1[Tool word: build]
+  W1 --> R1[Result.Signal ToolDone]
+  R1 --> S2[State B]
+  S2 -->|ToolDone| W2[Tool word: lint]
+  W2 --> R2[Result.Signal ToolDone]
+  R2 --> S3[State C]
+  S3 -->|ToolDone| W3[Tool word: test]
+```
+
+<!-- field: declaration_to_execution -->
+### Declaration to execution
+
+```mermaid
+sequenceDiagram
+  participant D as ToolDef
+  participant R as Registry
+  participant B as Builder
+  participant C as Command
+  participant M as MachineSpec
+  participant L as Loop
+  D->>R: register selected ToolSpec
+  L->>M: step(state, signal)
+  M-->>L: action name
+  L->>R: resolve builder
+  R-->>L: Builder
+  L->>B: Build(previous Result)
+  B-->>L: Command
+  L->>C: Execute
+  C-->>L: Result.Signal
+```
+
+<!-- field: boundary_tool -->
+### Boundary tool
+
+```mermaid
+flowchart LR
+  P[Parent MachineSpec] --> B[Boundary Tool]
+  B --> E[External actor or child machine]
+  E --> B
+  B -->|declared Signal| P
+  B -->|declared side effects| L[Lifecycle model]
+```
+
+<!-- field: legacy_sentence_migration -->
+### Legacy sentence migration
+
+```mermaid
+flowchart LR
+  A[Legacy sentence tool] --> B[Identify verbs]
+  B --> C[Create word ToolDefs]
+  C --> D[Declare emits and side effects]
+  D --> E[Move sequence to machine.yaml]
+  E --> F[Mark aggregate deprecated]
+```
+
+<!-- field: lifecycle_adapter_word -->
+### Lifecycle adapter word
+
+```mermaid
+flowchart LR
+  P[LifecycleProfile] --> M[MachineSpec]
+  M -->|action checkpoint_history| H[LifecycleToolAdapter]
+  M -->|action checkpoint_rollback| R[LifecycleToolAdapter]
+  H --> C[Core checkpoint operations]
+  R --> C
+  H -->|Result.Signal| M
+  R -->|Result.Signal| M
+```
 
 <!-- field: invariants -->
 ## Invariants

@@ -37,458 +37,1019 @@ declarations remain under agent-core/tools, and their Go implementations
 remain under agent-core/internal/tools. Application-only declarations,
 topology, wrappers, deployment, and UX are excluded from catalog membership.
 
-<!-- field: shared_authority | form: "tree" -->
+<!-- field: shared_authority -->
 ## Shared authority
 
-- id: sm-agent-role-realizations
-- path: ../../../../docs/specs/semantic-models/agent-role-realizations.md
-- owns:
-  1. pinned canonical role and sub-role IDs
-  1. actor-to-role and actor-to-sub-role bindings
-  1. naming grammar
-  1. realization classifications
-  1. wrapper and variant inheritance
-  1. migration aliases
-- reciprocal_index: ../../SPECIFICATIONS.md#semantic_model_index
-- compatibility_note:
-  The `roles` sequence below is retained until executable governance migrates
-  existing readers. Its IDs identify catalog profile entries, not a second
-  canonical role authority.
+<!-- field: id -->
+### ID
 
-<!-- field: roles | form: "tree" -->
+sm-agent-role-realizations
+
+<!-- field: path -->
+### Path
+
+../../../../docs/specs/semantic-models/agent-role-realizations.md
+
+<!-- field: owns -->
+### Owns
+
+- pinned canonical role and sub-role IDs
+- actor-to-role and actor-to-sub-role bindings
+- naming grammar
+- realization classifications
+- wrapper and variant inheritance
+- migration aliases
+
+<!-- field: reciprocal_index -->
+### Reciprocal index
+
+../../SPECIFICATIONS.md#semantic_model_index
+
+<!-- field: compatibility_note -->
+### Compatibility note
+
+The `roles` sequence below is retained until executable governance migrates
+existing readers. Its IDs identify catalog profile entries, not a second
+canonical role authority.
+
+<!-- field: roles -->
 ## Roles
 
-1. - id: executor
-   - title: Coding agent
-   - profile_path: agents/executor/profile.yaml
-   - actor_boundary: model plus workspace tools
-   - inputs:
-     1. task prompt
-     1. mounted workspace
-     1. selected model config
-   - selected_tool_families:
-     1. filesystem
-     1. llm
-     1. go exec validation
-   - runtime_dependencies:
-     1. agent-core loop runtime
-     1. agent-core builtin filesystem and LLM tools
-     1. agent-core exec tool declarations for Go validation
-   - outputs:
-     1. workspace changes
-     1. validation results
-     1. terminal status
-     1. task summary
-   - outcomes:
-     1. Succeeded
-     1. Failed
-     1. BudgetExceeded
-   - checks:
-     1. Load profile from the demo.yaml catalog_root.
-     1. Run mounted profile command with --profile and --directory.
-     1. Confirm build, lint, and test validation are machine-declared.
-1. - id: critic
-   - title: Evaluation session and point runner
-   - profile_path: agents/critic/profile.yaml
-   - actor_boundary: suite fixtures plus child agent process
-   - inputs:
-     1. suite YAML
-     1. samples
-     1. model or profile grid
-     1. oracle command
-   - selected_tool_families:
-     1. critic session
-     1. critic point
-     1. child profile execution
-   - runtime_dependencies:
-     1. agent-core nested loop execution
-     1. profile-owned suites and samples
-   - outputs:
-     1. point directories
-     1. oracle results
-     1. trace token counts
-     1. metrics
-     1. session report
-   - outcomes:
-     1. Done
-     1. Failed
-   - checks:
-     1. Resolve suite fixtures through the demo.yaml catalog_root.
-     1. Confirm point machine runs in isolated workspaces.
-     1. Confirm failed child runs still produce point summaries and metrics.
-     1. Trace critic to executor with rel07.0-uc002-evaluator-generator-profile-boundary.
-1. - id: planner
-   - title: Requirement planner and issue materializer
-   - profile_path: agents/planner/profile.yaml
-   - actor_boundary: requirement graph, model, issue queue, and child executor
-   - inputs:
-     1. requirement graph
-     1. SRD context
-     1. planning model config
-   - selected_tool_families:
-     1. planner tools
-     1. llm
-     1. Go validation
-     1. child profile execution
-   - runtime_dependencies:
-     1. agent-core planning tool implementations
-     1. agent-core model boundary
-     1. profile-selected issue tracker CLI declaration
-   - outputs:
-     1. implementation plan
-     1. created issue
-     1. graph status changes
-     1. validation results
-   - outcomes:
-     1. Completed
-     1. Stalled
-     1. Failed
-   - checks:
-     1. Confirm planner invokes executor as a child profile.
-     1. Confirm issues are materialized through format, write, profile-selected tracker exec, and result-recording words.
-     1. Confirm graph terminal states are explicit.
-     1. Trace planner to executor with rel07.0-uc003-planner-generator-profile-boundary.
-1. - id: specification-critic
-   - title: Specification validator
-   - profile_path: agents/specification-critic/profile.yaml
-   - canonical_binding:
-     - role: critic
-     - sub_roles:
-       1. output-evaluator
-   - excluded_binding:
-     - role: guardian
-     - sub_role: policy-enforcer
-     - reason: The profile evaluates and reports specification findings but has no policy enforcement authority.
-   - actor_boundary: local target directory and charter suites
-   - inputs:
-     1. target directory
-     1. charter suite path or paths
-     1. docs corpus for the built-in spec_corpus suite
-   - selected_tool_families:
-     1. specification validation
-     1. ripgrep search and finding reduction
-   - runtime_dependencies:
-     1. agent-core spec validation tools
-     1. rg, shared with the filesystem find capability
-   - outputs:
-     1. validation report with suite and check provenance
-     1. pass or fail status
-   - outcomes:
-     1. Passed
-     1. Failed
-   - checks:
-     1. Confirm no LLM boundary is selected.
-     1. Confirm report formatting runs for pass and fail outcomes.
-     1. Confirm charter suites run deterministically over the target directory.
-     1. Confirm findings identify suite, check, file, and line when available.
-1. - id: bench
-   - title: Human-operated evaluation launcher
-   - profile_path: agents/bench/profile.yaml
-   - actor_boundary: human HTTP operator and critic process
-   - inputs:
-     1. human UI action
-     1. experiment configuration
-   - selected_tool_families:
-     1. bench UI
-     1. critic launch
-   - runtime_dependencies:
-     1. agent-core serve lifecycle and service-child words (start_service, list_services)
-     1. critic profile
-   - outputs:
-     1. served UI
-     1. detached critic run handle
-     1. run listing with outcomes
-   - outcomes:
-     1. Done
-     1. Failed
-   - checks:
-     1. Confirm the control server's lifecycle exit is the only host await; launches run through the experiments capability.
-     1. Confirm start_service delegates session execution to critic as a detached child bounded by max_running.
-     1. Trace bench to critic with rel07.0-uc004-bench-evaluator-profile-boundary.
-1. - id: runtime-state-reader
-   - title: Runtime state reader
-   - profile_path: agents/runtime-state-reader/profile.yaml
-   - actor_boundary: supervisor and runtime monitor store
-   - classification: infrastructure_adapter
-   - adjacent_role: monitor
-   - inputs:
-     1. cached monitor state
-     1. control exit request
-   - selected_tool_families:
-     1. monitor REST
-     1. lifecycle control
-   - runtime_dependencies:
-     1. agent-core monitor store
-     1. agent-core REST runtime
-   - outputs:
-     1. monitor REST responses
-     1. listener lifecycle status
-   - outcomes:
-     1. Done
-     1. Failed
-   - checks:
-     1. Confirm REST reads use cached monitor state.
-     1. Confirm exit is routed through configured control.
-     1. Confirm the adapter does not claim telemetry collection, anomaly detection, or assurance reporting.
-     1. Trace runtime-state-reader/control status with rel07.0-uc005-monitor-control-profile-boundary.
-1. - id: lifecycle-exit
-   - title: Lifecycle exit client
-   - profile_path: agents/lifecycle-exit/profile.yaml
-   - actor_boundary: supervisor requesting a running agent's shutdown
-   - classification: infrastructure_adapter
-   - inputs:
-     1. fixed exit request body
-   - selected_tool_families:
-     1. lifecycle control
-   - runtime_dependencies:
-     1. agent-core REST runtime
-   - outputs:
-     1. control-server exit acceptance
-   - outcomes:
-     1. Done
-     1. Failed
-   - checks:
-     1. Confirm the exit request body is fixed in the REST operation, not runtime input.
-     1. Confirm the target control-server address is a declared client base.
-     1. Confirm the client posts one request through a declared boundary word rather than an embedded HTTP client.
-1. - id: application-purge
-   - title: Application retained-data purge
-   - profile_path: agents/application-purge/profile.yaml
-   - actor_boundary: retention authority deleting one apprig-rendered application prefix
-   - classification: infrastructure_adapter
-   - inputs:
-     1. exact purge:<application> confirmation token
-   - selected_tool_families:
-     1. objectstore delete-prefix
-     1. value predicates
-   - runtime_dependencies:
-     1. agent-core objectstore runtime
-     1. apprig rendered bucket, endpoint, prefix, application, and audit path
-   - outputs:
-     1. bounded purge outcome
-     1. external non-secret audit record
-   - outcomes:
-     1. Purged
-     1. Refused
-     1. Incomplete
-     1. Failed
-   - checks:
-     1. Confirm request data selects no storage coordinate or credential.
-     1. Confirm exact application confirmation precedes objectstore mutation.
-     1. Confirm Purged requires verified zero remaining and a durable external audit.
-     1. Confirm collector query declarations remain read-only.
-1. - id: documentation-curator
-   - title: Knowledge Manager documentation curator
-   - profile_path: agents/knowledge-manager/documentation-curator/profile.yaml
-   - actor_boundary: human browser, documentation corpus, and local REST API
-   - inputs:
-     1. browser request
-     1. documentation corpus path
-     1. control request
-   - selected_tool_families:
-     1. documentation serving
-     1. document resources
-     1. documentation validation
-     1. patch review
-     1. lifecycle control
-   - runtime_dependencies:
-     1. agent-core documentation host
-     1. agent-core REST runtime
-     1. profile-owned UI config and REST definitions
-   - outputs:
-     1. served documentation UI
-     1. document responses
-     1. validation or suggestion results
-     1. patch review outcome
-     1. controlled listener shutdown
-   - outcomes:
-     1. Done
-     1. Failed
-   - checks:
-     1. Confirm UI placement stays profile-local.
-     1. Confirm document resource behavior is configured by profile-owned YAML.
-     1. Confirm exit releases the documentation listener.
-     1. Trace profile UX with rel07.0-uc001-documentation-curator-profile-ux.
-1. - id: corpus-ingest
-   - title: Trusted corpus ingestion
-   - profile_path: agents/knowledge-manager/corpus-ingest/profile.yaml
-   - actor_boundary: trusted corpus, embedding provider, and Chroma
-   - inputs:
-     1. trusted corpus root
-     1. configured embedding model
-     1. Chroma collection
-   - selected_tool_families:
-     1. filesystem resource discovery and read
-     1. REST client
-     1. llm
-   - runtime_dependencies:
-     1. agent-core filesystem, REST, and model boundaries
-     1. profile-owned corpus REST operations
-   - outputs:
-     1. embedded documents and identities
-     1. Chroma collection count
-   - outcomes:
-     1. Succeeded
-     1. Failed
-   - checks:
-     1. Confirm trusted path listing precedes model file selection.
-     1. Confirm provider vectors, documents, and ids reach Chroma add.
-     1. Trace ingest behavior with rel08.0-uc001-corpus-ingest.
-1. - id: corpus-reader
-   - title: Grounded corpus retrieval
-   - profile_path: agents/knowledge-manager/corpus-reader/profile.yaml
-   - actor_boundary: questioner, embedding provider, Chroma, and answer model
-   - inputs:
-     1. configured question
-     1. configured embedding and answer models
-     1. Chroma collection
-   - selected_tool_families:
-     1. REST client
-     1. llm
-   - runtime_dependencies:
-     1. agent-core REST and model boundaries
-     1. profile-owned corpus REST operations and grounding prompt
-   - outputs:
-     1. retrieved chunk identities
-     1. grounded answer
-   - outcomes:
-     1. Succeeded
-     1. Failed
-   - checks:
-     1. Confirm the provider vector reaches Chroma query.
-     1. Confirm retrieved identities and chunks reach the answer model.
-     1. Trace reader behavior with rel08.0-uc002-corpus-query.
-1. - id: scenario-critic
-   - title: Test rig and scenario composer
-   - profile_path: agents/scenario-critic/profile.yaml
-   - actor_boundary: child agent processes plus profile-owned scenario data
-   - inputs:
-     1. discovery roots
-     1. discovered scenario directories (validator profiles and mock fixtures)
-   - selected_tool_families:
-     1. service-child (start, await healthy, stop)
-     1. validator execution
-     1. scenario discovery
-   - runtime_dependencies:
-     1. agent-core service-child, validator-execution, and discovery words (srd040)
-     1. agent-core mock endpoint binding by way of the mocks it starts (srd039)
-   - outputs:
-     1. per-scenario verdicts naming a failing validator and its cause
-     1. aggregate verdict
-   - outcomes:
-     1. Passed
-     1. Failed
-   - checks:
-     1. Confirm the rig composes scenarios from profile-owned data, with no rig edit needed to add a test.
-     1. Confirm each scenario gets a fresh subject and leaves no surviving child process.
-     1. Confirm discovery covers the applications tree without special-casing.
-1. - id: mock
-   - title: Mock for a REST dependency
-   - profile_path: agents/mock/profile.yaml
-   - actor_boundary: inbound HTTP from a subject agent under test
-   - inputs:
-     1. fixture file path (selected by environment)
-     1. listen address
-   - selected_tool_families:
-     1. REST server
-     1. lifecycle control
-   - runtime_dependencies:
-     1. agent-core mock endpoint binding and REST server runtime (srd039)
-   - outputs:
-     1. canned and scripted responses
-     1. per-instance request log
-   - outcomes:
-     1. Done
-     1. Failed
-   - checks:
-     1. Confirm one profile serves any dependency, with response content living in scenario fixtures.
-     1. Confirm the request log is readable, per-instance, and shows unmatched calls.
-     1. Confirm a malformed fixture blocks serving instead of failing mid-scenario.
-1. - id: collector
-   - title: OTLP trace collector with spool and query
-   - profile_path: agents/collector/profile.yaml
-   - actor_boundary: OTLP trace sources, spool filesystem, and query HTTP clients
-   - inputs:
-     1. OTLP trace batches
-     1. query HTTP requests
-   - selected_tool_families:
-     1. OTLP receiver
-     1. spool
-     1. query
-     1. REST server
-     1. lifecycle control
-   - runtime_dependencies:
-     1. agent-core OTLP receiver tools (srd042)
-     1. agent-core spool query tools (srd044)
-     1. agent-core REST runtime
-   - outputs:
-     1. spooled trace NDJSON
-     1. paginated trace list and detail responses
-     1. lifecycle status
-   - outcomes:
-     1. Done
-     1. Failed
-   - checks:
-     1. Confirm the receiver spools by default with no relay endpoint.
-     1. Confirm the query surface serves bounded reads from the spool.
-     1. Confirm shutdown ordering stops query before monitor before control.
-1. - id: rig-doctor
-   - title: Rig doctor root-cause analyst
-   - profile_path: agents/rig-doctor/profile.yaml
-   - actor_boundary: model plus one captured evidence directory
-   - inputs:
-     1. evidence manifest naming every captured file
-     1. kubectl events, describe output, rollout counts, and pod logs
-     1. trace spool tail captured beside them
-   - selected_tool_families:
-     1. filesystem read
-     1. filesystem write
-     1. spool query
-     1. llm
-   - runtime_dependencies:
-     1. agent-core filesystem tools
-     1. agent-core spool query tools (srd044)
-     1. a model provider library (srd058)
-   - outputs:
-     1. diagnosis naming a probable cause with cited evidence
-     1. one suggested read-only next command
-   - outcomes:
-     1. Diagnosed
-     1. NoEvidence
-     1. Failed
-   - checks:
-     1. Confirm no exec, kubectl, or helm word is reachable from the profile.
-     1. Confirm the only write targets the diagnosis beside the evidence.
-     1. Confirm an empty evidence directory reaches NoEvidence without a diagnosis.
-     1. Confirm an undecodable or incomplete diagnosis returns to the model instead of reaching Diagnosed.
-1. - id: deployment-applier
-   - title: Deployment applier
-   - profile_path: agents/applier/profile.yaml
-   - actor_boundary: decided values document, application-owned rollout commands, and lifecycle callers
-   - inputs:
-     1. decided values content
-     1. fixed workspace path from the trusted request binding
-     1. application-owned REST and rollout configuration
-   - selected_tool_families:
-     1. lifecycle REST host
-     1. workspace file write
-     1. validate, apply, verify, and rollback boundaries
-     1. rollout status reads
-   - runtime_dependencies:
-     1. agent-core REST and lifecycle tools
-     1. application-owned Helm and kubectl ToolDefs
-   - outputs:
-     1. applied, rejected, rolled-back, or failed apply outcome
-     1. complete, progressing, or unavailable rollout read
-     1. controlled listener shutdown
-   - outcomes:
-     1. Done
-     1. Failed
-   - checks:
-     1. Confirm the catalog closure boots with chart-independent standalone boundaries.
-     1. Confirm consumers reference canonical machines, selections, and shared ToolDefs.
-     1. Confirm chart, release, namespace, Deployment, endpoint, and authority choices remain application-owned.
-     1. Confirm every verification failure reaches explicit rollback compensation.
+<!-- role: executor -->
+### executor
+
+<!-- field: title -->
+#### Title
+
+Coding agent
+
+<!-- field: profile_path -->
+#### Profile path
+
+agents/executor/profile.yaml
+
+<!-- field: actor_boundary -->
+#### Actor boundary
+
+model plus workspace tools
+
+<!-- field: inputs -->
+#### Inputs
+
+- task prompt
+- mounted workspace
+- selected model config
+
+<!-- field: selected_tool_families -->
+#### Selected tool families
+
+- filesystem
+- llm
+- go exec validation
+
+<!-- field: runtime_dependencies -->
+#### Runtime dependencies
+
+- agent-core loop runtime
+- agent-core builtin filesystem and LLM tools
+- agent-core exec tool declarations for Go validation
+
+<!-- field: outputs -->
+#### Outputs
+
+- workspace changes
+- validation results
+- terminal status
+- task summary
+
+<!-- field: outcomes -->
+#### Outcomes
+
+- Succeeded
+- Failed
+- BudgetExceeded
+
+<!-- field: checks -->
+#### Checks
+
+- Load profile from the demo.yaml catalog_root.
+- Run mounted profile command with --profile and --directory.
+- Confirm build, lint, and test validation are machine-declared.
+
+<!-- role: critic -->
+### critic
+
+<!-- field: title -->
+#### Title
+
+Evaluation session and point runner
+
+<!-- field: profile_path -->
+#### Profile path
+
+agents/critic/profile.yaml
+
+<!-- field: actor_boundary -->
+#### Actor boundary
+
+suite fixtures plus child agent process
+
+<!-- field: inputs -->
+#### Inputs
+
+- suite YAML
+- samples
+- model or profile grid
+- oracle command
+
+<!-- field: selected_tool_families -->
+#### Selected tool families
+
+- critic session
+- critic point
+- child profile execution
+
+<!-- field: runtime_dependencies -->
+#### Runtime dependencies
+
+- agent-core nested loop execution
+- profile-owned suites and samples
+
+<!-- field: outputs -->
+#### Outputs
+
+- point directories
+- oracle results
+- trace token counts
+- metrics
+- session report
+
+<!-- field: outcomes -->
+#### Outcomes
+
+- Done
+- Failed
+
+<!-- field: checks -->
+#### Checks
+
+- Resolve suite fixtures through the demo.yaml catalog_root.
+- Confirm point machine runs in isolated workspaces.
+- Confirm failed child runs still produce point summaries and metrics.
+- Trace critic to executor with rel07.0-uc002-evaluator-generator-profile-boundary.
+
+<!-- role: planner -->
+### planner
+
+<!-- field: title -->
+#### Title
+
+Requirement planner and issue materializer
+
+<!-- field: profile_path -->
+#### Profile path
+
+agents/planner/profile.yaml
+
+<!-- field: actor_boundary -->
+#### Actor boundary
+
+requirement graph, model, issue queue, and child executor
+
+<!-- field: inputs -->
+#### Inputs
+
+- requirement graph
+- SRD context
+- planning model config
+
+<!-- field: selected_tool_families -->
+#### Selected tool families
+
+- planner tools
+- llm
+- Go validation
+- child profile execution
+
+<!-- field: runtime_dependencies -->
+#### Runtime dependencies
+
+- agent-core planning tool implementations
+- agent-core model boundary
+- profile-selected issue tracker CLI declaration
+
+<!-- field: outputs -->
+#### Outputs
+
+- implementation plan
+- created issue
+- graph status changes
+- validation results
+
+<!-- field: outcomes -->
+#### Outcomes
+
+- Completed
+- Stalled
+- Failed
+
+<!-- field: checks -->
+#### Checks
+
+- Confirm planner invokes executor as a child profile.
+- Confirm issues are materialized through format, write, profile-selected tracker exec, and result-recording words.
+- Confirm graph terminal states are explicit.
+- Trace planner to executor with rel07.0-uc003-planner-generator-profile-boundary.
+
+<!-- role: specification-critic -->
+### specification-critic
+
+<!-- field: title -->
+#### Title
+
+Specification validator
+
+<!-- field: profile_path -->
+#### Profile path
+
+agents/specification-critic/profile.yaml
+
+<!-- field: canonical_binding | form: "tree" -->
+#### Canonical binding
+
+- role: critic
+- sub_roles:
+  1. output-evaluator
+
+<!-- field: excluded_binding -->
+#### Excluded binding
+
+<!-- field: role -->
+##### Role
+
+guardian
+
+<!-- field: sub_role -->
+##### Sub role
+
+policy-enforcer
+
+<!-- field: reason -->
+##### Reason
+
+The profile evaluates and reports specification findings but has no policy enforcement authority.
+
+<!-- field: actor_boundary -->
+#### Actor boundary
+
+local target directory and charter suites
+
+<!-- field: inputs -->
+#### Inputs
+
+- target directory
+- charter suite path or paths
+- docs corpus for the built-in spec_corpus suite
+
+<!-- field: selected_tool_families -->
+#### Selected tool families
+
+- specification validation
+- ripgrep search and finding reduction
+
+<!-- field: runtime_dependencies -->
+#### Runtime dependencies
+
+- agent-core spec validation tools
+- rg, shared with the filesystem find capability
+
+<!-- field: outputs -->
+#### Outputs
+
+- validation report with suite and check provenance
+- pass or fail status
+
+<!-- field: outcomes -->
+#### Outcomes
+
+- Passed
+- Failed
+
+<!-- field: checks -->
+#### Checks
+
+- Confirm no LLM boundary is selected.
+- Confirm report formatting runs for pass and fail outcomes.
+- Confirm charter suites run deterministically over the target directory.
+- Confirm findings identify suite, check, file, and line when available.
+
+<!-- role: bench -->
+### bench
+
+<!-- field: title -->
+#### Title
+
+Human-operated evaluation launcher
+
+<!-- field: profile_path -->
+#### Profile path
+
+agents/bench/profile.yaml
+
+<!-- field: actor_boundary -->
+#### Actor boundary
+
+human HTTP operator and critic process
+
+<!-- field: inputs -->
+#### Inputs
+
+- human UI action
+- experiment configuration
+
+<!-- field: selected_tool_families -->
+#### Selected tool families
+
+- bench UI
+- critic launch
+
+<!-- field: runtime_dependencies -->
+#### Runtime dependencies
+
+- agent-core serve lifecycle and service-child words (start_service, list_services)
+- critic profile
+
+<!-- field: outputs -->
+#### Outputs
+
+- served UI
+- detached critic run handle
+- run listing with outcomes
+
+<!-- field: outcomes -->
+#### Outcomes
+
+- Done
+- Failed
+
+<!-- field: checks -->
+#### Checks
+
+- Confirm the control server's lifecycle exit is the only host await; launches run through the experiments capability.
+- Confirm start_service delegates session execution to critic as a detached child bounded by max_running.
+- Trace bench to critic with rel07.0-uc004-bench-evaluator-profile-boundary.
+
+<!-- role: runtime-state-reader -->
+### runtime-state-reader
+
+<!-- field: title -->
+#### Title
+
+Runtime state reader
+
+<!-- field: profile_path -->
+#### Profile path
+
+agents/runtime-state-reader/profile.yaml
+
+<!-- field: actor_boundary -->
+#### Actor boundary
+
+supervisor and runtime monitor store
+
+<!-- field: classification -->
+#### Classification
+
+infrastructure_adapter
+
+<!-- field: adjacent_role -->
+#### Adjacent role
+
+monitor
+
+<!-- field: inputs -->
+#### Inputs
+
+- cached monitor state
+- control exit request
+
+<!-- field: selected_tool_families -->
+#### Selected tool families
+
+- monitor REST
+- lifecycle control
+
+<!-- field: runtime_dependencies -->
+#### Runtime dependencies
+
+- agent-core monitor store
+- agent-core REST runtime
+
+<!-- field: outputs -->
+#### Outputs
+
+- monitor REST responses
+- listener lifecycle status
+
+<!-- field: outcomes -->
+#### Outcomes
+
+- Done
+- Failed
+
+<!-- field: checks -->
+#### Checks
+
+- Confirm REST reads use cached monitor state.
+- Confirm exit is routed through configured control.
+- Confirm the adapter does not claim telemetry collection, anomaly detection, or assurance reporting.
+- Trace runtime-state-reader/control status with rel07.0-uc005-monitor-control-profile-boundary.
+
+<!-- role: lifecycle-exit -->
+### lifecycle-exit
+
+<!-- field: title -->
+#### Title
+
+Lifecycle exit client
+
+<!-- field: profile_path -->
+#### Profile path
+
+agents/lifecycle-exit/profile.yaml
+
+<!-- field: actor_boundary -->
+#### Actor boundary
+
+supervisor requesting a running agent's shutdown
+
+<!-- field: classification -->
+#### Classification
+
+infrastructure_adapter
+
+<!-- field: inputs -->
+#### Inputs
+
+- fixed exit request body
+
+<!-- field: selected_tool_families -->
+#### Selected tool families
+
+- lifecycle control
+
+<!-- field: runtime_dependencies -->
+#### Runtime dependencies
+
+- agent-core REST runtime
+
+<!-- field: outputs -->
+#### Outputs
+
+- control-server exit acceptance
+
+<!-- field: outcomes -->
+#### Outcomes
+
+- Done
+- Failed
+
+<!-- field: checks -->
+#### Checks
+
+- Confirm the exit request body is fixed in the REST operation, not runtime input.
+- Confirm the target control-server address is a declared client base.
+- Confirm the client posts one request through a declared boundary word rather than an embedded HTTP client.
+
+<!-- role: application-purge -->
+### application-purge
+
+<!-- field: title -->
+#### Title
+
+Application retained-data purge
+
+<!-- field: profile_path -->
+#### Profile path
+
+agents/application-purge/profile.yaml
+
+<!-- field: actor_boundary -->
+#### Actor boundary
+
+retention authority deleting one apprig-rendered application prefix
+
+<!-- field: classification -->
+#### Classification
+
+infrastructure_adapter
+
+<!-- field: inputs -->
+#### Inputs
+
+- exact purge:<application> confirmation token
+
+<!-- field: selected_tool_families -->
+#### Selected tool families
+
+- objectstore delete-prefix
+- value predicates
+
+<!-- field: runtime_dependencies -->
+#### Runtime dependencies
+
+- agent-core objectstore runtime
+- apprig rendered bucket, endpoint, prefix, application, and audit path
+
+<!-- field: outputs -->
+#### Outputs
+
+- bounded purge outcome
+- external non-secret audit record
+
+<!-- field: outcomes -->
+#### Outcomes
+
+- Purged
+- Refused
+- Incomplete
+- Failed
+
+<!-- field: checks -->
+#### Checks
+
+- Confirm request data selects no storage coordinate or credential.
+- Confirm exact application confirmation precedes objectstore mutation.
+- Confirm Purged requires verified zero remaining and a durable external audit.
+- Confirm collector query declarations remain read-only.
+
+<!-- role: documentation-curator -->
+### documentation-curator
+
+<!-- field: title -->
+#### Title
+
+Knowledge Manager documentation curator
+
+<!-- field: profile_path -->
+#### Profile path
+
+agents/knowledge-manager/documentation-curator/profile.yaml
+
+<!-- field: actor_boundary -->
+#### Actor boundary
+
+human browser, documentation corpus, and local REST API
+
+<!-- field: inputs -->
+#### Inputs
+
+- browser request
+- documentation corpus path
+- control request
+
+<!-- field: selected_tool_families -->
+#### Selected tool families
+
+- documentation serving
+- document resources
+- documentation validation
+- patch review
+- lifecycle control
+
+<!-- field: runtime_dependencies -->
+#### Runtime dependencies
+
+- agent-core documentation host
+- agent-core REST runtime
+- profile-owned UI config and REST definitions
+
+<!-- field: outputs -->
+#### Outputs
+
+- served documentation UI
+- document responses
+- validation or suggestion results
+- patch review outcome
+- controlled listener shutdown
+
+<!-- field: outcomes -->
+#### Outcomes
+
+- Done
+- Failed
+
+<!-- field: checks -->
+#### Checks
+
+- Confirm UI placement stays profile-local.
+- Confirm document resource behavior is configured by profile-owned YAML.
+- Confirm exit releases the documentation listener.
+- Trace profile UX with rel07.0-uc001-documentation-curator-profile-ux.
+
+<!-- role: corpus-ingest -->
+### corpus-ingest
+
+<!-- field: title -->
+#### Title
+
+Trusted corpus ingestion
+
+<!-- field: profile_path -->
+#### Profile path
+
+agents/knowledge-manager/corpus-ingest/profile.yaml
+
+<!-- field: actor_boundary -->
+#### Actor boundary
+
+trusted corpus, embedding provider, and Chroma
+
+<!-- field: inputs -->
+#### Inputs
+
+- trusted corpus root
+- configured embedding model
+- Chroma collection
+
+<!-- field: selected_tool_families -->
+#### Selected tool families
+
+- filesystem resource discovery and read
+- REST client
+- llm
+
+<!-- field: runtime_dependencies -->
+#### Runtime dependencies
+
+- agent-core filesystem, REST, and model boundaries
+- profile-owned corpus REST operations
+
+<!-- field: outputs -->
+#### Outputs
+
+- embedded documents and identities
+- Chroma collection count
+
+<!-- field: outcomes -->
+#### Outcomes
+
+- Succeeded
+- Failed
+
+<!-- field: checks -->
+#### Checks
+
+- Confirm trusted path listing precedes model file selection.
+- Confirm provider vectors, documents, and ids reach Chroma add.
+- Trace ingest behavior with rel08.0-uc001-corpus-ingest.
+
+<!-- role: corpus-reader -->
+### corpus-reader
+
+<!-- field: title -->
+#### Title
+
+Grounded corpus retrieval
+
+<!-- field: profile_path -->
+#### Profile path
+
+agents/knowledge-manager/corpus-reader/profile.yaml
+
+<!-- field: actor_boundary -->
+#### Actor boundary
+
+questioner, embedding provider, Chroma, and answer model
+
+<!-- field: inputs -->
+#### Inputs
+
+- configured question
+- configured embedding and answer models
+- Chroma collection
+
+<!-- field: selected_tool_families -->
+#### Selected tool families
+
+- REST client
+- llm
+
+<!-- field: runtime_dependencies -->
+#### Runtime dependencies
+
+- agent-core REST and model boundaries
+- profile-owned corpus REST operations and grounding prompt
+
+<!-- field: outputs -->
+#### Outputs
+
+- retrieved chunk identities
+- grounded answer
+
+<!-- field: outcomes -->
+#### Outcomes
+
+- Succeeded
+- Failed
+
+<!-- field: checks -->
+#### Checks
+
+- Confirm the provider vector reaches Chroma query.
+- Confirm retrieved identities and chunks reach the answer model.
+- Trace reader behavior with rel08.0-uc002-corpus-query.
+
+<!-- role: scenario-critic -->
+### scenario-critic
+
+<!-- field: title -->
+#### Title
+
+Test rig and scenario composer
+
+<!-- field: profile_path -->
+#### Profile path
+
+agents/scenario-critic/profile.yaml
+
+<!-- field: actor_boundary -->
+#### Actor boundary
+
+child agent processes plus profile-owned scenario data
+
+<!-- field: inputs -->
+#### Inputs
+
+- discovery roots
+- discovered scenario directories (validator profiles and mock fixtures)
+
+<!-- field: selected_tool_families -->
+#### Selected tool families
+
+- service-child (start, await healthy, stop)
+- validator execution
+- scenario discovery
+
+<!-- field: runtime_dependencies -->
+#### Runtime dependencies
+
+- agent-core service-child, validator-execution, and discovery words (srd040)
+- agent-core mock endpoint binding by way of the mocks it starts (srd039)
+
+<!-- field: outputs -->
+#### Outputs
+
+- per-scenario verdicts naming a failing validator and its cause
+- aggregate verdict
+
+<!-- field: outcomes -->
+#### Outcomes
+
+- Passed
+- Failed
+
+<!-- field: checks -->
+#### Checks
+
+- Confirm the rig composes scenarios from profile-owned data, with no rig edit needed to add a test.
+- Confirm each scenario gets a fresh subject and leaves no surviving child process.
+- Confirm discovery covers the applications tree without special-casing.
+
+<!-- role: mock -->
+### mock
+
+<!-- field: title -->
+#### Title
+
+Mock for a REST dependency
+
+<!-- field: profile_path -->
+#### Profile path
+
+agents/mock/profile.yaml
+
+<!-- field: actor_boundary -->
+#### Actor boundary
+
+inbound HTTP from a subject agent under test
+
+<!-- field: inputs -->
+#### Inputs
+
+- fixture file path (selected by environment)
+- listen address
+
+<!-- field: selected_tool_families -->
+#### Selected tool families
+
+- REST server
+- lifecycle control
+
+<!-- field: runtime_dependencies -->
+#### Runtime dependencies
+
+- agent-core mock endpoint binding and REST server runtime (srd039)
+
+<!-- field: outputs -->
+#### Outputs
+
+- canned and scripted responses
+- per-instance request log
+
+<!-- field: outcomes -->
+#### Outcomes
+
+- Done
+- Failed
+
+<!-- field: checks -->
+#### Checks
+
+- Confirm one profile serves any dependency, with response content living in scenario fixtures.
+- Confirm the request log is readable, per-instance, and shows unmatched calls.
+- Confirm a malformed fixture blocks serving instead of failing mid-scenario.
+
+<!-- role: collector -->
+### collector
+
+<!-- field: title -->
+#### Title
+
+OTLP trace collector with spool and query
+
+<!-- field: profile_path -->
+#### Profile path
+
+agents/collector/profile.yaml
+
+<!-- field: actor_boundary -->
+#### Actor boundary
+
+OTLP trace sources, spool filesystem, and query HTTP clients
+
+<!-- field: inputs -->
+#### Inputs
+
+- OTLP trace batches
+- query HTTP requests
+
+<!-- field: selected_tool_families -->
+#### Selected tool families
+
+- OTLP receiver
+- spool
+- query
+- REST server
+- lifecycle control
+
+<!-- field: runtime_dependencies -->
+#### Runtime dependencies
+
+- agent-core OTLP receiver tools (srd042)
+- agent-core spool query tools (srd044)
+- agent-core REST runtime
+
+<!-- field: outputs -->
+#### Outputs
+
+- spooled trace NDJSON
+- paginated trace list and detail responses
+- lifecycle status
+
+<!-- field: outcomes -->
+#### Outcomes
+
+- Done
+- Failed
+
+<!-- field: checks -->
+#### Checks
+
+- Confirm the receiver spools by default with no relay endpoint.
+- Confirm the query surface serves bounded reads from the spool.
+- Confirm shutdown ordering stops query before monitor before control.
+
+<!-- role: rig-doctor -->
+### rig-doctor
+
+<!-- field: title -->
+#### Title
+
+Rig doctor root-cause analyst
+
+<!-- field: profile_path -->
+#### Profile path
+
+agents/rig-doctor/profile.yaml
+
+<!-- field: actor_boundary -->
+#### Actor boundary
+
+model plus one captured evidence directory
+
+<!-- field: inputs -->
+#### Inputs
+
+- evidence manifest naming every captured file
+- kubectl events, describe output, rollout counts, and pod logs
+- trace spool tail captured beside them
+
+<!-- field: selected_tool_families -->
+#### Selected tool families
+
+- filesystem read
+- filesystem write
+- spool query
+- llm
+
+<!-- field: runtime_dependencies -->
+#### Runtime dependencies
+
+- agent-core filesystem tools
+- agent-core spool query tools (srd044)
+- a model provider library (srd058)
+
+<!-- field: outputs -->
+#### Outputs
+
+- diagnosis naming a probable cause with cited evidence
+- one suggested read-only next command
+
+<!-- field: outcomes -->
+#### Outcomes
+
+- Diagnosed
+- NoEvidence
+- Failed
+
+<!-- field: checks -->
+#### Checks
+
+- Confirm no exec, kubectl, or helm word is reachable from the profile.
+- Confirm the only write targets the diagnosis beside the evidence.
+- Confirm an empty evidence directory reaches NoEvidence without a diagnosis.
+- Confirm an undecodable or incomplete diagnosis returns to the model instead of reaching Diagnosed.
+
+<!-- role: deployment-applier -->
+### deployment-applier
+
+<!-- field: title -->
+#### Title
+
+Deployment applier
+
+<!-- field: profile_path -->
+#### Profile path
+
+agents/applier/profile.yaml
+
+<!-- field: actor_boundary -->
+#### Actor boundary
+
+decided values document, application-owned rollout commands, and lifecycle callers
+
+<!-- field: inputs -->
+#### Inputs
+
+- decided values content
+- fixed workspace path from the trusted request binding
+- application-owned REST and rollout configuration
+
+<!-- field: selected_tool_families -->
+#### Selected tool families
+
+- lifecycle REST host
+- workspace file write
+- validate, apply, verify, and rollback boundaries
+- rollout status reads
+
+<!-- field: runtime_dependencies -->
+#### Runtime dependencies
+
+- agent-core REST and lifecycle tools
+- application-owned Helm and kubectl ToolDefs
+
+<!-- field: outputs -->
+#### Outputs
+
+- applied, rejected, rolled-back, or failed apply outcome
+- complete, progressing, or unavailable rollout read
+- controlled listener shutdown
+
+<!-- field: outcomes -->
+#### Outcomes
+
+- Done
+- Failed
+
+<!-- field: checks -->
+#### Checks
+
+- Confirm the catalog closure boots with chart-independent standalone boundaries.
+- Confirm consumers reference canonical machines, selections, and shared ToolDefs.
+- Confirm chart, release, namespace, Deployment, endpoint, and authority choices remain application-owned.
+- Confirm every verification failure reaches explicit rollback compensation.
 
 <!-- field: relocated_application_roles_note -->
 ## Relocated application roles note
