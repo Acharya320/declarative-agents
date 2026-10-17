@@ -1186,33 +1186,30 @@ import outside its root except by another root's prefix.
 <!-- field: service_libraries -->
 ## Service libraries
 
-```yaml
-|
-    An agent that serves a REST surface MAY publish a service library
-    (srd056-unit-libraries R4). Inside one application it is a directory beside
-    the agents, holding
+An agent that serves a REST surface MAY publish a service library
+(srd056-unit-libraries R4). Inside one application it is a directory beside
+the agents, holding
 
-      lib/<service>/
-        rest.yaml     # unit with the client operations for the served surface
-        types.yaml    # type unit for the request and response shapes
-        words.yaml    # the client words consumers share
+  lib/<service>/
+    rest.yaml     # unit with the client operations for the served surface
+    types.yaml    # type unit for the request and response shapes
+    words.yaml    # the client words consumers share
 
-    Consumers declare the application's library directory as a root on their
-    profile and import `/opt/<root>/<service>/rest.yaml`, and none of them
-    redeclares the client. Per-consumer values such as base URLs stay in the
-    consumer, because a library is read-only. A service library earns its place
-    with two or more importing profiles, a fragment instantiation counting as
-    one; with one, the client stays in its only consumer.
+Consumers declare the application's library directory as a root on their
+profile and import `/opt/<root>/<service>/rest.yaml`, and none of them
+redeclares the client. Per-consumer values such as base URLs stay in the
+consumer, because a library is read-only. A service library earns its place
+with two or more importing profiles, a fragment instantiation counting as
+one; with one, the client stays in its only consumer.
 
-    A contract served by more than one application lives in agent-core instead:
-    its type unit under tools/units and its client fragment under
-    tools/rest/units, reached through `/opt/agent-core` with no declared root.
-    The first instance is the retrieval query client
-    (srd060-retrieval-client-contract): consumers expand
-    `/opt/agent-core/tools/rest/units/retrieval-query-client-fragment.yaml` with
-    their route prefix and selectors, and import
-    `/opt/agent-core/tools/units/types-retrieval.yaml` for QueryResult.
-```
+A contract served by more than one application lives in agent-core instead:
+its type unit under tools/units and its client fragment under
+tools/rest/units, reached through `/opt/agent-core` with no declared root.
+The first instance is the retrieval query client
+(srd060-retrieval-client-contract): consumers expand
+`/opt/agent-core/tools/rest/units/retrieval-query-client-fragment.yaml` with
+their route prefix and selectors, and import
+`/opt/agent-core/tools/units/types-retrieval.yaml` for QueryResult.
 
 <!-- field: format_examples -->
 ## Format examples

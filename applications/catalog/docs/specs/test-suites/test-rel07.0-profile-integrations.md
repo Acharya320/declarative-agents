@@ -60,9 +60,7 @@ rel07.0-uc001-documentation-curator-profile-ux
 <!-- field: follow_up_issue -->
 #### Follow up issue
 
-```yaml
-"#107"
-```
+#107
 
 <!-- field: integration_target -->
 #### Integration target
@@ -129,9 +127,7 @@ rel07.0-uc002-evaluator-generator-profile-boundary
 <!-- field: follow_up_issue -->
 #### Follow up issue
 
-```yaml
-"#108"
-```
+#108
 
 <!-- field: replacement_target -->
 #### Replacement target
@@ -185,9 +181,7 @@ rel07.0-uc003-planner-generator-profile-boundary
 <!-- field: follow_up_issue -->
 #### Follow up issue
 
-```yaml
-"#109"
-```
+#109
 
 <!-- field: replacement_target -->
 #### Replacement target
@@ -245,9 +239,7 @@ rel07.0-uc004-bench-evaluator-profile-boundary
 <!-- field: follow_up_issue -->
 #### Follow up issue
 
-```yaml
-"#110"
-```
+#110
 
 <!-- field: integration_target -->
 #### Integration target
@@ -309,9 +301,7 @@ rel07.0-uc005-monitor-control-profile-boundary
 <!-- field: follow_up_issue -->
 #### Follow up issue
 
-```yaml
-"#111"
-```
+#111
 
 <!-- field: integration_target -->
 #### Integration target

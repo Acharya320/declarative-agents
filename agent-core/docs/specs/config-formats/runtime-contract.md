@@ -36,104 +36,101 @@ for profile root or core install layout for cmd/agent.
 <!-- field: invocation -->
 ## Invocation
 
-```yaml
-|
-    Normal invocation. Replace /work/applications/catalog with your applications/catalog
-    checkout or bundle root.
-      agent --profile /work/applications/catalog/agents/<agent>/profile.yaml \
-            [--request <file>] [--output <dir>] \
-            [--directory <path>] [--dolt-dsn <dsn>] \
-            [--dolt-connection <name>=<dsn>] \
-            [--resume-checkpoint <id>] [--resume-signal <signal>] \
-            [--otel-log-file <file>] [--otel-otlp-endpoint <host:port>] \
-            [--otel-service-name <name>] [--telemetry-capture <off|delta|full>]
+Normal invocation. Replace /work/applications/catalog with your applications/catalog
+checkout or bundle root.
+  agent --profile /work/applications/catalog/agents/<agent>/profile.yaml \
+        [--request <file>] [--output <dir>] \
+        [--directory <path>] [--dolt-dsn <dsn>] \
+        [--dolt-connection <name>=<dsn>] \
+        [--resume-checkpoint <id>] [--resume-signal <signal>] \
+        [--otel-log-file <file>] [--otel-otlp-endpoint <host:port>] \
+        [--otel-service-name <name>] [--telemetry-capture <off|delta|full>]
 
-    Lifecycle profile invocations.
-      agent --profile /work/applications/catalog/testdata/conformance/lifecycle/history/profile.yaml \
-            --directory <workspace> \
-            --request requests/history.yaml
+Lifecycle profile invocations.
+  agent --profile /work/applications/catalog/testdata/conformance/lifecycle/history/profile.yaml \
+        --directory <workspace> \
+        --request requests/history.yaml
 
-      agent --profile /work/applications/catalog/testdata/conformance/lifecycle/rollback/profile.yaml \
-            --directory <workspace> \
-            --request requests/rollback.yaml
+  agent --profile /work/applications/catalog/testdata/conformance/lifecycle/rollback/profile.yaml \
+        --directory <workspace> \
+        --request requests/rollback.yaml
 
-    There is no lifecycle subcommand syntax. Profiles select history and rollback
-    behavior through machine, tool selection, and builtin declarations.
+There is no lifecycle subcommand syntax. Profiles select history and rollback
+behavior through machine, tool selection, and builtin declarations.
 
-    Agent identity flag.
-      --profile            Path to an agent profile YAML. The profile supplies
-                           machine and tool selection paths. It also supplies
-                           declarations, config directories, and optional directory.
-                           Relative paths resolve
-                           against the profile file's directory.
+Agent identity flag.
+  --profile            Path to an agent profile YAML. The profile supplies
+                       machine and tool selection paths. It also supplies
+                       declarations, config directories, and optional directory.
+                       Relative paths resolve
+                       against the profile file's directory.
 
-    Runtime data flags.
-      --request            Finite request file. On a non-resume run, cmd/agent
-                           reads the complete file as bytes and supplies those
-                           exact bytes as the initial Seed Result.Output.
-                           Evaluator suites, lifecycle history requests, rollback
-                           requests, and similar per-run data flow through this
-                           channel. An unreadable file is a startup error.
-      --output             Output directory for runtime artifacts.
-      --directory          Workspace root for file tools, exec tools, child
-                           agents, and workspace restore.
-      --dolt-dsn          MySQL-wire DSN to a running dolt sql-server for the
-                           persistent checkpoint backend. Without this flag,
-                           persistence uses NoopCheckpoint.
-      --dolt-connection    Named Dolt word DSN (NAME=DSN), independent of
-                           --dolt-dsn. Repeatable. ToolDef connection_ref
-                           names resolve through this map, not process
-                           environment.
-      --resume-checkpoint  Run id to Load before re-entering the loop.
-      --resume-signal      Signal used for the first resumed transition
-                           (default: Approved).
+Runtime data flags.
+  --request            Finite request file. On a non-resume run, cmd/agent
+                       reads the complete file as bytes and supplies those
+                       exact bytes as the initial Seed Result.Output.
+                       Evaluator suites, lifecycle history requests, rollback
+                       requests, and similar per-run data flow through this
+                       channel. An unreadable file is a startup error.
+  --output             Output directory for runtime artifacts.
+  --directory          Workspace root for file tools, exec tools, child
+                       agents, and workspace restore.
+  --dolt-dsn          MySQL-wire DSN to a running dolt sql-server for the
+                       persistent checkpoint backend. Without this flag,
+                       persistence uses NoopCheckpoint.
+  --dolt-connection    Named Dolt word DSN (NAME=DSN), independent of
+                       --dolt-dsn. Repeatable. ToolDef connection_ref
+                       names resolve through this map, not process
+                       environment.
+  --resume-checkpoint  Run id to Load before re-entering the loop.
+  --resume-signal      Signal used for the first resumed transition
+                       (default: Approved).
 
-    Request and resume precedence.
-      With --request and without --resume-checkpoint, the initial signal and
-      InitialResult.Signal are Seed and InitialResult.Output is the complete
-      request-file content. Without --request, bootstrap remains unchanged: the
-      loop starts with its ordinary Seed and empty initial output. With
-      --resume-checkpoint, loaded Position and Execution take precedence over a
-      request Seed; LoadResume replaces InitialResult with the resume signal and
-      "Resume from checkpoint". Supplying --request does not merge new bytes into
-      resumed state.
+Request and resume precedence.
+  With --request and without --resume-checkpoint, the initial signal and
+  InitialResult.Signal are Seed and InitialResult.Output is the complete
+  request-file content. Without --request, bootstrap remains unchanged: the
+  loop starts with its ordinary Seed and empty initial output. With
+  --resume-checkpoint, loaded Position and Execution take precedence over a
+  request Seed; LoadResume replaces InitialResult with the resume signal and
+  "Resume from checkpoint". Supplying --request does not merge new bytes into
+  resumed state.
 
-    Diagnostic flags.
-      --telemetry-capture  Content capture level for telemetry (default: off).
-                           off records no model or boundary-tool content. delta
-                           records bounded current-turn LLM input and output
-                           under repository-owned keys. full records verbose LLM
-                           and boundary-tool content under applicable semantic-
-                           convention and repository-owned keys.
-      --verbose-trace      Backward-compatible alias for
-                           --telemetry-capture=full. Combining it with explicit
-                           off or delta is an error; explicit full is accepted.
-      --otel-log-file      OTel trace output file.
-      --otel-otlp-endpoint OTLP gRPC endpoint for live trace and metric export.
-                           It composes with --otel-log-file for dual export.
-      --otel-service-name  Stable OpenTelemetry service.name. Scaled integration
-                           roles include their instance in this value.
-      --otel-parent-span   W3C traceparent for distributed tracing.
+Diagnostic flags.
+  --telemetry-capture  Content capture level for telemetry (default: off).
+                       off records no model or boundary-tool content. delta
+                       records bounded current-turn LLM input and output
+                       under repository-owned keys. full records verbose LLM
+                       and boundary-tool content under applicable semantic-
+                       convention and repository-owned keys.
+  --verbose-trace      Backward-compatible alias for
+                       --telemetry-capture=full. Combining it with explicit
+                       off or delta is an error; explicit full is accepted.
+  --otel-log-file      OTel trace output file.
+  --otel-otlp-endpoint OTLP gRPC endpoint for live trace and metric export.
+                       It composes with --otel-log-file for dual export.
+  --otel-service-name  Stable OpenTelemetry service.name. Scaled integration
+                       roles include their instance in this value.
+  --otel-parent-span   W3C traceparent for distributed tracing.
 
-    Removed configuration flags.
-      cmd/agent does not expose --machine, --tools, --tools-declaration,
-      --tool-config-dir, --profiles-dir, --input, --checkpoint,
-      --to-iteration, or --state-store-dir. Runtime surface is --profile plus
-      runtime data, --dolt-dsn, --dolt-connection, resume, and diagnostics.
+Removed configuration flags.
+  cmd/agent does not expose --machine, --tools, --tools-declaration,
+  --tool-config-dir, --profiles-dir, --input, --checkpoint,
+  --to-iteration, or --state-store-dir. Runtime surface is --profile plus
+  runtime data, --dolt-dsn, --dolt-connection, resume, and diagnostics.
 
-    Request files carry lifecycle data. Targets for history and rollback are
-    lifecycle tool input. A request file can name
-    checkpoint: <id|latest> and to_iteration: <n>.
-    Active lifecycle profile and ToolDef config decide how that request maps to
-    checkpoint_history or checkpoint_rollback config.
+Request files carry lifecycle data. Targets for history and rollback are
+lifecycle tool input. A request file can name
+checkpoint: <id|latest> and to_iteration: <n>.
+Active lifecycle profile and ToolDef config decide how that request maps to
+checkpoint_history or checkpoint_rollback config.
 
-    By default, lifecycle persistence is disabled. Without --dolt-dsn, cmd/agent
-    resolves NoopCheckpoint and records no durable checkpoint history. With
-    --dolt-dsn set, cmd/agent opens DoltCheckpoint through the database/sql seam
-    and persists runs through the srd035 checkpoint port (Save/Load) rather than
-    key/blob store paths. Use the DSN for shared operator storage, retained
-    artifacts, or tests that need durable state outside the process.
-```
+By default, lifecycle persistence is disabled. Without --dolt-dsn, cmd/agent
+resolves NoopCheckpoint and records no durable checkpoint history. With
+--dolt-dsn set, cmd/agent opens DoltCheckpoint through the database/sql seam
+and persists runs through the srd035 checkpoint port (Save/Load) rather than
+key/blob store paths. Use the DSN for shared operator storage, retained
+artifacts, or tests that need durable state outside the process.
 
 <!-- field: integration_telemetry -->
 ## Integration telemetry
@@ -493,50 +490,47 @@ DoltCheckpoint adapter connected to the supplied DSN.
 <!-- field: config_file_layout -->
 ## Config file layout
 
-```yaml
-|
-    tools/
-      builtin/                # Individual shared builtin tool declarations
-      exec/                   # Individual shared exec tool declarations
-      builtin.yaml            # Legacy aggregate builtin declarations
-      exec.yaml               # Legacy aggregate exec declarations
-    <applications/catalog-checkout>/agents/
-      generator/
-        profile.yaml          # Preferred generator runtime entry point
-        machine.yaml          # Generator state machine and semantics
-        tools.yaml            # Tool selection (names only)
-        llm/                  # Per-model boundary tool configs
-      planner/
-        profile.yaml
-        machine.yaml          # Full planner with execution
-        machine-passthrough.yaml
-        machine-plan-only.yaml
-        tools.yaml
-        llm/
-      evaluator/
-        profile.yaml
-        machine.yaml          # Session-level eval orchestration and semantics
-        point.yaml            # Per-point eval pipeline and semantics
-        tools.yaml            # Session-level tool selection
-        tools-point.yaml      # Per-point tool selection loaded by run_point
-      bench/
-        profile.yaml
-        machine.yaml          # Generic REST lifecycle and evaluator dispatch
-        request-machine.yaml  # One short-lived API request workflow
-        rest.yaml             # Routes, action queue, and static assets
-        tools.yaml            # Generic REST, predicate, and self_invoke aliases
-        ui/                   # Profile-owned React source and dist
-      jurist/
-        profile.yaml
-        machine.yaml          # Spec validation pipeline and semantics
-        tools.yaml            # load_corpus + validate_specs + format_report
-      lifecycle/
-        history/profile.yaml  # Lifecycle history configured program
-        history.yaml          # History MachineSpec
-        rollback/profile.yaml # Lifecycle rollback configured program
-        rollback.yaml         # Rollback MachineSpec
-        tools.yaml            # checkpoint_history + checkpoint_rollback selection
-```
+tools/
+  builtin/                # Individual shared builtin tool declarations
+  exec/                   # Individual shared exec tool declarations
+  builtin.yaml            # Legacy aggregate builtin declarations
+  exec.yaml               # Legacy aggregate exec declarations
+<applications/catalog-checkout>/agents/
+  generator/
+    profile.yaml          # Preferred generator runtime entry point
+    machine.yaml          # Generator state machine and semantics
+    tools.yaml            # Tool selection (names only)
+    llm/                  # Per-model boundary tool configs
+  planner/
+    profile.yaml
+    machine.yaml          # Full planner with execution
+    machine-passthrough.yaml
+    machine-plan-only.yaml
+    tools.yaml
+    llm/
+  evaluator/
+    profile.yaml
+    machine.yaml          # Session-level eval orchestration and semantics
+    point.yaml            # Per-point eval pipeline and semantics
+    tools.yaml            # Session-level tool selection
+    tools-point.yaml      # Per-point tool selection loaded by run_point
+  bench/
+    profile.yaml
+    machine.yaml          # Generic REST lifecycle and evaluator dispatch
+    request-machine.yaml  # One short-lived API request workflow
+    rest.yaml             # Routes, action queue, and static assets
+    tools.yaml            # Generic REST, predicate, and self_invoke aliases
+    ui/                   # Profile-owned React source and dist
+  jurist/
+    profile.yaml
+    machine.yaml          # Spec validation pipeline and semantics
+    tools.yaml            # load_corpus + validate_specs + format_report
+  lifecycle/
+    history/profile.yaml  # Lifecycle history configured program
+    history.yaml          # History MachineSpec
+    rollback/profile.yaml # Lifecycle rollback configured program
+    rollback.yaml         # Rollback MachineSpec
+    tools.yaml            # checkpoint_history + checkpoint_rollback selection
 
 <!-- field: container_runtime_layout -->
 ## Container runtime layout

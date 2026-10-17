@@ -53,68 +53,62 @@ declarations. Go packages provide reusable vocabulary and runtime services.
 <!-- field: vision_model_diagram -->
 ## Vision model diagram
 
-````yaml
-|
-    ```mermaid
-    flowchart TD
-      U[User task or scheduler] --> CFG[Configured Agent Program]
+```mermaid
+flowchart TD
+  U[User task or scheduler] --> CFG[Configured Agent Program]
 
-      subgraph Program[Agent Program]
-        M[MachineSpec: states, signals, transitions]
-        TS[Tool selection]
-        TD[ToolDef vocabulary contracts]
-        BOUNDARY[Boundary tool config and prompt]
-      end
+  subgraph Program[Agent Program]
+    M[MachineSpec: states, signals, transitions]
+    TS[Tool selection]
+    TD[ToolDef vocabulary contracts]
+    BOUNDARY[Boundary tool config and prompt]
+  end
 
-      M -->|names actions| TS
-      TS -->|selects| TD
-      CFG --> Program
-      Program --> R[Loop runtime interpreter]
-      R --> REG[Registry and Builders]
-      REG --> C[Command instance]
-      C -->|Result.Signal| R
-      R -->|next transition| M
+  M -->|names actions| TS
+  TS -->|selects| TD
+  CFG --> Program
+  Program --> R[Loop runtime interpreter]
+  R --> REG[Registry and Builders]
+  REG --> C[Command instance]
+  C -->|Result.Signal| R
+  R -->|next transition| M
 
-      TD --> LC[Lifecycle model: side effects, receipts, rollback]
-      C --> RCP[Tool-owned receipt]
-      LC --> RCP
-    ```
-````
+  TD --> LC[Lifecycle model: side effects, receipts, rollback]
+  C --> RCP[Tool-owned receipt]
+  LC --> RCP
+```
 
 <!-- field: tool_language_diagram -->
 ## Tool language diagram
 
-````yaml
-|
-    ```mermaid
-    flowchart LR
-      subgraph Vocabulary
-        A[ToolDef: read]
-        B[ToolDef: edit]
-        C[ToolDef: build]
-        D[Boundary ToolDef: invoke_llm]
-      end
+```mermaid
+flowchart LR
+  subgraph Vocabulary
+    A[ToolDef: read]
+    B[ToolDef: edit]
+    C[ToolDef: build]
+    D[Boundary ToolDef: invoke_llm]
+  end
 
-      subgraph Grammar
-        M[MachineSpec]
-        S1[Composing]
-        S2[Parsing]
-        S3[ValidatingBuild]
-        S4[ValidatingTest]
-      end
+  subgraph Grammar
+    M[MachineSpec]
+    S1[Composing]
+    S2[Parsing]
+    S3[ValidatingBuild]
+    S4[ValidatingTest]
+  end
 
-      M --> S1
-      S1 -->|LLMResponded| S2
-      S2 -->|ToolDone via selected word| S1
-      S2 -->|TaskCompleted| S3
-      S3 -->|ToolDone| S4
+  M --> S1
+  S1 -->|LLMResponded| S2
+  S2 -->|ToolDone via selected word| S1
+  S2 -->|TaskCompleted| S3
+  S3 -->|ToolDone| S4
 
-      A --> M
-      B --> M
-      C --> M
-      D --> M
-    ```
-````
+  A --> M
+  B --> M
+  C --> M
+  D --> M
+```
 
 <!-- field: what_this_does -->
 ## What this does

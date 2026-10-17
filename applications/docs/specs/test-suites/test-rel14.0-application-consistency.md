@@ -66,80 +66,77 @@ executable_structural
 <!-- field: command -->
 #### Command
 
-```yaml
-|
-    python3 - <<'PY'
-    from pathlib import Path
-    import subprocess
-    import yaml
+python3 - <<'PY'
+from pathlib import Path
+import subprocess
+import yaml
 
-    root = Path("applications/docs")
-    paths = {
-        "srd": root / "specs/software-requirements/srd003-application-consistency.md",
-        "use_case": root / "specs/use-cases/rel14.0-uc001-application-consistency.md",
-        "suite": root / "specs/test-suites/test-rel14.0-application-consistency.md",
-        "index": root / "SPECIFICATIONS.md",
-        "roadmap": root / "road-map.md",
-        "architecture": root / "ARCHITECTURE.md",
-    }
-    def load(path):
-        # A corpus document is Markdown; mage specYAML prints the YAML tree
-        # its declaration parses it into (GH-2627).
-        out = subprocess.run(["mage", "specYAML", str(path)], cwd="agent-core",
-                             check=True, capture_output=True, text=True).stdout
-        return yaml.safe_load(out)
+root = Path("applications/docs")
+paths = {
+    "srd": root / "specs/software-requirements/srd003-application-consistency.md",
+    "use_case": root / "specs/use-cases/rel14.0-uc001-application-consistency.md",
+    "suite": root / "specs/test-suites/test-rel14.0-application-consistency.md",
+    "index": root / "SPECIFICATIONS.md",
+    "roadmap": root / "road-map.md",
+    "architecture": root / "ARCHITECTURE.md",
+}
+def load(path):
+    # A corpus document is Markdown; mage specYAML prints the YAML tree
+    # its declaration parses it into (GH-2627).
+    out = subprocess.run(["mage", "specYAML", str(path)], cwd="agent-core",
+                         check=True, capture_output=True, text=True).stdout
+    return yaml.safe_load(out)
 
-    docs = {name: load(path) for name, path in paths.items()}
-    required = {
-        "srd": {"id", "title", "problem", "goals", "requirements",
-                "non_goals", "acceptance_criteria"},
-        "use_case": {"id", "title", "summary", "actor", "trigger", "flow",
-                     "touchpoints", "success_criteria", "out_of_scope"},
-        "suite": {"id", "title", "release", "traces", "preconditions",
-                  "test_cases"},
-    }
-    for name, fields in required.items():
-        assert not fields - set(docs[name]), (name, fields - set(docs[name]))
+docs = {name: load(path) for name, path in paths.items()}
+required = {
+    "srd": {"id", "title", "problem", "goals", "requirements",
+            "non_goals", "acceptance_criteria"},
+    "use_case": {"id", "title", "summary", "actor", "trigger", "flow",
+                 "touchpoints", "success_criteria", "out_of_scope"},
+    "suite": {"id", "title", "release", "traces", "preconditions",
+              "test_cases"},
+}
+for name, fields in required.items():
+    assert not fields - set(docs[name]), (name, fields - set(docs[name]))
 
-    srd, use_case, suite = docs["srd"], docs["use_case"], docs["suite"]
-    assert srd["id"] == "srd003-application-consistency"
-    assert use_case["id"] == "rel14.0-uc001-application-consistency"
-    assert suite["id"] == "test-rel14.0-application-consistency"
-    assert use_case["test_suite"] == suite["id"]
-    assert use_case["id"] in suite["traces"]
-    assert use_case["id"] in srd["use_case_traces"]
-    assert suite["id"] in srd["test_suite_traces"]
+srd, use_case, suite = docs["srd"], docs["use_case"], docs["suite"]
+assert srd["id"] == "srd003-application-consistency"
+assert use_case["id"] == "rel14.0-uc001-application-consistency"
+assert suite["id"] == "test-rel14.0-application-consistency"
+assert use_case["test_suite"] == suite["id"]
+assert use_case["id"] in suite["traces"]
+assert use_case["id"] in srd["use_case_traces"]
+assert suite["id"] in srd["test_suite_traces"]
 
-    item_ids = {
-        item["id"]
-        for group in srd["requirements"].values()
-        for item in group["items"]
-    }
-    ac_traces = {
-        trace
-        for ac in srd["acceptance_criteria"]
-        for trace in ac["traces"]
-    }
-    assert item_ids <= ac_traces, sorted(item_ids - ac_traces)
-    ac_ids = {ac["id"] for ac in srd["acceptance_criteria"]}
-    case_traces = {
-        trace.rsplit(" ", 1)[-1]
-        for case in suite["test_cases"]
-        for trace in case.get("traces", [])
-        if trace.startswith(srd["id"] + " ")
-    }
-    assert ac_ids <= case_traces, sorted(ac_ids - case_traces)
+item_ids = {
+    item["id"]
+    for group in srd["requirements"].values()
+    for item in group["items"]
+}
+ac_traces = {
+    trace
+    for ac in srd["acceptance_criteria"]
+    for trace in ac["traces"]
+}
+assert item_ids <= ac_traces, sorted(item_ids - ac_traces)
+ac_ids = {ac["id"] for ac in srd["acceptance_criteria"]}
+case_traces = {
+    trace.rsplit(" ", 1)[-1]
+    for case in suite["test_cases"]
+    for trace in case.get("traces", [])
+    if trace.startswith(srd["id"] + " ")
+}
+assert ac_ids <= case_traces, sorted(ac_ids - case_traces)
 
-    index = docs["index"]
-    assert any(entry["id"] == srd["id"] for entry in index["srd_index"])
-    assert any(entry["id"] == use_case["id"] for entry in index["use_case_index"])
-    assert any(entry["id"] == suite["id"] for entry in index["test_suite_index"])
-    release = next(r for r in docs["roadmap"]["releases"] if r["version"] == "14.0")
-    assert any(entry["id"] == use_case["id"] for entry in release["use_cases"])
-    assert any(entry["id"] == suite["id"] for entry in release["test_suites"])
-    print("validated Release 14.0 application consistency trace closure")
-    PY
-```
+index = docs["index"]
+assert any(entry["id"] == srd["id"] for entry in index["srd_index"])
+assert any(entry["id"] == use_case["id"] for entry in index["use_case_index"])
+assert any(entry["id"] == suite["id"] for entry in index["test_suite_index"])
+release = next(r for r in docs["roadmap"]["releases"] if r["version"] == "14.0")
+assert any(entry["id"] == use_case["id"] for entry in release["use_cases"])
+assert any(entry["id"] == suite["id"] for entry in release["test_suites"])
+print("validated Release 14.0 application consistency trace closure")
+PY
 
 <!-- field: expected -->
 #### Expected

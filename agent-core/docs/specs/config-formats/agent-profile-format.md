@@ -112,43 +112,40 @@ absolute path is used as written.
 <!-- field: blueprints -->
 ## Blueprints
 
-```yaml
-|
-    A blueprint declares an agent once with typed parameters:
+A blueprint declares an agent once with typed parameters:
 
-      unit: serve-agent-blueprint
-      params:
-        - {name: agent, type: string}
-        - {name: server, type: string}
-      profile:
-        name: $param(agent)
-        machine:
-          fragment: /opt/agent-core/tools/machines/serve-machine-template.yaml
-          args: {server: $param(server)}
-        tools:
-          - ../$param(agent)/tools.yaml
-        rest_definitions:
-          - ../$param(agent)/rest.yaml
+  unit: serve-agent-blueprint
+  params:
+    - {name: agent, type: string}
+    - {name: server, type: string}
+  profile:
+    name: $param(agent)
+    machine:
+      fragment: /opt/agent-core/tools/machines/serve-machine-template.yaml
+      args: {server: $param(server)}
+    tools:
+      - ../$param(agent)/tools.yaml
+    rest_definitions:
+      - ../$param(agent)/rest.yaml
 
-    and each agent's profile.yaml expands it, carrying a name, the
-    arguments, and any field that differs:
+and each agent's profile.yaml expands it, carrying a name, the
+arguments, and any field that differs:
 
-      name: rag-server
-      expand:
-        - fragment: ../units/serve-agent-blueprint.yaml
-          args: {agent: rag-server, server: rag}
-      tool_declarations:
-        - declarations.yaml
+  name: rag-server
+  expand:
+    - fragment: ../units/serve-agent-blueprint.yaml
+      args: {agent: rag-server, server: rag}
+  tool_declarations:
+    - declarations.yaml
 
-    A field present on the instance replaces the blueprint's field wholesale; a
-    list is replaced, never merged. The resolved profile is validated as a
-    hand-written profile is, its program identity is the instance path, and its
-    digest covers the blueprint and every template it reaches (srd055 R3). A
-    blueprint named by `--profile`, a child-agent reference, or a
-    `machine_request` binding is a load error (srd055 R1.3). The fragment path
-    in the machine mapping above is an install-prefix path, which maps through
-    the install root as every profile path does (srd055 R2.2).
-```
+A field present on the instance replaces the blueprint's field wholesale; a
+list is replaced, never merged. The resolved profile is validated as a
+hand-written profile is, its program identity is the instance path, and its
+digest covers the blueprint and every template it reaches (srd055 R3). A
+blueprint named by `--profile`, a child-agent reference, or a
+`machine_request` binding is a load error (srd055 R1.3). The fragment path
+in the machine mapping above is an install-prefix path, which maps through
+the install root as every profile path does (srd055 R2.2).
 
 <!-- field: related_documents -->
 ## Related documents

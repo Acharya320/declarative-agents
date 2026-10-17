@@ -327,42 +327,39 @@ default charter wrapper.
 <!-- field: example -->
 ## Example
 
-```yaml
-|
-    id: manuscript-charter
-    title: Manuscript publication checks
-    target:
-      include: ["papers/**/*.md"]
-      exclude: ["papers/**/build/**"]
-    checks:
-      - id: no-internal-vocabulary
-        kind: grep_check
-        severity: error
-        patterns: ["cobbler", "agentic loop magic"]
-        message: "Publication prose must not leak internal vocabulary."
+id: manuscript-charter
+title: Manuscript publication checks
+target:
+  include: ["papers/**/*.md"]
+  exclude: ["papers/**/build/**"]
+checks:
+  - id: no-internal-vocabulary
+    kind: grep_check
+    severity: error
+    patterns: ["cobbler", "agentic loop magic"]
+    message: "Publication prose must not leak internal vocabulary."
 
-      - id: citations-resolve
-        kind: ref_check
-        severity: error
-        include: ["papers/**/*.md"]
-        references:
-          file: "papers/references.bib"
-          format: bibtex_keys
-        extract:
-          regex: "@([A-Za-z0-9:_-]+)"
+  - id: citations-resolve
+    kind: ref_check
+    severity: error
+    include: ["papers/**/*.md"]
+    references:
+      file: "papers/references.bib"
+      format: bibtex_keys
+    extract:
+      regex: "@([A-Za-z0-9:_-]+)"
 
-      - id: artifacts-exist
-        kind: consistency_check
-        severity: error
-        include: ["experiments/manifest.yaml"]
-        source:
-          yaml_path: "$.experiments[*].artifact"
-        rule: required_path_exists
+  - id: artifacts-exist
+    kind: consistency_check
+    severity: error
+    include: ["experiments/manifest.yaml"]
+    source:
+      yaml_path: "$.experiments[*].artifact"
+    rule: required_path_exists
 
-      - id: built-in-agent-core-specs
-        kind: spec_corpus
-        severity: error
-```
+  - id: built-in-agent-core-specs
+    kind: spec_corpus
+    severity: error
 
 <!-- field: references -->
 ## References

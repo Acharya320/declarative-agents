@@ -10,6 +10,8 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/yuin/goldmark/ast"
+	gtext "github.com/yuin/goldmark/text"
 	"gopkg.in/yaml.v3"
 )
 
@@ -24,6 +26,8 @@ var nestedKey = regexp.MustCompile(`^- ([a-z_][a-z0-9_]*):(?: (.*))?$`)
 func (r *Declaration) renderField(key string, value *yaml.Node) ([]string, error) {
 	field, typed := r.Fields[key]
 	switch {
+	case typed && field.Code != "":
+		return codeLines(field.Code, value)
 	case typed && field.Value == valueKeyed:
 		return keyedLines(value)
 	case typed && field.Value == valueOutline:
@@ -46,6 +50,8 @@ func (r *Declaration) renderField(key string, value *yaml.Node) ([]string, error
 func (r *Declaration) parseField(key, text string) (*yaml.Node, error) {
 	field, typed := r.Fields[key]
 	switch {
+	case typed && field.Code != "":
+		return parseCode(field.Code, text)
 	case typed && field.Value == valueKeyed:
 		return parseKeyed(text)
 	case typed && field.Value == valueOutline:
@@ -347,4 +353,37 @@ func setKey(mapping *yaml.Node, key string, value *yaml.Node) {
 		}
 	}
 	mapping.Content = append(mapping.Content, stringNode(key), value)
+}
+
+// codeLines prints a code field's string inside one fence of its declared
+// language, longer than any backtick run in the text (GH-2640).
+func codeLines(language string, value *yaml.Node) ([]string, error) {
+	if !isString(value) {
+		return nil, fmt.Errorf("a %s code field holds a string, found %s", language, value.ShortTag())
+	}
+	body := strings.TrimRight(value.Value, "\n")
+	fence := "```"
+	for strings.Contains(body, fence) {
+		fence += "`"
+	}
+	lines := []string{fence + language}
+	lines = append(lines, strings.Split(body, "\n")...)
+	return append(lines, fence), nil
+}
+
+// parseCode reads a code field back: the content of its one fence, which
+// must carry the declared language.
+func parseCode(language, text string) (*yaml.Node, error) {
+	src := []byte(text)
+	doc := markdown.Parser().Parse(gtext.NewReader(src))
+	fenced, ok := doc.FirstChild().(*ast.FencedCodeBlock)
+	if !ok || fenced.NextSibling() != nil || string(fenced.Language(src)) != language {
+		return nil, fmt.Errorf("a %s code field holds one fence of that language", language)
+	}
+	var body strings.Builder
+	for i := 0; i < fenced.Lines().Len(); i++ {
+		segment := fenced.Lines().At(i)
+		body.Write(segment.Value(src))
+	}
+	return stringNode(strings.TrimRight(body.String(), "\n")), nil
 }

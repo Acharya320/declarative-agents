@@ -63,73 +63,70 @@ executable_structural
 <!-- field: command -->
 #### Command
 
-```yaml
-|
-    python3 - <<'PY'
-    from pathlib import Path
-    import subprocess
-    import yaml
+python3 - <<'PY'
+from pathlib import Path
+import subprocess
+import yaml
 
-    root = Path("applications/docs")
-    paths = {
-        "srd": root / "specs/software-requirements/srd004-declarative-ux.md",
-        "use_case": root / "specs/use-cases/rel15.0-uc001-declarative-ux.md",
-        "suite": root / "specs/test-suites/test-rel15.0-declarative-ux.md",
-        "index": root / "SPECIFICATIONS.md",
-        "roadmap": root / "road-map.md",
-    }
-    def load(path):
-        # A corpus document is Markdown; mage specYAML prints the YAML tree
-        # its declaration parses it into (GH-2627).
-        out = subprocess.run(["mage", "specYAML", str(path)], cwd="agent-core",
-                             check=True, capture_output=True, text=True).stdout
-        return yaml.safe_load(out)
+root = Path("applications/docs")
+paths = {
+    "srd": root / "specs/software-requirements/srd004-declarative-ux.md",
+    "use_case": root / "specs/use-cases/rel15.0-uc001-declarative-ux.md",
+    "suite": root / "specs/test-suites/test-rel15.0-declarative-ux.md",
+    "index": root / "SPECIFICATIONS.md",
+    "roadmap": root / "road-map.md",
+}
+def load(path):
+    # A corpus document is Markdown; mage specYAML prints the YAML tree
+    # its declaration parses it into (GH-2627).
+    out = subprocess.run(["mage", "specYAML", str(path)], cwd="agent-core",
+                         check=True, capture_output=True, text=True).stdout
+    return yaml.safe_load(out)
 
-    docs = {name: load(path) for name, path in paths.items()}
-    required = {
-        "srd": {"id", "title", "problem", "goals", "requirements",
-                "non_goals", "acceptance_criteria"},
-        "use_case": {"id", "title", "summary", "actor", "trigger", "flow",
-                     "touchpoints", "success_criteria", "out_of_scope"},
-        "suite": {"id", "title", "release", "traces", "preconditions",
-                  "test_cases"},
-    }
-    for name, fields in required.items():
-        assert not fields - set(docs[name]), (name, fields - set(docs[name]))
+docs = {name: load(path) for name, path in paths.items()}
+required = {
+    "srd": {"id", "title", "problem", "goals", "requirements",
+            "non_goals", "acceptance_criteria"},
+    "use_case": {"id", "title", "summary", "actor", "trigger", "flow",
+                 "touchpoints", "success_criteria", "out_of_scope"},
+    "suite": {"id", "title", "release", "traces", "preconditions",
+              "test_cases"},
+}
+for name, fields in required.items():
+    assert not fields - set(docs[name]), (name, fields - set(docs[name]))
 
-    srd, use_case, suite = docs["srd"], docs["use_case"], docs["suite"]
-    assert use_case["test_suite"] == suite["id"]
-    assert use_case["id"] in suite["traces"]
-    assert use_case["id"] in srd["use_case_traces"]
-    assert suite["id"] in srd["test_suite_traces"]
+srd, use_case, suite = docs["srd"], docs["use_case"], docs["suite"]
+assert use_case["test_suite"] == suite["id"]
+assert use_case["id"] in suite["traces"]
+assert use_case["id"] in srd["use_case_traces"]
+assert suite["id"] in srd["test_suite_traces"]
 
-    item_ids = {
-        item["id"]
-        for group in srd["requirements"].values()
-        for item in group["items"]
-    }
-    ac_traces = {t for ac in srd["acceptance_criteria"] for t in ac["traces"]}
-    assert item_ids <= ac_traces, sorted(item_ids - ac_traces)
-    ac_ids = {ac["id"] for ac in srd["acceptance_criteria"]}
-    case_traces = {
-        t.rsplit(" ", 1)[-1]
-        for case in suite["test_cases"]
-        for t in case.get("traces", [])
-        if t.startswith(srd["id"] + " ")
-    }
-    assert ac_ids <= case_traces, sorted(ac_ids - case_traces)
-    assert len(suite["test_cases"]) == suite["test_case_count"]
+item_ids = {
+    item["id"]
+    for group in srd["requirements"].values()
+    for item in group["items"]
+}
+ac_traces = {t for ac in srd["acceptance_criteria"] for t in ac["traces"]}
+assert item_ids <= ac_traces, sorted(item_ids - ac_traces)
+ac_ids = {ac["id"] for ac in srd["acceptance_criteria"]}
+case_traces = {
+    t.rsplit(" ", 1)[-1]
+    for case in suite["test_cases"]
+    for t in case.get("traces", [])
+    if t.startswith(srd["id"] + " ")
+}
+assert ac_ids <= case_traces, sorted(ac_ids - case_traces)
+assert len(suite["test_cases"]) == suite["test_case_count"]
 
-    index = docs["index"]
-    assert any(e["id"] == srd["id"] for e in index["srd_index"])
-    assert any(e["id"] == use_case["id"] for e in index["use_case_index"])
-    assert any(e["id"] == suite["id"] for e in index["test_suite_index"])
-    release = next(r for r in docs["roadmap"]["releases"] if r["version"] == "15.0")
-    assert any(e["id"] == use_case["id"] for e in release["use_cases"])
-    assert any(e["id"] == suite["id"] for e in release["test_suites"])
-    print("validated Release 15.0 declarative UX trace closure")
-    PY
-```
+index = docs["index"]
+assert any(e["id"] == srd["id"] for e in index["srd_index"])
+assert any(e["id"] == use_case["id"] for e in index["use_case_index"])
+assert any(e["id"] == suite["id"] for e in index["test_suite_index"])
+release = next(r for r in docs["roadmap"]["releases"] if r["version"] == "15.0")
+assert any(e["id"] == use_case["id"] for e in release["use_cases"])
+assert any(e["id"] == suite["id"] for e in release["test_suites"])
+print("validated Release 15.0 declarative UX trace closure")
+PY
 
 <!-- field: expected -->
 #### Expected

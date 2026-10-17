@@ -1876,9 +1876,7 @@ TestNewRoot_OTLPExporter
 <!-- field: follow_up_issue -->
 #### Follow up issue
 
-```yaml
-"#601"
-```
+#601
 
 <!-- field: inputs -->
 #### Inputs
@@ -1915,9 +1913,7 @@ TestTraceAdapter_SatisfiesInterface
 <!-- field: follow_up_issue -->
 #### Follow up issue
 
-```yaml
-"#601"
-```
+#601
 
 <!-- field: inputs -->
 #### Inputs

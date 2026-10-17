@@ -63,6 +63,7 @@ document_types:
         suppliers: {in: [document_field], shape: table, columns: [name, city]}
         steps: {in: [document_field], shape: empty}
         checks: {in: [step_field], shape: list}
+        method: {in: [document_field], code: bash}
       required_fields: [description, steps]
       attributes: {minutes: integer, tags: list}
 `

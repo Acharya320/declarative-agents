@@ -34,14 +34,11 @@ Profile maintainer verifying specification-critic charter validation behavior.
 <!-- field: trigger -->
 ## Trigger
 
-```yaml
-|
-    A maintainer runs the specification-critic profile against a target directory and a charter
-    suite:
+A maintainer runs the specification-critic profile against a target directory and a charter
+suite:
 
-      agent --profile "agents/specification-critic/profile.yaml" \
-            --directory <target-directory>
-```
+  agent --profile "agents/specification-critic/profile.yaml" \
+        --directory <target-directory>
 
 <!-- field: preconditions -->
 ## Preconditions

@@ -30,12 +30,9 @@ Developer invoking the agent binary
 <!-- field: trigger -->
 ## Trigger
 
-```yaml
-|
-    A developer, or the coding-agent executorLive integration, runs:
-      agent --profile "$AGENT_CATALOG_ROOT/generator/profile.yaml" \
-            --directory <workspace>
-```
+A developer, or the coding-agent executorLive integration, runs:
+  agent --profile "$AGENT_CATALOG_ROOT/generator/profile.yaml" \
+        --directory <workspace>
 
 <!-- field: preconditions -->
 ## Preconditions

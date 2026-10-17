@@ -486,16 +486,13 @@ declare planned roots without creating executable stubs.
 <!-- decision: 9 -->
 ### 9 - Operation prefixes align program files
 
-```yaml
-|
-    profile.yaml, machine.yaml, tools.yaml, declarations.yaml, and rest.yaml
-    are primary names. A distinct operation uses one lower-kebab prefix across
-    <operation>-profile.yaml, <operation>-machine.yaml,
-    <operation>-tools.yaml, <operation>-declarations.yaml, and
-    <operation>-rest.yaml as needed. request is the reserved prefix for a
-    served request variant. tools files select names; declarations files own
-    ToolDefs. A variant does not require every possible file.
-```
+profile.yaml, machine.yaml, tools.yaml, declarations.yaml, and rest.yaml
+are primary names. A distinct operation uses one lower-kebab prefix across
+<operation>-profile.yaml, <operation>-machine.yaml,
+<operation>-tools.yaml, <operation>-declarations.yaml, and
+<operation>-rest.yaml as needed. request is the reserved prefix for a
+served request variant. tools files select names; declarations files own
+ToolDefs. A variant does not require every possible file.
 
 <!-- field: benefits -->
 #### Benefits

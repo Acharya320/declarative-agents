@@ -229,6 +229,13 @@ func (d *diagnosis) checkShape(node *dnode) {
 	if shape == shapeEmpty && (field.Shape == shapeList || field.Shape == shapeTable) {
 		return // a list or table with no entries
 	}
+	if field.Code != "" {
+		if _, err := parseCode(field.Code, content); err != nil {
+			d.add("field-shape-mismatch", line, node.id+" as one "+field.Code+" fence", shape,
+				"fields."+node.id+".code", "write "+node.id+" as one ```"+field.Code+" fenced block")
+		}
+		return
+	}
 	if shape != field.Shape && (field.Shape != shapeProse || shape != shapeYAML) {
 		d.add("field-shape-mismatch", line, node.id+" as "+field.Shape, shape, "fields."+node.id+".shape",
 			"write "+node.id+" as "+field.Shape)

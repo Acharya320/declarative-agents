@@ -706,98 +706,92 @@ code, message, and the affected state/signal/transition index.
 <!-- field: stage_fragments -->
 ## Stage fragments
 
-```yaml
-|
-    A machine MAY expand stage fragments (srd052 R4, srd006 R1.9). A stage
-    fragment is a unit whose body is `stage` rather than a whole machine:
+A machine MAY expand stage fragments (srd052 R4, srd006 R1.9). A stage
+fragment is a unit whose body is `stage` rather than a whole machine:
 
-      unit: control-stage-fragment
-      params:
-        - {name: prefix, type: string}
-        - {name: from, type: string}
-        - {name: enter, type: string}
-        - {name: launch, type: string}
-        - {name: await, type: string}
-      stage:
-        states:
-          - {name: $param(prefix)Launching, meaning: Starting the control server.}
-          - {name: $param(prefix)Awaiting, meaning: Waiting for an exit request.}
-        transitions:
-          - {state: $param(from), signal: $param(enter), next: $param(prefix)Launching, action: $param(launch)}
-          - {state: $param(prefix)Launching, signal: ServerLaunched, next: $param(prefix)Awaiting, action: $param(await)}
-          - {state: $param(prefix)Awaiting, signal: ExitRequested, next: Exiting, action: exit_agent}
-          - {state: $param(prefix)Awaiting, signal: CommandError, next: Failed}
+  unit: control-stage-fragment
+  params:
+    - {name: prefix, type: string}
+    - {name: from, type: string}
+    - {name: enter, type: string}
+    - {name: launch, type: string}
+    - {name: await, type: string}
+  stage:
+    states:
+      - {name: $param(prefix)Launching, meaning: Starting the control server.}
+      - {name: $param(prefix)Awaiting, meaning: Waiting for an exit request.}
+    transitions:
+      - {state: $param(from), signal: $param(enter), next: $param(prefix)Launching, action: $param(launch)}
+      - {state: $param(prefix)Launching, signal: ServerLaunched, next: $param(prefix)Awaiting, action: $param(await)}
+      - {state: $param(prefix)Awaiting, signal: ExitRequested, next: Exiting, action: exit_agent}
+      - {state: $param(prefix)Awaiting, signal: CommandError, next: Failed}
 
-    The importing machine lists it beside its own transitions:
+The importing machine lists it beside its own transitions:
 
-      expand:
-        - fragment: ../../units/control-stage-fragment.yaml
-          args: {prefix: Patient, from: Awaiting, enter: AwaitTimedOut,
-                 launch: patient_launch_agent_control, await: patient_await_agent_control}
+  expand:
+    - fragment: ../../units/control-stage-fragment.yaml
+      args: {prefix: Patient, from: Awaiting, enter: AwaitTimedOut,
+             launch: patient_launch_agent_control, await: patient_await_agent_control}
 
-    The loader fills the arguments into scalar values and appends the produced
-    states, signals, and transitions to the machine's lists. The stage's
-    entry (`from`, `enter`) and every state it hands to (`Exiting`, `Failed`
-    above) belong to the importer, which must declare them; a stage that names
-    a state or signal nothing declares fails as a hand-written transition
-    would, with the fragment named. The prefix is a parameter the fragment
-    composes into its state names, so one stage can be spliced twice under two
-    prefixes; splicing the same prefix twice is the existing duplicate-state
-    error. The spliced machine is then validated as one machine by every
-    machine check -- referential integrity, labels (srd038), exhaustiveness
-    (srd006 R2.10) -- and the dump renders the spliced result under `machine`
-    with the fragment, arguments, and produced names under `expansions`.
-    A machine declares no `imports`; a stage is expanded, and a machine
-    has no other unit kind to import.
-```
+The loader fills the arguments into scalar values and appends the produced
+states, signals, and transitions to the machine's lists. The stage's
+entry (`from`, `enter`) and every state it hands to (`Exiting`, `Failed`
+above) belong to the importer, which must declare them; a stage that names
+a state or signal nothing declares fails as a hand-written transition
+would, with the fragment named. The prefix is a parameter the fragment
+composes into its state names, so one stage can be spliced twice under two
+prefixes; splicing the same prefix twice is the existing duplicate-state
+error. The spliced machine is then validated as one machine by every
+machine check -- referential integrity, labels (srd038), exhaustiveness
+(srd006 R2.10) -- and the dump renders the spliced result under `machine`
+with the fragment, arguments, and produced names under `expansions`.
+A machine declares no `imports`; a stage is expanded, and a machine
+has no other unit kind to import.
 
 <!-- field: machine_templates -->
 ## Machine templates
 
-```yaml
-|
-    A whole machine MAY be a template (srd054-machine-templates). A template is
-    a fragment whose body is `machine` rather than `stage`, holding the fields
-    a machine file holds apart from `unit` and `imports`:
+A whole machine MAY be a template (srd054-machine-templates). A template is
+a fragment whose body is `machine` rather than `stage`, holding the fields
+a machine file holds apart from `unit` and `imports`:
 
-      unit: control-machine-template
-      params:
-        - {name: server, type: string}
-        - {name: exit_signal, type: string}
-      machine:
-        name: control
-        purpose: Serve a control endpoint until an exit request arrives.
-        initial_state: Idle
-        states: [...]
-        transitions:
-          - {state: Idle, signal: Seed, next: Launching, action: launch_$param(server)_control}
-          ...
+  unit: control-machine-template
+  params:
+    - {name: server, type: string}
+    - {name: exit_signal, type: string}
+  machine:
+    name: control
+    purpose: Serve a control endpoint until an exit request arrives.
+    initial_state: Idle
+    states: [...]
+    transitions:
+      - {state: Idle, signal: Seed, next: Launching, action: launch_$param(server)_control}
+      ...
 
-    A machine file becomes an instance of it by carrying a unit, exactly one
-    expansion entry, and optionally its own name and purpose:
+A machine file becomes an instance of it by carrying a unit, exactly one
+expansion entry, and optionally its own name and purpose:
 
-      unit: control-template
-      name: control-template
-      expand:
-        - fragment: ../../units/control-machine-template.yaml
-          args: {server: agent, exit_signal: ExitRequested}
+  unit: control-template
+  name: control-template
+  expand:
+    - fragment: ../../units/control-machine-template.yaml
+      args: {server: agent, exit_signal: ExitRequested}
 
-    Any other field on an instance is a load error naming the field, as is an
-    `as` on the entry (srd054 R1.2). The target's body kind selects the
-    behavior: a `machine` body replaces the instance's machine and a `stage`
-    body splices into it. A template body MAY itself expand stages, whose
-    paths resolve against the template's directory; a template cannot
-    expand a template, and an instance cannot splice a stage beside its
-    template (srd054 R1.3). The expanded machine is validated by every check
-    a hand-written machine passes, and a diagnostic names both the template and
-    the instance. The template and its stages are closure files and program
-    identity assets; the dump renders the expanded machine under `machine`
-    and lists expansions with `kind: machine` or `kind: stage`. A profile or
-    a `machine_request` binding that names a template file directly is a load
-    error, because a template is not a machine until its arguments arrive
-    (srd054 R1.4). Landed with GH-2114; testdata/integration/profiles/
-    control-template is the reference instance.
-```
+Any other field on an instance is a load error naming the field, as is an
+`as` on the entry (srd054 R1.2). The target's body kind selects the
+behavior: a `machine` body replaces the instance's machine and a `stage`
+body splices into it. A template body MAY itself expand stages, whose
+paths resolve against the template's directory; a template cannot
+expand a template, and an instance cannot splice a stage beside its
+template (srd054 R1.3). The expanded machine is validated by every check
+a hand-written machine passes, and a diagnostic names both the template and
+the instance. The template and its stages are closure files and program
+identity assets; the dump renders the expanded machine under `machine`
+and lists expansions with `kind: machine` or `kind: stage`. A profile or
+a `machine_request` binding that names a template file directly is a load
+error, because a template is not a machine until its arguments arrive
+(srd054 R1.4). Landed with GH-2114; testdata/integration/profiles/
+control-template is the reference instance.
 
 <!-- field: related_documents -->
 ## Related documents

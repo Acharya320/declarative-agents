@@ -214,13 +214,10 @@ each declared local or catalog profile root
 <!-- req: R3.1 -->
 ### R3.1
 
-```yaml
-|
-    profile.yaml shall be the primary loadable entry in an actor root. A
-    distinct operation variant shall use
-    <operation>-profile.yaml and the same lower-kebab operation prefix
-    across its related files.
-```
+profile.yaml shall be the primary loadable entry in an actor root. A
+distinct operation variant shall use
+<operation>-profile.yaml and the same lower-kebab operation prefix
+across its related files.
 
 <!-- field: evidence -->
 #### Evidence
@@ -244,13 +241,10 @@ and follows the primary or operation-prefixed form.
 <!-- req: R3.3 -->
 ### R3.3
 
-```yaml
-|
-    tools.yaml and <operation>-tools.yaml shall contain name-only tool
-    selections. ToolDef documents shall use declarations.yaml or
-    <operation>-declarations.yaml. A selection file shall not become a
-    second ToolDef authority.
-```
+tools.yaml and <operation>-tools.yaml shall contain name-only tool
+selections. ToolDef documents shall use declarations.yaml or
+<operation>-declarations.yaml. A selection file shall not become a
+second ToolDef authority.
 
 <!-- field: evidence -->
 #### Evidence

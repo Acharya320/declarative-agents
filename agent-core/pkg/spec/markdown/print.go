@@ -168,7 +168,7 @@ func (p *printer) record(kind, id string, record *yaml.Node) error {
 // fenced yaml block.
 func contentLines(content *yaml.Node, anyContent bool) ([]string, error) {
 	switch {
-	case isString(content) && proseSafe(content.Value):
+	case isString(content) && (proseSafe(content.Value) || proseTextSafe(content.Value)):
 		return proseLines(content.Value), nil
 	case anyContent && isString(content) && rawSafe(content.Value):
 		return proseLines(content.Value), nil
@@ -195,6 +195,25 @@ func rawSafe(text string) bool {
 		}
 	}
 	return len(blocks) > 0 && spanText(lines, blocks[0].Start, blocks[len(blocks)-1].End) == trimmed
+}
+
+// fieldTextSafe reports a field's text that reads back as itself: raw-safe,
+// and not a lone list or table, which would read back as a list or a table.
+// Fenced blocks such as Mermaid, block quotes, and indented lines stay in the
+// text, so they render (GH-2640).
+func fieldTextSafe(text string) bool {
+	return rawSafe(text) && classifyContent(strings.TrimRight(text, "\n")) == shapeProse
+}
+
+// proseTextSafe reports prose node text that reads back as itself and keeps
+// the prose content rule: raw-safe, with no untagged list or table.
+func proseTextSafe(text string) bool {
+	if !rawSafe(text) {
+		return false
+	}
+	blocks, _ := topLevelBlocks([]byte(strings.TrimRight(text, "\n")))
+	_, _, structured := containsStructure(blocks)
+	return !structured
 }
 
 func recordMarker(rule nodeRule, id string, record *yaml.Node) (Marker, error) {

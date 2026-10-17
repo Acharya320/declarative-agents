@@ -744,33 +744,30 @@ GH-2118 (agent-core root) and GH-2119 (declared roots).
 <!-- field: boundary_compensation_example -->
 ## Boundary compensation example
 
-```yaml
-|
-    Boundary tools that cross process, issue, or human boundaries declare
-    payload: boundary_compensation in their undo section. At runtime, the
-    tool's UndoMemento() method serializes a BoundaryCompensationPayload
-    containing the values named in captures. Example from self_invoke:
+Boundary tools that cross process, issue, or human boundaries declare
+payload: boundary_compensation in their undo section. At runtime, the
+tool's UndoMemento() method serializes a BoundaryCompensationPayload
+containing the values named in captures. Example from self_invoke:
 
-      undo:
-        strategy: compensating_action
-        description: Requires child evaluator artifact cleanup.
-        payload: boundary_compensation
-        captures: [suite_path, output_dir, child_profile]
+  undo:
+    strategy: compensating_action
+    description: Requires child evaluator artifact cleanup.
+    payload: boundary_compensation
+    captures: [suite_path, output_dir, child_profile]
 
-    The persisted UndoMemento carries:
-      {
-        "boundary_compensation": {
-          "strategy": "child_eval_artifact_compensation",
-          "child_profile": "${AGENT_CATALOG_ROOT}/evaluator/profile.yaml",
-          "workspace_paths": ["/tmp/eval-output-123"],
-          "artifact_paths": ["/path/to/suite.yaml"]
-        }
-      }
+The persisted UndoMemento carries:
+  {
+    "boundary_compensation": {
+      "strategy": "child_eval_artifact_compensation",
+      "child_profile": "${AGENT_CATALOG_ROOT}/evaluator/profile.yaml",
+      "workspace_paths": ["/tmp/eval-output-123"],
+      "artifact_paths": ["/path/to/suite.yaml"]
+    }
+  }
 
-    Tools with boundary_compensation: suspend, self_invoke aliases, run_point,
-    run_agent, self_invoke, commit,
-    issue_create, issue_close, and profile-owned tracker exec words.
-```
+Tools with boundary_compensation: suspend, self_invoke aliases, run_point,
+run_agent, self_invoke, commit,
+issue_create, issue_close, and profile-owned tracker exec words.
 
 <!-- field: inline_pattern -->
 ## Inline pattern
@@ -817,19 +814,16 @@ be selected as $from(<label>).output.
 <!-- field: mode_local_overrides -->
 ## Mode local overrides
 
-```yaml
-|
-    Some agents have mode-local builtin override files that add config
-    blocks to tools declared in tools/builtin/. These are loaded after
-    the shared declaration directory through profile tool_declarations:
+Some agents have mode-local builtin override files that add config
+blocks to tools declared in tools/builtin/. These are loaded after
+the shared declaration directory through profile tool_declarations:
 
-      <profile-root>/bench/builtin.yaml — profile aliases for generic REST lifecycle, predicate, and self_invoke words
-      <profile-root>/evaluator/builtin.yaml — evaluator-specific config (suite/point tools)
-      <profile-root>/planner/builtin.yaml — planner-specific config (child agent, issue tools)
+  <profile-root>/bench/builtin.yaml — profile aliases for generic REST lifecycle, predicate, and self_invoke words
+  <profile-root>/evaluator/builtin.yaml — evaluator-specific config (suite/point tools)
+  <profile-root>/planner/builtin.yaml — planner-specific config (child agent, issue tools)
 
-    The generator and jurist agents do not have mode-local overrides;
-    they use the shared builtin declaration directory directly.
-```
+The generator and jurist agents do not have mode-local overrides;
+they use the shared builtin declaration directory directly.
 
 <!-- field: legacy_artifacts -->
 ## Legacy artifacts
