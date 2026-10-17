@@ -152,4 +152,7 @@ func TestFirstDifferenceNamesTheLine(t *testing.T) {
 	if line, _, _ := FirstDifference([]byte("same\n"), []byte("same\n")); line != 0 {
 		t.Fatalf("equal documents differ at %d", line)
 	}
+	if line, _, expected := FirstDifference([]byte("a\n\n"), []byte("a\n")); line != 3 || expected != "the end of the document" {
+		t.Fatalf("trailing newline: got %d %q", line, expected)
+	}
 }

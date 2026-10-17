@@ -15,17 +15,16 @@ import (
 // says what to change (GH-2678). It reports 0 when they are equal.
 func FirstDifference(data, formatted []byte) (line int, found, expected string) {
 	have, want := strings.Split(string(data), "\n"), strings.Split(string(formatted), "\n")
-	for i := 0; i < len(have) || i < len(want); i++ {
-		var h, w string
-		if i < len(have) {
-			h = have[i]
+	for i := 0; i < len(have) && i < len(want); i++ {
+		if have[i] != want[i] {
+			return i + 1, have[i], want[i]
 		}
-		if i < len(want) {
-			w = want[i]
-		}
-		if h != w {
-			return i + 1, h, w
-		}
+	}
+	switch { // one is a prefix of the other: an extra or missing line, a trailing newline included
+	case len(have) > len(want):
+		return len(want) + 1, have[len(want)], "the end of the document"
+	case len(want) > len(have):
+		return len(have) + 1, "the end of the document", want[len(have)]
 	}
 	return 0, "", ""
 }
