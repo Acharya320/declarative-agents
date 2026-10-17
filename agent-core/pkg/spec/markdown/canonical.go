@@ -79,8 +79,12 @@ func (c *canonicalizer) member(level int, parent, key string, value *yaml.Node, 
 	if kind, ok := c.d.directRecords(level, parent, key); ok {
 		return c.records(kind, value, path)
 	}
-	if kind, ok := c.d.fieldRecords(key); ok {
+	if kind, ok := c.d.fieldRecords(level, key); ok && c.d.recordsFit(kind, value) {
 		return c.records(kind, value, path)
+	}
+	if value.Kind == yaml.MappingNode && c.d.nestedSlot(level, key) {
+		c.members(level+1, "field:"+key, value, path, func(string) bool { return false })
+		return value
 	}
 	field := c.d.Fields[key]
 	switch {

@@ -182,3 +182,32 @@ overview:
 		}
 	}
 }
+
+// TestRecordFieldKeepsOtherValues prints a field whose level declares a
+// record kind, but whose value is text or a map, in its usual form and
+// reads it back, and finds no record kind for the same key at another level
+// (GH-2663).
+func TestRecordFieldKeepsOtherValues(t *testing.T) {
+	d := nestedDeclaration(t)
+	original := yamlDoc(t, `id: plan
+title: Plan
+overview:
+  packages: Packages are listed elsewhere.
+  layout:
+    status: current
+    packages: To be decided.
+notes: Plain text.
+`)
+	md, back := nestedRoundTrip(t, d, original)
+	if diff := Diff(original, back); diff != "" {
+		t.Fatalf("round trip changed %s\n%s", diff, md)
+	}
+	for _, want := range []string{
+		"<!-- field: packages -->\n### Packages\n\nPackages are listed elsewhere.\n",
+		"<!-- field: packages -->\n#### Packages\n\nTo be decided.\n",
+	} {
+		if !strings.Contains(md, want) {
+			t.Errorf("printed Markdown lacks %q\n%s", want, md)
+		}
+	}
+}

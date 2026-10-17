@@ -63,6 +63,8 @@ type frame struct {
 	blocks    []Block
 	form      string // a field's typed form, from its marker
 	nested    bool   // a field whose value holds nested fields
+	level     int    // a field's heading level
+	records   bool   // a field that opened a record
 }
 
 type reader struct {
@@ -166,9 +168,9 @@ func (rd *reader) holder(level int) *yaml.Node {
 }
 
 func (rd *reader) openField(level int, key string) *frame {
-	f := &frame{field: true, key: key, holder: rd.holder(level)}
+	f := &frame{field: true, key: key, holder: rd.holder(level), level: level}
 	f.value = &yaml.Node{Kind: yaml.ScalarNode, Tag: "!!null"}
-	if kind, ok := rd.d.fieldRecords(key); ok {
+	if kind, ok := rd.d.fieldRecords(level, key); ok {
 		f.value = newContainer(rd.d.Nodes[kind].YAML.Records)
 	}
 	setKey(f.holder, key, f.value)
@@ -205,6 +207,7 @@ func (rd *reader) openRecord(level int, kind string, m Marker, heading string) (
 // one under the key its YAML mapping names, created on first use.
 func (rd *reader) recordContainer(level int, rule nodeRule) *yaml.Node {
 	if parent := rd.stack[level-1]; level > 2 && parent != nil && parent.field {
+		parent.records = true
 		return parent.value
 	}
 	holder := rd.holder(level)
@@ -246,8 +249,8 @@ func (rd *reader) close(f *frame) error {
 		text = spanText(rd.lines, f.blocks[0].Start, f.blocks[len(f.blocks)-1].End)
 	}
 	if f.field {
-		if _, records := rd.d.fieldRecords(f.key); records {
-			return nil
+		if _, records := rd.d.fieldRecords(f.level, f.key); records && (f.records || text == "") {
+			return nil // its records, or an empty list of them
 		}
 		if f.nested {
 			if text != "" {

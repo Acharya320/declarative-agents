@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"sort"
 	"strings"
+
+	"gopkg.in/yaml.v3"
 )
 
 // nodeYAML maps a node kind to the YAML records it comes from (eng10 Table 5):
@@ -113,15 +115,26 @@ func (r *Declaration) directRecords(level int, parent, key string) (string, bool
 	return "", false
 }
 
-// fieldRecords finds the node kind whose records a field holds, as
-// acceptance criteria sit under the acceptance_criteria field.
-func (r *Declaration) fieldRecords(key string) (string, bool) {
+// fieldRecords finds the node kind whose records a field at level holds,
+// one level down, as acceptance criteria sit under the acceptance_criteria
+// field. The level tells apart one key holding records in one place and
+// something else in another (GH-2663).
+func (r *Declaration) fieldRecords(level int, key string) (string, bool) {
 	for _, name := range sortedKeys(r.Nodes) {
-		if node := r.Nodes[name]; node.Parent == "field:"+key && node.Tag != tagField {
+		if node := r.Nodes[name]; node.Parent == "field:"+key && node.Tag != tagField && node.Level == level+1 {
 			return name, true
 		}
 	}
 	return "", false
+}
+
+// recordsFit reports a value that holds a node kind's records: a list for
+// list records, a map for map records.
+func (r *Declaration) recordsFit(kind string, value *yaml.Node) bool {
+	if r.Nodes[kind].YAML.Records == recordsMap {
+		return value.Kind == yaml.MappingNode
+	}
+	return value.Kind == yaml.SequenceNode
 }
 
 // nestedSlot reports whether a field at level declares a slot for nested

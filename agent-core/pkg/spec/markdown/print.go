@@ -123,7 +123,7 @@ func (p *printer) member(level int, parent, key string, value *yaml.Node) error 
 	if _, ok := p.d.fieldKind(level, parent); !ok {
 		return fmt.Errorf("%s: no field is declared at level %d under %s", key, level, parent)
 	}
-	if kind, ok := p.d.fieldRecords(key); ok {
+	if kind, ok := p.d.fieldRecords(level, key); ok && p.d.recordsFit(kind, value) {
 		p.block(Marker{Tag: tagField, Value: key}.String(), strings.Repeat("#", level)+" "+p.d.fieldHeading(key))
 		return p.records(kind, value)
 	}
