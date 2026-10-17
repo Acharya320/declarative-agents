@@ -47,10 +47,10 @@ Run mage package from applications/coding-agent.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd002-deployment-profile-package R1.1, R1.2, R1.3 | S1 traces this requirement in the existing success criteria. |
-| T2 | srd002-deployment-profile-package R2.1, R2.2, R2.3, R2.4 | S2 traces this requirement in the existing success criteria. |
-| T3 | srd002-deployment-profile-package R3.1, R3.2, R3.3 | S3 traces this requirement in the existing success criteria. |
-| T4 | srd002-deployment-profile-package R4.1, R4.2 | S4 traces this requirement in the existing success criteria. |
+| T1 | [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [R1.1](../software-requirements/srd002-deployment-profile-package.md#r11), [R1.2](../software-requirements/srd002-deployment-profile-package.md#r12), [R1.3](../software-requirements/srd002-deployment-profile-package.md#r13) | S1 traces this requirement in the existing success criteria. |
+| T2 | [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [R2.1](../software-requirements/srd002-deployment-profile-package.md#r21), [R2.2](../software-requirements/srd002-deployment-profile-package.md#r22), [R2.3](../software-requirements/srd002-deployment-profile-package.md#r23), [R2.4](../software-requirements/srd002-deployment-profile-package.md#r24) | S2 traces this requirement in the existing success criteria. |
+| T3 | [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [R3.1](../software-requirements/srd002-deployment-profile-package.md#r31), [R3.2](../software-requirements/srd002-deployment-profile-package.md#r32), [R3.3](../software-requirements/srd002-deployment-profile-package.md#r33) | S3 traces this requirement in the existing success criteria. |
+| T4 | [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [R4.1](../software-requirements/srd002-deployment-profile-package.md#r41), [R4.2](../software-requirements/srd002-deployment-profile-package.md#r42) | S4 traces this requirement in the existing success criteria. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -63,10 +63,10 @@ Each shard contains only one serving role and its reachable canonical assets.
 <!-- field: traces -->
 #### Traces
 
-- srd002-deployment-profile-package R1.1
-- srd002-deployment-profile-package R1.2
-- srd002-deployment-profile-package R1.3
-- srd002-deployment-profile-package AC1
+- [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [R1.1](../software-requirements/srd002-deployment-profile-package.md#r11)
+- [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [R1.2](../software-requirements/srd002-deployment-profile-package.md#r12)
+- [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [R1.3](../software-requirements/srd002-deployment-profile-package.md#r13)
+- [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [AC1](../software-requirements/srd002-deployment-profile-package.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -76,11 +76,11 @@ Repeated packaging from the same inputs is byte-identical.
 <!-- field: traces -->
 #### Traces
 
-- srd002-deployment-profile-package R2.1
-- srd002-deployment-profile-package R2.2
-- srd002-deployment-profile-package R2.3
-- srd002-deployment-profile-package R2.4
-- srd002-deployment-profile-package AC1
+- [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [R2.1](../software-requirements/srd002-deployment-profile-package.md#r21)
+- [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [R2.2](../software-requirements/srd002-deployment-profile-package.md#r22)
+- [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [R2.3](../software-requirements/srd002-deployment-profile-package.md#r23)
+- [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [R2.4](../software-requirements/srd002-deployment-profile-package.md#r24)
+- [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [AC1](../software-requirements/srd002-deployment-profile-package.md#ac1)
 
 <!-- sc: S3 -->
 ### S3
@@ -90,10 +90,10 @@ ConfigMap partition metadata covers every role file once within the payload boun
 <!-- field: traces -->
 #### Traces
 
-- srd002-deployment-profile-package R3.1
-- srd002-deployment-profile-package R3.2
-- srd002-deployment-profile-package R3.3
-- srd002-deployment-profile-package AC2
+- [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [R3.1](../software-requirements/srd002-deployment-profile-package.md#r31)
+- [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [R3.2](../software-requirements/srd002-deployment-profile-package.md#r32)
+- [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [R3.3](../software-requirements/srd002-deployment-profile-package.md#r33)
+- [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [AC2](../software-requirements/srd002-deployment-profile-package.md#ac2)
 
 <!-- sc: S4 -->
 ### S4
@@ -103,9 +103,9 @@ All packaged role entry profiles validate with the real binary.
 <!-- field: traces -->
 #### Traces
 
-- srd002-deployment-profile-package R4.1
-- srd002-deployment-profile-package R4.2
-- srd002-deployment-profile-package AC3
+- [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [R4.1](../software-requirements/srd002-deployment-profile-package.md#r41)
+- [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [R4.2](../software-requirements/srd002-deployment-profile-package.md#r42)
+- [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [AC3](../software-requirements/srd002-deployment-profile-package.md#ac3)
 
 <!-- field: out_of_scope -->
 ## Out of scope

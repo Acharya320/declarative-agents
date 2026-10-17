@@ -141,9 +141,9 @@ A profile listing the four words by name in tools.yaml boots, and the words regi
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -153,9 +153,9 @@ The backend is chosen solely by the declared bucket_url plus the optional explic
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -165,9 +165,9 @@ A write over an existing object undoes to the prior bytes, a write to an absent 
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -177,8 +177,8 @@ Unit tests pass on mem and file buckets with no container, and the fake-gcs inte
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
+- [R4.1](#r41)
+- [R4.2](#r42)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -188,9 +188,9 @@ The internal delete-prefix word ignores request-supplied storage selectors, dele
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
 
 <!-- field: related_documents -->
 ## Related documents

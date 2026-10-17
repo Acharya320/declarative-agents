@@ -265,8 +265,8 @@ ExporterConfig requires at least one exporter. NewRoot rejects empty config with
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
+- [R1.1](#r11)
+- [R1.2](#r12)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -276,11 +276,11 @@ Trace.Push creates a child span. Trace.Event records an event. Trace.SetAttribut
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
-- R2.7
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
+- [R2.7](#r27)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -290,8 +290,8 @@ Trace.Context returns a context.Context. Trace.Meter returns a metric.Meter.
 <!-- field: traces -->
 #### Traces
 
-- R2.5
-- R2.6
+- [R2.5](#r25)
+- [R2.6](#r26)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -301,10 +301,10 @@ NewRoot accepts a service name used for OTel resource, tracer, meter, and temp f
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.1b
-- R3.2
-- R3.3
+- [R3.1](#r31)
+- [R3.1b](#r31b)
+- [R3.2](#r32)
+- [R3.3](#r33)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -314,8 +314,8 @@ Shutdown flushes, ends the root span, closes files, and is idempotent.
 <!-- field: traces -->
 #### Traces
 
-- R3.4
-- R3.5
+- [R3.4](#r34)
+- [R3.5](#r35)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -325,8 +325,8 @@ File exporter writes to a temp file and renames atomically on shutdown.
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
+- [R4.1](#r41)
+- [R4.2](#r42)
 
 <!-- ac: AC7 -->
 ### AC7
@@ -336,14 +336,14 @@ OTLP exporter sends traces and metrics via insecure gRPC, and monitor metric exp
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
-- R8.1
-- R8.2
-- R8.3
-- R8.4
-- R8.5
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R8.1](#r81)
+- [R8.2](#r82)
+- [R8.3](#r83)
+- [R8.4](#r84)
+- [R8.5](#r85)
 
 <!-- ac: AC8 -->
 ### AC8
@@ -353,9 +353,9 @@ TraceAdapter satisfies tracing.Tracer at compile time. Push wraps the child Trac
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
-- R6.3
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
 
 <!-- ac: AC9 -->
 ### AC9
@@ -365,10 +365,10 @@ The offline replay MachineSpec loads a trusted OTLP protobuf-JSON batch and rela
 <!-- field: traces -->
 #### Traces
 
-- R7.1
-- R7.2
-- R7.3
-- R7.4
+- [R7.1](#r71)
+- [R7.2](#r72)
+- [R7.3](#r73)
+- [R7.4](#r74)
 
 <!-- ac: AC10 -->
 ### AC10
@@ -378,13 +378,13 @@ Integration runs dual-export file and OTLP evidence with bounded run identity an
 <!-- field: traces -->
 #### Traces
 
-- R9.1
-- R9.2
-- R9.3
-- R9.4
-- R9.5
-- R9.6
-- R9.7
+- [R9.1](#r91)
+- [R9.2](#r92)
+- [R9.3](#r93)
+- [R9.4](#r94)
+- [R9.5](#r95)
+- [R9.6](#r96)
+- [R9.7](#r97)
 
 <!-- field: related_documents -->
 ## Related documents

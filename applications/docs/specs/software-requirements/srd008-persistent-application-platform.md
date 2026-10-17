@@ -545,11 +545,11 @@ planned test case.
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R2.3
-- R9.3
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R2.3](#r23)
+- [R9.3](#r93)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -560,8 +560,8 @@ REST, OTLP, object storage, and vector-query paths.
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R8.1
+- [R3.1](#r31)
+- [R8.1](#r81)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -573,13 +573,13 @@ cloud cluster recreation without implicit data deletion.
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R4.1
-- R4.2
-- R4.3
-- R4.4
-- R8.2
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R4.4](#r44)
+- [R8.2](#r82)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -591,9 +591,9 @@ boundaries exactly.
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -605,12 +605,12 @@ conflict behavior.
 <!-- field: traces -->
 #### Traces
 
-- R3.2
-- R3.3
-- R6.1
-- R6.2
-- R6.3
-- R6.4
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
+- [R6.4](#r64)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -622,9 +622,9 @@ after redeployment against the same bucket.
 <!-- field: traces -->
 #### Traces
 
-- R7.1
-- R7.2
-- R7.3
+- [R7.1](#r71)
+- [R7.2](#r72)
+- [R7.3](#r73)
 
 <!-- ac: AC7 -->
 ### AC7
@@ -636,9 +636,9 @@ reusable application-rig integration contract.
 <!-- field: traces -->
 #### Traces
 
-- R8.3
-- R9.1
-- R9.2
+- [R8.3](#r83)
+- [R9.1](#r91)
+- [R9.2](#r92)
 
 <!-- field: related_documents -->
 ## Related documents

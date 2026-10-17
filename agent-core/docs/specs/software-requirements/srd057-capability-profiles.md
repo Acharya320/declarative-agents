@@ -131,9 +131,9 @@ A capability profile loads and runs to a terminal state with no serve lifecycle 
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -143,10 +143,10 @@ One unchanged capability profile is invoked by self_invoke with selectors, undo,
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -156,9 +156,9 @@ The consistency check reports a machine file reachable from two profiles and a m
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
 
 <!-- field: related_documents -->
 ## Related documents

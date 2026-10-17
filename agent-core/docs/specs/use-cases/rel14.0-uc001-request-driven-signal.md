@@ -45,12 +45,12 @@ request whose configured mapping identifies one machine signal and run id.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd046-request-driven-signal-source R1.1, R1.2, R1.3, R1.4, R1.5 | model-free profile and transport-neutral source envelope |
-| T2 | srd046-request-driven-signal-source R2.1, R2.2, R2.3, R2.4, R2.5 | trusted request mapping and sensitive payload handling |
-| T3 | srd046-request-driven-signal-source R3.1, R3.2, R3.3, R3.4, R3.5, R3.6 | atomic accepted, refused_undeclared, and refused_conflict admission |
-| T4 | srd046-request-driven-signal-source R4.1, R4.2, R4.3, R4.4, R4.5 | ordinary machine execution and response |
-| T5 | srd046-request-driven-signal-source R5.1, R5.2, R5.3, R5.4, R5.5, R5.6 | checkpoint, suspend, and request-driven resume |
-| T6 | srd046-request-driven-signal-source R6.1, R6.2, R6.3, R6.4, R6.5 | source observability and unchanged model path |
+| T1 | [srd046-request-driven-signal-source](../software-requirements/srd046-request-driven-signal-source.md) [R1.1](../software-requirements/srd046-request-driven-signal-source.md#r11), [R1.2](../software-requirements/srd046-request-driven-signal-source.md#r12), [R1.3](../software-requirements/srd046-request-driven-signal-source.md#r13), [R1.4](../software-requirements/srd046-request-driven-signal-source.md#r14), [R1.5](../software-requirements/srd046-request-driven-signal-source.md#r15) | model-free profile and transport-neutral source envelope |
+| T2 | [srd046-request-driven-signal-source](../software-requirements/srd046-request-driven-signal-source.md) [R2.1](../software-requirements/srd046-request-driven-signal-source.md#r21), [R2.2](../software-requirements/srd046-request-driven-signal-source.md#r22), [R2.3](../software-requirements/srd046-request-driven-signal-source.md#r23), [R2.4](../software-requirements/srd046-request-driven-signal-source.md#r24), [R2.5](../software-requirements/srd046-request-driven-signal-source.md#r25) | trusted request mapping and sensitive payload handling |
+| T3 | [srd046-request-driven-signal-source](../software-requirements/srd046-request-driven-signal-source.md) [R3.1](../software-requirements/srd046-request-driven-signal-source.md#r31), [R3.2](../software-requirements/srd046-request-driven-signal-source.md#r32), [R3.3](../software-requirements/srd046-request-driven-signal-source.md#r33), [R3.4](../software-requirements/srd046-request-driven-signal-source.md#r34), [R3.5](../software-requirements/srd046-request-driven-signal-source.md#r35), [R3.6](../software-requirements/srd046-request-driven-signal-source.md#r36) | atomic accepted, refused_undeclared, and refused_conflict admission |
+| T4 | [srd046-request-driven-signal-source](../software-requirements/srd046-request-driven-signal-source.md) [R4.1](../software-requirements/srd046-request-driven-signal-source.md#r41), [R4.2](../software-requirements/srd046-request-driven-signal-source.md#r42), [R4.3](../software-requirements/srd046-request-driven-signal-source.md#r43), [R4.4](../software-requirements/srd046-request-driven-signal-source.md#r44), [R4.5](../software-requirements/srd046-request-driven-signal-source.md#r45) | ordinary machine execution and response |
+| T5 | [srd046-request-driven-signal-source](../software-requirements/srd046-request-driven-signal-source.md) [R5.1](../software-requirements/srd046-request-driven-signal-source.md#r51), [R5.2](../software-requirements/srd046-request-driven-signal-source.md#r52), [R5.3](../software-requirements/srd046-request-driven-signal-source.md#r53), [R5.4](../software-requirements/srd046-request-driven-signal-source.md#r54), [R5.5](../software-requirements/srd046-request-driven-signal-source.md#r55), [R5.6](../software-requirements/srd046-request-driven-signal-source.md#r56) | checkpoint, suspend, and request-driven resume |
+| T6 | [srd046-request-driven-signal-source](../software-requirements/srd046-request-driven-signal-source.md) [R6.1](../software-requirements/srd046-request-driven-signal-source.md#r61), [R6.2](../software-requirements/srd046-request-driven-signal-source.md#r62), [R6.3](../software-requirements/srd046-request-driven-signal-source.md#r63), [R6.4](../software-requirements/srd046-request-driven-signal-source.md#r64), [R6.5](../software-requirements/srd046-request-driven-signal-source.md#r65) | source observability and unchanged model path |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -63,8 +63,8 @@ A model-free profile starts without constructing a model client, and one validat
 <!-- field: traces -->
 #### Traces
 
-- srd046-request-driven-signal-source AC1
-- srd046-request-driven-signal-source AC2
+- [srd046-request-driven-signal-source](../software-requirements/srd046-request-driven-signal-source.md) [AC1](../software-requirements/srd046-request-driven-signal-source.md#ac1)
+- [srd046-request-driven-signal-source](../software-requirements/srd046-request-driven-signal-source.md) [AC2](../software-requirements/srd046-request-driven-signal-source.md#ac2)
 
 <!-- sc: S2 -->
 ### S2
@@ -74,8 +74,8 @@ Accepted input takes the ordinary machine path and returns both admission and re
 <!-- field: traces -->
 #### Traces
 
-- srd046-request-driven-signal-source AC3
-- srd046-request-driven-signal-source AC4
+- [srd046-request-driven-signal-source](../software-requirements/srd046-request-driven-signal-source.md) [AC3](../software-requirements/srd046-request-driven-signal-source.md#ac3)
+- [srd046-request-driven-signal-source](../software-requirements/srd046-request-driven-signal-source.md) [AC4](../software-requirements/srd046-request-driven-signal-source.md#ac4)
 
 <!-- sc: S3 -->
 ### S3
@@ -85,7 +85,7 @@ Undeclared and conflicting requests are distinguished and leave Position, Execut
 <!-- field: traces -->
 #### Traces
 
-- srd046-request-driven-signal-source AC3
+- [srd046-request-driven-signal-source](../software-requirements/srd046-request-driven-signal-source.md) [AC3](../software-requirements/srd046-request-driven-signal-source.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -95,7 +95,7 @@ A suspended run resumes from its checkpoint with the new accepted signal and pay
 <!-- field: traces -->
 #### Traces
 
-- srd046-request-driven-signal-source AC5
+- [srd046-request-driven-signal-source](../software-requirements/srd046-request-driven-signal-source.md) [AC5](../software-requirements/srd046-request-driven-signal-source.md#ac5)
 
 <!-- sc: S5 -->
 ### S5
@@ -105,7 +105,7 @@ Source outcomes are traced without sensitive payloads, request ownership is rele
 <!-- field: traces -->
 #### Traces
 
-- srd046-request-driven-signal-source AC6
+- [srd046-request-driven-signal-source](../software-requirements/srd046-request-driven-signal-source.md) [AC6](../software-requirements/srd046-request-driven-signal-source.md#ac6)
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios
@@ -126,4 +126,4 @@ Source outcomes are traced without sensitive payloads, request ownership is rele
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel14.0-agent-input-and-dolt
+[test-rel14.0-agent-input-and-dolt](../test-suites/test-rel14.0-agent-input-and-dolt.md)

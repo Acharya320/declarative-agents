@@ -273,11 +273,11 @@ flowchart LR
 <!-- field: related_documents -->
 ## Related documents
 
-- cfg-tool-authoring-standard
-- sm-tool-vocabulary-audit
-- sm-rollback-lifecycle
-- srd022-builtin-tools
-- srd023-cli-exec-tools
-- srd024-blocking-input-tools
-- srd025-rollback-lifecycle
-- srd026-lifecycle-tools
+- [cfg-tool-authoring-standard](../config-formats/tool-authoring-standard.md)
+- [sm-tool-vocabulary-audit](tool-vocabulary-audit.md)
+- [sm-rollback-lifecycle](rollback-lifecycle.md)
+- [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md)
+- [srd023-cli-exec-tools](../software-requirements/srd023-cli-exec-tools.md)
+- [srd024-blocking-input-tools](../software-requirements/srd024-blocking-input-tools.md)
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md)
+- [srd026-lifecycle-tools](../software-requirements/srd026-lifecycle-tools.md)

@@ -48,13 +48,13 @@ request MachineSpec, and generic tool aliases.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd005-agentic-loop R4.1, R4.2, R4.3, R4.4, R5.1, R5.2, R5.3, R5.4, R5.5, R5.6, R5.7, R5.8, R5.9, R5.10, R5.11, R5.12 | LoopParams and Loop drive the bench state machine |
-| T2 | srd006-yaml-machine-config R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R1.7, R1.8, R1.9, R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R2.7, R2.8, R2.9, R2.10, R2.11, R3.1, R3.2, R3.3, R3.4, R3.5, R4.1, R4.2, R4.3, R4.4 | bench machine.yaml loading, validation, and table building |
-| T3 | srd020-bench-web-ui R1.1, R1.2, R1.3, R1.4, R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R3.1, R3.2, R3.3, R4.1, R4.2, R4.3, R4.4, R4.5, R4.6, R5.1, R5.2, R6.1, R6.2, R7.1, R7.2, R7.3, R8.1, R8.2, R8.3 | generic HTTP server, bench REST APIs, SPA routing, profile assets, and documentation boundary |
+| T1 | [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [R4.1](../software-requirements/srd005-agentic-loop.md#r41), [R4.2](../software-requirements/srd005-agentic-loop.md#r42), [R4.3](../software-requirements/srd005-agentic-loop.md#r43), [R4.4](../software-requirements/srd005-agentic-loop.md#r44), [R5.1](../software-requirements/srd005-agentic-loop.md#r51), [R5.2](../software-requirements/srd005-agentic-loop.md#r52), [R5.3](../software-requirements/srd005-agentic-loop.md#r53), [R5.4](../software-requirements/srd005-agentic-loop.md#r54), [R5.5](../software-requirements/srd005-agentic-loop.md#r55), [R5.6](../software-requirements/srd005-agentic-loop.md#r56), [R5.7](../software-requirements/srd005-agentic-loop.md#r57), [R5.8](../software-requirements/srd005-agentic-loop.md#r58), [R5.9](../software-requirements/srd005-agentic-loop.md#r59), [R5.10](../software-requirements/srd005-agentic-loop.md#r510), [R5.11](../software-requirements/srd005-agentic-loop.md#r511), [R5.12](../software-requirements/srd005-agentic-loop.md#r512) | LoopParams and Loop drive the bench state machine |
+| T2 | [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [R1.1](../software-requirements/srd006-yaml-machine-config.md#r11), [R1.2](../software-requirements/srd006-yaml-machine-config.md#r12), [R1.3](../software-requirements/srd006-yaml-machine-config.md#r13), [R1.4](../software-requirements/srd006-yaml-machine-config.md#r14), [R1.5](../software-requirements/srd006-yaml-machine-config.md#r15), [R1.6](../software-requirements/srd006-yaml-machine-config.md#r16), [R1.7](../software-requirements/srd006-yaml-machine-config.md#r17), [R1.8](../software-requirements/srd006-yaml-machine-config.md#r18), [R1.9](../software-requirements/srd006-yaml-machine-config.md#r19), [R2.1](../software-requirements/srd006-yaml-machine-config.md#r21), [R2.2](../software-requirements/srd006-yaml-machine-config.md#r22), [R2.3](../software-requirements/srd006-yaml-machine-config.md#r23), [R2.4](../software-requirements/srd006-yaml-machine-config.md#r24), [R2.5](../software-requirements/srd006-yaml-machine-config.md#r25), [R2.6](../software-requirements/srd006-yaml-machine-config.md#r26), [R2.7](../software-requirements/srd006-yaml-machine-config.md#r27), [R2.8](../software-requirements/srd006-yaml-machine-config.md#r28), [R2.9](../software-requirements/srd006-yaml-machine-config.md#r29), [R2.10](../software-requirements/srd006-yaml-machine-config.md#r210), [R2.11](../software-requirements/srd006-yaml-machine-config.md#r211), [R3.1](../software-requirements/srd006-yaml-machine-config.md#r31), [R3.2](../software-requirements/srd006-yaml-machine-config.md#r32), [R3.3](../software-requirements/srd006-yaml-machine-config.md#r33), [R3.4](../software-requirements/srd006-yaml-machine-config.md#r34), [R3.5](../software-requirements/srd006-yaml-machine-config.md#r35), [R4.1](../software-requirements/srd006-yaml-machine-config.md#r41), [R4.2](../software-requirements/srd006-yaml-machine-config.md#r42), [R4.3](../software-requirements/srd006-yaml-machine-config.md#r43), [R4.4](../software-requirements/srd006-yaml-machine-config.md#r44) | bench machine.yaml loading, validation, and table building |
+| T3 | [srd020-bench-web-ui](../software-requirements/srd020-bench-web-ui.md) [R1.1](../software-requirements/srd020-bench-web-ui.md#r11), [R1.2](../software-requirements/srd020-bench-web-ui.md#r12), [R1.3](../software-requirements/srd020-bench-web-ui.md#r13), [R1.4](../software-requirements/srd020-bench-web-ui.md#r14), [R2.1](../software-requirements/srd020-bench-web-ui.md#r21), [R2.2](../software-requirements/srd020-bench-web-ui.md#r22), [R2.3](../software-requirements/srd020-bench-web-ui.md#r23), [R2.4](../software-requirements/srd020-bench-web-ui.md#r24), [R2.5](../software-requirements/srd020-bench-web-ui.md#r25), [R2.6](../software-requirements/srd020-bench-web-ui.md#r26), [R3.1](../software-requirements/srd020-bench-web-ui.md#r31), [R3.2](../software-requirements/srd020-bench-web-ui.md#r32), [R3.3](../software-requirements/srd020-bench-web-ui.md#r33), [R4.1](../software-requirements/srd020-bench-web-ui.md#r41), [R4.2](../software-requirements/srd020-bench-web-ui.md#r42), [R4.3](../software-requirements/srd020-bench-web-ui.md#r43), [R4.4](../software-requirements/srd020-bench-web-ui.md#r44), [R4.5](../software-requirements/srd020-bench-web-ui.md#r45), [R4.6](../software-requirements/srd020-bench-web-ui.md#r46), [R5.1](../software-requirements/srd020-bench-web-ui.md#r51), [R5.2](../software-requirements/srd020-bench-web-ui.md#r52), [R6.1](../software-requirements/srd020-bench-web-ui.md#r61), [R6.2](../software-requirements/srd020-bench-web-ui.md#r62), [R7.1](../software-requirements/srd020-bench-web-ui.md#r71), [R7.2](../software-requirements/srd020-bench-web-ui.md#r72), [R7.3](../software-requirements/srd020-bench-web-ui.md#r73), [R8.1](../software-requirements/srd020-bench-web-ui.md#r81), [R8.2](../software-requirements/srd020-bench-web-ui.md#r82), [R8.3](../software-requirements/srd020-bench-web-ui.md#r83) | generic HTTP server, bench REST APIs, SPA routing, profile assets, and documentation boundary |
 | T4 | bench/machine.yaml | generic REST lifecycle and self_invoke sequencing |
-| T5 | srd019-eval-harness R0.1, R0.2, R0.3, R0.4, R0.5, R0.6, R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R1.7, R2.1, R2.2, R2.3, R2.4, R2.5, R3.1, R3.1.1, R3.1.2, R3.1.3, R3.1.4, R3.1.5, R3.1.6, R3.2, R3.3, R3.4, R3.5, R3.6, R3.7, R3.8, R3.9 | self_invoke reuses the profile-driven evaluator pipeline |
+| T5 | [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [R0.1](../software-requirements/srd019-eval-harness.md#r01), [R0.2](../software-requirements/srd019-eval-harness.md#r02), [R0.3](../software-requirements/srd019-eval-harness.md#r03), [R0.4](../software-requirements/srd019-eval-harness.md#r04), [R0.5](../software-requirements/srd019-eval-harness.md#r05), [R0.6](../software-requirements/srd019-eval-harness.md#r06), [R1.1](../software-requirements/srd019-eval-harness.md#r11), [R1.2](../software-requirements/srd019-eval-harness.md#r12), [R1.3](../software-requirements/srd019-eval-harness.md#r13), [R1.4](../software-requirements/srd019-eval-harness.md#r14), [R1.5](../software-requirements/srd019-eval-harness.md#r15), [R1.6](../software-requirements/srd019-eval-harness.md#r16), [R1.7](../software-requirements/srd019-eval-harness.md#r17), [R2.1](../software-requirements/srd019-eval-harness.md#r21), [R2.2](../software-requirements/srd019-eval-harness.md#r22), [R2.3](../software-requirements/srd019-eval-harness.md#r23), [R2.4](../software-requirements/srd019-eval-harness.md#r24), [R2.5](../software-requirements/srd019-eval-harness.md#r25), [R3.1](../software-requirements/srd019-eval-harness.md#r31), [R3.1.1](../software-requirements/srd019-eval-harness.md#r311), [R3.1.2](../software-requirements/srd019-eval-harness.md#r312), [R3.1.3](../software-requirements/srd019-eval-harness.md#r313), [R3.1.4](../software-requirements/srd019-eval-harness.md#r314), [R3.1.5](../software-requirements/srd019-eval-harness.md#r315), [R3.1.6](../software-requirements/srd019-eval-harness.md#r316), [R3.2](../software-requirements/srd019-eval-harness.md#r32), [R3.3](../software-requirements/srd019-eval-harness.md#r33), [R3.4](../software-requirements/srd019-eval-harness.md#r34), [R3.5](../software-requirements/srd019-eval-harness.md#r35), [R3.6](../software-requirements/srd019-eval-harness.md#r36), [R3.7](../software-requirements/srd019-eval-harness.md#r37), [R3.8](../software-requirements/srd019-eval-harness.md#r38), [R3.9](../software-requirements/srd019-eval-harness.md#r39) | self_invoke reuses the profile-driven evaluator pipeline |
 | T6 | bench/profile.yaml | profile-relative bench runtime entry point under AGENT_CATALOG_ROOT |
-| T7 | srd021-agent-cli-exec-tool R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R1.7, R2.1, R2.2, R2.3, R2.4, R2.5, R3.1, R3.2, R3.3, R3.4, R4.1, R4.2, R4.3, R4.4 | child agent profile invocation, trace propagation, process result mapping |
+| T7 | [srd021-agent-cli-exec-tool](../software-requirements/srd021-agent-cli-exec-tool.md) [R1.1](../software-requirements/srd021-agent-cli-exec-tool.md#r11), [R1.2](../software-requirements/srd021-agent-cli-exec-tool.md#r12), [R1.3](../software-requirements/srd021-agent-cli-exec-tool.md#r13), [R1.4](../software-requirements/srd021-agent-cli-exec-tool.md#r14), [R1.5](../software-requirements/srd021-agent-cli-exec-tool.md#r15), [R1.6](../software-requirements/srd021-agent-cli-exec-tool.md#r16), [R1.7](../software-requirements/srd021-agent-cli-exec-tool.md#r17), [R2.1](../software-requirements/srd021-agent-cli-exec-tool.md#r21), [R2.2](../software-requirements/srd021-agent-cli-exec-tool.md#r22), [R2.3](../software-requirements/srd021-agent-cli-exec-tool.md#r23), [R2.4](../software-requirements/srd021-agent-cli-exec-tool.md#r24), [R2.5](../software-requirements/srd021-agent-cli-exec-tool.md#r25), [R3.1](../software-requirements/srd021-agent-cli-exec-tool.md#r31), [R3.2](../software-requirements/srd021-agent-cli-exec-tool.md#r32), [R3.3](../software-requirements/srd021-agent-cli-exec-tool.md#r33), [R3.4](../software-requirements/srd021-agent-cli-exec-tool.md#r34), [R4.1](../software-requirements/srd021-agent-cli-exec-tool.md#r41), [R4.2](../software-requirements/srd021-agent-cli-exec-tool.md#r42), [R4.3](../software-requirements/srd021-agent-cli-exec-tool.md#r43), [R4.4](../software-requirements/srd021-agent-cli-exec-tool.md#r44) | child agent profile invocation, trace propagation, process result mapping |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -67,7 +67,7 @@ The web UI serves from profile-owned assets and all SPA routes resolve without 4
 <!-- field: traces -->
 #### Traces
 
-- srd020-bench-web-ui AC1
+- [srd020-bench-web-ui](../software-requirements/srd020-bench-web-ui.md) [AC1](../software-requirements/srd020-bench-web-ui.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -77,7 +77,7 @@ Session, point, trace, and experiment APIs return correct data from the results 
 <!-- field: traces -->
 #### Traces
 
-- srd020-bench-web-ui AC2
+- [srd020-bench-web-ui](../software-requirements/srd020-bench-web-ui.md) [AC2](../software-requirements/srd020-bench-web-ui.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -87,7 +87,7 @@ Source code and config APIs serve content from disk, and bench docs routes are a
 <!-- field: traces -->
 #### Traces
 
-- srd020-bench-web-ui AC4
+- [srd020-bench-web-ui](../software-requirements/srd020-bench-web-ui.md) [AC4](../software-requirements/srd020-bench-web-ui.md#ac4)
 
 <!-- sc: S4 -->
 ### S4
@@ -97,7 +97,7 @@ User actions from the web UI drive state machine transitions via the configured 
 <!-- field: traces -->
 #### Traces
 
-- srd020-bench-web-ui AC4
+- [srd020-bench-web-ui](../software-requirements/srd020-bench-web-ui.md) [AC4](../software-requirements/srd020-bench-web-ui.md#ac4)
 
 <!-- sc: S5 -->
 ### S5
@@ -107,7 +107,7 @@ Launching an experiment spawns the evaluator profile child process and returns t
 <!-- field: traces -->
 #### Traces
 
-- srd020-bench-web-ui AC4
+- [srd020-bench-web-ui](../software-requirements/srd020-bench-web-ui.md) [AC4](../software-requirements/srd020-bench-web-ui.md#ac4)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -124,4 +124,4 @@ bench/machine.yaml
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel01.0
+[test-rel01.0](../test-suites/test-rel01.0.md)

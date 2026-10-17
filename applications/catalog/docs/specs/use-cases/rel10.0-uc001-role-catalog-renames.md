@@ -53,7 +53,7 @@ role and generator carries the Executor role under the wrong names.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | sm-agent-role-taxonomy | The taxonomy role ids for the two families become critic and executor, the reference role names. |
+| T1 | [sm-agent-role-taxonomy](../semantic-models/agent-role-taxonomy.md) | The taxonomy role ids for the two families become critic and executor, the reference role names. |
 | T2 | test-rel10.0-role-catalog role_renames | The suite validates the renamed tree with mage validate, conformance, go test, and zero-hit greps. |
 
 <!-- field: success_criteria -->
@@ -67,7 +67,7 @@ agents/ contains critic and executor families and no evaluator or generator fami
 <!-- field: traces -->
 #### Traces
 
-- sm-agent-role-taxonomy
+- [sm-agent-role-taxonomy](../semantic-models/agent-role-taxonomy.md)
 
 <!-- sc: S2 -->
 ### S2
@@ -77,7 +77,7 @@ The agent-core builtin tool dirs are critic-session and critic-point, the critic
 <!-- field: traces -->
 #### Traces
 
-- sm-agent-role-taxonomy
+- [sm-agent-role-taxonomy](../semantic-models/agent-role-taxonomy.md)
 
 <!-- sc: S3 -->
 ### S3
@@ -87,7 +87,7 @@ mage validate and mage conformance pass over the renamed tree, and the activity-
 <!-- field: traces -->
 #### Traces
 
-- sm-agent-role-taxonomy
+- [sm-agent-role-taxonomy](../semantic-models/agent-role-taxonomy.md)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -98,4 +98,4 @@ mage validate and mage conformance pass over the renamed tree, and the activity-
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel10.0-role-catalog
+[test-rel10.0-role-catalog](../test-suites/test-rel10.0-role-catalog.md)

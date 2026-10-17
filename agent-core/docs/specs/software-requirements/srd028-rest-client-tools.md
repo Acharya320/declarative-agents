@@ -578,14 +578,14 @@ REST client tools are documented as first-class boundary ToolDef words backed by
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.4
-- R1.5
-- R1.6
-- R2.1
-- R2.2
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R1.5](#r15)
+- [R1.6](#r16)
+- [R2.1](#r21)
+- [R2.2](#r22)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -595,11 +595,11 @@ Tool config fixes client, resource, operation, transport policy, and schemas whi
 <!-- field: traces -->
 #### Traces
 
-- R2.3
-- R2.4
-- R2.5
-- R2.6
-- R2.7
+- [R2.3](#r23)
+- [R2.4](#r24)
+- [R2.5](#r25)
+- [R2.6](#r26)
+- [R2.7](#r27)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -609,16 +609,16 @@ Resource-oriented get, set, create, and delete words are preferred for resource-
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
-- R3.4
-- R3.5
-- R3.6
-- R10.1
-- R10.2
-- R10.3
-- R10.4
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R3.4](#r34)
+- [R3.5](#r35)
+- [R3.6](#r36)
+- [R10.1](#r101)
+- [R10.2](#r102)
+- [R10.3](#r103)
+- [R10.4](#r104)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -628,12 +628,12 @@ rest_client_invoke is reserved for RPC-shaped endpoints and still resolves opera
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
-- R4.4
-- R4.5
-- R10.5
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R4.4](#r44)
+- [R4.5](#r45)
+- [R10.5](#r105)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -643,16 +643,16 @@ Async send and await requirements define request state, request IDs, idempotency
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
-- R5.4
-- R5.5
-- R5.6
-- R5.7
-- R5.8
-- R10.6
-- R10.7
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
+- [R5.5](#r55)
+- [R5.6](#r56)
+- [R5.7](#r57)
+- [R5.8](#r58)
+- [R10.6](#r106)
+- [R10.7](#r107)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -662,16 +662,16 @@ Result signal requirements distinguish resource reads, writes, missing resources
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
-- R6.3
-- R6.4
-- R6.5
-- R6.6
-- R6.7
-- R6.8
-- R11.3
-- R11.4
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
+- [R6.4](#r64)
+- [R6.5](#r65)
+- [R6.6](#r66)
+- [R6.7](#r67)
+- [R6.8](#r68)
+- [R11.3](#r113)
+- [R11.4](#r114)
 
 <!-- ac: AC7 -->
 ### AC7
@@ -681,12 +681,12 @@ Response shaping maps status, headers, body, resource metadata, request IDs, dom
 <!-- field: traces -->
 #### Traces
 
-- R7.1
-- R7.2
-- R7.3
-- R7.4
-- R7.5
-- R7.6
+- [R7.1](#r71)
+- [R7.2](#r72)
+- [R7.3](#r73)
+- [R7.4](#r74)
+- [R7.5](#r75)
+- [R7.6](#r76)
 
 <!-- ac: AC8 -->
 ### AC8
@@ -696,22 +696,22 @@ Idempotency, retry, metrics, tracing, and redaction requirements are explicit fo
 <!-- field: traces -->
 #### Traces
 
-- R8.1
-- R8.2
-- R8.3
-- R8.4
-- R8.5
-- R8.6
-- R8.7
-- R8.8
-- R9.1
-- R9.2
-- R9.3
-- R9.4
-- R9.5
-- R9.6
-- R9.7
-- R10.8
+- [R8.1](#r81)
+- [R8.2](#r82)
+- [R8.3](#r83)
+- [R8.4](#r84)
+- [R8.5](#r85)
+- [R8.6](#r86)
+- [R8.7](#r87)
+- [R8.8](#r88)
+- [R9.1](#r91)
+- [R9.2](#r92)
+- [R9.3](#r93)
+- [R9.4](#r94)
+- [R9.5](#r95)
+- [R9.6](#r96)
+- [R9.7](#r97)
+- [R10.8](#r108)
 
 <!-- ac: AC9 -->
 ### AC9
@@ -721,12 +721,12 @@ Error and recovery requirements distinguish domain failures from infrastructure 
 <!-- field: traces -->
 #### Traces
 
-- R11.1
-- R11.2
-- R11.3
-- R11.4
-- R11.5
-- R11.6
+- [R11.1](#r111)
+- [R11.2](#r112)
+- [R11.3](#r113)
+- [R11.4](#r114)
+- [R11.5](#r115)
+- [R11.6](#r116)
 
 <!-- ac: AC10 -->
 ### AC10
@@ -736,20 +736,20 @@ Each planned client tool word lists inputs, outputs, signals, side effects, erro
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
-- R3.4
-- R4.1
-- R5.1
-- R5.5
-- R10.1
-- R10.2
-- R10.3
-- R10.4
-- R10.5
-- R10.6
-- R10.7
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R3.4](#r34)
+- [R4.1](#r41)
+- [R5.1](#r51)
+- [R5.5](#r55)
+- [R10.1](#r101)
+- [R10.2](#r102)
+- [R10.3](#r103)
+- [R10.4](#r104)
+- [R10.5](#r105)
+- [R10.6](#r106)
+- [R10.7](#r107)
 
 <!-- ac: AC11 -->
 ### AC11
@@ -759,14 +759,14 @@ A REST client operation with body_source previous_result and input_mapping build
 <!-- field: traces -->
 #### Traces
 
-- R12.1
-- R12.2
-- R12.3
-- R12.4
-- R12.5
-- R2.4
-- R2.5
-- R2.6
+- [R12.1](#r121)
+- [R12.2](#r122)
+- [R12.3](#r123)
+- [R12.4](#r124)
+- [R12.5](#r125)
+- [R2.4](#r24)
+- [R2.5](#r25)
+- [R2.6](#r26)
 
 <!-- ac: AC12 -->
 ### AC12
@@ -776,11 +776,11 @@ A REST client operation with body_source command_state selects declared params t
 <!-- field: traces -->
 #### Traces
 
-- R13.1
-- R13.2
-- R13.3
-- R13.4
-- R13.5
+- [R13.1](#r131)
+- [R13.2](#r132)
+- [R13.3](#r133)
+- [R13.4](#r134)
+- [R13.5](#r135)
 
 <!-- ac: AC13 -->
 ### AC13
@@ -790,14 +790,14 @@ A trusted REST operation selects a loopback child base URL from a labeled prior 
 <!-- field: traces -->
 #### Traces
 
-- R14.1
-- R14.2
-- R14.3
-- R14.4
-- R14.5
-- R2.4
-- R2.5
-- R2.6
+- [R14.1](#r141)
+- [R14.2](#r142)
+- [R14.3](#r143)
+- [R14.4](#r144)
+- [R14.5](#r145)
+- [R2.4](#r24)
+- [R2.5](#r25)
+- [R2.6](#r26)
 
 <!-- ac: AC14 -->
 ### AC14
@@ -807,11 +807,11 @@ A trusted REST operation composes its base URL from a base_url_host_selector res
 <!-- field: traces -->
 #### Traces
 
-- R14.6
-- R14.3
-- R14.4
-- R2.4
-- R2.6
+- [R14.6](#r146)
+- [R14.3](#r143)
+- [R14.4](#r144)
+- [R2.4](#r24)
+- [R2.6](#r26)
 
 <!-- ac: AC15 -->
 ### AC15
@@ -821,9 +821,9 @@ A trusted REST operation resolves the composed authority's port per item through
 <!-- field: traces -->
 #### Traces
 
-- R14.7
-- R14.6
-- R2.6
+- [R14.7](#r147)
+- [R14.6](#r146)
+- [R2.6](#r26)
 
 <!-- field: related_documents -->
 ## Related documents

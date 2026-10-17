@@ -48,14 +48,14 @@ transition depends on what that value is.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd041-value-predicate-tool R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R1.7, R1.8 | operands, operator, and both signals are typed configuration decoded at registration |
-| T2 | srd041-value-predicate-tool R2.1, R2.2, R2.3, R2.4, R2.5 | the operator set is closed and enumerable from the specification |
-| T3 | srd041-value-predicate-tool R3.1, R3.2, R3.3, R3.4, R3.5 | operand typing is declared, so a string-typed value compares numerically rather than lexicographically |
-| T4 | srd041-value-predicate-tool R4.1, R4.2, R4.3, R4.4 | an infrastructure fault emits CommandError and never the unsatisfied signal |
-| T5 | srd041-value-predicate-tool R5.1, R5.2, R5.3 | the word is pure: no side effects, noop undo |
-| T6 | srd022-builtin-tools R2.1, R2.2, R2.3, R2.4 | the init name resolves through BuiltinRegistry |
-| T7 | srd022-builtin-tools R3.1, R3.2, R3.3, R3.4, R3.5, R3.6 | config decodes into a typed struct at registration, failing with the tool name |
-| T8 | srd038-command-state-store R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R2.7, R2.8, R2.9, R2.10, R2.11, R2.12, R2.13, R2.14, R2.15, R2.16, R2.17, R2.18, R2.19, R2.20 | operand selectors resolve through the existing dotted-path selector grammar rather than a parallel one |
+| T1 | [srd041-value-predicate-tool](../software-requirements/srd041-value-predicate-tool.md) [R1.1](../software-requirements/srd041-value-predicate-tool.md#r11), [R1.2](../software-requirements/srd041-value-predicate-tool.md#r12), [R1.3](../software-requirements/srd041-value-predicate-tool.md#r13), [R1.4](../software-requirements/srd041-value-predicate-tool.md#r14), [R1.5](../software-requirements/srd041-value-predicate-tool.md#r15), [R1.6](../software-requirements/srd041-value-predicate-tool.md#r16), [R1.7](../software-requirements/srd041-value-predicate-tool.md#r17), [R1.8](../software-requirements/srd041-value-predicate-tool.md#r18) | operands, operator, and both signals are typed configuration decoded at registration |
+| T2 | [srd041-value-predicate-tool](../software-requirements/srd041-value-predicate-tool.md) [R2.1](../software-requirements/srd041-value-predicate-tool.md#r21), [R2.2](../software-requirements/srd041-value-predicate-tool.md#r22), [R2.3](../software-requirements/srd041-value-predicate-tool.md#r23), [R2.4](../software-requirements/srd041-value-predicate-tool.md#r24), [R2.5](../software-requirements/srd041-value-predicate-tool.md#r25) | the operator set is closed and enumerable from the specification |
+| T3 | [srd041-value-predicate-tool](../software-requirements/srd041-value-predicate-tool.md) [R3.1](../software-requirements/srd041-value-predicate-tool.md#r31), [R3.2](../software-requirements/srd041-value-predicate-tool.md#r32), [R3.3](../software-requirements/srd041-value-predicate-tool.md#r33), [R3.4](../software-requirements/srd041-value-predicate-tool.md#r34), [R3.5](../software-requirements/srd041-value-predicate-tool.md#r35) | operand typing is declared, so a string-typed value compares numerically rather than lexicographically |
+| T4 | [srd041-value-predicate-tool](../software-requirements/srd041-value-predicate-tool.md) [R4.1](../software-requirements/srd041-value-predicate-tool.md#r41), [R4.2](../software-requirements/srd041-value-predicate-tool.md#r42), [R4.3](../software-requirements/srd041-value-predicate-tool.md#r43), [R4.4](../software-requirements/srd041-value-predicate-tool.md#r44) | an infrastructure fault emits CommandError and never the unsatisfied signal |
+| T5 | [srd041-value-predicate-tool](../software-requirements/srd041-value-predicate-tool.md) [R5.1](../software-requirements/srd041-value-predicate-tool.md#r51), [R5.2](../software-requirements/srd041-value-predicate-tool.md#r52), [R5.3](../software-requirements/srd041-value-predicate-tool.md#r53) | the word is pure: no side effects, noop undo |
+| T6 | [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md) [R2.1](../software-requirements/srd022-builtin-tools.md#r21), [R2.2](../software-requirements/srd022-builtin-tools.md#r22), [R2.3](../software-requirements/srd022-builtin-tools.md#r23), [R2.4](../software-requirements/srd022-builtin-tools.md#r24) | the init name resolves through BuiltinRegistry |
+| T7 | [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md) [R3.1](../software-requirements/srd022-builtin-tools.md#r31), [R3.2](../software-requirements/srd022-builtin-tools.md#r32), [R3.3](../software-requirements/srd022-builtin-tools.md#r33), [R3.4](../software-requirements/srd022-builtin-tools.md#r34), [R3.5](../software-requirements/srd022-builtin-tools.md#r35), [R3.6](../software-requirements/srd022-builtin-tools.md#r36) | config decodes into a typed struct at registration, failing with the tool name |
+| T8 | [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [R2.1](../software-requirements/srd038-command-state-store.md#r21), [R2.2](../software-requirements/srd038-command-state-store.md#r22), [R2.3](../software-requirements/srd038-command-state-store.md#r23), [R2.4](../software-requirements/srd038-command-state-store.md#r24), [R2.5](../software-requirements/srd038-command-state-store.md#r25), [R2.6](../software-requirements/srd038-command-state-store.md#r26), [R2.7](../software-requirements/srd038-command-state-store.md#r27), [R2.8](../software-requirements/srd038-command-state-store.md#r28), [R2.9](../software-requirements/srd038-command-state-store.md#r29), [R2.10](../software-requirements/srd038-command-state-store.md#r210), [R2.11](../software-requirements/srd038-command-state-store.md#r211), [R2.12](../software-requirements/srd038-command-state-store.md#r212), [R2.13](../software-requirements/srd038-command-state-store.md#r213), [R2.14](../software-requirements/srd038-command-state-store.md#r214), [R2.15](../software-requirements/srd038-command-state-store.md#r215), [R2.16](../software-requirements/srd038-command-state-store.md#r216), [R2.17](../software-requirements/srd038-command-state-store.md#r217), [R2.18](../software-requirements/srd038-command-state-store.md#r218), [R2.19](../software-requirements/srd038-command-state-store.md#r219), [R2.20](../software-requirements/srd038-command-state-store.md#r220) | operand selectors resolve through the existing dotted-path selector grammar rather than a parallel one |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -68,7 +68,7 @@ A machine takes two different transitions from the same state depending on a val
 <!-- field: traces -->
 #### Traces
 
-- srd041-value-predicate-tool AC1
+- [srd041-value-predicate-tool](../software-requirements/srd041-value-predicate-tool.md) [AC1](../software-requirements/srd041-value-predicate-tool.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -78,7 +78,7 @@ Every operator decides correctly at its boundary, and the emptiness operators te
 <!-- field: traces -->
 #### Traces
 
-- srd041-value-predicate-tool AC2
+- [srd041-value-predicate-tool](../software-requirements/srd041-value-predicate-tool.md) [AC2](../software-requirements/srd041-value-predicate-tool.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -88,7 +88,7 @@ A count read back from a store as the string "10" orders above "6" under the def
 <!-- field: traces -->
 #### Traces
 
-- srd041-value-predicate-tool AC3
+- [srd041-value-predicate-tool](../software-requirements/srd041-value-predicate-tool.md) [AC3](../software-requirements/srd041-value-predicate-tool.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -98,7 +98,7 @@ An unresolvable operand and a failed coercion each reach the machine as CommandE
 <!-- field: traces -->
 #### Traces
 
-- srd041-value-predicate-tool AC4
+- [srd041-value-predicate-tool](../software-requirements/srd041-value-predicate-tool.md) [AC4](../software-requirements/srd041-value-predicate-tool.md#ac4)
 
 <!-- sc: S5 -->
 ### S5
@@ -108,7 +108,7 @@ A malformed operator or a missing signal name fails registration with the tool n
 <!-- field: traces -->
 #### Traces
 
-- srd041-value-predicate-tool AC5
+- [srd041-value-predicate-tool](../software-requirements/srd041-value-predicate-tool.md) [AC5](../software-requirements/srd041-value-predicate-tool.md#ac5)
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios
@@ -131,4 +131,4 @@ A malformed operator or a missing signal name fails registration with the tool n
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel10.0-value-predicate
+[test-rel10.0-value-predicate](../test-suites/test-rel10.0-value-predicate.md)

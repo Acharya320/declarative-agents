@@ -47,10 +47,10 @@ sidecar or a blocking monitor action.
 | id | target | reason |
 | --- | --- | --- |
 | T1 | mage integration:ollamaMonitor | live monitored Ollama token progress proof |
-| T2 | rel03.0-uc005-ollama-openapi-model-listing | source Qwen REST tool flow |
-| T3 | rel04.0-uc002-monitor-rest-api | embedded monitor REST snapshot behavior |
-| T4 | srd032-tool-metrics-monitor-store R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R2.7, AC2 | tool-owned specialized metrics |
-| T5 | srd033-monitor-rest-api R1.1, R1.2, R1.3, R1.4, R1.5, R3.1, R3.2, R3.3, R3.4, R3.5, R3.6, R3.7, R3.8, R3.9, R3.10, R3.11, R3.12, AC1, AC3 | cached monitor REST reads |
+| T2 | [rel03.0-uc005-ollama-openapi-model-listing](rel03.0-uc005-ollama-openapi-model-listing.md) | source Qwen REST tool flow |
+| T3 | [rel04.0-uc002-monitor-rest-api](rel04.0-uc002-monitor-rest-api.md) | embedded monitor REST snapshot behavior |
+| T4 | [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [R2.1](../software-requirements/srd032-tool-metrics-monitor-store.md#r21), [R2.2](../software-requirements/srd032-tool-metrics-monitor-store.md#r22), [R2.3](../software-requirements/srd032-tool-metrics-monitor-store.md#r23), [R2.4](../software-requirements/srd032-tool-metrics-monitor-store.md#r24), [R2.5](../software-requirements/srd032-tool-metrics-monitor-store.md#r25), [R2.6](../software-requirements/srd032-tool-metrics-monitor-store.md#r26), [R2.7](../software-requirements/srd032-tool-metrics-monitor-store.md#r27), [AC2](../software-requirements/srd032-tool-metrics-monitor-store.md#ac2) | tool-owned specialized metrics |
+| T5 | [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [R1.1](../software-requirements/srd033-monitor-rest-api.md#r11), [R1.2](../software-requirements/srd033-monitor-rest-api.md#r12), [R1.3](../software-requirements/srd033-monitor-rest-api.md#r13), [R1.4](../software-requirements/srd033-monitor-rest-api.md#r14), [R1.5](../software-requirements/srd033-monitor-rest-api.md#r15), [R3.1](../software-requirements/srd033-monitor-rest-api.md#r31), [R3.2](../software-requirements/srd033-monitor-rest-api.md#r32), [R3.3](../software-requirements/srd033-monitor-rest-api.md#r33), [R3.4](../software-requirements/srd033-monitor-rest-api.md#r34), [R3.5](../software-requirements/srd033-monitor-rest-api.md#r35), [R3.6](../software-requirements/srd033-monitor-rest-api.md#r36), [R3.7](../software-requirements/srd033-monitor-rest-api.md#r37), [R3.8](../software-requirements/srd033-monitor-rest-api.md#r38), [R3.9](../software-requirements/srd033-monitor-rest-api.md#r39), [R3.10](../software-requirements/srd033-monitor-rest-api.md#r310), [R3.11](../software-requirements/srd033-monitor-rest-api.md#r311), [R3.12](../software-requirements/srd033-monitor-rest-api.md#r312), [AC1](../software-requirements/srd033-monitor-rest-api.md#ac1), [AC3](../software-requirements/srd033-monitor-rest-api.md#ac3) | cached monitor REST reads |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -63,7 +63,7 @@ The monitor REST listener is launched by MachineSpec and becomes queryable befor
 <!-- field: traces -->
 #### Traces
 
-- srd033-monitor-rest-api AC1
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC1](../software-requirements/srd033-monitor-rest-api.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -73,8 +73,8 @@ The Qwen state machine continues into invoke_llm after ServerLaunched instead of
 <!-- field: traces -->
 #### Traces
 
-- srd024-blocking-input-tools AC1
-- srd033-monitor-rest-api AC6
+- [srd024-blocking-input-tools](../software-requirements/srd024-blocking-input-tools.md) [AC1](../software-requirements/srd024-blocking-input-tools.md#ac1)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC6](../software-requirements/srd033-monitor-rest-api.md#ac6)
 
 <!-- sc: S3 -->
 ### S3
@@ -84,8 +84,8 @@ The Qwen state machine continues into invoke_llm after ServerLaunched instead of
 <!-- field: traces -->
 #### Traces
 
-- srd032-tool-metrics-monitor-store AC2
-- srd033-monitor-rest-api AC3
+- [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [AC2](../software-requirements/srd032-tool-metrics-monitor-store.md#ac2)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC3](../software-requirements/srd033-monitor-rest-api.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -95,7 +95,7 @@ The observed token metric total increases while the agent process remains active
 <!-- field: traces -->
 #### Traces
 
-- srd032-tool-metrics-monitor-store AC2
+- [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [AC2](../software-requirements/srd032-tool-metrics-monitor-store.md#ac2)
 
 <!-- field: out_of_scope -->
 ## Out of scope

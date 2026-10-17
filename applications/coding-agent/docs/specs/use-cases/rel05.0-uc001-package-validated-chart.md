@@ -44,12 +44,12 @@ Run mage helm:package.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd004-helm-package-validation R1.1, R1.2, R1.3 | S1 traces this requirement in the existing success criteria. |
-| T2 | srd004-helm-package-validation AC1 | S1 traces this requirement in the existing success criteria. |
-| T3 | srd004-helm-package-validation R2.1, R2.2, R2.3 | S2 traces this requirement in the existing success criteria. |
-| T4 | srd004-helm-package-validation AC2 | S2 traces this requirement in the existing success criteria. |
-| T5 | srd004-helm-package-validation R3.1, R3.2, R3.3 | S3 traces this requirement in the existing success criteria. |
-| T6 | srd004-helm-package-validation AC3 | S3 traces this requirement in the existing success criteria. |
+| T1 | [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R1.1](../software-requirements/srd004-helm-package-validation.md#r11), [R1.2](../software-requirements/srd004-helm-package-validation.md#r12), [R1.3](../software-requirements/srd004-helm-package-validation.md#r13) | S1 traces this requirement in the existing success criteria. |
+| T2 | [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [AC1](../software-requirements/srd004-helm-package-validation.md#ac1) | S1 traces this requirement in the existing success criteria. |
+| T3 | [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R2.1](../software-requirements/srd004-helm-package-validation.md#r21), [R2.2](../software-requirements/srd004-helm-package-validation.md#r22), [R2.3](../software-requirements/srd004-helm-package-validation.md#r23) | S2 traces this requirement in the existing success criteria. |
+| T4 | [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [AC2](../software-requirements/srd004-helm-package-validation.md#ac2) | S2 traces this requirement in the existing success criteria. |
+| T5 | [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R3.1](../software-requirements/srd004-helm-package-validation.md#r31), [R3.2](../software-requirements/srd004-helm-package-validation.md#r32), [R3.3](../software-requirements/srd004-helm-package-validation.md#r33) | S3 traces this requirement in the existing success criteria. |
+| T6 | [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [AC3](../software-requirements/srd004-helm-package-validation.md#ac3) | S3 traces this requirement in the existing success criteria. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -62,10 +62,10 @@ Invalid values fail before Kubernetes output is produced.
 <!-- field: traces -->
 #### Traces
 
-- srd004-helm-package-validation R1.1
-- srd004-helm-package-validation R1.2
-- srd004-helm-package-validation R1.3
-- srd004-helm-package-validation AC1
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R1.1](../software-requirements/srd004-helm-package-validation.md#r11)
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R1.2](../software-requirements/srd004-helm-package-validation.md#r12)
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R1.3](../software-requirements/srd004-helm-package-validation.md#r13)
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [AC1](../software-requirements/srd004-helm-package-validation.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -75,10 +75,10 @@ Package tampering is rejected before chart staging.
 <!-- field: traces -->
 #### Traces
 
-- srd004-helm-package-validation R2.1
-- srd004-helm-package-validation R2.2
-- srd004-helm-package-validation R2.3
-- srd004-helm-package-validation AC2
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R2.1](../software-requirements/srd004-helm-package-validation.md#r21)
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R2.2](../software-requirements/srd004-helm-package-validation.md#r22)
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R2.3](../software-requirements/srd004-helm-package-validation.md#r23)
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [AC2](../software-requirements/srd004-helm-package-validation.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -88,10 +88,10 @@ The archive includes every generated role asset and renders independently.
 <!-- field: traces -->
 #### Traces
 
-- srd004-helm-package-validation R3.1
-- srd004-helm-package-validation R3.2
-- srd004-helm-package-validation R3.3
-- srd004-helm-package-validation AC3
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R3.1](../software-requirements/srd004-helm-package-validation.md#r31)
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R3.2](../software-requirements/srd004-helm-package-validation.md#r32)
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R3.3](../software-requirements/srd004-helm-package-validation.md#r33)
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [AC3](../software-requirements/srd004-helm-package-validation.md#ac3)
 
 <!-- field: out_of_scope -->
 ## Out of scope

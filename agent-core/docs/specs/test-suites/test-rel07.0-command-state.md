@@ -9,8 +9,8 @@ release: "07.0"
 <!-- field: traces -->
 ## Traces
 
-- rel07.0-uc001-command-state-threading
-- rel07.0-uc002-two-plane-revert
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md)
+- [rel07.0-uc002-two-plane-revert](../use-cases/rel07.0-uc002-two-plane-revert.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -36,7 +36,7 @@ versioned, redaction-applied output string while receipts remain absent.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-command-state-threading
+[rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -52,8 +52,8 @@ go test ./internal/runtime/core -run TestResolveFromSelectorReturnsRawLabeledOut
 <!-- field: traces -->
 #### Traces
 
-- srd038-command-state-store AC2
-- srd038-command-state-store AC3
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC2](../software-requirements/srd038-command-state-store.md#ac2)
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC3](../software-requirements/srd038-command-state-store.md#ac3)
 
 <!-- case: A decimal component indexes an array and stays a key on an object | status: implemented -->
 ### A decimal component indexes an array and stays a key on an object
@@ -66,7 +66,7 @@ to an array unresolved (srd038 R2.20, GH-2246).
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-command-state-threading
+[rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -84,8 +84,8 @@ go test ./internal/runtime/core ./internal/tools/rest -run 'TestSelectorIndexesA
 <!-- field: traces -->
 #### Traces
 
-- srd038-command-state-store AC2
-- srd038-command-state-store R2.20
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC2](../software-requirements/srd038-command-state-store.md#ac2)
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [R2.20](../software-requirements/srd038-command-state-store.md#r220)
 
 <!-- case: Adjacent label selection threads the previous word's output | status: implemented -->
 ### Adjacent label selection threads the previous word's output
@@ -97,7 +97,7 @@ selector, and presents only declared params to the request builder.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-command-state-threading
+[rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -122,9 +122,9 @@ go test ./internal/tools/rest/client -run TestRESTClient_CommandStateThreadsNonA
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-command-state-threading S1
-- srd038-command-state-store AC2
-- srd028-rest-client-tools AC12
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) [S1](../use-cases/rel07.0-uc001-command-state-threading.md#s1)
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC2](../software-requirements/srd038-command-state-store.md#ac2)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC12](../software-requirements/srd028-rest-client-tools.md#ac12)
 
 <!-- case: Non-adjacent label selection reaches past an intervening word | status: implemented -->
 ### Non-adjacent label selection reaches past an intervening word
@@ -141,7 +141,7 @@ end-to-end lifecycle path.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-command-state-threading
+[rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -166,9 +166,9 @@ go test ./internal/tools/rest/client -run 'TestRESTClient_CommandState(ThreadsNo
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-command-state-threading S1
-- srd038-command-state-store AC2
-- srd028-rest-client-tools AC12
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) [S1](../use-cases/rel07.0-uc001-command-state-threading.md#s1)
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC2](../software-requirements/srd038-command-state-store.md#ac2)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC12](../software-requirements/srd028-rest-client-tools.md#ac12)
 
 <!-- case: Exec arguments select a non-adjacent labelled result | status: implemented -->
 ### Exec arguments select a non-adjacent labelled result
@@ -180,7 +180,7 @@ source still resolves from the immediately previous Result.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-command-state-threading
+[rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -216,9 +216,9 @@ GH-786
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-command-state-threading S1
-- srd038-command-state-store AC2
-- srd023-cli-exec-tools AC2
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) [S1](../use-cases/rel07.0-uc001-command-state-threading.md#s1)
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC2](../software-requirements/srd038-command-state-store.md#ac2)
+- [srd023-cli-exec-tools](../software-requirements/srd023-cli-exec-tools.md) [AC2](../software-requirements/srd023-cli-exec-tools.md#ac2)
 
 <!-- case: Broken exec sources fail before subprocess launch | status: implemented -->
 ### Broken exec sources fail before subprocess launch
@@ -230,7 +230,7 @@ argument. A malformed source fails declaration validation before the run.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-command-state-threading
+[rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -260,10 +260,10 @@ GH-786
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-command-state-threading E1
-- srd038-command-state-store AC1
-- srd023-cli-exec-tools AC3
-- srd023-cli-exec-tools AC4
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) E1
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC1](../software-requirements/srd038-command-state-store.md#ac1)
+- [srd023-cli-exec-tools](../software-requirements/srd023-cli-exec-tools.md) [AC3](../software-requirements/srd023-cli-exec-tools.md#ac3)
+- [srd023-cli-exec-tools](../software-requirements/srd023-cli-exec-tools.md) [AC4](../software-requirements/srd023-cli-exec-tools.md#ac4)
 
 <!-- case: Bounded exec stdin connects separate declarative words | status: implemented -->
 ### Bounded exec stdin connects separate declarative words
@@ -279,7 +279,7 @@ stdin in traces, metrics, or receipts.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-command-state-threading
+[rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -324,12 +324,12 @@ GH-895
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-command-state-threading S1
-- rel07.0-uc001-command-state-threading S3
-- rel07.0-uc001-command-state-threading S5
-- srd038-command-state-store AC1
-- srd038-command-state-store AC5
-- srd023-cli-exec-tools AC6
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) [S1](../use-cases/rel07.0-uc001-command-state-threading.md#s1)
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) [S3](../use-cases/rel07.0-uc001-command-state-threading.md#s3)
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) [S5](../use-cases/rel07.0-uc001-command-state-threading.md#s5)
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC1](../software-requirements/srd038-command-state-store.md#ac1)
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC5](../software-requirements/srd038-command-state-store.md#ac5)
+- [srd023-cli-exec-tools](../software-requirements/srd023-cli-exec-tools.md) [AC6](../software-requirements/srd023-cli-exec-tools.md#ac6)
 
 <!-- case: Exec env overlays resolved parameters onto the inherited environment | status: implemented -->
 ### Exec env overlays resolved parameters onto the inherited environment
@@ -346,7 +346,7 @@ declarations keep their prior behavior.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-command-state-threading
+[rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -385,10 +385,10 @@ GH-1884
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-command-state-threading S1
-- rel07.0-uc001-command-state-threading S5
-- srd023-cli-exec-tools AC1
-- srd023-cli-exec-tools AC7
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) [S1](../use-cases/rel07.0-uc001-command-state-threading.md#s1)
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) [S5](../use-cases/rel07.0-uc001-command-state-threading.md#s5)
+- [srd023-cli-exec-tools](../software-requirements/srd023-cli-exec-tools.md) [AC1](../software-requirements/srd023-cli-exec-tools.md#ac1)
+- [srd023-cli-exec-tools](../software-requirements/srd023-cli-exec-tools.md) [AC7](../software-requirements/srd023-cli-exec-tools.md#ac7)
 
 <!-- case: Machine request seed stays safe and addressable after intervening words | status: implemented -->
 ### Machine request seed stays safe and addressable after intervening words
@@ -403,7 +403,7 @@ second seed. Malformed metadata omits the whole seed output.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-command-state-threading
+[rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -436,12 +436,12 @@ GH-489
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-command-state-threading S1
-- rel07.0-uc001-command-state-threading S3
-- srd038-command-state-store AC1
-- srd038-command-state-store AC2
-- srd038-command-state-store AC5
-- srd030-machine-request-rest-binding AC4
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) [S1](../use-cases/rel07.0-uc001-command-state-threading.md#s1)
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) [S3](../use-cases/rel07.0-uc001-command-state-threading.md#s3)
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC1](../software-requirements/srd038-command-state-store.md#ac1)
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC2](../software-requirements/srd038-command-state-store.md#ac2)
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC5](../software-requirements/srd038-command-state-store.md#ac5)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC4](../software-requirements/srd030-machine-request-rest-binding.md#ac4)
 
 <!-- case: Duplicate authored labels resolve to the most recent step | status: implemented -->
 ### Duplicate authored labels resolve to the most recent step
@@ -452,7 +452,7 @@ label; a later lookup resolves to the higher step_index.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-command-state-threading
+[rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -479,8 +479,8 @@ go test ./internal/runtime/core -run TestCommandStateViewDuplicateLabelMostRecen
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-command-state-threading S4
-- srd038-command-state-store AC2
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) [S4](../use-cases/rel07.0-uc001-command-state-threading.md#s4)
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC2](../software-requirements/srd038-command-state-store.md#ac2)
 
 <!-- case: MachineSpec captures a validated authored transition label | status: implemented -->
 ### MachineSpec captures a validated authored transition label
@@ -493,7 +493,7 @@ valid labels remain legal.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-command-state-threading
+[rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -528,10 +528,10 @@ GH-782
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-command-state-threading S1
-- srd038-command-state-store AC2
-- srd006-yaml-machine-config AC1
-- srd006-yaml-machine-config AC2
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) [S1](../use-cases/rel07.0-uc001-command-state-threading.md#s1)
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC2](../software-requirements/srd038-command-state-store.md#ac2)
+- [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [AC1](../software-requirements/srd006-yaml-machine-config.md#ac1)
+- [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [AC2](../software-requirements/srd006-yaml-machine-config.md#ac2)
 
 <!-- case: Authored labels and command names share one newest-match lookup | status: implemented -->
 ### Authored labels and command names share one newest-match lookup
@@ -543,7 +543,7 @@ that collides with another step's command name resolve deterministically.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-command-state-threading
+[rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -580,8 +580,8 @@ GH-783
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-command-state-threading S4
-- srd038-command-state-store AC2
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) [S4](../use-cases/rel07.0-uc001-command-state-threading.md#s4)
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC2](../software-requirements/srd038-command-state-store.md#ac2)
 
 <!-- case: Unresolved label and path failures retain typed causes | status: implemented -->
 ### Unresolved label and path failures retain typed causes
@@ -593,7 +593,7 @@ offending label and path while retaining selector context in the message.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-command-state-threading
+[rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -621,8 +621,8 @@ GH-783
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-command-state-threading E1
-- srd038-command-state-store AC1
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) E1
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC1](../software-requirements/srd038-command-state-store.md#ac1)
 
 <!-- case: Synthetic restart rehydration resolves the same command-name address | status: implemented -->
 ### Synthetic restart rehydration resolves the same command-name address
@@ -634,7 +634,7 @@ rehydration, not authored-label persistence or a real MachineSpec loop.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-command-state-threading
+[rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -662,8 +662,8 @@ component-integration
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-command-state-threading S3
-- srd038-command-state-store AC1
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) [S3](../use-cases/rel07.0-uc001-command-state-threading.md#s3)
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC1](../software-requirements/srd038-command-state-store.md#ac1)
 
 <!-- case: Real MachineSpec labels survive schema upgrade and restart rehydration | status: implemented -->
 ### Real MachineSpec labels survive schema upgrade and restart rehydration
@@ -676,7 +676,7 @@ with a null label remains addressable by command name.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-command-state-threading
+[rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -713,10 +713,10 @@ component-integration
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-command-state-threading S3
-- rel07.0-uc001-command-state-threading S4
-- srd038-command-state-store AC1
-- srd038-command-state-store AC2
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) [S3](../use-cases/rel07.0-uc001-command-state-threading.md#s3)
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) [S4](../use-cases/rel07.0-uc001-command-state-threading.md#s4)
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC1](../software-requirements/srd038-command-state-store.md#ac1)
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC2](../software-requirements/srd038-command-state-store.md#ac2)
 
 <!-- case: Selector rejection table blocks unsafe threading | status: implemented -->
 ### Selector rejection table blocks unsafe threading
@@ -728,7 +728,7 @@ $from selector are each rejected with a clear message.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-command-state-threading
+[rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -758,9 +758,9 @@ go test ./internal/tools/rest/client -run 'TestRESTClient_CommandState(Rejection
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-command-state-threading S2
-- srd038-command-state-store AC3
-- srd028-rest-client-tools AC12
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) [S2](../use-cases/rel07.0-uc001-command-state-threading.md#s2)
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC3](../software-requirements/srd038-command-state-store.md#ac3)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC12](../software-requirements/srd028-rest-client-tools.md#ac12)
 
 <!-- case: REST response mapping emits typed redaction before persistence | status: implemented -->
 ### REST response mapping emits typed redaction before persistence
@@ -775,7 +775,7 @@ field.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-command-state-threading
+[rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -805,8 +805,8 @@ component-integration
 <!-- field: traces -->
 #### Traces
 
-- srd028-rest-client-tools AC7
-- srd028-rest-client-tools AC8
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC7](../software-requirements/srd028-rest-client-tools.md#ac7)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC8](../software-requirements/srd028-rest-client-tools.md#ac8)
 
 <!-- case: Typed redaction denies sensitive output live and after persistence | status: implemented -->
 ### Typed redaction denies sensitive output live and after persistence
@@ -821,7 +821,7 @@ unversioned legacy row.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-command-state-threading
+[rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -864,12 +864,12 @@ component-integration
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-command-state-threading S5
-- rel07.0-uc001-command-state-threading E4
-- rel07.0-uc001-command-state-threading E5
-- srd035-checkpoint-port AC7
-- srd036-dolt-state-persistence AC3
-- srd038-command-state-store AC5
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) [S5](../use-cases/rel07.0-uc001-command-state-threading.md#s5)
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) E4
+- [rel07.0-uc001-command-state-threading](../use-cases/rel07.0-uc001-command-state-threading.md) E5
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC7](../software-requirements/srd035-checkpoint-port.md#ac7)
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC3](../software-requirements/srd036-dolt-state-persistence.md#ac3)
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC5](../software-requirements/srd038-command-state-store.md#ac5)
 
 <!-- case: Five-table round-trip persists and restores both planes | status: implemented -->
 ### Five-table round-trip persists and restores both planes
@@ -881,7 +881,7 @@ from tool_outputs, and each entry's receipt from receipts.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc002-two-plane-revert
+[rel07.0-uc002-two-plane-revert](../use-cases/rel07.0-uc002-two-plane-revert.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -909,8 +909,8 @@ go test ./internal/runtime/checkpoint/dolt -run 'TestDoltCheckpoint(SaveLoadRoun
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc002-two-plane-revert S1
-- srd036-dolt-state-persistence AC2
+- [rel07.0-uc002-two-plane-revert](../use-cases/rel07.0-uc002-two-plane-revert.md) [S1](../use-cases/rel07.0-uc002-two-plane-revert.md#s1)
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC2](../software-requirements/srd036-dolt-state-persistence.md#ac2)
 
 <!-- case: Revert reaps later two-plane rows and invalidates store entries | status: implemented -->
 ### Revert reaps later two-plane rows and invalidates store entries
@@ -922,7 +922,7 @@ later entries are invalid without a separate invalidation walk.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc002-two-plane-revert
+[rel07.0-uc002-two-plane-revert](../use-cases/rel07.0-uc002-two-plane-revert.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -945,9 +945,9 @@ go test ./internal/runtime/checkpoint/dolt -run 'TestDoltCheckpoint(RevertReapsB
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc002-two-plane-revert S2
-- srd038-command-state-store AC4
-- srd036-dolt-state-persistence AC4
+- [rel07.0-uc002-two-plane-revert](../use-cases/rel07.0-uc002-two-plane-revert.md) [S2](../use-cases/rel07.0-uc002-two-plane-revert.md#s2)
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC4](../software-requirements/srd038-command-state-store.md#ac4)
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC4](../software-requirements/srd036-dolt-state-persistence.md#ac4)
 
 <!-- case: Dolt component restores surviving receipts after reaping later rows | status: implemented -->
 ### Dolt component restores surviving receipts after reaping later rows
@@ -962,7 +962,7 @@ TestCheckpointRollbackRestoresFileViaPersistedReceipt in test-rel02.0.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc002-two-plane-revert
+[rel07.0-uc002-two-plane-revert](../use-cases/rel07.0-uc002-two-plane-revert.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -984,6 +984,6 @@ go test ./internal/runtime/checkpoint/dolt -run TestDoltCheckpointReceiptWalkRev
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc002-two-plane-revert S3
-- srd036-dolt-state-persistence AC3
-- srd036-dolt-state-persistence AC6
+- [rel07.0-uc002-two-plane-revert](../use-cases/rel07.0-uc002-two-plane-revert.md) [S3](../use-cases/rel07.0-uc002-two-plane-revert.md#s3)
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC3](../software-requirements/srd036-dolt-state-persistence.md#ac3)
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC6](../software-requirements/srd036-dolt-state-persistence.md#ac6)

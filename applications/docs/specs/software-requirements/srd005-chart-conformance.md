@@ -422,11 +422,11 @@ checked against R1 through R5.
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R3.1
-- R4.1
-- R5.1
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R3.1](#r31)
+- [R4.1](#r41)
+- [R5.1](#r51)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -437,8 +437,8 @@ non-floating tag, each checked against its own rule.
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
+- [R2.1](#r21)
+- [R2.2](#r22)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -449,7 +449,7 @@ digest.
 <!-- field: traces -->
 #### Traces
 
-- R6.1
+- [R6.1](#r61)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -460,9 +460,9 @@ unlisted one, and fails on an entry that no longer reproduces.
 <!-- field: traces -->
 #### Traces
 
-- R7.1
-- R7.2
-- R7.3
+- [R7.1](#r71)
+- [R7.2](#r72)
+- [R7.3](#r73)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -473,7 +473,7 @@ requirement.
 <!-- field: traces -->
 #### Traces
 
-- R8.1
+- [R8.1](#r81)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -486,8 +486,8 @@ and non-agent images do not.
 <!-- field: traces -->
 #### Traces
 
-- R9.1
-- R9.2
+- [R9.1](#r91)
+- [R9.2](#r92)
 
 <!-- ac: AC7 -->
 ### AC7
@@ -501,9 +501,9 @@ tags, and consumer-oriented `*-smoke` repositories fail the gate.
 <!-- field: traces -->
 #### Traces
 
-- R10.1
-- R10.2
-- R10.3
+- [R10.1](#r101)
+- [R10.2](#r102)
+- [R10.3](#r103)
 
 <!-- ac: AC8 -->
 ### AC8
@@ -515,7 +515,7 @@ fails the gate, and a read-only applier is not checked.
 <!-- field: traces -->
 #### Traces
 
-- R11.1
+- [R11.1](#r111)
 
 <!-- field: use_case_traces -->
 ## Use case traces

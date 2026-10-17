@@ -45,12 +45,12 @@ An application submits a decided values document to its local applier wrapper.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd022-applier R1 | Defines the canonical lifecycle and request-machine sequence. |
-| T2 | srd022-applier R2 | Defines the shared applier vocabulary. |
-| T3 | srd022-applier R3 | Keeps deployment authority in each application wrapper. |
-| T4 | srd022-applier R4 | Defines validation, verification, and compensation behavior. |
-| T5 | srd022-applier R5 | Defines portability, release, and ownership evidence. |
-| T6 | srd022-applier R5 | Defines canonical-reference and composition-wrapper consistency, which the applications corpus states as srd003-application-consistency R5 and this SRD carries as a platform dependency. |
+| T1 | [srd022-applier](../software-requirements/srd022-applier.md) [R1](../software-requirements/srd022-applier.md#r1---canonical-lifecycle-and-request-machines) | Defines the canonical lifecycle and request-machine sequence. |
+| T2 | [srd022-applier](../software-requirements/srd022-applier.md) [R2](../software-requirements/srd022-applier.md#r2---shared-vocabulary) | Defines the shared applier vocabulary. |
+| T3 | [srd022-applier](../software-requirements/srd022-applier.md) [R3](../software-requirements/srd022-applier.md#r3---application-owned-boundary) | Keeps deployment authority in each application wrapper. |
+| T4 | [srd022-applier](../software-requirements/srd022-applier.md) [R4](../software-requirements/srd022-applier.md#r4---validation-and-compensation) | Defines validation, verification, and compensation behavior. |
+| T5 | [srd022-applier](../software-requirements/srd022-applier.md) [R5](../software-requirements/srd022-applier.md#r5---portability-release-and-ownership) | Defines portability, release, and ownership evidence. |
+| T6 | [srd022-applier](../software-requirements/srd022-applier.md) [R5](../software-requirements/srd022-applier.md#r5---portability-release-and-ownership) | Defines canonical-reference and composition-wrapper consistency, which the applications corpus states as srd003-application-consistency R5 and this SRD carries as a platform dependency. |
 
 <!-- field: success_criteria -->
 ## Success criteria

@@ -9,7 +9,7 @@ release: "08.0"
 <!-- field: traces -->
 ## Traces
 
-- rel08.0-uc001-mesh-observer
+- [rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -29,7 +29,7 @@ The observer profile loads and every action, signal, declaration, REST client, R
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-mesh-observer
+[rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -47,8 +47,8 @@ mage audit
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-mesh-observer S1
-- srd008-observer-agent AC1
+- [rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md) [S1](../use-cases/rel08.0-uc001-mesh-observer.md#s1)
+- [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [AC1](../software-requirements/srd008-observer-agent.md#ac1)
 
 <!-- case: Observer discovers mesh agent pods on the demo cluster | status: done -->
 ### Observer discovers mesh agent pods on the demo cluster
@@ -64,7 +64,7 @@ replacement and a Deployment scaled to zero and back.
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-mesh-observer
+[rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -83,8 +83,8 @@ mage demo:up
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-mesh-observer S1
-- srd008-observer-agent AC1
+- [rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md) [S1](../use-cases/rel08.0-uc001-mesh-observer.md#s1)
+- [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [AC1](../software-requirements/srd008-observer-agent.md#ac1)
 
 <!-- case: Observer serves four monitor fan-in joins and survives degraded discovery | status: done -->
 ### Observer serves four monitor fan-in joins and survives degraded discovery
@@ -100,7 +100,7 @@ to metrics, waits, and exits cleanly rather than failing.
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-mesh-observer
+[rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -119,8 +119,8 @@ mage integration:observer
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-mesh-observer S2
-- srd008-observer-agent AC2
+- [rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md) [S2](../use-cases/rel08.0-uc001-mesh-observer.md#s2)
+- [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [AC2](../software-requirements/srd008-observer-agent.md#ac2)
 
 <!-- case: Observer polls agent monitor endpoints and aggregates fleet data | status: implemented -->
 ### Observer polls agent monitor endpoints and aggregates fleet data
@@ -134,7 +134,7 @@ reachable while a complete later cycle advances through metrics.
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-mesh-observer
+[rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -155,8 +155,8 @@ mage integration:helmSmoke
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-mesh-observer S2
-- srd008-observer-agent AC2
+- [rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md) [S2](../use-cases/rel08.0-uc001-mesh-observer.md#s2)
+- [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [AC2](../software-requirements/srd008-observer-agent.md#ac2)
 
 <!-- case: Fleet UX renders a card per pod from the four fan-in joins | status: done -->
 ### Fleet UX renders a card per pod from the four fan-in joins
@@ -171,7 +171,7 @@ joins yield the empty fleet view rather than an exception.
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-mesh-observer
+[rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -190,9 +190,9 @@ cd ../ui-kit && npm test
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-mesh-observer S2
-- rel08.0-uc001-mesh-observer S3
-- srd008-observer-agent AC3
+- [rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md) [S2](../use-cases/rel08.0-uc001-mesh-observer.md#s2)
+- [rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md) [S3](../use-cases/rel08.0-uc001-mesh-observer.md#s3)
+- [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [AC3](../software-requirements/srd008-observer-agent.md#ac3)
 
 <!-- case: Fleet UX serves and displays agent cards | status: done -->
 ### Fleet UX serves and displays agent cards
@@ -209,7 +209,7 @@ served surface.
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-mesh-observer
+[rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -226,9 +226,9 @@ mage demo:up
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-mesh-observer S2
-- rel08.0-uc001-mesh-observer S3
-- srd008-observer-agent AC3
+- [rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md) [S2](../use-cases/rel08.0-uc001-mesh-observer.md#s2)
+- [rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md) [S3](../use-cases/rel08.0-uc001-mesh-observer.md#s3)
+- [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [AC3](../software-requirements/srd008-observer-agent.md#ac3)
 
 <!-- case: Observer serves the embedded bundle and proxies the agents its UI names | status: implemented -->
 ### Observer serves the embedded bundle and proxies the agents its UI names
@@ -246,7 +246,7 @@ ui-config.json and answers 404 for an undeclared proxy agent.
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-mesh-observer
+[rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -266,8 +266,8 @@ go test ./magefiles -run 'TestObserver(UIRouteAndPackageContract|MonitorRestCoGe
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-mesh-observer S2
-- srd008-observer-agent AC3
+- [rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md) [S2](../use-cases/rel08.0-uc001-mesh-observer.md#s2)
+- [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [AC3](../software-requirements/srd008-observer-agent.md#ac3)
 
 <!-- case: Observer RBAC is namespace-scoped and read-only | status: implemented -->
 ### Observer RBAC is namespace-scoped and read-only
@@ -277,7 +277,7 @@ The rendered Helm template creates a Role (not ClusterRole) with only get and li
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-mesh-observer
+[rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -295,8 +295,8 @@ go test ./magefiles -run TestObserverRBACRender
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-mesh-observer S5
-- srd008-observer-agent AC5
+- [rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md) [S5](../use-cases/rel08.0-uc001-mesh-observer.md#s5)
+- [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [AC5](../software-requirements/srd008-observer-agent.md#ac5)
 
 <!-- case: Observer discovers topology and the UX groups pods by Deployment and Service | status: done -->
 ### Observer discovers topology and the UX groups pods by Deployment and Service
@@ -306,7 +306,7 @@ The retained demo observation proves the observer lists the release Deployments 
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-mesh-observer
+[rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -329,8 +329,8 @@ cd ../ui-kit && npm test
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-mesh-observer S6
-- srd008-observer-agent AC6
+- [rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md) [S6](../use-cases/rel08.0-uc001-mesh-observer.md#s6)
+- [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [AC6](../software-requirements/srd008-observer-agent.md#ac6)
 
 <!-- case: Observer shows per-pod resource usage and degrades when metrics are absent | status: implemented -->
 ### Observer shows per-pod resource usage and degrades when metrics are absent
@@ -344,7 +344,7 @@ cards show "metrics unavailable".
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-mesh-observer
+[rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -366,8 +366,8 @@ cd ../ui-kit && npm test
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-mesh-observer S7
-- srd008-observer-agent AC7
+- [rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md) [S7](../use-cases/rel08.0-uc001-mesh-observer.md#s7)
+- [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [AC7](../software-requirements/srd008-observer-agent.md#ac7)
 
 <!-- case: Observer lifecycle exit stops cleanly | status: implemented -->
 ### Observer lifecycle exit stops cleanly
@@ -377,7 +377,7 @@ A lifecycle exit request stops the discovery loop, monitor, and control servers.
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-mesh-observer
+[rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -394,8 +394,8 @@ mage integration:observer
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-mesh-observer S4
-- srd008-observer-agent AC4
+- [rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md) [S4](../use-cases/rel08.0-uc001-mesh-observer.md#s4)
+- [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [AC4](../software-requirements/srd008-observer-agent.md#ac4)
 
 <!-- case: Fleet updates during a deterministic live chat turn | status: implemented -->
 ### Fleet updates during a deterministic live chat turn
@@ -414,7 +414,7 @@ durable trace evidence supplements rather than replaces the fleet proof.
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-mesh-observer
+[rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -433,5 +433,5 @@ mage integration:helmSwap
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-mesh-observer S3
-- srd008-observer-agent AC3
+- [rel08.0-uc001-mesh-observer](../use-cases/rel08.0-uc001-mesh-observer.md) [S3](../use-cases/rel08.0-uc001-mesh-observer.md#s3)
+- [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [AC3](../software-requirements/srd008-observer-agent.md#ac3)

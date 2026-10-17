@@ -41,11 +41,11 @@ without threading it through every intervening word.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd038-command-state-store R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R1.7, R1.8, R1.9 | read-only forward view over the execution log, rehydrated from tool_outputs after restart |
-| T2 | srd038-command-state-store R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R2.7, R2.8, R2.9, R2.10, R2.11, R2.12, R2.13, R2.14, R2.15, R2.16, R2.17, R2.18, R2.19, R2.20 | $from label addressing, most-recent-wins, run-scoped, no absolute indices |
-| T3 | srd038-command-state-store R3.1, R3.2, R3.3, R3.4 | declared-param-only authority boundary; no transport, no receipts |
-| T4 | srd028-rest-client-tools R13.1, R13.2, R13.3, R13.4, R13.5 | REST body_source command_state consumes the store through $from selectors |
-| T5 | srd038-command-state-store R5.1, R5.2, R5.3, R5.4, R5.5, R5.6, R5.7, R5.8, R5.9, R5.10 | versioned typed redaction before live Entry construction and defense-in-depth enforcement before persistence |
+| T1 | [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [R1.1](../software-requirements/srd038-command-state-store.md#r11), [R1.2](../software-requirements/srd038-command-state-store.md#r12), [R1.3](../software-requirements/srd038-command-state-store.md#r13), [R1.4](../software-requirements/srd038-command-state-store.md#r14), [R1.5](../software-requirements/srd038-command-state-store.md#r15), [R1.6](../software-requirements/srd038-command-state-store.md#r16), [R1.7](../software-requirements/srd038-command-state-store.md#r17), [R1.8](../software-requirements/srd038-command-state-store.md#r18), [R1.9](../software-requirements/srd038-command-state-store.md#r19) | read-only forward view over the execution log, rehydrated from tool_outputs after restart |
+| T2 | [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [R2.1](../software-requirements/srd038-command-state-store.md#r21), [R2.2](../software-requirements/srd038-command-state-store.md#r22), [R2.3](../software-requirements/srd038-command-state-store.md#r23), [R2.4](../software-requirements/srd038-command-state-store.md#r24), [R2.5](../software-requirements/srd038-command-state-store.md#r25), [R2.6](../software-requirements/srd038-command-state-store.md#r26), [R2.7](../software-requirements/srd038-command-state-store.md#r27), [R2.8](../software-requirements/srd038-command-state-store.md#r28), [R2.9](../software-requirements/srd038-command-state-store.md#r29), [R2.10](../software-requirements/srd038-command-state-store.md#r210), [R2.11](../software-requirements/srd038-command-state-store.md#r211), [R2.12](../software-requirements/srd038-command-state-store.md#r212), [R2.13](../software-requirements/srd038-command-state-store.md#r213), [R2.14](../software-requirements/srd038-command-state-store.md#r214), [R2.15](../software-requirements/srd038-command-state-store.md#r215), [R2.16](../software-requirements/srd038-command-state-store.md#r216), [R2.17](../software-requirements/srd038-command-state-store.md#r217), [R2.18](../software-requirements/srd038-command-state-store.md#r218), [R2.19](../software-requirements/srd038-command-state-store.md#r219), [R2.20](../software-requirements/srd038-command-state-store.md#r220) | $from label addressing, most-recent-wins, run-scoped, no absolute indices |
+| T3 | [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [R3.1](../software-requirements/srd038-command-state-store.md#r31), [R3.2](../software-requirements/srd038-command-state-store.md#r32), [R3.3](../software-requirements/srd038-command-state-store.md#r33), [R3.4](../software-requirements/srd038-command-state-store.md#r34) | declared-param-only authority boundary; no transport, no receipts |
+| T4 | [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [R13.1](../software-requirements/srd028-rest-client-tools.md#r131), [R13.2](../software-requirements/srd028-rest-client-tools.md#r132), [R13.3](../software-requirements/srd028-rest-client-tools.md#r133), [R13.4](../software-requirements/srd028-rest-client-tools.md#r134), [R13.5](../software-requirements/srd028-rest-client-tools.md#r135) | REST body_source command_state consumes the store through $from selectors |
+| T5 | [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [R5.1](../software-requirements/srd038-command-state-store.md#r51), [R5.2](../software-requirements/srd038-command-state-store.md#r52), [R5.3](../software-requirements/srd038-command-state-store.md#r53), [R5.4](../software-requirements/srd038-command-state-store.md#r54), [R5.5](../software-requirements/srd038-command-state-store.md#r55), [R5.6](../software-requirements/srd038-command-state-store.md#r56), [R5.7](../software-requirements/srd038-command-state-store.md#r57), [R5.8](../software-requirements/srd038-command-state-store.md#r58), [R5.9](../software-requirements/srd038-command-state-store.md#r59), [R5.10](../software-requirements/srd038-command-state-store.md#r510) | versioned typed redaction before live Entry construction and defense-in-depth enforcement before persistence |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -58,8 +58,8 @@ The third word's request body carries the first word's vector as a nested array 
 <!-- field: traces -->
 #### Traces
 
-- srd038-command-state-store AC2
-- srd028-rest-client-tools AC12
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC2](../software-requirements/srd038-command-state-store.md#ac2)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC12](../software-requirements/srd028-rest-client-tools.md#ac12)
 
 <!-- sc: S2 -->
 ### S2
@@ -69,8 +69,8 @@ The store exposes only selected declared params; a selector naming transport aut
 <!-- field: traces -->
 #### Traces
 
-- srd038-command-state-store AC3
-- srd028-rest-client-tools AC12
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC3](../software-requirements/srd038-command-state-store.md#ac3)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC12](../software-requirements/srd028-rest-client-tools.md#ac12)
 
 <!-- sc: S3 -->
 ### S3
@@ -80,7 +80,7 @@ A run suspended after the first word resumes in a fresh process and the third wo
 <!-- field: traces -->
 #### Traces
 
-- srd038-command-state-store AC1
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC1](../software-requirements/srd038-command-state-store.md#ac1)
 
 <!-- sc: S4 -->
 ### S4
@@ -90,7 +90,7 @@ Duplicate labels within the run resolve to the most recent matching step.
 <!-- field: traces -->
 #### Traces
 
-- srd038-command-state-store AC2
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC2](../software-requirements/srd038-command-state-store.md#ac2)
 
 <!-- sc: S5 -->
 ### S5
@@ -100,7 +100,7 @@ REST body and header selectors produce typed sensitive-output paths without secr
 <!-- field: traces -->
 #### Traces
 
-- srd038-command-state-store AC5
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC5](../software-requirements/srd038-command-state-store.md#ac5)
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios
@@ -123,4 +123,4 @@ REST body and header selectors produce typed sensitive-output paths without secr
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel07.0-command-state
+[test-rel07.0-command-state](../test-suites/test-rel07.0-command-state.md)

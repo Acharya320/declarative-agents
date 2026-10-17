@@ -9,7 +9,7 @@ release: "13.0"
 <!-- field: traces -->
 ## Traces
 
-- rel13.0-uc001-span-analytics
+- [rel13.0-uc001-span-analytics](../use-cases/rel13.0-uc001-span-analytics.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -31,7 +31,7 @@ spans satisfying every term; changing any term changes the matched set.
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-span-analytics
+[rel13.0-uc001-span-analytics](../use-cases/rel13.0-uc001-span-analytics.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -57,8 +57,8 @@ go test ./internal/tools/otlp -run TestSpanStatsFilterConjunction
 <!-- field: traces -->
 #### Traces
 
-- rel13.0-uc001-span-analytics S1
-- srd045-span-analytics-tools AC1
+- [rel13.0-uc001-span-analytics](../use-cases/rel13.0-uc001-span-analytics.md) [S1](../use-cases/rel13.0-uc001-span-analytics.md#s1)
+- [srd045-span-analytics-tools](../software-requirements/srd045-span-analytics-tools.md) [AC1](../software-requirements/srd045-span-analytics-tools.md#ac1)
 
 <!-- case: Empty filter matches every span | status: implemented -->
 ### Empty filter matches every span
@@ -69,7 +69,7 @@ the spool.
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-span-analytics
+[rel13.0-uc001-span-analytics](../use-cases/rel13.0-uc001-span-analytics.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -90,7 +90,7 @@ go test ./internal/tools/otlp -run TestSpanStatsEmptyFilterMatchesAll
 <!-- field: traces -->
 #### Traces
 
-- srd045-span-analytics-tools AC1
+- [srd045-span-analytics-tools](../software-requirements/srd045-span-analytics-tools.md) [AC1](../software-requirements/srd045-span-analytics-tools.md#ac1)
 
 <!-- case: Heatmap grid cell counts sum to the matched total | status: implemented -->
 ### Heatmap grid cell counts sum to the matched total
@@ -103,7 +103,7 @@ last boundary lands in the overflow bucket.
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-span-analytics
+[rel13.0-uc001-span-analytics](../use-cases/rel13.0-uc001-span-analytics.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -129,8 +129,8 @@ go test ./internal/tools/otlp -run TestSpanStatsHeatmapGrid
 <!-- field: traces -->
 #### Traces
 
-- rel13.0-uc001-span-analytics S1
-- srd045-span-analytics-tools AC2
+- [rel13.0-uc001-span-analytics](../use-cases/rel13.0-uc001-span-analytics.md) [S1](../use-cases/rel13.0-uc001-span-analytics.md#s1)
+- [srd045-span-analytics-tools](../software-requirements/srd045-span-analytics-tools.md) [AC2](../software-requirements/srd045-span-analytics-tools.md#ac2)
 
 <!-- case: Group-by counts are ordered and capped with a dropped remainder | status: implemented -->
 ### Group-by counts are ordered and capped with a dropped remainder
@@ -143,7 +143,7 @@ the span total they cover.
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-span-analytics
+[rel13.0-uc001-span-analytics](../use-cases/rel13.0-uc001-span-analytics.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -167,8 +167,8 @@ go test ./internal/tools/otlp -run TestSpanStatsGroupByTopN
 <!-- field: traces -->
 #### Traces
 
-- rel13.0-uc001-span-analytics S2
-- srd045-span-analytics-tools AC3
+- [rel13.0-uc001-span-analytics](../use-cases/rel13.0-uc001-span-analytics.md) [S2](../use-cases/rel13.0-uc001-span-analytics.md#s2)
+- [srd045-span-analytics-tools](../software-requirements/srd045-span-analytics-tools.md) [AC3](../software-requirements/srd045-span-analytics-tools.md#ac3)
 
 <!-- case: Heatmap and group-by are independently dispatchable | status: implemented -->
 ### Heatmap and group-by are independently dispatchable
@@ -180,7 +180,7 @@ preserves the requested grouping key.
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-span-analytics
+[rel13.0-uc001-span-analytics](../use-cases/rel13.0-uc001-span-analytics.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -197,8 +197,8 @@ go test ./internal/tools/otlp -run TestSpanAnalyticsWordsRemainIndependentAcross
 <!-- field: traces -->
 #### Traces
 
-- srd045-span-analytics-tools AC2
-- srd045-span-analytics-tools AC3
+- [srd045-span-analytics-tools](../software-requirements/srd045-span-analytics-tools.md) [AC2](../software-requirements/srd045-span-analytics-tools.md#ac2)
+- [srd045-span-analytics-tools](../software-requirements/srd045-span-analytics-tools.md) [AC3](../software-requirements/srd045-span-analytics-tools.md#ac3)
 
 <!-- case: Breakdown ranks attributes that distinguish the selection | status: implemented -->
 ### Breakdown ranks attributes that distinguish the selection
@@ -211,7 +211,7 @@ capped at top_n with a dropped count.
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-span-analytics
+[rel13.0-uc001-span-analytics](../use-cases/rel13.0-uc001-span-analytics.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -235,8 +235,8 @@ go test ./internal/tools/otlp -run TestSpanBreakdownDivergenceRanking
 <!-- field: traces -->
 #### Traces
 
-- rel13.0-uc001-span-analytics S3
-- srd045-span-analytics-tools AC4
+- [rel13.0-uc001-span-analytics](../use-cases/rel13.0-uc001-span-analytics.md) [S3](../use-cases/rel13.0-uc001-span-analytics.md#s3)
+- [srd045-span-analytics-tools](../software-requirements/srd045-span-analytics-tools.md) [AC4](../software-requirements/srd045-span-analytics-tools.md#ac4)
 
 <!-- case: Empty selection yields an empty ranking | status: implemented -->
 ### Empty selection yields an empty ranking
@@ -247,7 +247,7 @@ an empty ranking rather than an error.
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-span-analytics
+[rel13.0-uc001-span-analytics](../use-cases/rel13.0-uc001-span-analytics.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -269,7 +269,7 @@ go test ./internal/tools/otlp -run TestSpanBreakdownEmptySelection
 <!-- field: traces -->
 #### Traces
 
-- srd045-span-analytics-tools AC4
+- [srd045-span-analytics-tools](../software-requirements/srd045-span-analytics-tools.md) [AC4](../software-requirements/srd045-span-analytics-tools.md#ac4)
 
 <!-- case: Malformed lines are skipped, absent spool is empty, output is deterministic | status: implemented -->
 ### Malformed lines are skipped, absent spool is empty, output is deterministic
@@ -281,7 +281,7 @@ config return byte-identical output.
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-span-analytics
+[rel13.0-uc001-span-analytics](../use-cases/rel13.0-uc001-span-analytics.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -303,7 +303,7 @@ go test ./internal/tools/otlp -run TestSpanStatsMalformedAndDeterministic
 <!-- field: traces -->
 #### Traces
 
-- srd045-span-analytics-tools AC5
+- [srd045-span-analytics-tools](../software-requirements/srd045-span-analytics-tools.md) [AC5](../software-requirements/srd045-span-analytics-tools.md#ac5)
 
 <!-- case: Missing spool path emits CommandError | status: implemented -->
 ### Missing spool path emits CommandError
@@ -314,7 +314,7 @@ emit CommandError before aggregation runs.
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-span-analytics
+[rel13.0-uc001-span-analytics](../use-cases/rel13.0-uc001-span-analytics.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -334,7 +334,7 @@ go test ./internal/tools/otlp -run TestSpanStatsEmptyPathError
 <!-- field: traces -->
 #### Traces
 
-- srd045-span-analytics-tools AC5
+- [srd045-span-analytics-tools](../software-requirements/srd045-span-analytics-tools.md) [AC5](../software-requirements/srd045-span-analytics-tools.md#ac5)
 
 <!-- case: Selection exemplars are capped, deterministic, and deduplicated | status: implemented -->
 ### Selection exemplars are capped, deterministic, and deduplicated
@@ -347,7 +347,7 @@ excludes spans with no trace ID.
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-span-analytics
+[rel13.0-uc001-span-analytics](../use-cases/rel13.0-uc001-span-analytics.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -367,4 +367,4 @@ go test ./internal/tools/otlp -run Exemplar
 <!-- field: traces -->
 #### Traces
 
-- srd045-span-analytics-tools AC6
+- [srd045-span-analytics-tools](../software-requirements/srd045-span-analytics-tools.md) [AC6](../software-requirements/srd045-span-analytics-tools.md#ac6)

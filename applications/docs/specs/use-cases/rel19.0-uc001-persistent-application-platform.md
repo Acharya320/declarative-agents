@@ -142,14 +142,14 @@ teardown.
 | T2 | docs/engineering/eng08-gcp-demo-rig.md | Cloud realization, bucket IAM, workload identity, and durable cluster-independent data. |
 | T3 | applications/docs/ARCHITECTURE.md | Ownership, protocol paths, failure boundaries, and the reusable runner component. |
 | T4 | applications/docs/pattern-language.md | Persistent platform and retained-data lifecycle construction patterns. |
-| T5 | srd008-persistent-application-platform AC1 | Ownership and complete trace closure. |
-| T6 | srd008-persistent-application-platform AC2 | Distinct protocol paths. |
-| T7 | srd008-persistent-application-platform AC3 | Concurrent application and platform lifecycle. |
-| T8 | srd008-persistent-application-platform AC4 | Local and cloud equivalence and threat boundaries. |
-| T9 | srd008-persistent-application-platform AC5 | Durable object and WAL contract. |
-| T10 | srd008-persistent-application-platform AC6 | Query unavailability and recovery. |
-| T11 | srd008-persistent-application-platform AC7 | Rig modes and reusable package. |
-| T12 | test-rel19.0-persistent-application-platform | Structural and planned executable evidence for the flow. |
+| T5 | [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC1](../software-requirements/srd008-persistent-application-platform.md#ac1) | Ownership and complete trace closure. |
+| T6 | [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC2](../software-requirements/srd008-persistent-application-platform.md#ac2) | Distinct protocol paths. |
+| T7 | [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC3](../software-requirements/srd008-persistent-application-platform.md#ac3) | Concurrent application and platform lifecycle. |
+| T8 | [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC4](../software-requirements/srd008-persistent-application-platform.md#ac4) | Local and cloud equivalence and threat boundaries. |
+| T9 | [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC5](../software-requirements/srd008-persistent-application-platform.md#ac5) | Durable object and WAL contract. |
+| T10 | [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC6](../software-requirements/srd008-persistent-application-platform.md#ac6) | Query unavailability and recovery. |
+| T11 | [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC7](../software-requirements/srd008-persistent-application-platform.md#ac7) | Rig modes and reusable package. |
+| T12 | [test-rel19.0-persistent-application-platform](../test-suites/test-rel19.0-persistent-application-platform.md) | Structural and planned executable evidence for the flow. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -163,7 +163,7 @@ destructive authority.
 <!-- field: traces -->
 #### Traces
 
-- srd008-persistent-application-platform AC1
+- [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC1](../software-requirements/srd008-persistent-application-platform.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -175,7 +175,7 @@ Traefik.
 <!-- field: traces -->
 #### Traces
 
-- srd008-persistent-application-platform AC2
+- [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC2](../software-requirements/srd008-persistent-application-platform.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -186,7 +186,7 @@ reset transition preserves or deletes exactly the documented resources.
 <!-- field: traces -->
 #### Traces
 
-- srd008-persistent-application-platform AC3
+- [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC3](../software-requirements/srd008-persistent-application-platform.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -197,7 +197,7 @@ their different identity and authorization guarantees truthfully.
 <!-- field: traces -->
 #### Traces
 
-- srd008-persistent-application-platform AC4
+- [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC4](../software-requirements/srd008-persistent-application-platform.md#ac4)
 
 <!-- sc: S5 -->
 ### S5
@@ -208,7 +208,7 @@ object carries the required versioned envelope.
 <!-- field: traces -->
 #### Traces
 
-- srd008-persistent-application-platform AC5
+- [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC5](../software-requirements/srd008-persistent-application-platform.md#ac5)
 
 <!-- sc: S6 -->
 ### S6
@@ -219,7 +219,7 @@ collector redeployment restores scoped query access.
 <!-- field: traces -->
 #### Traces
 
-- srd008-persistent-application-platform AC6
+- [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC6](../software-requirements/srd008-persistent-application-platform.md#ac6)
 
 <!-- sc: S7 -->
 ### S7
@@ -230,7 +230,7 @@ applications consume one reusable lifecycle package through thin verbs.
 <!-- field: traces -->
 #### Traces
 
-- srd008-persistent-application-platform AC7
+- [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC7](../software-requirements/srd008-persistent-application-platform.md#ac7)
 
 <!-- field: out_of_scope -->
 ## Out of scope

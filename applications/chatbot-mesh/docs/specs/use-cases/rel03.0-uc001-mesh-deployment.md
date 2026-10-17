@@ -52,9 +52,9 @@ RAG list.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd003-chatbot-deployment AC1 | One chart deploys the chatbot, values-driven RAG pairs, LLM, Dolt, and collector over rel06.0 images with ConfigMap profiles. |
-| T2 | srd003-chatbot-deployment AC2 | Co-generation renders the chatbot RAG clients from the RAG values list and validates the rendered rest.yaml. |
-| T3 | srd003-chatbot-deployment AC3 | The tiered swap is a Service repoint or a values re-render plus a request-draining rollout. |
+| T1 | [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC1](../software-requirements/srd003-chatbot-deployment.md#ac1) | One chart deploys the chatbot, values-driven RAG pairs, LLM, Dolt, and collector over rel06.0 images with ConfigMap profiles. |
+| T2 | [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC2](../software-requirements/srd003-chatbot-deployment.md#ac2) | Co-generation renders the chatbot RAG clients from the RAG values list and validates the rendered rest.yaml. |
+| T3 | [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC3](../software-requirements/srd003-chatbot-deployment.md#ac3) | The tiered swap is a Service repoint or a values re-render plus a request-draining rollout. |
 | T4 | test-rel03.0-mesh-deployment mesh_deployment | The suite records the kind-cluster install, the repoint, and the add-RAG rollout with expected outcomes. |
 
 <!-- field: success_criteria -->
@@ -68,9 +68,9 @@ One chart deploys the chatbot, two values-driven RAG pairs, the LLM, the Dolt ba
 <!-- field: traces -->
 #### Traces
 
-- srd003-chatbot-deployment R1.1
-- srd003-chatbot-deployment R1.3
-- srd003-chatbot-deployment AC1
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R1.1](../software-requirements/srd003-chatbot-deployment.md#r11)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R1.3](../software-requirements/srd003-chatbot-deployment.md#r13)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC1](../software-requirements/srd003-chatbot-deployment.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -80,9 +80,9 @@ The chatbot topology data and REST allowlist are co-generated from the RAG objec
 <!-- field: traces -->
 #### Traces
 
-- srd003-chatbot-deployment R2.1
-- srd003-chatbot-deployment R2.2
-- srd003-chatbot-deployment AC2
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R2.1](../software-requirements/srd003-chatbot-deployment.md#r21)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R2.2](../software-requirements/srd003-chatbot-deployment.md#r22)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC2](../software-requirements/srd003-chatbot-deployment.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -92,9 +92,9 @@ Repointing an existing RAG is a Service change with no agent config change; addi
 <!-- field: traces -->
 #### Traces
 
-- srd003-chatbot-deployment R3.1
-- srd003-chatbot-deployment R3.2
-- srd003-chatbot-deployment AC3
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R3.1](../software-requirements/srd003-chatbot-deployment.md#r31)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R3.2](../software-requirements/srd003-chatbot-deployment.md#r32)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC3](../software-requirements/srd003-chatbot-deployment.md#ac3)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -106,4 +106,4 @@ Repointing an existing RAG is a Service change with no agent config change; addi
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel03.0-mesh-deployment
+[test-rel03.0-mesh-deployment](../test-suites/test-rel03.0-mesh-deployment.md)

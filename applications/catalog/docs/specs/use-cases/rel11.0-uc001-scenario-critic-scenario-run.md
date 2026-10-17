@@ -56,13 +56,13 @@ that carries one or more scenario directories.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd018-scenario-critic R1 | The pipeline composes, verdicts, and tears down each scenario with a fresh subject and no model call. |
-| T2 | srd018-scenario-critic R2 | One subject carries several self-contained scenarios as profile-owned data. |
-| T3 | srd018-scenario-critic R3 | Scenarios are discovered by convention under configurable roots. |
-| T4 | srd018-scenario-critic R4 | The subject reaches its mocks through declared environment additions over base_url expansion, with its behavior unchanged. |
-| T5 | srd018-scenario-critic R6 | The verdict is the conjunction of validator terminals, and a failure names its cause. |
-| T6 | srd019-mock R2 | Each mock serves the scenario's fixture selected at start, so several mocks run from one profile. |
-| T7 | sm-agent-role-taxonomy | The scenario-critic joins the realization inventory as a Critic-bound test harness, while mock remains a non-role test double. |
+| T1 | [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [R1](../software-requirements/srd018-scenario-critic.md#r1---behavior-model) | The pipeline composes, verdicts, and tears down each scenario with a fresh subject and no model call. |
+| T2 | [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [R2](../software-requirements/srd018-scenario-critic.md#r2---scenario-layout) | One subject carries several self-contained scenarios as profile-owned data. |
+| T3 | [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [R3](../software-requirements/srd018-scenario-critic.md#r3---discovery) | Scenarios are discovered by convention under configurable roots. |
+| T4 | [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [R4](../software-requirements/srd018-scenario-critic.md#r4---dependency-redirection) | The subject reaches its mocks through declared environment additions over base_url expansion, with its behavior unchanged. |
+| T5 | [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [R6](../software-requirements/srd018-scenario-critic.md#r6---outputs-and-outcomes) | The verdict is the conjunction of validator terminals, and a failure names its cause. |
+| T6 | [srd019-mock](../software-requirements/srd019-mock.md) [R2](../software-requirements/srd019-mock.md#r2---fixture-selection-and-scope) | Each mock serves the scenario's fixture selected at start, so several mocks run from one profile. |
+| T7 | [sm-agent-role-taxonomy](../semantic-models/agent-role-taxonomy.md) | The scenario-critic joins the realization inventory as a Critic-bound test harness, while mock remains a non-role test double. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -75,8 +75,8 @@ A scenario runs end to end with no live external service; fixture starts, valida
 <!-- field: traces -->
 #### Traces
 
-- srd018-scenario-critic AC1
-- srd019-mock AC2
+- [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [AC1](../software-requirements/srd018-scenario-critic.md#ac1)
+- [srd019-mock](../software-requirements/srd019-mock.md) [AC2](../software-requirements/srd019-mock.md#ac2)
 
 <!-- sc: S2 -->
 ### S2
@@ -86,7 +86,7 @@ Adding a second scenario to the same subject requires only new files in a tests/
 <!-- field: traces -->
 #### Traces
 
-- srd018-scenario-critic AC2
+- [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [AC2](../software-requirements/srd018-scenario-critic.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -96,7 +96,7 @@ A scenario whose fixture scripts a dependency failure drives the subject's failu
 <!-- field: traces -->
 #### Traces
 
-- srd018-scenario-critic AC6
+- [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [AC6](../software-requirements/srd018-scenario-critic.md#ac6)
 
 <!-- sc: S4 -->
 ### S4
@@ -106,7 +106,7 @@ A scenario whose validator expectation is deliberately wrong makes the scenario 
 <!-- field: traces -->
 #### Traces
 
-- srd018-scenario-critic AC6
+- [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [AC6](../software-requirements/srd018-scenario-critic.md#ac6)
 
 <!-- sc: S5 -->
 ### S5
@@ -116,7 +116,7 @@ No child process survives the ordered subject-first stop iterator, and a second 
 <!-- field: traces -->
 #### Traces
 
-- srd018-scenario-critic AC1
+- [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [AC1](../software-requirements/srd018-scenario-critic.md#ac1)
 
 <!-- sc: S6 -->
 ### S6
@@ -126,7 +126,7 @@ The same scenario critic discovers and runs scenarios under the applications tre
 <!-- field: traces -->
 #### Traces
 
-- srd018-scenario-critic AC3
+- [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [AC3](../software-requirements/srd018-scenario-critic.md#ac3)
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios
@@ -156,4 +156,4 @@ The same scenario critic discovers and runs scenarios under the applications tre
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel11.0-scenario-critic-rig
+[test-rel11.0-scenario-critic-rig](../test-suites/test-rel11.0-scenario-critic-rig.md)

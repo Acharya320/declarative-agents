@@ -9,7 +9,7 @@ release: "16.0"
 <!-- field: traces -->
 ## Traces
 
-- rel16.0-uc001-pipeline-word
+- [rel16.0-uc001-pipeline-word](../use-cases/rel16.0-uc001-pipeline-word.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -32,7 +32,7 @@ stage's output.
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-pipeline-word
+[rel16.0-uc001-pipeline-word](../use-cases/rel16.0-uc001-pipeline-word.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -49,8 +49,8 @@ go test ./internal/tools/pipeline -run TestPipelineChainsStagesAndEmitsTheConfig
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-pipeline-word S1
-- srd049-pipeline-word AC1
+- [rel16.0-uc001-pipeline-word](../use-cases/rel16.0-uc001-pipeline-word.md) [S1](../use-cases/rel16.0-uc001-pipeline-word.md#s1)
+- [srd049-pipeline-word](../software-requirements/srd049-pipeline-word.md) [AC1](../software-requirements/srd049-pipeline-word.md#ac1)
 
 <!-- case: A stage reads prior machine steps through the injected view | status: implemented -->
 ### A stage reads prior machine steps through the injected view
@@ -62,7 +62,7 @@ exactly as the standalone word would resolve them.
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-pipeline-word
+[rel16.0-uc001-pipeline-word](../use-cases/rel16.0-uc001-pipeline-word.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -78,9 +78,9 @@ go test ./internal/tools/pipeline -run TestPipelineStagesReadPriorStepsThroughTh
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-pipeline-word S2
-- srd049-pipeline-word AC2
-- srd049-pipeline-word AC6
+- [rel16.0-uc001-pipeline-word](../use-cases/rel16.0-uc001-pipeline-word.md) [S2](../use-cases/rel16.0-uc001-pipeline-word.md#s2)
+- [srd049-pipeline-word](../software-requirements/srd049-pipeline-word.md) [AC2](../software-requirements/srd049-pipeline-word.md#ac2)
+- [srd049-pipeline-word](../software-requirements/srd049-pipeline-word.md) [AC6](../software-requirements/srd049-pipeline-word.md#ac6)
 
 <!-- case: Misconfiguration fails registration naming the pipeline and stage | status: implemented -->
 ### Misconfiguration fails registration naming the pipeline and stage
@@ -93,7 +93,7 @@ run.
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-pipeline-word
+[rel16.0-uc001-pipeline-word](../use-cases/rel16.0-uc001-pipeline-word.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -109,8 +109,8 @@ go test ./internal/tools/pipeline -run TestPipelineMisconfigurationFailsRegistra
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-pipeline-word S3
-- srd049-pipeline-word AC3
+- [rel16.0-uc001-pipeline-word](../use-cases/rel16.0-uc001-pipeline-word.md) [S3](../use-cases/rel16.0-uc001-pipeline-word.md#s3)
+- [srd049-pipeline-word](../software-requirements/srd049-pipeline-word.md) [AC3](../software-requirements/srd049-pipeline-word.md#ac3)
 
 <!-- case: A failing stage is a named fault and degradation flows through | status: implemented -->
 ### A failing stage is a named fault and degradation flows through
@@ -123,7 +123,7 @@ signal (srd038 R1.5 preserved).
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-pipeline-word
+[rel16.0-uc001-pipeline-word](../use-cases/rel16.0-uc001-pipeline-word.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -141,8 +141,8 @@ go test ./internal/tools/pipeline -run TestPipelineStageFailureNamesTheStageAndD
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-pipeline-word S4
-- srd049-pipeline-word AC4
+- [rel16.0-uc001-pipeline-word](../use-cases/rel16.0-uc001-pipeline-word.md) [S4](../use-cases/rel16.0-uc001-pipeline-word.md#s4)
+- [srd049-pipeline-word](../software-requirements/srd049-pipeline-word.md) [AC4](../software-requirements/srd049-pipeline-word.md#ac4)
 
 <!-- case: A pipeline declaration co-selects its stage families | status: implemented -->
 ### A pipeline declaration co-selects its stage families
@@ -154,7 +154,7 @@ factory families register without a standalone word.
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-pipeline-word
+[rel16.0-uc001-pipeline-word](../use-cases/rel16.0-uc001-pipeline-word.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -172,5 +172,5 @@ go test ./internal/tools/registry ./internal/tools/pipeline -run 'Test(SelectedB
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-pipeline-word S5
-- srd049-pipeline-word AC5
+- [rel16.0-uc001-pipeline-word](../use-cases/rel16.0-uc001-pipeline-word.md) [S5](../use-cases/rel16.0-uc001-pipeline-word.md#s5)
+- [srd049-pipeline-word](../software-requirements/srd049-pipeline-word.md) [AC5](../software-requirements/srd049-pipeline-word.md#ac5)

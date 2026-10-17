@@ -9,7 +9,7 @@ release: "26.0"
 <!-- field: traces -->
 ## Traces
 
-- rel26.0-uc001-retrieval-client-library
+- [rel26.0-uc001-retrieval-client-library](../use-cases/rel26.0-uc001-retrieval-client-library.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -28,7 +28,7 @@ Expand the fragment with the chatbot-mesh arguments (rag, $from(rag_unit).base_u
 <!-- field: use_case -->
 #### Use case
 
-rel26.0-uc001-retrieval-client-library
+[rel26.0-uc001-retrieval-client-library](../use-cases/rel26.0-uc001-retrieval-client-library.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -45,9 +45,9 @@ go test ./internal/tools/rest/... -run 'TestRetrievalQueryClientFragment'
 <!-- field: traces -->
 #### Traces
 
-- rel26.0-uc001-retrieval-client-library S1
-- srd060-retrieval-client-contract AC1
-- srd060-retrieval-client-contract R3.1
+- [rel26.0-uc001-retrieval-client-library](../use-cases/rel26.0-uc001-retrieval-client-library.md) [S1](../use-cases/rel26.0-uc001-retrieval-client-library.md#s1)
+- [srd060-retrieval-client-contract](../software-requirements/srd060-retrieval-client-contract.md) [AC1](../software-requirements/srd060-retrieval-client-contract.md#ac1)
+- [srd060-retrieval-client-contract](../software-requirements/srd060-retrieval-client-contract.md) [R3.1](../software-requirements/srd060-retrieval-client-contract.md#r31)
 
 <!-- case: Status mapping and side effect of the produced operation | status: implemented -->
 ### Status mapping and side effect of the produced operation
@@ -57,7 +57,7 @@ Inspect the expanded operation's success, failure, and side-effect declarations.
 <!-- field: use_case -->
 #### Use case
 
-rel26.0-uc001-retrieval-client-library
+[rel26.0-uc001-retrieval-client-library](../use-cases/rel26.0-uc001-retrieval-client-library.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -74,9 +74,9 @@ go test ./internal/tools/rest/... -run 'TestRetrievalQueryClientFragment'
 <!-- field: traces -->
 #### Traces
 
-- rel26.0-uc001-retrieval-client-library S2
-- srd060-retrieval-client-contract AC2
-- srd060-retrieval-client-contract R3.3
+- [rel26.0-uc001-retrieval-client-library](../use-cases/rel26.0-uc001-retrieval-client-library.md) [S2](../use-cases/rel26.0-uc001-retrieval-client-library.md#s2)
+- [srd060-retrieval-client-contract](../software-requirements/srd060-retrieval-client-contract.md) [AC2](../software-requirements/srd060-retrieval-client-contract.md#ac2)
+- [srd060-retrieval-client-contract](../software-requirements/srd060-retrieval-client-contract.md) [R3.3](../software-requirements/srd060-retrieval-client-contract.md#r33)
 
 <!-- case: The contract loads through the agent-core root with no declared root | status: implemented -->
 ### The contract loads through the agent-core root with no declared root
@@ -86,7 +86,7 @@ A unit importing /opt/agent-core/tools/units/types-retrieval.yaml and expanding 
 <!-- field: use_case -->
 #### Use case
 
-rel26.0-uc001-retrieval-client-library
+[rel26.0-uc001-retrieval-client-library](../use-cases/rel26.0-uc001-retrieval-client-library.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -102,9 +102,9 @@ go test ./internal/tools/rest/... ./internal/load/... -run 'TestRetrievalQueryCl
 <!-- field: traces -->
 #### Traces
 
-- rel26.0-uc001-retrieval-client-library S3
-- srd060-retrieval-client-contract AC3
-- srd060-retrieval-client-contract R2.1
+- [rel26.0-uc001-retrieval-client-library](../use-cases/rel26.0-uc001-retrieval-client-library.md) [S3](../use-cases/rel26.0-uc001-retrieval-client-library.md#s3)
+- [srd060-retrieval-client-contract](../software-requirements/srd060-retrieval-client-contract.md) [AC3](../software-requirements/srd060-retrieval-client-contract.md#ac3)
+- [srd060-retrieval-client-contract](../software-requirements/srd060-retrieval-client-contract.md) [R2.1](../software-requirements/srd060-retrieval-client-contract.md#r21)
 
 <!-- case: chatbot-mesh queries through the fragment and receives metadatas | status: implemented -->
 ### chatbot-mesh queries through the fragment and receives metadatas
@@ -114,7 +114,7 @@ chatbot-mesh's chatbot declares no local query operation, its chat and degraded-
 <!-- field: use_case -->
 #### Use case
 
-rel26.0-uc001-retrieval-client-library
+[rel26.0-uc001-retrieval-client-library](../use-cases/rel26.0-uc001-retrieval-client-library.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -131,6 +131,6 @@ mage audit
 <!-- field: traces -->
 #### Traces
 
-- rel26.0-uc001-retrieval-client-library S4
-- srd060-retrieval-client-contract AC4
-- srd060-retrieval-client-contract R4.1
+- [rel26.0-uc001-retrieval-client-library](../use-cases/rel26.0-uc001-retrieval-client-library.md) [S4](../use-cases/rel26.0-uc001-retrieval-client-library.md#s4)
+- [srd060-retrieval-client-contract](../software-requirements/srd060-retrieval-client-contract.md) [AC4](../software-requirements/srd060-retrieval-client-contract.md#ac4)
+- [srd060-retrieval-client-contract](../software-requirements/srd060-retrieval-client-contract.md) [R4.1](../software-requirements/srd060-retrieval-client-contract.md#r41)

@@ -38,9 +38,9 @@ COLLECTOR_MODE override, no COLLECTOR_RELAY_ENDPOINT).
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd020-collector R1 | default spool mode, no relay |
-| T2 | srd020-collector R3 | conformance coverage exercises OTLP builtins |
-| T3 | srd020-collector R3 | the conformance coverage that exercises the receiver, await, spool, and stop words, declared as a platform dependency on agent-core srd042-otlp-receiver-tools |
+| T1 | [srd020-collector](../software-requirements/srd020-collector.md) [R1](../software-requirements/srd020-collector.md#r1---generalized-defaults) | default spool mode, no relay |
+| T2 | [srd020-collector](../software-requirements/srd020-collector.md) [R3](../software-requirements/srd020-collector.md#r3---conformance-coverage) | conformance coverage exercises OTLP builtins |
+| T3 | [srd020-collector](../software-requirements/srd020-collector.md) [R3](../software-requirements/srd020-collector.md#r3---conformance-coverage) | the conformance coverage that exercises the receiver, await, spool, and stop words, declared as a platform dependency on agent-core srd042-otlp-receiver-tools |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -53,7 +53,7 @@ The collector reaches AwaitingSpans and processes at least one batch through fil
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector AC1
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC1](../software-requirements/srd020-collector.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -63,7 +63,7 @@ The relay predicate is Unsatisfied in default spool mode.
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector AC3
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC3](../software-requirements/srd020-collector.md#ac3)
 
 <!-- sc: S3 -->
 ### S3
@@ -73,7 +73,7 @@ The machine reaches terminal state Done after orderly shutdown.
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector AC1
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC1](../software-requirements/srd020-collector.md#ac1)
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios
@@ -92,4 +92,4 @@ The machine reaches terminal state Done after orderly shutdown.
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel13.0-collector
+[test-rel13.0-collector](../test-suites/test-rel13.0-collector.md)

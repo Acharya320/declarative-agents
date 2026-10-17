@@ -27,7 +27,7 @@ existing Go test.
 <!-- field: traces -->
 ## Traces
 
-- rel04.0-uc001-declarative-applier
+- [rel04.0-uc001-declarative-applier](../use-cases/rel04.0-uc001-declarative-applier.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -68,7 +68,7 @@ validate_apply_verify
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc001-declarative-applier
+[rel04.0-uc001-declarative-applier](../use-cases/rel04.0-uc001-declarative-applier.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -96,14 +96,14 @@ mage integration:applier
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc001-declarative-applier S1
-- rel04.0-uc001-declarative-applier S2
-- rel04.0-uc001-declarative-applier S3
-- rel04.0-uc001-declarative-applier S4
-- rel04.0-uc001-declarative-applier S5
-- srd002-applier AC1
-- srd002-applier AC2
-- srd002-applier AC3
+- [rel04.0-uc001-declarative-applier](../use-cases/rel04.0-uc001-declarative-applier.md) [S1](../use-cases/rel04.0-uc001-declarative-applier.md#s1)
+- [rel04.0-uc001-declarative-applier](../use-cases/rel04.0-uc001-declarative-applier.md) [S2](../use-cases/rel04.0-uc001-declarative-applier.md#s2)
+- [rel04.0-uc001-declarative-applier](../use-cases/rel04.0-uc001-declarative-applier.md) [S3](../use-cases/rel04.0-uc001-declarative-applier.md#s3)
+- [rel04.0-uc001-declarative-applier](../use-cases/rel04.0-uc001-declarative-applier.md) [S4](../use-cases/rel04.0-uc001-declarative-applier.md#s4)
+- [rel04.0-uc001-declarative-applier](../use-cases/rel04.0-uc001-declarative-applier.md) [S5](../use-cases/rel04.0-uc001-declarative-applier.md#s5)
+- [srd002-applier](../software-requirements/srd002-applier.md) [AC1](../software-requirements/srd002-applier.md#ac1)
+- [srd002-applier](../software-requirements/srd002-applier.md) [AC2](../software-requirements/srd002-applier.md#ac2)
+- [srd002-applier](../software-requirements/srd002-applier.md) [AC3](../software-requirements/srd002-applier.md#ac3)
 
 <!-- case: The chart schema rejects a non-conforming values patch | status: planned -->
 ### The chart schema rejects a non-conforming values patch
@@ -128,7 +128,7 @@ chart_schema_rejects
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc001-declarative-applier
+[rel04.0-uc001-declarative-applier](../use-cases/rel04.0-uc001-declarative-applier.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -151,9 +151,9 @@ mage test (chart values.schema.json against real helm)
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc001-declarative-applier S2
-- srd001-helm-deployment R2.3
-- srd002-applier AC2
+- [rel04.0-uc001-declarative-applier](../use-cases/rel04.0-uc001-declarative-applier.md) [S2](../use-cases/rel04.0-uc001-declarative-applier.md#s2)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [R2.3](../software-requirements/srd001-helm-deployment.md#r23)
+- [srd002-applier](../software-requirements/srd002-applier.md) [AC2](../software-requirements/srd002-applier.md#ac2)
 
 <!-- case: The applier holds the deployment CLIs and the serving roles do not | status: planned -->
 ### The applier holds the deployment CLIs and the serving roles do not
@@ -175,7 +175,7 @@ applier_holds_clis
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc001-declarative-applier
+[rel04.0-uc001-declarative-applier](../use-cases/rel04.0-uc001-declarative-applier.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -199,9 +199,9 @@ mage test (rendered chart and role profiles)
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc001-declarative-applier S6
-- srd002-applier AC4
-- srd002-applier AC5
+- [rel04.0-uc001-declarative-applier](../use-cases/rel04.0-uc001-declarative-applier.md) [S6](../use-cases/rel04.0-uc001-declarative-applier.md#s6)
+- [srd002-applier](../software-requirements/srd002-applier.md) [AC4](../software-requirements/srd002-applier.md#ac4)
+- [srd002-applier](../software-requirements/srd002-applier.md) [AC5](../software-requirements/srd002-applier.md#ac5)
 
 <!-- case: A broken rollout read is distinguishable from a progressing one | status: planned -->
 ### A broken rollout read is distinguishable from a progressing one
@@ -222,7 +222,7 @@ broken_read_classified
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc001-declarative-applier
+[rel04.0-uc001-declarative-applier](../use-cases/rel04.0-uc001-declarative-applier.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -246,8 +246,8 @@ mage test (applier rollout machine)
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc001-declarative-applier S7
-- srd002-applier AC3
+- [rel04.0-uc001-declarative-applier](../use-cases/rel04.0-uc001-declarative-applier.md) [S7](../use-cases/rel04.0-uc001-declarative-applier.md#s7)
+- [srd002-applier](../software-requirements/srd002-applier.md) [AC3](../software-requirements/srd002-applier.md#ac3)
 
 <!-- case: A live on-cluster rollout and rollback through the applier | status: planned -->
 ### A live on-cluster rollout and rollback through the applier
@@ -276,7 +276,7 @@ live_rollout_rollback
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc001-declarative-applier
+[rel04.0-uc001-declarative-applier](../use-cases/rel04.0-uc001-declarative-applier.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -303,7 +303,7 @@ mage integration:applierLive
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc001-declarative-applier S3
-- rel04.0-uc001-declarative-applier S4
-- srd001-helm-deployment R3
-- srd002-applier AC3
+- [rel04.0-uc001-declarative-applier](../use-cases/rel04.0-uc001-declarative-applier.md) [S3](../use-cases/rel04.0-uc001-declarative-applier.md#s3)
+- [rel04.0-uc001-declarative-applier](../use-cases/rel04.0-uc001-declarative-applier.md) [S4](../use-cases/rel04.0-uc001-declarative-applier.md#s4)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [R3](../software-requirements/srd001-helm-deployment.md#r3---live-kind-smoke)
+- [srd002-applier](../software-requirements/srd002-applier.md) [AC3](../software-requirements/srd002-applier.md#ac3)

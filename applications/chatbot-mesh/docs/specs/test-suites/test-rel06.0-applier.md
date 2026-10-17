@@ -21,7 +21,7 @@ chart schema, and integration:applierLive proves apply and rollback on kind.
 <!-- field: traces -->
 ## Traces
 
-- rel06.0-uc001-declarative-applier
+- [rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -65,7 +65,7 @@ rendered chart.
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc001-declarative-applier
+[rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -99,17 +99,17 @@ TestAssertApplierCallsRejectsMissingAndForbidden, TestApplierAuthorityProblemRej
 <!-- field: traces -->
 #### Traces
 
-- rel06.0-uc001-declarative-applier S1
-- rel06.0-uc001-declarative-applier S2
-- rel06.0-uc001-declarative-applier S3
-- rel06.0-uc001-declarative-applier S4
-- rel06.0-uc001-declarative-applier S5
-- srd006-applier AC1
-- srd006-applier AC2
-- srd006-applier AC3
-- srd006-applier AC4
-- srd006-applier AC5
-- srd003-chatbot-deployment AC4
+- [rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md) [S1](../use-cases/rel06.0-uc001-declarative-applier.md#s1)
+- [rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md) [S2](../use-cases/rel06.0-uc001-declarative-applier.md#s2)
+- [rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md) [S3](../use-cases/rel06.0-uc001-declarative-applier.md#s3)
+- [rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md) [S4](../use-cases/rel06.0-uc001-declarative-applier.md#s4)
+- [rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md) [S5](../use-cases/rel06.0-uc001-declarative-applier.md#s5)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC1](../software-requirements/srd006-applier.md#ac1)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC2](../software-requirements/srd006-applier.md#ac2)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC3](../software-requirements/srd006-applier.md#ac3)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC4](../software-requirements/srd006-applier.md#ac4)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC5](../software-requirements/srd006-applier.md#ac5)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC4](../software-requirements/srd003-chatbot-deployment.md#ac4)
 
 <!-- case: The chart schema rejects a non-conforming values patch | status: done -->
 ### The chart schema rejects a non-conforming values patch
@@ -132,7 +132,7 @@ The applier's own command form is proven on a cluster by GH-735.
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc001-declarative-applier
+[rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -160,8 +160,8 @@ TestChartSchemaAcceptsAConformingPatch, TestChartSchemaRejectsANonConformingPatc
 <!-- field: traces -->
 #### Traces
 
-- rel06.0-uc001-declarative-applier S2
-- srd006-applier AC2
+- [rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md) [S2](../use-cases/rel06.0-uc001-declarative-applier.md#s2)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC2](../software-requirements/srd006-applier.md#ac2)
 
 <!-- case: An applier-enabled chart renders a coherent surface | status: done -->
 ### An applier-enabled chart renders a coherent surface
@@ -180,7 +180,7 @@ applier started with nothing to run.
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc001-declarative-applier
+[rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -207,8 +207,8 @@ TestApplierServiceTargetsItsDeployment, TestApplierMountsEveryProfileItStarts, T
 <!-- field: traces -->
 #### Traces
 
-- rel06.0-uc001-declarative-applier S1
-- srd006-applier AC1
+- [rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md) [S1](../use-cases/rel06.0-uc001-declarative-applier.md#s1)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC1](../software-requirements/srd006-applier.md#ac1)
 
 <!-- case: Live applier infrastructure failures are bounded and classified | status: implemented -->
 ### Live applier infrastructure failures are bounded and classified
@@ -233,7 +233,7 @@ sections and partial evidence even when the cluster is unhealthy.
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc001-declarative-applier
+[rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -268,8 +268,8 @@ TestApplierLiveInfrastructureHealthy, TestApplierLiveInfrastructureClassifiesHos
 <!-- field: traces -->
 #### Traces
 
-- rel06.0-uc001-declarative-applier S3
-- srd006-applier AC3
+- [rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md) [S3](../use-cases/rel06.0-uc001-declarative-applier.md#s3)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC3](../software-requirements/srd006-applier.md#ac3)
 
 <!-- case: A live on-cluster rollout through the applier | status: done -->
 ### A live on-cluster rollout through the applier
@@ -328,7 +328,7 @@ an observed denial.
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc001-declarative-applier
+[rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -359,9 +359,9 @@ mage integration:applierLive (GH-735, GH-751)
 <!-- field: traces -->
 #### Traces
 
-- rel06.0-uc001-declarative-applier S3
-- rel06.0-uc001-declarative-applier S4
-- srd006-applier AC3
+- [rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md) [S3](../use-cases/rel06.0-uc001-declarative-applier.md#s3)
+- [rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md) [S4](../use-cases/rel06.0-uc001-declarative-applier.md#s4)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC3](../software-requirements/srd006-applier.md#ac3)
 
 <!-- case: A broken rollout read is distinguishable from a progressing one, and the counts reach the panel | status: done -->
 ### A broken rollout read is distinguishable from a progressing one, and the counts reach the panel
@@ -382,7 +382,7 @@ both directions.
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc001-declarative-applier
+[rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -412,8 +412,8 @@ TestApplierRolloutMachineSeparatesBrokenRead, TestApplierRolloutEndpointMapsThre
 <!-- field: traces -->
 #### Traces
 
-- rel06.0-uc001-declarative-applier S7
-- srd006-applier AC3
+- [rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md) [S7](../use-cases/rel06.0-uc001-declarative-applier.md#s7)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC3](../software-requirements/srd006-applier.md#ac3)
 
 <!-- case: The rendered chart routes provisioning to the provisioning-workflow-orchestrator | status: done -->
 ### The rendered chart routes provisioning to the provisioning-workflow-orchestrator
@@ -431,7 +431,7 @@ and only the pair read together showed the route was dead.
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc001-declarative-applier
+[rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -459,10 +459,10 @@ TestProvisioningIngressRoutesToTheProvisioningWorkflowOrchestrator, TestApplierA
 <!-- field: traces -->
 #### Traces
 
-- rel06.0-uc001-declarative-applier S6
-- srd006-applier AC6
-- srd003-chatbot-deployment AC7
-- srd004-provisioning-workflow-orchestrator AC6
+- [rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md) [S6](../use-cases/rel06.0-uc001-declarative-applier.md#s6)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC6](../software-requirements/srd006-applier.md#ac6)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC7](../software-requirements/srd003-chatbot-deployment.md#ac7)
+- [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [AC6](../software-requirements/srd004-provisioning-workflow-orchestrator.md#ac6)
 
 <!-- case: The panel route reaches only the authorized surface | status: done -->
 ### The panel route reaches only the authorized surface
@@ -494,7 +494,7 @@ bootstrap, so the proof never adopts a cluster it did not build.
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc001-declarative-applier
+[rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -525,8 +525,8 @@ mage integration:policyProof (GH-682)
 <!-- field: traces -->
 #### Traces
 
-- rel06.0-uc001-declarative-applier S6
-- srd006-applier AC6
-- srd003-chatbot-deployment AC7
-- srd004-provisioning-workflow-orchestrator AC6
-- srd005-creator AC6
+- [rel06.0-uc001-declarative-applier](../use-cases/rel06.0-uc001-declarative-applier.md) [S6](../use-cases/rel06.0-uc001-declarative-applier.md#s6)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC6](../software-requirements/srd006-applier.md#ac6)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC7](../software-requirements/srd003-chatbot-deployment.md#ac7)
+- [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [AC6](../software-requirements/srd004-provisioning-workflow-orchestrator.md#ac6)
+- [srd005-creator](../software-requirements/srd005-creator.md) [AC6](../software-requirements/srd005-creator.md#ac6)

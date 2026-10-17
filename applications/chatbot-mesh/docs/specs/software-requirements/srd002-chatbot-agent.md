@@ -240,9 +240,9 @@ The chat turn is described as a request-scoped machine (select tier, embed, fan-
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -252,14 +252,14 @@ Separate source and tier classifier calls preserve the tier $tool contract; sour
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
-- R2.5
-- R2.6
-- R2.7
-- R2.8
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
+- [R2.5](#r25)
+- [R2.6](#r26)
+- [R2.7](#r27)
+- [R2.8](#r28)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -269,10 +269,10 @@ One sequential for_each over the trusted selected array feeds generic partitions
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
-- R3.4
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R3.4](#r34)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -282,8 +282,8 @@ Stateless-v1 sessions (browser-sent history, no server store) and the durable-se
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
+- [R4.1](#r41)
+- [R4.2](#r42)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -293,8 +293,8 @@ The three-panel ui.yaml surface over a static_assets-served SPA is declared, wit
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
+- [R5.1](#r51)
+- [R5.2](#r52)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -304,8 +304,8 @@ The transport-authority boundary permits only trusted topology-selected RAG auth
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
+- [R6.1](#r61)
+- [R6.2](#r62)
 
 <!-- field: depends_on_note -->
 ## Depends on note

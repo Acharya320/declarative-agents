@@ -40,10 +40,10 @@ observer family against its release selector instead of forking the profile.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd021-observer R1 | generalized namespace and label selector defaults, no new environment variable |
-| T2 | srd021-observer R3 | carried topology, fan-in, resource, and served-UX capabilities |
-| T3 | srd021-observer R4 | coding-agent, agent-architecture, and chatbot-mesh adoption |
-| T4 | srd021-observer R1 | the chatbot-mesh observer this family generalizes, whose own SRD is srd008-observer-agent in that application corpus |
+| T1 | [srd021-observer](../software-requirements/srd021-observer.md) [R1](../software-requirements/srd021-observer.md#r1---generalized-defaults) | generalized namespace and label selector defaults, no new environment variable |
+| T2 | [srd021-observer](../software-requirements/srd021-observer.md) [R3](../software-requirements/srd021-observer.md#r3---carried-capabilities) | carried topology, fan-in, resource, and served-UX capabilities |
+| T3 | [srd021-observer](../software-requirements/srd021-observer.md) [R4](../software-requirements/srd021-observer.md#r4---per-application-adoption) | coding-agent, agent-architecture, and chatbot-mesh adoption |
+| T4 | [srd021-observer](../software-requirements/srd021-observer.md) [R1](../software-requirements/srd021-observer.md#r1---generalized-defaults) | the chatbot-mesh observer this family generalizes, whose own SRD is srd008-observer-agent in that application corpus |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -56,7 +56,7 @@ The catalog carries a generalized observer-family SRD with parameterized namespa
 <!-- field: traces -->
 #### Traces
 
-- srd021-observer AC1
+- [srd021-observer](../software-requirements/srd021-observer.md) [AC1](../software-requirements/srd021-observer.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -66,7 +66,7 @@ The family carries topology discovery, monitor fan-in, resource usage, and the s
 <!-- field: traces -->
 #### Traces
 
-- srd021-observer AC2
+- [srd021-observer](../software-requirements/srd021-observer.md) [AC2](../software-requirements/srd021-observer.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -76,7 +76,7 @@ The specification names the adopters and defers realization rows to the adoption
 <!-- field: traces -->
 #### Traces
 
-- srd021-observer AC3
+- [srd021-observer](../software-requirements/srd021-observer.md) [AC3](../software-requirements/srd021-observer.md#ac3)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -88,4 +88,4 @@ The specification names the adopters and defers realization rows to the adoption
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel99.0-observer
+[test-rel99.0-observer](../test-suites/test-rel99.0-observer.md)

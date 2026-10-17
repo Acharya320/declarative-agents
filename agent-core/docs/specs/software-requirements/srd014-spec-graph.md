@@ -258,13 +258,13 @@ ParseSRD, ParseUseCase, ParseTestSuite, ParseRoadmap, and ParseSpecIndex produce
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.4
-- R1.5
-- R1.6
-- R1.7
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R1.5](#r15)
+- [R1.6](#r16)
+- [R1.7](#r17)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -274,9 +274,9 @@ BuildGraph constructs a directed labeled property graph from a Corpus with corre
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -286,23 +286,23 @@ Validate detects orphaned SRDs, broken touchpoints and citations, uncovered item
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
-- R3.4
-- R3.5
-- R3.6
-- R3.7
-- R3.8
-- R3.9
-- R3.10
-- R3.12
-- R3.13
-- R3.14
-- R3.15
-- R3.16
-- R3.17
-- R3.18
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R3.4](#r34)
+- [R3.5](#r35)
+- [R3.6](#r36)
+- [R3.7](#r37)
+- [R3.8](#r38)
+- [R3.9](#r39)
+- [R3.10](#r310)
+- [R3.12](#r312)
+- [R3.13](#r313)
+- [R3.14](#r314)
+- [R3.15](#r315)
+- [R3.16](#r316)
+- [R3.17](#r317)
+- [R3.18](#r318)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -312,10 +312,10 @@ LoadCorpus discovers and parses all artifacts from the standard directory layout
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
-- R4.4
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R4.4](#r44)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -325,14 +325,14 @@ Jurist charter suites load from YAML, run deterministic check kinds, expose grep
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
-- R5.4
-- R5.5
-- R5.7
-- R5.8
-- R5.9
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
+- [R5.5](#r55)
+- [R5.7](#r57)
+- [R5.8](#r58)
+- [R5.9](#r59)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -342,8 +342,8 @@ The built-in spec_corpus charter reproduces the current specification corpus val
 <!-- field: traces -->
 #### Traces
 
-- R5.2
-- R5.6
+- [R5.2](#r52)
+- [R5.6](#r56)
 
 <!-- field: diagrams -->
 ## Diagrams

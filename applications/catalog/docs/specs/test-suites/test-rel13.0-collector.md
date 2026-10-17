@@ -9,7 +9,7 @@ release: "13.0"
 <!-- field: traces -->
 ## Traces
 
-- rel13.0-uc001-collector-family
+- [rel13.0-uc001-collector-family](../use-cases/rel13.0-uc001-collector-family.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -32,7 +32,7 @@ vocabulary.
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-collector-family
+[rel13.0-uc001-collector-family](../use-cases/rel13.0-uc001-collector-family.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -66,9 +66,9 @@ go test ./conformance -run TestCollectorSpoolModeConformance
 <!-- field: traces -->
 #### Traces
 
-- rel13.0-uc001-collector-family S1
-- rel13.0-uc001-collector-family S3
-- srd020-collector AC1
+- [rel13.0-uc001-collector-family](../use-cases/rel13.0-uc001-collector-family.md) [S1](../use-cases/rel13.0-uc001-collector-family.md#s1)
+- [rel13.0-uc001-collector-family](../use-cases/rel13.0-uc001-collector-family.md) [S3](../use-cases/rel13.0-uc001-collector-family.md#s3)
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC1](../software-requirements/srd020-collector.md#ac1)
 
 <!-- case: Empty spool answers the query surface with zero traces | status: implemented -->
 ### Empty spool answers the query surface with zero traces
@@ -80,7 +80,7 @@ misconfigured as the spool path is reported explicitly (GH-1168).
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-collector-family
+[rel13.0-uc001-collector-family](../use-cases/rel13.0-uc001-collector-family.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -101,8 +101,8 @@ go test ./conformance -run TestCollectorQueryEmptySpool
 <!-- field: traces -->
 #### Traces
 
-- rel13.0-uc001-collector-family S2
-- srd020-collector AC2
+- [rel13.0-uc001-collector-family](../use-cases/rel13.0-uc001-collector-family.md) [S2](../use-cases/rel13.0-uc001-collector-family.md#s2)
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC2](../software-requirements/srd020-collector.md#ac2)
 
 <!-- case: Collector boots from the shipped profile with default environment | status: implemented -->
 ### Collector boots from the shipped profile with default environment
@@ -116,7 +116,7 @@ patch the profile before launch.
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-collector-family
+[rel13.0-uc001-collector-family](../use-cases/rel13.0-uc001-collector-family.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -139,8 +139,8 @@ go test ./conformance -run TestCollectorDefaultEnvironmentBoot
 <!-- field: traces -->
 #### Traces
 
-- rel13.0-uc001-collector-family S1
-- srd020-collector AC1
+- [rel13.0-uc001-collector-family](../use-cases/rel13.0-uc001-collector-family.md) [S1](../use-cases/rel13.0-uc001-collector-family.md#s1)
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC1](../software-requirements/srd020-collector.md#ac1)
 
 <!-- case: Query response keys match the UI and smoke consumers | status: implemented -->
 ### Query response keys match the UI and smoke consumers
@@ -152,7 +152,7 @@ verdict decode these keys; drift on either side fails here first.
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-collector-family
+[rel13.0-uc001-collector-family](../use-cases/rel13.0-uc001-collector-family.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -187,8 +187,8 @@ go test ./conformance -run TestCollectorQueryResponseContract
 <!-- field: traces -->
 #### Traces
 
-- rel13.0-uc001-collector-family S2
-- srd020-collector AC2
+- [rel13.0-uc001-collector-family](../use-cases/rel13.0-uc001-collector-family.md) [S2](../use-cases/rel13.0-uc001-collector-family.md#s2)
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC2](../software-requirements/srd020-collector.md#ac2)
 
 <!-- case: Monitor views carry no span payloads while the query surface serves them | status: implemented -->
 ### Monitor views carry no span payloads while the query surface serves them
@@ -201,7 +201,7 @@ apart rather than one merely being quiet.
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-collector-family
+[rel13.0-uc001-collector-family](../use-cases/rel13.0-uc001-collector-family.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -224,9 +224,9 @@ go test ./conformance -run TestCollectorMonitorServesNoSpanPayloads
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector R2.1
-- srd020-collector R2.2
-- srd020-collector AC9
+- [srd020-collector](../software-requirements/srd020-collector.md) [R2.1](../software-requirements/srd020-collector.md#r21)
+- [srd020-collector](../software-requirements/srd020-collector.md) [R2.2](../software-requirements/srd020-collector.md#r22)
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC9](../software-requirements/srd020-collector.md#ac9)
 
 <!-- case: Query list traces returns paginated summaries from seeded spool | status: implemented -->
 ### Query list traces returns paginated summaries from seeded spool
@@ -238,7 +238,7 @@ page_size=1.
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-collector-family
+[rel13.0-uc001-collector-family](../use-cases/rel13.0-uc001-collector-family.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -262,9 +262,9 @@ go test ./conformance -run TestCollectorQueryListTraces
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector R5.1
-- srd020-collector R5.3
-- srd020-collector AC9
+- [srd020-collector](../software-requirements/srd020-collector.md) [R5.1](../software-requirements/srd020-collector.md#r51)
+- [srd020-collector](../software-requirements/srd020-collector.md) [R5.3](../software-requirements/srd020-collector.md#r53)
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC9](../software-requirements/srd020-collector.md#ac9)
 
 <!-- case: Query get trace returns spans for one trace from seeded spool | status: implemented -->
 ### Query get trace returns spans for one trace from seeded spool
@@ -276,7 +276,7 @@ and span_count=2.
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-collector-family
+[rel13.0-uc001-collector-family](../use-cases/rel13.0-uc001-collector-family.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -299,8 +299,8 @@ go test ./conformance -run TestCollectorQueryGetTrace
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector R5.2
-- srd020-collector AC9
+- [srd020-collector](../software-requirements/srd020-collector.md) [R5.2](../software-requirements/srd020-collector.md#r52)
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC9](../software-requirements/srd020-collector.md#ac9)
 
 <!-- case: Canonical design-token import covers collector UI App.css | status: implemented -->
 ### Canonical design-token import covers collector UI App.css
@@ -313,7 +313,7 @@ canonical token declarations.
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-collector-family
+[rel13.0-uc001-collector-family](../use-cases/rel13.0-uc001-collector-family.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -334,8 +334,8 @@ go test ./conformance -run TestDesignTokensImportsResolveCanonical/collector
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector R6.1
-- srd020-collector AC10
+- [srd020-collector](../software-requirements/srd020-collector.md) [R6.1](../software-requirements/srd020-collector.md#r61)
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC10](../software-requirements/srd020-collector.md#ac10)
 
 <!-- case: Collector UI dist reproduces from a clean source build | status: implemented -->
 ### Collector UI dist reproduces from a clean source build
@@ -346,7 +346,7 @@ from the lockfile-pinned source. Verified by the root uiDist mage gate.
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-collector-family
+[rel13.0-uc001-collector-family](../use-cases/rel13.0-uc001-collector-family.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -366,8 +366,8 @@ cd ../.. && mage uiDist
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector R6.2
-- srd020-collector AC10
+- [srd020-collector](../software-requirements/srd020-collector.md) [R6.2](../software-requirements/srd020-collector.md#r62)
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC10](../software-requirements/srd020-collector.md#ac10)
 
 <!-- case: Durable object storage, retention metadata, and query completeness remain explicit | status: implemented -->
 ### Durable object storage, retention metadata, and query completeness remain explicit
@@ -380,7 +380,7 @@ storage status without request-selected bucket authority.
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-collector-family
+[rel13.0-uc001-collector-family](../use-cases/rel13.0-uc001-collector-family.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -397,7 +397,7 @@ cd ../../../../agent-core && go test ./internal/tools/otlp
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector AC11
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC11](../software-requirements/srd020-collector.md#ac11)
 
 <!-- case: Trace UI names incomplete retained history | status: implemented -->
 ### Trace UI names incomplete retained history
@@ -408,7 +408,7 @@ unknown trace-view banner, including explicit incomplete-history copy.
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-collector-family
+[rel13.0-uc001-collector-family](../use-cases/rel13.0-uc001-collector-family.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -424,7 +424,7 @@ go test ./conformance -run TestCollectorUIStorageStatusContract
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector AC12
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC12](../software-requirements/srd020-collector.md#ac12)
 
 <!-- case: Explicit purge refuses mismatched identity and isolates peer data | status: implemented -->
 ### Explicit purge refuses mismatched identity and isolates peer data
@@ -438,7 +438,7 @@ audit.
 <!-- field: use_case -->
 #### Use case
 
-rel13.0-uc001-collector-family
+[rel13.0-uc001-collector-family](../use-cases/rel13.0-uc001-collector-family.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -455,4 +455,4 @@ go test ./conformance -run TestApplicationPurgeRefusesThenDeletesOnlyRenderedPre
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector AC13
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC13](../software-requirements/srd020-collector.md#ac13)

@@ -9,9 +9,9 @@ release: "01.0"
 <!-- field: traces -->
 ## Traces
 
-- rel01.0-uc001-generator-coding
-- rel01.0-uc002-evaluator-benchmark
-- rel01.0-uc003-bench-visualization
+- [rel01.0-uc001-generator-coding](../use-cases/rel01.0-uc001-generator-coding.md)
+- [rel01.0-uc002-evaluator-benchmark](../use-cases/rel01.0-uc002-evaluator-benchmark.md)
+- [rel01.0-uc003-bench-visualization](../use-cases/rel01.0-uc003-bench-visualization.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -31,7 +31,7 @@ release: "01.0"
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-generator-coding
+[rel01.0-uc001-generator-coding](../use-cases/rel01.0-uc001-generator-coding.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -62,9 +62,9 @@ TestListFilesDeclarationUsesBoundedFindExec, TestListFilesExecPreservesTreeContr
 <!-- field: traces -->
 #### Traces
 
-- srd013-standard-tool-library AC1
-- srd023-cli-exec-tools AC2
-- srd023-cli-exec-tools AC3
+- [srd013-standard-tool-library](../software-requirements/srd013-standard-tool-library.md) [AC1](../software-requirements/srd013-standard-tool-library.md#ac1)
+- [srd023-cli-exec-tools](../software-requirements/srd023-cli-exec-tools.md) [AC2](../software-requirements/srd023-cli-exec-tools.md#ac2)
+- [srd023-cli-exec-tools](../software-requirements/srd023-cli-exec-tools.md) [AC3](../software-requirements/srd023-cli-exec-tools.md#ac3)
 
 <!-- case: Qwen profile strips thinking blocks and extracts tool envelope -->
 ### Qwen profile strips thinking blocks and extracts tool envelope
@@ -72,7 +72,7 @@ TestListFilesDeclarationUsesBoundedFindExec, TestListFilesExecPreservesTreeContr
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-generator-coding
+[rel01.0-uc001-generator-coding](../use-cases/rel01.0-uc001-generator-coding.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -96,10 +96,10 @@ applications/coding-agent mage integration:executorLive
 <!-- field: traces -->
 #### Traces
 
-- srd009-ollama-adapter AC1
-- srd017-llm-extensions AC1
-- srd017-llm-extensions AC2
-- srd017-llm-extensions AC3
+- [srd009-ollama-adapter](../software-requirements/srd009-ollama-adapter.md) [AC1](../software-requirements/srd009-ollama-adapter.md#ac1)
+- [srd017-llm-extensions](../software-requirements/srd017-llm-extensions.md) [AC1](../software-requirements/srd017-llm-extensions.md#ac1)
+- [srd017-llm-extensions](../software-requirements/srd017-llm-extensions.md) [AC2](../software-requirements/srd017-llm-extensions.md#ac2)
+- [srd017-llm-extensions](../software-requirements/srd017-llm-extensions.md) [AC3](../software-requirements/srd017-llm-extensions.md#ac3)
 
 <!-- case: Ollama adapter construction performs no readiness I/O -->
 ### Ollama adapter construction performs no readiness I/O
@@ -107,7 +107,7 @@ applications/coding-agent mage integration:executorLive
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-generator-coding
+[rel01.0-uc001-generator-coding](../use-cases/rel01.0-uc001-generator-coding.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -128,7 +128,7 @@ TestInvokeLLMBuildsWithoutNetworkIO
 <!-- field: traces -->
 #### Traces
 
-- srd009-ollama-adapter AC2
+- [srd009-ollama-adapter](../software-requirements/srd009-ollama-adapter.md) [AC2](../software-requirements/srd009-ollama-adapter.md#ac2)
 
 <!-- case: Ollama adapter emits tracing around chat -->
 ### Ollama adapter emits tracing around chat
@@ -136,7 +136,7 @@ TestInvokeLLMBuildsWithoutNetworkIO
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-generator-coding
+[rel01.0-uc001-generator-coding](../use-cases/rel01.0-uc001-generator-coding.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -158,7 +158,7 @@ TestInvokeLLMRunsTheDialectPipeline
 <!-- field: traces -->
 #### Traces
 
-- srd009-ollama-adapter AC3
+- [srd009-ollama-adapter](../software-requirements/srd009-ollama-adapter.md) [AC3](../software-requirements/srd009-ollama-adapter.md#ac3)
 
 <!-- case: Ollama adapter reports HTTP and JSON failures -->
 ### Ollama adapter reports HTTP and JSON failures
@@ -166,7 +166,7 @@ TestInvokeLLMRunsTheDialectPipeline
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-generator-coding
+[rel01.0-uc001-generator-coding](../use-cases/rel01.0-uc001-generator-coding.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -191,7 +191,7 @@ TestProviderDialectFailureKeepsCommandError
 <!-- field: traces -->
 #### Traces
 
-- srd009-ollama-adapter AC4
+- [srd009-ollama-adapter](../software-requirements/srd009-ollama-adapter.md) [AC4](../software-requirements/srd009-ollama-adapter.md#ac4)
 
 <!-- case: Generator solves sample and passes validation -->
 ### Generator solves sample and passes validation
@@ -199,7 +199,7 @@ TestProviderDialectFailureKeepsCommandError
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-generator-coding
+[rel01.0-uc001-generator-coding](../use-cases/rel01.0-uc001-generator-coding.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -223,8 +223,8 @@ applications/coding-agent mage integration:executorLive
 <!-- field: traces -->
 #### Traces
 
-- srd005-agentic-loop AC5
-- srd013-standard-tool-library AC2
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC5](../software-requirements/srd005-agentic-loop.md#ac5)
+- [srd013-standard-tool-library](../software-requirements/srd013-standard-tool-library.md) [AC2](../software-requirements/srd013-standard-tool-library.md#ac2)
 
 <!-- case: Evaluator setup tools expand suite grid and initialize session -->
 ### Evaluator setup tools expand suite grid and initialize session
@@ -232,7 +232,7 @@ applications/coding-agent mage integration:executorLive
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc002-evaluator-benchmark
+[rel01.0-uc002-evaluator-benchmark](../use-cases/rel01.0-uc002-evaluator-benchmark.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -257,8 +257,8 @@ TestEvaluatorSessionSetupToolSequence
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC0
-- srd019-eval-harness AC1
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC0](../software-requirements/srd019-eval-harness.md#ac0)
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC1](../software-requirements/srd019-eval-harness.md#ac1)
 
 <!-- case: Evaluator session defaults are declared and grid expansion is mandatory -->
 ### Evaluator session defaults are declared and grid expansion is mandatory
@@ -266,7 +266,7 @@ TestEvaluatorSessionSetupToolSequence
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc002-evaluator-benchmark
+[rel01.0-uc002-evaluator-benchmark](../use-cases/rel01.0-uc002-evaluator-benchmark.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -292,8 +292,8 @@ go test ./internal/evaluation -run 'Test(InitEvalSessionRequiresExpandedGrid|Ini
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC0
-- srd019-eval-harness AC1
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC0](../software-requirements/srd019-eval-harness.md#ac0)
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC1](../software-requirements/srd019-eval-harness.md#ac1)
 
 <!-- case: Evaluator rejects invalid point and aggregate duration envelopes | status: implemented -->
 ### Evaluator rejects invalid point and aggregate duration envelopes
@@ -301,7 +301,7 @@ go test ./internal/evaluation -run 'Test(InitEvalSessionRequiresExpandedGrid|Ini
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc002-evaluator-benchmark
+[rel01.0-uc002-evaluator-benchmark](../use-cases/rel01.0-uc002-evaluator-benchmark.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -335,7 +335,7 @@ go test ./internal/evaluation -run 'TestInitEvalSessionRejects(InvalidPointTimeo
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC5
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC5](../software-requirements/srd019-eval-harness.md#ac5)
 
 <!-- case: Nested evaluator dispatch uses the point machine command timeout | status: implemented -->
 ### Nested evaluator dispatch uses the point machine command timeout
@@ -343,7 +343,7 @@ go test ./internal/evaluation -run 'TestInitEvalSessionRejects(InvalidPointTimeo
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc002-evaluator-benchmark
+[rel01.0-uc002-evaluator-benchmark](../use-cases/rel01.0-uc002-evaluator-benchmark.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -366,7 +366,7 @@ go test ./internal/evaluation -run TestRunPointPropagatesMachineCommandTimeout$
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC5
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC5](../software-requirements/srd019-eval-harness.md#ac5)
 
 <!-- case: Critic and bench profiles reserve nested evaluator timeout margins | status: implemented -->
 ### Critic and bench profiles reserve nested evaluator timeout margins
@@ -374,7 +374,7 @@ go test ./internal/evaluation -run TestRunPointPropagatesMachineCommandTimeout$
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc002-evaluator-benchmark
+[rel01.0-uc002-evaluator-benchmark](../use-cases/rel01.0-uc002-evaluator-benchmark.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -402,7 +402,7 @@ applications/catalog go test ./magefiles -run TestCatalogEvaluatorTimeoutEnvelop
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC5
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC5](../software-requirements/srd019-eval-harness.md#ac5)
 
 <!-- case: Evaluator receipts remove only owned artifacts -->
 ### Evaluator receipts remove only owned artifacts
@@ -410,7 +410,7 @@ applications/catalog go test ./magefiles -run TestCatalogEvaluatorTimeoutEnvelop
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc002-evaluator-benchmark
+[rel01.0-uc002-evaluator-benchmark](../use-cases/rel01.0-uc002-evaluator-benchmark.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -433,7 +433,7 @@ go test ./internal/evaluation -run 'Test(EvaluatorReceiptRejectsArtifactOutsideO
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC2
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC2](../software-requirements/srd019-eval-harness.md#ac2)
 
 <!-- case: Evaluator profile suite iterates generator profiles -->
 ### Evaluator profile suite iterates generator profiles
@@ -441,7 +441,7 @@ go test ./internal/evaluation -run 'Test(EvaluatorReceiptRejectsArtifactOutsideO
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc002-evaluator-benchmark
+[rel01.0-uc002-evaluator-benchmark](../use-cases/rel01.0-uc002-evaluator-benchmark.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -466,8 +466,8 @@ TestMaterializeEvalPointsPreservesProfileOrder
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC1
-- srd019-eval-harness AC2
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC1](../software-requirements/srd019-eval-harness.md#ac1)
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC2](../software-requirements/srd019-eval-harness.md#ac2)
 
 <!-- case: Evaluator sample layout is declaration-driven -->
 ### Evaluator sample layout is declaration-driven
@@ -475,7 +475,7 @@ TestMaterializeEvalPointsPreservesProfileOrder
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc002-evaluator-benchmark
+[rel01.0-uc002-evaluator-benchmark](../use-cases/rel01.0-uc002-evaluator-benchmark.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -498,7 +498,7 @@ TestDiscoverSamplesUsesDeclaredLayout
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC0
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC0](../software-requirements/srd019-eval-harness.md#ac0)
 
 <!-- case: Convergence accepts any structured metric tool name -->
 ### Convergence accepts any structured metric tool name
@@ -506,7 +506,7 @@ TestDiscoverSamplesUsesDeclaredLayout
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc002-evaluator-benchmark
+[rel01.0-uc002-evaluator-benchmark](../use-cases/rel01.0-uc002-evaluator-benchmark.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -531,7 +531,7 @@ TestExtractToolSnapshots_WithMetrics
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC3
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC3](../software-requirements/srd019-eval-harness.md#ac3)
 
 <!-- case: Evaluator integration writes result directory -->
 ### Evaluator integration writes result directory
@@ -539,7 +539,7 @@ TestExtractToolSnapshots_WithMetrics
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc002-evaluator-benchmark
+[rel01.0-uc002-evaluator-benchmark](../use-cases/rel01.0-uc002-evaluator-benchmark.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -563,9 +563,9 @@ applications/coding-agent mage integration:criticGate
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC1
-- srd019-eval-harness AC2
-- srd016-traceparent AC1
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC1](../software-requirements/srd019-eval-harness.md#ac1)
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC2](../software-requirements/srd019-eval-harness.md#ac2)
+- [srd016-traceparent](../software-requirements/srd016-traceparent.md) [AC1](../software-requirements/srd016-traceparent.md#ac1)
 
 <!-- case: Point result tools classify output and collect metrics -->
 ### Point result tools classify output and collect metrics
@@ -573,7 +573,7 @@ applications/coding-agent mage integration:criticGate
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc002-evaluator-benchmark
+[rel01.0-uc002-evaluator-benchmark](../use-cases/rel01.0-uc002-evaluator-benchmark.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -596,8 +596,8 @@ TestSummarizePointResultsUsesCollectedState
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC2
-- srd019-eval-harness AC4
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC2](../software-requirements/srd019-eval-harness.md#ac2)
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC4](../software-requirements/srd019-eval-harness.md#ac4)
 
 <!-- case: Failed point preserves diagnostic metadata | status: implemented -->
 ### Failed point preserves diagnostic metadata
@@ -605,7 +605,7 @@ TestSummarizePointResultsUsesCollectedState
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc002-evaluator-benchmark
+[rel01.0-uc002-evaluator-benchmark](../use-cases/rel01.0-uc002-evaluator-benchmark.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -629,8 +629,8 @@ TestPointMachineRoutesFailureThroughMetricsBeforeRunPointReturns
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC2
-- srd019-eval-harness AC3
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC2](../software-requirements/srd019-eval-harness.md#ac2)
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC3](../software-requirements/srd019-eval-harness.md#ac3)
 
 <!-- case: Evaluation artifact queries preserve bench data -->
 ### Evaluation artifact queries preserve bench data
@@ -638,7 +638,7 @@ TestPointMachineRoutesFailureThroughMetricsBeforeRunPointReturns
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc003-bench-visualization
+[rel01.0-uc003-bench-visualization](../use-cases/rel01.0-uc003-bench-visualization.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -664,9 +664,9 @@ TestEvaluationArtifactQueriesPreserveBenchData
 <!-- field: traces -->
 #### Traces
 
-- srd020-bench-web-ui AC4
-- srd021-agent-cli-exec-tool AC2
-- srd022-builtin-tools AC6
+- [srd020-bench-web-ui](../software-requirements/srd020-bench-web-ui.md) [AC4](../software-requirements/srd020-bench-web-ui.md#ac4)
+- [srd021-agent-cli-exec-tool](../software-requirements/srd021-agent-cli-exec-tool.md) [AC2](../software-requirements/srd021-agent-cli-exec-tool.md#ac2)
+- [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md) [AC6](../software-requirements/srd022-builtin-tools.md#ac6)
 
 <!-- case: Bench integration target records manual UI preconditions -->
 ### Bench integration target records manual UI preconditions
@@ -674,7 +674,7 @@ TestEvaluationArtifactQueriesPreserveBenchData
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc003-bench-visualization
+[rel01.0-uc003-bench-visualization](../use-cases/rel01.0-uc003-bench-visualization.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -698,8 +698,8 @@ applications/catalog mage integration:benchEvaluator
 <!-- field: traces -->
 #### Traces
 
-- srd020-bench-web-ui AC3
-- srd024-blocking-input-tools AC1
+- [srd020-bench-web-ui](../software-requirements/srd020-bench-web-ui.md) [AC3](../software-requirements/srd020-bench-web-ui.md#ac3)
+- [srd024-blocking-input-tools](../software-requirements/srd024-blocking-input-tools.md) [AC1](../software-requirements/srd024-blocking-input-tools.md#ac1)
 
 <!-- case: Evaluator model statistics aggregate run outcomes -->
 ### Evaluator model statistics aggregate run outcomes
@@ -707,7 +707,7 @@ applications/catalog mage integration:benchEvaluator
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc002-evaluator-benchmark
+[rel01.0-uc002-evaluator-benchmark](../use-cases/rel01.0-uc002-evaluator-benchmark.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -729,7 +729,7 @@ TestComputeModelStatsAggregatesRuns
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC3
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC3](../software-requirements/srd019-eval-harness.md#ac3)
 
 <!-- case: Evaluator detailed rows aggregate sample and model results -->
 ### Evaluator detailed rows aggregate sample and model results
@@ -737,7 +737,7 @@ TestComputeModelStatsAggregatesRuns
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc002-evaluator-benchmark
+[rel01.0-uc002-evaluator-benchmark](../use-cases/rel01.0-uc002-evaluator-benchmark.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -759,7 +759,7 @@ TestComputeDetailedAggregatesSampleModelRows
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC3
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC3](../software-requirements/srd019-eval-harness.md#ac3)
 
 <!-- case: Bench session APIs return evaluation artifacts -->
 ### Bench session APIs return evaluation artifacts
@@ -767,7 +767,7 @@ TestComputeDetailedAggregatesSampleModelRows
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc003-bench-visualization
+[rel01.0-uc003-bench-visualization](../use-cases/rel01.0-uc003-bench-visualization.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -790,7 +790,7 @@ TestEvaluationArtifactQueriesPreserveBenchData
 <!-- field: traces -->
 #### Traces
 
-- srd020-bench-web-ui AC2
+- [srd020-bench-web-ui](../software-requirements/srd020-bench-web-ui.md) [AC2](../software-requirements/srd020-bench-web-ui.md#ac2)
 
 <!-- case: Agent child process args stay profile-first -->
 ### Agent child process args stay profile-first
@@ -798,7 +798,7 @@ TestEvaluationArtifactQueriesPreserveBenchData
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc002-evaluator-benchmark
+[rel01.0-uc002-evaluator-benchmark](../use-cases/rel01.0-uc002-evaluator-benchmark.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -819,7 +819,7 @@ TestBuildArgs_ProfileOnly
 <!-- field: traces -->
 #### Traces
 
-- srd021-agent-cli-exec-tool AC1
+- [srd021-agent-cli-exec-tool](../software-requirements/srd021-agent-cli-exec-tool.md) [AC1](../software-requirements/srd021-agent-cli-exec-tool.md#ac1)
 
 <!-- case: Self invoke maps child process success and failure -->
 ### Self invoke maps child process success and failure
@@ -827,7 +827,7 @@ TestBuildArgs_ProfileOnly
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc002-evaluator-benchmark
+[rel01.0-uc002-evaluator-benchmark](../use-cases/rel01.0-uc002-evaluator-benchmark.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -850,7 +850,7 @@ go test ./internal/tools/control -run 'TestSelfInvokeBuilder_Execute_(Success|Fa
 <!-- field: traces -->
 #### Traces
 
-- srd021-agent-cli-exec-tool AC4
+- [srd021-agent-cli-exec-tool](../software-requirements/srd021-agent-cli-exec-tool.md) [AC4](../software-requirements/srd021-agent-cli-exec-tool.md#ac4)
 
 <!-- case: invoke_llm handles call timeout as command error -->
 ### invoke_llm handles call timeout as command error
@@ -858,7 +858,7 @@ go test ./internal/tools/control -run 'TestSelfInvokeBuilder_Execute_(Success|Fa
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-generator-coding
+[rel01.0-uc001-generator-coding](../use-cases/rel01.0-uc001-generator-coding.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -881,7 +881,7 @@ TestInvokeLLM_CallTimeout
 <!-- field: traces -->
 #### Traces
 
-- srd024-blocking-input-tools AC3
+- [srd024-blocking-input-tools](../software-requirements/srd024-blocking-input-tools.md) [AC3](../software-requirements/srd024-blocking-input-tools.md#ac3)
 
 <!-- case: Bench action endpoint applies single pending action backpressure -->
 ### Bench action endpoint applies single pending action backpressure
@@ -889,7 +889,7 @@ TestInvokeLLM_CallTimeout
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc003-bench-visualization
+[rel01.0-uc003-bench-visualization](../use-cases/rel01.0-uc003-bench-visualization.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -910,7 +910,7 @@ TestRESTServer_QueueOverflowPolicies
 <!-- field: traces -->
 #### Traces
 
-- srd024-blocking-input-tools AC4
+- [srd024-blocking-input-tools](../software-requirements/srd024-blocking-input-tools.md) [AC4](../software-requirements/srd024-blocking-input-tools.md#ac4)
 
 <!-- case: invoke_llm records duration and token usage -->
 ### invoke_llm records duration and token usage
@@ -918,7 +918,7 @@ TestRESTServer_QueueOverflowPolicies
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-generator-coding
+[rel01.0-uc001-generator-coding](../use-cases/rel01.0-uc001-generator-coding.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -940,7 +940,7 @@ TestInvokeLLM_Success
 <!-- field: traces -->
 #### Traces
 
-- srd024-blocking-input-tools AC5
+- [srd024-blocking-input-tools](../software-requirements/srd024-blocking-input-tools.md) [AC5](../software-requirements/srd024-blocking-input-tools.md#ac5)
 
 <!-- case: Builtin registry resolves factories and rejects unknown init -->
 ### Builtin registry resolves factories and rejects unknown init
@@ -948,7 +948,7 @@ TestInvokeLLM_Success
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-generator-coding
+[rel01.0-uc001-generator-coding](../use-cases/rel01.0-uc001-generator-coding.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -970,7 +970,7 @@ go test ./internal/tools/registry -run 'Test(BuiltinRegistryRegisterResolveOverr
 <!-- field: traces -->
 #### Traces
 
-- srd022-builtin-tools AC2
+- [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md) [AC2](../software-requirements/srd022-builtin-tools.md#ac2)
 
 <!-- case: Builtin tool config decodes typed structs and errors -->
 ### Builtin tool config decodes typed structs and errors
@@ -978,7 +978,7 @@ go test ./internal/tools/registry -run 'Test(BuiltinRegistryRegisterResolveOverr
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-generator-coding
+[rel01.0-uc001-generator-coding](../use-cases/rel01.0-uc001-generator-coding.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1000,7 +1000,7 @@ go test ./internal/tools/catalog -run 'TestDecodeToolConfig'
 <!-- field: traces -->
 #### Traces
 
-- srd022-builtin-tools AC3
+- [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md) [AC3](../software-requirements/srd022-builtin-tools.md#ac3)
 
 <!-- case: Exec declarations parse schema and contract fields -->
 ### Exec declarations parse schema and contract fields
@@ -1008,7 +1008,7 @@ go test ./internal/tools/catalog -run 'TestDecodeToolConfig'
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-generator-coding
+[rel01.0-uc001-generator-coding](../use-cases/rel01.0-uc001-generator-coding.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1031,7 +1031,7 @@ TestParseToolDefs
 <!-- field: traces -->
 #### Traces
 
-- srd023-cli-exec-tools AC1
+- [srd023-cli-exec-tools](../software-requirements/srd023-cli-exec-tools.md) [AC1](../software-requirements/srd023-cli-exec-tools.md#ac1)
 
 <!-- case: Exec tools map argv, process outcomes, caps, and timeouts -->
 ### Exec tools map argv, process outcomes, caps, and timeouts
@@ -1039,7 +1039,7 @@ TestParseToolDefs
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-generator-coding
+[rel01.0-uc001-generator-coding](../use-cases/rel01.0-uc001-generator-coding.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1062,7 +1062,7 @@ go test ./internal/tools/exec -run 'Test(ExecCmd_(BuildArgs|Execute)|ExecBuilder
 <!-- field: traces -->
 #### Traces
 
-- srd023-cli-exec-tools AC3
+- [srd023-cli-exec-tools](../software-requirements/srd023-cli-exec-tools.md) [AC3](../software-requirements/srd023-cli-exec-tools.md#ac3)
 
 <!-- case: Ollama adapter options configure client without hidden checks -->
 ### Ollama adapter options configure client without hidden checks
@@ -1070,7 +1070,7 @@ go test ./internal/tools/exec -run 'Test(ExecCmd_(BuildArgs|Execute)|ExecBuilder
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-generator-coding
+[rel01.0-uc001-generator-coding](../use-cases/rel01.0-uc001-generator-coding.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1092,7 +1092,7 @@ TestInvokeLLMBuildsWithoutNetworkIO
 <!-- field: traces -->
 #### Traces
 
-- srd009-ollama-adapter AC5
+- [srd009-ollama-adapter](../software-requirements/srd009-ollama-adapter.md) [AC5](../software-requirements/srd009-ollama-adapter.md#ac5)
 
 <!-- case: Ollama migration removes legacy adapter paths -->
 ### Ollama migration removes legacy adapter paths
@@ -1100,7 +1100,7 @@ TestInvokeLLMBuildsWithoutNetworkIO
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-generator-coding
+[rel01.0-uc001-generator-coding](../use-cases/rel01.0-uc001-generator-coding.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1127,7 +1127,7 @@ TestOllamaMigrationRemovesLegacyAdapterPaths
 <!-- field: traces -->
 #### Traces
 
-- srd009-ollama-adapter AC6
+- [srd009-ollama-adapter](../software-requirements/srd009-ollama-adapter.md) [AC6](../software-requirements/srd009-ollama-adapter.md#ac6)
 
 <!-- case: LLM extraction functions handle fences and native tokens -->
 ### LLM extraction functions handle fences and native tokens
@@ -1135,7 +1135,7 @@ TestOllamaMigrationRemovesLegacyAdapterPaths
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-generator-coding
+[rel01.0-uc001-generator-coding](../use-cases/rel01.0-uc001-generator-coding.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1159,4 +1159,4 @@ go test ./internal/model/llm -run 'Test(StripCodeFences|ExtractWithEnvelope|Stri
 <!-- field: traces -->
 #### Traces
 
-- srd017-llm-extensions AC4
+- [srd017-llm-extensions](../software-requirements/srd017-llm-extensions.md) [AC4](../software-requirements/srd017-llm-extensions.md#ac4)

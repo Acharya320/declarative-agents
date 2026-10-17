@@ -43,9 +43,9 @@ origin.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd020-collector R7 | UI served by the collector_query server via static_assets, same-origin with the query API |
-| T2 | srd020-collector R5 | the query surface the UI reads for trace list and detail |
-| T3 | srd020-collector R6 | the shipped ui/ SPA and its uiDist reproducibility gate |
+| T1 | [srd020-collector](../software-requirements/srd020-collector.md) [R7](../software-requirements/srd020-collector.md#r7---served-ui) | UI served by the collector_query server via static_assets, same-origin with the query API |
+| T2 | [srd020-collector](../software-requirements/srd020-collector.md) [R5](../software-requirements/srd020-collector.md#r5---query-rest-surface) | the query surface the UI reads for trace list and detail |
+| T3 | [srd020-collector](../software-requirements/srd020-collector.md) [R6](../software-requirements/srd020-collector.md#r6---trace-query-ui) | the shipped ui/ SPA and its uiDist reproducibility gate |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -58,7 +58,7 @@ GET / on the query origin returns the SPA index with an HTML content type.
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector AC4
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC4](../software-requirements/srd020-collector.md#ac4)
 
 <!-- sc: S2 -->
 ### S2
@@ -68,7 +68,7 @@ A deep link such as GET /traces/{trace_id} resolves to the SPA index rather than
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector AC4
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC4](../software-requirements/srd020-collector.md#ac4)
 
 <!-- sc: S3 -->
 ### S3
@@ -78,7 +78,7 @@ Serving the UI leaves every /query/* response body and status unchanged.
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector AC4
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC4](../software-requirements/srd020-collector.md#ac4)
 
 <!-- sc: S4 -->
 ### S4
@@ -88,7 +88,7 @@ The UI root is a literal profile-declared path with no new environment variable;
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector AC5
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC5](../software-requirements/srd020-collector.md#ac5)
 
 <!-- sc: S5 -->
 ### S5
@@ -98,7 +98,7 @@ The UI composes on the ui-kit shell from ui/ui.yaml, registers every local panel
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector R6.1
+- [srd020-collector](../software-requirements/srd020-collector.md) [R6.1](../software-requirements/srd020-collector.md#r61)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -110,4 +110,4 @@ The UI composes on the ui-kit shell from ui/ui.yaml, registers every local panel
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel14.0-served-ui
+[test-rel14.0-served-ui](../test-suites/test-rel14.0-served-ui.md)

@@ -49,9 +49,9 @@ endpoint while a Chroma server holds an ingested collection.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd001-rag-server-agent AC1 | The RAG server hosts the reader retrieval chain behind a machine_request query endpoint with monitor and control servers. |
-| T2 | srd001-rag-server-agent AC2 | The vector-in contract accepts query_embeddings and returns chunks with ids, distances, and the embedding-model metadata. |
-| T3 | srd001-rag-server-agent AC3 | A single agent serves one collection; the run does not multiplex corpora. |
+| T1 | [srd001-rag-server-agent](../software-requirements/srd001-rag-server-agent.md) [AC1](../software-requirements/srd001-rag-server-agent.md#ac1) | The RAG server hosts the reader retrieval chain behind a machine_request query endpoint with monitor and control servers. |
+| T2 | [srd001-rag-server-agent](../software-requirements/srd001-rag-server-agent.md) [AC2](../software-requirements/srd001-rag-server-agent.md#ac2) | The vector-in contract accepts query_embeddings and returns chunks with ids, distances, and the embedding-model metadata. |
+| T3 | [srd001-rag-server-agent](../software-requirements/srd001-rag-server-agent.md) [AC3](../software-requirements/srd001-rag-server-agent.md#ac3) | A single agent serves one collection; the run does not multiplex corpora. |
 | T4 | test-rel00.0-chatbot-mesh rag_server_query | The suite records the query inputs and the expected chunk-and-metadata response. |
 
 <!-- field: success_criteria -->
@@ -65,8 +65,8 @@ The query endpoint accepts a caller-supplied query_embeddings vector and n_resul
 <!-- field: traces -->
 #### Traces
 
-- srd001-rag-server-agent R2.1
-- srd001-rag-server-agent AC2
+- [srd001-rag-server-agent](../software-requirements/srd001-rag-server-agent.md) [R2.1](../software-requirements/srd001-rag-server-agent.md#r21)
+- [srd001-rag-server-agent](../software-requirements/srd001-rag-server-agent.md) [AC2](../software-requirements/srd001-rag-server-agent.md#ac2)
 
 <!-- sc: S2 -->
 ### S2
@@ -76,9 +76,9 @@ The response returns chunks with record ids, distances, and metadata that names 
 <!-- field: traces -->
 #### Traces
 
-- srd001-rag-server-agent R2.2
-- srd001-rag-server-agent R2.3
-- srd001-rag-server-agent AC2
+- [srd001-rag-server-agent](../software-requirements/srd001-rag-server-agent.md) [R2.2](../software-requirements/srd001-rag-server-agent.md#r22)
+- [srd001-rag-server-agent](../software-requirements/srd001-rag-server-agent.md) [R2.3](../software-requirements/srd001-rag-server-agent.md#r23)
+- [srd001-rag-server-agent](../software-requirements/srd001-rag-server-agent.md) [AC2](../software-requirements/srd001-rag-server-agent.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -88,9 +88,9 @@ The retrieval runs as a request-scoped machine over one served collection, with 
 <!-- field: traces -->
 #### Traces
 
-- srd001-rag-server-agent R1.1
-- srd001-rag-server-agent R1.5
-- srd001-rag-server-agent AC1
+- [srd001-rag-server-agent](../software-requirements/srd001-rag-server-agent.md) [R1.1](../software-requirements/srd001-rag-server-agent.md#r11)
+- [srd001-rag-server-agent](../software-requirements/srd001-rag-server-agent.md) [R1.5](../software-requirements/srd001-rag-server-agent.md#r15)
+- [srd001-rag-server-agent](../software-requirements/srd001-rag-server-agent.md) [AC1](../software-requirements/srd001-rag-server-agent.md#ac1)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -102,4 +102,4 @@ The retrieval runs as a request-scoped machine over one served collection, with 
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel00.0-chatbot-mesh
+[test-rel00.0-chatbot-mesh](../test-suites/test-rel00.0-chatbot-mesh.md)

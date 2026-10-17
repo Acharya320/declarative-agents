@@ -52,8 +52,8 @@ Run the mage kind smoke target.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd001-helm-deployment AC4 | The bounded kind install of the validated archive serves and exits cleanly. |
-| T2 | srd001-helm-deployment R3 | Prerequisite skips, mounted closures, readiness, trace retention, and cleanup follow the live-smoke requirements. |
+| T1 | [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [AC4](../software-requirements/srd001-helm-deployment.md#ac4) | The bounded kind install of the validated archive serves and exits cleanly. |
+| T2 | [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [R3](../software-requirements/srd001-helm-deployment.md#r3---live-kind-smoke) | Prerequisite skips, mounted closures, readiness, trace retention, and cleanup follow the live-smoke requirements. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -66,8 +66,8 @@ The target installs only the validated archive, builds and loads the shared prof
 <!-- field: traces -->
 #### Traces
 
-- srd001-helm-deployment R3.2
-- srd001-helm-deployment AC4
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [R3.2](../software-requirements/srd001-helm-deployment.md#r32)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [AC4](../software-requirements/srd001-helm-deployment.md#ac4)
 
 <!-- sc: S2 -->
 ### S2
@@ -77,8 +77,8 @@ The curator and collector Deployments and their real lifecycle health endpoints 
 <!-- field: traces -->
 #### Traces
 
-- srd001-helm-deployment R3.3
-- srd001-helm-deployment AC4
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [R3.3](../software-requirements/srd001-helm-deployment.md#r33)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [AC4](../software-requirements/srd001-helm-deployment.md#ac4)
 
 <!-- sc: S3 -->
 ### S3
@@ -88,8 +88,8 @@ The collector retains a trace the curator exported under the curator service nam
 <!-- field: traces -->
 #### Traces
 
-- srd001-helm-deployment R3.4
-- srd001-helm-deployment AC4
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [R3.4](../software-requirements/srd001-helm-deployment.md#r34)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [AC4](../software-requirements/srd001-helm-deployment.md#ac4)
 
 <!-- sc: S4 -->
 ### S4
@@ -99,9 +99,9 @@ The target skips with a named missing prerequisite without mutating a cluster, a
 <!-- field: traces -->
 #### Traces
 
-- srd001-helm-deployment R3.1
-- srd001-helm-deployment R3.5
-- srd001-helm-deployment AC4
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [R3.1](../software-requirements/srd001-helm-deployment.md#r31)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [R3.5](../software-requirements/srd001-helm-deployment.md#r35)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [AC4](../software-requirements/srd001-helm-deployment.md#ac4)
 
 <!-- field: out_of_scope -->
 ## Out of scope

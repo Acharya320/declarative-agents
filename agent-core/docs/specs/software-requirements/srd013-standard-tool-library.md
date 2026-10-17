@@ -455,13 +455,13 @@ File tools (read, write, edit, find, list_files) operate within workspace root b
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.4
-- R1.5
-- R1.6
-- R6.1
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R1.5](#r15)
+- [R1.6](#r16)
+- [R6.1](#r61)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -471,10 +471,10 @@ Build tools (build, vet, lint, test) execute Go toolchain commands and return st
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -484,13 +484,13 @@ LLM tools (invoke_llm, parse_response, report_parse_error, reset_history) integr
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
-- R3.4
-- R3.5
-- R3.6
-- R3.7
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R3.4](#r34)
+- [R3.5](#r35)
+- [R3.6](#r36)
+- [R3.7](#r37)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -500,12 +500,12 @@ SubprocessResult maps output to ToolDone/ToolFailed. ProcGroupCmd enables proces
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
-- R4.4
-- R4.5
-- R4.6
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R4.4](#r44)
+- [R4.5](#r45)
+- [R4.6](#r46)
 
 <!-- ac: AC7 -->
 ### AC7
@@ -515,8 +515,8 @@ ParseTestMetrics and ParseBuildMetrics extract structured ToolMetrics from go te
 <!-- field: traces -->
 #### Traces
 
-- R7.1
-- R7.2
+- [R7.1](#r71)
+- [R7.2](#r72)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -526,11 +526,11 @@ BuiltinRegistry maps init names to factory functions. YAML tool declarations are
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
-- R5.4
-- R5.5
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
+- [R5.5](#r55)
 
 <!-- ac: AC10 -->
 ### AC10
@@ -540,8 +540,8 @@ Tool declarations expand ${VAR} and ${VAR:-default} before parsing, by the same 
 <!-- field: traces -->
 #### Traces
 
-- R5.6
-- R5.7
+- [R5.6](#r56)
+- [R5.7](#r57)
 
 <!-- ac: AC8 -->
 ### AC8
@@ -551,11 +551,11 @@ Generator validation order is visible in machine.yaml, and each validation word 
 <!-- field: traces -->
 #### Traces
 
-- R8.1
-- R8.2
-- R8.3
-- R9.1
-- R9.2
+- [R8.1](#r81)
+- [R8.2](#r82)
+- [R8.3](#r83)
+- [R9.1](#r91)
+- [R9.2](#r92)
 
 <!-- ac: AC9 -->
 ### AC9
@@ -565,26 +565,26 @@ Evaluation harness tools orchestrate a complete evaluation point lifecycle with 
 <!-- field: traces -->
 #### Traces
 
-- R10.0
-- R10.0.1
-- R10.0.2
-- R10.0.3
-- R10.0.4
-- R10.0.5
-- R10.1
-- R10.1.1
-- R10.1.2
-- R10.1.3
-- R10.1.4
-- R10.1.5
-- R10.1.6
-- R10.2
-- R10.3
-- R10.4
-- R10.5
-- R10.6
-- R10.7
-- R10.8
+- [R10.0](#r100)
+- [R10.0.1](#r1001)
+- [R10.0.2](#r1002)
+- [R10.0.3](#r1003)
+- [R10.0.4](#r1004)
+- [R10.0.5](#r1005)
+- [R10.1](#r101)
+- [R10.1.1](#r1011)
+- [R10.1.2](#r1012)
+- [R10.1.3](#r1013)
+- [R10.1.4](#r1014)
+- [R10.1.5](#r1015)
+- [R10.1.6](#r1016)
+- [R10.2](#r102)
+- [R10.3](#r103)
+- [R10.4](#r104)
+- [R10.5](#r105)
+- [R10.6](#r106)
+- [R10.7](#r107)
+- [R10.8](#r108)
 
 <!-- ac: AC11 -->
 ### AC11
@@ -594,9 +594,9 @@ Planner state adapters format tracker-neutral inputs and record the configured t
 <!-- field: traces -->
 #### Traces
 
-- R11.1
-- R11.2
-- R11.3
+- [R11.1](#r111)
+- [R11.2](#r112)
+- [R11.3](#r113)
 
 <!-- field: diagrams -->
 ## Diagrams

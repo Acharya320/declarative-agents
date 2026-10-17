@@ -100,7 +100,7 @@ A second launch overlaps the first, the experiments listing reports both runs, a
 <!-- field: traces -->
 #### Traces
 
-- srd006-bench AC3
+- [srd006-bench](../software-requirements/srd006-bench.md) [AC3](../software-requirements/srd006-bench.md#ac3)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -112,4 +112,4 @@ A second launch overlaps the first, the experiments listing reports both runs, a
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel07.0-profile-integrations
+[test-rel07.0-profile-integrations](../test-suites/test-rel07.0-profile-integrations.md)

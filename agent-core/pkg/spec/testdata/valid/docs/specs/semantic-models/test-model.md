@@ -19,5 +19,5 @@ A test semantic model for corpus validation.
 <!-- field: related_documents -->
 ## Related documents
 
-- srd001-auth
-- cfg-test-format
+- [srd001-auth](../software-requirements/srd001-auth.md)
+- [cfg-test-format](../config-formats/test-format.md)

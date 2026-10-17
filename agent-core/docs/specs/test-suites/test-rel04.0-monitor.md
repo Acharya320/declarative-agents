@@ -9,8 +9,8 @@ release: "04.0"
 <!-- field: traces -->
 ## Traces
 
-- rel04.0-uc001-configurable-tool-metrics
-- rel04.0-uc002-monitor-rest-api
+- [rel04.0-uc001-configurable-tool-metrics](../use-cases/rel04.0-uc001-configurable-tool-metrics.md)
+- [rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -40,7 +40,7 @@ bound address discovery, and cached event-stream frames.
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc001-configurable-tool-metrics
+[rel04.0-uc001-configurable-tool-metrics](../use-cases/rel04.0-uc001-configurable-tool-metrics.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -73,20 +73,20 @@ TestMonitorReleaseProfileProof
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc001-configurable-tool-metrics S1
-- rel04.0-uc001-configurable-tool-metrics S2
-- rel04.0-uc001-configurable-tool-metrics S4
-- rel04.0-uc002-monitor-rest-api S1
-- rel04.0-uc002-monitor-rest-api S2
-- rel04.0-uc002-monitor-rest-api S3
-- rel04.0-uc002-monitor-rest-api S4
-- srd032-tool-metrics-monitor-store AC1
-- srd032-tool-metrics-monitor-store AC2
-- srd032-tool-metrics-monitor-store AC4
-- srd033-monitor-rest-api AC1
-- srd033-monitor-rest-api AC2
-- srd033-monitor-rest-api AC3
-- srd033-monitor-rest-api AC4
+- [rel04.0-uc001-configurable-tool-metrics](../use-cases/rel04.0-uc001-configurable-tool-metrics.md) [S1](../use-cases/rel04.0-uc001-configurable-tool-metrics.md#s1)
+- [rel04.0-uc001-configurable-tool-metrics](../use-cases/rel04.0-uc001-configurable-tool-metrics.md) [S2](../use-cases/rel04.0-uc001-configurable-tool-metrics.md#s2)
+- [rel04.0-uc001-configurable-tool-metrics](../use-cases/rel04.0-uc001-configurable-tool-metrics.md) [S4](../use-cases/rel04.0-uc001-configurable-tool-metrics.md#s4)
+- [rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md) [S1](../use-cases/rel04.0-uc002-monitor-rest-api.md#s1)
+- [rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md) [S2](../use-cases/rel04.0-uc002-monitor-rest-api.md#s2)
+- [rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md) [S3](../use-cases/rel04.0-uc002-monitor-rest-api.md#s3)
+- [rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md) [S4](../use-cases/rel04.0-uc002-monitor-rest-api.md#s4)
+- [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [AC1](../software-requirements/srd032-tool-metrics-monitor-store.md#ac1)
+- [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [AC2](../software-requirements/srd032-tool-metrics-monitor-store.md#ac2)
+- [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [AC4](../software-requirements/srd032-tool-metrics-monitor-store.md#ac4)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC1](../software-requirements/srd033-monitor-rest-api.md#ac1)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC2](../software-requirements/srd033-monitor-rest-api.md#ac2)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC3](../software-requirements/srd033-monitor-rest-api.md#ac3)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC4](../software-requirements/srd033-monitor-rest-api.md#ac4)
 
 <!-- case: Real CLI monitor process stays queryable until exit | status: implemented -->
 ### Real CLI monitor process stays queryable until exit
@@ -106,7 +106,7 @@ terminal routing.
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc002-monitor-rest-api
+[rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -146,8 +146,8 @@ TestMonitorCLIProfileServesUntilControlExit
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc002-monitor-rest-api S6
-- srd033-monitor-rest-api AC6
+- [rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md) [S6](../use-cases/rel04.0-uc002-monitor-rest-api.md#s6)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC6](../software-requirements/srd033-monitor-rest-api.md#ac6)
 
 <!-- case: Monitor store returns bounded snapshots | status: implemented -->
 ### Monitor store returns bounded snapshots
@@ -161,7 +161,7 @@ reaching into tools or workspace files. Snapshot reads must stay passive.
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc001-configurable-tool-metrics
+[rel04.0-uc001-configurable-tool-metrics](../use-cases/rel04.0-uc001-configurable-tool-metrics.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -188,8 +188,8 @@ go test ./internal/observability/monitor ./internal/runtime/core -run 'Test(Moni
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc001-configurable-tool-metrics S1
-- srd032-tool-metrics-monitor-store AC1
+- [rel04.0-uc001-configurable-tool-metrics](../use-cases/rel04.0-uc001-configurable-tool-metrics.md) [S1](../use-cases/rel04.0-uc001-configurable-tool-metrics.md#s1)
+- [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [AC1](../software-requirements/srd032-tool-metrics-monitor-store.md#ac1)
 
 <!-- case: Recorder separates runtime and tool-owned metrics | status: implemented -->
 ### Recorder separates runtime and tool-owned metrics
@@ -203,7 +203,7 @@ tool-family internals.
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc001-configurable-tool-metrics
+[rel04.0-uc001-configurable-tool-metrics](../use-cases/rel04.0-uc001-configurable-tool-metrics.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -243,8 +243,8 @@ TestToolMetricsRecorder_OwnershipBoundaries
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc001-configurable-tool-metrics S2
-- srd032-tool-metrics-monitor-store AC2
+- [rel04.0-uc001-configurable-tool-metrics](../use-cases/rel04.0-uc001-configurable-tool-metrics.md) [S2](../use-cases/rel04.0-uc001-configurable-tool-metrics.md#s2)
+- [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [AC2](../software-requirements/srd032-tool-metrics-monitor-store.md#ac2)
 
 <!-- case: Metric config rejects unsafe labels | status: implemented -->
 ### Metric config rejects unsafe labels
@@ -257,7 +257,7 @@ profile is valid.
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc001-configurable-tool-metrics
+[rel04.0-uc001-configurable-tool-metrics](../use-cases/rel04.0-uc001-configurable-tool-metrics.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -284,8 +284,8 @@ TestMonitorMetricConfig_RejectsUnsafeLabels
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc001-configurable-tool-metrics S3
-- srd032-tool-metrics-monitor-store AC3
+- [rel04.0-uc001-configurable-tool-metrics](../use-cases/rel04.0-uc001-configurable-tool-metrics.md) [S3](../use-cases/rel04.0-uc001-configurable-tool-metrics.md#s3)
+- [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [AC3](../software-requirements/srd032-tool-metrics-monitor-store.md#ac3)
 
 <!-- case: OpenTelemetry export reads normalized samples | status: implemented -->
 ### OpenTelemetry export reads normalized samples
@@ -298,7 +298,7 @@ export is observational and the loop must keep its original signal.
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc001-configurable-tool-metrics
+[rel04.0-uc001-configurable-tool-metrics](../use-cases/rel04.0-uc001-configurable-tool-metrics.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -323,8 +323,8 @@ TestMonitorOTelExport_NormalizedSamples, TestMonitorOTelExport_FailureRecordsDia
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc001-configurable-tool-metrics S4
-- srd032-tool-metrics-monitor-store AC4
+- [rel04.0-uc001-configurable-tool-metrics](../use-cases/rel04.0-uc001-configurable-tool-metrics.md) [S4](../use-cases/rel04.0-uc001-configurable-tool-metrics.md#s4)
+- [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [AC4](../software-requirements/srd032-tool-metrics-monitor-store.md#ac4)
 
 <!-- case: Disabled mode avoids monitor allocation | status: implemented -->
 ### Disabled mode avoids monitor allocation
@@ -336,7 +336,7 @@ dispatch, tracing, and tool behavior should remain unchanged.
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc001-configurable-tool-metrics
+[rel04.0-uc001-configurable-tool-metrics](../use-cases/rel04.0-uc001-configurable-tool-metrics.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -358,8 +358,8 @@ TestMonitorDisabledMode_NoStoreAllocation
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc001-configurable-tool-metrics S5
-- srd032-tool-metrics-monitor-store AC5
+- [rel04.0-uc001-configurable-tool-metrics](../use-cases/rel04.0-uc001-configurable-tool-metrics.md) [S5](../use-cases/rel04.0-uc001-configurable-tool-metrics.md#s5)
+- [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [AC5](../software-requirements/srd032-tool-metrics-monitor-store.md#ac5)
 
 <!-- case: Monitor REST routes read cached state | status: implemented -->
 ### Monitor REST routes read cached state
@@ -372,7 +372,7 @@ files.
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc002-monitor-rest-api
+[rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -400,8 +400,8 @@ TestMonitorREST_ReadOnlyCachedState
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc002-monitor-rest-api S1
-- srd033-monitor-rest-api AC1
+- [rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md) [S1](../use-cases/rel04.0-uc002-monitor-rest-api.md#s1)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC1](../software-requirements/srd033-monitor-rest-api.md#ac1)
 
 <!-- case: Monitor OpenAPI omits unsafe fields | status: implemented -->
 ### Monitor OpenAPI omits unsafe fields
@@ -417,7 +417,7 @@ such as POST /monitor/control/exit. It should describe
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc002-monitor-rest-api
+[rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -476,10 +476,10 @@ TestMonitorREST_OpenAPIRedaction
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc002-monitor-rest-api S2
-- rel04.0-uc002-monitor-rest-api S3
-- srd033-monitor-rest-api AC2
-- srd033-monitor-rest-api AC3
+- [rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md) [S2](../use-cases/rel04.0-uc002-monitor-rest-api.md#s2)
+- [rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md) [S3](../use-cases/rel04.0-uc002-monitor-rest-api.md#s3)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC2](../software-requirements/srd033-monitor-rest-api.md#ac2)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC3](../software-requirements/srd033-monitor-rest-api.md#ac3)
 
 <!-- case: Monitor snapshot endpoints return configured views | status: implemented -->
 ### Monitor snapshot endpoints return configured views
@@ -492,7 +492,7 @@ struct field names.
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc002-monitor-rest-api
+[rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -526,8 +526,8 @@ TestMonitorREST_SnapshotEndpoints
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc002-monitor-rest-api S3
-- srd033-monitor-rest-api AC3
+- [rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md) [S3](../use-cases/rel04.0-uc002-monitor-rest-api.md#s3)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC3](../software-requirements/srd033-monitor-rest-api.md#ac3)
 
 <!-- case: MachineSpec retains declared presentation metadata | status: implemented -->
 ### MachineSpec retains declared presentation metadata
@@ -541,7 +541,7 @@ contract.
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc002-monitor-rest-api
+[rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -573,8 +573,8 @@ TestParseMachineSpec_PreservesPresentationMetadata
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc002-monitor-rest-api S7
-- srd033-monitor-rest-api AC8
+- [rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md) [S7](../use-cases/rel04.0-uc002-monitor-rest-api.md#s7)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC8](../software-requirements/srd033-monitor-rest-api.md#ac8)
 
 <!-- case: Monitor declared_machines view returns the profile machine collection | status: implemented -->
 ### Monitor declared_machines view returns the profile machine collection
@@ -593,7 +593,7 @@ scalar, array, and object types.
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc002-monitor-rest-api
+[rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -643,12 +643,12 @@ TestMonitorREST_DeclaredMachines
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc002-monitor-rest-api S1
-- rel04.0-uc002-monitor-rest-api S2
-- rel04.0-uc002-monitor-rest-api S7
-- srd033-monitor-rest-api AC1
-- srd033-monitor-rest-api AC2
-- srd033-monitor-rest-api AC8
+- [rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md) [S1](../use-cases/rel04.0-uc002-monitor-rest-api.md#s1)
+- [rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md) [S2](../use-cases/rel04.0-uc002-monitor-rest-api.md#s2)
+- [rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md) [S7](../use-cases/rel04.0-uc002-monitor-rest-api.md#s7)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC1](../software-requirements/srd033-monitor-rest-api.md#ac1)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC2](../software-requirements/srd033-monitor-rest-api.md#ac2)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC8](../software-requirements/srd033-monitor-rest-api.md#ac8)
 
 <!-- case: Monitor declared_tools view returns the closure declarations as authored | status: implemented -->
 ### Monitor declared_tools view returns the closure declarations as authored
@@ -668,7 +668,7 @@ are covered by TestLoadDeclaredTools_ClosureAsAuthoredDedupedAndSorted.
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc002-monitor-rest-api
+[rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -708,9 +708,9 @@ TestMonitorREST_DeclaredTools
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc002-monitor-rest-api S1
-- rel04.0-uc002-monitor-rest-api S2
-- srd033-monitor-rest-api AC9
+- [rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md) [S1](../use-cases/rel04.0-uc002-monitor-rest-api.md#s1)
+- [rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md) [S2](../use-cases/rel04.0-uc002-monitor-rest-api.md#s2)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC9](../software-requirements/srd033-monitor-rest-api.md#ac9)
 
 <!-- case: Monitor event stream reads cached updates | status: implemented -->
 ### Monitor event stream reads cached updates
@@ -724,7 +724,7 @@ clean up the subscription without changing agent state.
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc002-monitor-rest-api
+[rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -755,8 +755,8 @@ TestMonitorREST_EventStreamCachedUpdates
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc002-monitor-rest-api S4
-- srd033-monitor-rest-api AC4
+- [rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md) [S4](../use-cases/rel04.0-uc002-monitor-rest-api.md#s4)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC4](../software-requirements/srd033-monitor-rest-api.md#ac4)
 
 <!-- case: Monitor REST failures stay observational | status: implemented -->
 ### Monitor REST failures stay observational
@@ -769,7 +769,7 @@ unchanged too.
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc002-monitor-rest-api
+[rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -794,8 +794,8 @@ TestMonitorREST_FailureDoesNotMutateState
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc002-monitor-rest-api S5
-- srd033-monitor-rest-api AC5
+- [rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md) [S5](../use-cases/rel04.0-uc002-monitor-rest-api.md#s5)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC5](../software-requirements/srd033-monitor-rest-api.md#ac5)
 
 <!-- case: Monitor command_state view returns declared labeled output | status: planned -->
 ### Monitor command_state view returns declared labeled output
@@ -813,7 +813,7 @@ should be absent, and the handler should read only, executing no tools.
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc002-monitor-rest-api
+[rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md)
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -843,8 +843,8 @@ rel04.0-uc002-monitor-rest-api
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc002-monitor-rest-api S1
-- srd033-monitor-rest-api AC7
+- [rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md) [S1](../use-cases/rel04.0-uc002-monitor-rest-api.md#s1)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC7](../software-requirements/srd033-monitor-rest-api.md#ac7)
 
 <!-- case: Monitor command_state view rejects misuse of labels | status: planned -->
 ### Monitor command_state view rejects misuse of labels
@@ -860,7 +860,7 @@ command_state endpoint with a non-empty labels allowlist should load.
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc002-monitor-rest-api
+[rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md)
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -883,8 +883,8 @@ rel04.0-uc002-monitor-rest-api
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc002-monitor-rest-api S1
-- srd033-monitor-rest-api AC7
+- [rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md) [S1](../use-cases/rel04.0-uc002-monitor-rest-api.md#s1)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC7](../software-requirements/srd033-monitor-rest-api.md#ac7)
 
 <!-- case: Monitor command_state view redacts omitted and legacy output | status: planned -->
 ### Monitor command_state view redacts omitted and legacy output
@@ -900,7 +900,7 @@ explicit unavailable marker rather than failing the whole response.
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc002-monitor-rest-api
+[rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md)
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -923,5 +923,5 @@ rel04.0-uc002-monitor-rest-api
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc002-monitor-rest-api S5
-- srd033-monitor-rest-api AC7
+- [rel04.0-uc002-monitor-rest-api](../use-cases/rel04.0-uc002-monitor-rest-api.md) [S5](../use-cases/rel04.0-uc002-monitor-rest-api.md#s5)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC7](../software-requirements/srd033-monitor-rest-api.md#ac7)

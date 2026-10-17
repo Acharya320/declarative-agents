@@ -28,8 +28,8 @@ and Go tests cover the same command construction without a live image.
 <!-- field: traces -->
 ## Traces
 
-- rel06.0-uc001-mounted-profile-execution
-- rel06.0-uc002-profile-validation
+- [rel06.0-uc001-mounted-profile-execution](../use-cases/rel06.0-uc001-mounted-profile-execution.md)
+- [rel06.0-uc002-profile-validation](../use-cases/rel06.0-uc002-profile-validation.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -53,7 +53,7 @@ that /opt/agent-core/tools maps to the selected agent-core checkout while refere
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc002-profile-validation
+[rel06.0-uc002-profile-validation](../use-cases/rel06.0-uc002-profile-validation.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -87,12 +87,12 @@ go test ./magefiles -run 'Test(ValidatePortableProfileRefsResolvesExternalCoreTo
 <!-- field: traces -->
 #### Traces
 
-- rel06.0-uc002-profile-validation S1
-- rel06.0-uc002-profile-validation S2
-- rel06.0-uc002-profile-validation S3
-- srd001-agent-functional-blocks R1.1
-- srd001-agent-functional-blocks R1.2
-- srd001-agent-functional-blocks R1.3
+- [rel06.0-uc002-profile-validation](../use-cases/rel06.0-uc002-profile-validation.md) [S1](../use-cases/rel06.0-uc002-profile-validation.md#s1)
+- [rel06.0-uc002-profile-validation](../use-cases/rel06.0-uc002-profile-validation.md) [S2](../use-cases/rel06.0-uc002-profile-validation.md#s2)
+- [rel06.0-uc002-profile-validation](../use-cases/rel06.0-uc002-profile-validation.md) [S3](../use-cases/rel06.0-uc002-profile-validation.md#s3)
+- [srd001-agent-functional-blocks](../software-requirements/srd001-agent-functional-blocks.md) [R1.1](../software-requirements/srd001-agent-functional-blocks.md#r11)
+- [srd001-agent-functional-blocks](../software-requirements/srd001-agent-functional-blocks.md) [R1.2](../software-requirements/srd001-agent-functional-blocks.md#r12)
+- [srd001-agent-functional-blocks](../software-requirements/srd001-agent-functional-blocks.md) [R1.3](../software-requirements/srd001-agent-functional-blocks.md#r13)
 
 <!-- case: Mounted container smoke runs a profile from /profiles | status: implemented -->
 ### Mounted container smoke runs a profile from /profiles
@@ -106,7 +106,7 @@ clean specification-critic fixture at /work, and runs the profile with
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc001-mounted-profile-execution
+[rel06.0-uc001-mounted-profile-execution](../use-cases/rel06.0-uc001-mounted-profile-execution.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -139,9 +139,9 @@ go test ./magefiles -run TestRunContainerSmokeCommands
 <!-- field: traces -->
 #### Traces
 
-- rel06.0-uc001-mounted-profile-execution S1
-- rel06.0-uc001-mounted-profile-execution S3
-- rel06.0-uc001-mounted-profile-execution S4
+- [rel06.0-uc001-mounted-profile-execution](../use-cases/rel06.0-uc001-mounted-profile-execution.md) [S1](../use-cases/rel06.0-uc001-mounted-profile-execution.md#s1)
+- [rel06.0-uc001-mounted-profile-execution](../use-cases/rel06.0-uc001-mounted-profile-execution.md) [S3](../use-cases/rel06.0-uc001-mounted-profile-execution.md#s3)
+- [rel06.0-uc001-mounted-profile-execution](../use-cases/rel06.0-uc001-mounted-profile-execution.md) [S4](../use-cases/rel06.0-uc001-mounted-profile-execution.md#s4)
 - sm-multi-agent-profile-system validation_views
 
 <!-- case: Specification-critic profile demo charter validates YAML-only findings | status: implemented -->
@@ -155,7 +155,7 @@ ref_check, and consistency_check.
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc002-profile-validation
+[rel06.0-uc002-profile-validation](../use-cases/rel06.0-uc002-profile-validation.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -186,11 +186,11 @@ go test ./magefiles -run 'Test(WriteSpecificationCriticCharterDemoProfileFiles|A
 <!-- field: traces -->
 #### Traces
 
-- rel06.0-uc002-profile-validation S1
-- srd005-specification-critic R2.1
-- srd005-specification-critic R3.1
-- srd005-specification-critic R1.2
-- srd005-specification-critic R3.2
+- [rel06.0-uc002-profile-validation](../use-cases/rel06.0-uc002-profile-validation.md) [S1](../use-cases/rel06.0-uc002-profile-validation.md#s1)
+- [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [R2.1](../software-requirements/srd005-specification-critic.md#r21)
+- [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [R3.1](../software-requirements/srd005-specification-critic.md#r31)
+- [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [R1.2](../software-requirements/srd005-specification-critic.md#r12)
+- [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [R3.2](../software-requirements/srd005-specification-critic.md#r32)
 - gh-123 AC1
 - gh-123 AC3
 
@@ -206,7 +206,7 @@ runtime image tags.
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc002-profile-validation
+[rel06.0-uc002-profile-validation](../use-cases/rel06.0-uc002-profile-validation.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -235,8 +235,8 @@ cd ../../magefiles && go test ./... -run 'Test(CreateReleaseTag|NextRevisionFrom
 <!-- field: traces -->
 #### Traces
 
-- rel06.0-uc002-profile-validation S5
-- srd001-agent-functional-blocks R1.3
+- [rel06.0-uc002-profile-validation](../use-cases/rel06.0-uc002-profile-validation.md) [S5](../use-cases/rel06.0-uc002-profile-validation.md#s5)
+- [srd001-agent-functional-blocks](../software-requirements/srd001-agent-functional-blocks.md) [R1.3](../software-requirements/srd001-agent-functional-blocks.md#r13)
 
 <!-- case: Coding application consumes canonical profile closures | status: implemented -->
 ### Coding application consumes canonical profile closures
@@ -248,7 +248,7 @@ planner, executor, and critic profile closures.
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc001-mounted-profile-execution
+[rel06.0-uc001-mounted-profile-execution](../use-cases/rel06.0-uc001-mounted-profile-execution.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -278,11 +278,11 @@ applications/coding-agent package and integration targets
 <!-- field: traces -->
 #### Traces
 
-- rel06.0-uc001-mounted-profile-execution S5
-- srd002-executor R1.1
-- srd002-executor R3.1
-- srd003-critic R1.1
-- srd003-critic R2.3
+- [rel06.0-uc001-mounted-profile-execution](../use-cases/rel06.0-uc001-mounted-profile-execution.md) [S5](../use-cases/rel06.0-uc001-mounted-profile-execution.md#s5)
+- [srd002-executor](../software-requirements/srd002-executor.md) [R1.1](../software-requirements/srd002-executor.md#r11)
+- [srd002-executor](../software-requirements/srd002-executor.md) [R3.1](../software-requirements/srd002-executor.md#r31)
+- [srd003-critic](../software-requirements/srd003-critic.md) [R1.1](../software-requirements/srd003-critic.md#r11)
+- [srd003-critic](../software-requirements/srd003-critic.md) [R2.3](../software-requirements/srd003-critic.md#r23)
 - sm-agent-role-taxonomy generator
 - sm-agent-role-taxonomy evaluator
 
@@ -301,7 +301,7 @@ applications/agent-architecture.
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc001-mounted-profile-execution
+[rel06.0-uc001-mounted-profile-execution](../use-cases/rel06.0-uc001-mounted-profile-execution.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -328,8 +328,8 @@ agent-core integration targets
 <!-- field: traces -->
 #### Traces
 
-- rel06.0-uc001-mounted-profile-execution S2
-- rel06.0-uc001-mounted-profile-execution S5
-- srd008-runtime-state-reader R1.1
-- srd008-runtime-state-reader R2.1
+- [rel06.0-uc001-mounted-profile-execution](../use-cases/rel06.0-uc001-mounted-profile-execution.md) [S2](../use-cases/rel06.0-uc001-mounted-profile-execution.md#s2)
+- [rel06.0-uc001-mounted-profile-execution](../use-cases/rel06.0-uc001-mounted-profile-execution.md) [S5](../use-cases/rel06.0-uc001-mounted-profile-execution.md#s5)
+- [srd008-runtime-state-reader](../software-requirements/srd008-runtime-state-reader.md) [R1.1](../software-requirements/srd008-runtime-state-reader.md#r11)
+- [srd008-runtime-state-reader](../software-requirements/srd008-runtime-state-reader.md) [R2.1](../software-requirements/srd008-runtime-state-reader.md#r21)
 - sm-agent-role-taxonomy runtime-state-reader

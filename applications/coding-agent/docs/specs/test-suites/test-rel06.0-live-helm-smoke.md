@@ -22,7 +22,7 @@ are delivered by the smoke refactor (GH-2496) and the model-mock deployment
 <!-- field: traces -->
 ## Traces
 
-- rel06.0-uc001-live-helm-smoke
+- [rel06.0-uc001-live-helm-smoke](../use-cases/rel06.0-uc001-live-helm-smoke.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -39,7 +39,7 @@ are delivered by the smoke refactor (GH-2496) and the model-mock deployment
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc001-live-helm-smoke
+[rel06.0-uc001-live-helm-smoke](../use-cases/rel06.0-uc001-live-helm-smoke.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -49,7 +49,7 @@ go test ./magefiles -run '^TestCodingHelmSmokeSkipsMissingExternalPrerequisite$'
 <!-- field: traces -->
 #### Traces
 
-- srd005-live-helm-smoke AC2
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [AC2](../software-requirements/srd005-live-helm-smoke.md#ac2)
 
 <!-- case: Failure classification and diagnostics | status: implemented -->
 ### Failure classification and diagnostics
@@ -57,7 +57,7 @@ go test ./magefiles -run '^TestCodingHelmSmokeSkipsMissingExternalPrerequisite$'
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc001-live-helm-smoke
+[rel06.0-uc001-live-helm-smoke](../use-cases/rel06.0-uc001-live-helm-smoke.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -67,7 +67,7 @@ go test ./magefiles -run '^TestCodingHelm(InfrastructureProbeClassification|Fail
 <!-- field: traces -->
 #### Traces
 
-- srd005-live-helm-smoke AC3
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [AC3](../software-requirements/srd005-live-helm-smoke.md#ac3)
 
 <!-- case: Canonical image and kind fixtures | status: implemented -->
 ### Canonical image and kind fixtures
@@ -75,7 +75,7 @@ go test ./magefiles -run '^TestCodingHelm(InfrastructureProbeClassification|Fail
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc001-live-helm-smoke
+[rel06.0-uc001-live-helm-smoke](../use-cases/rel06.0-uc001-live-helm-smoke.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -85,7 +85,7 @@ go test ./magefiles -run '^TestCodingHelm(FixturesMatchServingAndStorageContract
 <!-- field: traces -->
 #### Traces
 
-- srd005-live-helm-smoke R2
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R2](../software-requirements/srd005-live-helm-smoke.md#r2---real-packaged-topology)
 
 <!-- case: Full packaged topology | status: implemented -->
 ### Full packaged topology
@@ -93,7 +93,7 @@ go test ./magefiles -run '^TestCodingHelm(FixturesMatchServingAndStorageContract
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc001-live-helm-smoke
+[rel06.0-uc001-live-helm-smoke](../use-cases/rel06.0-uc001-live-helm-smoke.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -103,4 +103,4 @@ mage integration:helmSmoke
 <!-- field: traces -->
 #### Traces
 
-- srd005-live-helm-smoke AC1
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [AC1](../software-requirements/srd005-live-helm-smoke.md#ac1)

@@ -93,9 +93,9 @@ Every valid fixture lints and renders, and every invalid fixture fails with its 
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -105,9 +105,9 @@ Deterministic tamper tests reject stale manifests, files, partitions, checksums,
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -117,6 +117,6 @@ A packaged .tgz contains all role assets and independently passes helm lint and 
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)

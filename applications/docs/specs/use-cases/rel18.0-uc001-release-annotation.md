@@ -80,11 +80,11 @@ it.
 | T1 | docs/engineering/eng01-kind-test-demo-rig.md | States that the annotation is the release record and the verb's contract. |
 | T2 | magefiles/tag_verify.go | The check applying the four rules with one named reason per failure. |
 | T3 | magefiles/tag.go | Creates the lightweight ref the session annotates; unchanged by this release. |
-| T4 | srd007-release-annotation AC1 | The degenerate-annotation refusals. |
-| T5 | srd007-release-annotation AC2 | Reachability from main. |
-| T6 | srd007-release-annotation AC3 | A run mutates nothing. |
-| T7 | srd007-release-annotation AC4 | Placement in the runbook and the skill. |
-| T8 | test-rel18.0-release-annotation | Structural and executable evidence for this flow. |
+| T4 | [srd007-release-annotation](../software-requirements/srd007-release-annotation.md) [AC1](../software-requirements/srd007-release-annotation.md#ac1) | The degenerate-annotation refusals. |
+| T5 | [srd007-release-annotation](../software-requirements/srd007-release-annotation.md) [AC2](../software-requirements/srd007-release-annotation.md#ac2) | Reachability from main. |
+| T6 | [srd007-release-annotation](../software-requirements/srd007-release-annotation.md) [AC3](../software-requirements/srd007-release-annotation.md#ac3) | A run mutates nothing. |
+| T7 | [srd007-release-annotation](../software-requirements/srd007-release-annotation.md) [AC4](../software-requirements/srd007-release-annotation.md#ac4) | Placement in the runbook and the skill. |
+| T8 | [test-rel18.0-release-annotation](../test-suites/test-rel18.0-release-annotation.md) | Structural and executable evidence for this flow. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -99,7 +99,7 @@ its own named reason.
 <!-- field: traces -->
 #### Traces
 
-- srd007-release-annotation AC1
+- [srd007-release-annotation](../software-requirements/srd007-release-annotation.md) [AC1](../software-requirements/srd007-release-annotation.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -110,7 +110,7 @@ than passing.
 <!-- field: traces -->
 #### Traces
 
-- srd007-release-annotation AC2
+- [srd007-release-annotation](../software-requirements/srd007-release-annotation.md) [AC2](../software-requirements/srd007-release-annotation.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -121,7 +121,7 @@ refusing.
 <!-- field: traces -->
 #### Traces
 
-- srd007-release-annotation AC3
+- [srd007-release-annotation](../software-requirements/srd007-release-annotation.md) [AC3](../software-requirements/srd007-release-annotation.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -132,7 +132,7 @@ so no release path skips it silently.
 <!-- field: traces -->
 #### Traces
 
-- srd007-release-annotation AC4
+- [srd007-release-annotation](../software-requirements/srd007-release-annotation.md) [AC4](../software-requirements/srd007-release-annotation.md#ac4)
 
 <!-- field: out_of_scope -->
 ## Out of scope

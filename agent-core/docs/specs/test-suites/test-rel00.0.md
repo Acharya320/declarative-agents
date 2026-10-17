@@ -9,8 +9,8 @@ release: "00.0"
 <!-- field: traces -->
 ## Traces
 
-- rel00.0-uc001-domain-agent-integration
-- rel00.0-uc002-spec-corpus-validation
+- [rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
+- [rel00.0-uc002-spec-corpus-validation](../use-cases/rel00.0-uc002-spec-corpus-validation.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -38,7 +38,7 @@ release: "00.0"
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -61,7 +61,7 @@ TestLoop_RunsToCompletion
 <!-- field: traces -->
 #### Traces
 
-- srd005-agentic-loop AC5
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC5](../software-requirements/srd005-agentic-loop.md#ac5)
 
 <!-- case: Loop stops when iteration budget is exhausted -->
 ### Loop stops when iteration budget is exhausted
@@ -69,7 +69,7 @@ TestLoop_RunsToCompletion
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -90,8 +90,8 @@ TestLoop_BudgetExhausted
 <!-- field: traces -->
 #### Traces
 
-- srd005-agentic-loop AC1
-- srd005-agentic-loop AC5
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC1](../software-requirements/srd005-agentic-loop.md#ac1)
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC5](../software-requirements/srd005-agentic-loop.md#ac5)
 
 <!-- case: Loop produces cancelled status on context cancellation -->
 ### Loop produces cancelled status on context cancellation
@@ -99,7 +99,7 @@ TestLoop_BudgetExhausted
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -122,7 +122,7 @@ TestLoop_ContextCancellation, TestLoop_ActiveDispatchCancellation
 <!-- field: traces -->
 #### Traces
 
-- srd005-agentic-loop AC5
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC5](../software-requirements/srd005-agentic-loop.md#ac5)
 
 <!-- case: OnResult hook is called after each dispatch -->
 ### OnResult hook is called after each dispatch
@@ -130,7 +130,7 @@ TestLoop_ContextCancellation, TestLoop_ActiveDispatchCancellation
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -150,7 +150,7 @@ TestLoop_OnResultHook
 <!-- field: traces -->
 #### Traces
 
-- srd005-agentic-loop AC3
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC3](../software-requirements/srd005-agentic-loop.md#ac3)
 
 <!-- case: Custom BudgetExceeded hook triggers budget exhaustion -->
 ### Custom BudgetExceeded hook triggers budget exhaustion
@@ -158,7 +158,7 @@ TestLoop_OnResultHook
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -178,8 +178,8 @@ TestLoop_CustomBudgetHook
 <!-- field: traces -->
 #### Traces
 
-- srd005-agentic-loop AC1
-- srd005-agentic-loop AC3
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC1](../software-requirements/srd005-agentic-loop.md#ac1)
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC3](../software-requirements/srd005-agentic-loop.md#ac3)
 
 <!-- case: Core source contains no mode-specific tool policy literals -->
 ### Core source contains no mode-specific tool policy literals
@@ -187,7 +187,7 @@ TestLoop_CustomBudgetHook
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -208,7 +208,7 @@ TestCoreSourceDoesNotEmbedModeOrToolPolicyNames
 <!-- field: traces -->
 #### Traces
 
-- srd005-agentic-loop AC5
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC5](../software-requirements/srd005-agentic-loop.md#ac5)
 
 <!-- case: Agent runtime does not branch on agent mode names -->
 ### Agent runtime does not branch on agent mode names
@@ -216,7 +216,7 @@ TestCoreSourceDoesNotEmbedModeOrToolPolicyNames
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -237,7 +237,7 @@ TestMainRuntimeDoesNotBranchOnAgentModeNames
 <!-- field: traces -->
 #### Traces
 
-- srd005-agentic-loop AC5
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC5](../software-requirements/srd005-agentic-loop.md#ac5)
 
 <!-- case: Token counts are accumulated in RunResult -->
 ### Token counts are accumulated in RunResult
@@ -245,7 +245,7 @@ TestMainRuntimeDoesNotBranchOnAgentModeNames
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -266,8 +266,8 @@ TestLoop_AccumulatesTokens
 <!-- field: traces -->
 #### Traces
 
-- srd005-agentic-loop AC2
-- srd005-agentic-loop AC5
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC2](../software-requirements/srd005-agentic-loop.md#ac2)
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC5](../software-requirements/srd005-agentic-loop.md#ac5)
 
 <!-- case: Loop emits init.registry_frozen OTel event -->
 ### Loop emits init.registry_frozen OTel event
@@ -275,7 +275,7 @@ TestLoop_AccumulatesTokens
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -295,8 +295,8 @@ TestLoop_EmitsRegistryFrozenEvent
 <!-- field: traces -->
 #### Traces
 
-- srd005-agentic-loop AC5
-- srd004-tool-registry AC2
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC5](../software-requirements/srd005-agentic-loop.md#ac5)
+- [srd004-tool-registry](../software-requirements/srd004-tool-registry.md) [AC2](../software-requirements/srd004-tool-registry.md#ac2)
 
 <!-- case: RunResult.Duration is positive after completion -->
 ### RunResult.Duration is positive after completion
@@ -304,7 +304,7 @@ TestLoop_EmitsRegistryFrozenEvent
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -324,7 +324,7 @@ TestLoop_DurationTracked
 <!-- field: traces -->
 #### Traces
 
-- srd005-agentic-loop AC2
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC2](../software-requirements/srd005-agentic-loop.md#ac2)
 
 <!-- case: Omitted terminal status fails closed regardless of state spelling -->
 ### Omitted terminal status fails closed regardless of state spelling
@@ -332,7 +332,7 @@ TestLoop_DurationTracked
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -354,7 +354,7 @@ TestLoop_OmittedTerminalStatusFailsClosed
 <!-- field: traces -->
 #### Traces
 
-- srd005-agentic-loop AC5
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC5](../software-requirements/srd005-agentic-loop.md#ac5)
 
 <!-- case: Core budget check on iteration and token limits -->
 ### Core budget check on iteration and token limits
@@ -362,7 +362,7 @@ TestLoop_OmittedTerminalStatusFailsClosed
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -384,7 +384,7 @@ TestCoreBudgetExceeded
 <!-- field: traces -->
 #### Traces
 
-- srd005-agentic-loop AC1
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC1](../software-requirements/srd005-agentic-loop.md#ac1)
 
 <!-- case: Token budget triggers BudgetExhausted signal -->
 ### Token budget triggers BudgetExhausted signal
@@ -392,7 +392,7 @@ TestCoreBudgetExceeded
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -413,8 +413,8 @@ TestLoop_TokenBudgetExhausted
 <!-- field: traces -->
 #### Traces
 
-- srd005-agentic-loop AC1
-- srd005-agentic-loop AC5
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC1](../software-requirements/srd005-agentic-loop.md#ac1)
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC5](../software-requirements/srd005-agentic-loop.md#ac5)
 
 <!-- case: Registered invoke limits do not replace the machine run budget -->
 ### Registered invoke limits do not replace the machine run budget
@@ -422,7 +422,7 @@ TestLoop_TokenBudgetExhausted
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -455,8 +455,8 @@ go test ./cmd/agent ./internal/tools/llm -run 'Test(LoopParamsRunBudgetIgnoresRe
 <!-- field: traces -->
 #### Traces
 
-- srd005-agentic-loop R1.4
-- srd005-agentic-loop AC1
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [R1.4](../software-requirements/srd005-agentic-loop.md#r14)
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC1](../software-requirements/srd005-agentic-loop.md#ac1)
 
 <!-- case: Valid YAML parses into correct MachineSpec -->
 ### Valid YAML parses into correct MachineSpec
@@ -464,7 +464,7 @@ go test ./cmd/agent ./internal/tools/llm -run 'Test(LoopParamsRunBudgetIgnoresRe
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -487,7 +487,7 @@ TestParseMachineSpec_Valid
 <!-- field: traces -->
 #### Traces
 
-- srd006-yaml-machine-config AC1
+- [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [AC1](../software-requirements/srd006-yaml-machine-config.md#ac1)
 
 <!-- case: Missing initial_state produces validation error -->
 ### Missing initial_state produces validation error
@@ -495,7 +495,7 @@ TestParseMachineSpec_Valid
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -515,7 +515,7 @@ TestParseMachineSpecValidationErrors
 <!-- field: traces -->
 #### Traces
 
-- srd006-yaml-machine-config AC2
+- [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [AC2](../software-requirements/srd006-yaml-machine-config.md#ac2)
 
 <!-- case: Unknown state in transition produces validation error -->
 ### Unknown state in transition produces validation error
@@ -523,7 +523,7 @@ TestParseMachineSpecValidationErrors
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -543,7 +543,7 @@ TestParseMachineSpecValidationErrors
 <!-- field: traces -->
 #### Traces
 
-- srd006-yaml-machine-config AC2
+- [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [AC2](../software-requirements/srd006-yaml-machine-config.md#ac2)
 
 <!-- case: Unknown signal in transition produces validation error -->
 ### Unknown signal in transition produces validation error
@@ -551,7 +551,7 @@ TestParseMachineSpecValidationErrors
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -571,7 +571,7 @@ TestParseMachineSpecValidationErrors
 <!-- field: traces -->
 #### Traces
 
-- srd006-yaml-machine-config AC2
+- [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [AC2](../software-requirements/srd006-yaml-machine-config.md#ac2)
 
 <!-- case: Terminal state not in states list produces validation error -->
 ### Terminal state not in states list produces validation error
@@ -579,7 +579,7 @@ TestParseMachineSpecValidationErrors
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -599,7 +599,7 @@ TestParseMachineSpecValidationErrors
 <!-- field: traces -->
 #### Traces
 
-- srd006-yaml-machine-config AC2
+- [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [AC2](../software-requirements/srd006-yaml-machine-config.md#ac2)
 
 <!-- case: BuildTransitionTable resolves named actions from registry -->
 ### BuildTransitionTable resolves named actions from registry
@@ -607,7 +607,7 @@ TestParseMachineSpecValidationErrors
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -630,7 +630,7 @@ TestBuildTransitionTable
 <!-- field: traces -->
 #### Traces
 
-- srd006-yaml-machine-config AC3
+- [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [AC3](../software-requirements/srd006-yaml-machine-config.md#ac3)
 
 <!-- case: $tool sentinel invokes the caller-supplied toolAction -->
 ### $tool sentinel invokes the caller-supplied toolAction
@@ -638,7 +638,7 @@ TestBuildTransitionTable
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -659,7 +659,7 @@ TestBuildTransitionTable_ToolActionSentinel
 <!-- field: traces -->
 #### Traces
 
-- srd006-yaml-machine-config AC3
+- [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [AC3](../software-requirements/srd006-yaml-machine-config.md#ac3)
 
 <!-- case: $tool with nil toolAction produces an error -->
 ### $tool with nil toolAction produces an error
@@ -667,7 +667,7 @@ TestBuildTransitionTable_ToolActionSentinel
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -688,7 +688,7 @@ TestBuildTransitionTable_ToolActionNil
 <!-- field: traces -->
 #### Traces
 
-- srd006-yaml-machine-config AC3
+- [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [AC3](../software-requirements/srd006-yaml-machine-config.md#ac3)
 
 <!-- case: Unknown action name produces an error -->
 ### Unknown action name produces an error
@@ -696,7 +696,7 @@ TestBuildTransitionTable_ToolActionNil
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -717,7 +717,7 @@ TestBuildTransitionTable_UnknownAction
 <!-- field: traces -->
 #### Traces
 
-- srd006-yaml-machine-config AC3
+- [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [AC3](../software-requirements/srd006-yaml-machine-config.md#ac3)
 
 <!-- case: Loading a nonexistent file produces an error -->
 ### Loading a nonexistent file produces an error
@@ -725,7 +725,7 @@ TestBuildTransitionTable_UnknownAction
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -745,7 +745,7 @@ TestLoadMachineSpec_FileNotFound
 <!-- field: traces -->
 #### Traces
 
-- srd006-yaml-machine-config AC4
+- [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [AC4](../software-requirements/srd006-yaml-machine-config.md#ac4)
 
 <!-- case: MachineSpec iterates trusted command-state arrays -->
 ### MachineSpec iterates trusted command-state arrays
@@ -753,7 +753,7 @@ TestLoadMachineSpec_FileNotFound
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -785,7 +785,7 @@ go test ./internal/runtime/core -run 'TestLoopForEach(DispatchesItemsInOrderAndJ
 <!-- field: traces -->
 #### Traces
 
-- srd006-yaml-machine-config AC5
+- [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [AC5](../software-requirements/srd006-yaml-machine-config.md#ac5)
 
 <!-- case: Builtin collection words transform and validate selected arrays and structured output -->
 ### Builtin collection words transform and validate selected arrays and structured output
@@ -793,7 +793,7 @@ go test ./internal/runtime/core -run 'TestLoopForEach(DispatchesItemsInOrderAndJ
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -845,7 +845,7 @@ go test ./internal/tools/catalog ./internal/tools/control ./internal/tools/compo
 <!-- field: traces -->
 #### Traces
 
-- srd022-builtin-tools AC7
+- [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md) [AC7](../software-requirements/srd022-builtin-tools.md#ac7)
 
 <!-- case: Project collection word extracts one field from each structured row | status: implemented -->
 ### Project collection word extracts one field from each structured row
@@ -853,7 +853,7 @@ go test ./internal/tools/catalog ./internal/tools/control ./internal/tools/compo
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -892,8 +892,8 @@ go test ./internal/tools/catalog ./internal/tools/control ./internal/tools/compo
 <!-- field: traces -->
 #### Traces
 
-- srd022-builtin-tools AC7
-- srd038-command-state-store AC2
+- [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md) [AC7](../software-requirements/srd022-builtin-tools.md#ac7)
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC2](../software-requirements/srd038-command-state-store.md#ac2)
 
 <!-- case: Normalize-vector collection word stabilizes adjacent vector shapes | status: implemented -->
 ### Normalize-vector collection word stabilizes adjacent vector shapes
@@ -901,7 +901,7 @@ go test ./internal/tools/catalog ./internal/tools/control ./internal/tools/compo
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -938,7 +938,7 @@ go test ./internal/tools/compose -run 'Test(NormalizeVector|ValidateNormalizeVec
 <!-- field: traces -->
 #### Traces
 
-- srd022-builtin-tools AC7
+- [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md) [AC7](../software-requirements/srd022-builtin-tools.md#ac7)
 
 <!-- case: Profile closure inspection enforces finite operation authorities before dispatch -->
 ### Profile closure inspection enforces finite operation authorities before dispatch
@@ -946,7 +946,7 @@ go test ./internal/tools/compose -run 'Test(NormalizeVector|ValidateNormalizeVec
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -988,7 +988,7 @@ go test ./pkg/profileaudit ./cmd/agent -run 'TestInspect|TestStartupEnforcesProf
 <!-- field: traces -->
 #### Traces
 
-- srd006-yaml-machine-config AC6
+- [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [AC6](../software-requirements/srd006-yaml-machine-config.md#ac6)
 
 <!-- case: State and Signal are named string types with three generic constants -->
 ### State and Signal are named string types with three generic constants
@@ -996,7 +996,7 @@ go test ./pkg/profileaudit ./cmd/agent -run 'TestInspect|TestStartupEnforcesProf
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1016,7 +1016,7 @@ TestLoop_RunsToCompletion
 <!-- field: traces -->
 #### Traces
 
-- srd001-core-types AC1
+- [srd001-core-types](../software-requirements/srd001-core-types.md) [AC1](../software-requirements/srd001-core-types.md#ac1)
 
 <!-- case: Command interface has Name, Execute, and Undo methods -->
 ### Command interface has Name, Execute, and Undo methods
@@ -1024,7 +1024,7 @@ TestLoop_RunsToCompletion
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1044,7 +1044,7 @@ TestLoop_RunsToCompletion
 <!-- field: traces -->
 #### Traces
 
-- srd001-core-types AC2
+- [srd001-core-types](../software-requirements/srd001-core-types.md) [AC2](../software-requirements/srd001-core-types.md#ac2)
 
 <!-- case: Cost struct has Duration, TokensIn, TokensOut, and Dollars -->
 ### Cost struct has Duration, TokensIn, TokensOut, and Dollars
@@ -1052,7 +1052,7 @@ TestLoop_RunsToCompletion
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1072,7 +1072,7 @@ TestLoop_AccumulatesTokens
 <!-- field: traces -->
 #### Traces
 
-- srd001-core-types AC3
+- [srd001-core-types](../software-requirements/srd001-core-types.md) [AC3](../software-requirements/srd001-core-types.md#ac3)
 
 <!-- case: Result struct has Output, Signal, Cost, Err, and CommandName -->
 ### Result struct has Output, Signal, Cost, Err, and CommandName
@@ -1080,7 +1080,7 @@ TestLoop_AccumulatesTokens
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1100,7 +1100,7 @@ TestLoop_RunsToCompletion
 <!-- field: traces -->
 #### Traces
 
-- srd001-core-types AC4
+- [srd001-core-types](../software-requirements/srd001-core-types.md) [AC4](../software-requirements/srd001-core-types.md#ac4)
 
 <!-- case: Builder has Build(Result) Command, CommandResolver has Resolve -->
 ### Builder has Build(Result) Command, CommandResolver has Resolve
@@ -1108,7 +1108,7 @@ TestLoop_RunsToCompletion
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1128,7 +1128,7 @@ TestBuildTransitionTable
 <!-- field: traces -->
 #### Traces
 
-- srd001-core-types AC5
+- [srd001-core-types](../software-requirements/srd001-core-types.md) [AC5](../software-requirements/srd001-core-types.md#ac5)
 
 <!-- case: TransitionTable maps state-signal pairs to transitions -->
 ### TransitionTable maps state-signal pairs to transitions
@@ -1136,7 +1136,7 @@ TestBuildTransitionTable
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1156,7 +1156,7 @@ TestBuildTransitionTable
 <!-- field: traces -->
 #### Traces
 
-- srd002-state-machine AC1
+- [srd002-state-machine](../software-requirements/srd002-state-machine.md) [AC1](../software-requirements/srd002-state-machine.md#ac1)
 
 <!-- case: TerminalFunc is domain-supplied predicate -->
 ### TerminalFunc is domain-supplied predicate
@@ -1164,7 +1164,7 @@ TestBuildTransitionTable
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1185,7 +1185,7 @@ TestBuildTransitionTable
 <!-- field: traces -->
 #### Traces
 
-- srd002-state-machine AC2
+- [srd002-state-machine](../software-requirements/srd002-state-machine.md) [AC2](../software-requirements/srd002-state-machine.md#ac2)
 
 <!-- case: Step performs lookup, calls ActionFunc, handles missing entries -->
 ### Step performs lookup, calls ActionFunc, handles missing entries
@@ -1193,7 +1193,7 @@ TestBuildTransitionTable
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1213,7 +1213,7 @@ TestLoop_RunsToCompletion
 <!-- field: traces -->
 #### Traces
 
-- srd002-state-machine AC3
+- [srd002-state-machine](../software-requirements/srd002-state-machine.md) [AC3](../software-requirements/srd002-state-machine.md#ac3)
 
 <!-- case: IsTerminal delegates to TerminalFunc -->
 ### IsTerminal delegates to TerminalFunc
@@ -1221,7 +1221,7 @@ TestLoop_RunsToCompletion
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1241,7 +1241,7 @@ TestLoop_RunsToCompletion
 <!-- field: traces -->
 #### Traces
 
-- srd002-state-machine AC4
+- [srd002-state-machine](../software-requirements/srd002-state-machine.md) [AC4](../software-requirements/srd002-state-machine.md#ac4)
 
 <!-- case: Dispatch creates child span and stamps attributes -->
 ### Dispatch creates child span and stamps attributes
@@ -1249,7 +1249,7 @@ TestLoop_RunsToCompletion
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1274,7 +1274,7 @@ go test ./internal/runtime/core -run 'TestDispatch_(StampsSpanAttributesAndComma
 <!-- field: traces -->
 #### Traces
 
-- srd003-command-dispatch AC1
+- [srd003-command-dispatch](../software-requirements/srd003-command-dispatch.md) [AC1](../software-requirements/srd003-command-dispatch.md#ac1)
 
 <!-- case: SafeExecute recovers panics and enforces timeout -->
 ### SafeExecute recovers panics and enforces timeout
@@ -1282,7 +1282,7 @@ go test ./internal/runtime/core -run 'TestDispatch_(StampsSpanAttributesAndComma
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1304,7 +1304,7 @@ go test ./internal/runtime/core -run 'TestSafeExecute_(RecoversPanicAndForcesCom
 <!-- field: traces -->
 #### Traces
 
-- srd003-command-dispatch AC2
+- [srd003-command-dispatch](../software-requirements/srd003-command-dispatch.md) [AC2](../software-requirements/srd003-command-dispatch.md#ac2)
 
 <!-- case: FillDuration and ForceErrorSignal operate on Result pointers -->
 ### FillDuration and ForceErrorSignal operate on Result pointers
@@ -1312,7 +1312,7 @@ go test ./internal/runtime/core -run 'TestSafeExecute_(RecoversPanicAndForcesCom
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1334,7 +1334,7 @@ TestFillDurationAndForceErrorSignal
 <!-- field: traces -->
 #### Traces
 
-- srd003-command-dispatch AC3
+- [srd003-command-dispatch](../software-requirements/srd003-command-dispatch.md) [AC3](../software-requirements/srd003-command-dispatch.md#ac3)
 
 <!-- case: Manifest returns sorted External tools filtered by PhaseMatch -->
 ### Manifest returns sorted External tools filtered by PhaseMatch
@@ -1342,7 +1342,7 @@ TestFillDurationAndForceErrorSignal
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1362,7 +1362,7 @@ TestBuildTransitionTable
 <!-- field: traces -->
 #### Traces
 
-- srd004-tool-registry AC3
+- [srd004-tool-registry](../software-requirements/srd004-tool-registry.md) [AC3](../software-requirements/srd004-tool-registry.md#ac3)
 
 <!-- case: AllToolNames and ExternalToolNames return sorted lists -->
 ### AllToolNames and ExternalToolNames return sorted lists
@@ -1370,7 +1370,7 @@ TestBuildTransitionTable
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1390,7 +1390,7 @@ TestLoop_EmitsRegistryFrozenEvent
 <!-- field: traces -->
 #### Traces
 
-- srd004-tool-registry AC4
+- [srd004-tool-registry](../software-requirements/srd004-tool-registry.md) [AC4](../software-requirements/srd004-tool-registry.md#ac4)
 
 <!-- case: Registry satisfies CommandResolver interface -->
 ### Registry satisfies CommandResolver interface
@@ -1398,7 +1398,7 @@ TestLoop_EmitsRegistryFrozenEvent
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1418,7 +1418,7 @@ TestBuildTransitionTable
 <!-- field: traces -->
 #### Traces
 
-- srd004-tool-registry AC5
+- [srd004-tool-registry](../software-requirements/srd004-tool-registry.md) [AC5](../software-requirements/srd004-tool-registry.md#ac5)
 
 <!-- case: Visibility enum with External and Internal, ToolSpec fields -->
 ### Visibility enum with External and Internal, ToolSpec fields
@@ -1426,7 +1426,7 @@ TestBuildTransitionTable
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1446,7 +1446,7 @@ TestLoop_RunsToCompletion
 <!-- field: traces -->
 #### Traces
 
-- srd004-tool-registry AC1
+- [srd004-tool-registry](../software-requirements/srd004-tool-registry.md) [AC1](../software-requirements/srd004-tool-registry.md#ac1)
 
 <!-- case: LoopParams bundles all inputs for Loop -->
 ### LoopParams bundles all inputs for Loop
@@ -1454,7 +1454,7 @@ TestLoop_RunsToCompletion
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1474,7 +1474,7 @@ TestLoop_RunsToCompletion
 <!-- field: traces -->
 #### Traces
 
-- srd005-agentic-loop AC4
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC4](../software-requirements/srd005-agentic-loop.md#ac4)
 
 <!-- case: Tracer interface has Push, Event, SetAttributes methods -->
 ### Tracer interface has Push, Event, SetAttributes methods
@@ -1482,7 +1482,7 @@ TestLoop_RunsToCompletion
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1502,7 +1502,7 @@ TestLoop_EmitsRegistryFrozenEvent
 <!-- field: traces -->
 #### Traces
 
-- srd007-tracer-interface AC1
+- [srd007-tracer-interface](../software-requirements/srd007-tracer-interface.md) [AC1](../software-requirements/srd007-tracer-interface.md#ac1)
 
 <!-- case: internal/observability/tracing depends only on otel/attribute -->
 ### internal/observability/tracing depends only on otel/attribute
@@ -1510,7 +1510,7 @@ TestLoop_EmitsRegistryFrozenEvent
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1530,7 +1530,7 @@ TestLoop_RunsToCompletion
 <!-- field: traces -->
 #### Traces
 
-- srd007-tracer-interface AC2
+- [srd007-tracer-interface](../software-requirements/srd007-tracer-interface.md) [AC2](../software-requirements/srd007-tracer-interface.md#ac2)
 
 <!-- case: NewRoot rejects empty ExporterConfig -->
 ### NewRoot rejects empty ExporterConfig
@@ -1538,7 +1538,7 @@ TestLoop_RunsToCompletion
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1558,7 +1558,7 @@ TestNewRoot_EmptyConfigError
 <!-- field: traces -->
 #### Traces
 
-- srd008-telemetry AC1
+- [srd008-telemetry](../software-requirements/srd008-telemetry.md) [AC1](../software-requirements/srd008-telemetry.md#ac1)
 
 <!-- case: Trace Push creates child, Event records event, SetAttributes sets attributes -->
 ### Trace Push creates child, Event records event, SetAttributes sets attributes
@@ -1566,7 +1566,7 @@ TestNewRoot_EmptyConfigError
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1588,7 +1588,7 @@ TestNewRoot_PushAndEvent
 <!-- field: traces -->
 #### Traces
 
-- srd008-telemetry AC2
+- [srd008-telemetry](../software-requirements/srd008-telemetry.md) [AC2](../software-requirements/srd008-telemetry.md#ac2)
 
 <!-- case: Trace Context returns context, Meter returns meter -->
 ### Trace Context returns context, Meter returns meter
@@ -1596,7 +1596,7 @@ TestNewRoot_PushAndEvent
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1617,7 +1617,7 @@ TestNewRoot_PushAndEvent
 <!-- field: traces -->
 #### Traces
 
-- srd008-telemetry AC3
+- [srd008-telemetry](../software-requirements/srd008-telemetry.md) [AC3](../software-requirements/srd008-telemetry.md#ac3)
 
 <!-- case: NewRoot with file exporter creates providers and root span -->
 ### NewRoot with file exporter creates providers and root span
@@ -1625,7 +1625,7 @@ TestNewRoot_PushAndEvent
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1646,7 +1646,7 @@ TestNewRoot_FileExporter
 <!-- field: traces -->
 #### Traces
 
-- srd008-telemetry AC4
+- [srd008-telemetry](../software-requirements/srd008-telemetry.md) [AC4](../software-requirements/srd008-telemetry.md#ac4)
 
 <!-- case: Shutdown is idempotent and flushes providers -->
 ### Shutdown is idempotent and flushes providers
@@ -1654,7 +1654,7 @@ TestNewRoot_FileExporter
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1674,7 +1674,7 @@ TestNewRoot_ShutdownIdempotent
 <!-- field: traces -->
 #### Traces
 
-- srd008-telemetry AC5
+- [srd008-telemetry](../software-requirements/srd008-telemetry.md) [AC5](../software-requirements/srd008-telemetry.md#ac5)
 
 <!-- case: File exporter writes temp file and renames atomically -->
 ### File exporter writes temp file and renames atomically
@@ -1682,7 +1682,7 @@ TestNewRoot_ShutdownIdempotent
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1703,7 +1703,7 @@ TestNewRoot_TempFileUsesServiceName, TestNewRoot_FileExporter
 <!-- field: traces -->
 #### Traces
 
-- srd008-telemetry AC6
+- [srd008-telemetry](../software-requirements/srd008-telemetry.md) [AC6](../software-requirements/srd008-telemetry.md#ac6)
 
 <!-- case: OTLP exporter configuration accepted | status: planned -->
 ### OTLP exporter configuration accepted
@@ -1711,7 +1711,7 @@ TestNewRoot_TempFileUsesServiceName, TestNewRoot_FileExporter
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: follow_up_issue -->
 #### Follow up issue
@@ -1736,7 +1736,7 @@ TestNewRoot_OTLPExporter
 <!-- field: traces -->
 #### Traces
 
-- srd008-telemetry AC7
+- [srd008-telemetry](../software-requirements/srd008-telemetry.md) [AC7](../software-requirements/srd008-telemetry.md#ac7)
 
 <!-- case: TraceAdapter satisfies tracing.Tracer and wraps Push | status: planned -->
 ### TraceAdapter satisfies tracing.Tracer and wraps Push
@@ -1744,7 +1744,7 @@ TestNewRoot_OTLPExporter
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: follow_up_issue -->
 #### Follow up issue
@@ -1770,7 +1770,7 @@ TestTraceAdapter_SatisfiesInterface
 <!-- field: traces -->
 #### Traces
 
-- srd008-telemetry AC8
+- [srd008-telemetry](../software-requirements/srd008-telemetry.md) [AC8](../software-requirements/srd008-telemetry.md#ac8)
 
 <!-- case: Declared replay loads OTLP JSON and relays an unchanged batch -->
 ### Declared replay loads OTLP JSON and relays an unchanged batch
@@ -1778,7 +1778,7 @@ TestTraceAdapter_SatisfiesInterface
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1799,7 +1799,7 @@ TestOTLPReplayMachineLoadsThenRelaysUnchangedBatch
 <!-- field: traces -->
 #### Traces
 
-- srd008-telemetry AC9
+- [srd008-telemetry](../software-requirements/srd008-telemetry.md) [AC9](../software-requirements/srd008-telemetry.md#ac9)
 
 <!-- case: Checkpoint contracts compile and round-trip -->
 ### Checkpoint contracts compile and round-trip
@@ -1807,7 +1807,7 @@ TestOTLPReplayMachineLoadsThenRelaysUnchangedBatch
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1828,8 +1828,8 @@ TestInMemoryCheckpointRoundTripsConversationAndReceipts
 <!-- field: traces -->
 #### Traces
 
-- srd001-core-types AC8
-- srd005-agentic-loop AC7
+- [srd001-core-types](../software-requirements/srd001-core-types.md) [AC8](../software-requirements/srd001-core-types.md#ac8)
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC7](../software-requirements/srd005-agentic-loop.md#ac7)
 
 <!-- case: Conversation append mode avoids Chat calls -->
 ### Conversation append mode avoids Chat calls
@@ -1837,7 +1837,7 @@ TestInMemoryCheckpointRoundTripsConversationAndReceipts
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1858,7 +1858,7 @@ TestConversationHistoryLifecycle
 <!-- field: traces -->
 #### Traces
 
-- srd010-conversation AC1
+- [srd010-conversation](../software-requirements/srd010-conversation.md) [AC1](../software-requirements/srd010-conversation.md#ac1)
 
 <!-- case: Conversation snapshot and truncate preserve order -->
 ### Conversation snapshot and truncate preserve order
@@ -1866,7 +1866,7 @@ TestConversationHistoryLifecycle
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1887,7 +1887,7 @@ TestConversationHistoryLifecycle
 <!-- field: traces -->
 #### Traces
 
-- srd010-conversation AC2
+- [srd010-conversation](../software-requirements/srd010-conversation.md) [AC2](../software-requirements/srd010-conversation.md#ac2)
 
 <!-- case: Conversation history uses defensive copies -->
 ### Conversation history uses defensive copies
@@ -1895,7 +1895,7 @@ TestConversationHistoryLifecycle
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1915,7 +1915,7 @@ TestConversationHistoryReturnsCopies
 <!-- field: traces -->
 #### Traces
 
-- srd010-conversation AC3
+- [srd010-conversation](../software-requirements/srd010-conversation.md) [AC3](../software-requirements/srd010-conversation.md#ac3)
 
 <!-- case: Default assembler combines prompt and history -->
 ### Default assembler combines prompt and history
@@ -1923,7 +1923,7 @@ TestConversationHistoryReturnsCopies
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1945,7 +1945,7 @@ TestDefaultAssembler_AppendsConversationMessages
 <!-- field: traces -->
 #### Traces
 
-- srd010-conversation AC4
+- [srd010-conversation](../software-requirements/srd010-conversation.md) [AC4](../software-requirements/srd010-conversation.md#ac4)
 
 <!-- case: Conversation compatibility methods support generator history migration -->
 ### Conversation compatibility methods support generator history migration
@@ -1953,7 +1953,7 @@ TestDefaultAssembler_AppendsConversationMessages
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1974,7 +1974,7 @@ TestConversationHistoryLifecycle
 <!-- field: traces -->
 #### Traces
 
-- srd010-conversation AC5
+- [srd010-conversation](../software-requirements/srd010-conversation.md) [AC5](../software-requirements/srd010-conversation.md#ac5)
 
 <!-- case: Conversation reset preserves append reuse -->
 ### Conversation reset preserves append reuse
@@ -1982,7 +1982,7 @@ TestConversationHistoryLifecycle
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2003,7 +2003,7 @@ TestConversationHistoryLifecycle
 <!-- field: traces -->
 #### Traces
 
-- srd010-conversation AC6
+- [srd010-conversation](../software-requirements/srd010-conversation.md) [AC6](../software-requirements/srd010-conversation.md#ac6)
 
 <!-- case: Prompt struct feeds deterministic system assembly -->
 ### Prompt struct feeds deterministic system assembly
@@ -2011,7 +2011,7 @@ TestConversationHistoryLifecycle
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2032,7 +2032,7 @@ go test ./internal/model/prompt ./internal/model/llm -run 'Test(Render|DefaultAs
 <!-- field: traces -->
 #### Traces
 
-- srd011-prompt-schema AC1
+- [srd011-prompt-schema](../software-requirements/srd011-prompt-schema.md) [AC1](../software-requirements/srd011-prompt-schema.md#ac1)
 
 <!-- case: ToolDef prompt policy and runtime task remain distinct -->
 ### ToolDef prompt policy and runtime task remain distinct
@@ -2040,7 +2040,7 @@ go test ./internal/model/prompt ./internal/model/llm -run 'Test(Render|DefaultAs
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2061,7 +2061,7 @@ go test ./internal/tools/llm ./internal/model/prompt
 <!-- field: traces -->
 #### Traces
 
-- srd011-prompt-schema AC2
+- [srd011-prompt-schema](../software-requirements/srd011-prompt-schema.md) [AC2](../software-requirements/srd011-prompt-schema.md#ac2)
 
 <!-- case: Prompt config rejects unknown authority -->
 ### Prompt config rejects unknown authority
@@ -2069,7 +2069,7 @@ go test ./internal/tools/llm ./internal/model/prompt
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2089,7 +2089,7 @@ go test ./internal/tools/llm ./internal/tools/catalog
 <!-- field: traces -->
 #### Traces
 
-- srd011-prompt-schema AC3
+- [srd011-prompt-schema](../software-requirements/srd011-prompt-schema.md) [AC3](../software-requirements/srd011-prompt-schema.md#ac3)
 
 <!-- case: Invoke boundary constructs prompt without file loading -->
 ### Invoke boundary constructs prompt without file loading
@@ -2097,7 +2097,7 @@ go test ./internal/tools/llm ./internal/tools/catalog
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2118,7 +2118,7 @@ go test ./internal/tools/llm ./internal/model/prompt
 <!-- field: traces -->
 #### Traces
 
-- srd011-prompt-schema AC4
+- [srd011-prompt-schema](../software-requirements/srd011-prompt-schema.md) [AC4](../software-requirements/srd011-prompt-schema.md#ac4)
 
 <!-- case: Prompt defaults remain overridable by declared config -->
 ### Prompt defaults remain overridable by declared config
@@ -2126,7 +2126,7 @@ go test ./internal/tools/llm ./internal/model/prompt
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2147,7 +2147,7 @@ go test ./internal/tools/llm ./internal/model/prompt
 <!-- field: traces -->
 #### Traces
 
-- srd011-prompt-schema AC5
+- [srd011-prompt-schema](../software-requirements/srd011-prompt-schema.md) [AC5](../software-requirements/srd011-prompt-schema.md#ac5)
 
 <!-- case: Invoke boundary rejects missing required prompt input -->
 ### Invoke boundary rejects missing required prompt input
@@ -2155,7 +2155,7 @@ go test ./internal/tools/llm ./internal/model/prompt
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2175,7 +2175,7 @@ go test ./internal/tools/llm
 <!-- field: traces -->
 #### Traces
 
-- srd011-prompt-schema AC6
+- [srd011-prompt-schema](../software-requirements/srd011-prompt-schema.md) [AC6](../software-requirements/srd011-prompt-schema.md#ac6)
 
 <!-- case: System prompt emits embedded template sections conditionally -->
 ### System prompt emits embedded template sections conditionally
@@ -2183,7 +2183,7 @@ go test ./internal/tools/llm
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2204,7 +2204,7 @@ go test ./internal/model/prompt
 <!-- field: traces -->
 #### Traces
 
-- srd012-system-prompt-template AC1
+- [srd012-system-prompt-template](../software-requirements/srd012-system-prompt-template.md) [AC1](../software-requirements/srd012-system-prompt-template.md#ac1)
 
 <!-- case: PromptData envelope and strict format control output -->
 ### PromptData envelope and strict format control output
@@ -2212,7 +2212,7 @@ go test ./internal/model/prompt
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2234,7 +2234,7 @@ TestRender_WithEnvelope
 <!-- field: traces -->
 #### Traces
 
-- srd012-system-prompt-template AC2
+- [srd012-system-prompt-template](../software-requirements/srd012-system-prompt-template.md) [AC2](../software-requirements/srd012-system-prompt-template.md#ac2)
 
 <!-- case: System prompt output has no trailing newline -->
 ### System prompt output has no trailing newline
@@ -2242,7 +2242,7 @@ TestRender_WithEnvelope
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2262,7 +2262,7 @@ TestRender_NoTrailingNewlines
 <!-- field: traces -->
 #### Traces
 
-- srd012-system-prompt-template AC3
+- [srd012-system-prompt-template](../software-requirements/srd012-system-prompt-template.md) [AC3](../software-requirements/srd012-system-prompt-template.md#ac3)
 
 <!-- case: System prompt uses the embedded reviewed template -->
 ### System prompt uses the embedded reviewed template
@@ -2270,7 +2270,7 @@ TestRender_NoTrailingNewlines
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2291,7 +2291,7 @@ go test ./internal/model/prompt -run TestRender
 <!-- field: traces -->
 #### Traces
 
-- srd012-system-prompt-template AC4
+- [srd012-system-prompt-template](../software-requirements/srd012-system-prompt-template.md) [AC4](../software-requirements/srd012-system-prompt-template.md#ac4)
 
 <!-- case: SerializeManifest emits headings and schema fences -->
 ### SerializeManifest emits headings and schema fences
@@ -2299,7 +2299,7 @@ go test ./internal/model/prompt -run TestRender
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2320,7 +2320,7 @@ TestSerializeManifest_SingleToolWithSchema
 <!-- field: traces -->
 #### Traces
 
-- srd012-system-prompt-template AC5
+- [srd012-system-prompt-template](../software-requirements/srd012-system-prompt-template.md) [AC5](../software-requirements/srd012-system-prompt-template.md#ac5)
 
 <!-- case: SerializeManifest normalizes schema JSON -->
 ### SerializeManifest normalizes schema JSON
@@ -2328,7 +2328,7 @@ TestSerializeManifest_SingleToolWithSchema
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2349,7 +2349,7 @@ TestNormalizeSchema
 <!-- field: traces -->
 #### Traces
 
-- srd012-system-prompt-template AC6
+- [srd012-system-prompt-template](../software-requirements/srd012-system-prompt-template.md) [AC6](../software-requirements/srd012-system-prompt-template.md#ac6)
 
 <!-- case: Spec parsers load typed YAML artifacts -->
 ### Spec parsers load typed YAML artifacts
@@ -2357,7 +2357,7 @@ TestNormalizeSchema
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc002-spec-corpus-validation
+[rel00.0-uc002-spec-corpus-validation](../use-cases/rel00.0-uc002-spec-corpus-validation.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2377,7 +2377,7 @@ TestParseSpecIndex
 <!-- field: traces -->
 #### Traces
 
-- srd014-spec-graph AC1
+- [srd014-spec-graph](../software-requirements/srd014-spec-graph.md) [AC1](../software-requirements/srd014-spec-graph.md#ac1)
 
 <!-- case: Spec graph builds node and edge relationships -->
 ### Spec graph builds node and edge relationships
@@ -2385,7 +2385,7 @@ TestParseSpecIndex
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc002-spec-corpus-validation
+[rel00.0-uc002-spec-corpus-validation](../use-cases/rel00.0-uc002-spec-corpus-validation.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2406,7 +2406,7 @@ TestBuildGraph_NodeCounts
 <!-- field: traces -->
 #### Traces
 
-- srd014-spec-graph AC2
+- [srd014-spec-graph](../software-requirements/srd014-spec-graph.md) [AC2](../software-requirements/srd014-spec-graph.md#ac2)
 
 <!-- case: Spec validation reports graph findings -->
 ### Spec validation reports graph findings
@@ -2414,7 +2414,7 @@ TestBuildGraph_NodeCounts
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc002-spec-corpus-validation
+[rel00.0-uc002-spec-corpus-validation](../use-cases/rel00.0-uc002-spec-corpus-validation.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2434,7 +2434,7 @@ TestValidate_ReturnsFindings
 <!-- field: traces -->
 #### Traces
 
-- srd014-spec-graph AC3
+- [srd014-spec-graph](../software-requirements/srd014-spec-graph.md) [AC3](../software-requirements/srd014-spec-graph.md#ac3)
 
 <!-- case: Spec corpus loader discovers standard docs layout -->
 ### Spec corpus loader discovers standard docs layout
@@ -2442,7 +2442,7 @@ TestValidate_ReturnsFindings
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc002-spec-corpus-validation
+[rel00.0-uc002-spec-corpus-validation](../use-cases/rel00.0-uc002-spec-corpus-validation.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2464,7 +2464,7 @@ TestLoadCorpus_Valid
 <!-- field: traces -->
 #### Traces
 
-- srd014-spec-graph AC4
+- [srd014-spec-graph](../software-requirements/srd014-spec-graph.md) [AC4](../software-requirements/srd014-spec-graph.md#ac4)
 
 <!-- case: Built-in spec_corpus charter preserves mage audit behavior | status: implemented -->
 ### Built-in spec_corpus charter preserves mage audit behavior
@@ -2472,7 +2472,7 @@ TestLoadCorpus_Valid
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc002-spec-corpus-validation
+[rel00.0-uc002-spec-corpus-validation](../use-cases/rel00.0-uc002-spec-corpus-validation.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -2501,7 +2501,7 @@ go test ./pkg/spec -run TestExecuteChartersSpecCorpusAddsProvenance
 <!-- field: traces -->
 #### Traces
 
-- srd014-spec-graph AC6
+- [srd014-spec-graph](../software-requirements/srd014-spec-graph.md) [AC6](../software-requirements/srd014-spec-graph.md#ac6)
 - gh-123 AC2
 
 <!-- case: GenAI attribute constants and output types are exported -->
@@ -2510,7 +2510,7 @@ go test ./pkg/spec -run TestExecuteChartersSpecCorpusAddsProvenance
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2532,8 +2532,8 @@ TestInferenceAttrs
 <!-- field: traces -->
 #### Traces
 
-- srd015-genai-semconv AC1
-- srd015-genai-semconv AC4
+- [srd015-genai-semconv](../software-requirements/srd015-genai-semconv.md) [AC1](../software-requirements/srd015-genai-semconv.md#ac1)
+- [srd015-genai-semconv](../software-requirements/srd015-genai-semconv.md) [AC4](../software-requirements/srd015-genai-semconv.md#ac4)
 
 <!-- case: GenAI span names follow operation target format -->
 ### GenAI span names follow operation target format
@@ -2541,7 +2541,7 @@ TestInferenceAttrs
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2562,7 +2562,7 @@ TestAgentSpanName
 <!-- field: traces -->
 #### Traces
 
-- srd015-genai-semconv AC2
+- [srd015-genai-semconv](../software-requirements/srd015-genai-semconv.md) [AC2](../software-requirements/srd015-genai-semconv.md#ac2)
 
 <!-- case: GenAI attribute builders return expected slices -->
 ### GenAI attribute builders return expected slices
@@ -2570,7 +2570,7 @@ TestAgentSpanName
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2591,7 +2591,7 @@ TestToolAttrs
 <!-- field: traces -->
 #### Traces
 
-- srd015-genai-semconv AC3
+- [srd015-genai-semconv](../software-requirements/srd015-genai-semconv.md) [AC3](../software-requirements/srd015-genai-semconv.md#ac3)
 
 <!-- case: Delta capture isolates current-turn messages and prompt hashes -->
 ### Delta capture isolates current-turn messages and prompt hashes
@@ -2599,7 +2599,7 @@ TestToolAttrs
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2622,8 +2622,8 @@ TestInvokeLLMDeltaCaptureIsolatesTwoTurns
 <!-- field: traces -->
 #### Traces
 
-- srd015-genai-semconv AC5
-- srd015-genai-semconv AC6
+- [srd015-genai-semconv](../software-requirements/srd015-genai-semconv.md) [AC5](../software-requirements/srd015-genai-semconv.md#ac5)
+- [srd015-genai-semconv](../software-requirements/srd015-genai-semconv.md) [AC6](../software-requirements/srd015-genai-semconv.md#ac6)
 
 <!-- case: Full capture emits input and assistant message arrays -->
 ### Full capture emits input and assistant message arrays
@@ -2631,7 +2631,7 @@ TestInvokeLLMDeltaCaptureIsolatesTwoTurns
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2653,7 +2653,7 @@ TestInvokeLLMDispatchTracerIsolatesTwoTurns
 <!-- field: traces -->
 #### Traces
 
-- srd015-genai-semconv AC5
+- [srd015-genai-semconv](../software-requirements/srd015-genai-semconv.md) [AC5](../software-requirements/srd015-genai-semconv.md#ac5)
 
 <!-- case: Off capture omits model and parser content -->
 ### Off capture omits model and parser content
@@ -2661,7 +2661,7 @@ TestInvokeLLMDispatchTracerIsolatesTwoTurns
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2682,7 +2682,7 @@ TestCaptureOffRecordsNoContent
 <!-- field: traces -->
 #### Traces
 
-- srd015-genai-semconv AC5
+- [srd015-genai-semconv](../software-requirements/srd015-genai-semconv.md) [AC5](../software-requirements/srd015-genai-semconv.md#ac5)
 
 <!-- case: Conversation references are emitted only when available -->
 ### Conversation references are emitted only when available
@@ -2690,7 +2690,7 @@ TestCaptureOffRecordsNoContent
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2711,7 +2711,7 @@ TestInvokeLLMConversationReferenceIsOptional
 <!-- field: traces -->
 #### Traces
 
-- srd015-genai-semconv AC6
+- [srd015-genai-semconv](../software-requirements/srd015-genai-semconv.md) [AC6](../software-requirements/srd015-genai-semconv.md#ac6)
 
 <!-- case: Traceparent formats valid and invalid contexts -->
 ### Traceparent formats valid and invalid contexts
@@ -2719,7 +2719,7 @@ TestInvokeLLMConversationReferenceIsOptional
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2740,7 +2740,7 @@ TestParseTraceparentProtocolBoundaries
 <!-- field: traces -->
 #### Traces
 
-- srd016-traceparent AC2
+- [srd016-traceparent](../software-requirements/srd016-traceparent.md) [AC2](../software-requirements/srd016-traceparent.md#ac2)
 
 <!-- case: Traceparent parent span parsing builds remote context -->
 ### Traceparent parent span parsing builds remote context
@@ -2748,7 +2748,7 @@ TestParseTraceparentProtocolBoundaries
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2770,7 +2770,7 @@ TestParseParentSpan_Valid
 <!-- field: traces -->
 #### Traces
 
-- srd016-traceparent AC3
+- [srd016-traceparent](../software-requirements/srd016-traceparent.md) [AC3](../software-requirements/srd016-traceparent.md#ac3)
 
 <!-- case: Runtime request bootstrap, resume precedence, and process result contract -->
 ### Runtime request bootstrap, resume precedence, and process result contract
@@ -2778,7 +2778,7 @@ TestParseParentSpan_Valid
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2815,8 +2815,8 @@ go test ./cmd/agent -run 'Test(SeedRequest|ResumeLoad|CLIResultReporter|RunPrepa
 <!-- field: traces -->
 #### Traces
 
-- cfg-runtime-contract
-- srd018-cli-flag-contract AC1
+- [cfg-runtime-contract](../config-formats/runtime-contract.md)
+- [srd018-cli-flag-contract](../software-requirements/srd018-cli-flag-contract.md) [AC1](../software-requirements/srd018-cli-flag-contract.md#ac1)
 
 <!-- case: Self invoke records bounded child process result attributes -->
 ### Self invoke records bounded child process result attributes
@@ -2824,7 +2824,7 @@ go test ./cmd/agent -run 'Test(SeedRequest|ResumeLoad|CLIResultReporter|RunPrepa
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2852,7 +2852,7 @@ go test ./internal/tools/control -run TestSelfInvokeTraceRecordsBoundedChildResu
 <!-- field: traces -->
 #### Traces
 
-- cfg-runtime-contract
+- [cfg-runtime-contract](../config-formats/runtime-contract.md)
 
 <!-- case: Integration telemetry dual export and retained backend evidence | status: implemented -->
 ### Integration telemetry dual export and retained backend evidence
@@ -2860,7 +2860,7 @@ go test ./internal/tools/control -run TestSelfInvokeTraceRecordsBoundedChildResu
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -2896,10 +2896,10 @@ cd ../applications/chatbot-mesh && mage integration:rig
 <!-- field: traces -->
 #### Traces
 
-- rel00.0-uc001-domain-agent-integration S13
-- srd008-telemetry AC10
-- srd018-cli-flag-contract AC2
-- srd018-cli-flag-contract AC7
+- [rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md) [S13](../use-cases/rel00.0-uc001-domain-agent-integration.md#s13)
+- [srd008-telemetry](../software-requirements/srd008-telemetry.md) [AC10](../software-requirements/srd008-telemetry.md#ac10)
+- [srd018-cli-flag-contract](../software-requirements/srd018-cli-flag-contract.md) [AC2](../software-requirements/srd018-cli-flag-contract.md#ac2)
+- [srd018-cli-flag-contract](../software-requirements/srd018-cli-flag-contract.md) [AC7](../software-requirements/srd018-cli-flag-contract.md#ac7)
 
 <!-- case: LLM tools parse responses and manage retry state -->
 ### LLM tools parse responses and manage retry state
@@ -2907,7 +2907,7 @@ cd ../applications/chatbot-mesh && mage integration:rig
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2930,7 +2930,7 @@ go test ./internal/tools/llm -run 'Test(InvokeLLM|ParseResponse|ReportParseError
 <!-- field: traces -->
 #### Traces
 
-- srd013-standard-tool-library AC3
+- [srd013-standard-tool-library](../software-requirements/srd013-standard-tool-library.md) [AC3](../software-requirements/srd013-standard-tool-library.md#ac3)
 
 <!-- case: Subprocess helpers map output and process groups -->
 ### Subprocess helpers map output and process groups
@@ -2938,7 +2938,7 @@ go test ./internal/tools/llm -run 'Test(InvokeLLM|ParseResponse|ReportParseError
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2961,7 +2961,7 @@ go test ./internal/tools/exec -run 'Test(SubprocessResult|CapOutput|ExtractStrin
 <!-- field: traces -->
 #### Traces
 
-- srd013-standard-tool-library AC4
+- [srd013-standard-tool-library](../software-requirements/srd013-standard-tool-library.md) [AC4](../software-requirements/srd013-standard-tool-library.md#ac4)
 
 <!-- case: Tool declarations load and register selected tools -->
 ### Tool declarations load and register selected tools
@@ -2969,7 +2969,7 @@ go test ./internal/tools/exec -run 'Test(SubprocessResult|CapOutput|ExtractStrin
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2993,7 +2993,7 @@ go test ./internal/tools/catalog ./internal/tools/exec -run 'Test(LoadToolDeclar
 <!-- field: traces -->
 #### Traces
 
-- srd013-standard-tool-library AC5
+- [srd013-standard-tool-library](../software-requirements/srd013-standard-tool-library.md) [AC5](../software-requirements/srd013-standard-tool-library.md#ac5)
 
 <!-- case: Exec metrics report declared live process values -->
 ### Exec metrics report declared live process values
@@ -3001,7 +3001,7 @@ go test ./internal/tools/catalog ./internal/tools/exec -run 'Test(LoadToolDeclar
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -3023,7 +3023,7 @@ go test ./internal/tools/exec -run '^TestExecCmdRecordsMonitorMetrics$'
 <!-- field: traces -->
 #### Traces
 
-- srd013-standard-tool-library AC7
+- [srd013-standard-tool-library](../software-requirements/srd013-standard-tool-library.md) [AC7](../software-requirements/srd013-standard-tool-library.md#ac7)
 
 <!-- case: SpanOverride customizes dispatch span -->
 ### SpanOverride customizes dispatch span
@@ -3031,7 +3031,7 @@ go test ./internal/tools/exec -run '^TestExecCmdRecordsMonitorMetrics$'
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -3056,7 +3056,7 @@ TestSpanOverrideCustomizesDispatchSpan
 <!-- field: traces -->
 #### Traces
 
-- srd001-core-types AC6
+- [srd001-core-types](../software-requirements/srd001-core-types.md) [AC6](../software-requirements/srd001-core-types.md#ac6)
 
 <!-- case: ToolMetrics JSON tags preserve structured counts -->
 ### ToolMetrics JSON tags preserve structured counts
@@ -3064,7 +3064,7 @@ TestSpanOverrideCustomizesDispatchSpan
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -3085,7 +3085,7 @@ TestToolMetricsJSONTagsAndOmitEmptyDetails
 <!-- field: traces -->
 #### Traces
 
-- srd001-core-types AC7
+- [srd001-core-types](../software-requirements/srd001-core-types.md) [AC7](../software-requirements/srd001-core-types.md#ac7)
 
 <!-- case: NoopTracer satisfies and discards tracer operations -->
 ### NoopTracer satisfies and discards tracer operations
@@ -3093,7 +3093,7 @@ TestToolMetricsJSONTagsAndOmitEmptyDetails
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-domain-agent-integration
+[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -3116,4 +3116,4 @@ TestNoopTracerSatisfiesInterfaceAndDiscardsOperations
 <!-- field: traces -->
 #### Traces
 
-- srd007-tracer-interface AC3
+- [srd007-tracer-interface](../software-requirements/srd007-tracer-interface.md) [AC3](../software-requirements/srd007-tracer-interface.md#ac3)

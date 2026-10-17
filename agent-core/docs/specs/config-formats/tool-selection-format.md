@@ -233,7 +233,7 @@ tools.yaml.
 <!-- field: related_documents -->
 ## Related documents
 
-- cfg-tool-declaration-format
+- [cfg-tool-declaration-format](tool-declaration-format.md)
 - srd013
 - srd022
 - srd023

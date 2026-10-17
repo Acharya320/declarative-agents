@@ -47,14 +47,14 @@ carrying a tests/<scenario>/ directory.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd039-mock-endpoint-binding R2.1, R2.2, R2.3, R2.4, R2.5 | the mock serves canned, scripted responses from the scenario fixture |
-| T2 | srd039-mock-endpoint-binding R3.1, R3.2, R3.3 | the validator reads the mock request log to assert the subject's outbound calls |
-| T3 | srd040-service-child-tools R1.1, R1.2, R1.3, R1.4, R1.5 | serve-mode children start with injected environment and a reported base URL |
-| T4 | srd040-service-child-tools R2.1, R2.2, R2.3, R2.4 | children are health-checked within a declared bound |
-| T5 | srd040-service-child-tools R3.1, R3.2, R3.3, R3.4 | children stop cleanly with no surviving process group |
-| T6 | srd040-service-child-tools R4.1, R4.2, R4.3, R4.4, R4.5 | each validator is a visible child dispatch with an ordered join |
-| T7 | srd040-service-child-tools R5.1, R5.2, R5.3, R5.4 | scenarios are discovered as data under declared roots |
-| T8 | srd028-rest-client-tools R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R2.7 | the subject's dependency base_url resolves through declared config with environment expansion |
+| T1 | [srd039-mock-endpoint-binding](../software-requirements/srd039-mock-endpoint-binding.md) [R2.1](../software-requirements/srd039-mock-endpoint-binding.md#r21), [R2.2](../software-requirements/srd039-mock-endpoint-binding.md#r22), [R2.3](../software-requirements/srd039-mock-endpoint-binding.md#r23), [R2.4](../software-requirements/srd039-mock-endpoint-binding.md#r24), [R2.5](../software-requirements/srd039-mock-endpoint-binding.md#r25) | the mock serves canned, scripted responses from the scenario fixture |
+| T2 | [srd039-mock-endpoint-binding](../software-requirements/srd039-mock-endpoint-binding.md) [R3.1](../software-requirements/srd039-mock-endpoint-binding.md#r31), [R3.2](../software-requirements/srd039-mock-endpoint-binding.md#r32), [R3.3](../software-requirements/srd039-mock-endpoint-binding.md#r33) | the validator reads the mock request log to assert the subject's outbound calls |
+| T3 | [srd040-service-child-tools](../software-requirements/srd040-service-child-tools.md) [R1.1](../software-requirements/srd040-service-child-tools.md#r11), [R1.2](../software-requirements/srd040-service-child-tools.md#r12), [R1.3](../software-requirements/srd040-service-child-tools.md#r13), [R1.4](../software-requirements/srd040-service-child-tools.md#r14), [R1.5](../software-requirements/srd040-service-child-tools.md#r15) | serve-mode children start with injected environment and a reported base URL |
+| T4 | [srd040-service-child-tools](../software-requirements/srd040-service-child-tools.md) [R2.1](../software-requirements/srd040-service-child-tools.md#r21), [R2.2](../software-requirements/srd040-service-child-tools.md#r22), [R2.3](../software-requirements/srd040-service-child-tools.md#r23), [R2.4](../software-requirements/srd040-service-child-tools.md#r24) | children are health-checked within a declared bound |
+| T5 | [srd040-service-child-tools](../software-requirements/srd040-service-child-tools.md) [R3.1](../software-requirements/srd040-service-child-tools.md#r31), [R3.2](../software-requirements/srd040-service-child-tools.md#r32), [R3.3](../software-requirements/srd040-service-child-tools.md#r33), [R3.4](../software-requirements/srd040-service-child-tools.md#r34) | children stop cleanly with no surviving process group |
+| T6 | [srd040-service-child-tools](../software-requirements/srd040-service-child-tools.md) [R4.1](../software-requirements/srd040-service-child-tools.md#r41), [R4.2](../software-requirements/srd040-service-child-tools.md#r42), [R4.3](../software-requirements/srd040-service-child-tools.md#r43), [R4.4](../software-requirements/srd040-service-child-tools.md#r44), [R4.5](../software-requirements/srd040-service-child-tools.md#r45) | each validator is a visible child dispatch with an ordered join |
+| T7 | [srd040-service-child-tools](../software-requirements/srd040-service-child-tools.md) [R5.1](../software-requirements/srd040-service-child-tools.md#r51), [R5.2](../software-requirements/srd040-service-child-tools.md#r52), [R5.3](../software-requirements/srd040-service-child-tools.md#r53), [R5.4](../software-requirements/srd040-service-child-tools.md#r54) | scenarios are discovered as data under declared roots |
+| T8 | [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [R2.1](../software-requirements/srd028-rest-client-tools.md#r21), [R2.2](../software-requirements/srd028-rest-client-tools.md#r22), [R2.3](../software-requirements/srd028-rest-client-tools.md#r23), [R2.4](../software-requirements/srd028-rest-client-tools.md#r24), [R2.5](../software-requirements/srd028-rest-client-tools.md#r25), [R2.6](../software-requirements/srd028-rest-client-tools.md#r26), [R2.7](../software-requirements/srd028-rest-client-tools.md#r27) | the subject's dependency base_url resolves through declared config with environment expansion |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -67,7 +67,7 @@ The scenario runs end-to-end with no live external service; every dependency res
 <!-- field: traces -->
 #### Traces
 
-- srd039-mock-endpoint-binding AC1
+- [srd039-mock-endpoint-binding](../software-requirements/srd039-mock-endpoint-binding.md) [AC1](../software-requirements/srd039-mock-endpoint-binding.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -77,7 +77,7 @@ The validator's request-log assertion distinguishes a subject that called its de
 <!-- field: traces -->
 #### Traces
 
-- srd039-mock-endpoint-binding AC3
+- [srd039-mock-endpoint-binding](../software-requirements/srd039-mock-endpoint-binding.md) [AC3](../software-requirements/srd039-mock-endpoint-binding.md#ac3)
 
 <!-- sc: S3 -->
 ### S3
@@ -87,7 +87,7 @@ All children are gone after the scenario; a second consecutive run passes withou
 <!-- field: traces -->
 #### Traces
 
-- srd040-service-child-tools AC1
+- [srd040-service-child-tools](../software-requirements/srd040-service-child-tools.md) [AC1](../software-requirements/srd040-service-child-tools.md#ac1)
 
 <!-- sc: S4 -->
 ### S4
@@ -97,7 +97,7 @@ Machine-visible validator items produce ordered terminal states, and the scenari
 <!-- field: traces -->
 #### Traces
 
-- srd040-service-child-tools AC3
+- [srd040-service-child-tools](../software-requirements/srd040-service-child-tools.md) [AC3](../software-requirements/srd040-service-child-tools.md#ac3)
 
 <!-- sc: S5 -->
 ### S5
@@ -107,7 +107,7 @@ Discovery returns the same scenario list for the same tree on every run.
 <!-- field: traces -->
 #### Traces
 
-- srd040-service-child-tools AC4
+- [srd040-service-child-tools](../software-requirements/srd040-service-child-tools.md) [AC4](../software-requirements/srd040-service-child-tools.md#ac4)
 
 <!-- sc: S6 -->
 ### S6
@@ -117,7 +117,7 @@ A detached start returns while its child runs, the child's exit code is listed a
 <!-- field: traces -->
 #### Traces
 
-- srd040-service-child-tools AC6
+- [srd040-service-child-tools](../software-requirements/srd040-service-child-tools.md) [AC6](../software-requirements/srd040-service-child-tools.md#ac6)
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios
@@ -139,4 +139,4 @@ A detached start returns while its child runs, the child's exit code is listed a
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel09.0-scenario-rig
+[test-rel09.0-scenario-rig](../test-suites/test-rel09.0-scenario-rig.md)

@@ -319,11 +319,11 @@ The session state machine executes all grid points and produces SessionResult wi
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
-- R2.5
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
+- [R2.5](#r25)
 
 <!-- ac: AC0 -->
 ### AC0
@@ -333,19 +333,19 @@ Suite YAML is documented and validated as evaluator tool input data, with sessio
 <!-- field: traces -->
 #### Traces
 
-- R0.1
-- R0.2
-- R0.3
-- R0.4
-- R0.5
-- R0.6
-- R1.1
-- R1.2
-- R1.3
-- R1.4
-- R1.5
-- R1.6
-- R1.7
+- [R0.1](#r01)
+- [R0.2](#r02)
+- [R0.3](#r03)
+- [R0.4](#r04)
+- [R0.5](#r05)
+- [R0.6](#r06)
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R1.5](#r15)
+- [R1.6](#r16)
+- [R1.7](#r17)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -355,21 +355,21 @@ Each evaluation point creates an isolated workspace with git baseline, experimen
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.1.1
-- R3.1.2
-- R3.1.3
-- R3.1.4
-- R3.1.5
-- R3.1.6
-- R3.2
-- R3.3
-- R3.4
-- R3.5
-- R3.6
-- R3.7
-- R3.8
-- R3.9
+- [R3.1](#r31)
+- [R3.1.1](#r311)
+- [R3.1.2](#r312)
+- [R3.1.3](#r313)
+- [R3.1.4](#r314)
+- [R3.1.5](#r315)
+- [R3.1.6](#r316)
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R3.4](#r34)
+- [R3.5](#r35)
+- [R3.6](#r36)
+- [R3.7](#r37)
+- [R3.8](#r38)
+- [R3.9](#r39)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -379,16 +379,16 @@ Result loading reports incomplete or duplicate point artifacts without silently 
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
-- R4.4
-- R4.5
-- R4.6
-- R5.1
-- R5.2
-- R5.3
-- R5.4
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R4.4](#r44)
+- [R4.5](#r45)
+- [R4.6](#r46)
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -398,7 +398,7 @@ Classify correctly assigns per-tool and overall convergence classes from a run's
 <!-- field: traces -->
 #### Traces
 
-- R4.4
+- [R4.4](#r44)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -408,12 +408,12 @@ Evaluator point and session durations have finite validated authorities, nested 
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
-- R6.3
-- R6.4
-- R6.5
-- R6.6
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
+- [R6.4](#r64)
+- [R6.5](#r65)
+- [R6.6](#r66)
 
 <!-- field: diagrams -->
 ## Diagrams

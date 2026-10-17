@@ -27,12 +27,12 @@ IAM policy fixture is executable without cloud access.
 <!-- field: traces -->
 ## Traces
 
-- rel19.0-uc001-persistent-application-platform
+- [rel19.0-uc001-persistent-application-platform](../use-cases/rel19.0-uc001-persistent-application-platform.md)
 
 <!-- field: srds -->
 ## SRDs
 
-- srd008-persistent-application-platform
+- [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -56,7 +56,7 @@ TC1
 <!-- field: use_case -->
 #### Use case
 
-rel19.0-uc001-persistent-application-platform
+[rel19.0-uc001-persistent-application-platform](../use-cases/rel19.0-uc001-persistent-application-platform.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -174,8 +174,8 @@ PY
 <!-- field: traces -->
 #### Traces
 
-- rel19.0-uc001-persistent-application-platform S1
-- srd008-persistent-application-platform AC1
+- [rel19.0-uc001-persistent-application-platform](../use-cases/rel19.0-uc001-persistent-application-platform.md) [S1](../use-cases/rel19.0-uc001-persistent-application-platform.md#s1)
+- [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC1](../software-requirements/srd008-persistent-application-platform.md#ac1)
 
 <!-- case: Two applications use distinct external, internal, OTLP, object, and vector paths | status: implemented -->
 ### Two applications use distinct external, internal, OTLP, object, and vector paths
@@ -188,7 +188,7 @@ TC2
 <!-- field: use_case -->
 #### Use case
 
-rel19.0-uc001-persistent-application-platform
+[rel19.0-uc001-persistent-application-platform](../use-cases/rel19.0-uc001-persistent-application-platform.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -227,8 +227,8 @@ kubectl --context kind-da-platform get ns -l app.kubernetes.io/managed-by=apprig
 <!-- field: traces -->
 #### Traces
 
-- rel19.0-uc001-persistent-application-platform S2
-- srd008-persistent-application-platform AC2
+- [rel19.0-uc001-persistent-application-platform](../use-cases/rel19.0-uc001-persistent-application-platform.md) [S2](../use-cases/rel19.0-uc001-persistent-application-platform.md#s2)
+- [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC2](../software-requirements/srd008-persistent-application-platform.md#ac2)
 
 <!-- case: Application and platform lifecycle preserve data until explicit deletion | status: implemented -->
 ### Application and platform lifecycle preserve data until explicit deletion
@@ -241,7 +241,7 @@ TC3
 <!-- field: use_case -->
 #### Use case
 
-rel19.0-uc001-persistent-application-platform
+[rel19.0-uc001-persistent-application-platform](../use-cases/rel19.0-uc001-persistent-application-platform.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -278,8 +278,8 @@ mage app:purge chatbot-mesh purge:chatbot-mesh
 <!-- field: traces -->
 #### Traces
 
-- rel19.0-uc001-persistent-application-platform S3
-- srd008-persistent-application-platform AC3
+- [rel19.0-uc001-persistent-application-platform](../use-cases/rel19.0-uc001-persistent-application-platform.md) [S3](../use-cases/rel19.0-uc001-persistent-application-platform.md#s3)
+- [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC3](../software-requirements/srd008-persistent-application-platform.md#ac3)
 
 <!-- case: Local and cloud overlays preserve one application declaration contract | status: implemented -->
 ### Local and cloud overlays preserve one application declaration contract
@@ -292,7 +292,7 @@ TC4
 <!-- field: use_case -->
 #### Use case
 
-rel19.0-uc001-persistent-application-platform
+[rel19.0-uc001-persistent-application-platform](../use-cases/rel19.0-uc001-persistent-application-platform.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -325,8 +325,8 @@ cd ../applications/chatbot-mesh && go test ./magefiles -run TestGcpDeployOverrid
 <!-- field: traces -->
 #### Traces
 
-- rel19.0-uc001-persistent-application-platform S4
-- srd008-persistent-application-platform AC4
+- [rel19.0-uc001-persistent-application-platform](../use-cases/rel19.0-uc001-persistent-application-platform.md) [S4](../use-cases/rel19.0-uc001-persistent-application-platform.md#s4)
+- [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC4](../software-requirements/srd008-persistent-application-platform.md#ac4)
 
 <!-- case: Collector WAL fixes immutable object identity before upload | status: implemented -->
 ### Collector WAL fixes immutable object identity before upload
@@ -339,7 +339,7 @@ TC5
 <!-- field: use_case -->
 #### Use case
 
-rel19.0-uc001-persistent-application-platform
+[rel19.0-uc001-persistent-application-platform](../use-cases/rel19.0-uc001-persistent-application-platform.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -372,8 +372,8 @@ cd ../applications/agent-architecture && mage integration:collectorWALRestart
 <!-- field: traces -->
 #### Traces
 
-- rel19.0-uc001-persistent-application-platform S5
-- srd008-persistent-application-platform AC5
+- [rel19.0-uc001-persistent-application-platform](../use-cases/rel19.0-uc001-persistent-application-platform.md) [S5](../use-cases/rel19.0-uc001-persistent-application-platform.md#s5)
+- [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC5](../software-requirements/srd008-persistent-application-platform.md#ac5)
 
 <!-- case: Query access disappears with compute and returns after collector redeployment | status: implemented -->
 ### Query access disappears with compute and returns after collector redeployment
@@ -386,7 +386,7 @@ TC6
 <!-- field: use_case -->
 #### Use case
 
-rel19.0-uc001-persistent-application-platform
+[rel19.0-uc001-persistent-application-platform](../use-cases/rel19.0-uc001-persistent-application-platform.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -419,8 +419,8 @@ curl -fsS 'http://telemetry.agent-architecture.localhost/query/traces?page_size=
 <!-- field: traces -->
 #### Traces
 
-- rel19.0-uc001-persistent-application-platform S6
-- srd008-persistent-application-platform AC6
+- [rel19.0-uc001-persistent-application-platform](../use-cases/rel19.0-uc001-persistent-application-platform.md) [S6](../use-cases/rel19.0-uc001-persistent-application-platform.md#s6)
+- [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC6](../software-requirements/srd008-persistent-application-platform.md#ac6)
 
 <!-- case: Rig modes and the reusable application runner have one owner | status: implemented -->
 ### Rig modes and the reusable application runner have one owner
@@ -433,7 +433,7 @@ TC7
 <!-- field: use_case -->
 #### Use case
 
-rel19.0-uc001-persistent-application-platform
+[rel19.0-uc001-persistent-application-platform](../use-cases/rel19.0-uc001-persistent-application-platform.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -466,8 +466,8 @@ cd .. && mage integration:applicationLifecycle
 <!-- field: traces -->
 #### Traces
 
-- rel19.0-uc001-persistent-application-platform S7
-- srd008-persistent-application-platform AC7
+- [rel19.0-uc001-persistent-application-platform](../use-cases/rel19.0-uc001-persistent-application-platform.md) [S7](../use-cases/rel19.0-uc001-persistent-application-platform.md#s7)
+- [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC7](../software-requirements/srd008-persistent-application-platform.md#ac7)
 
 <!-- case: Application failures remain isolated and shared failures identify the platform | status: implemented -->
 ### Application failures remain isolated and shared failures identify the platform
@@ -480,7 +480,7 @@ TC8
 <!-- field: use_case -->
 #### Use case
 
-rel19.0-uc001-persistent-application-platform
+[rel19.0-uc001-persistent-application-platform](../use-cases/rel19.0-uc001-persistent-application-platform.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -515,7 +515,7 @@ cd ../applications/catalog && go test ./conformance -run TestApplicationPurge
 <!-- field: traces -->
 #### Traces
 
-- rel19.0-uc001-persistent-application-platform S1
-- rel19.0-uc001-persistent-application-platform S3
-- srd008-persistent-application-platform AC1
-- srd008-persistent-application-platform AC3
+- [rel19.0-uc001-persistent-application-platform](../use-cases/rel19.0-uc001-persistent-application-platform.md) [S1](../use-cases/rel19.0-uc001-persistent-application-platform.md#s1)
+- [rel19.0-uc001-persistent-application-platform](../use-cases/rel19.0-uc001-persistent-application-platform.md) [S3](../use-cases/rel19.0-uc001-persistent-application-platform.md#s3)
+- [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC1](../software-requirements/srd008-persistent-application-platform.md#ac1)
+- [srd008-persistent-application-platform](../software-requirements/srd008-persistent-application-platform.md) [AC3](../software-requirements/srd008-persistent-application-platform.md#ac3)

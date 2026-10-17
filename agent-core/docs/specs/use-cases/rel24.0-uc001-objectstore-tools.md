@@ -47,13 +47,13 @@ moves between the kind rig and a cloud project.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd059-objectstore-tools R1.1 | four words, selected explicitly like the dolt family; delete-prefix remains internal |
-| T2 | srd059-objectstore-tools R2.1 | one implementation opening the bucket by declared URL scheme |
-| T3 | srd059-objectstore-tools R2.2 | the explicit endpoint as the only emulator path, no environment read |
-| T4 | srd059-objectstore-tools R2.3 | identical declarations across the rig, GCS, and S3 |
-| T5 | srd059-objectstore-tools R3.1 | the prior-object snapshot receipt behind object_write |
-| T6 | srd059-objectstore-tools R3.2 | undo restores or deletes through the registered strategy |
-| T7 | srd059-objectstore-tools R5.1 | declaration-bound irreversible prefix deletion; R5.2 and R5.3 add bounded verification and external audit |
+| T1 | [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [R1.1](../software-requirements/srd059-objectstore-tools.md#r11) | four words, selected explicitly like the dolt family; delete-prefix remains internal |
+| T2 | [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [R2.1](../software-requirements/srd059-objectstore-tools.md#r21) | one implementation opening the bucket by declared URL scheme |
+| T3 | [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [R2.2](../software-requirements/srd059-objectstore-tools.md#r22) | the explicit endpoint as the only emulator path, no environment read |
+| T4 | [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [R2.3](../software-requirements/srd059-objectstore-tools.md#r23) | identical declarations across the rig, GCS, and S3 |
+| T5 | [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [R3.1](../software-requirements/srd059-objectstore-tools.md#r31) | the prior-object snapshot receipt behind object_write |
+| T6 | [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [R3.2](../software-requirements/srd059-objectstore-tools.md#r32) | undo restores or deletes through the registered strategy |
+| T7 | [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [R5.1](../software-requirements/srd059-objectstore-tools.md#r51) | declaration-bound irreversible prefix deletion; R5.2 and R5.3 add bounded verification and external audit |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -66,7 +66,7 @@ The four words boot from a name-only tools.yaml and the default builtin surface 
 <!-- field: traces -->
 #### Traces
 
-- srd059-objectstore-tools AC1
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [AC1](../software-requirements/srd059-objectstore-tools.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -76,7 +76,7 @@ Backend selection follows the declared URL and explicit endpoint alone, across m
 <!-- field: traces -->
 #### Traces
 
-- srd059-objectstore-tools AC2
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [AC2](../software-requirements/srd059-objectstore-tools.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -86,7 +86,7 @@ Write-then-undo restores or deletes correctly in both directions, through the re
 <!-- field: traces -->
 #### Traces
 
-- srd059-objectstore-tools AC3
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [AC3](../software-requirements/srd059-objectstore-tools.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -96,7 +96,7 @@ Unit evidence runs with no container; the end-to-end proof runs against fake-gcs
 <!-- field: traces -->
 #### Traces
 
-- srd059-objectstore-tools AC4
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [AC4](../software-requirements/srd059-objectstore-tools.md#ac4)
 
 <!-- sc: S5 -->
 ### S5
@@ -106,7 +106,7 @@ Delete-prefix accepts no request storage authority, refuses an over-budget set w
 <!-- field: traces -->
 #### Traces
 
-- srd059-objectstore-tools AC5
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [AC5](../software-requirements/srd059-objectstore-tools.md#ac5)
 
 <!-- field: out_of_scope -->
 ## Out of scope

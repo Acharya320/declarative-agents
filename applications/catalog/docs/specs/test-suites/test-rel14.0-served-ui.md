@@ -9,7 +9,7 @@ release: "14.0"
 <!-- field: traces -->
 ## Traces
 
-- rel14.0-uc001-served-trace-ui
+- [rel14.0-uc001-served-trace-ui](../use-cases/rel14.0-uc001-served-trace-ui.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -30,7 +30,7 @@ HTML content type and the SPA index document body.
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc001-served-trace-ui
+[rel14.0-uc001-served-trace-ui](../use-cases/rel14.0-uc001-served-trace-ui.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -51,8 +51,8 @@ go test ./conformance -run TestCollectorServesUIIndex
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc001-served-trace-ui S1
-- srd020-collector AC4
+- [rel14.0-uc001-served-trace-ui](../use-cases/rel14.0-uc001-served-trace-ui.md) [S1](../use-cases/rel14.0-uc001-served-trace-ui.md#s1)
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC4](../software-requirements/srd020-collector.md#ac4)
 
 <!-- case: Deep link resolves to the SPA index | status: implemented -->
 ### Deep link resolves to the SPA index
@@ -63,7 +63,7 @@ index document with a 200, so the client can render the trace timeline.
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc001-served-trace-ui
+[rel14.0-uc001-served-trace-ui](../use-cases/rel14.0-uc001-served-trace-ui.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -85,8 +85,8 @@ go test ./conformance -run TestCollectorServesUIDeepLink
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc001-served-trace-ui S2
-- srd020-collector AC4
+- [rel14.0-uc001-served-trace-ui](../use-cases/rel14.0-uc001-served-trace-ui.md) [S2](../use-cases/rel14.0-uc001-served-trace-ui.md#s2)
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC4](../software-requirements/srd020-collector.md#ac4)
 
 <!-- case: Query API is unaffected by the static_assets catch-all | status: implemented -->
 ### Query API is unaffected by the static_assets catch-all
@@ -98,7 +98,7 @@ static_assets catch-all never intercepts a /query/* path.
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc001-served-trace-ui
+[rel14.0-uc001-served-trace-ui](../use-cases/rel14.0-uc001-served-trace-ui.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -128,8 +128,8 @@ go test ./conformance -run TestCollectorQueryUnaffectedByUI
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc001-served-trace-ui S3
-- srd020-collector AC4
+- [rel14.0-uc001-served-trace-ui](../use-cases/rel14.0-uc001-served-trace-ui.md) [S3](../use-cases/rel14.0-uc001-served-trace-ui.md#s3)
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC4](../software-requirements/srd020-collector.md#ac4)
 
 <!-- case: Missing UI root yields an explicit error | status: implemented -->
 ### Missing UI root yields an explicit error
@@ -141,7 +141,7 @@ empty body, and /query/* still works.
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc001-served-trace-ui
+[rel14.0-uc001-served-trace-ui](../use-cases/rel14.0-uc001-served-trace-ui.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -162,8 +162,8 @@ go test ./conformance -run TestCollectorMissingUIRoot
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc001-served-trace-ui S4
-- srd020-collector AC5
+- [rel14.0-uc001-served-trace-ui](../use-cases/rel14.0-uc001-served-trace-ui.md) [S4](../use-cases/rel14.0-uc001-served-trace-ui.md#s4)
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC5](../software-requirements/srd020-collector.md#ac5)
 
 <!-- case: UI root is a literal profile path with no new environment variable | status: implemented -->
 ### UI root is a literal profile path with no new environment variable
@@ -175,7 +175,7 @@ shipped rest.yaml declares no new environment variable for the UI root.
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc001-served-trace-ui
+[rel14.0-uc001-served-trace-ui](../use-cases/rel14.0-uc001-served-trace-ui.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -195,7 +195,7 @@ go test ./conformance -run TestCollectorUIRootLiteral
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector AC5
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC5](../software-requirements/srd020-collector.md#ac5)
 
 <!-- case: Served UIs compose on the kit shell and read through the kit client | status: implemented -->
 ### Served UIs compose on the kit shell and read through the kit client
@@ -209,7 +209,7 @@ kit client cannot carry.
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc001-served-trace-ui
+[rel14.0-uc001-served-trace-ui](../use-cases/rel14.0-uc001-served-trace-ui.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -235,5 +235,5 @@ go test ./conformance -run TestServedUIsComposeOnKitShell
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc001-served-trace-ui S5
-- srd020-collector R6.1
+- [rel14.0-uc001-served-trace-ui](../use-cases/rel14.0-uc001-served-trace-ui.md) [S5](../use-cases/rel14.0-uc001-served-trace-ui.md#s5)
+- [srd020-collector](../software-requirements/srd020-collector.md) [R6.1](../software-requirements/srd020-collector.md#r61)

@@ -49,11 +49,11 @@ Run mage integration:helmSmoke.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd005-live-helm-smoke R3.1 | S1 traces this requirement in the existing success criteria. |
-| T2 | srd005-live-helm-smoke R3.2 | S2 traces this requirement in the existing success criteria. |
-| T3 | srd005-live-helm-smoke R3.3 | S3 traces this requirement in the existing success criteria. |
-| T4 | srd005-live-helm-smoke R1.1, R1.2, R1.3 | S4 traces this requirement in the existing success criteria. |
-| T5 | srd005-live-helm-smoke R4.1, R4.2, R4.3 | S4 traces this requirement in the existing success criteria. |
+| T1 | [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R3.1](../software-requirements/srd005-live-helm-smoke.md#r31) | S1 traces this requirement in the existing success criteria. |
+| T2 | [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R3.2](../software-requirements/srd005-live-helm-smoke.md#r32) | S2 traces this requirement in the existing success criteria. |
+| T3 | [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R3.3](../software-requirements/srd005-live-helm-smoke.md#r33) | S3 traces this requirement in the existing success criteria. |
+| T4 | [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R1.1](../software-requirements/srd005-live-helm-smoke.md#r11), [R1.2](../software-requirements/srd005-live-helm-smoke.md#r12), [R1.3](../software-requirements/srd005-live-helm-smoke.md#r13) | S4 traces this requirement in the existing success criteria. |
+| T5 | [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R4.1](../software-requirements/srd005-live-helm-smoke.md#r41), [R4.2](../software-requirements/srd005-live-helm-smoke.md#r42), [R4.3](../software-requirements/srd005-live-helm-smoke.md#r43) | S4 traces this requirement in the existing success criteria. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -66,8 +66,8 @@ All three deployed role health endpoints are truthful and reachable.
 <!-- field: traces -->
 #### Traces
 
-- srd005-live-helm-smoke R3.1
-- srd005-live-helm-smoke AC1
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R3.1](../software-requirements/srd005-live-helm-smoke.md#r31)
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [AC1](../software-requirements/srd005-live-helm-smoke.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -77,8 +77,8 @@ The shared workspace and critic verdict prove remote role composition.
 <!-- field: traces -->
 #### Traces
 
-- srd005-live-helm-smoke R3.2
-- srd005-live-helm-smoke AC1
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R3.2](../software-requirements/srd005-live-helm-smoke.md#r32)
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [AC1](../software-requirements/srd005-live-helm-smoke.md#ac1)
 
 <!-- sc: S3 -->
 ### S3
@@ -88,8 +88,8 @@ The collector agent contains all three role service names under the submitted tr
 <!-- field: traces -->
 #### Traces
 
-- srd005-live-helm-smoke R3.3
-- srd005-live-helm-smoke AC1
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R3.3](../software-requirements/srd005-live-helm-smoke.md#r33)
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [AC1](../software-requirements/srd005-live-helm-smoke.md#ac1)
 
 <!-- sc: S4 -->
 ### S4
@@ -99,14 +99,14 @@ Skip, classification, diagnostics, and cleanup behavior are bounded and explicit
 <!-- field: traces -->
 #### Traces
 
-- srd005-live-helm-smoke R1.1
-- srd005-live-helm-smoke R1.2
-- srd005-live-helm-smoke R1.3
-- srd005-live-helm-smoke R4.1
-- srd005-live-helm-smoke R4.2
-- srd005-live-helm-smoke R4.3
-- srd005-live-helm-smoke AC2
-- srd005-live-helm-smoke AC3
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R1.1](../software-requirements/srd005-live-helm-smoke.md#r11)
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R1.2](../software-requirements/srd005-live-helm-smoke.md#r12)
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R1.3](../software-requirements/srd005-live-helm-smoke.md#r13)
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R4.1](../software-requirements/srd005-live-helm-smoke.md#r41)
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R4.2](../software-requirements/srd005-live-helm-smoke.md#r42)
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R4.3](../software-requirements/srd005-live-helm-smoke.md#r43)
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [AC2](../software-requirements/srd005-live-helm-smoke.md#ac2)
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [AC3](../software-requirements/srd005-live-helm-smoke.md#ac3)
 
 <!-- field: out_of_scope -->
 ## Out of scope

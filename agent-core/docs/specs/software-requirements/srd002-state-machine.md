@@ -107,10 +107,10 @@ ActionFunc, TransitionInput, TransitionValue, and TransitionTable are exported t
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.4
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -120,8 +120,8 @@ TerminalFunc is func(State) bool, supplied by the domain.
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
+- [R2.1](#r21)
+- [R2.2](#r22)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -131,10 +131,10 @@ StateMachine.Step performs lookup, calls ActionFunc, returns next state and Comm
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
-- R3.4
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R3.4](#r34)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -144,7 +144,7 @@ StateMachine.IsTerminal delegates to TerminalFunc.
 <!-- field: traces -->
 #### Traces
 
-- R3.5
+- [R3.5](#r35)
 
 <!-- field: diagrams -->
 ## Diagrams

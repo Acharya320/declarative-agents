@@ -20,7 +20,7 @@ than an existing Go test.
 <!-- field: traces -->
 ## Traces
 
-- rel02.0-uc001-render-packaged-chart
+- [rel02.0-uc001-render-packaged-chart](../use-cases/rel02.0-uc001-render-packaged-chart.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -49,7 +49,7 @@ render_topology
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc001-render-packaged-chart
+[rel02.0-uc001-render-packaged-chart](../use-cases/rel02.0-uc001-render-packaged-chart.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -74,8 +74,8 @@ mage helm:template (default and CI values)
 <!-- field: traces -->
 #### Traces
 
-- rel02.0-uc001-render-packaged-chart S1
-- srd001-helm-deployment AC1
+- [rel02.0-uc001-render-packaged-chart](../use-cases/rel02.0-uc001-render-packaged-chart.md) [S1](../use-cases/rel02.0-uc001-render-packaged-chart.md#s1)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [AC1](../software-requirements/srd001-helm-deployment.md#ac1)
 
 <!-- case: Prepared closures are the chart source | status: planned -->
 ### Prepared closures are the chart source
@@ -94,7 +94,7 @@ stage_and_checksum
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc001-render-packaged-chart
+[rel02.0-uc001-render-packaged-chart](../use-cases/rel02.0-uc001-render-packaged-chart.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -121,8 +121,8 @@ mage helm:prepare with tamper fixtures
 <!-- field: traces -->
 #### Traces
 
-- rel02.0-uc001-render-packaged-chart S2
-- srd001-helm-deployment AC2
+- [rel02.0-uc001-render-packaged-chart](../use-cases/rel02.0-uc001-render-packaged-chart.md) [S2](../use-cases/rel02.0-uc001-render-packaged-chart.md#s2)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [AC2](../software-requirements/srd001-helm-deployment.md#ac2)
 
 <!-- case: Values schema, guards, and self-contained archive | status: planned -->
 ### Values schema, guards, and self-contained archive
@@ -142,7 +142,7 @@ schema_and_archive
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc001-render-packaged-chart
+[rel02.0-uc001-render-packaged-chart](../use-cases/rel02.0-uc001-render-packaged-chart.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -172,8 +172,8 @@ mage helm:package with schema fixtures
 <!-- field: traces -->
 #### Traces
 
-- rel02.0-uc001-render-packaged-chart S3
-- srd001-helm-deployment AC3
+- [rel02.0-uc001-render-packaged-chart](../use-cases/rel02.0-uc001-render-packaged-chart.md) [S3](../use-cases/rel02.0-uc001-render-packaged-chart.md#s3)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [AC3](../software-requirements/srd001-helm-deployment.md#ac3)
 
 <!-- case: Curator-to-collector trace export renders coherently | status: planned -->
 ### Curator-to-collector trace export renders coherently
@@ -191,7 +191,7 @@ trace_wiring
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc001-render-packaged-chart
+[rel02.0-uc001-render-packaged-chart](../use-cases/rel02.0-uc001-render-packaged-chart.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -214,5 +214,5 @@ mage helm:template (telemetry assertions)
 <!-- field: traces -->
 #### Traces
 
-- rel02.0-uc001-render-packaged-chart S4
-- srd001-helm-deployment AC1
+- [rel02.0-uc001-render-packaged-chart](../use-cases/rel02.0-uc001-render-packaged-chart.md) [S4](../use-cases/rel02.0-uc001-render-packaged-chart.md#s4)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [AC1](../software-requirements/srd001-helm-deployment.md#ac1)

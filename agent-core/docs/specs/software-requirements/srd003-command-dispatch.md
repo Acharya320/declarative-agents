@@ -118,11 +118,11 @@ Dispatch creates a child span, calls SafeExecute, sets CommandName, stamps span 
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.4
-- R1.5
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R1.5](#r15)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -132,12 +132,12 @@ SafeExecute recovers panics, enforces timeout, fills duration, and normalizes er
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
-- R2.5
-- R2.6
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
+- [R2.5](#r25)
+- [R2.6](#r26)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -147,8 +147,8 @@ FillDuration and ForceErrorSignal are exported and operate on Result pointers.
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
+- [R3.1](#r31)
+- [R3.2](#r32)
 
 <!-- field: related_documents -->
 ## Related documents

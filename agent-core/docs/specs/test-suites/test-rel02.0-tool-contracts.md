@@ -9,8 +9,8 @@ release: "02.0"
 <!-- field: traces -->
 ## Traces
 
-- rel02.0-uc003-tool-authoring
-- rel02.0-uc004-sentence-tool-migration
+- [rel02.0-uc003-tool-authoring](../use-cases/rel02.0-uc003-tool-authoring.md)
+- [rel02.0-uc004-sentence-tool-migration](../use-cases/rel02.0-uc004-sentence-tool-migration.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -34,7 +34,7 @@ restore that state on undo or malformed output.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc004-sentence-tool-migration
+[rel02.0-uc004-sentence-tool-migration](../use-cases/rel02.0-uc004-sentence-tool-migration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -58,7 +58,7 @@ TestFormatIssueEmitsTrackerAgnosticParameters, TestRecordTrackerIssueMapsConfigu
 <!-- field: traces -->
 #### Traces
 
-- srd013-standard-tool-library AC11
+- [srd013-standard-tool-library](../software-requirements/srd013-standard-tool-library.md) [AC11](../software-requirements/srd013-standard-tool-library.md#ac11)
 
 <!-- case: Declared provider address is an environment reference the loader expands | status: done -->
 ### Declared provider address is an environment reference the loader expands
@@ -75,7 +75,7 @@ correct on a developer machine and unreachable in a pod (GH-728).
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc003-tool-authoring
+[rel02.0-uc003-tool-authoring](../use-cases/rel02.0-uc003-tool-authoring.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -102,7 +102,7 @@ TestLoadToolDefsExpandsEnvReference, TestLoadToolDefsUsesDefaultWhenUnset, TestL
 <!-- field: traces -->
 #### Traces
 
-- srd013-standard-tool-library AC10
+- [srd013-standard-tool-library](../software-requirements/srd013-standard-tool-library.md) [AC10](../software-requirements/srd013-standard-tool-library.md#ac10)
 
 <!-- case: Tool definition includes all required contract sections | status: done -->
 ### Tool definition includes all required contract sections
@@ -113,7 +113,7 @@ authoring section named in cfg-tool-authoring-standard.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc003-tool-authoring
+[rel02.0-uc003-tool-authoring](../use-cases/rel02.0-uc003-tool-authoring.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -143,8 +143,8 @@ TestValidate_SelectedToolContractCompletenessErrorsForActiveMigratedTool, TestVa
 <!-- field: traces -->
 #### Traces
 
-- srd022-builtin-tools AC1
-- srd025-rollback-lifecycle AC6
+- [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md) [AC1](../software-requirements/srd022-builtin-tools.md#ac1)
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) AC6
 
 <!-- case: One-verb rule rejects workflow-shaped ordinary tools | status: planned -->
 ### One-verb rule rejects workflow-shaped ordinary tools
@@ -160,7 +160,7 @@ surfaces authoring review next.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc003-tool-authoring
+[rel02.0-uc003-tool-authoring](../use-cases/rel02.0-uc003-tool-authoring.md)
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -177,8 +177,8 @@ rel02.0-uc003-tool-authoring
 <!-- field: traces -->
 #### Traces
 
-- srd022-builtin-tools AC1
-- srd023-cli-exec-tools AC5
+- [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md) [AC1](../software-requirements/srd022-builtin-tools.md#ac1)
+- [srd023-cli-exec-tools](../software-requirements/srd023-cli-exec-tools.md) [AC5](../software-requirements/srd023-cli-exec-tools.md#ac5)
 
 <!-- case: Typed input and output contracts are machine-consumable | status: done -->
 ### Typed input and output contracts are machine-consumable
@@ -190,7 +190,7 @@ tool or machine transition to consume without prose interpretation.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc003-tool-authoring
+[rel02.0-uc003-tool-authoring](../use-cases/rel02.0-uc003-tool-authoring.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -213,8 +213,8 @@ TestParseToolDefs_ContractFields, TestValidate_SelectedToolContractCompletenessP
 <!-- field: traces -->
 #### Traces
 
-- srd022-builtin-tools AC1
-- srd023-cli-exec-tools AC2
+- [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md) [AC1](../software-requirements/srd022-builtin-tools.md#ac1)
+- [srd023-cli-exec-tools](../software-requirements/srd023-cli-exec-tools.md) [AC2](../software-requirements/srd023-cli-exec-tools.md#ac2)
 
 <!-- case: Side effects and undo strategy are required for mutating tools | status: done -->
 ### Side effects and undo strategy are required for mutating tools
@@ -226,7 +226,7 @@ state_after_failure error semantics.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc003-tool-authoring
+[rel02.0-uc003-tool-authoring](../use-cases/rel02.0-uc003-tool-authoring.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -250,7 +250,7 @@ TestSignatureNeverWaivesBoundarySideEffects, TestValidate_ToolUndoConsistency
 <!-- field: traces -->
 #### Traces
 
-- srd025-rollback-lifecycle AC6
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) AC6
 
 <!-- case: Irreversible tools require confirmation or compensation | status: planned -->
 ### Irreversible tools require confirmation or compensation
@@ -266,7 +266,7 @@ surfaces authoring review next.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc003-tool-authoring
+[rel02.0-uc003-tool-authoring](../use-cases/rel02.0-uc003-tool-authoring.md)
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -284,8 +284,8 @@ rel02.0-uc003-tool-authoring
 <!-- field: traces -->
 #### Traces
 
-- srd024-blocking-input-tools AC1
-- srd025-rollback-lifecycle AC6
+- [srd024-blocking-input-tools](../software-requirements/srd024-blocking-input-tools.md) [AC1](../software-requirements/srd024-blocking-input-tools.md#ac1)
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) AC6
 
 <!-- case: Relationships distinguish overlapping vocabulary words | status: planned -->
 ### Relationships distinguish overlapping vocabulary words
@@ -301,7 +301,7 @@ surfaces authoring review next.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc003-tool-authoring
+[rel02.0-uc003-tool-authoring](../use-cases/rel02.0-uc003-tool-authoring.md)
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -321,7 +321,7 @@ rel02.0-uc003-tool-authoring
 <!-- field: traces -->
 #### Traces
 
-- srd022-builtin-tools AC1
+- [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md) [AC1](../software-requirements/srd022-builtin-tools.md#ac1)
 
 <!-- case: Sentence tool migration creates replacement word declarations | status: done -->
 ### Sentence tool migration creates replacement word declarations
@@ -337,7 +337,7 @@ applications/catalog by test-rel07.1-profile-conformance (GH-512).
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc004-sentence-tool-migration
+[rel02.0-uc004-sentence-tool-migration](../use-cases/rel02.0-uc004-sentence-tool-migration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -365,9 +365,9 @@ TestSessionWordsDeclareFullContract, TestPointWordsDeclareFullContract, TestSess
 <!-- field: traces -->
 #### Traces
 
-- srd013-standard-tool-library AC9
-- srd022-builtin-tools AC1
-- srd025-rollback-lifecycle AC6
+- [srd013-standard-tool-library](../software-requirements/srd013-standard-tool-library.md) [AC9](../software-requirements/srd013-standard-tool-library.md#ac9)
+- [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md) [AC1](../software-requirements/srd022-builtin-tools.md#ac1)
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) AC6
 
 <!-- case: MachineSpec owns migrated workflow sequence | status: done -->
 ### MachineSpec owns migrated workflow sequence
@@ -384,7 +384,7 @@ declares, and a selected word no declaration provides (GH-512).
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc004-sentence-tool-migration
+[rel02.0-uc004-sentence-tool-migration](../use-cases/rel02.0-uc004-sentence-tool-migration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -411,8 +411,8 @@ TestSessionPipelineEmitsValidate, TestUndeclaredEmitIsRejected, TestSelectionRej
 <!-- field: traces -->
 #### Traces
 
-- srd006-yaml-machine-config AC3
-- srd022-builtin-tools AC4
+- [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [AC3](../software-requirements/srd006-yaml-machine-config.md#ac3)
+- [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md) [AC4](../software-requirements/srd022-builtin-tools.md#ac4)
 
 <!-- case: Boundary and nested-machine tools declare their boundary effects | status: done -->
 ### Boundary and nested-machine tools declare their boundary effects
@@ -424,7 +424,7 @@ the external state and workspace effects rollback may need to compensate.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc004-sentence-tool-migration
+[rel02.0-uc004-sentence-tool-migration](../use-cases/rel02.0-uc004-sentence-tool-migration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -451,8 +451,8 @@ TestValidate_ToolBoundaryCategory
 <!-- field: traces -->
 #### Traces
 
-- srd024-blocking-input-tools AC1
-- srd025-rollback-lifecycle AC6
+- [srd024-blocking-input-tools](../software-requirements/srd024-blocking-input-tools.md) [AC1](../software-requirements/srd024-blocking-input-tools.md#ac1)
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) AC6
 
 <!-- case: Deprecated compatibility aggregate is retired | status: done -->
 ### Deprecated compatibility aggregate is retired
@@ -463,7 +463,7 @@ registration from Agent Core.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc004-sentence-tool-migration
+[rel02.0-uc004-sentence-tool-migration](../use-cases/rel02.0-uc004-sentence-tool-migration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -490,8 +490,8 @@ TestBuiltinFactoryCatalogCoversSelectedActiveInits
 <!-- field: traces -->
 #### Traces
 
-- srd013-standard-tool-library AC8
-- srd022-builtin-tools AC1
+- [srd013-standard-tool-library](../software-requirements/srd013-standard-tool-library.md) [AC8](../software-requirements/srd013-standard-tool-library.md#ac8)
+- [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md) [AC1](../software-requirements/srd022-builtin-tools.md#ac1)
 
 <!-- case: Migration preserves intermediate failure signals | status: done -->
 ### Migration preserves intermediate failure signals
@@ -508,7 +508,7 @@ test-rel07.1-profile-conformance (GH-512).
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc004-sentence-tool-migration
+[rel02.0-uc004-sentence-tool-migration](../use-cases/rel02.0-uc004-sentence-tool-migration.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -541,8 +541,8 @@ TestSessionPipelineFailureSignalsRoute, TestPointWordsDeclareFullContract
 <!-- field: traces -->
 #### Traces
 
-- srd006-yaml-machine-config AC3
-- srd013-standard-tool-library AC9
+- [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [AC3](../software-requirements/srd006-yaml-machine-config.md#ac3)
+- [srd013-standard-tool-library](../software-requirements/srd013-standard-tool-library.md) [AC9](../software-requirements/srd013-standard-tool-library.md#ac9)
 
 <!-- case: Lifecycle builtin declarations expose full adapter contracts | status: planned -->
 ### Lifecycle builtin declarations expose full adapter contracts
@@ -566,7 +566,7 @@ Claimed by this case but not asserted by the go_test above for the checkpoint_hi
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc003-tool-authoring
+[rel02.0-uc003-tool-authoring](../use-cases/rel02.0-uc003-tool-authoring.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -600,9 +600,9 @@ TestBuiltinFactoryCatalogSelectsEntriesByInit, TestValidate_SelectedToolContract
 <!-- field: traces -->
 #### Traces
 
-- srd022-builtin-tools AC1
-- srd025-rollback-lifecycle AC6
-- srd026-lifecycle-tools AC5
+- [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md) [AC1](../software-requirements/srd022-builtin-tools.md#ac1)
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) AC6
+- [srd026-lifecycle-tools](../software-requirements/srd026-lifecycle-tools.md) [AC5](../software-requirements/srd026-lifecycle-tools.md#ac5)
 
 <!-- case: Lifecycle tool contracts reject exec-wrapper behavior | status: done -->
 ### Lifecycle tool contracts reject exec-wrapper behavior
@@ -614,7 +614,7 @@ profiles, and invoked by MachineSpec actions.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc003-tool-authoring
+[rel02.0-uc003-tool-authoring](../use-cases/rel02.0-uc003-tool-authoring.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -640,6 +640,6 @@ TestRootCommandHasNoLifecycleSubcommands, TestBuiltinFactoryCatalogSelectsEntrie
 <!-- field: traces -->
 #### Traces
 
-- srd025-rollback-lifecycle AC7
-- srd026-lifecycle-tools AC1
-- srd026-lifecycle-tools AC5
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) AC7
+- [srd026-lifecycle-tools](../software-requirements/srd026-lifecycle-tools.md) [AC1](../software-requirements/srd026-lifecycle-tools.md#ac1)
+- [srd026-lifecycle-tools](../software-requirements/srd026-lifecycle-tools.md) [AC5](../software-requirements/srd026-lifecycle-tools.md#ac5)

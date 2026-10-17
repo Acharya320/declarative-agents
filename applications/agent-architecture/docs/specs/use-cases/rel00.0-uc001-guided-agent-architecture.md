@@ -106,7 +106,7 @@ or srd002 AC1 through AC3.
 | T2 | architecture-agent-architecture components documentation-curator | The application launches the only canonical profile and UI from applications/catalog. |
 | T3 | srd011-knowledge-manager AC1, AC2, AC3 | The catalog requirement defines the configured UX, runtime dependencies, and lifecycle outcomes this application presents. |
 | T4 | rel07.0-uc001-documentation-curator-profile-ux S1, S3, S4 | Catalog integration evidence owns profile loading, UI serving, and controlled listener shutdown. |
-| T5 | test-rel00.0-guided-agent-architecture | The reciprocal suite checks presentation, launch, lifecycle exit, audit, and stats contracts. |
+| T5 | [test-rel00.0-guided-agent-architecture](../test-suites/test-rel00.0-guided-agent-architecture.md) | The reciprocal suite checks presentation, launch, lifecycle exit, audit, and stats contracts. |
 | T6 | srd001-application-module-contract AC1, AC2, AC3, AC4, AC5, AC6 | The guided flow is the local composition and evidence surface for the shared runnable-module contract. |
 | T7 | srd002-managed-application-services AC1, AC2, AC3 | The documentation-curator and Go present servers are the two managed services in this local presentation. |
 

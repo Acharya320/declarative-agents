@@ -9,7 +9,7 @@ release: "00.0"
 <!-- field: traces -->
 ## Traces
 
-- rel00.0-uc001-login
+- [rel00.0-uc001-login](../use-cases/rel00.0-uc001-login.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -27,12 +27,12 @@ Valid credentials return a session token.
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-login
+[rel00.0-uc001-login](../use-cases/rel00.0-uc001-login.md)
 
 <!-- field: traces -->
 #### Traces
 
-- srd001-auth AC1
+- [srd001-auth](../software-requirements/srd001-auth.md) [AC1](../software-requirements/srd001-auth.md#ac1)
 
 <!-- case: TestLogin_InvalidCredentials -->
 ### TestLogin_InvalidCredentials
@@ -42,9 +42,9 @@ Invalid credentials return 401.
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-login
+[rel00.0-uc001-login](../use-cases/rel00.0-uc001-login.md)
 
 <!-- field: traces -->
 #### Traces
 
-- srd001-auth AC2
+- [srd001-auth](../software-requirements/srd001-auth.md) [AC2](../software-requirements/srd001-auth.md#ac2)

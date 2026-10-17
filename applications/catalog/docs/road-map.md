@@ -88,15 +88,15 @@ traceability records that the runtime consumes.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel06.0-uc001-mounted-profile-execution | Runtime executes profile-owned programs mounted from applications/catalog. | implemented |
-| rel06.0-uc002-profile-validation | Profile validation and release bundle tagging prove repository readiness. | implemented |
+| [rel06.0-uc001-mounted-profile-execution](specs/use-cases/rel06.0-uc001-mounted-profile-execution.md) | Runtime executes profile-owned programs mounted from applications/catalog. | implemented |
+| [rel06.0-uc002-profile-validation](specs/use-cases/rel06.0-uc002-profile-validation.md) | Profile validation and release bundle tagging prove repository readiness. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel06.0-agent-profiles | Formal proof suite for profile validation, mounted container execution, tagging, and agent-core integrations. | implemented |
+| [test-rel06.0-agent-profiles](specs/test-suites/test-rel06.0-agent-profiles.md) | Formal proof suite for profile validation, mounted container execution, tagging, and agent-core integrations. | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -154,18 +154,18 @@ applications/coding-agent and are not counted as implemented library proof.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel07.0-uc001-documentation-curator-profile-ux | Knowledge Manager profile UX, document machine_request, trace, and lifecycle proof. | implemented |
-| rel07.0-uc002-evaluator-generator-profile-boundary | Retired library tracer; application critic boundary is the replacement. | planned |
-| rel07.0-uc003-planner-generator-profile-boundary | Retired library tracer; application planner delegation is the replacement. | planned |
-| rel07.0-uc004-bench-evaluator-profile-boundary | Bench launches evaluator from a human/operator action. | implemented |
-| rel07.0-uc005-monitor-control-profile-boundary | Monitor/control tracer decision and lifecycle boundary proof. | implemented |
+| [rel07.0-uc001-documentation-curator-profile-ux](specs/use-cases/rel07.0-uc001-documentation-curator-profile-ux.md) | Knowledge Manager profile UX, document machine_request, trace, and lifecycle proof. | implemented |
+| [rel07.0-uc002-evaluator-generator-profile-boundary](specs/use-cases/rel07.0-uc002-evaluator-generator-profile-boundary.md) | Retired library tracer; application critic boundary is the replacement. | planned |
+| [rel07.0-uc003-planner-generator-profile-boundary](specs/use-cases/rel07.0-uc003-planner-generator-profile-boundary.md) | Retired library tracer; application planner delegation is the replacement. | planned |
+| [rel07.0-uc004-bench-evaluator-profile-boundary](specs/use-cases/rel07.0-uc004-bench-evaluator-profile-boundary.md) | Bench launches evaluator from a human/operator action. | implemented |
+| [rel07.0-uc005-monitor-control-profile-boundary](specs/use-cases/rel07.0-uc005-monitor-control-profile-boundary.md) | Monitor/control tracer decision and lifecycle boundary proof. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel07.0-profile-integrations | Implemented profile-owned tracer bullet evidence. | implemented |
+| [test-rel07.0-profile-integrations](specs/test-suites/test-rel07.0-profile-integrations.md) | Implemented profile-owned tracer bullet evidence. | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -222,17 +222,17 @@ terminal outcomes for its family and traces to the family SRD.
 
 | id | historical_aliases | summary | status |
 | --- | --- | --- | --- |
-| rel07.1-uc001-specification-critic-profile-boundary | [rel07.1-uc001-jurist-profile-boundary] | Specification-critic deterministic, LLM-free charter validation boundary. | specified |
-| rel07.1-uc002-lifecycle-profile-boundary |  | Lifecycle history, rollback, and approval machine-action boundary. | specified |
-| rel07.1-uc003-rest-profile-boundary |  | REST client and server boundary words and the ollama-* variant. | specified |
+| [rel07.1-uc001-specification-critic-profile-boundary](specs/use-cases/rel07.1-uc001-specification-critic-profile-boundary.md) | [rel07.1-uc001-jurist-profile-boundary] | Specification-critic deterministic, LLM-free charter validation boundary. | specified |
+| [rel07.1-uc002-lifecycle-profile-boundary](specs/use-cases/rel07.1-uc002-lifecycle-profile-boundary.md) |  | Lifecycle history, rollback, and approval machine-action boundary. | specified |
+| [rel07.1-uc003-rest-profile-boundary](specs/use-cases/rel07.1-uc003-rest-profile-boundary.md) |  | REST client and server boundary words and the ollama-* variant. | specified |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel07.1-profile-boundaries | Boundary use-case validation for the specification-critic, lifecycle, and rest families. | specified |
-| test-rel07.1-profile-conformance | Executable per-family OpenTelemetry conformance for all ten families. Nine are implemented shipped-behavioral (runs the shipped profile.yaml/variant, copy-and-patch only harness-controlled fields); the rest sample server boundary is bounded-behavioral (shipped REST config and declarations over a synthesized launch/await/stop machine). Generator (with qwen27b/qwen35b variants), the planner behavioral run, and the rest ollama-profile variant are Ollama-gated; lifecycle suspend/resume and history/rollback are Dolt-gated; rest proves its inbound webhook server boundary over the shipped REST config (client head proven at the agent-core package level). Generator, planner, and rest carry ungated load-and-wiring companions. | implemented |
+| [test-rel07.1-profile-boundaries](specs/test-suites/test-rel07.1-profile-boundaries.md) | Boundary use-case validation for the specification-critic, lifecycle, and rest families. | specified |
+| [test-rel07.1-profile-conformance](specs/test-suites/test-rel07.1-profile-conformance.md) | Executable per-family OpenTelemetry conformance for all ten families. Nine are implemented shipped-behavioral (runs the shipped profile.yaml/variant, copy-and-patch only harness-controlled fields); the rest sample server boundary is bounded-behavioral (shipped REST config and declarations over a synthesized launch/await/stop machine). Generator (with qwen27b/qwen35b variants), the planner behavioral run, and the rest ollama-profile variant are Ollama-gated; lifecycle suspend/resume and history/rollback are Dolt-gated; rest proves its inbound webhook server boundary over the shipped REST config (client head proven at the agent-core package level). Generator, planner, and rest carry ungated load-and-wiring companions. | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -289,8 +289,8 @@ authored by a model.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel08.0-uc001-corpus-ingest | Ingest profile lists and reads a corpus under model control, embeds at Ollama, and threads vectors into Chroma add. | implemented |
-| rel08.0-uc002-corpus-query | Reader profile embeds a question, threads the vector into Chroma query, and answers grounded in retrieved chunks. | implemented |
+| [rel08.0-uc001-corpus-ingest](specs/use-cases/rel08.0-uc001-corpus-ingest.md) | Ingest profile lists and reads a corpus under model control, embeds at Ollama, and threads vectors into Chroma add. | implemented |
+| [rel08.0-uc002-corpus-query](specs/use-cases/rel08.0-uc002-corpus-query.md) | Reader profile embeds a question, threads the vector into Chroma query, and answers grounded in retrieved chunks. | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -350,15 +350,15 @@ Relocated to applications/chatbot-mesh (rel00.0). The mesh data-plane specs (SRD
 
 | id | summary | status |
 | --- | --- | --- |
-| rel09.0-uc001-rag-server-query | Persistent RAG server answers a vector-in query_embeddings request and returns chunks with embedding-model metadata. | implemented |
-| rel09.0-uc002-chatbot-turn | Single-RAG chat turn embeds once, queries one RAG, composes via $from(), answers, and degrades to a 200 when the RAG fails. | implemented |
+| [rel09.0-uc001-rag-server-query](specs/use-cases/rel09.0-uc001-rag-server-query.md) | Persistent RAG server answers a vector-in query_embeddings request and returns chunks with embedding-model metadata. | implemented |
+| [rel09.0-uc002-chatbot-turn](specs/use-cases/rel09.0-uc002-chatbot-turn.md) | Single-RAG chat turn embeds once, queries one RAG, composes via $from(), answers, and degrades to a 200 when the RAG fails. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel09.0-chatbot-mesh | Profile-owned tracers for the RAG server query and the single-RAG chatbot turn with a degraded RAG. | implemented |
+| [test-rel09.0-chatbot-mesh](specs/test-suites/test-rel09.0-chatbot-mesh.md) | Profile-owned tracers for the RAG server query and the single-RAG chatbot turn with a degraded RAG. | implemented |
 
 <!-- release: 09.1 | status: implemented -->
 ## 09.1 - Tier selection and multi-RAG fan-out
@@ -385,14 +385,14 @@ Relocated to applications/chatbot-mesh (rel01.0). The mesh data-plane specs (SRD
 
 | id | summary | status |
 | --- | --- | --- |
-| rel09.1-uc001-routed-fanout | A tier-selected chat turn dispatches one chat-LLM word via $tool and fans the one embedding out to two RAGs, citing both corpora and degrading when one fails. | implemented |
+| [rel09.1-uc001-routed-fanout](specs/use-cases/rel09.1-uc001-routed-fanout.md) | A tier-selected chat turn dispatches one chat-LLM word via $tool and fans the one embedding out to two RAGs, citing both corpora and degrading when one fails. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel09.1-routing-fanout | Tracers for the $tool tier-selector dispatch, the two-RAG fan-out over disjoint corpora, and the degraded and embedding-mismatch paths. | implemented |
+| [test-rel09.1-routing-fanout](specs/test-suites/test-rel09.1-routing-fanout.md) | Tracers for the $tool tier-selector dispatch, the two-RAG fan-out over disjoint corpora, and the degraded and embedding-mismatch paths. | implemented |
 
 <!-- release: 09.2 | status: implemented -->
 ## 09.2 - Observability
@@ -419,14 +419,14 @@ Relocated to applications/chatbot-mesh (rel02.0). The mesh data-plane specs (SRD
 
 | id | summary | status |
 | --- | --- | --- |
-| rel09.2-uc001-observability | The observability panel shows each agent's run state and event stream and renders a selected turn's connected cross-agent trace as a span waterfall. | implemented |
+| [rel09.2-uc001-observability](specs/use-cases/rel09.2-uc001-observability.md) | The observability panel shows each agent's run state and event stream and renders a selected turn's connected cross-agent trace as a span waterfall. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel09.2-observability | Tracers for the per-agent monitor panels over monitor_proxy and the cross-agent trace waterfall from the trace backend. | implemented |
+| [test-rel09.2-observability](specs/test-suites/test-rel09.2-observability.md) | Tracers for the per-agent monitor panels over monitor_proxy and the cross-agent trace waterfall from the trace backend. | implemented |
 
 <!-- release: 09.3 | status: implemented -->
 ## 09.3 - Mesh deployment and tiered swap
@@ -452,14 +452,14 @@ Relocated to applications/chatbot-mesh (rel03.0). The mesh data-plane specs (SRD
 
 | id | summary | status |
 | --- | --- | --- |
-| rel09.3-uc001-mesh-deployment | One Helm chart deploys the mesh on a kind cluster with values-to-config co-generation, a Service repoint, and an add-RAG rollout with checkpoint resume, provisioned through a separately-authenticated deployment API. | implemented |
+| [rel09.3-uc001-mesh-deployment](specs/use-cases/rel09.3-uc001-mesh-deployment.md) | One Helm chart deploys the mesh on a kind cluster with values-to-config co-generation, a Service repoint, and an add-RAG rollout with checkpoint resume, provisioned through a separately-authenticated deployment API. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel09.3-mesh-deployment | Tracers for the kind deploy smoke, the co-generation drift lock, the repoint and add-RAG swaps, and the provisioning deployment API. | implemented |
+| [test-rel09.3-mesh-deployment](specs/test-suites/test-rel09.3-mesh-deployment.md) | Tracers for the kind deploy smoke, the co-generation drift lock, the repoint and add-RAG swaps, and the provisioning deployment API. | implemented |
 
 <!-- release: 09.4 | status: planned -->
 ## 09.4 - Control plane
@@ -488,14 +488,14 @@ Relocated to applications/chatbot-mesh (rel05.0) as srd004-provisioning-workflow
 
 | id | summary | status |
 | --- | --- | --- |
-| rel09.4-uc001-control-plane-provisioning | The coordinator sequences a reconfiguration the UX agent delegates, and the creator materializes and health-monitors the agent instances, resuming from checkpoints on restart. | specified |
+| [rel09.4-uc001-control-plane-provisioning](specs/use-cases/rel09.4-uc001-control-plane-provisioning.md) | The coordinator sequences a reconfiguration the UX agent delegates, and the creator materializes and health-monitors the agent instances, resuming from checkpoints on restart. | specified |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel09.4-control-plane | Tracers for the coordinator's reconfiguration sequencing and the creator's instance lifecycle and checkpoint-resume restart. | specified |
+| [test-rel09.4-control-plane](specs/test-suites/test-rel09.4-control-plane.md) | Tracers for the coordinator's reconfiguration sequencing and the creator's instance lifecycle and checkpoint-resume restart. | specified |
 
 <!-- release: 09.5 | status: implemented -->
 ## 09.5 - In-cluster LLM tier
@@ -532,14 +532,14 @@ Relocated to applications/chatbot-mesh (rel04.0). The mesh data-plane specs (SRD
 
 | id | summary | status |
 | --- | --- | --- |
-| rel09.5-uc001-in-cluster-llm-tier | A fresh-cluster install with defaults answers a chat turn with zero external LLM dependency; the disabled-tier override reproduces the external endpoint, and agents are not ready until the models are pulled. | implemented |
+| [rel09.5-uc001-in-cluster-llm-tier](specs/use-cases/rel09.5-uc001-in-cluster-llm-tier.md) | A fresh-cluster install with defaults answers a chat turn with zero external LLM dependency; the disabled-tier override reproduces the external endpoint, and agents are not ready until the models are pulled. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel09.5-llm-tier | Tracers for the default-install turn, the disabled-tier endpoint override, the preload-gate ordering, and the CPU-only kind smoke. | implemented |
+| [test-rel09.5-llm-tier](specs/test-suites/test-rel09.5-llm-tier.md) | Tracers for the default-install turn, the disabled-tier endpoint override, the preload-gate ordering, and the CPU-only kind smoke. | implemented |
 
 <!-- release: 10.0 | status: implemented -->
 ## 10.0 - Reference-architecture role alignment
@@ -573,16 +573,16 @@ reads as a role catalog. Epic #323 (issues #325-#328, #330).
 
 | id | summary | status |
 | --- | --- | --- |
-| rel10.0-uc001-role-catalog-renames | The evaluator family is renamed to critic and generator to executor (reference role names). | implemented |
-| rel10.0-uc002-knowledge-family-rescope | The vendor-named chroma family moves under knowledge-manager as corpus-ingest and corpus-reader. | implemented |
-| rel10.0-uc003-conformance-fixture-relocation | The rest, control, and lifecycle conformance fixtures move to testdata/conformance so agents/ lists only role families. | implemented |
+| [rel10.0-uc001-role-catalog-renames](specs/use-cases/rel10.0-uc001-role-catalog-renames.md) | The evaluator family is renamed to critic and generator to executor (reference role names). | implemented |
+| [rel10.0-uc002-knowledge-family-rescope](specs/use-cases/rel10.0-uc002-knowledge-family-rescope.md) | The vendor-named chroma family moves under knowledge-manager as corpus-ingest and corpus-reader. | implemented |
+| [rel10.0-uc003-conformance-fixture-relocation](specs/use-cases/rel10.0-uc003-conformance-fixture-relocation.md) | The rest, control, and lifecycle conformance fixtures move to testdata/conformance so agents/ lists only role families. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel10.0-role-catalog | Cases validating the critic/executor renames, the chroma rescope, and the conformance-fixture relocation with mage validate, mage conformance, go test, and zero-hit greps. | implemented |
+| [test-rel10.0-role-catalog](specs/test-suites/test-rel10.0-role-catalog.md) | Cases validating the critic/executor renames, the chroma rescope, and the conformance-fixture relocation with mage validate, mage conformance, go test, and zero-hit greps. | implemented |
 
 <!-- release: 11.0 | status: in-progress -->
 ## 11.0 - Scenario Critic test rig
@@ -672,15 +672,15 @@ teardown.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel11.0-uc001-scenario-critic-scenario-run | The scenario critic runs an agent's scenarios with no live services, reports ordered pass/fail verdicts, exposes machine-visible child-stop dispatches, and repeats without observed port or state leakage. | in-progress |
-| rel11.0-uc002-mock-serves-fixtures | One mock profile stands in for any REST dependency, scripts response sequences, and exposes a per-instance request log whose contents are inspected by conformance tests. | in-progress |
+| [rel11.0-uc001-scenario-critic-scenario-run](specs/use-cases/rel11.0-uc001-scenario-critic-scenario-run.md) | The scenario critic runs an agent's scenarios with no live services, reports ordered pass/fail verdicts, exposes machine-visible child-stop dispatches, and repeats without observed port or state leakage. | in-progress |
+| [rel11.0-uc002-mock-serves-fixtures](specs/use-cases/rel11.0-uc002-mock-serves-fixtures.md) | One mock profile stands in for any REST dependency, scripts response sequences, and exposes a per-instance request log whose contents are inspected by conformance tests. | in-progress |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel11.0-scenario-critic-rig | Cases for fixture serving and sequencing, two mocks from one profile, direct request-log inspection, malformed-fixture --validate-config rejection, scenario verdicts, visible stop dispatches, repeatable runs, cross-root discovery, and shipped-profile validation. | in-progress |
+| [test-rel11.0-scenario-critic-rig](specs/test-suites/test-rel11.0-scenario-critic-rig.md) | Cases for fixture serving and sequencing, two mocks from one profile, direct request-log inspection, malformed-fixture --validate-config rejection, scenario verdicts, visible stop dispatches, repeatable runs, cross-root discovery, and shipped-profile validation. | in-progress |
 
 <!-- field: proof -->
 ### Proof
@@ -751,14 +751,14 @@ docs/migrations/v0.20260727.0-agent-role-realization-alignment.md
 
 | id | summary | status |
 | --- | --- | --- |
-| rel12.0-uc001-agent-role-realization-alignment | Coordinate all realization renames as one versioned compatibility migration. | implemented |
+| [rel12.0-uc001-agent-role-realization-alignment](specs/use-cases/rel12.0-uc001-agent-role-realization-alignment.md) | Coordinate all realization renames as one versioned compatibility migration. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel12.0-agent-role-realization-alignment | Release metadata, aliases, closures, package renders, tag semantics, and zero-hit evidence. | implemented |
+| [test-rel12.0-agent-role-realization-alignment](specs/test-suites/test-rel12.0-agent-role-realization-alignment.md) | Release metadata, aliases, closures, package renders, tag semantics, and zero-hit evidence. | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -809,14 +809,14 @@ Collector family promotion
 
 | id | title | status |
 | --- | --- | --- |
-| rel13.0-uc001-collector-family | A standalone collector receives, spools, and shuts down in spool mode | implemented |
+| [rel13.0-uc001-collector-family](specs/use-cases/rel13.0-uc001-collector-family.md) | A standalone collector receives, spools, and shuts down in spool mode | implemented |
 
 <!-- field: test_suites | form: "typed table" -->
 ### Test suites
 
 | id | title | cases | status |
 | --- | --- | --- | --- |
-| test-rel13.0-collector | Collector family conformance | 5 | implemented |
+| [test-rel13.0-collector](specs/test-suites/test-rel13.0-collector.md) | Collector family conformance | 5 | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -860,14 +860,14 @@ Served collector trace UI
 
 | id | title | status |
 | --- | --- | --- |
-| rel14.0-uc001-served-trace-ui | The collector serves its own trace UI at the query origin | implemented |
+| [rel14.0-uc001-served-trace-ui](specs/use-cases/rel14.0-uc001-served-trace-ui.md) | The collector serves its own trace UI at the query origin | implemented |
 
 <!-- field: test_suites | form: "typed table" -->
 ### Test suites
 
 | id | title | cases | status |
 | --- | --- | --- | --- |
-| test-rel14.0-served-ui | Served collector trace UI | 5 | implemented |
+| [test-rel14.0-served-ui](specs/test-suites/test-rel14.0-served-ui.md) | Served collector trace UI | 5 | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -915,14 +915,14 @@ Collector Explore panel
 
 | id | title | status |
 | --- | --- | --- |
-| rel15.0-uc001-explore-panel | An operator narrows a latency band to a responsible attribute and lands on a trace | implemented |
+| [rel15.0-uc001-explore-panel](specs/use-cases/rel15.0-uc001-explore-panel.md) | An operator narrows a latency band to a responsible attribute and lands on a trace | implemented |
 
 <!-- field: test_suites | form: "typed table" -->
 ### Test suites
 
 | id | title | cases | status |
 | --- | --- | --- | --- |
-| test-rel15.0-explore | Collector Explore panel | 6 | implemented |
+| [test-rel15.0-explore](specs/test-suites/test-rel15.0-explore.md) | Collector Explore panel | 6 | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -969,14 +969,14 @@ docs/migrations/v0.20260804.0-applier-family.md
 
 | id | title | status |
 | --- | --- | --- |
-| rel16.0-uc001-applier-family | Three applications compose one canonical applier family | implemented |
+| [rel16.0-uc001-applier-family](specs/use-cases/rel16.0-uc001-applier-family.md) | Three applications compose one canonical applier family | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | title | status |
 | --- | --- | --- |
-| test-rel16.0-applier | Canonical applier family conformance | implemented |
+| [test-rel16.0-applier](specs/test-suites/test-rel16.0-applier.md) | Canonical applier family conformance | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -1028,14 +1028,14 @@ Rig doctor root-cause analyst
 
 | id | title | status |
 | --- | --- | --- |
-| rel17.0-uc001-rig-doctor | An operator runs mage diagnose after a failed scenario and reads a cited diagnosis | implemented |
+| [rel17.0-uc001-rig-doctor](specs/use-cases/rel17.0-uc001-rig-doctor.md) | An operator runs mage diagnose after a failed scenario and reads a cited diagnosis | implemented |
 
 <!-- field: test_suites | form: "typed table" -->
 ### Test suites
 
 | id | title | cases | status |
 | --- | --- | --- | --- |
-| test-rel17.0-rig-doctor | Rig doctor root-cause analyst conformance | 12 | implemented |
+| [test-rel17.0-rig-doctor](specs/test-suites/test-rel17.0-rig-doctor.md) | Rig doctor root-cause analyst conformance | 12 | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -1089,14 +1089,14 @@ Host-side deployer
 
 | id | title | status |
 | --- | --- | --- |
-| rel18.0-uc001-host-side-deploy | An operator runs mage deploy and the applier's deploy machine installs the release | implemented |
+| [rel18.0-uc001-host-side-deploy](specs/use-cases/rel18.0-uc001-host-side-deploy.md) | An operator runs mage deploy and the applier's deploy machine installs the release | implemented |
 
 <!-- field: test_suites | form: "typed table" -->
 ### Test suites
 
 | id | title | cases | status |
 | --- | --- | --- | --- |
-| test-rel18.0-host-side-deploy | Host-side deployer conformance | 11 | implemented |
+| [test-rel18.0-host-side-deploy](specs/test-suites/test-rel18.0-host-side-deploy.md) | Host-side deployer conformance | 11 | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -1148,14 +1148,14 @@ Observer family promotion
 
 | id | title | status |
 | --- | --- | --- |
-| rel99.0-uc001-observer-family | The observer is a catalog-owned family adopted across applications | planned |
+| [rel99.0-uc001-observer-family](specs/use-cases/rel99.0-uc001-observer-family.md) | The observer is a catalog-owned family adopted across applications | planned |
 
 <!-- field: test_suites | form: "typed table" -->
 ### Test suites
 
 | id | title | cases | status |
 | --- | --- | --- | --- |
-| test-rel99.0-observer | Observer family promotion | 3 | planned |
+| [test-rel99.0-observer](specs/test-suites/test-rel99.0-observer.md) | Observer family promotion | 3 | planned |
 
 <!-- field: proof -->
 ### Proof

@@ -84,19 +84,19 @@ root release.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd001-application-module-contract AC1 | Classifies the runnable module and preserves the catalog boundary. |
-| T2 | srd001-application-module-contract AC2 | Verifies canonical references, composition ownership, and package provenance when applicable. |
-| T3 | srd001-application-module-contract AC3 | Parses local documents and verifies reciprocal traceability. |
-| T4 | srd001-application-module-contract AC4 | Verifies root audit, test, stats, and release participation. |
-| T5 | srd001-application-module-contract AC5 | Verifies zero duplicate agent accounting. |
-| T6 | srd001-application-module-contract AC6 | Distinguishes baseline audit from conditional Mage surfaces. |
-| T7 | srd002-managed-application-services AC1 | Applies lifecycle and health checks only to managed services. |
-| T8 | srd002-managed-application-services AC2 | Applies authority and operator-verb checks only to managed services. |
-| T9 | srd002-managed-application-services AC3 | Applies telemetry and configuration checks only to managed services. |
-| T10 | srd002-managed-application-services AC4 | Applies deterministic package checks only to packaged applications. |
-| T11 | srd002-managed-application-services AC5 | Applies chart checks only to Helm-managed applications. |
-| T12 | srd002-managed-application-services AC6 | Applies ENG01 only to kind-demo applications and proves the exclusion for others. |
-| T13 | test-rel00.0-application-contract-conformance | The suite executes baseline and capability-dependent structural evidence. |
+| T1 | [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC1](../software-requirements/srd001-application-module-contract.md#ac1) | Classifies the runnable module and preserves the catalog boundary. |
+| T2 | [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC2](../software-requirements/srd001-application-module-contract.md#ac2) | Verifies canonical references, composition ownership, and package provenance when applicable. |
+| T3 | [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC3](../software-requirements/srd001-application-module-contract.md#ac3) | Parses local documents and verifies reciprocal traceability. |
+| T4 | [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC4](../software-requirements/srd001-application-module-contract.md#ac4) | Verifies root audit, test, stats, and release participation. |
+| T5 | [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC5](../software-requirements/srd001-application-module-contract.md#ac5) | Verifies zero duplicate agent accounting. |
+| T6 | [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC6](../software-requirements/srd001-application-module-contract.md#ac6) | Distinguishes baseline audit from conditional Mage surfaces. |
+| T7 | [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [AC1](../software-requirements/srd002-managed-application-services.md#ac1) | Applies lifecycle and health checks only to managed services. |
+| T8 | [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [AC2](../software-requirements/srd002-managed-application-services.md#ac2) | Applies authority and operator-verb checks only to managed services. |
+| T9 | [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [AC3](../software-requirements/srd002-managed-application-services.md#ac3) | Applies telemetry and configuration checks only to managed services. |
+| T10 | [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [AC4](../software-requirements/srd002-managed-application-services.md#ac4) | Applies deterministic package checks only to packaged applications. |
+| T11 | [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [AC5](../software-requirements/srd002-managed-application-services.md#ac5) | Applies chart checks only to Helm-managed applications. |
+| T12 | [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [AC6](../software-requirements/srd002-managed-application-services.md#ac6) | Applies ENG01 only to kind-demo applications and proves the exclusion for others. |
+| T13 | [test-rel00.0-application-contract-conformance](../test-suites/test-rel00.0-application-contract-conformance.md) | The suite executes baseline and capability-dependent structural evidence. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -110,8 +110,8 @@ applications/catalog remains a reusable non-runnable module.
 <!-- field: traces -->
 #### Traces
 
-- srd001-application-module-contract R1
-- srd001-application-module-contract AC1
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [R1](../software-requirements/srd001-application-module-contract.md#r1---module-identity-and-ownership)
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC1](../software-requirements/srd001-application-module-contract.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -122,10 +122,10 @@ root stats count each canonical agent exactly once.
 <!-- field: traces -->
 #### Traces
 
-- srd001-application-module-contract R2
-- srd001-application-module-contract R5
-- srd001-application-module-contract AC2
-- srd001-application-module-contract AC5
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [R2](../software-requirements/srd001-application-module-contract.md#r2---canonical-references-and-composition)
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [R5](../software-requirements/srd001-application-module-contract.md#r5---zero-duplicate-agent-accounting)
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC2](../software-requirements/srd001-application-module-contract.md#ac2)
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC5](../software-requirements/srd001-application-module-contract.md#ac5)
 
 <!-- sc: S3 -->
 ### S3
@@ -136,8 +136,8 @@ local documents cite shared requirements rather than copying them.
 <!-- field: traces -->
 #### Traces
 
-- srd001-application-module-contract R3
-- srd001-application-module-contract AC3
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [R3](../software-requirements/srd001-application-module-contract.md#r3---application-documentation)
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC3](../software-requirements/srd001-application-module-contract.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -148,10 +148,10 @@ actual tests, metrics, release state, and optional capabilities.
 <!-- field: traces -->
 #### Traces
 
-- srd001-application-module-contract R4
-- srd001-application-module-contract R6
-- srd001-application-module-contract AC4
-- srd001-application-module-contract AC6
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [R4](../software-requirements/srd001-application-module-contract.md#r4---root-mage-participation)
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [R6](../software-requirements/srd001-application-module-contract.md#r6---baseline-mage-surface)
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC4](../software-requirements/srd001-application-module-contract.md#ac4)
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC6](../software-requirements/srd001-application-module-contract.md#ac6)
 
 <!-- sc: S5 -->
 ### S5
@@ -162,12 +162,12 @@ telemetry, configuration, diagnostic, and shutdown evidence.
 <!-- field: traces -->
 #### Traces
 
-- srd002-managed-application-services R1
-- srd002-managed-application-services R2
-- srd002-managed-application-services R3
-- srd002-managed-application-services AC1
-- srd002-managed-application-services AC2
-- srd002-managed-application-services AC3
+- [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [R1](../software-requirements/srd002-managed-application-services.md#r1---managed-service-lifecycle)
+- [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [R2](../software-requirements/srd002-managed-application-services.md#r2---control-and-operator-verbs)
+- [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [R3](../software-requirements/srd002-managed-application-services.md#r3---telemetry-and-configuration)
+- [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [AC1](../software-requirements/srd002-managed-application-services.md#ac1)
+- [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [AC2](../software-requirements/srd002-managed-application-services.md#ac2)
+- [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [AC3](../software-requirements/srd002-managed-application-services.md#ac3)
 
 <!-- sc: S6 -->
 ### S6
@@ -178,10 +178,10 @@ schema, render, archive, and role-lifecycle evidence.
 <!-- field: traces -->
 #### Traces
 
-- srd002-managed-application-services R4
-- srd002-managed-application-services R5
-- srd002-managed-application-services AC4
-- srd002-managed-application-services AC5
+- [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [R4](../software-requirements/srd002-managed-application-services.md#r4---deterministic-package)
+- [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [R5](../software-requirements/srd002-managed-application-services.md#r5---helm-managed-application)
+- [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [AC4](../software-requirements/srd002-managed-application-services.md#ac4)
+- [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [AC5](../software-requirements/srd002-managed-application-services.md#ac5)
 
 <!-- sc: S7 -->
 ### S7
@@ -192,8 +192,8 @@ records that group as not applicable.
 <!-- field: traces -->
 #### Traces
 
-- srd002-managed-application-services R6
-- srd002-managed-application-services AC6
+- [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [R6](../software-requirements/srd002-managed-application-services.md#r6---kind-integration-and-demo)
+- [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [AC6](../software-requirements/srd002-managed-application-services.md#ac6)
 
 <!-- field: out_of_scope -->
 ## Out of scope

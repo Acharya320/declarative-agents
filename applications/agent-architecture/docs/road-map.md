@@ -62,14 +62,14 @@ reports composition only and contributes no canonical agents.
 
 | id | summary | status | live_observation_status |
 | --- | --- | --- | --- |
-| rel00.0-uc001-guided-agent-architecture | An operator serves the deck, starts the canonical curator, opens its UI, and exits it declaratively. | partial | dependency_gated |
+| [rel00.0-uc001-guided-agent-architecture](specs/use-cases/rel00.0-uc001-guided-agent-architecture.md) | An operator serves the deck, starts the canonical curator, opens its UI, and exits it declaratively. | partial | dependency_gated |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status | live_observation_status |
 | --- | --- | --- | --- |
-| test-rel00.0-guided-agent-architecture | Deterministic command and contract tests plus dependency-gated launch and exit evidence. | partial | dependency_gated |
+| [test-rel00.0-guided-agent-architecture](specs/test-suites/test-rel00.0-guided-agent-architecture.md) | Deterministic command and contract tests plus dependency-gated launch and exit evidence. | partial | dependency_gated |
 
 <!-- field: evidence | form: "typed table" -->
 ### Evidence
@@ -112,14 +112,14 @@ query surface to show the trace waterfall.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel01.0-uc001-demo-trace-collection | The demo run starts the collector, exports curator traces, and stops the collector cleanly. | implemented |
+| [rel01.0-uc001-demo-trace-collection](specs/use-cases/rel01.0-uc001-demo-trace-collection.md) | The demo run starts the collector, exports curator traces, and stops the collector cleanly. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel01.0-demo-trace-collection | Deterministic tracing toggle, collector command, and curator OTLP flag tests. | implemented |
+| [test-rel01.0-demo-trace-collection](specs/test-suites/test-rel01.0-demo-trace-collection.md) | Deterministic tracing toggle, collector command, and curator OTLP flag tests. | implemented |
 
 <!-- field: evidence -->
 ### Evidence
@@ -175,14 +175,14 @@ the collector UI remains in its bounded role package.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel02.0-uc001-render-packaged-chart | An operator prepares the catalog-owned closures and renders and validates the packaged chart. | implemented |
+| [rel02.0-uc001-render-packaged-chart](specs/use-cases/rel02.0-uc001-render-packaged-chart.md) | An operator prepares the catalog-owned closures and renders and validates the packaged chart. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel02.0-render-packaged-chart | Topology render, manifest-derived closure and checksum, values schema and guards, and self-contained archive evidence. | implemented |
+| [test-rel02.0-render-packaged-chart](specs/test-suites/test-rel02.0-render-packaged-chart.md) | Topology render, manifest-derived closure and checksum, values schema and guards, and self-contained archive evidence. | implemented |
 
 <!-- field: evidence -->
 ### Evidence
@@ -229,14 +229,14 @@ prerequisite is unavailable.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel03.0-uc001-live-helm-smoke | A developer proves the packaged topology on a disposable kind cluster. | implemented |
+| [rel03.0-uc001-live-helm-smoke](specs/use-cases/rel03.0-uc001-live-helm-smoke.md) | A developer proves the packaged topology on a disposable kind cluster. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel03.0-live-helm-smoke | Packaged-archive install, real readiness and clean exit, retained trace, and skip and cleanup evidence. | implemented |
+| [test-rel03.0-live-helm-smoke](specs/test-suites/test-rel03.0-live-helm-smoke.md) | Packaged-archive install, real readiness and clean exit, retained trace, and skip and cleanup evidence. | implemented |
 
 <!-- field: evidence -->
 ### Evidence
@@ -275,14 +275,14 @@ while retaining chart-specific REST, command, schema, and rollout bindings.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel04.0-uc001-declarative-applier | An operator or CI caller submits a decided values patch that the applier validates, applies, verifies, and rolls back on failure. | implemented |
+| [rel04.0-uc001-declarative-applier](specs/use-cases/rel04.0-uc001-declarative-applier.md) | An operator or CI caller submits a decided values patch that the applier validates, applies, verifies, and rolls back on failure. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel04.0-declarative-applier | Recording-fake terminal coverage, real chart-schema rejection, applier-only CLI authority, broken-read classification, and a live on-cluster rollout and rollback target. | implemented |
+| [test-rel04.0-declarative-applier](specs/test-suites/test-rel04.0-declarative-applier.md) | Recording-fake terminal coverage, real chart-schema rejection, applier-only CLI authority, broken-read classification, and a live on-cluster rollout and rollback target. | implemented |
 
 <!-- field: evidence -->
 ### Evidence

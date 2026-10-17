@@ -191,11 +191,11 @@ Catalog boot smoke validates the standalone profile, and conformance checks that
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.4
-- R2.5
-- R5.1
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.4](#r24)
+- [R2.5](#r25)
+- [R5.1](#r51)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -205,15 +205,15 @@ A fixture evidence directory with a failing rollout drives the scripted-provider
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R2.3
-- R3.1
-- R3.2
-- R3.3
-- R4.1
-- R5.3
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R2.3](#r23)
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R4.1](#r41)
+- [R5.3](#r53)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -223,9 +223,9 @@ An empty evidence directory reaches NoEvidence without calling the model and wit
 <!-- field: traces -->
 #### Traces
 
-- R4.2
-- R4.3
-- R2.3
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R2.3](#r23)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -235,7 +235,7 @@ The family inventory test finds the root-cause-analyst binding in all three sema
 <!-- field: traces -->
 #### Traces
 
-- R5.2
+- [R5.2](#r52)
 
 <!-- ac: AC8 -->
 ### AC8
@@ -245,8 +245,8 @@ A provider that fails twice and then answers reaches Diagnosed; one that never a
 <!-- field: traces -->
 #### Traces
 
-- R4.3
-- R4.5
+- [R4.3](#r43)
+- [R4.5](#r45)
 
 <!-- ac: AC7 -->
 ### AC7
@@ -256,9 +256,9 @@ A scripted run that writes undecodable YAML, and one that calls done having writ
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.3
-- R4.4
+- [R4.1](#r41)
+- [R4.3](#r43)
+- [R4.4](#r44)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -268,9 +268,9 @@ A scripted run dispatches both spool queries by model choice and the spans they 
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.4
-- R2.5
+- [R2.1](#r21)
+- [R2.4](#r24)
+- [R2.5](#r25)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -280,8 +280,8 @@ Rig capture writes a manifest that lists every captured file and records capture
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.4
+- [R1.1](#r11)
+- [R1.4](#r14)
 
 <!-- field: platform_dependencies | form: "typed table" -->
 ## Platform dependencies

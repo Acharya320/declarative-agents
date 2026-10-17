@@ -9,8 +9,8 @@ release: "02.0"
 <!-- field: traces -->
 ## Traces
 
-- rel02.0-uc001-approval-suspend-resume
-- rel02.0-uc002-history-rollback
+- [rel02.0-uc001-approval-suspend-resume](../use-cases/rel02.0-uc001-approval-suspend-resume.md)
+- [rel02.0-uc002-history-rollback](../use-cases/rel02.0-uc002-history-rollback.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -41,7 +41,7 @@ overhead.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc001-approval-suspend-resume
+[rel02.0-uc001-approval-suspend-resume](../use-cases/rel02.0-uc001-approval-suspend-resume.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -64,9 +64,9 @@ TestLoop_NoopCheckpointDefaultPersistsNothing, TestNoopCheckpointSaveIsNoopAndLo
 <!-- field: traces -->
 #### Traces
 
-- srd025-rollback-lifecycle AC1
-- srd035-checkpoint-port AC5
-- srd035-checkpoint-port AC6
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) [AC1](../software-requirements/srd025-rollback-lifecycle.md#ac1)
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC5](../software-requirements/srd035-checkpoint-port.md#ac5)
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC6](../software-requirements/srd035-checkpoint-port.md#ac6)
 
 <!-- case: Loop saves Position and Execution after each dispatch cycle | status: done -->
 ### Loop saves Position and Execution after each dispatch cycle
@@ -79,7 +79,7 @@ position and the full ordered log.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc001-approval-suspend-resume
+[rel02.0-uc001-approval-suspend-resume](../use-cases/rel02.0-uc001-approval-suspend-resume.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -102,9 +102,9 @@ TestLoop_SavesSnapshotAfterDispatchWithConfiguredAdapter
 <!-- field: traces -->
 #### Traces
 
-- srd025-rollback-lifecycle AC1
-- srd025-rollback-lifecycle AC2
-- srd035-checkpoint-port AC6
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) [AC1](../software-requirements/srd025-rollback-lifecycle.md#ac1)
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) [AC2](../software-requirements/srd025-rollback-lifecycle.md#ac2)
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC6](../software-requirements/srd035-checkpoint-port.md#ac6)
 
 <!-- case: Conversation folds into the typed snapshot on Save | status: done -->
 ### Conversation folds into the typed snapshot on Save
@@ -117,7 +117,7 @@ opaque receipt verbatim, restoring an empty receipt for read-only steps.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc001-approval-suspend-resume
+[rel02.0-uc001-approval-suspend-resume](../use-cases/rel02.0-uc001-approval-suspend-resume.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -143,11 +143,11 @@ TestLoop_PortSavePersistsConversation, TestInMemoryCheckpointRoundTripsConversat
 <!-- field: traces -->
 #### Traces
 
-- srd025-rollback-lifecycle AC1
-- srd025-rollback-lifecycle AC3
-- srd035-checkpoint-port AC3
-- srd035-checkpoint-port AC4
-- srd035-checkpoint-port AC5
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) [AC1](../software-requirements/srd025-rollback-lifecycle.md#ac1)
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) [AC3](../software-requirements/srd025-rollback-lifecycle.md#ac3)
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC3](../software-requirements/srd035-checkpoint-port.md#ac3)
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC4](../software-requirements/srd035-checkpoint-port.md#ac4)
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC5](../software-requirements/srd035-checkpoint-port.md#ac5)
 
 <!-- case: Position and Execution JSON wire format | status: done -->
 ### Position and Execution JSON wire format
@@ -160,7 +160,7 @@ typed values compile and round-trip through JSON.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc001-approval-suspend-resume
+[rel02.0-uc001-approval-suspend-resume](../use-cases/rel02.0-uc001-approval-suspend-resume.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -189,8 +189,8 @@ TestCheckpointWireFormat, TestInMemoryCheckpointRoundTripsConversationAndReceipt
 <!-- field: traces -->
 #### Traces
 
-- srd035-checkpoint-port AC2
-- srd035-checkpoint-port AC3
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC2](../software-requirements/srd035-checkpoint-port.md#ac2)
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC3](../software-requirements/srd035-checkpoint-port.md#ac3)
 
 <!-- case: Conversation references survive restart and stay unavailable without persistence | status: done -->
 ### Conversation references survive restart and stay unavailable without persistence
@@ -208,7 +208,7 @@ execution or conversation mutation, while sequential dispatch remains supported.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc001-approval-suspend-resume
+[rel02.0-uc001-approval-suspend-resume](../use-cases/rel02.0-uc001-approval-suspend-resume.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -241,10 +241,10 @@ TestDoltCheckpointConversationReferencesSurviveFreshAdapter, TestDoltCheckpointC
 <!-- field: traces -->
 #### Traces
 
-- srd035-checkpoint-port AC3
-- srd035-checkpoint-port AC5
-- srd035-checkpoint-port AC8
-- srd036-dolt-state-persistence AC5
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC3](../software-requirements/srd035-checkpoint-port.md#ac3)
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC5](../software-requirements/srd035-checkpoint-port.md#ac5)
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC8](../software-requirements/srd035-checkpoint-port.md#ac8)
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC5](../software-requirements/srd036-dolt-state-persistence.md#ac5)
 
 <!-- case: Ten-turn trace-plus-receipt content growth is linear | status: done -->
 ### Ten-turn trace-plus-receipt content growth is linear
@@ -259,7 +259,7 @@ storage is authoritative and excluded from the metric.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc001-approval-suspend-resume
+[rel02.0-uc001-approval-suspend-resume](../use-cases/rel02.0-uc001-approval-suspend-resume.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -285,8 +285,8 @@ TestTenTurnDeltaTraceAndReceiptVolumeGrowsLinearly
 <!-- field: traces -->
 #### Traces
 
-- srd035-checkpoint-port AC3
-- srd035-checkpoint-port AC8
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC3](../software-requirements/srd035-checkpoint-port.md#ac3)
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC8](../software-requirements/srd035-checkpoint-port.md#ac8)
 
 <!-- case: Resume re-enters the loop from the typed port and reports not-found | status: done -->
 ### Resume re-enters the loop from the typed port and reports not-found
@@ -301,7 +301,7 @@ ErrNoCheckpoint through the single resume path.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc001-approval-suspend-resume
+[rel02.0-uc001-approval-suspend-resume](../use-cases/rel02.0-uc001-approval-suspend-resume.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -328,9 +328,9 @@ TestResumeReentersLoopFromTypedPort, TestLoadResumeExposesTypedSnapshotForDomain
 <!-- field: traces -->
 #### Traces
 
-- srd025-rollback-lifecycle AC1
-- srd035-checkpoint-port AC4
-- srd035-checkpoint-port AC6
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) [AC1](../software-requirements/srd025-rollback-lifecycle.md#ac1)
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC4](../software-requirements/srd035-checkpoint-port.md#ac4)
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC6](../software-requirements/srd035-checkpoint-port.md#ac6)
 
 <!-- case: Approval profile suspends and resolves the checkpoint backend at the CLI | status: done -->
 ### Approval profile suspends and resolves the checkpoint backend at the CLI
@@ -344,7 +344,7 @@ ErrNoCheckpoint.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc001-approval-suspend-resume
+[rel02.0-uc001-approval-suspend-resume](../use-cases/rel02.0-uc001-approval-suspend-resume.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -370,11 +370,11 @@ TestApprovalLifecycleProfileSuspendsThroughCheckpointPort, TestOpenDefaultsToNoo
 <!-- field: traces -->
 #### Traces
 
-- srd025-rollback-lifecycle AC1
-- srd018-cli-flag-contract AC5
-- srd024-blocking-input-tools AC2
-- srd035-checkpoint-port AC5
-- srd036-dolt-state-persistence AC1
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) [AC1](../software-requirements/srd025-rollback-lifecycle.md#ac1)
+- [srd018-cli-flag-contract](../software-requirements/srd018-cli-flag-contract.md) [AC5](../software-requirements/srd018-cli-flag-contract.md#ac5)
+- [srd024-blocking-input-tools](../software-requirements/srd024-blocking-input-tools.md) [AC2](../software-requirements/srd024-blocking-input-tools.md#ac2)
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC5](../software-requirements/srd035-checkpoint-port.md#ac5)
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC1](../software-requirements/srd036-dolt-state-persistence.md#ac1)
 
 <!-- case: End-to-end suspend and resume across processes through the Dolt backend | status: done -->
 ### End-to-end suspend and resume across processes through the Dolt backend
@@ -388,7 +388,7 @@ the pre-suspend state. Skipped when no dolt sql-server is reachable.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc001-approval-suspend-resume
+[rel02.0-uc001-approval-suspend-resume](../use-cases/rel02.0-uc001-approval-suspend-resume.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -415,8 +415,8 @@ TestDoltCheckpointSuspendResumeAcrossProcesses
 <!-- field: traces -->
 #### Traces
 
-- srd036-dolt-state-persistence AC1
-- srd036-dolt-state-persistence AC5
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC1](../software-requirements/srd036-dolt-state-persistence.md#ac1)
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC5](../software-requirements/srd036-dolt-state-persistence.md#ac5)
 
 <!-- case: DoltCheckpoint implements the port behind the database/sql seam | status: done -->
 ### DoltCheckpoint implements the port behind the database/sql seam
@@ -428,7 +428,7 @@ reports ErrNoCheckpoint when the run branch or its rows do not exist.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc002-history-rollback
+[rel02.0-uc002-history-rollback](../use-cases/rel02.0-uc002-history-rollback.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -450,8 +450,8 @@ TestDoltCheckpointImplementsPort, TestDoltCheckpointLoadNotFound
 <!-- field: traces -->
 #### Traces
 
-- srd036-dolt-state-persistence AC1
-- srd036-dolt-state-persistence AC5
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC1](../software-requirements/srd036-dolt-state-persistence.md#ac1)
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC5](../software-requirements/srd036-dolt-state-persistence.md#ac5)
 
 <!-- case: Save reconstructs Position and Execution with receipts from the run branch | status: done -->
 ### Save reconstructs Position and Execution with receipts from the run branch
@@ -464,7 +464,7 @@ receipt stores SQL NULL and restores an empty receipt.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc002-history-rollback
+[rel02.0-uc002-history-rollback](../use-cases/rel02.0-uc002-history-rollback.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -491,9 +491,9 @@ TestDoltCheckpointSaveLoadRoundTrip
 <!-- field: traces -->
 #### Traces
 
-- srd036-dolt-state-persistence AC3
-- srd036-dolt-state-persistence AC2
-- srd036-dolt-state-persistence AC5
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC3](../software-requirements/srd036-dolt-state-persistence.md#ac3)
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC2](../software-requirements/srd036-dolt-state-persistence.md#ac2)
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC5](../software-requirements/srd036-dolt-state-persistence.md#ac5)
 
 <!-- case: Commit-per-step, branch-per-run, and merge-to-main on terminal state | status: done -->
 ### Commit-per-step, branch-per-run, and merge-to-main on terminal state
@@ -506,7 +506,7 @@ and deletes the run branch.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc002-history-rollback
+[rel02.0-uc002-history-rollback](../use-cases/rel02.0-uc002-history-rollback.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -531,7 +531,7 @@ TestDoltCheckpointCommitPerStepAndBranchPerRun, TestDoltCheckpointMergeOnTermina
 <!-- field: traces -->
 #### Traces
 
-- srd036-dolt-state-persistence AC4
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC4](../software-requirements/srd036-dolt-state-persistence.md#ac4)
 
 <!-- case: Revert resets the run branch to the target step commit | status: done -->
 ### Revert resets the run branch to the target step commit
@@ -543,7 +543,7 @@ the target step. An unresolved step reports ErrRevertUnresolved.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc002-history-rollback
+[rel02.0-uc002-history-rollback](../use-cases/rel02.0-uc002-history-rollback.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -569,7 +569,7 @@ TestDoltCheckpointRevertResetsToStepCommit, TestDoltCheckpointRevertLeavesRefere
 <!-- field: traces -->
 #### Traces
 
-- srd036-dolt-state-persistence AC6
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC6](../software-requirements/srd036-dolt-state-persistence.md#ac6)
 
 <!-- case: checkpoint_history formats the persisted execution log | status: done -->
 ### checkpoint_history formats the persisted execution log
@@ -582,7 +582,7 @@ ErrNoCheckpoint when nothing is persisted; its Undo is a no-op.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc002-history-rollback
+[rel02.0-uc002-history-rollback](../use-cases/rel02.0-uc002-history-rollback.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -609,10 +609,10 @@ TestCheckpointHistoryExecuteFormatsExecutionLog, TestCheckpointHistoryExecuteReq
 <!-- field: traces -->
 #### Traces
 
-- srd025-rollback-lifecycle AC2
-- srd026-lifecycle-tools AC6
-- srd026-lifecycle-tools AC2
-- srd035-checkpoint-port AC1
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) [AC2](../software-requirements/srd025-rollback-lifecycle.md#ac2)
+- [srd026-lifecycle-tools](../software-requirements/srd026-lifecycle-tools.md) [AC6](../software-requirements/srd026-lifecycle-tools.md#ac6)
+- [srd026-lifecycle-tools](../software-requirements/srd026-lifecycle-tools.md) [AC2](../software-requirements/srd026-lifecycle-tools.md#ac2)
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC1](../software-requirements/srd035-checkpoint-port.md#ac1)
 
 <!-- case: checkpoint_rollback reverts DB state and validates its inputs | status: done -->
 ### checkpoint_rollback reverts DB state and validates its inputs
@@ -626,7 +626,7 @@ Revert, and its Undo requests compensation rather than silently reversing.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc002-history-rollback
+[rel02.0-uc002-history-rollback](../use-cases/rel02.0-uc002-history-rollback.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -656,10 +656,10 @@ TestCheckpointRollbackReportsMissingUndoAfterDBRevert, TestCheckpointRollbackReq
 <!-- field: traces -->
 #### Traces
 
-- srd036-dolt-state-persistence AC6
-- srd026-lifecycle-tools AC4
-- srd026-lifecycle-tools AC6
-- srd026-lifecycle-tools AC3
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC6](../software-requirements/srd036-dolt-state-persistence.md#ac6)
+- [srd026-lifecycle-tools](../software-requirements/srd026-lifecycle-tools.md) [AC4](../software-requirements/srd026-lifecycle-tools.md#ac4)
+- [srd026-lifecycle-tools](../software-requirements/srd026-lifecycle-tools.md) [AC6](../software-requirements/srd026-lifecycle-tools.md#ac6)
+- [srd026-lifecycle-tools](../software-requirements/srd026-lifecycle-tools.md) [AC3](../software-requirements/srd026-lifecycle-tools.md#ac3)
 
 <!-- case: Rollback restores a file through the persisted opaque receipt | status: done -->
 ### Rollback restores a file through the persisted opaque receipt
@@ -674,7 +674,7 @@ content.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc002-history-rollback
+[rel02.0-uc002-history-rollback](../use-cases/rel02.0-uc002-history-rollback.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -699,10 +699,10 @@ TestCheckpointRollbackRestoresFileViaPersistedReceipt
 <!-- field: traces -->
 #### Traces
 
-- srd025-rollback-lifecycle AC3
-- srd025-rollback-lifecycle AC4
-- srd035-checkpoint-port AC3
-- srd036-dolt-state-persistence AC6
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) [AC3](../software-requirements/srd025-rollback-lifecycle.md#ac3)
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) [AC4](../software-requirements/srd025-rollback-lifecycle.md#ac4)
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC3](../software-requirements/srd035-checkpoint-port.md#ac3)
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC6](../software-requirements/srd036-dolt-state-persistence.md#ac6)
 
 <!-- case: Reconstructed registry proves representative rollback families | status: done -->
 ### Reconstructed registry proves representative rollback families
@@ -719,7 +719,7 @@ partial failures, and unrelated entries continue reversing.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc002-history-rollback
+[rel02.0-uc002-history-rollback](../use-cases/rel02.0-uc002-history-rollback.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -755,10 +755,10 @@ TestValidateReceiptFamiliesGuardsSelectedMutatorPlumbing, TestFreshRollbackRegis
 <!-- field: traces -->
 #### Traces
 
-- srd025-rollback-lifecycle AC3
-- srd025-rollback-lifecycle AC4
-- srd035-checkpoint-port AC3
-- srd036-dolt-state-persistence AC6
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) [AC3](../software-requirements/srd025-rollback-lifecycle.md#ac3)
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) [AC4](../software-requirements/srd025-rollback-lifecycle.md#ac4)
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC3](../software-requirements/srd035-checkpoint-port.md#ac3)
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC6](../software-requirements/srd036-dolt-state-persistence.md#ac6)
 
 <!-- case: Lifecycle profiles wire checkpoint_history and checkpoint_rollback | status: done -->
 ### Lifecycle profiles wire checkpoint_history and checkpoint_rollback
@@ -770,7 +770,7 @@ register the builtin adapters before the machine dispatches the action.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc002-history-rollback
+[rel02.0-uc002-history-rollback](../use-cases/rel02.0-uc002-history-rollback.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -793,4 +793,4 @@ cd ../applications/catalog && go test ./conformance -run '^TestLifecycleHistoryR
 <!-- field: traces -->
 #### Traces
 
-- srd026-lifecycle-tools AC1
+- [srd026-lifecycle-tools](../software-requirements/srd026-lifecycle-tools.md) [AC1](../software-requirements/srd026-lifecycle-tools.md#ac1)

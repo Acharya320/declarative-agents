@@ -19,8 +19,8 @@ A test config format spec for corpus validation.
 <!-- field: related_documents -->
 ## Related documents
 
-- sm-test-model
-- srd002-api
+- [sm-test-model](../semantic-models/test-model.md)
+- [srd002-api](../software-requirements/srd002-api.md)
 
 <!-- field: implementation -->
 ## Implementation

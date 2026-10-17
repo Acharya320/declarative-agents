@@ -202,15 +202,15 @@ Prompt has four string fields and DefaultAssembler renders them deterministicall
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.4
-- R1.5
-- R6.1
-- R6.2
-- R6.3
-- R6.4
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R1.5](#r15)
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
+- [R6.4](#r64)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -220,11 +220,11 @@ ToolDef config supplies prompt policy while machine runtime input supplies task 
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R3.1
-- R3.2
-- R3.3
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -234,9 +234,9 @@ Prompt policy and runtime task remain distinct, and unknown ToolDef config field
 <!-- field: traces -->
 #### Traces
 
-- R2.3
-- R2.4
-- R3.4
+- [R2.3](#r23)
+- [R2.4](#r24)
+- [R3.4](#r34)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -246,9 +246,9 @@ invoke_llm builds Prompt without hidden filesystem reads and DefaultAssembler co
 <!-- field: traces -->
 #### Traces
 
-- R3.5
-- R4.1
-- R4.3
+- [R3.5](#r35)
+- [R4.1](#r41)
+- [R4.3](#r43)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -258,10 +258,10 @@ Compiled defaults provide Role, Constraints, OutputFormat. They are exported and
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
-- R5.4
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -271,9 +271,9 @@ Missing required runtime prompt input emits CommandError without a partial comma
 <!-- field: traces -->
 #### Traces
 
-- R7.1
-- R7.2
-- R4.2
+- [R7.1](#r71)
+- [R7.2](#r72)
+- [R4.2](#r42)
 
 <!-- field: diagrams -->
 ## Diagrams

@@ -131,8 +131,8 @@ Visibility enum with External and Internal. ToolSpec with Name, Description, Inp
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
+- [R1.1](#r11)
+- [R1.2](#r12)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -142,11 +142,11 @@ Registry supports Register (with panic on violations), Freeze, Resolve, and Spec
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
-- R2.5
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
+- [R2.5](#r25)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -156,8 +156,8 @@ Manifest returns sorted External tools filtered by PhaseMatch. PhaseMatch handle
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
+- [R3.1](#r31)
+- [R3.2](#r32)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -167,8 +167,8 @@ AllToolNames and ExternalToolNames return sorted name lists.
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
+- [R4.1](#r41)
+- [R4.2](#r42)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -178,7 +178,7 @@ Registry satisfies CommandResolver interface.
 <!-- field: traces -->
 #### Traces
 
-- R5.1
+- [R5.1](#r51)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -188,8 +188,8 @@ A tool declaring a signature presents an effective contract to registry consumer
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
+- [R6.1](#r61)
+- [R6.2](#r62)
 
 <!-- field: diagrams -->
 ## Diagrams

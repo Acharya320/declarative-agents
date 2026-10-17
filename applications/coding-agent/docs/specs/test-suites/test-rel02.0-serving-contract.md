@@ -18,7 +18,7 @@ with deterministic Ollama-compatible responses at the model boundary.
 <!-- field: traces -->
 ## Traces
 
-- rel02.0-uc001-remote-coding-request
+- [rel02.0-uc001-remote-coding-request](../use-cases/rel02.0-uc001-remote-coding-request.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -36,7 +36,7 @@ with deterministic Ollama-compatible responses at the model boundary.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc001-remote-coding-request
+[rel02.0-uc001-remote-coding-request](../use-cases/rel02.0-uc001-remote-coding-request.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -59,7 +59,7 @@ go test ./magefiles -run '^Test(ServingProfilesUseRealLifecycleAndCanonicalRoleP
 <!-- field: traces -->
 #### Traces
 
-- srd001-serving-contract AC1
+- [srd001-serving-contract](../software-requirements/srd001-serving-contract.md) [AC1](../software-requirements/srd001-serving-contract.md#ac1)
 
 <!-- case: Connected remote coding request | status: implemented -->
 ### Connected remote coding request
@@ -67,7 +67,7 @@ go test ./magefiles -run '^Test(ServingProfilesUseRealLifecycleAndCanonicalRoleP
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc001-remote-coding-request
+[rel02.0-uc001-remote-coding-request](../use-cases/rel02.0-uc001-remote-coding-request.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -90,8 +90,8 @@ go test ./magefiles -run '^TestPlannerServingFlowUsesDeclaredRemoteBoundaries$'
 <!-- field: traces -->
 #### Traces
 
-- srd001-serving-contract AC2
-- srd001-serving-contract AC3
+- [srd001-serving-contract](../software-requirements/srd001-serving-contract.md) [AC2](../software-requirements/srd001-serving-contract.md#ac2)
+- [srd001-serving-contract](../software-requirements/srd001-serving-contract.md) [AC3](../software-requirements/srd001-serving-contract.md#ac3)
 
 <!-- case: Local batch coding loop remains valid | status: implemented -->
 ### Local batch coding loop remains valid
@@ -99,7 +99,7 @@ go test ./magefiles -run '^TestPlannerServingFlowUsesDeclaredRemoteBoundaries$'
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc001-remote-coding-request
+[rel02.0-uc001-remote-coding-request](../use-cases/rel02.0-uc001-remote-coding-request.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -119,4 +119,4 @@ go test ./magefiles -run '^TestCodingLoopStagesGenerateOnceAndPreserveExactWorks
 <!-- field: traces -->
 #### Traces
 
-- srd001-serving-contract AC4
+- [srd001-serving-contract](../software-requirements/srd001-serving-contract.md) [AC4](../software-requirements/srd001-serving-contract.md#ac4)

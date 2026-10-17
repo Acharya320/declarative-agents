@@ -44,10 +44,10 @@ reaches through a `machine` override.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd057-capability-profiles R1.1, R1.2, R1.3 | the capability profile |
-| T2 | srd057-capability-profiles R2.1, R2.2, R2.3, R2.4 | consumption forms |
-| T3 | srd057-capability-profiles R3.1, R3.2, R3.3 | binding discipline and visibility |
-| T4 | srd055-agent-blueprints R1.1, R1.2, R1.3 | the serving wrapper as a blueprint instance |
+| T1 | [srd057-capability-profiles](../software-requirements/srd057-capability-profiles.md) [R1.1](../software-requirements/srd057-capability-profiles.md#r11), [R1.2](../software-requirements/srd057-capability-profiles.md#r12), [R1.3](../software-requirements/srd057-capability-profiles.md#r13) | the capability profile |
+| T2 | [srd057-capability-profiles](../software-requirements/srd057-capability-profiles.md) [R2.1](../software-requirements/srd057-capability-profiles.md#r21), [R2.2](../software-requirements/srd057-capability-profiles.md#r22), [R2.3](../software-requirements/srd057-capability-profiles.md#r23), [R2.4](../software-requirements/srd057-capability-profiles.md#r24) | consumption forms |
+| T3 | [srd057-capability-profiles](../software-requirements/srd057-capability-profiles.md) [R3.1](../software-requirements/srd057-capability-profiles.md#r31), [R3.2](../software-requirements/srd057-capability-profiles.md#r32), [R3.3](../software-requirements/srd057-capability-profiles.md#r33) | binding discipline and visibility |
+| T4 | [srd055-agent-blueprints](../software-requirements/srd055-agent-blueprints.md) [R1.1](../software-requirements/srd055-agent-blueprints.md#r11), [R1.2](../software-requirements/srd055-agent-blueprints.md#r12), [R1.3](../software-requirements/srd055-agent-blueprints.md#r13) | the serving wrapper as a blueprint instance |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -60,7 +60,7 @@ A capability profile runs to a terminal state carrying no serve lifecycle, no co
 <!-- field: traces -->
 #### Traces
 
-- srd057-capability-profiles AC1
+- [srd057-capability-profiles](../software-requirements/srd057-capability-profiles.md) [AC1](../software-requirements/srd057-capability-profiles.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -70,7 +70,7 @@ The same unchanged capability profile is bound by a machine_request naming profi
 <!-- field: traces -->
 #### Traces
 
-- srd057-capability-profiles AC2
+- [srd057-capability-profiles](../software-requirements/srd057-capability-profiles.md) [AC2](../software-requirements/srd057-capability-profiles.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -80,7 +80,7 @@ The consistency check names a machine reached by two profiles and an override wh
 <!-- field: traces -->
 #### Traces
 
-- srd057-capability-profiles AC3
+- [srd057-capability-profiles](../software-requirements/srd057-capability-profiles.md) [AC3](../software-requirements/srd057-capability-profiles.md#ac3)
 
 <!-- field: out_of_scope -->
 ## Out of scope

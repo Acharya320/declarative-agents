@@ -27,7 +27,7 @@ None
 
 | id | title | summary | path |
 | --- | --- | --- | --- |
-| srd001-greet | Greeting Function | Implement the fixture greeting. | docs/specs/software-requirements/srd001-greet.md |
+| [srd001-greet](specs/software-requirements/srd001-greet.md) | Greeting Function | Implement the fixture greeting. | docs/specs/software-requirements/srd001-greet.md |
 
 <!-- field: config_format_index | form: "empty list" -->
 ## Config format index

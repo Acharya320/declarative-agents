@@ -9,7 +9,7 @@ release: "07.0"
 <!-- field: traces -->
 ## Traces
 
-- rel07.0-uc001-collector-ingress
+- [rel07.0-uc001-collector-ingress](../use-cases/rel07.0-uc001-collector-ingress.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -29,7 +29,7 @@ Both mode overlays load the same profile and every action, signal, declaration, 
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-collector-ingress
+[rel07.0-uc001-collector-ingress](../use-cases/rel07.0-uc001-collector-ingress.md)
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -41,10 +41,10 @@ rel07.0-uc001-collector-ingress
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-collector-ingress S1
-- rel07.0-uc001-collector-ingress S3
-- srd007-collector-agent AC1
-- srd007-collector-agent AC3
+- [rel07.0-uc001-collector-ingress](../use-cases/rel07.0-uc001-collector-ingress.md) [S1](../use-cases/rel07.0-uc001-collector-ingress.md#s1)
+- [rel07.0-uc001-collector-ingress](../use-cases/rel07.0-uc001-collector-ingress.md) [S3](../use-cases/rel07.0-uc001-collector-ingress.md#s3)
+- [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [AC1](../software-requirements/srd007-collector-agent.md#ac1)
+- [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [AC3](../software-requirements/srd007-collector-agent.md#ac3)
 
 <!-- case: A real client batch reaches stdouttrace spool unchanged | status: implemented -->
 ### A real client batch reaches stdouttrace spool unchanged
@@ -54,7 +54,7 @@ A real OTLP client exports parent and child spans with full run identity; the sp
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-collector-ingress
+[rel07.0-uc001-collector-ingress](../use-cases/rel07.0-uc001-collector-ingress.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -73,8 +73,8 @@ mage integration:helmSmoke
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-collector-ingress S2
-- srd007-collector-agent AC2
+- [rel07.0-uc001-collector-ingress](../use-cases/rel07.0-uc001-collector-ingress.md) [S2](../use-cases/rel07.0-uc001-collector-ingress.md#s2)
+- [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [AC2](../software-requirements/srd007-collector-agent.md#ac2)
 
 <!-- case: Canned positive-span batch takes the collector filter-to-spool leg | status: implemented -->
 ### Canned positive-span batch takes the collector filter-to-spool leg
@@ -84,7 +84,7 @@ The hermetic rig launches the shipped collector profile, exports a canned parent
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-collector-ingress
+[rel07.0-uc001-collector-ingress](../use-cases/rel07.0-uc001-collector-ingress.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -106,8 +106,8 @@ go test ./magefiles -run '^TestCollectorIntakeFilterScenario$'
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-collector-ingress S2
-- srd007-collector-agent AC2
+- [rel07.0-uc001-collector-ingress](../use-cases/rel07.0-uc001-collector-ingress.md) [S2](../use-cases/rel07.0-uc001-collector-ingress.md#s2)
+- [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [AC2](../software-requirements/srd007-collector-agent.md#ac2)
 
 <!-- case: Collector lifecycle releases receiver control and monitor listeners | status: implemented -->
 ### Collector lifecycle releases receiver control and monitor listeners
@@ -117,7 +117,7 @@ The hermetic rig launches the shipped collector profile, verifies monitor reacha
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-collector-ingress
+[rel07.0-uc001-collector-ingress](../use-cases/rel07.0-uc001-collector-ingress.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -139,8 +139,8 @@ go test ./magefiles -run '^TestCollectorLifecycleRebindAndTerminalState$'
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-collector-ingress S4
-- srd007-collector-agent AC4
+- [rel07.0-uc001-collector-ingress](../use-cases/rel07.0-uc001-collector-ingress.md) [S4](../use-cases/rel07.0-uc001-collector-ingress.md#s4)
+- [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [AC4](../software-requirements/srd007-collector-agent.md#ac4)
 
 <!-- case: Collector process telemetry cannot enter its receiver | status: implemented -->
 ### Collector process telemetry cannot enter its receiver
@@ -150,7 +150,7 @@ Client spans enter while collector lifecycle and tool spans appear only in the c
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-collector-ingress
+[rel07.0-uc001-collector-ingress](../use-cases/rel07.0-uc001-collector-ingress.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -167,8 +167,8 @@ mage integration:helmSmoke
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-collector-ingress S5
-- srd007-collector-agent AC5
+- [rel07.0-uc001-collector-ingress](../use-cases/rel07.0-uc001-collector-ingress.md) [S5](../use-cases/rel07.0-uc001-collector-ingress.md#s5)
+- [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [AC5](../software-requirements/srd007-collector-agent.md#ac5)
 
 <!-- case: Agent mode separates integration metric export from trace intake | status: implemented -->
 ### Agent mode separates integration metric export from trace intake
@@ -178,7 +178,7 @@ Production agents send traces and OTLP metrics to the local collector. The integ
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-collector-ingress
+[rel07.0-uc001-collector-ingress](../use-cases/rel07.0-uc001-collector-ingress.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -204,9 +204,9 @@ go test ./magefiles -run '^TestCollectorDefaultRenderStaysSelfContained$|^TestCo
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-collector-ingress S6
-- srd007-collector-agent AC6
-- srd003-chatbot-deployment AC5
+- [rel07.0-uc001-collector-ingress](../use-cases/rel07.0-uc001-collector-ingress.md) [S6](../use-cases/rel07.0-uc001-collector-ingress.md#s6)
+- [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [AC6](../software-requirements/srd007-collector-agent.md#ac6)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC5](../software-requirements/srd003-chatbot-deployment.md#ac5)
 
 <!-- case: Persistent evidence survives mesh teardown | status: implemented -->
 ### Persistent evidence survives mesh teardown
@@ -216,7 +216,7 @@ After chart and cluster teardown, representative trace ids relayed by the local 
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-collector-ingress
+[rel07.0-uc001-collector-ingress](../use-cases/rel07.0-uc001-collector-ingress.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -233,6 +233,6 @@ mage integration:observabilityEvidence
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-collector-ingress S6
-- srd007-collector-agent AC6
-- srd003-chatbot-deployment AC5
+- [rel07.0-uc001-collector-ingress](../use-cases/rel07.0-uc001-collector-ingress.md) [S6](../use-cases/rel07.0-uc001-collector-ingress.md#s6)
+- [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [AC6](../software-requirements/srd007-collector-agent.md#ac6)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC5](../software-requirements/srd003-chatbot-deployment.md#ac5)

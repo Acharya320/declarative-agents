@@ -38,8 +38,8 @@ the support packages that make it usable as a library.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel00.0-uc001-domain-agent-integration | Domain agent imports agent-core and runs an agentic loop | done |
-| rel00.0-uc002-spec-corpus-validation | Maintainer validates the specification corpus graph | done |
+| [rel00.0-uc001-domain-agent-integration](specs/use-cases/rel00.0-uc001-domain-agent-integration.md) | Domain agent imports agent-core and runs an agentic loop | done |
+| [rel00.0-uc002-spec-corpus-validation](specs/use-cases/rel00.0-uc002-spec-corpus-validation.md) | Maintainer validates the specification corpus graph | done |
 
 <!-- field: follow_up -->
 ### Follow up
@@ -73,9 +73,9 @@ targets, and Go tests round out the release.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel01.0-uc001-generator-coding | Generator agent solves Go coding tasks using YAML config | done |
-| rel01.0-uc002-evaluator-benchmark | Evaluator runs generator across models and collects results | done |
-| rel01.0-uc003-bench-visualization | Bench serves web UI for evaluation result exploration | done |
+| [rel01.0-uc001-generator-coding](specs/use-cases/rel01.0-uc001-generator-coding.md) | Generator agent solves Go coding tasks using YAML config | done |
+| [rel01.0-uc002-evaluator-benchmark](specs/use-cases/rel01.0-uc002-evaluator-benchmark.md) | Evaluator runs generator across models and collects results | done |
+| [rel01.0-uc003-bench-visualization](specs/use-cases/rel01.0-uc003-bench-visualization.md) | Bench serves web UI for evaluation result exploration | done |
 
 <!-- field: follow_up -->
 ### Follow up
@@ -108,10 +108,10 @@ tools own external compensation through opaque receipts.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel02.0-uc001-approval-suspend-resume | Agent suspends at approval gate and resumes from checkpoint | done |
-| rel02.0-uc002-history-rollback | User inspects Dolt commit history and rolls back with Revert plus a receipt-driven restore of external effects | done |
-| rel02.0-uc003-tool-authoring | Developer authors a new tool as a vocabulary word | done |
-| rel02.0-uc004-sentence-tool-migration | Developer migrates a sentence-shaped tool into machine-composed words | done |
+| [rel02.0-uc001-approval-suspend-resume](specs/use-cases/rel02.0-uc001-approval-suspend-resume.md) | Agent suspends at approval gate and resumes from checkpoint | done |
+| [rel02.0-uc002-history-rollback](specs/use-cases/rel02.0-uc002-history-rollback.md) | User inspects Dolt commit history and rolls back with Revert plus a receipt-driven restore of external effects | done |
+| [rel02.0-uc003-tool-authoring](specs/use-cases/rel02.0-uc003-tool-authoring.md) | Developer authors a new tool as a vocabulary word | done |
+| [rel02.0-uc004-sentence-tool-migration](specs/use-cases/rel02.0-uc004-sentence-tool-migration.md) | Developer migrates a sentence-shaped tool into machine-composed words | done |
 
 <!-- field: follow_up -->
 ### Follow up
@@ -174,21 +174,21 @@ contracts to named executable tests.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel03.0-uc001-rest-client-sync | Grammar invokes configured REST client resource words | done |
-| rel03.0-uc002-rest-client-async | Grammar sends and awaits an asynchronous REST client operation | done |
-| rel03.0-uc003-rest-server-signals | Grammar receives inbound REST server signals | done |
-| rel03.0-uc004-openapi-import | OpenAPI import defines REST operations and endpoint bindings | done |
-| rel03.0-uc005-ollama-openapi-model-listing | Qwen agent lists Ollama models through an OpenAPI REST tool | done |
-| rel03.0-uc006-documentation-curator | Knowledge Manager serves documentation curator UX and REST tools | done |
-| rel03.0-uc007-machine-request-documentation-ux | Knowledge Manager UX requests use machine_request and declarative document resources | done |
-| rel03.0-uc008-rest-await-any-fan-in | Staged REST await-any fan-in adds a later event source after the first selected event | done |
+| [rel03.0-uc001-rest-client-sync](specs/use-cases/rel03.0-uc001-rest-client-sync.md) | Grammar invokes configured REST client resource words | done |
+| [rel03.0-uc002-rest-client-async](specs/use-cases/rel03.0-uc002-rest-client-async.md) | Grammar sends and awaits an asynchronous REST client operation | done |
+| [rel03.0-uc003-rest-server-signals](specs/use-cases/rel03.0-uc003-rest-server-signals.md) | Grammar receives inbound REST server signals | done |
+| [rel03.0-uc004-openapi-import](specs/use-cases/rel03.0-uc004-openapi-import.md) | OpenAPI import defines REST operations and endpoint bindings | done |
+| [rel03.0-uc005-ollama-openapi-model-listing](specs/use-cases/rel03.0-uc005-ollama-openapi-model-listing.md) | Qwen agent lists Ollama models through an OpenAPI REST tool | done |
+| [rel03.0-uc006-documentation-curator](specs/use-cases/rel03.0-uc006-documentation-curator.md) | Knowledge Manager serves documentation curator UX and REST tools | done |
+| [rel03.0-uc007-machine-request-documentation-ux](specs/use-cases/rel03.0-uc007-machine-request-documentation-ux.md) | Knowledge Manager UX requests use machine_request and declarative document resources | done |
+| [rel03.0-uc008-rest-await-any-fan-in](specs/use-cases/rel03.0-uc008-rest-await-any-fan-in.md) | Staged REST await-any fan-in adds a later event source after the first selected event | done |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel03.0-rest-tools | Formal tests for REST runtime, client/server tools, fan-in, lifecycle exit routing, listener shutdown, OpenAPI import, Ollama E2E proof, profile-owned documentation-curator evidence, browser machine_request UX coverage, and closed REST conformance fixes | implemented |
+| [test-rel03.0-rest-tools](specs/test-suites/test-rel03.0-rest-tools.md) | Formal tests for REST runtime, client/server tools, fan-in, lifecycle exit routing, listener shutdown, OpenAPI import, Ollama E2E proof, profile-owned documentation-curator evidence, browser machine_request UX coverage, and closed REST conformance fixes | implemented |
 
 <!-- release: 04.0 | status: done -->
 ## 04.0 - Embedded monitor metrics and REST API
@@ -224,15 +224,15 @@ is mage integration:monitor.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel04.0-uc001-configurable-tool-metrics | Agent records tool-owned metrics in the embedded monitor store and exports them through OpenTelemetry | done |
-| rel04.0-uc002-monitor-rest-api | Supervisor reads cached monitor state through configured REST and OpenAPI endpoints | done |
+| [rel04.0-uc001-configurable-tool-metrics](specs/use-cases/rel04.0-uc001-configurable-tool-metrics.md) | Agent records tool-owned metrics in the embedded monitor store and exports them through OpenTelemetry | done |
+| [rel04.0-uc002-monitor-rest-api](specs/use-cases/rel04.0-uc002-monitor-rest-api.md) | Supervisor reads cached monitor state through configured REST and OpenAPI endpoints | done |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel04.0-monitor | Formal tests for monitor store behavior, metric emission, OpenTelemetry export, and REST/OpenAPI cached-state reads | implemented |
+| [test-rel04.0-monitor](specs/test-suites/test-rel04.0-monitor.md) | Formal tests for monitor store behavior, metric emission, OpenTelemetry export, and REST/OpenAPI cached-state reads | implemented |
 
 <!-- release: 05.0 | status: done -->
 ## 05.0 - Monitored live model integrations
@@ -265,14 +265,14 @@ monitor control.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel05.0-uc001-qwen-monitor-token-progress | Qwen run exposes increasing token metrics through the embedded monitor | implemented |
+| [rel05.0-uc001-qwen-monitor-token-progress](specs/use-cases/rel05.0-uc001-qwen-monitor-token-progress.md) | Qwen run exposes increasing token metrics through the embedded monitor | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel05.0-monitor-qwen | Formal test for monitored Qwen token metric progress through mage integration:ollamaMonitor | implemented |
+| [test-rel05.0-monitor-qwen](specs/test-suites/test-rel05.0-monitor-qwen.md) | Formal test for monitored Qwen token metric progress through mage integration:ollamaMonitor | implemented |
 
 <!-- release: 06.0 | status: done -->
 ## 06.0 - External agent profiles and mounted runtime assets
@@ -299,14 +299,14 @@ does not copy migrated agent profile directories from agent-core.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel06.0-uc001-mounted-profile-container-runtime | Runtime container runs an externally mounted agent profile | implemented |
+| [rel06.0-uc001-mounted-profile-container-runtime](specs/use-cases/rel06.0-uc001-mounted-profile-container-runtime.md) | Runtime container runs an externally mounted agent profile | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel06.0-profile-migration | Formal tests for external profile root resolution, runtime image profile exclusion, and mounted-profile container execution | implemented |
+| [test-rel06.0-profile-migration](specs/test-suites/test-rel06.0-profile-migration.md) | Formal tests for external profile root resolution, runtime image profile exclusion, and mounted-profile container execution | implemented |
 
 <!-- field: follow_up -->
 ### Follow up
@@ -357,15 +357,15 @@ GH-270.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel07.0-uc001-command-state-threading | A three-word REST chain where the third word selects the first word's output by label and resumes mid-chain after restart | implemented |
-| rel07.0-uc002-two-plane-revert | Reverting to an earlier step reaps later tool_outputs and receipts rows with the branch reset while the receipt walk still reverses the surviving step | implemented |
+| [rel07.0-uc001-command-state-threading](specs/use-cases/rel07.0-uc001-command-state-threading.md) | A three-word REST chain where the third word selects the first word's output by label and resumes mid-chain after restart | implemented |
+| [rel07.0-uc002-two-plane-revert](specs/use-cases/rel07.0-uc002-two-plane-revert.md) | Reverting to an earlier step reaps later tool_outputs and receipts rows with the branch reset while the receipt walk still reverses the surviving step | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel07.0-command-state | Formal tests for label selection, duplicate-label resolution, restart rehydration, the R13.3 rejection table, redaction-before-persistence, five-table round-trip, and revert reap | implemented |
+| [test-rel07.0-command-state](specs/test-suites/test-rel07.0-command-state.md) | Formal tests for label selection, duplicate-label resolution, restart rehydration, the R13.3 rejection table, redaction-before-persistence, five-table round-trip, and revert reap | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -399,14 +399,14 @@ Epic #295 (GH-310).
 
 | id | summary | status |
 | --- | --- | --- |
-| rel08.0-uc001-http-trace-propagation | Two agents linked by a REST call produce one connected trace, with malformed-header fallback to a new root | implemented |
+| [rel08.0-uc001-http-trace-propagation](specs/use-cases/rel08.0-uc001-http-trace-propagation.md) | Two agents linked by a REST call produce one connected trace, with malformed-header fallback to a new root | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel08.0-trace-propagation | Formal tests for outbound injection, inbound extraction parenting the machine_request span, absent/malformed fallback, and the unchanged subprocess path | implemented |
+| [test-rel08.0-trace-propagation](specs/test-suites/test-rel08.0-trace-propagation.md) | Formal tests for outbound injection, inbound extraction parenting the machine_request span, absent/malformed fallback, and the unchanged subprocess path | implemented |
 
 <!-- release: 09.0 | status: done -->
 ## 09.0 - Scenario rig runtime
@@ -447,14 +447,14 @@ scenario tracer remains planned.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel09.0-uc001-scenario-rig-run | A rig machine runs one scenario hermetically to a verdict over a mock, a subject, and machine-visible validator items. | specified |
+| [rel09.0-uc001-scenario-rig-run](specs/use-cases/rel09.0-uc001-scenario-rig-run.md) | A rig machine runs one scenario hermetically to a verdict over a mock, a subject, and machine-visible validator items. | specified |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel09.0-scenario-rig | Formal tests for scripted mock responses, the request log, fixture validation, serve-mode child lifecycle, validator item execution, deterministic discovery, and the end-to-end scenario tracer. | specified |
+| [test-rel09.0-scenario-rig](specs/test-suites/test-rel09.0-scenario-rig.md) | Formal tests for scripted mock responses, the request log, fixture validation, serve-mode child lifecycle, validator item execution, deterministic discovery, and the end-to-end scenario tracer. | specified |
 
 <!-- field: proof -->
 ### Proof
@@ -507,14 +507,14 @@ specified in GH-769 and implemented in GH-770.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel10.0-uc001-value-predicate-branch | A machine reads a value from a service and takes a different transition depending on it, through a declared word. | implemented |
+| [rel10.0-uc001-value-predicate-branch](specs/use-cases/rel10.0-uc001-value-predicate-branch.md) | A machine reads a value from a service and takes a different transition depending on it, through a declared word. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel10.0-value-predicate | Formal tests for the operator boundaries, emptiness, numeric coercion of string-typed values, the unresolvable-operand fault, registration validation, and the end-to-end two-transition branch. | implemented |
+| [test-rel10.0-value-predicate](specs/test-suites/test-rel10.0-value-predicate.md) | Formal tests for the operator boundaries, emptiness, numeric coercion of string-typed values, the unresolvable-operand fault, registration validation, and the end-to-end two-transition branch. | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -557,14 +557,14 @@ metrics evidence from srd008 R9 retain a separate metrics path.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel11.0-uc001-otlp-receiver-await | A persistent machine receives, records, and relays OTLP trace and metric batches through declared words. | implemented |
+| [rel11.0-uc001-otlp-receiver-await](specs/use-cases/rel11.0-uc001-otlp-receiver-await.md) | A persistent machine receives, records, and relays OTLP trace and metric batches through declared words. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel11.0-otlp-receiver | Formal tests for receive, backpressure, await, spool compatibility, relay identity, lifecycle cleanup, self-loop prevention, and metric intake, spool, and query. | implemented |
+| [test-rel11.0-otlp-receiver](specs/test-suites/test-rel11.0-otlp-receiver.md) | Formal tests for receive, backpressure, await, spool compatibility, relay identity, lifecycle cleanup, self-loop prevention, and metric intake, spool, and query. | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -599,14 +599,14 @@ lines, and treat an absent spool as empty.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel12.0-uc001-spool-query | A collector reads trace summaries and span detail from its NDJSON spool | implemented |
+| [rel12.0-uc001-spool-query](specs/use-cases/rel12.0-uc001-spool-query.md) | A collector reads trace summaries and span detail from its NDJSON spool | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel12.0-spool-query | Formal tests for trace aggregation, rotation, pagination, malformed-line tolerance, empty spool, unknown trace, and error paths. | implemented |
+| [test-rel12.0-spool-query](specs/test-suites/test-rel12.0-spool-query.md) | Formal tests for trace aggregation, rotation, pagination, malformed-line tolerance, empty spool, unknown trace, and error paths. | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -644,14 +644,14 @@ without environment variables, and produce deterministic output.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel13.0-uc001-span-analytics | Aggregate reads turn a spool into a latency heatmap and a divergence ranking | implemented |
+| [rel13.0-uc001-span-analytics](specs/use-cases/rel13.0-uc001-span-analytics.md) | Aggregate reads turn a spool into a latency heatmap and a divergence ranking | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel13.0-span-analytics | Filtering, heatmap bucketing, group-by top-N, divergence ranking, determinism, and error paths. | implemented |
+| [test-rel13.0-span-analytics](specs/test-suites/test-rel13.0-span-analytics.md) | Filtering, heatmap bucketing, group-by top-N, divergence ranking, determinism, and error paths. | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -699,15 +699,15 @@ authority refusal, and database isolation.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel14.0-uc001-request-driven-signal | A model-free profile advances from a validated HTTP request and resumes from its checkpoint. | implemented |
-| rel14.0-uc002-dolt-boundary-word | Declared Dolt words provision, update, commit, and query a separate versioned store. | implemented |
+| [rel14.0-uc001-request-driven-signal](specs/use-cases/rel14.0-uc001-request-driven-signal.md) | A model-free profile advances from a validated HTTP request and resumes from its checkpoint. | implemented |
+| [rel14.0-uc002-dolt-boundary-word](specs/use-cases/rel14.0-uc002-dolt-boundary-word.md) | Declared Dolt words provision, update, commit, and query a separate versioned store. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel14.0-agent-input-and-dolt | Formal unit, compatibility, lifecycle, authority, and real-Dolt integration obligations for both seams. | implemented |
+| [test-rel14.0-agent-input-and-dolt](specs/test-suites/test-rel14.0-agent-input-and-dolt.md) | Formal unit, compatibility, lifecycle, authority, and real-Dolt integration obligations for both seams. | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -748,14 +748,14 @@ words remain unchanged.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel15.0-uc001-cohere-invoke | A profile selects Cohere for an invoke_llm classifier without changing its machine or parse words. | implemented |
+| [rel15.0-uc001-cohere-invoke](specs/use-cases/rel15.0-uc001-cohere-invoke.md) | A profile selects Cohere for an invoke_llm classifier without changing its machine or parse words. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel15.0-cohere-invoke | Hermetic adapter, credential, provider-selection, parser, error, and GenAI tracing tests. | implemented |
+| [test-rel15.0-cohere-invoke](specs/test-suites/test-rel15.0-cohere-invoke.md) | Hermetic adapter, credential, provider-selection, parser, error, and GenAI tracing tests. | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -796,14 +796,14 @@ both-forms precedent.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel16.0-uc001-pipeline-word | A profile folds a render/compose marshalling block into one pipeline word. | implemented |
+| [rel16.0-uc001-pipeline-word](specs/use-cases/rel16.0-uc001-pipeline-word.md) | A profile folds a render/compose marshalling block into one pipeline word. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel16.0-pipeline-word | Hermetic chaining, selector, registration-failure, failure-separation, and co-selection tests. | implemented |
+| [test-rel16.0-pipeline-word](specs/test-suites/test-rel16.0-pipeline-word.md) | Hermetic chaining, selector, registration-failure, failure-separation, and co-selection tests. | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -844,14 +844,14 @@ declaration output is committed.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel17.0-uc001-declaration-imports | A profile composes named tool and REST units through one explicit, validated closure. | implemented |
+| [rel17.0-uc001-declaration-imports](specs/use-cases/rel17.0-uc001-declaration-imports.md) | A profile composes named tool and REST units through one explicit, validated closure. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel17.0-declaration-imports | Formal tests for graph resolution, merge semantics, usedness, compatibility, diagnostics, and the control-imports proof. | implemented |
+| [test-rel17.0-declaration-imports](specs/test-suites/test-rel17.0-declaration-imports.md) | Formal tests for graph resolution, merge semantics, usedness, compatibility, diagnostics, and the control-imports proof. | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -896,14 +896,14 @@ unit earns its place with two importers or one expansion.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel18.0-uc001-declaration-fragments | A profile expands parameterized fragments in place of hand-copied blocks. | implemented |
+| [rel18.0-uc001-declaration-fragments](specs/use-cases/rel18.0-uc001-declaration-fragments.md) | A profile expands parameterized fragments in place of hand-copied blocks. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel18.0-declaration-fragments | Formal tests for the fragment format, expansion and substitution, usedness and provenance, and stage splicing. | implemented |
+| [test-rel18.0-declaration-fragments](specs/test-suites/test-rel18.0-declaration-fragments.md) | Formal tests for the fragment format, expansion and substitution, usedness and provenance, and stage splicing. | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -945,14 +945,14 @@ migration signs its tools, deletes the prose, and deletes its lines.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel19.0-uc001-signed-boundary-contracts | A boundary tool states its contract through a signature and its effect blocks. | implemented |
+| [rel19.0-uc001-signed-boundary-contracts](specs/use-cases/rel19.0-uc001-signed-boundary-contracts.md) | A boundary tool states its contract through a signature and its effect blocks. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel19.0-signed-boundary-contracts | Formal tests for emits-only boundary signatures in the corpus audit and the untyped and uncategorized classes of the legacy gate. | implemented |
+| [test-rel19.0-signed-boundary-contracts](specs/test-suites/test-rel19.0-signed-boundary-contracts.md) | Formal tests for emits-only boundary signatures in the corpus audit and the untyped and uncategorized classes of the legacy gate. | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -1011,17 +1011,17 @@ it only specified.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel20.0-uc001-machine-templates | A machine file expands a whole-machine template. | implemented |
-| rel20.0-uc002-agent-blueprints | A profile expands an agent blueprint. | specified |
-| rel20.0-uc003-unit-libraries | A unit imports from the agent-core root or a declared library root. | implemented |
+| [rel20.0-uc001-machine-templates](specs/use-cases/rel20.0-uc001-machine-templates.md) | A machine file expands a whole-machine template. | implemented |
+| [rel20.0-uc002-agent-blueprints](specs/use-cases/rel20.0-uc002-agent-blueprints.md) | A profile expands an agent blueprint. | specified |
+| [rel20.0-uc003-unit-libraries](specs/use-cases/rel20.0-uc003-unit-libraries.md) | A unit imports from the agent-core root or a declared library root. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel20.0-machine-templates | Formal tests for template and blueprint formats, expansion and path resolution, validation, and closure, identity, dump, staging, and audit provenance. The twelve template cases are implemented; the eleven blueprint cases wait on gh-2123. | in_progress |
-| test-rel20.0-unit-libraries | Formal tests for import path forms, declared roots, read-only libraries, rooted closure and dump provenance, staging, and the service-library convention. All twelve cases are implemented; the two-importer case closed when cohere-demo and agentic-wiki-mesh adopted the retrieval client (gh-2527). | implemented |
+| [test-rel20.0-machine-templates](specs/test-suites/test-rel20.0-machine-templates.md) | Formal tests for template and blueprint formats, expansion and path resolution, validation, and closure, identity, dump, staging, and audit provenance. The twelve template cases are implemented; the eleven blueprint cases wait on gh-2123. | in_progress |
+| [test-rel20.0-unit-libraries](specs/test-suites/test-rel20.0-unit-libraries.md) | Formal tests for import path forms, declared roots, read-only libraries, rooted closure and dump provenance, staging, and the service-library convention. All twelve cases are implemented; the two-importer case closed when cohere-demo and agentic-wiki-mesh adopted the retrieval client (gh-2527). | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -1076,14 +1076,14 @@ would be a mechanism this release does not add.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel21.0-uc001-capability-profiles | One capability profile is consumed by more than one form. | specified |
+| [rel21.0-uc001-capability-profiles](specs/use-cases/rel21.0-uc001-capability-profiles.md) | One capability profile is consumed by more than one form. | specified |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel21.0-capability-profiles | Formal tests for the capability profile, the three supported consumption forms, the evaluation-scoped in-process boundary, and the shared-machine findings. | planned |
+| [test-rel21.0-capability-profiles](specs/test-suites/test-rel21.0-capability-profiles.md) | Formal tests for the capability profile, the three supported consumption forms, the evaluation-scoped in-process boundary, and the shared-machine findings. | planned |
 
 <!-- field: proof -->
 ### Proof
@@ -1132,14 +1132,14 @@ by rebinding --library providers, and a new provider needs no Go.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel22.0-uc001-provider-libraries | A deployment changes and adds a model provider without editing an agent. | implemented |
+| [rel22.0-uc001-provider-libraries](specs/use-cases/rel22.0-uc001-provider-libraries.md) | A deployment changes and adds a model provider without editing an agent. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel22.0-provider-libraries | Formal tests for the dialect loader, load failures, library rebinding, adapter parity, credentials, parser precedence, stage fragments, adoption, and the synthetic provider. | implemented |
+| [test-rel22.0-provider-libraries](specs/test-suites/test-rel22.0-provider-libraries.md) | Formal tests for the dialect loader, load failures, library rebinding, adapter parity, credentials, parser precedence, stage fragments, adoption, and the synthetic provider. | implemented |
 
 <!-- field: follow_up | form: "scalar" -->
 ### Follow up
@@ -1187,14 +1187,14 @@ consumer migrates when it chooses.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel23.0-uc001-provider-failure-signals | A machine retries a busy model provider and gives up on a misconfigured one. | implemented |
+| [rel23.0-uc001-provider-failure-signals](specs/use-cases/rel23.0-uc001-provider-failure-signals.md) | A machine retries a busy model provider and gives up on a misconfigured one. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel23.0-provider-failure-signals | Formal tests for mapped statuses, the transport rule, the faults that stay CommandError, the default-off path, and the declared-emits agreement. | implemented |
+| [test-rel23.0-provider-failure-signals](specs/test-suites/test-rel23.0-provider-failure-signals.md) | Formal tests for mapped statuses, the transport rule, the faults that stay CommandError, the default-off path, and the declared-emits agreement. | implemented |
 
 <!-- field: follow_up | form: "scalar" -->
 ### Follow up
@@ -1243,14 +1243,14 @@ between kind, GCS, and S3 changes a values overlay and nothing else.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel24.0-uc001-objectstore-tools | One profile writes objects on kind and on GCS through a values overlay. | implemented |
+| [rel24.0-uc001-objectstore-tools](specs/use-cases/rel24.0-uc001-objectstore-tools.md) | One profile writes objects on kind and on GCS through a values overlay. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel24.0-objectstore-tools | Round trips, both undo directions, driver selection, the explicit endpoint with a decoy environment, the gate sweep, and the fake-gcs end-to-end proof. | implemented |
+| [test-rel24.0-objectstore-tools](specs/test-suites/test-rel24.0-objectstore-tools.md) | Round trips, both undo directions, driver selection, the explicit endpoint with a decoy environment, the gate sweep, and the fake-gcs end-to-end proof. | implemented |
 
 <!-- field: follow_up -->
 ### Follow up
@@ -1296,14 +1296,14 @@ branch on. Faults that are not an expired budget keep failing.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel25.0-uc001-drain-outcome | A monitor exit on a loaded host succeeds and names its unfinished drain. | implemented |
+| [rel25.0-uc001-drain-outcome](specs/use-cases/rel25.0-uc001-drain-outcome.md) | A monitor exit on a loaded host succeeds and names its unfinished drain. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel25.0-drain-outcome | The incomplete drain that still succeeds, the reported field in both directions, the faults that stay failures, and the release proof on its shipped budget. | implemented |
+| [test-rel25.0-drain-outcome](specs/test-suites/test-rel25.0-drain-outcome.md) | The incomplete drain that still succeeds, the reported field in both directions, the faults that stay failures, and the release proof on its shipped budget. | implemented |
 
 <!-- field: follow_up -->
 ### Follow up
@@ -1350,14 +1350,14 @@ at their next pin bump.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel26.0-uc001-retrieval-client-library | A chatbot queries its retrieval servers through the shared agent-core client. | implemented |
+| [rel26.0-uc001-retrieval-client-library](specs/use-cases/rel26.0-uc001-retrieval-client-library.md) | A chatbot queries its retrieval servers through the shared agent-core client. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel26.0-retrieval-client-library | Fragment expansion per route prefix, status mapping and side effect, loading through the agent-core root, and chatbot-mesh's migration. | implemented |
+| [test-rel26.0-retrieval-client-library](specs/test-suites/test-rel26.0-retrieval-client-library.md) | Fragment expansion per route prefix, status mapping and side effect, loading through the agent-core root, and chatbot-mesh's migration. | implemented |
 
 <!-- field: follow_up -->
 ### Follow up
@@ -1422,16 +1422,16 @@ root v0.* tag.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel99.0-uc001-tool-dispatch-simplification | Maintainer simplifies tool dispatch wiring without changing core dispatch | done |
-| rel99.0-uc002-application-catalog-migration | Maintainers migrate applications and reusable catalog blocks to explicit owner roots | done |
+| [rel99.0-uc001-tool-dispatch-simplification](specs/use-cases/rel99.0-uc001-tool-dispatch-simplification.md) | Maintainer simplifies tool dispatch wiring without changing core dispatch | done |
+| [rel99.0-uc002-application-catalog-migration](specs/use-cases/rel99.0-uc002-application-catalog-migration.md) | Maintainers migrate applications and reusable catalog blocks to explicit owner roots | done |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel99.0-tool-dispatch-simplification | Formal planning tests for tool dispatch simplification scope and follow-up code proof | implemented |
-| test-rel99.0-application-catalog-migration | Formal issue-by-issue tests for source moves, core isolation, catalog roots, path classes, tags, applications, and final taxonomy | implemented |
+| [test-rel99.0-tool-dispatch-simplification](specs/test-suites/test-rel99.0-tool-dispatch-simplification.md) | Formal planning tests for tool dispatch simplification scope and follow-up code proof | implemented |
+| [test-rel99.0-application-catalog-migration](specs/test-suites/test-rel99.0-application-catalog-migration.md) | Formal issue-by-issue tests for source moves, core isolation, catalog roots, path classes, tags, applications, and final taxonomy | implemented |
 
 <!-- field: follow_up -->
 ### Follow up

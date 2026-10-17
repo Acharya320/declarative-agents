@@ -196,9 +196,9 @@ flowchart LR
 <!-- field: related_documents -->
 ## Related documents
 
-- srd030-machine-request-rest-binding
-- sm-rest-tool-language
-- sm-tool-language
-- cfg-rest-tool-format
-- srd027-rest-tool-runtime
-- srd029-rest-server-tools
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md)
+- [sm-rest-tool-language](rest-tool-language.md)
+- [sm-tool-language](tool-language.md)
+- [cfg-rest-tool-format](../config-formats/rest-tool-format.md)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md)

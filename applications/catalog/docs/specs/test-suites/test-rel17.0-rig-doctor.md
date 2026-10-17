@@ -10,7 +10,7 @@ release: "17.0"
 <!-- field: traces -->
 ## Traces
 
-- rel17.0-uc001-rig-doctor
+- [rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -34,7 +34,7 @@ rig-doctor-closure
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-rig-doctor
+[rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -49,7 +49,7 @@ mage validate
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-rig-doctor S2
+- [rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md) [S2](../use-cases/rel17.0-uc001-rig-doctor.md#s2)
 
 <!-- field: assertions -->
 #### Assertions
@@ -69,7 +69,7 @@ rig-doctor-diagnosed
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-rig-doctor
+[rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -89,7 +89,7 @@ go test ./conformance -run '^TestRigDoctorDiagnosed'
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-rig-doctor S3
+- [rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md) [S3](../use-cases/rel17.0-uc001-rig-doctor.md#s3)
 
 <!-- field: assertions -->
 #### Assertions
@@ -110,7 +110,7 @@ rig-doctor-spool-queries
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-rig-doctor
+[rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -131,8 +131,8 @@ go test ./conformance -run '^TestRigDoctorQueriesTheCapturedSpool'
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-rig-doctor S2
-- rel17.0-uc001-rig-doctor S3
+- [rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md) [S2](../use-cases/rel17.0-uc001-rig-doctor.md#s2)
+- [rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md) [S3](../use-cases/rel17.0-uc001-rig-doctor.md#s3)
 
 <!-- field: assertions -->
 #### Assertions
@@ -152,7 +152,7 @@ rig-doctor-repairs-its-diagnosis
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-rig-doctor
+[rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -172,7 +172,7 @@ go test ./conformance -run '^TestRigDoctorRepairs'
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-rig-doctor S3
+- [rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md) [S3](../use-cases/rel17.0-uc001-rig-doctor.md#s3)
 
 <!-- field: assertions -->
 #### Assertions
@@ -191,7 +191,7 @@ rig-doctor-refuses-an-incomplete-diagnosis
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-rig-doctor
+[rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -206,7 +206,7 @@ go test ./conformance -run '^TestRigDoctorRefusesADiagnosisWithoutFindings'
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-rig-doctor S3
+- [rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md) [S3](../use-cases/rel17.0-uc001-rig-doctor.md#s3)
 
 <!-- field: assertions -->
 #### Assertions
@@ -225,7 +225,7 @@ rig-doctor-retries-a-failed-model-call
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-rig-doctor
+[rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -241,8 +241,8 @@ go test ./conformance -run '^TestRigDoctorRetriesAFailedModelCall'
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-rig-doctor S3
-- rel17.0-uc001-rig-doctor S5
+- [rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md) [S3](../use-cases/rel17.0-uc001-rig-doctor.md#s3)
+- [rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md) [S5](../use-cases/rel17.0-uc001-rig-doctor.md#s5)
 
 <!-- field: assertions | form: "tree" -->
 #### Assertions
@@ -261,7 +261,7 @@ rig-doctor-does-not-retry-a-rejected-credential
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-rig-doctor
+[rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -276,7 +276,7 @@ go test ./conformance -run '^TestRigDoctorDoesNotRetryARejectedCredential'
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-rig-doctor S5
+- [rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md) [S5](../use-cases/rel17.0-uc001-rig-doctor.md#s5)
 
 <!-- field: assertions -->
 #### Assertions
@@ -295,7 +295,7 @@ rig-doctor-gives-up-on-an-unreachable-provider
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-rig-doctor
+[rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -310,7 +310,7 @@ go test ./conformance -run '^TestRigDoctorGivesUpOnAnUnreachableProvider'
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-rig-doctor S5
+- [rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md) [S5](../use-cases/rel17.0-uc001-rig-doctor.md#s5)
 
 <!-- field: assertions -->
 #### Assertions
@@ -329,7 +329,7 @@ rig-doctor-no-evidence
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-rig-doctor
+[rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -349,7 +349,7 @@ go test ./conformance -run '^TestRigDoctorNoEvidence'
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-rig-doctor S4
+- [rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md) [S4](../use-cases/rel17.0-uc001-rig-doctor.md#s4)
 
 <!-- field: assertions -->
 #### Assertions
@@ -368,7 +368,7 @@ rig-capture-manifest
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-rig-doctor
+[rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -383,7 +383,7 @@ cd ../.. && go test ./magefiles/kindrig -run '^TestCaptureEvidence'
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-rig-doctor S1
+- [rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md) [S1](../use-cases/rel17.0-uc001-rig-doctor.md#s1)
 
 <!-- field: assertions -->
 #### Assertions
@@ -402,7 +402,7 @@ rig-doctor-registration
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-rig-doctor
+[rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -417,7 +417,7 @@ go test ./conformance -run '^TestFamily'
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-rig-doctor S6
+- [rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md) [S6](../use-cases/rel17.0-uc001-rig-doctor.md#s6)
 
 <!-- field: assertions -->
 #### Assertions
@@ -435,7 +435,7 @@ rig-doctor-live
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-rig-doctor
+[rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -451,8 +451,8 @@ cd ../chatbot-mesh && mage diagnose helm-smoke
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-rig-doctor S3
-- rel17.0-uc001-rig-doctor S5
+- [rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md) [S3](../use-cases/rel17.0-uc001-rig-doctor.md#s3)
+- [rel17.0-uc001-rig-doctor](../use-cases/rel17.0-uc001-rig-doctor.md) [S5](../use-cases/rel17.0-uc001-rig-doctor.md#s5)
 
 <!-- field: assertions -->
 #### Assertions

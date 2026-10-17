@@ -9,7 +9,7 @@ release: "24.0"
 <!-- field: traces -->
 ## Traces
 
-- rel24.0-uc001-objectstore-tools
+- [rel24.0-uc001-objectstore-tools](../use-cases/rel24.0-uc001-objectstore-tools.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -29,7 +29,7 @@ The three commands against mem:// and file:// connections declared through Decod
 <!-- field: use_case -->
 #### Use case
 
-rel24.0-uc001-objectstore-tools
+[rel24.0-uc001-objectstore-tools](../use-cases/rel24.0-uc001-objectstore-tools.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -46,9 +46,9 @@ go test ./internal/tools/objectstore/... -run 'TestObjectRoundTrip'
 <!-- field: traces -->
 #### Traces
 
-- rel24.0-uc001-objectstore-tools S2
-- srd059-objectstore-tools AC2
-- srd059-objectstore-tools R2.1
+- [rel24.0-uc001-objectstore-tools](../use-cases/rel24.0-uc001-objectstore-tools.md) [S2](../use-cases/rel24.0-uc001-objectstore-tools.md#s2)
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [AC2](../software-requirements/srd059-objectstore-tools.md#ac2)
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [R2.1](../software-requirements/srd059-objectstore-tools.md#r21)
 
 <!-- case: Undo restores the prior object and deletes a created one | status: implemented -->
 ### Undo restores the prior object and deletes a created one
@@ -58,7 +58,7 @@ A write over existing bytes and a write to an absent key, each undone through th
 <!-- field: use_case -->
 #### Use case
 
-rel24.0-uc001-objectstore-tools
+[rel24.0-uc001-objectstore-tools](../use-cases/rel24.0-uc001-objectstore-tools.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -75,9 +75,9 @@ go test ./internal/tools/objectstore/... -run 'TestObjectWriteUndo'
 <!-- field: traces -->
 #### Traces
 
-- rel24.0-uc001-objectstore-tools S3
-- srd059-objectstore-tools AC3
-- srd059-objectstore-tools R3.1
+- [rel24.0-uc001-objectstore-tools](../use-cases/rel24.0-uc001-objectstore-tools.md) [S3](../use-cases/rel24.0-uc001-objectstore-tools.md#s3)
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [AC3](../software-requirements/srd059-objectstore-tools.md#ac3)
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [R3.1](../software-requirements/srd059-objectstore-tools.md#r31)
 
 <!-- case: Driver selection follows the declared URL and fails unknown schemes by name | status: implemented -->
 ### Driver selection follows the declared URL and fails unknown schemes by name
@@ -87,7 +87,7 @@ mem, file, gs, and s3 URLs open their drivers; ftp:// and an absent bucket_url f
 <!-- field: use_case -->
 #### Use case
 
-rel24.0-uc001-objectstore-tools
+[rel24.0-uc001-objectstore-tools](../use-cases/rel24.0-uc001-objectstore-tools.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -104,9 +104,9 @@ go test ./internal/tools/objectstore/... -run 'TestBucketSelection'
 <!-- field: traces -->
 #### Traces
 
-- rel24.0-uc001-objectstore-tools S2
-- srd059-objectstore-tools AC2
-- srd059-objectstore-tools R2.1
+- [rel24.0-uc001-objectstore-tools](../use-cases/rel24.0-uc001-objectstore-tools.md) [S2](../use-cases/rel24.0-uc001-objectstore-tools.md#s2)
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [AC2](../software-requirements/srd059-objectstore-tools.md#ac2)
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [R2.1](../software-requirements/srd059-objectstore-tools.md#r21)
 
 <!-- case: The gs driver takes an explicit endpoint and reads no environment | status: implemented -->
 ### The gs driver takes an explicit endpoint and reads no environment
@@ -116,7 +116,7 @@ The endpoint configuration field points the gs driver at a local HTTP server; th
 <!-- field: use_case -->
 #### Use case
 
-rel24.0-uc001-objectstore-tools
+[rel24.0-uc001-objectstore-tools](../use-cases/rel24.0-uc001-objectstore-tools.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -132,9 +132,9 @@ go test ./internal/tools/objectstore/... -run 'TestExplicitEndpoint'
 <!-- field: traces -->
 #### Traces
 
-- rel24.0-uc001-objectstore-tools S2
-- srd059-objectstore-tools AC2
-- srd059-objectstore-tools R2.2
+- [rel24.0-uc001-objectstore-tools](../use-cases/rel24.0-uc001-objectstore-tools.md) [S2](../use-cases/rel24.0-uc001-objectstore-tools.md#s2)
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [AC2](../software-requirements/srd059-objectstore-tools.md#ac2)
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [R2.2](../software-requirements/srd059-objectstore-tools.md#r22)
 
 <!-- case: A fixture profile boots the four words and the default surface is unchanged | status: implemented -->
 ### A fixture profile boots the four words and the default surface is unchanged
@@ -144,7 +144,7 @@ The bootstrap catalog covers the objectstore inits, and tools/builtin/all.yaml d
 <!-- field: use_case -->
 #### Use case
 
-rel24.0-uc001-objectstore-tools
+[rel24.0-uc001-objectstore-tools](../use-cases/rel24.0-uc001-objectstore-tools.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -160,9 +160,9 @@ go test ./cmd/agent/... -run 'TestBuiltinFactoryCatalogCoversSelectedActiveInits
 <!-- field: traces -->
 #### Traces
 
-- rel24.0-uc001-objectstore-tools S1
-- srd059-objectstore-tools AC1
-- srd059-objectstore-tools R1.1
+- [rel24.0-uc001-objectstore-tools](../use-cases/rel24.0-uc001-objectstore-tools.md) [S1](../use-cases/rel24.0-uc001-objectstore-tools.md#s1)
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [AC1](../software-requirements/srd059-objectstore-tools.md#ac1)
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [R1.1](../software-requirements/srd059-objectstore-tools.md#r11)
 
 <!-- case: The declarations pass every hand-maintained gate | status: implemented -->
 ### The declarations pass every hand-maintained gate
@@ -172,7 +172,7 @@ Contract completeness stays empty, the reach test sees the words, output contrac
 <!-- field: use_case -->
 #### Use case
 
-rel24.0-uc001-objectstore-tools
+[rel24.0-uc001-objectstore-tools](../use-cases/rel24.0-uc001-objectstore-tools.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -189,9 +189,9 @@ mage test
 <!-- field: traces -->
 #### Traces
 
-- rel24.0-uc001-objectstore-tools S1
-- srd059-objectstore-tools AC1
-- srd059-objectstore-tools R3.3
+- [rel24.0-uc001-objectstore-tools](../use-cases/rel24.0-uc001-objectstore-tools.md) [S1](../use-cases/rel24.0-uc001-objectstore-tools.md#s1)
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [AC1](../software-requirements/srd059-objectstore-tools.md#ac1)
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [R3.3](../software-requirements/srd059-objectstore-tools.md#r33)
 
 <!-- case: The family runs end to end against fake-gcs-server | status: implemented -->
 ### The family runs end to end against fake-gcs-server
@@ -201,7 +201,7 @@ docker run starts a pinned fake-gcs-server; write, read, list, and both undo dir
 <!-- field: use_case -->
 #### Use case
 
-rel24.0-uc001-objectstore-tools
+[rel24.0-uc001-objectstore-tools](../use-cases/rel24.0-uc001-objectstore-tools.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -219,9 +219,9 @@ go test ./internal/tools/objectstore/... -run 'TestObjectstoreAgainstFakeGCS'
 <!-- field: traces -->
 #### Traces
 
-- rel24.0-uc001-objectstore-tools S4
-- srd059-objectstore-tools AC4
-- srd059-objectstore-tools R4.2
+- [rel24.0-uc001-objectstore-tools](../use-cases/rel24.0-uc001-objectstore-tools.md) [S4](../use-cases/rel24.0-uc001-objectstore-tools.md#s4)
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [AC4](../software-requirements/srd059-objectstore-tools.md#ac4)
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [R4.2](../software-requirements/srd059-objectstore-tools.md#r42)
 
 <!-- case: Declaration-bound delete-prefix is bounded, isolated, verified, and audited | status: implemented -->
 ### Declaration-bound delete-prefix is bounded, isolated, verified, and audited
@@ -231,7 +231,7 @@ The request supplies a malicious peer prefix but the builder deletes only its co
 <!-- field: use_case -->
 #### Use case
 
-rel24.0-uc001-objectstore-tools
+[rel24.0-uc001-objectstore-tools](../use-cases/rel24.0-uc001-objectstore-tools.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -250,8 +250,8 @@ go test ./internal/tools/objectstore/... -run 'TestDeletePrefix'
 <!-- field: traces -->
 #### Traces
 
-- rel24.0-uc001-objectstore-tools S5
-- srd059-objectstore-tools AC5
-- srd059-objectstore-tools R5.1
-- srd059-objectstore-tools R5.2
-- srd059-objectstore-tools R5.3
+- [rel24.0-uc001-objectstore-tools](../use-cases/rel24.0-uc001-objectstore-tools.md) [S5](../use-cases/rel24.0-uc001-objectstore-tools.md#s5)
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [AC5](../software-requirements/srd059-objectstore-tools.md#ac5)
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [R5.1](../software-requirements/srd059-objectstore-tools.md#r51)
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [R5.2](../software-requirements/srd059-objectstore-tools.md#r52)
+- [srd059-objectstore-tools](../software-requirements/srd059-objectstore-tools.md) [R5.3](../software-requirements/srd059-objectstore-tools.md#r53)

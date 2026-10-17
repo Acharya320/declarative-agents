@@ -251,9 +251,9 @@ flowchart LR
 <!-- field: related_documents -->
 ## Related documents
 
-- srd035-checkpoint-port
-- srd036-dolt-state-persistence
-- srd025-rollback-lifecycle
-- srd026-lifecycle-tools
-- sm-command-undo-audit
-- cfg-tool-authoring-standard
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md)
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md)
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md)
+- [srd026-lifecycle-tools](../software-requirements/srd026-lifecycle-tools.md)
+- [sm-command-undo-audit](command-undo-audit.md)
+- [cfg-tool-authoring-standard](../config-formats/tool-authoring-standard.md)

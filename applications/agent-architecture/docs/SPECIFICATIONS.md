@@ -52,17 +52,17 @@ requirements.
 
 | id | title | summary | path |
 | --- | --- | --- | --- |
-| agent-architecture | Agent Architecture Application Vision | Application purpose, ownership boundary, dependencies, and success criteria. | docs/VISION.md |
-| architecture-agent-architecture | Agent Architecture Application Architecture | Presentation flow, components, interfaces, dependency direction, and decisions. | docs/ARCHITECTURE.md |
-| agent-architecture-roadmap | Agent Architecture Application Road Map | Release 00.0 contract, implemented deterministic evidence, and dependency-gated live observations. | docs/road-map.md |
+| [agent-architecture](VISION.md) | Agent Architecture Application Vision | Application purpose, ownership boundary, dependencies, and success criteria. | docs/VISION.md |
+| [architecture-agent-architecture](ARCHITECTURE.md) | Agent Architecture Application Architecture | Presentation flow, components, interfaces, dependency direction, and decisions. | docs/ARCHITECTURE.md |
+| [agent-architecture-roadmap](road-map.md) | Agent Architecture Application Road Map | Release 00.0 contract, implemented deterministic evidence, and dependency-gated live observations. | docs/road-map.md |
 
 <!-- field: srd_index -->
 ## SRD index
 
 | id | title | status | path |
 | --- | --- | --- | --- |
-| srd001-helm-deployment | Agent Architecture Helm Deployment | planned | docs/specs/software-requirements/srd001-helm-deployment.md |
-| srd002-applier | Declarative Applier Agent | implemented | docs/specs/software-requirements/srd002-applier.md |
+| [srd001-helm-deployment](specs/software-requirements/srd001-helm-deployment.md) | Agent Architecture Helm Deployment | planned | docs/specs/software-requirements/srd001-helm-deployment.md |
+| [srd002-applier](specs/software-requirements/srd002-applier.md) | Declarative Applier Agent | implemented | docs/specs/software-requirements/srd002-applier.md |
 
 <!-- field: external_requirement_references -->
 ## External requirement references
@@ -189,22 +189,22 @@ None
 
 | id | title | release | status | test_suite | path |
 | --- | --- | --- | --- | --- | --- |
-| rel00.0-uc001-guided-agent-architecture | Operator Runs the Guided Agent Architecture | 00.0 | partial | test-rel00.0-guided-agent-architecture | docs/specs/use-cases/rel00.0-uc001-guided-agent-architecture.md |
-| rel01.0-uc001-demo-trace-collection | Demo Run Collects and Serves Traces | 01.0 | implemented | test-rel01.0-demo-trace-collection | docs/specs/use-cases/rel01.0-uc001-demo-trace-collection.md |
-| rel02.0-uc001-render-packaged-chart | Render and Validate the Packaged Agent Architecture Chart | 02.0 | planned | test-rel02.0-render-packaged-chart | docs/specs/use-cases/rel02.0-uc001-render-packaged-chart.md |
-| rel03.0-uc001-live-helm-smoke | Prove the Packaged Agent Architecture Chart on Kind | 03.0 | planned | test-rel03.0-live-helm-smoke | docs/specs/use-cases/rel03.0-uc001-live-helm-smoke.md |
-| rel04.0-uc001-declarative-applier | The Applier Agent Validates, Applies, and Verifies an Agent Architecture Values Change | 04.0 | planned | test-rel04.0-declarative-applier | docs/specs/use-cases/rel04.0-uc001-declarative-applier.md |
+| [rel00.0-uc001-guided-agent-architecture](specs/use-cases/rel00.0-uc001-guided-agent-architecture.md) | Operator Runs the Guided Agent Architecture | 00.0 | partial | [test-rel00.0-guided-agent-architecture](specs/test-suites/test-rel00.0-guided-agent-architecture.md) | docs/specs/use-cases/rel00.0-uc001-guided-agent-architecture.md |
+| [rel01.0-uc001-demo-trace-collection](specs/use-cases/rel01.0-uc001-demo-trace-collection.md) | Demo Run Collects and Serves Traces | 01.0 | implemented | [test-rel01.0-demo-trace-collection](specs/test-suites/test-rel01.0-demo-trace-collection.md) | docs/specs/use-cases/rel01.0-uc001-demo-trace-collection.md |
+| [rel02.0-uc001-render-packaged-chart](specs/use-cases/rel02.0-uc001-render-packaged-chart.md) | Render and Validate the Packaged Agent Architecture Chart | 02.0 | planned | [test-rel02.0-render-packaged-chart](specs/test-suites/test-rel02.0-render-packaged-chart.md) | docs/specs/use-cases/rel02.0-uc001-render-packaged-chart.md |
+| [rel03.0-uc001-live-helm-smoke](specs/use-cases/rel03.0-uc001-live-helm-smoke.md) | Prove the Packaged Agent Architecture Chart on Kind | 03.0 | planned | [test-rel03.0-live-helm-smoke](specs/test-suites/test-rel03.0-live-helm-smoke.md) | docs/specs/use-cases/rel03.0-uc001-live-helm-smoke.md |
+| [rel04.0-uc001-declarative-applier](specs/use-cases/rel04.0-uc001-declarative-applier.md) | The Applier Agent Validates, Applies, and Verifies an Agent Architecture Values Change | 04.0 | planned | [test-rel04.0-declarative-applier](specs/test-suites/test-rel04.0-declarative-applier.md) | docs/specs/use-cases/rel04.0-uc001-declarative-applier.md |
 
 <!-- field: test_suite_index | form: "typed table" -->
 ## Test suite index
 
 | id | title | release | status | test_case_count | traces | path |
 | --- | --- | --- | --- | --- | --- | --- |
-| test-rel00.0-guided-agent-architecture | Test Suite for Release 00.0 Guided Agent Architecture | "00.0" | partial | 5 | [rel00.0-uc001-guided-agent-architecture] | docs/specs/test-suites/test-rel00.0-guided-agent-architecture.md |
-| test-rel01.0-demo-trace-collection | Test Suite for Release 01.0 Demo Trace Collection | "01.0" | implemented | 3 | [rel01.0-uc001-demo-trace-collection] | docs/specs/test-suites/test-rel01.0-demo-trace-collection.md |
-| test-rel02.0-render-packaged-chart | Test Suite for Release 02.0 Packaged Chart Render and Validation | "02.0" | planned | 4 | [rel02.0-uc001-render-packaged-chart] | docs/specs/test-suites/test-rel02.0-render-packaged-chart.md |
-| test-rel03.0-live-helm-smoke | Test Suite for Release 03.0 Live Helm Smoke | "03.0" | planned | 4 | [rel03.0-uc001-live-helm-smoke] | docs/specs/test-suites/test-rel03.0-live-helm-smoke.md |
-| test-rel04.0-declarative-applier | Test Suite for Release 04.0 Declarative Applier Agent | "04.0" | planned | 5 | [rel04.0-uc001-declarative-applier] | docs/specs/test-suites/test-rel04.0-declarative-applier.md |
+| [test-rel00.0-guided-agent-architecture](specs/test-suites/test-rel00.0-guided-agent-architecture.md) | Test Suite for Release 00.0 Guided Agent Architecture | "00.0" | partial | 5 | [[rel00.0-uc001-guided-agent-architecture](specs/use-cases/rel00.0-uc001-guided-agent-architecture.md)] | docs/specs/test-suites/test-rel00.0-guided-agent-architecture.md |
+| [test-rel01.0-demo-trace-collection](specs/test-suites/test-rel01.0-demo-trace-collection.md) | Test Suite for Release 01.0 Demo Trace Collection | "01.0" | implemented | 3 | [[rel01.0-uc001-demo-trace-collection](specs/use-cases/rel01.0-uc001-demo-trace-collection.md)] | docs/specs/test-suites/test-rel01.0-demo-trace-collection.md |
+| [test-rel02.0-render-packaged-chart](specs/test-suites/test-rel02.0-render-packaged-chart.md) | Test Suite for Release 02.0 Packaged Chart Render and Validation | "02.0" | planned | 4 | [[rel02.0-uc001-render-packaged-chart](specs/use-cases/rel02.0-uc001-render-packaged-chart.md)] | docs/specs/test-suites/test-rel02.0-render-packaged-chart.md |
+| [test-rel03.0-live-helm-smoke](specs/test-suites/test-rel03.0-live-helm-smoke.md) | Test Suite for Release 03.0 Live Helm Smoke | "03.0" | planned | 4 | [[rel03.0-uc001-live-helm-smoke](specs/use-cases/rel03.0-uc001-live-helm-smoke.md)] | docs/specs/test-suites/test-rel03.0-live-helm-smoke.md |
+| [test-rel04.0-declarative-applier](specs/test-suites/test-rel04.0-declarative-applier.md) | Test Suite for Release 04.0 Declarative Applier Agent | "04.0" | planned | 5 | [[rel04.0-uc001-declarative-applier](specs/use-cases/rel04.0-uc001-declarative-applier.md)] | docs/specs/test-suites/test-rel04.0-declarative-applier.md |
 
 <!-- field: coverage_gaps | form: "tree" -->
 ## Coverage gaps

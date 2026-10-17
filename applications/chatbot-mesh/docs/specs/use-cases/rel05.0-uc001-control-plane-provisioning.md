@@ -55,11 +55,11 @@ delegates the intent to the provisioning-workflow-orchestrator.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd004-provisioning-workflow-orchestrator AC1 | The provisioning-workflow-orchestrator binds the UX agent's intent to a workflow run and aggregates status. |
-| T2 | srd004-provisioning-workflow-orchestrator AC2 | The provisioning-workflow-orchestrator sequences the ingest per directory through the creator and verifies counts. |
-| T3 | srd004-provisioning-workflow-orchestrator AC3 | The provisioning-workflow-orchestrator is the sole author of the values decision and requests the rollout. |
-| T4 | srd005-creator AC3 | The creator spawns the ingest run and executes the request-draining rollout through the deployment API. |
-| T5 | srd005-creator AC5 | The creator alone holds the deployment-API credentials and passes no endpoint into a running agent. |
+| T1 | [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [AC1](../software-requirements/srd004-provisioning-workflow-orchestrator.md#ac1) | The provisioning-workflow-orchestrator binds the UX agent's intent to a workflow run and aggregates status. |
+| T2 | [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [AC2](../software-requirements/srd004-provisioning-workflow-orchestrator.md#ac2) | The provisioning-workflow-orchestrator sequences the ingest per directory through the creator and verifies counts. |
+| T3 | [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [AC3](../software-requirements/srd004-provisioning-workflow-orchestrator.md#ac3) | The provisioning-workflow-orchestrator is the sole author of the values decision and requests the rollout. |
+| T4 | [srd005-creator](../software-requirements/srd005-creator.md) [AC3](../software-requirements/srd005-creator.md#ac3) | The creator spawns the ingest run and executes the request-draining rollout through the deployment API. |
+| T5 | [srd005-creator](../software-requirements/srd005-creator.md) [AC5](../software-requirements/srd005-creator.md#ac5) | The creator alone holds the deployment-API credentials and passes no endpoint into a running agent. |
 | T6 | test-rel05.0-control-plane provisioning_intent | The suite records the intent -> ingest -> reconfigure -> restart -> serve flow across the three agents. |
 
 <!-- field: success_criteria -->
@@ -73,9 +73,9 @@ The chatbot delegates the intent to the provisioning-workflow-orchestrator throu
 <!-- field: traces -->
 #### Traces
 
-- srd004-provisioning-workflow-orchestrator R1.1
-- srd004-provisioning-workflow-orchestrator R1.2
-- srd004-provisioning-workflow-orchestrator AC1
+- [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [R1.1](../software-requirements/srd004-provisioning-workflow-orchestrator.md#r11)
+- [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [R1.2](../software-requirements/srd004-provisioning-workflow-orchestrator.md#r12)
+- [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [AC1](../software-requirements/srd004-provisioning-workflow-orchestrator.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -85,9 +85,9 @@ The provisioning-workflow-orchestrator sequences a corpus-ingest run per directo
 <!-- field: traces -->
 #### Traces
 
-- srd004-provisioning-workflow-orchestrator R2.1
-- srd004-provisioning-workflow-orchestrator R2.2
-- srd004-provisioning-workflow-orchestrator AC2
+- [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [R2.1](../software-requirements/srd004-provisioning-workflow-orchestrator.md#r21)
+- [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [R2.2](../software-requirements/srd004-provisioning-workflow-orchestrator.md#r22)
+- [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [AC2](../software-requirements/srd004-provisioning-workflow-orchestrator.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -97,12 +97,12 @@ The provisioning-workflow-orchestrator decides the values changes and requests a
 <!-- field: traces -->
 #### Traces
 
-- srd004-provisioning-workflow-orchestrator R3.1
-- srd005-creator R3.2
-- srd003-chatbot-deployment R3.2
-- srd004-provisioning-workflow-orchestrator AC3
-- srd005-creator AC3
-- srd003-chatbot-deployment AC3
+- [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [R3.1](../software-requirements/srd004-provisioning-workflow-orchestrator.md#r31)
+- [srd005-creator](../software-requirements/srd005-creator.md) [R3.2](../software-requirements/srd005-creator.md#r32)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R3.2](../software-requirements/srd003-chatbot-deployment.md#r32)
+- [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [AC3](../software-requirements/srd004-provisioning-workflow-orchestrator.md#ac3)
+- [srd005-creator](../software-requirements/srd005-creator.md) [AC3](../software-requirements/srd005-creator.md#ac3)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC3](../software-requirements/srd003-chatbot-deployment.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -112,11 +112,11 @@ The creator alone holds the deployment-API authority, both control-plane agents 
 <!-- field: traces -->
 #### Traces
 
-- srd005-creator R5.1
-- srd005-creator R5.3
-- srd003-chatbot-deployment R4.2
-- srd005-creator AC5
-- srd003-chatbot-deployment AC4
+- [srd005-creator](../software-requirements/srd005-creator.md) [R5.1](../software-requirements/srd005-creator.md#r51)
+- [srd005-creator](../software-requirements/srd005-creator.md) [R5.3](../software-requirements/srd005-creator.md#r53)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R4.2](../software-requirements/srd003-chatbot-deployment.md#r42)
+- [srd005-creator](../software-requirements/srd005-creator.md) [AC5](../software-requirements/srd005-creator.md#ac5)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC4](../software-requirements/srd003-chatbot-deployment.md#ac4)
 
 <!-- sc: S5 -->
 ### S5
@@ -126,10 +126,10 @@ After the rollout the newly added source serves a grounded chat turn, and the pr
 <!-- field: traces -->
 #### Traces
 
-- srd003-chatbot-deployment R2.1
-- srd004-provisioning-workflow-orchestrator R1.3
-- srd003-chatbot-deployment AC2
-- srd004-provisioning-workflow-orchestrator AC1
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R2.1](../software-requirements/srd003-chatbot-deployment.md#r21)
+- [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [R1.3](../software-requirements/srd004-provisioning-workflow-orchestrator.md#r13)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC2](../software-requirements/srd003-chatbot-deployment.md#ac2)
+- [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [AC1](../software-requirements/srd004-provisioning-workflow-orchestrator.md#ac1)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -141,4 +141,4 @@ After the rollout the newly added source serves a grounded chat turn, and the pr
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel05.0-control-plane
+[test-rel05.0-control-plane](../test-suites/test-rel05.0-control-plane.md)

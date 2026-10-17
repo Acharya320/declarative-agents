@@ -42,10 +42,10 @@ arguments, and optionally a name prefix.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd052-declaration-fragments R1.1, R1.2, R1.3 | fragment unit format |
-| T2 | srd052-declaration-fragments R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R2.7 | expansion, hygienic substitution, and validation |
-| T3 | srd052-declaration-fragments R3.1, R3.2, R3.3 | usedness and provenance |
-| T4 | srd052-declaration-fragments R4.1, R4.2, R4.3 | machine stage fragments |
+| T1 | [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [R1.1](../software-requirements/srd052-declaration-fragments.md#r11), [R1.2](../software-requirements/srd052-declaration-fragments.md#r12), [R1.3](../software-requirements/srd052-declaration-fragments.md#r13) | fragment unit format |
+| T2 | [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [R2.1](../software-requirements/srd052-declaration-fragments.md#r21), [R2.2](../software-requirements/srd052-declaration-fragments.md#r22), [R2.3](../software-requirements/srd052-declaration-fragments.md#r23), [R2.4](../software-requirements/srd052-declaration-fragments.md#r24), [R2.5](../software-requirements/srd052-declaration-fragments.md#r25), [R2.6](../software-requirements/srd052-declaration-fragments.md#r26), [R2.7](../software-requirements/srd052-declaration-fragments.md#r27) | expansion, hygienic substitution, and validation |
+| T3 | [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [R3.1](../software-requirements/srd052-declaration-fragments.md#r31), [R3.2](../software-requirements/srd052-declaration-fragments.md#r32), [R3.3](../software-requirements/srd052-declaration-fragments.md#r33) | usedness and provenance |
+| T4 | [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [R4.1](../software-requirements/srd052-declaration-fragments.md#r41), [R4.2](../software-requirements/srd052-declaration-fragments.md#r42), [R4.3](../software-requirements/srd052-declaration-fragments.md#r43) | machine stage fragments |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -58,7 +58,7 @@ A fragment with params and one body loads; a half-declared fragment and a nestin
 <!-- field: traces -->
 #### Traces
 
-- srd052-declaration-fragments AC1
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [AC1](../software-requirements/srd052-declaration-fragments.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -68,7 +68,7 @@ Each argument fault fails naming importer, fragment, and parameter, and a refere
 <!-- field: traces -->
 #### Traces
 
-- srd052-declaration-fragments AC2
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [AC2](../software-requirements/srd052-declaration-fragments.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -78,7 +78,7 @@ Two expansions of one fragment with distinct prefixes coexist; two without fail 
 <!-- field: traces -->
 #### Traces
 
-- srd052-declaration-fragments AC2
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [AC2](../software-requirements/srd052-declaration-fragments.md#ac2)
 
 <!-- sc: S4 -->
 ### S4
@@ -88,7 +88,7 @@ An unselected expansion fails as an unused import and the dump lists every expan
 <!-- field: traces -->
 #### Traces
 
-- srd052-declaration-fragments AC3
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [AC3](../software-requirements/srd052-declaration-fragments.md#ac3)
 
 <!-- sc: S5 -->
 ### S5
@@ -98,7 +98,7 @@ A spliced stage passes or fails the label and exhaustiveness checks exactly as t
 <!-- field: traces -->
 #### Traces
 
-- srd052-declaration-fragments AC4
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [AC4](../software-requirements/srd052-declaration-fragments.md#ac4)
 
 <!-- field: out_of_scope -->
 ## Out of scope

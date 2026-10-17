@@ -33,8 +33,8 @@ POST /login with credentials
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd001-auth R1, R2 | authentication flow |
-| T2 | srd002-api R1 | REST endpoints |
+| T1 | [srd001-auth](../software-requirements/srd001-auth.md) [R1](../software-requirements/srd001-auth.md#r1---login), [R2](../software-requirements/srd001-auth.md#r2---logout) | authentication flow |
+| T2 | [srd002-api](../software-requirements/srd002-api.md) [R1](../software-requirements/srd002-api.md#r1---endpoints) | REST endpoints |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -47,7 +47,7 @@ Valid credentials return a token.
 <!-- field: traces -->
 #### Traces
 
-- srd001-auth AC1
+- [srd001-auth](../software-requirements/srd001-auth.md) [AC1](../software-requirements/srd001-auth.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -57,7 +57,7 @@ Invalid credentials return 401.
 <!-- field: traces -->
 #### Traces
 
-- srd001-auth AC2
+- [srd001-auth](../software-requirements/srd001-auth.md) [AC2](../software-requirements/srd001-auth.md#ac2)
 
 <!-- field: out_of_scope -->
 ## Out of scope

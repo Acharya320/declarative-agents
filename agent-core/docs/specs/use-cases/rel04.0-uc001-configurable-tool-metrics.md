@@ -48,11 +48,11 @@ changing tool workflows or giving model output control over metric labels.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd032-tool-metrics-monitor-store R1.1, R1.2, R1.3, R1.4, R1.5, R1.6 | monitor store scope and bounded snapshots |
-| T2 | srd032-tool-metrics-monitor-store R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R2.7 | recorder ownership boundaries |
-| T3 | srd032-tool-metrics-monitor-store R3.1, R3.2, R3.3, R3.4, R3.5, R3.6, R3.7, R3.8 | metric validation |
-| T4 | srd032-tool-metrics-monitor-store R4.1, R4.2, R4.3, R4.4, R4.5 | OpenTelemetry metric export |
-| T5 | srd032-tool-metrics-monitor-store R5.1, R5.2, R5.3, R5.4, R5.5 | disabled-mode behavior |
+| T1 | [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [R1.1](../software-requirements/srd032-tool-metrics-monitor-store.md#r11), [R1.2](../software-requirements/srd032-tool-metrics-monitor-store.md#r12), [R1.3](../software-requirements/srd032-tool-metrics-monitor-store.md#r13), [R1.4](../software-requirements/srd032-tool-metrics-monitor-store.md#r14), [R1.5](../software-requirements/srd032-tool-metrics-monitor-store.md#r15), [R1.6](../software-requirements/srd032-tool-metrics-monitor-store.md#r16) | monitor store scope and bounded snapshots |
+| T2 | [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [R2.1](../software-requirements/srd032-tool-metrics-monitor-store.md#r21), [R2.2](../software-requirements/srd032-tool-metrics-monitor-store.md#r22), [R2.3](../software-requirements/srd032-tool-metrics-monitor-store.md#r23), [R2.4](../software-requirements/srd032-tool-metrics-monitor-store.md#r24), [R2.5](../software-requirements/srd032-tool-metrics-monitor-store.md#r25), [R2.6](../software-requirements/srd032-tool-metrics-monitor-store.md#r26), [R2.7](../software-requirements/srd032-tool-metrics-monitor-store.md#r27) | recorder ownership boundaries |
+| T3 | [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [R3.1](../software-requirements/srd032-tool-metrics-monitor-store.md#r31), [R3.2](../software-requirements/srd032-tool-metrics-monitor-store.md#r32), [R3.3](../software-requirements/srd032-tool-metrics-monitor-store.md#r33), [R3.4](../software-requirements/srd032-tool-metrics-monitor-store.md#r34), [R3.5](../software-requirements/srd032-tool-metrics-monitor-store.md#r35), [R3.6](../software-requirements/srd032-tool-metrics-monitor-store.md#r36), [R3.7](../software-requirements/srd032-tool-metrics-monitor-store.md#r37), [R3.8](../software-requirements/srd032-tool-metrics-monitor-store.md#r38) | metric validation |
+| T4 | [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [R4.1](../software-requirements/srd032-tool-metrics-monitor-store.md#r41), [R4.2](../software-requirements/srd032-tool-metrics-monitor-store.md#r42), [R4.3](../software-requirements/srd032-tool-metrics-monitor-store.md#r43), [R4.4](../software-requirements/srd032-tool-metrics-monitor-store.md#r44), [R4.5](../software-requirements/srd032-tool-metrics-monitor-store.md#r45) | OpenTelemetry metric export |
+| T5 | [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [R5.1](../software-requirements/srd032-tool-metrics-monitor-store.md#r51), [R5.2](../software-requirements/srd032-tool-metrics-monitor-store.md#r52), [R5.3](../software-requirements/srd032-tool-metrics-monitor-store.md#r53), [R5.4](../software-requirements/srd032-tool-metrics-monitor-store.md#r54), [R5.5](../software-requirements/srd032-tool-metrics-monitor-store.md#r55) | disabled-mode behavior |
 | T6 | sm-tool-metrics-monitoring ownership_rules | tools own specialized metrics and runtime owns standard context |
 | T7 | cfg-tool-declaration-format metric_declaration_fields | ToolDef metrics declarations |
 | T8 | cfg-machine-format workflow_metric_labels | MachineSpec workflow labels |
@@ -68,7 +68,7 @@ Monitor store snapshots expose bounded current and recent state without executin
 <!-- field: traces -->
 #### Traces
 
-- srd032-tool-metrics-monitor-store AC1
+- [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [AC1](../software-requirements/srd032-tool-metrics-monitor-store.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -78,7 +78,7 @@ Recorder use separates runtime-owned standard context from tool-owned specialize
 <!-- field: traces -->
 #### Traces
 
-- srd032-tool-metrics-monitor-store AC2
+- [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [AC2](../software-requirements/srd032-tool-metrics-monitor-store.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -88,7 +88,7 @@ Metric config validation rejects unsafe names, source paths, attributes, and lab
 <!-- field: traces -->
 #### Traces
 
-- srd032-tool-metrics-monitor-store AC3
+- [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [AC3](../software-requirements/srd032-tool-metrics-monitor-store.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -98,7 +98,7 @@ OpenTelemetry metric export reads normalized samples and reports export failure 
 <!-- field: traces -->
 #### Traces
 
-- srd032-tool-metrics-monitor-store AC4
+- [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [AC4](../software-requirements/srd032-tool-metrics-monitor-store.md#ac4)
 
 <!-- sc: S5 -->
 ### S5
@@ -108,7 +108,7 @@ Disabled mode preserves current loop, dispatch, tracing, and tool behavior witho
 <!-- field: traces -->
 #### Traces
 
-- srd032-tool-metrics-monitor-store AC5
+- [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [AC5](../software-requirements/srd032-tool-metrics-monitor-store.md#ac5)
 
 <!-- field: out_of_scope -->
 ## Out of scope

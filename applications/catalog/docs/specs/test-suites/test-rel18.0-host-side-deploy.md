@@ -10,7 +10,7 @@ release: "18.0"
 <!-- field: traces -->
 ## Traces
 
-- rel18.0-uc001-host-side-deploy
+- [rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -34,7 +34,7 @@ deploy-closure
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-host-side-deploy
+[rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -49,7 +49,7 @@ mage validate
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-host-side-deploy S1
+- [rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md) [S1](../use-cases/rel18.0-uc001-host-side-deploy.md#s1)
 
 <!-- field: assertions -->
 #### Assertions
@@ -69,7 +69,7 @@ deploy-reaches-deployed
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-host-side-deploy
+[rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -84,7 +84,7 @@ go test ./conformance -run '^TestApplierDeployReachesDeployed'
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-host-side-deploy S1
+- [rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md) [S1](../use-cases/rel18.0-uc001-host-side-deploy.md#s1)
 
 <!-- field: assertions -->
 #### Assertions
@@ -104,7 +104,7 @@ deploy-rejects-a-failed-dry-run
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-host-side-deploy
+[rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -119,7 +119,7 @@ go test ./conformance -run '^TestApplierDeployRejectsAFailedDryRun'
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-host-side-deploy S5
+- [rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md) [S5](../use-cases/rel18.0-uc001-host-side-deploy.md#s5)
 
 <!-- field: assertions -->
 #### Assertions
@@ -138,7 +138,7 @@ deploy-rolls-back-a-stalled-verify
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-host-side-deploy
+[rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -153,7 +153,7 @@ go test ./conformance -run '^TestApplierDeployRollsBackAStalledVerify'
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-host-side-deploy S5
+- [rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md) [S5](../use-cases/rel18.0-uc001-host-side-deploy.md#s5)
 
 <!-- field: assertions -->
 #### Assertions
@@ -172,7 +172,7 @@ deploy-fails-when-rollback-fails
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-host-side-deploy
+[rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -187,7 +187,7 @@ go test ./conformance -run '^TestApplierDeployFailsWhenRollbackFails'
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-host-side-deploy S5
+- [rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md) [S5](../use-cases/rel18.0-uc001-host-side-deploy.md#s5)
 
 <!-- field: assertions -->
 #### Assertions
@@ -206,7 +206,7 @@ undeploy-removes-and-reports-absent
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-host-side-deploy
+[rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -221,7 +221,7 @@ go test ./conformance -run '^TestApplierUndeployRemovesAndReportsAbsent'
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-host-side-deploy S7
+- [rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md) [S7](../use-cases/rel18.0-uc001-host-side-deploy.md#s7)
 
 <!-- field: assertions -->
 #### Assertions
@@ -241,7 +241,7 @@ deploy-declares-no-model-word
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-host-side-deploy
+[rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -256,7 +256,7 @@ go test ./conformance -run '^TestApplierDeployDeclaresNoModelWord'
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-host-side-deploy S1
+- [rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md) [S1](../use-cases/rel18.0-uc001-host-side-deploy.md#s1)
 
 <!-- field: assertions -->
 #### Assertions
@@ -275,7 +275,7 @@ deploy-rendering-resolves-every-coordinate
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-host-side-deploy
+[rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -290,7 +290,7 @@ cd ../.. && go test ./magefiles/kindrig -run '^TestRenderDeployDeclarations'
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-host-side-deploy S2
+- [rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md) [S2](../use-cases/rel18.0-uc001-host-side-deploy.md#s2)
 
 <!-- field: assertions -->
 #### Assertions
@@ -309,7 +309,7 @@ deploy-rendered-argv-guards
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-host-side-deploy
+[rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -325,8 +325,8 @@ cd ../.. && go test ./magefiles/kindrig -run '^TestRenderedDeployArgv'
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-host-side-deploy S2
-- rel18.0-uc001-host-side-deploy S3
+- [rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md) [S2](../use-cases/rel18.0-uc001-host-side-deploy.md#s2)
+- [rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md) [S3](../use-cases/rel18.0-uc001-host-side-deploy.md#s3)
 
 <!-- field: assertions -->
 #### Assertions
@@ -345,7 +345,7 @@ deploy-gates-on-a-failure-terminal
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-host-side-deploy
+[rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -360,7 +360,7 @@ cd ../.. && go test ./magefiles/kindrig -run '^TestDeployGatesOnAFailureTerminal
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-host-side-deploy S6
+- [rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md) [S6](../use-cases/rel18.0-uc001-host-side-deploy.md#s6)
 
 <!-- field: assertions -->
 #### Assertions
@@ -379,7 +379,7 @@ deploy-atomic-contract-live
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-host-side-deploy
+[rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -395,8 +395,8 @@ GH-2304 adds the coding-agent deploy target; executable evidence lands with it
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-host-side-deploy S4
-- rel18.0-uc001-host-side-deploy S5
+- [rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md) [S4](../use-cases/rel18.0-uc001-host-side-deploy.md#s4)
+- [rel18.0-uc001-host-side-deploy](../use-cases/rel18.0-uc001-host-side-deploy.md) [S5](../use-cases/rel18.0-uc001-host-side-deploy.md#s5)
 
 <!-- field: assertions -->
 #### Assertions

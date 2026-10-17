@@ -42,9 +42,9 @@ a `machine` body.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd054-machine-templates R1.1, R1.2, R1.3, R1.4 | template and instance format |
-| T2 | srd054-machine-templates R2.1, R2.2, R2.3, R2.4, R2.5 | expansion and validation |
-| T3 | srd054-machine-templates R3.1, R3.2, R3.3 | closure, identity, provenance, and staging |
+| T1 | [srd054-machine-templates](../software-requirements/srd054-machine-templates.md) [R1.1](../software-requirements/srd054-machine-templates.md#r11), [R1.2](../software-requirements/srd054-machine-templates.md#r12), [R1.3](../software-requirements/srd054-machine-templates.md#r13), [R1.4](../software-requirements/srd054-machine-templates.md#r14) | template and instance format |
+| T2 | [srd054-machine-templates](../software-requirements/srd054-machine-templates.md) [R2.1](../software-requirements/srd054-machine-templates.md#r21), [R2.2](../software-requirements/srd054-machine-templates.md#r22), [R2.3](../software-requirements/srd054-machine-templates.md#r23), [R2.4](../software-requirements/srd054-machine-templates.md#r24), [R2.5](../software-requirements/srd054-machine-templates.md#r25) | expansion and validation |
+| T3 | [srd054-machine-templates](../software-requirements/srd054-machine-templates.md) [R3.1](../software-requirements/srd054-machine-templates.md#r31), [R3.2](../software-requirements/srd054-machine-templates.md#r32), [R3.3](../software-requirements/srd054-machine-templates.md#r33) | closure, identity, provenance, and staging |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -57,7 +57,7 @@ An instance loads from a template; every forbidden instance field, a prefix, nes
 <!-- field: traces -->
 #### Traces
 
-- srd054-machine-templates AC1
+- [srd054-machine-templates](../software-requirements/srd054-machine-templates.md) [AC1](../software-requirements/srd054-machine-templates.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -67,7 +67,7 @@ The expanded machine equals the equivalent hand-written machine apart from name 
 <!-- field: traces -->
 #### Traces
 
-- srd054-machine-templates AC2
+- [srd054-machine-templates](../software-requirements/srd054-machine-templates.md) [AC2](../software-requirements/srd054-machine-templates.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -77,7 +77,7 @@ A template change moves the program digest, the dump lists machine and stage exp
 <!-- field: traces -->
 #### Traces
 
-- srd054-machine-templates AC3
+- [srd054-machine-templates](../software-requirements/srd054-machine-templates.md) [AC3](../software-requirements/srd054-machine-templates.md#ac3)
 
 <!-- field: out_of_scope -->
 ## Out of scope

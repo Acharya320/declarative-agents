@@ -9,7 +9,7 @@ release: "99.0"
 <!-- field: traces -->
 ## Traces
 
-- rel99.0-uc001-tool-dispatch-simplification
+- [rel99.0-uc001-tool-dispatch-simplification](../use-cases/rel99.0-uc001-tool-dispatch-simplification.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -32,7 +32,7 @@ extension points for the follow-up code task.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc001-tool-dispatch-simplification
+[rel99.0-uc001-tool-dispatch-simplification](../use-cases/rel99.0-uc001-tool-dispatch-simplification.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -53,7 +53,7 @@ mage audit
 <!-- field: traces -->
 #### Traces
 
-- srd037-tool-dispatch-simplification AC1
+- [srd037-tool-dispatch-simplification](../software-requirements/srd037-tool-dispatch-simplification.md) [AC1](../software-requirements/srd037-tool-dispatch-simplification.md#ac1)
 
 <!-- case: Registry startup errors are scoped to configuration-originated failures | status: done -->
 ### Registry startup errors are scoped to configuration-originated failures
@@ -65,7 +65,7 @@ without removing compatibility wrappers.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc001-tool-dispatch-simplification
+[rel99.0-uc001-tool-dispatch-simplification](../use-cases/rel99.0-uc001-tool-dispatch-simplification.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -87,7 +87,7 @@ go test ./internal/runtime/core -run 'TestRegistry(CheckedRegistrationReturnsCon
 <!-- field: traces -->
 #### Traces
 
-- srd037-tool-dispatch-simplification AC2
+- [srd037-tool-dispatch-simplification](../software-requirements/srd037-tool-dispatch-simplification.md) [AC2](../software-requirements/srd037-tool-dispatch-simplification.md#ac2)
 
 <!-- case: Builtin registration paths share one helper | status: done -->
 ### Builtin registration paths share one helper
@@ -99,7 +99,7 @@ ExecBuilderFactory and binary validation.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc001-tool-dispatch-simplification
+[rel99.0-uc001-tool-dispatch-simplification](../use-cases/rel99.0-uc001-tool-dispatch-simplification.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -123,7 +123,7 @@ go test ./internal/tools/registry -run 'Test(RegisterUnifiedToolsDuplicateReturn
 <!-- field: traces -->
 #### Traces
 
-- srd037-tool-dispatch-simplification AC3
+- [srd037-tool-dispatch-simplification](../software-requirements/srd037-tool-dispatch-simplification.md) [AC3](../software-requirements/srd037-tool-dispatch-simplification.md#ac3)
 
 <!-- case: Parse-time and dispatch-time availability use the same rule | status: done -->
 ### Parse-time and dispatch-time availability use the same rule
@@ -135,7 +135,7 @@ core.Registry.ResolveExternalTool.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc001-tool-dispatch-simplification
+[rel99.0-uc001-tool-dispatch-simplification](../use-cases/rel99.0-uc001-tool-dispatch-simplification.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -162,7 +162,7 @@ go test ./internal/tools/registry -run TestDynamicToolActionAndParseResponseShar
 <!-- field: traces -->
 #### Traces
 
-- srd037-tool-dispatch-simplification AC4
+- [srd037-tool-dispatch-simplification](../software-requirements/srd037-tool-dispatch-simplification.md) [AC4](../software-requirements/srd037-tool-dispatch-simplification.md#ac4)
 
 <!-- case: Dynamic phase contradictions fail at startup | status: done -->
 ### Dynamic phase contradictions fail at startup
@@ -175,7 +175,7 @@ and declaration order cannot change parse validation state.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc001-tool-dispatch-simplification
+[rel99.0-uc001-tool-dispatch-simplification](../use-cases/rel99.0-uc001-tool-dispatch-simplification.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -208,9 +208,9 @@ go test ./internal/tools/catalog ./internal/tools/llm -run 'Test(ValidateToolPha
 <!-- field: traces -->
 #### Traces
 
-- srd037-tool-dispatch-simplification R4.6
-- srd037-tool-dispatch-simplification R4.7
-- srd037-tool-dispatch-simplification AC4
+- [srd037-tool-dispatch-simplification](../software-requirements/srd037-tool-dispatch-simplification.md) [R4.6](../software-requirements/srd037-tool-dispatch-simplification.md#r46)
+- [srd037-tool-dispatch-simplification](../software-requirements/srd037-tool-dispatch-simplification.md) [R4.7](../software-requirements/srd037-tool-dispatch-simplification.md#r47)
+- [srd037-tool-dispatch-simplification](../software-requirements/srd037-tool-dispatch-simplification.md) [AC4](../software-requirements/srd037-tool-dispatch-simplification.md#ac4)
 
 <!-- case: Code task boundaries exclude unrelated dispatch rewrites | status: done -->
 ### Code task boundaries exclude unrelated dispatch rewrites
@@ -222,7 +222,7 @@ receipt behavior, or LLM response envelope syntax.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc001-tool-dispatch-simplification
+[rel99.0-uc001-tool-dispatch-simplification](../use-cases/rel99.0-uc001-tool-dispatch-simplification.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -244,4 +244,4 @@ go test ./internal/runtime/core ./internal/tools/registry ./internal/tools/llm
 <!-- field: traces -->
 #### Traces
 
-- srd037-tool-dispatch-simplification AC5
+- [srd037-tool-dispatch-simplification](../software-requirements/srd037-tool-dispatch-simplification.md) [AC5](../software-requirements/srd037-tool-dispatch-simplification.md#ac5)

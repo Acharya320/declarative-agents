@@ -54,9 +54,9 @@ A maintainer starts the coordinated compatibility release.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | migration-v0.20260727.0-agent-role-realization-alignment | Authoritative old-to-new table, compatibility duration, consumer pins, and publication boundary. |
+| T1 | [migration-v0.20260727.0-agent-role-realization-alignment](../../migrations/v0.20260727.0-agent-role-realization-alignment.md) | Authoritative old-to-new table, compatibility duration, consumer pins, and publication boundary. |
 | T2 | sm-agent-role-realizations | Binding, classification, inheritance, and alias authority. |
-| T3 | test-rel12.0-agent-role-realization-alignment | Executable release, closure, render, drift, and zero-hit evidence. |
+| T3 | [test-rel12.0-agent-role-realization-alignment](../test-suites/test-rel12.0-agent-role-realization-alignment.md) | Executable release, closure, render, drift, and zero-hit evidence. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -101,4 +101,4 @@ Root audit, test, and stats plus catalog validation/conformance/integration and 
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel12.0-agent-role-realization-alignment
+[test-rel12.0-agent-role-realization-alignment](../test-suites/test-rel12.0-agent-role-realization-alignment.md)

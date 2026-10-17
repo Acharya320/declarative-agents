@@ -222,13 +222,13 @@ Blocking input tools execute as normal Commands that block until input, cancella
 <!-- field: traces -->
 #### Traces
 
-- R0.1
-- R0.2
-- R0.3
-- R1.1
-- R1.2
-- R1.3
-- R1.4
+- [R0.1](#r01)
+- [R0.2](#r02)
+- [R0.3](#r03)
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -238,10 +238,10 @@ External input maps to structured Result.Output and a machine-declared Signal, w
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -251,11 +251,11 @@ Blocking input tools support cancellation, optional timeout, orderly shutdown, a
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
-- R3.4
-- R3.5
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R3.4](#r34)
+- [R3.5](#r35)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -265,10 +265,10 @@ Blocking input tools define concurrency/backpressure behavior while preserving s
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
-- R4.4
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R4.4](#r44)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -278,12 +278,12 @@ Long-running waits are observable through tracing, duration, resulting signal, o
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
-- R5.4
-- R5.5
-- R5.6
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
+- [R5.5](#r55)
+- [R5.6](#r56)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -293,9 +293,9 @@ invoke_llm and rest_await_event are documented as blocking input tools following
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
-- R6.3
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
 
 <!-- field: related_documents -->
 ## Related documents

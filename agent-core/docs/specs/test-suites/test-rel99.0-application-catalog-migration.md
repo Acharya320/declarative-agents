@@ -9,7 +9,7 @@ release: "99.0"
 <!-- field: traces -->
 ## Traces
 
-- rel99.0-uc002-application-catalog-migration
+- [rel99.0-uc002-application-catalog-migration](../use-cases/rel99.0-uc002-application-catalog-migration.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -33,7 +33,7 @@ issues map to requirements and named cases.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc002-application-catalog-migration
+[rel99.0-uc002-application-catalog-migration](../use-cases/rel99.0-uc002-application-catalog-migration.md)
 
 <!-- field: issue -->
 #### Issue
@@ -72,11 +72,11 @@ mage audit
 <!-- field: traces -->
 #### Traces
 
-- srd043-application-catalog-layout AC1
-- srd043-application-catalog-layout AC4
-- srd043-application-catalog-layout AC5
-- srd043-application-catalog-layout AC6
-- srd043-application-catalog-layout AC8
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC1](../software-requirements/srd043-application-catalog-layout.md#ac1)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC4](../software-requirements/srd043-application-catalog-layout.md#ac4)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC5](../software-requirements/srd043-application-catalog-layout.md#ac5)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC6](../software-requirements/srd043-application-catalog-layout.md#ac6)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC8](../software-requirements/srd043-application-catalog-layout.md#ac8)
 
 <!-- case: Runnable application source trees move mechanically | status: implemented -->
 ### Runnable application source trees move mechanically
@@ -87,7 +87,7 @@ module declarations, and preserve their relative root Mage replacement.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc002-application-catalog-migration
+[rel99.0-uc002-application-catalog-migration](../use-cases/rel99.0-uc002-application-catalog-migration.md)
 
 <!-- field: issue -->
 #### Issue
@@ -132,10 +132,10 @@ mage audit
 <!-- field: traces -->
 #### Traces
 
-- srd043-application-catalog-layout AC1
-- srd043-application-catalog-layout AC2
-- srd043-application-catalog-layout AC5
-- srd043-application-catalog-layout AC7
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC1](../software-requirements/srd043-application-catalog-layout.md#ac1)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC2](../software-requirements/srd043-application-catalog-layout.md#ac2)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC5](../software-requirements/srd043-application-catalog-layout.md#ac5)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC7](../software-requirements/srd043-application-catalog-layout.md#ac7)
 
 <!-- case: Core integrations use only core-owned profiles | status: implemented -->
 ### Core integrations use only core-owned profiles
@@ -147,7 +147,7 @@ behavior but never resolve a catalog root.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc002-application-catalog-migration
+[rel99.0-uc002-application-catalog-migration](../use-cases/rel99.0-uc002-application-catalog-migration.md)
 
 <!-- field: issue -->
 #### Issue
@@ -191,9 +191,9 @@ mage audit
 <!-- field: traces -->
 #### Traces
 
-- srd043-application-catalog-layout AC2
-- srd043-application-catalog-layout AC3
-- srd043-application-catalog-layout AC7
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC2](../software-requirements/srd043-application-catalog-layout.md#ac2)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC3](../software-requirements/srd043-application-catalog-layout.md#ac3)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC7](../software-requirements/srd043-application-catalog-layout.md#ac7)
 
 <!-- case: Core tests and audit require no catalog | status: implemented -->
 ### Core tests and audit require no catalog
@@ -206,7 +206,7 @@ execute in catalog conformance instead.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc002-application-catalog-migration
+[rel99.0-uc002-application-catalog-migration](../use-cases/rel99.0-uc002-application-catalog-migration.md)
 
 <!-- field: issue -->
 #### Issue
@@ -250,9 +250,9 @@ go test ./...
 <!-- field: traces -->
 #### Traces
 
-- srd043-application-catalog-layout AC1
-- srd043-application-catalog-layout AC3
-- srd043-application-catalog-layout AC7
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC1](../software-requirements/srd043-application-catalog-layout.md#ac1)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC3](../software-requirements/srd043-application-catalog-layout.md#ac3)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC7](../software-requirements/srd043-application-catalog-layout.md#ac7)
 
 <!-- case: Catalog module relocates without semantic reorganization | status: implemented -->
 ### Catalog module relocates without semantic reorganization
@@ -264,7 +264,7 @@ executable behavior until the later taxonomy issue.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc002-application-catalog-migration
+[rel99.0-uc002-application-catalog-migration](../use-cases/rel99.0-uc002-application-catalog-migration.md)
 
 <!-- field: issue -->
 #### Issue
@@ -306,9 +306,9 @@ go test ./...
 <!-- field: traces -->
 #### Traces
 
-- srd043-application-catalog-layout AC1
-- srd043-application-catalog-layout AC5
-- srd043-application-catalog-layout AC7
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC1](../software-requirements/srd043-application-catalog-layout.md#ac1)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC5](../software-requirements/srd043-application-catalog-layout.md#ac5)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC7](../software-requirements/srd043-application-catalog-layout.md#ac7)
 
 <!-- case: Catalog root and legacy alias resolve deterministically | status: implemented -->
 ### Catalog root and legacy alias resolve deterministically
@@ -321,7 +321,7 @@ diagnostics without changing process CWD.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc002-application-catalog-migration
+[rel99.0-uc002-application-catalog-migration](../use-cases/rel99.0-uc002-application-catalog-migration.md)
 
 <!-- field: issue -->
 #### Issue
@@ -371,8 +371,8 @@ mage audit
 <!-- field: traces -->
 #### Traces
 
-- srd043-application-catalog-layout AC2
-- srd043-application-catalog-layout AC4
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC2](../software-requirements/srd043-application-catalog-layout.md#ac2)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC4](../software-requirements/srd043-application-catalog-layout.md#ac4)
 
 <!-- case: Root gates tags UIs and stats use applications | status: implemented -->
 ### Root gates tags UIs and stats use applications
@@ -384,7 +384,7 @@ canonical plus compatibility catalog v0 tags.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc002-application-catalog-migration
+[rel99.0-uc002-application-catalog-migration](../use-cases/rel99.0-uc002-application-catalog-migration.md)
 
 <!-- field: issue -->
 #### Issue
@@ -429,10 +429,10 @@ mage audit
 <!-- field: traces -->
 #### Traces
 
-- srd043-application-catalog-layout AC2
-- srd043-application-catalog-layout AC5
-- srd043-application-catalog-layout AC6
-- srd043-application-catalog-layout AC7
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC2](../software-requirements/srd043-application-catalog-layout.md#ac2)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC5](../software-requirements/srd043-application-catalog-layout.md#ac5)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC6](../software-requirements/srd043-application-catalog-layout.md#ac6)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC7](../software-requirements/srd043-application-catalog-layout.md#ac7)
 
 <!-- case: Coding agent packages catalog closures with provenance | status: implemented -->
 ### Coding agent packages catalog closures with provenance
@@ -445,7 +445,7 @@ distinguish compatible release from actual source provenance.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc002-application-catalog-migration
+[rel99.0-uc002-application-catalog-migration](../use-cases/rel99.0-uc002-application-catalog-migration.md)
 
 <!-- field: issue -->
 #### Issue
@@ -491,11 +491,11 @@ mage audit
 <!-- field: traces -->
 #### Traces
 
-- srd043-application-catalog-layout AC1
-- srd043-application-catalog-layout AC2
-- srd043-application-catalog-layout AC5
-- srd043-application-catalog-layout AC6
-- srd043-application-catalog-layout AC7
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC1](../software-requirements/srd043-application-catalog-layout.md#ac1)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC2](../software-requirements/srd043-application-catalog-layout.md#ac2)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC5](../software-requirements/srd043-application-catalog-layout.md#ac5)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC6](../software-requirements/srd043-application-catalog-layout.md#ac6)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC7](../software-requirements/srd043-application-catalog-layout.md#ac7)
 
 <!-- case: Chatbot mesh resolves catalog blocks from its owner root | status: implemented -->
 ### Chatbot mesh resolves catalog blocks from its owner root
@@ -507,7 +507,7 @@ chart paths, packaged /profiles closure, and integration semantics.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc002-application-catalog-migration
+[rel99.0-uc002-application-catalog-migration](../use-cases/rel99.0-uc002-application-catalog-migration.md)
 
 <!-- field: issue -->
 #### Issue
@@ -550,10 +550,10 @@ mage audit
 <!-- field: traces -->
 #### Traces
 
-- srd043-application-catalog-layout AC1
-- srd043-application-catalog-layout AC2
-- srd043-application-catalog-layout AC5
-- srd043-application-catalog-layout AC7
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC1](../software-requirements/srd043-application-catalog-layout.md#ac1)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC2](../software-requirements/srd043-application-catalog-layout.md#ac2)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC5](../software-requirements/srd043-application-catalog-layout.md#ac5)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC7](../software-requirements/srd043-application-catalog-layout.md#ac7)
 
 <!-- case: Obsolete core catalog discovery is absent | status: implemented -->
 ### Obsolete core catalog discovery is absent
@@ -565,7 +565,7 @@ assertions.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc002-application-catalog-migration
+[rel99.0-uc002-application-catalog-migration](../use-cases/rel99.0-uc002-application-catalog-migration.md)
 
 <!-- field: issue -->
 #### Issue
@@ -606,9 +606,9 @@ go test ./...
 <!-- field: traces -->
 #### Traces
 
-- srd043-application-catalog-layout AC1
-- srd043-application-catalog-layout AC2
-- srd043-application-catalog-layout AC3
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC1](../software-requirements/srd043-application-catalog-layout.md#ac1)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC2](../software-requirements/srd043-application-catalog-layout.md#ac2)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC3](../software-requirements/srd043-application-catalog-layout.md#ac3)
 
 <!-- case: Root module registry uses applications | status: implemented -->
 ### Root module registry uses applications
@@ -619,7 +619,7 @@ applications from their owner roots and uses application vocabulary.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc002-application-catalog-migration
+[rel99.0-uc002-application-catalog-migration](../use-cases/rel99.0-uc002-application-catalog-migration.md)
 
 <!-- field: issue -->
 #### Issue
@@ -662,9 +662,9 @@ cd magefiles && go test ./...
 <!-- field: traces -->
 #### Traces
 
-- srd043-application-catalog-layout AC1
-- srd043-application-catalog-layout AC2
-- srd043-application-catalog-layout AC7
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC1](../software-requirements/srd043-application-catalog-layout.md#ac1)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC2](../software-requirements/srd043-application-catalog-layout.md#ac2)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC7](../software-requirements/srd043-application-catalog-layout.md#ac7)
 
 <!-- case: Chatbot integrations use the canonical catalog root | status: implemented -->
 ### Chatbot integrations use the canonical catalog root
@@ -675,7 +675,7 @@ AGENT_CATALOG_ROOT without changing process CWD or source labels.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc002-application-catalog-migration
+[rel99.0-uc002-application-catalog-migration](../use-cases/rel99.0-uc002-application-catalog-migration.md)
 
 <!-- field: issue -->
 #### Issue
@@ -714,10 +714,10 @@ go test ./...
 <!-- field: traces -->
 #### Traces
 
-- srd043-application-catalog-layout AC1
-- srd043-application-catalog-layout AC2
-- srd043-application-catalog-layout AC4
-- srd043-application-catalog-layout AC5
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC1](../software-requirements/srd043-application-catalog-layout.md#ac1)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC2](../software-requirements/srd043-application-catalog-layout.md#ac2)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC4](../software-requirements/srd043-application-catalog-layout.md#ac4)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC5](../software-requirements/srd043-application-catalog-layout.md#ac5)
 
 <!-- case: Chatbot checkpoint database initializes idempotently | status: implemented -->
 ### Chatbot checkpoint database initializes idempotently
@@ -729,7 +729,7 @@ initialization succeeds.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc002-application-catalog-migration
+[rel99.0-uc002-application-catalog-migration](../use-cases/rel99.0-uc002-application-catalog-migration.md)
 
 <!-- field: issue -->
 #### Issue
@@ -767,9 +767,9 @@ go test ./...
 <!-- field: traces -->
 #### Traces
 
-- srd043-application-catalog-layout AC2
-- srd043-application-catalog-layout AC5
-- srd043-application-catalog-layout AC7
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC2](../software-requirements/srd043-application-catalog-layout.md#ac2)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC5](../software-requirements/srd043-application-catalog-layout.md#ac5)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC7](../software-requirements/srd043-application-catalog-layout.md#ac7)
 
 <!-- case: Taxonomy and active path references match the new ownership | status: implemented -->
 ### Taxonomy and active path references match the new ownership
@@ -782,7 +782,7 @@ examples after all moves complete.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc002-application-catalog-migration
+[rel99.0-uc002-application-catalog-migration](../use-cases/rel99.0-uc002-application-catalog-migration.md)
 
 <!-- field: issue -->
 #### Issue
@@ -831,9 +831,9 @@ mage audit
 <!-- field: traces -->
 #### Traces
 
-- srd043-application-catalog-layout AC1
-- srd043-application-catalog-layout AC2
-- srd043-application-catalog-layout AC4
-- srd043-application-catalog-layout AC6
-- srd043-application-catalog-layout AC7
-- srd043-application-catalog-layout AC8
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC1](../software-requirements/srd043-application-catalog-layout.md#ac1)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC2](../software-requirements/srd043-application-catalog-layout.md#ac2)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC4](../software-requirements/srd043-application-catalog-layout.md#ac4)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC6](../software-requirements/srd043-application-catalog-layout.md#ac6)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC7](../software-requirements/srd043-application-catalog-layout.md#ac7)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC8](../software-requirements/srd043-application-catalog-layout.md#ac8)

@@ -65,14 +65,14 @@ A developer running the benchmark profile runs:
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd005-agentic-loop R4.1, R4.2, R4.3, R4.4, R5.1, R5.2, R5.3, R5.4, R5.5, R5.6, R5.7, R5.8, R5.9, R5.10, R5.11, R5.12 | LoopParams and Loop drive both session and point state machines |
-| T2 | srd006-yaml-machine-config R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R1.7, R1.8, R1.9, R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R2.7, R2.8, R2.9, R2.10, R2.11, R3.1, R3.2, R3.3, R3.4, R3.5, R4.1, R4.2, R4.3, R4.4 | session and point machine.yaml loading and validation |
-| T3 | srd016-traceparent R2.1, R2.2, R3.1, R3.2, R3.3 | W3C traceparent formatting and parent-span context propagation to subprocess |
-| T4 | srd019-eval-harness R0.1, R0.2, R0.3, R0.4, R0.5, R0.6, R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R1.7, R2.1, R2.2, R2.3, R2.4, R2.5, R3.1, R3.1.1, R3.1.2, R3.1.3, R3.1.4, R3.1.5, R3.1.6, R3.2, R3.3, R3.4, R3.5, R3.6, R3.7, R3.8, R3.9, R4.1, R4.2, R4.3, R4.4, R4.5, R4.6, R5.1, R5.2, R5.3, R5.4 | suite parsing, grid eval, all eval tools, result analysis |
+| T1 | [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [R4.1](../software-requirements/srd005-agentic-loop.md#r41), [R4.2](../software-requirements/srd005-agentic-loop.md#r42), [R4.3](../software-requirements/srd005-agentic-loop.md#r43), [R4.4](../software-requirements/srd005-agentic-loop.md#r44), [R5.1](../software-requirements/srd005-agentic-loop.md#r51), [R5.2](../software-requirements/srd005-agentic-loop.md#r52), [R5.3](../software-requirements/srd005-agentic-loop.md#r53), [R5.4](../software-requirements/srd005-agentic-loop.md#r54), [R5.5](../software-requirements/srd005-agentic-loop.md#r55), [R5.6](../software-requirements/srd005-agentic-loop.md#r56), [R5.7](../software-requirements/srd005-agentic-loop.md#r57), [R5.8](../software-requirements/srd005-agentic-loop.md#r58), [R5.9](../software-requirements/srd005-agentic-loop.md#r59), [R5.10](../software-requirements/srd005-agentic-loop.md#r510), [R5.11](../software-requirements/srd005-agentic-loop.md#r511), [R5.12](../software-requirements/srd005-agentic-loop.md#r512) | LoopParams and Loop drive both session and point state machines |
+| T2 | [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [R1.1](../software-requirements/srd006-yaml-machine-config.md#r11), [R1.2](../software-requirements/srd006-yaml-machine-config.md#r12), [R1.3](../software-requirements/srd006-yaml-machine-config.md#r13), [R1.4](../software-requirements/srd006-yaml-machine-config.md#r14), [R1.5](../software-requirements/srd006-yaml-machine-config.md#r15), [R1.6](../software-requirements/srd006-yaml-machine-config.md#r16), [R1.7](../software-requirements/srd006-yaml-machine-config.md#r17), [R1.8](../software-requirements/srd006-yaml-machine-config.md#r18), [R1.9](../software-requirements/srd006-yaml-machine-config.md#r19), [R2.1](../software-requirements/srd006-yaml-machine-config.md#r21), [R2.2](../software-requirements/srd006-yaml-machine-config.md#r22), [R2.3](../software-requirements/srd006-yaml-machine-config.md#r23), [R2.4](../software-requirements/srd006-yaml-machine-config.md#r24), [R2.5](../software-requirements/srd006-yaml-machine-config.md#r25), [R2.6](../software-requirements/srd006-yaml-machine-config.md#r26), [R2.7](../software-requirements/srd006-yaml-machine-config.md#r27), [R2.8](../software-requirements/srd006-yaml-machine-config.md#r28), [R2.9](../software-requirements/srd006-yaml-machine-config.md#r29), [R2.10](../software-requirements/srd006-yaml-machine-config.md#r210), [R2.11](../software-requirements/srd006-yaml-machine-config.md#r211), [R3.1](../software-requirements/srd006-yaml-machine-config.md#r31), [R3.2](../software-requirements/srd006-yaml-machine-config.md#r32), [R3.3](../software-requirements/srd006-yaml-machine-config.md#r33), [R3.4](../software-requirements/srd006-yaml-machine-config.md#r34), [R3.5](../software-requirements/srd006-yaml-machine-config.md#r35), [R4.1](../software-requirements/srd006-yaml-machine-config.md#r41), [R4.2](../software-requirements/srd006-yaml-machine-config.md#r42), [R4.3](../software-requirements/srd006-yaml-machine-config.md#r43), [R4.4](../software-requirements/srd006-yaml-machine-config.md#r44) | session and point machine.yaml loading and validation |
+| T3 | [srd016-traceparent](../software-requirements/srd016-traceparent.md) [R2.1](../software-requirements/srd016-traceparent.md#r21), [R2.2](../software-requirements/srd016-traceparent.md#r22), [R3.1](../software-requirements/srd016-traceparent.md#r31), [R3.2](../software-requirements/srd016-traceparent.md#r32), [R3.3](../software-requirements/srd016-traceparent.md#r33) | W3C traceparent formatting and parent-span context propagation to subprocess |
+| T4 | [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [R0.1](../software-requirements/srd019-eval-harness.md#r01), [R0.2](../software-requirements/srd019-eval-harness.md#r02), [R0.3](../software-requirements/srd019-eval-harness.md#r03), [R0.4](../software-requirements/srd019-eval-harness.md#r04), [R0.5](../software-requirements/srd019-eval-harness.md#r05), [R0.6](../software-requirements/srd019-eval-harness.md#r06), [R1.1](../software-requirements/srd019-eval-harness.md#r11), [R1.2](../software-requirements/srd019-eval-harness.md#r12), [R1.3](../software-requirements/srd019-eval-harness.md#r13), [R1.4](../software-requirements/srd019-eval-harness.md#r14), [R1.5](../software-requirements/srd019-eval-harness.md#r15), [R1.6](../software-requirements/srd019-eval-harness.md#r16), [R1.7](../software-requirements/srd019-eval-harness.md#r17), [R2.1](../software-requirements/srd019-eval-harness.md#r21), [R2.2](../software-requirements/srd019-eval-harness.md#r22), [R2.3](../software-requirements/srd019-eval-harness.md#r23), [R2.4](../software-requirements/srd019-eval-harness.md#r24), [R2.5](../software-requirements/srd019-eval-harness.md#r25), [R3.1](../software-requirements/srd019-eval-harness.md#r31), [R3.1.1](../software-requirements/srd019-eval-harness.md#r311), [R3.1.2](../software-requirements/srd019-eval-harness.md#r312), [R3.1.3](../software-requirements/srd019-eval-harness.md#r313), [R3.1.4](../software-requirements/srd019-eval-harness.md#r314), [R3.1.5](../software-requirements/srd019-eval-harness.md#r315), [R3.1.6](../software-requirements/srd019-eval-harness.md#r316), [R3.2](../software-requirements/srd019-eval-harness.md#r32), [R3.3](../software-requirements/srd019-eval-harness.md#r33), [R3.4](../software-requirements/srd019-eval-harness.md#r34), [R3.5](../software-requirements/srd019-eval-harness.md#r35), [R3.6](../software-requirements/srd019-eval-harness.md#r36), [R3.7](../software-requirements/srd019-eval-harness.md#r37), [R3.8](../software-requirements/srd019-eval-harness.md#r38), [R3.9](../software-requirements/srd019-eval-harness.md#r39), [R4.1](../software-requirements/srd019-eval-harness.md#r41), [R4.2](../software-requirements/srd019-eval-harness.md#r42), [R4.3](../software-requirements/srd019-eval-harness.md#r43), [R4.4](../software-requirements/srd019-eval-harness.md#r44), [R4.5](../software-requirements/srd019-eval-harness.md#r45), [R4.6](../software-requirements/srd019-eval-harness.md#r46), [R5.1](../software-requirements/srd019-eval-harness.md#r51), [R5.2](../software-requirements/srd019-eval-harness.md#r52), [R5.3](../software-requirements/srd019-eval-harness.md#r53), [R5.4](../software-requirements/srd019-eval-harness.md#r54) | suite parsing, grid eval, all eval tools, result analysis |
 | T5 | evaluator/*.yaml under AGENT_CATALOG_ROOT | two-level state machine: session states, point states, signals, lifecycle |
 | T6 | testdata/integration/uc002-evaluator-benchmark/suite.yaml | profile-based qwen35b/qwen27b integration suite |
 | T7 | generator/profile-qwen35b.yaml and profile-qwen27b.yaml | generator profiles under evaluation |
-| T8 | srd018-cli-flag-contract R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R1.7, R1.8, R1.9, R1.10, R2.1, R2.2, R2.3, R2.4, R2.5, R3.1, R3.2 | standard flags, traceparent propagation, model/directory/runtime data, remaining budget |
+| T8 | [srd018-cli-flag-contract](../software-requirements/srd018-cli-flag-contract.md) [R1.1](../software-requirements/srd018-cli-flag-contract.md#r11), [R1.2](../software-requirements/srd018-cli-flag-contract.md#r12), [R1.3](../software-requirements/srd018-cli-flag-contract.md#r13), [R1.4](../software-requirements/srd018-cli-flag-contract.md#r14), [R1.5](../software-requirements/srd018-cli-flag-contract.md#r15), [R1.6](../software-requirements/srd018-cli-flag-contract.md#r16), [R1.7](../software-requirements/srd018-cli-flag-contract.md#r17), [R1.8](../software-requirements/srd018-cli-flag-contract.md#r18), [R1.9](../software-requirements/srd018-cli-flag-contract.md#r19), [R1.10](../software-requirements/srd018-cli-flag-contract.md#r110), [R2.1](../software-requirements/srd018-cli-flag-contract.md#r21), [R2.2](../software-requirements/srd018-cli-flag-contract.md#r22), [R2.3](../software-requirements/srd018-cli-flag-contract.md#r23), [R2.4](../software-requirements/srd018-cli-flag-contract.md#r24), [R2.5](../software-requirements/srd018-cli-flag-contract.md#r25), [R3.1](../software-requirements/srd018-cli-flag-contract.md#r31), [R3.2](../software-requirements/srd018-cli-flag-contract.md#r32) | standard flags, traceparent propagation, model/directory/runtime data, remaining budget |
 
 <!-- field: integration_test -->
 ## Integration test
@@ -90,7 +90,7 @@ Suite YAML is parsed and expanded into a profile/gridpoint/sample/repetition gri
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC1
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC1](../software-requirements/srd019-eval-harness.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -100,7 +100,7 @@ Each grid point runs the per-point pipeline to completion via nested core.Loop.
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC2
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC2](../software-requirements/srd019-eval-harness.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -110,7 +110,7 @@ Generator subprocess receives OTel traceparent for trace correlation.
 <!-- field: traces -->
 #### Traces
 
-- srd016-traceparent AC1
+- [srd016-traceparent](../software-requirements/srd016-traceparent.md) [AC1](../software-requirements/srd016-traceparent.md#ac1)
 
 <!-- sc: S4 -->
 ### S4
@@ -120,7 +120,7 @@ Results include experiment.yaml with the resolved profile path and model for rep
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC2
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC2](../software-requirements/srd019-eval-harness.md#ac2)
 
 <!-- sc: S5 -->
 ### S5
@@ -130,7 +130,7 @@ Pass/fail/timeout classification is correct based on exit code and test output.
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC4
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC4](../software-requirements/srd019-eval-harness.md#ac4)
 
 <!-- sc: S6 -->
 ### S6
@@ -140,7 +140,7 @@ Metrics are collected even when the generator fails or times out.
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC2
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC2](../software-requirements/srd019-eval-harness.md#ac2)
 
 <!-- sc: S7 -->
 ### S7
@@ -150,7 +150,7 @@ Session summary reports total, passed, failed, and timed-out counts.
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC1
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC1](../software-requirements/srd019-eval-harness.md#ac1)
 
 <!-- sc: S8 -->
 ### S8
@@ -160,7 +160,7 @@ Result directory contains meta.json and experiment.yaml for each point.
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC2
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC2](../software-requirements/srd019-eval-harness.md#ac2)
 
 <!-- sc: S9 -->
 ### S9
@@ -170,8 +170,8 @@ Every attempted point has machine-readable failure evidence, and the release gat
 <!-- field: traces -->
 #### Traces
 
-- srd019-eval-harness AC2
-- srd019-eval-harness AC3
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC2](../software-requirements/srd019-eval-harness.md#ac2)
+- [srd019-eval-harness](../software-requirements/srd019-eval-harness.md) [AC3](../software-requirements/srd019-eval-harness.md#ac3)
 
 <!-- field: test_data -->
 ## Test data
@@ -189,7 +189,7 @@ testdata/integration/uc002-evaluator-benchmark
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel01.0
+[test-rel01.0](../test-suites/test-rel01.0.md)
 
 <!-- field: machine_configs -->
 ## Machine configs

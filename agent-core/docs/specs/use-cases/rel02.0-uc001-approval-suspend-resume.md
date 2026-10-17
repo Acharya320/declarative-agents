@@ -80,10 +80,10 @@ agent --profile "$AGENT_CATALOG_ROOT/lifecycle/approval/profile.yaml" \
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd035-checkpoint-port R1.1, R1.2, R1.3, R1.4, R1.5, R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R4.1, R4.2, R4.3, R6.1, R6.2, R6.3, R6.4, R6.5 | typed Save/Load, Position and Execution, conversation folded into the snapshot, and the single resume path |
-| T2 | srd036-dolt-state-persistence R1.1, R1.2, R1.3, R1.4, R4.1, R4.2, R4.3, R4.4, R4.5, R4.6, R5.1, R5.2, R5.3, R5.4, R5.5 | the Dolt adapter behind the database/sql seam, commit-per-step and branch-per-run, and Load reconstruction across processes |
-| T3 | srd024-blocking-input-tools R1.1, R1.2, R1.3, R1.4, R2.1, R2.2, R2.3, R2.4 | the approval gate behaves as a boundary tool emitting a declared suspend signal |
-| T4 | sm-rollback-lifecycle | checkpoint, suspend, and resume data flow over the typed port |
+| T1 | [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [R1.1](../software-requirements/srd035-checkpoint-port.md#r11), [R1.2](../software-requirements/srd035-checkpoint-port.md#r12), [R1.3](../software-requirements/srd035-checkpoint-port.md#r13), [R1.4](../software-requirements/srd035-checkpoint-port.md#r14), [R1.5](../software-requirements/srd035-checkpoint-port.md#r15), [R2.1](../software-requirements/srd035-checkpoint-port.md#r21), [R2.2](../software-requirements/srd035-checkpoint-port.md#r22), [R2.3](../software-requirements/srd035-checkpoint-port.md#r23), [R2.4](../software-requirements/srd035-checkpoint-port.md#r24), [R2.5](../software-requirements/srd035-checkpoint-port.md#r25), [R2.6](../software-requirements/srd035-checkpoint-port.md#r26), [R4.1](../software-requirements/srd035-checkpoint-port.md#r41), [R4.2](../software-requirements/srd035-checkpoint-port.md#r42), [R4.3](../software-requirements/srd035-checkpoint-port.md#r43), [R6.1](../software-requirements/srd035-checkpoint-port.md#r61), [R6.2](../software-requirements/srd035-checkpoint-port.md#r62), [R6.3](../software-requirements/srd035-checkpoint-port.md#r63), [R6.4](../software-requirements/srd035-checkpoint-port.md#r64), [R6.5](../software-requirements/srd035-checkpoint-port.md#r65) | typed Save/Load, Position and Execution, conversation folded into the snapshot, and the single resume path |
+| T2 | [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [R1.1](../software-requirements/srd036-dolt-state-persistence.md#r11), [R1.2](../software-requirements/srd036-dolt-state-persistence.md#r12), [R1.3](../software-requirements/srd036-dolt-state-persistence.md#r13), [R1.4](../software-requirements/srd036-dolt-state-persistence.md#r14), [R4.1](../software-requirements/srd036-dolt-state-persistence.md#r41), [R4.2](../software-requirements/srd036-dolt-state-persistence.md#r42), [R4.3](../software-requirements/srd036-dolt-state-persistence.md#r43), [R4.4](../software-requirements/srd036-dolt-state-persistence.md#r44), [R4.5](../software-requirements/srd036-dolt-state-persistence.md#r45), [R4.6](../software-requirements/srd036-dolt-state-persistence.md#r46), [R5.1](../software-requirements/srd036-dolt-state-persistence.md#r51), [R5.2](../software-requirements/srd036-dolt-state-persistence.md#r52), [R5.3](../software-requirements/srd036-dolt-state-persistence.md#r53), [R5.4](../software-requirements/srd036-dolt-state-persistence.md#r54), [R5.5](../software-requirements/srd036-dolt-state-persistence.md#r55) | the Dolt adapter behind the database/sql seam, commit-per-step and branch-per-run, and Load reconstruction across processes |
+| T3 | [srd024-blocking-input-tools](../software-requirements/srd024-blocking-input-tools.md) [R1.1](../software-requirements/srd024-blocking-input-tools.md#r11), [R1.2](../software-requirements/srd024-blocking-input-tools.md#r12), [R1.3](../software-requirements/srd024-blocking-input-tools.md#r13), [R1.4](../software-requirements/srd024-blocking-input-tools.md#r14), [R2.1](../software-requirements/srd024-blocking-input-tools.md#r21), [R2.2](../software-requirements/srd024-blocking-input-tools.md#r22), [R2.3](../software-requirements/srd024-blocking-input-tools.md#r23), [R2.4](../software-requirements/srd024-blocking-input-tools.md#r24) | the approval gate behaves as a boundary tool emitting a declared suspend signal |
+| T4 | [sm-rollback-lifecycle](../semantic-models/rollback-lifecycle.md) | checkpoint, suspend, and resume data flow over the typed port |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -96,8 +96,8 @@ The agent exits as suspended, not failed, after reaching the approval gate.
 <!-- field: traces -->
 #### Traces
 
-- srd035-checkpoint-port AC6
-- srd024-blocking-input-tools AC2
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC6](../software-requirements/srd035-checkpoint-port.md#ac6)
+- [srd024-blocking-input-tools](../software-requirements/srd024-blocking-input-tools.md) [AC2](../software-requirements/srd024-blocking-input-tools.md#ac2)
 
 <!-- sc: S2 -->
 ### S2
@@ -107,8 +107,8 @@ The suspended checkpoint persists through the typed port -- NoopCheckpoint when 
 <!-- field: traces -->
 #### Traces
 
-- srd035-checkpoint-port AC4
-- srd035-checkpoint-port AC5
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC4](../software-requirements/srd035-checkpoint-port.md#ac4)
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC5](../software-requirements/srd035-checkpoint-port.md#ac5)
 
 <!-- sc: S3 -->
 ### S3
@@ -118,8 +118,8 @@ Resume Loads the Position and Execution through the single path and re-enters th
 <!-- field: traces -->
 #### Traces
 
-- srd035-checkpoint-port AC6
-- srd036-dolt-state-persistence AC5
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC6](../software-requirements/srd035-checkpoint-port.md#ac6)
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC5](../software-requirements/srd036-dolt-state-persistence.md#ac5)
 
 <!-- sc: S4 -->
 ### S4
@@ -129,7 +129,7 @@ Approval and rejection are explicit machine signals, not hidden control flow.
 <!-- field: traces -->
 #### Traces
 
-- srd024-blocking-input-tools AC2
+- [srd024-blocking-input-tools](../software-requirements/srd024-blocking-input-tools.md) [AC2](../software-requirements/srd024-blocking-input-tools.md#ac2)
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios
@@ -156,4 +156,4 @@ sm-rollback-lifecycle
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel02.0-lifecycle
+[test-rel02.0-lifecycle](../test-suites/test-rel02.0-lifecycle.md)

@@ -63,9 +63,9 @@ suite:
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd005-specification-critic R1 | The specification-critic profile models deterministic, LLM-free, read-only corpus validation. |
-| T2 | srd005-specification-critic R2 | Specification-critic inputs, the specification validation tool family, and corpus, graph, consistency, and report responsibilities are profile-owned. |
-| T3 | srd005-specification-critic R3 | Specification-critic outputs are a formatted report, provenance-rich findings, and a Passed or Failed status. |
+| T1 | [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [R1](../software-requirements/srd005-specification-critic.md#r1---behavior-model) | The specification-critic profile models deterministic, LLM-free, read-only corpus validation. |
+| T2 | [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [R2](../software-requirements/srd005-specification-critic.md#r2---inputs-tools-and-responsibilities) | Specification-critic inputs, the specification validation tool family, and corpus, graph, consistency, and report responsibilities are profile-owned. |
+| T3 | [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [R3](../software-requirements/srd005-specification-critic.md#r3---outputs-and-outcomes) | Specification-critic outputs are a formatted report, provenance-rich findings, and a Passed or Failed status. |
 | T4 | sm-agent-role-taxonomy specification-critic | The role entry names the specification-critic actor boundary, inputs, selected tool family, outputs, and checks. |
 | T5 | test-rel07.1-profile-boundaries specification_critic_profile_boundary | The suite records the profile, machine word selection, charter suite, and expected report shape. |
 
@@ -80,8 +80,8 @@ The specification-critic profile selects load_corpus, validate_specs, jurist_rg,
 <!-- field: traces -->
 #### Traces
 
-- srd005-specification-critic R1.1
-- srd005-specification-critic R2.2
+- [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [R1.1](../software-requirements/srd005-specification-critic.md#r11)
+- [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [R2.2](../software-requirements/srd005-specification-critic.md#r22)
 - sm-agent-role-taxonomy specification-critic checks
 
 <!-- sc: S2 -->
@@ -92,8 +92,8 @@ Charter checks run deterministically and read-only over the target directory acr
 <!-- field: traces -->
 #### Traces
 
-- srd005-specification-critic R1.2
-- srd005-specification-critic R2.3
+- [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [R1.2](../software-requirements/srd005-specification-critic.md#r12)
+- [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [R2.3](../software-requirements/srd005-specification-critic.md#r23)
 
 <!-- sc: S3 -->
 ### S3
@@ -103,9 +103,9 @@ Both pass and fail outcomes produce a formatted report whose findings identify s
 <!-- field: traces -->
 #### Traces
 
-- srd005-specification-critic R3.1
-- srd005-specification-critic R3.2
-- srd005-specification-critic R3.3
+- [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [R3.1](../software-requirements/srd005-specification-critic.md#r31)
+- [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [R3.2](../software-requirements/srd005-specification-critic.md#r32)
+- [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [R3.3](../software-requirements/srd005-specification-critic.md#r33)
 
 <!-- sc: S4 -->
 ### S4
@@ -115,8 +115,8 @@ Core, profile, and example audit gates invoke the specification-critic audit pro
 <!-- field: traces -->
 #### Traces
 
-- srd005-specification-critic R2.5
-- srd005-specification-critic R3.1
+- [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [R2.5](../software-requirements/srd005-specification-critic.md#r25)
+- [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [R3.1](../software-requirements/srd005-specification-critic.md#r31)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -129,4 +129,4 @@ Core, profile, and example audit gates invoke the specification-critic audit pro
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel07.1-profile-boundaries
+[test-rel07.1-profile-boundaries](../test-suites/test-rel07.1-profile-boundaries.md)

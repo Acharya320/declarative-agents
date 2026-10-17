@@ -67,7 +67,7 @@ Container callers use the same contract with /profiles:
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd001-agent-functional-blocks R1 | Profile-owned files stay in applications/catalog while runtime assets stay in agent-core. |
+| T1 | [srd001-agent-functional-blocks](../software-requirements/srd001-agent-functional-blocks.md) [R1](../software-requirements/srd001-agent-functional-blocks.md#r1---profile-ownership-boundary) | Profile-owned files stay in applications/catalog while runtime assets stay in agent-core. |
 | T2 | per-family SRDs srd002-executor through srd011-knowledge-manager | Mounted execution must preserve each functional block's actor boundary. |
 | T3 | sm-multi-agent-profile-system system_boundary | applications/catalog owns configured programs and agent-core owns execution. |
 | T4 | sm-agent-role-taxonomy checks | Role checks name the demo.yaml catalog_root and mounted profile execution. |
@@ -84,7 +84,7 @@ Runtime commands point --profile at the demo.yaml catalog_root or /profiles.
 <!-- field: traces -->
 #### Traces
 
-- srd001-agent-functional-blocks R1.1
+- [srd001-agent-functional-blocks](../software-requirements/srd001-agent-functional-blocks.md) [R1.1](../software-requirements/srd001-agent-functional-blocks.md#r11)
 - sm-multi-agent-profile-system profile_asset_rules
 
 <!-- sc: S2 -->
@@ -95,7 +95,7 @@ Profile-local machine, tool, declaration, REST, and UI references resolve from t
 <!-- field: traces -->
 #### Traces
 
-- srd001-agent-functional-blocks R1.1
+- [srd001-agent-functional-blocks](../software-requirements/srd001-agent-functional-blocks.md) [R1.1](../software-requirements/srd001-agent-functional-blocks.md#r11)
 - sm-agent-role-taxonomy checks
 
 <!-- sc: S3 -->
@@ -106,8 +106,8 @@ Core-owned shared tool roots resolve without copying agent profiles into the run
 <!-- field: traces -->
 #### Traces
 
-- srd001-agent-functional-blocks R1.2
-- srd001-agent-functional-blocks R1.3
+- [srd001-agent-functional-blocks](../software-requirements/srd001-agent-functional-blocks.md) [R1.2](../software-requirements/srd001-agent-functional-blocks.md#r12)
+- [srd001-agent-functional-blocks](../software-requirements/srd001-agent-functional-blocks.md) [R1.3](../software-requirements/srd001-agent-functional-blocks.md#r13)
 
 <!-- sc: S4 -->
 ### S4
@@ -127,9 +127,9 @@ Integration targets can consume canonical profiles and catalog-owned fixtures th
 <!-- field: traces -->
 #### Traces
 
-- srd003-critic R2.3
-- srd008-runtime-state-reader R2.1
-- srd011-knowledge-manager R1.2
+- [srd003-critic](../software-requirements/srd003-critic.md) [R2.3](../software-requirements/srd003-critic.md#r23)
+- [srd008-runtime-state-reader](../software-requirements/srd008-runtime-state-reader.md) [R2.1](../software-requirements/srd008-runtime-state-reader.md#r21)
+- [srd011-knowledge-manager](../software-requirements/srd011-knowledge-manager.md) [R1.2](../software-requirements/srd011-knowledge-manager.md#r12)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -141,4 +141,4 @@ Integration targets can consume canonical profiles and catalog-owned fixtures th
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel06.0-agent-profiles
+[test-rel06.0-agent-profiles](../test-suites/test-rel06.0-agent-profiles.md)

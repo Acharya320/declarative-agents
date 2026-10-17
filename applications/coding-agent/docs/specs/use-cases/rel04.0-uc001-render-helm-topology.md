@@ -46,11 +46,11 @@ Run mage helmPrepare followed by helm lint or helm template.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd003-helm-topology R1.1, R1.2, R1.3, R1.4, R1.5 | S1 traces this requirement in the existing success criteria. |
-| T2 | srd003-helm-topology AC1 | S1 traces this requirement in the existing success criteria. |
-| T3 | srd003-helm-topology AC2 | S2 traces this requirement in the existing success criteria. |
-| T4 | srd003-helm-topology AC3 | S3 traces this requirement in the existing success criteria. |
-| T5 | srd003-helm-topology AC4 | S3 traces this requirement in the existing success criteria. |
+| T1 | [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [R1.1](../software-requirements/srd003-helm-topology.md#r11), [R1.2](../software-requirements/srd003-helm-topology.md#r12), [R1.3](../software-requirements/srd003-helm-topology.md#r13), [R1.4](../software-requirements/srd003-helm-topology.md#r14), [R1.5](../software-requirements/srd003-helm-topology.md#r15) | S1 traces this requirement in the existing success criteria. |
+| T2 | [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [AC1](../software-requirements/srd003-helm-topology.md#ac1) | S1 traces this requirement in the existing success criteria. |
+| T3 | [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [AC2](../software-requirements/srd003-helm-topology.md#ac2) | S2 traces this requirement in the existing success criteria. |
+| T4 | [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [AC3](../software-requirements/srd003-helm-topology.md#ac3) | S3 traces this requirement in the existing success criteria. |
+| T5 | [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [AC4](../software-requirements/srd003-helm-topology.md#ac4) | S3 traces this requirement in the existing success criteria. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -63,12 +63,12 @@ The rendered topology contains exactly one real workload for each application ro
 <!-- field: traces -->
 #### Traces
 
-- srd003-helm-topology R1.1
-- srd003-helm-topology R1.2
-- srd003-helm-topology R1.3
-- srd003-helm-topology R1.4
-- srd003-helm-topology R1.5
-- srd003-helm-topology AC1
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [R1.1](../software-requirements/srd003-helm-topology.md#r11)
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [R1.2](../software-requirements/srd003-helm-topology.md#r12)
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [R1.3](../software-requirements/srd003-helm-topology.md#r13)
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [R1.4](../software-requirements/srd003-helm-topology.md#r14)
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [R1.5](../software-requirements/srd003-helm-topology.md#r15)
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [AC1](../software-requirements/srd003-helm-topology.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -78,7 +78,7 @@ Role profile changes produce role-scoped rollout checksums.
 <!-- field: traces -->
 #### Traces
 
-- srd003-helm-topology AC2
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [AC2](../software-requirements/srd003-helm-topology.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -88,8 +88,8 @@ Default, CI, and optional in-cluster Ollama renders are coherent.
 <!-- field: traces -->
 #### Traces
 
-- srd003-helm-topology AC3
-- srd003-helm-topology AC4
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [AC3](../software-requirements/srd003-helm-topology.md#ac3)
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [AC4](../software-requirements/srd003-helm-topology.md#ac4)
 
 <!-- field: out_of_scope -->
 ## Out of scope

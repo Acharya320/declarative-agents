@@ -18,7 +18,7 @@ provisioning deployment API belongs to the control-plane surface (provisioning-w
 <!-- field: traces -->
 ## Traces
 
-- rel03.0-uc001-mesh-deployment
+- [rel03.0-uc001-mesh-deployment](../use-cases/rel03.0-uc001-mesh-deployment.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -66,7 +66,7 @@ workload still exists.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-mesh-deployment
+[rel03.0-uc001-mesh-deployment](../use-cases/rel03.0-uc001-mesh-deployment.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -112,9 +112,9 @@ go test ./magefiles -run '^TestSplitImageRef$|^TestKindDependencyImagesCoverEver
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc001-mesh-deployment S1
-- srd003-chatbot-deployment AC1
-- srd003-chatbot-deployment AC5
+- [rel03.0-uc001-mesh-deployment](../use-cases/rel03.0-uc001-mesh-deployment.md) [S1](../use-cases/rel03.0-uc001-mesh-deployment.md#s1)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC1](../software-requirements/srd003-chatbot-deployment.md#ac1)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC5](../software-requirements/srd003-chatbot-deployment.md#ac5)
 
 <!-- case: Chatbot topology and selected-target REST drift lock | status: implemented -->
 ### Chatbot topology and selected-target REST drift lock
@@ -132,7 +132,7 @@ contains no request-fanout.yaml key or path.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-mesh-deployment
+[rel03.0-uc001-mesh-deployment](../use-cases/rel03.0-uc001-mesh-deployment.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -168,8 +168,8 @@ go test ./magefiles -run '^TestChatbotRestCoGeneratedFromRagUnits$|^TestChatbotU
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc001-mesh-deployment S2
-- srd003-chatbot-deployment AC2
+- [rel03.0-uc001-mesh-deployment](../use-cases/rel03.0-uc001-mesh-deployment.md) [S2](../use-cases/rel03.0-uc001-mesh-deployment.md#s2)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC2](../software-requirements/srd003-chatbot-deployment.md#ac2)
 
 <!-- case: Mesh hot-swap tracer on kind | status: implemented -->
 ### Mesh hot-swap tracer on kind
@@ -202,7 +202,7 @@ owned-cluster cleanup.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-mesh-deployment
+[rel03.0-uc001-mesh-deployment](../use-cases/rel03.0-uc001-mesh-deployment.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -250,5 +250,5 @@ go test ./magefiles -run '^TestChatbotFanOutCoGeneratedForNRags$|^TestKindDepend
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc001-mesh-deployment S3
-- srd003-chatbot-deployment AC3
+- [rel03.0-uc001-mesh-deployment](../use-cases/rel03.0-uc001-mesh-deployment.md) [S3](../use-cases/rel03.0-uc001-mesh-deployment.md#s3)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC3](../software-requirements/srd003-chatbot-deployment.md#ac3)

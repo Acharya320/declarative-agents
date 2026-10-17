@@ -262,10 +262,10 @@ Budget has MaxIterations, MaxTokens, and MaxDuration; zero values mean unlimited
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.4
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -275,10 +275,10 @@ RunStatus has five constants. RunResult carries status, iterations, tokens, dura
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -288,12 +288,12 @@ LoopHooks has ValidateParams, BudgetExceeded, TerminalStatus, OnResult, and Task
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
-- R3.4
-- R3.5
-- R3.6
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R3.4](#r34)
+- [R3.5](#r35)
+- [R3.6](#r36)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -303,10 +303,10 @@ LoopParams bundles all inputs for Loop including a stable RunID plus AgentName, 
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
-- R4.4
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R4.4](#r44)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -316,18 +316,18 @@ Loop drives state machine from InitialState to terminal, checking budget and con
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
-- R5.4
-- R5.5
-- R5.6
-- R5.7
-- R5.8
-- R5.9
-- R5.10
-- R5.11
-- R5.12
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
+- [R5.5](#r55)
+- [R5.6](#r56)
+- [R5.7](#r57)
+- [R5.8](#r58)
+- [R5.9](#r59)
+- [R5.10](#r510)
+- [R5.11](#r511)
+- [R5.12](#r512)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -337,7 +337,7 @@ ValidateBuilders returns a ValidateParams hook checking named builders.
 <!-- field: traces -->
 #### Traces
 
-- R6.1
+- [R6.1](#r61)
 
 <!-- ac: AC7 -->
 ### AC7
@@ -347,12 +347,12 @@ Checkpoint port integration saves typed position and execution history after dis
 <!-- field: traces -->
 #### Traces
 
-- R7.1
-- R7.2
-- R7.3
-- R7.4
-- R7.5
-- R7.6
+- [R7.1](#r71)
+- [R7.2](#r72)
+- [R7.3](#r73)
+- [R7.4](#r74)
+- [R7.5](#r75)
+- [R7.6](#r76)
 
 <!-- field: related_documents -->
 ## Related documents

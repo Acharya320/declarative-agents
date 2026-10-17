@@ -273,10 +273,10 @@ DoltCheckpoint implements the srd035 Checkpoint port behind a database/sql Datab
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.4
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -286,10 +286,10 @@ The adapter creates a generic five-table schema (machines, transitions, executio
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -299,17 +299,17 @@ tool_outputs stores only sanitized output with versioned typed redaction metadat
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
-- R3.4
-- R3.5
-- R3.6
-- R3.7
-- R3.8
-- R3.9
-- R3.10
-- R3.11
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R3.4](#r34)
+- [R3.5](#r35)
+- [R3.6](#r36)
+- [R3.7](#r37)
+- [R3.8](#r38)
+- [R3.9](#r39)
+- [R3.10](#r310)
+- [R3.11](#r311)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -319,12 +319,12 @@ The adapter commits once per step with step_index and signal metadata, captures 
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
-- R4.4
-- R4.5
-- R4.6
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R4.4](#r44)
+- [R4.5](#r45)
+- [R4.6](#r46)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -334,11 +334,11 @@ Load reconstructs Position and Execution (including conversation, iterator progr
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
-- R5.4
-- R5.5
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
+- [R5.5](#r55)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -348,12 +348,12 @@ Revert(run_id, step_index) resets the run branch to the target commit for DB-onl
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
-- R6.3
-- R6.4
-- R6.5
-- R6.6
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
+- [R6.4](#r64)
+- [R6.5](#r65)
+- [R6.6](#r66)
 
 <!-- field: reference_model -->
 ## Reference model

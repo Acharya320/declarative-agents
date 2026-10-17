@@ -323,15 +323,15 @@ the install root as every profile path does (srd055 R2.2).
 <!-- field: related_documents -->
 ## Related documents
 
-- cfg-runtime-contract
-- cfg-machine-format
-- cfg-tool-selection-format
-- cfg-tool-declaration-format
-- cfg-rest-tool-format
-- srd052-declaration-fragments
-- srd054-machine-templates
-- srd055-agent-blueprints
-- srd056-unit-libraries
+- [cfg-runtime-contract](runtime-contract.md)
+- [cfg-machine-format](machine-format.md)
+- [cfg-tool-selection-format](tool-selection-format.md)
+- [cfg-tool-declaration-format](tool-declaration-format.md)
+- [cfg-rest-tool-format](rest-tool-format.md)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md)
+- [srd054-machine-templates](../software-requirements/srd054-machine-templates.md)
+- [srd055-agent-blueprints](../software-requirements/srd055-agent-blueprints.md)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md)
 
 <!-- field: implementation -->
 ## Implementation

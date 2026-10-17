@@ -434,11 +434,11 @@ REST runtime requirements define shared platform scope for client and server too
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.4
-- R1.5
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R1.5](#r15)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -448,12 +448,12 @@ REST definitions are declarative data, MachineSpec owns sequencing, ToolDef owns
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
-- R2.5
-- R2.6
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
+- [R2.5](#r25)
+- [R2.6](#r26)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -463,12 +463,12 @@ OpenAPI 3 is documented as an optional source format compiled into the same inte
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
-- R3.4
-- R3.5
-- R3.6
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R3.4](#r34)
+- [R3.5](#r35)
+- [R3.6](#r36)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -478,12 +478,12 @@ Runtime platform requirements name net/http, internal/tools/catalog, internal/to
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
-- R4.4
-- R4.5
-- R4.6
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R4.4](#r44)
+- [R4.5](#r45)
+- [R4.6](#r46)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -493,13 +493,13 @@ Synchronous and asynchronous REST semantics define blocking fused words, non-blo
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
-- R5.4
-- R5.5
-- R5.6
-- R5.7
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
+- [R5.5](#r55)
+- [R5.6](#r56)
+- [R5.7](#r57)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -509,15 +509,15 @@ Safety controls cover strict definition fields, exact JSON body decoding and sch
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
-- R6.3
-- R6.4
-- R6.5
-- R6.6
-- R6.7
-- R6.8
-- R6.9
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
+- [R6.4](#r64)
+- [R6.5](#r65)
+- [R6.6](#r66)
+- [R6.7](#r67)
+- [R6.8](#r68)
+- [R6.9](#r69)
 
 <!-- ac: AC7 -->
 ### AC7
@@ -527,14 +527,14 @@ Observability and error requirements preserve redaction while exposing operation
 <!-- field: traces -->
 #### Traces
 
-- R7.1
-- R7.2
-- R7.3
-- R7.4
-- R7.5
-- R7.6
-- R7.7
-- R7.8
+- [R7.1](#r71)
+- [R7.2](#r72)
+- [R7.3](#r73)
+- [R7.4](#r74)
+- [R7.5](#r75)
+- [R7.6](#r76)
+- [R7.7](#r77)
+- [R7.8](#r78)
 
 <!-- ac: AC8 -->
 ### AC8
@@ -544,12 +544,12 @@ Side-effect, reversibility, undo, compensation, command-state, and confirmation 
 <!-- field: traces -->
 #### Traces
 
-- R8.1
-- R8.2
-- R8.3
-- R8.4
-- R8.5
-- R8.6
+- [R8.1](#r81)
+- [R8.2](#r82)
+- [R8.3](#r83)
+- [R8.4](#r84)
+- [R8.5](#r85)
+- [R8.6](#r86)
 
 <!-- ac: AC9 -->
 ### AC9
@@ -559,11 +559,11 @@ Planned layout names internal/tools/rest, tools/builtin/rest, rest-tool-format.m
 <!-- field: traces -->
 #### Traces
 
-- R9.1
-- R9.2
-- R9.3
-- R9.4
-- R9.5
+- [R9.1](#r91)
+- [R9.2](#r92)
+- [R9.3](#r93)
+- [R9.4](#r94)
+- [R9.5](#r95)
 
 <!-- ac: AC10 -->
 ### AC10
@@ -573,14 +573,14 @@ Generic REST event aggregation waits across configured server sources, applies s
 <!-- field: traces -->
 #### Traces
 
-- R10.1
-- R10.2
-- R10.3
-- R10.4
-- R10.5
-- R10.6
-- R10.7
-- R10.8
+- [R10.1](#r101)
+- [R10.2](#r102)
+- [R10.3](#r103)
+- [R10.4](#r104)
+- [R10.5](#r105)
+- [R10.6](#r106)
+- [R10.7](#r107)
+- [R10.8](#r108)
 
 <!-- field: related_documents -->
 ## Related documents

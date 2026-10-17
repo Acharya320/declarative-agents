@@ -25,12 +25,12 @@ only for applications that declare the matching capability.
 <!-- field: traces -->
 ## Traces
 
-- rel14.0-uc001-application-consistency
+- [rel14.0-uc001-application-consistency](../use-cases/rel14.0-uc001-application-consistency.md)
 
 <!-- field: srds -->
 ## SRDs
 
-- srd003-application-consistency
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -67,7 +67,7 @@ TC1
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc001-application-consistency
+[rel14.0-uc001-application-consistency](../use-cases/rel14.0-uc001-application-consistency.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -163,10 +163,10 @@ PY
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc001-application-consistency S1
-- rel14.0-uc001-application-consistency S5
-- srd003-application-consistency AC1
-- srd003-application-consistency AC6
+- [rel14.0-uc001-application-consistency](../use-cases/rel14.0-uc001-application-consistency.md) [S1](../use-cases/rel14.0-uc001-application-consistency.md#s1)
+- [rel14.0-uc001-application-consistency](../use-cases/rel14.0-uc001-application-consistency.md) [S5](../use-cases/rel14.0-uc001-application-consistency.md#s5)
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC1](../software-requirements/srd003-application-consistency.md#ac1)
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC6](../software-requirements/srd003-application-consistency.md#ac6)
 
 <!-- case: Composition manifests are complete and capability-aware | status: implemented -->
 ### Composition manifests are complete and capability-aware
@@ -179,7 +179,7 @@ TC2
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc001-application-consistency
+[rel14.0-uc001-application-consistency](../use-cases/rel14.0-uc001-application-consistency.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -206,8 +206,8 @@ go_test
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc001-application-consistency S1
-- srd003-application-consistency AC1
+- [rel14.0-uc001-application-consistency](../use-cases/rel14.0-uc001-application-consistency.md) [S1](../use-cases/rel14.0-uc001-application-consistency.md#s1)
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC1](../software-requirements/srd003-application-consistency.md#ac1)
 
 <!-- case: Actor ownership and program names conform | status: implemented -->
 ### Actor ownership and program names conform
@@ -220,7 +220,7 @@ TC3
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc001-application-consistency
+[rel14.0-uc001-application-consistency](../use-cases/rel14.0-uc001-application-consistency.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -248,9 +248,9 @@ go_test
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc001-application-consistency S2
-- srd003-application-consistency AC2
-- srd003-application-consistency AC3
+- [rel14.0-uc001-application-consistency](../use-cases/rel14.0-uc001-application-consistency.md) [S2](../use-cases/rel14.0-uc001-application-consistency.md#s2)
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC2](../software-requirements/srd003-application-consistency.md#ac2)
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC3](../software-requirements/srd003-application-consistency.md#ac3)
 
 <!-- case: Packaged closure and provenance derive from the manifest | status: implemented -->
 ### Packaged closure and provenance derive from the manifest
@@ -263,7 +263,7 @@ TC4
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc001-application-consistency
+[rel14.0-uc001-application-consistency](../use-cases/rel14.0-uc001-application-consistency.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -298,8 +298,8 @@ packaged
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc001-application-consistency S3
-- srd003-application-consistency AC4
+- [rel14.0-uc001-application-consistency](../use-cases/rel14.0-uc001-application-consistency.md) [S3](../use-cases/rel14.0-uc001-application-consistency.md#s3)
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC4](../software-requirements/srd003-application-consistency.md#ac4)
 
 <!-- case: Promotion and shared UI-token claims have real consumers | status: implemented -->
 ### Promotion and shared UI-token claims have real consumers
@@ -312,7 +312,7 @@ TC5
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc001-application-consistency
+[rel14.0-uc001-application-consistency](../use-cases/rel14.0-uc001-application-consistency.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -344,8 +344,8 @@ promotion candidates or ui
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc001-application-consistency S4
-- srd003-application-consistency AC5
+- [rel14.0-uc001-application-consistency](../use-cases/rel14.0-uc001-application-consistency.md) [S4](../use-cases/rel14.0-uc001-application-consistency.md#s4)
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC5](../software-requirements/srd003-application-consistency.md#ac5)
 
 <!-- case: README, status, capabilities, and root lists agree | status: implemented -->
 ### README, status, capabilities, and root lists agree
@@ -358,7 +358,7 @@ TC6
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc001-application-consistency
+[rel14.0-uc001-application-consistency](../use-cases/rel14.0-uc001-application-consistency.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -385,8 +385,8 @@ go_test
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc001-application-consistency S5
-- srd003-application-consistency AC6
+- [rel14.0-uc001-application-consistency](../use-cases/rel14.0-uc001-application-consistency.md) [S5](../use-cases/rel14.0-uc001-application-consistency.md#s5)
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC6](../software-requirements/srd003-application-consistency.md#ac6)
 
 <!-- case: Three-application ownership and capability matrix is truthful | status: implemented -->
 ### Three-application ownership and capability matrix is truthful
@@ -399,7 +399,7 @@ TC7
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc001-application-consistency
+[rel14.0-uc001-application-consistency](../use-cases/rel14.0-uc001-application-consistency.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -423,10 +423,10 @@ go_test
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc001-application-consistency S7
-- srd003-application-consistency AC1
-- srd003-application-consistency AC2
-- srd003-application-consistency AC6
+- [rel14.0-uc001-application-consistency](../use-cases/rel14.0-uc001-application-consistency.md) [S7](../use-cases/rel14.0-uc001-application-consistency.md#s7)
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC1](../software-requirements/srd003-application-consistency.md#ac1)
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC2](../software-requirements/srd003-application-consistency.md#ac2)
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC6](../software-requirements/srd003-application-consistency.md#ac6)
 
 <!-- case: Repository audit preserves ownership and current evidence | status: implemented -->
 ### Repository audit preserves ownership and current evidence
@@ -439,7 +439,7 @@ TC8
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc001-application-consistency
+[rel14.0-uc001-application-consistency](../use-cases/rel14.0-uc001-application-consistency.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -464,8 +464,8 @@ mage audit
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc001-application-consistency S6
-- srd003-application-consistency AC7
+- [rel14.0-uc001-application-consistency](../use-cases/rel14.0-uc001-application-consistency.md) [S6](../use-cases/rel14.0-uc001-application-consistency.md#s6)
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC7](../software-requirements/srd003-application-consistency.md#ac7)
 
 <!-- field: requirement_coverage | form: "keyed table" -->
 ## Requirement coverage

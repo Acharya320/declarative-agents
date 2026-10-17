@@ -198,11 +198,11 @@ State and Signal are named string types. Generic signals (Seed, BudgetExhausted,
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.4
-- R1.5
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R1.5](#r15)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -212,9 +212,9 @@ Command interface has Name(), Execute(), and Undo() methods. Execute and Undo re
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -224,8 +224,8 @@ Cost struct has Duration, TokensIn, TokensOut, and Dollars fields with JSON tags
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
+- [R3.1](#r31)
+- [R3.2](#r32)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -235,9 +235,9 @@ Result struct has Output, Signal, Cost, Err, CommandName, and Metrics (*ToolMetr
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
 
 <!-- ac: AC7 -->
 ### AC7
@@ -247,9 +247,9 @@ ToolMetrics struct has Total, Passed, Failed (int) and Details (map[string]any) 
 <!-- field: traces -->
 #### Traces
 
-- R7.1
-- R7.2
-- R7.3
+- [R7.1](#r71)
+- [R7.2](#r72)
+- [R7.3](#r73)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -259,8 +259,8 @@ Builder has Build(Result) Command. CommandResolver has Resolve(string) (Builder,
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
+- [R5.1](#r51)
+- [R5.2](#r52)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -270,9 +270,9 @@ SpanOverride interface has SpanName() and SpanCreationAttrs() for customizing Di
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
-- R6.3
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
 
 <!-- ac: AC8 -->
 ### AC8
@@ -282,12 +282,12 @@ Checkpoint foundation types model resumable position, ordered execution history,
 <!-- field: traces -->
 #### Traces
 
-- R8.1
-- R8.2
-- R8.3
-- R8.4
-- R8.5
-- R8.6
+- [R8.1](#r81)
+- [R8.2](#r82)
+- [R8.3](#r83)
+- [R8.4](#r84)
+- [R8.5](#r85)
+- [R8.6](#r86)
 
 <!-- field: diagrams -->
 ## Diagrams

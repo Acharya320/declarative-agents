@@ -58,9 +58,9 @@ A maintainer runs each lifecycle program from applications/catalog:
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd009-lifecycle R1 | History, rollback, and approval are modeled as machine actions and visible signals. |
-| T2 | srd009-lifecycle R2 | Lifecycle inputs and the checkpoint_history, checkpoint_rollback, suspend, and done tool families are profile-owned selections over agent-core lifecycle ports. |
-| T3 | srd009-lifecycle R3 | Lifecycle outputs and Done, Succeeded, Rejected, or Failed terminal outcomes are checkable. |
+| T1 | [srd009-lifecycle](../software-requirements/srd009-lifecycle.md) [R1](../software-requirements/srd009-lifecycle.md#r1---behavior-model) | History, rollback, and approval are modeled as machine actions and visible signals. |
+| T2 | [srd009-lifecycle](../software-requirements/srd009-lifecycle.md) [R2](../software-requirements/srd009-lifecycle.md#r2---inputs-tools-and-runtime-dependencies) | Lifecycle inputs and the checkpoint_history, checkpoint_rollback, suspend, and done tool families are profile-owned selections over agent-core lifecycle ports. |
+| T3 | [srd009-lifecycle](../software-requirements/srd009-lifecycle.md) [R3](../software-requirements/srd009-lifecycle.md#r3---outputs-and-outcomes) | Lifecycle outputs and Done, Succeeded, Rejected, or Failed terminal outcomes are checkable. |
 | T4 | sm-agent-role-taxonomy lifecycle | The role entry names the lifecycle actor boundary, inputs, selected tool families, outputs, and checks. |
 | T5 | test-rel07.1-profile-boundaries lifecycle_profile_boundary | The suite records the history, rollback, and approval machines, tool selections, and expected terminal states. |
 
@@ -75,9 +75,9 @@ History and rollback run as single declared machine actions that read or rewrite
 <!-- field: traces -->
 #### Traces
 
-- srd009-lifecycle R1.1
-- srd009-lifecycle R1.2
-- srd009-lifecycle R3.1
+- [srd009-lifecycle](../software-requirements/srd009-lifecycle.md) [R1.1](../software-requirements/srd009-lifecycle.md#r11)
+- [srd009-lifecycle](../software-requirements/srd009-lifecycle.md) [R1.2](../software-requirements/srd009-lifecycle.md#r12)
+- [srd009-lifecycle](../software-requirements/srd009-lifecycle.md) [R3.1](../software-requirements/srd009-lifecycle.md#r31)
 
 <!-- sc: S2 -->
 ### S2
@@ -87,8 +87,8 @@ Approval suspends as a machine action and resumes through explicit Approved or R
 <!-- field: traces -->
 #### Traces
 
-- srd009-lifecycle R1.3
-- srd009-lifecycle R2.2
+- [srd009-lifecycle](../software-requirements/srd009-lifecycle.md) [R1.3](../software-requirements/srd009-lifecycle.md#r13)
+- [srd009-lifecycle](../software-requirements/srd009-lifecycle.md) [R2.2](../software-requirements/srd009-lifecycle.md#r22)
 - sm-agent-role-taxonomy lifecycle checks
 
 <!-- sc: S3 -->
@@ -99,7 +99,7 @@ Lifecycle terminal outcomes are Done, Succeeded, Rejected, or Failed.
 <!-- field: traces -->
 #### Traces
 
-- srd009-lifecycle R3.2
+- [srd009-lifecycle](../software-requirements/srd009-lifecycle.md) [R3.2](../software-requirements/srd009-lifecycle.md#r32)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -111,4 +111,4 @@ Lifecycle terminal outcomes are Done, Succeeded, Rejected, or Failed.
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel07.1-profile-boundaries
+[test-rel07.1-profile-boundaries](../test-suites/test-rel07.1-profile-boundaries.md)

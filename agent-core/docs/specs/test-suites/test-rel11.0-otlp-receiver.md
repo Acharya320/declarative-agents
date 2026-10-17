@@ -9,7 +9,7 @@ release: "11.0"
 <!-- field: traces -->
 ## Traces
 
-- rel11.0-uc001-otlp-receiver-await
+- [rel11.0-uc001-otlp-receiver-await](../use-cases/rel11.0-uc001-otlp-receiver-await.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -33,7 +33,7 @@ span count, service names, trace IDs, and resource attributes.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc001-otlp-receiver-await
+[rel11.0-uc001-otlp-receiver-await](../use-cases/rel11.0-uc001-otlp-receiver-await.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -65,8 +65,8 @@ go test ./internal/tools/otlp -run TestReceiverExportAwait
 <!-- field: traces -->
 #### Traces
 
-- rel11.0-uc001-otlp-receiver-await S1
-- srd042-otlp-receiver-tools AC1
+- [rel11.0-uc001-otlp-receiver-await](../use-cases/rel11.0-uc001-otlp-receiver-await.md) [S1](../use-cases/rel11.0-uc001-otlp-receiver-await.md#s1)
+- [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [AC1](../software-requirements/srd042-otlp-receiver-tools.md#ac1)
 
 <!-- case: Queue overflow follows each declared policy | status: implemented -->
 ### Queue overflow follows each declared policy
@@ -79,7 +79,7 @@ not race or exceed capacity.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc001-otlp-receiver-await
+[rel11.0-uc001-otlp-receiver-await](../use-cases/rel11.0-uc001-otlp-receiver-await.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -107,8 +107,8 @@ go test ./internal/tools/otlp -run TestReceiverOverflowPolicies
 <!-- field: traces -->
 #### Traces
 
-- rel11.0-uc001-otlp-receiver-await S1
-- srd042-otlp-receiver-tools AC1
+- [rel11.0-uc001-otlp-receiver-await](../use-cases/rel11.0-uc001-otlp-receiver-await.md) [S1](../use-cases/rel11.0-uc001-otlp-receiver-await.md#s1)
+- [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [AC1](../software-requirements/srd042-otlp-receiver-tools.md#ac1)
 
 <!-- case: Spool output matches stdouttrace readers and rotates by complete batch | status: implemented -->
 ### Spool output matches stdouttrace readers and rotates by complete batch
@@ -122,7 +122,7 @@ partial JSON line.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc001-otlp-receiver-await
+[rel11.0-uc001-otlp-receiver-await](../use-cases/rel11.0-uc001-otlp-receiver-await.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -147,8 +147,8 @@ go test ./internal/tools/otlp -run TestSpoolStdoutTraceAndRotation
 <!-- field: traces -->
 #### Traces
 
-- rel11.0-uc001-otlp-receiver-await S2
-- srd042-otlp-receiver-tools AC2
+- [rel11.0-uc001-otlp-receiver-await](../use-cases/rel11.0-uc001-otlp-receiver-await.md) [S2](../use-cases/rel11.0-uc001-otlp-receiver-await.md#s2)
+- [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [AC2](../software-requirements/srd042-otlp-receiver-tools.md#ac2)
 
 <!-- case: Bounded spools reject a missing retained generation | status: implemented -->
 ### Bounded spools reject a missing retained generation
@@ -160,7 +160,7 @@ unchanged even when a builder bypasses factory validation.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc001-otlp-receiver-await
+[rel11.0-uc001-otlp-receiver-await](../use-cases/rel11.0-uc001-otlp-receiver-await.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -185,7 +185,7 @@ go test ./internal/tools/otlp -run 'Test(SpoolFactoriesRejectByteCap|RotateRejec
 <!-- field: traces -->
 #### Traces
 
-- srd042-otlp-receiver-tools AC2
+- [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [AC2](../software-requirements/srd042-otlp-receiver-tools.md#ac2)
 
 <!-- case: Relay preserves the complete OTLP request and reports rejection | status: implemented -->
 ### Relay preserves the complete OTLP request and reports rejection
@@ -198,7 +198,7 @@ emits CommandError without modifying or deleting local spool evidence.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc001-otlp-receiver-await
+[rel11.0-uc001-otlp-receiver-await](../use-cases/rel11.0-uc001-otlp-receiver-await.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -224,8 +224,8 @@ go test ./internal/tools/otlp -run 'TestRelay(PreservesBatch|ReportsPartialRejec
 <!-- field: traces -->
 #### Traces
 
-- rel11.0-uc001-otlp-receiver-await S3
-- srd042-otlp-receiver-tools AC3
+- [rel11.0-uc001-otlp-receiver-await](../use-cases/rel11.0-uc001-otlp-receiver-await.md) [S3](../use-cases/rel11.0-uc001-otlp-receiver-await.md#s3)
+- [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [AC3](../software-requirements/srd042-otlp-receiver-tools.md#ac3)
 
 <!-- case: Stop releases the listener and unblocks every awaiter | status: implemented -->
 ### Stop releases the listener and unblocks every awaiter
@@ -238,7 +238,7 @@ returns to its bounded baseline.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc001-otlp-receiver-await
+[rel11.0-uc001-otlp-receiver-await](../use-cases/rel11.0-uc001-otlp-receiver-await.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -268,8 +268,8 @@ go test ./internal/tools/otlp -run 'TestReceiverStop(UnblocksAndReleases|Applies
 <!-- field: traces -->
 #### Traces
 
-- rel11.0-uc001-otlp-receiver-await S4
-- srd042-otlp-receiver-tools AC4
+- [rel11.0-uc001-otlp-receiver-await](../use-cases/rel11.0-uc001-otlp-receiver-await.md) [S4](../use-cases/rel11.0-uc001-otlp-receiver-await.md#s4)
+- [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [AC4](../software-requirements/srd042-otlp-receiver-tools.md#ac4)
 
 <!-- case: Ingress process telemetry cannot loop into its receiver | status: implemented -->
 ### Ingress process telemetry cannot loop into its receiver
@@ -280,7 +280,7 @@ rejects a receiver whose declared relay points back to itself.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc001-otlp-receiver-await
+[rel11.0-uc001-otlp-receiver-await](../use-cases/rel11.0-uc001-otlp-receiver-await.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -313,8 +313,8 @@ test evidence.
 <!-- field: traces -->
 #### Traces
 
-- rel11.0-uc001-otlp-receiver-await S5
-- srd042-otlp-receiver-tools AC5
+- [rel11.0-uc001-otlp-receiver-await](../use-cases/rel11.0-uc001-otlp-receiver-await.md) [S5](../use-cases/rel11.0-uc001-otlp-receiver-await.md#s5)
+- [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [AC5](../software-requirements/srd042-otlp-receiver-tools.md#ac5)
 
 <!-- case: Receiver accepts trace and metric exports on one listener | status: implemented -->
 ### Receiver accepts trace and metric exports on one listener
@@ -326,7 +326,7 @@ export lands on a separate queue and does not disturb the trace queue.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc001-otlp-receiver-await
+[rel11.0-uc001-otlp-receiver-await](../use-cases/rel11.0-uc001-otlp-receiver-await.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -360,8 +360,8 @@ srd042 R8/R9, not package test evidence.
 <!-- field: traces -->
 #### Traces
 
-- rel11.0-uc001-otlp-receiver-await S6
-- srd042-otlp-receiver-tools AC6
+- [rel11.0-uc001-otlp-receiver-await](../use-cases/rel11.0-uc001-otlp-receiver-await.md) [S6](../use-cases/rel11.0-uc001-otlp-receiver-await.md#s6)
+- [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [AC6](../software-requirements/srd042-otlp-receiver-tools.md#ac6)
 
 <!-- case: Metric spool records NDJSON and rotates by complete batch | status: implemented -->
 ### Metric spool records NDJSON and rotates by complete batch
@@ -374,7 +374,7 @@ metric spool is a separate file from the trace spool.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc001-otlp-receiver-await
+[rel11.0-uc001-otlp-receiver-await](../use-cases/rel11.0-uc001-otlp-receiver-await.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -399,8 +399,8 @@ go test ./internal/tools/otlp -run TestSpoolMetricsRoundTripAndRotation
 <!-- field: traces -->
 #### Traces
 
-- rel11.0-uc001-otlp-receiver-await S7
-- srd042-otlp-receiver-tools AC8
+- [rel11.0-uc001-otlp-receiver-await](../use-cases/rel11.0-uc001-otlp-receiver-await.md) [S7](../use-cases/rel11.0-uc001-otlp-receiver-await.md#s7)
+- [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [AC8](../software-requirements/srd042-otlp-receiver-tools.md#ac8)
 
 <!-- case: Metric query lists by name and reads back one metric's records | status: implemented -->
 ### Metric query lists by name and reads back one metric's records
@@ -415,7 +415,7 @@ test.run.id, plus the service projection and data points, read-only.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc001-otlp-receiver-await
+[rel11.0-uc001-otlp-receiver-await](../use-cases/rel11.0-uc001-otlp-receiver-await.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -457,5 +457,5 @@ go test ./internal/tools/otlp -run 'TestSpool(ListMetricsSummaries|GetMetric(ByN
 <!-- field: traces -->
 #### Traces
 
-- rel11.0-uc001-otlp-receiver-await S7
-- srd042-otlp-receiver-tools AC8
+- [rel11.0-uc001-otlp-receiver-await](../use-cases/rel11.0-uc001-otlp-receiver-await.md) [S7](../use-cases/rel11.0-uc001-otlp-receiver-await.md#s7)
+- [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [AC8](../software-requirements/srd042-otlp-receiver-tools.md#ac8)

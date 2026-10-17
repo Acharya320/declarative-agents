@@ -39,11 +39,11 @@ parallel builtin registration paths that should share one helper.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd037-tool-dispatch-simplification R1.1, R1.2, R1.3, R1.4 | MachineSpec, Registry, Builder, Command, and Dispatch semantics stay intact |
-| T2 | srd037-tool-dispatch-simplification R2.1, R2.2, R2.3, R2.4 | registry registration failures become returned startup errors for configuration-originated mistakes |
-| T3 | srd037-tool-dispatch-simplification R3.1, R3.2, R3.3, R3.4 | builtin registration shares one helper while exec registration remains separate |
-| T4 | srd037-tool-dispatch-simplification R4.1, R4.2, R4.3, R4.4, R4.5, R4.6, R4.7 | manifest, parse_response, and dynamic $tool dispatch use one availability rule |
-| T5 | srd037-tool-dispatch-simplification R5.1, R5.2, R5.3 | code-task tests prove the narrowed behavior change |
+| T1 | [srd037-tool-dispatch-simplification](../software-requirements/srd037-tool-dispatch-simplification.md) [R1.1](../software-requirements/srd037-tool-dispatch-simplification.md#r11), [R1.2](../software-requirements/srd037-tool-dispatch-simplification.md#r12), [R1.3](../software-requirements/srd037-tool-dispatch-simplification.md#r13), [R1.4](../software-requirements/srd037-tool-dispatch-simplification.md#r14) | MachineSpec, Registry, Builder, Command, and Dispatch semantics stay intact |
+| T2 | [srd037-tool-dispatch-simplification](../software-requirements/srd037-tool-dispatch-simplification.md) [R2.1](../software-requirements/srd037-tool-dispatch-simplification.md#r21), [R2.2](../software-requirements/srd037-tool-dispatch-simplification.md#r22), [R2.3](../software-requirements/srd037-tool-dispatch-simplification.md#r23), [R2.4](../software-requirements/srd037-tool-dispatch-simplification.md#r24) | registry registration failures become returned startup errors for configuration-originated mistakes |
+| T3 | [srd037-tool-dispatch-simplification](../software-requirements/srd037-tool-dispatch-simplification.md) [R3.1](../software-requirements/srd037-tool-dispatch-simplification.md#r31), [R3.2](../software-requirements/srd037-tool-dispatch-simplification.md#r32), [R3.3](../software-requirements/srd037-tool-dispatch-simplification.md#r33), [R3.4](../software-requirements/srd037-tool-dispatch-simplification.md#r34) | builtin registration shares one helper while exec registration remains separate |
+| T4 | [srd037-tool-dispatch-simplification](../software-requirements/srd037-tool-dispatch-simplification.md) [R4.1](../software-requirements/srd037-tool-dispatch-simplification.md#r41), [R4.2](../software-requirements/srd037-tool-dispatch-simplification.md#r42), [R4.3](../software-requirements/srd037-tool-dispatch-simplification.md#r43), [R4.4](../software-requirements/srd037-tool-dispatch-simplification.md#r44), [R4.5](../software-requirements/srd037-tool-dispatch-simplification.md#r45), [R4.6](../software-requirements/srd037-tool-dispatch-simplification.md#r46), [R4.7](../software-requirements/srd037-tool-dispatch-simplification.md#r47) | manifest, parse_response, and dynamic $tool dispatch use one availability rule |
+| T5 | [srd037-tool-dispatch-simplification](../software-requirements/srd037-tool-dispatch-simplification.md) [R5.1](../software-requirements/srd037-tool-dispatch-simplification.md#r51), [R5.2](../software-requirements/srd037-tool-dispatch-simplification.md#r52), [R5.3](../software-requirements/srd037-tool-dispatch-simplification.md#r53) | code-task tests prove the narrowed behavior change |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -56,7 +56,7 @@ The design names the unchanged core dispatch model and the allowed extension poi
 <!-- field: traces -->
 #### Traces
 
-- srd037-tool-dispatch-simplification AC1
+- [srd037-tool-dispatch-simplification](../software-requirements/srd037-tool-dispatch-simplification.md) [AC1](../software-requirements/srd037-tool-dispatch-simplification.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -66,7 +66,7 @@ Configuration-originated startup failures are specified as returned errors, not 
 <!-- field: traces -->
 #### Traces
 
-- srd037-tool-dispatch-simplification AC2
+- [srd037-tool-dispatch-simplification](../software-requirements/srd037-tool-dispatch-simplification.md) [AC2](../software-requirements/srd037-tool-dispatch-simplification.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -76,7 +76,7 @@ Single and batch builtin registration converge without folding exec declarations
 <!-- field: traces -->
 #### Traces
 
-- srd037-tool-dispatch-simplification AC3
+- [srd037-tool-dispatch-simplification](../software-requirements/srd037-tool-dispatch-simplification.md) [AC3](../software-requirements/srd037-tool-dispatch-simplification.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -86,7 +86,7 @@ Manifest, parse_response, and dynamic $tool dispatch share one state-scoped exte
 <!-- field: traces -->
 #### Traces
 
-- srd037-tool-dispatch-simplification AC4
+- [srd037-tool-dispatch-simplification](../software-requirements/srd037-tool-dispatch-simplification.md) [AC4](../software-requirements/srd037-tool-dispatch-simplification.md#ac4)
 
 <!-- sc: S5 -->
 ### S5
@@ -96,7 +96,7 @@ The follow-up code task has concrete tests and excludes MachineSpec, command exe
 <!-- field: traces -->
 #### Traces
 
-- srd037-tool-dispatch-simplification AC5
+- [srd037-tool-dispatch-simplification](../software-requirements/srd037-tool-dispatch-simplification.md) [AC5](../software-requirements/srd037-tool-dispatch-simplification.md#ac5)
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios
@@ -118,4 +118,4 @@ The follow-up code task has concrete tests and excludes MachineSpec, command exe
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel99.0-tool-dispatch-simplification
+[test-rel99.0-tool-dispatch-simplification](../test-suites/test-rel99.0-tool-dispatch-simplification.md)

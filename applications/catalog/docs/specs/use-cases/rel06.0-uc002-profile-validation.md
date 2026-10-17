@@ -64,7 +64,7 @@ After review, the maintainer can create a local profile bundle tag:
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd001-agent-functional-blocks R1 | Validation protects the profile ownership boundary. |
+| T1 | [srd001-agent-functional-blocks](../software-requirements/srd001-agent-functional-blocks.md) [R1](../software-requirements/srd001-agent-functional-blocks.md#r1---profile-ownership-boundary) | Validation protects the profile ownership boundary. |
 | T2 | sm-multi-agent-profile-system profile_asset_rules | Profile-local and core-owned references follow separate ownership rules. |
 | T3 | sm-multi-agent-profile-system validation_views | Validation views name profile reference checks and mounted container execution. |
 | T4 | sm-agent-role-taxonomy taxonomy_rules | Checks name validation, mounted execution, integration proof, or documentation review paths. |
@@ -82,7 +82,7 @@ mage validate checks all supported profile filename shapes.
 <!-- field: traces -->
 #### Traces
 
-- srd001-agent-functional-blocks R1.1
+- [srd001-agent-functional-blocks](../software-requirements/srd001-agent-functional-blocks.md) [R1.1](../software-requirements/srd001-agent-functional-blocks.md#r11)
 - sm-agent-role-taxonomy taxonomy_rules
 
 <!-- sc: S2 -->
@@ -93,7 +93,7 @@ Validation resolves profile-local paths from the selected profile directory.
 <!-- field: traces -->
 #### Traces
 
-- srd001-agent-functional-blocks R1.1
+- [srd001-agent-functional-blocks](../software-requirements/srd001-agent-functional-blocks.md) [R1.1](../software-requirements/srd001-agent-functional-blocks.md#r11)
 - sm-multi-agent-profile-system profile_asset_rules
 
 <!-- sc: S3 -->
@@ -104,8 +104,8 @@ Validation maps /opt/agent-core/tools to the selected agent-core checkout withou
 <!-- field: traces -->
 #### Traces
 
-- srd001-agent-functional-blocks R1.2
-- srd001-agent-functional-blocks R1.3
+- [srd001-agent-functional-blocks](../software-requirements/srd001-agent-functional-blocks.md) [R1.2](../software-requirements/srd001-agent-functional-blocks.md#r12)
+- [srd001-agent-functional-blocks](../software-requirements/srd001-agent-functional-blocks.md) [R1.3](../software-requirements/srd001-agent-functional-blocks.md#r13)
 
 <!-- sc: S4 -->
 ### S4
@@ -125,7 +125,7 @@ mage tag creates profile bundle tags without using agent-core image tags.
 <!-- field: traces -->
 #### Traces
 
-- srd001-agent-functional-blocks R1.3
+- [srd001-agent-functional-blocks](../software-requirements/srd001-agent-functional-blocks.md) [R1.3](../software-requirements/srd001-agent-functional-blocks.md#r13)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -137,4 +137,4 @@ mage tag creates profile bundle tags without using agent-core image tags.
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel06.0-agent-profiles
+[test-rel06.0-agent-profiles](../test-suites/test-rel06.0-agent-profiles.md)

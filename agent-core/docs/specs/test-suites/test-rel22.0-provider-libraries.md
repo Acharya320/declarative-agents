@@ -9,7 +9,7 @@ release: "22.0"
 <!-- field: traces -->
 ## Traces
 
-- rel22.0-uc001-provider-libraries
+- [rel22.0-uc001-provider-libraries](../use-cases/rel22.0-uc001-provider-libraries.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -29,7 +29,7 @@ Load a fixture dialect; then copies with an unknown field, a credential value in
 <!-- field: use_case -->
 #### Use case
 
-rel22.0-uc001-provider-libraries
+[rel22.0-uc001-provider-libraries](../use-cases/rel22.0-uc001-provider-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -47,11 +47,11 @@ go test ./internal/tools/llm/... -run 'TestChatDialectLoadsStrictly|TestChatDial
 <!-- field: traces -->
 #### Traces
 
-- rel22.0-uc001-provider-libraries S1
-- srd058-provider-libraries AC1
-- srd058-provider-libraries R1.5
-- srd058-provider-libraries R2.1
-- srd058-provider-libraries R2.2
+- [rel22.0-uc001-provider-libraries](../use-cases/rel22.0-uc001-provider-libraries.md) [S1](../use-cases/rel22.0-uc001-provider-libraries.md#s1)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC1](../software-requirements/srd058-provider-libraries.md#ac1)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R1.5](../software-requirements/srd058-provider-libraries.md#r15)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R2.1](../software-requirements/srd058-provider-libraries.md#r21)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R2.2](../software-requirements/srd058-provider-libraries.md#r22)
 
 <!-- case: A missing library file fails at load naming path and directory | status: implemented -->
 ### A missing library file fails at load naming path and directory
@@ -61,7 +61,7 @@ Bind a providers root that lacks chat-dialect.yaml, then one that lacks rerank-f
 <!-- field: use_case -->
 #### Use case
 
-rel22.0-uc001-provider-libraries
+[rel22.0-uc001-provider-libraries](../use-cases/rel22.0-uc001-provider-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -78,9 +78,9 @@ go test ./internal/load -run 'TestProviderLibraryMissingDialectNamesPathAndDirec
 <!-- field: traces -->
 #### Traces
 
-- rel22.0-uc001-provider-libraries S1
-- srd058-provider-libraries AC1
-- srd058-provider-libraries R1.3
+- [rel22.0-uc001-provider-libraries](../use-cases/rel22.0-uc001-provider-libraries.md) [S1](../use-cases/rel22.0-uc001-provider-libraries.md#s1)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC1](../software-requirements/srd058-provider-libraries.md#ac1)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R1.3](../software-requirements/srd058-provider-libraries.md#r13)
 
 <!-- case: Rebinding the providers root switches provider with no declaration edit | status: implemented -->
 ### Rebinding the providers root switches provider with no declaration edit
@@ -90,7 +90,7 @@ Load one profile with its declared Ollama root and again with --library provider
 <!-- field: use_case -->
 #### Use case
 
-rel22.0-uc001-provider-libraries
+[rel22.0-uc001-provider-libraries](../use-cases/rel22.0-uc001-provider-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -108,11 +108,11 @@ go test ./internal/load ./internal/tools/llm/... -run 'TestLibraryRebindSwitches
 <!-- field: traces -->
 #### Traces
 
-- rel22.0-uc001-provider-libraries S1
-- srd058-provider-libraries AC1
-- srd058-provider-libraries R1.1
-- srd058-provider-libraries R1.2
-- srd058-provider-libraries R2.3
+- [rel22.0-uc001-provider-libraries](../use-cases/rel22.0-uc001-provider-libraries.md) [S1](../use-cases/rel22.0-uc001-provider-libraries.md#s1)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC1](../software-requirements/srd058-provider-libraries.md#ac1)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R1.1](../software-requirements/srd058-provider-libraries.md#r11)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R1.2](../software-requirements/srd058-provider-libraries.md#r12)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R2.3](../software-requirements/srd058-provider-libraries.md#r23)
 
 <!-- case: The dialect and provider fields do not combine | status: implemented -->
 ### The dialect and provider fields do not combine
@@ -122,7 +122,7 @@ Configure invoke_llm with provider and dialect together; then with provider olla
 <!-- field: use_case -->
 #### Use case
 
-rel22.0-uc001-provider-libraries
+[rel22.0-uc001-provider-libraries](../use-cases/rel22.0-uc001-provider-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -138,9 +138,9 @@ go test ./internal/tools/llm/... -run 'TestInvokeLLMRejectsProviderAndDialect|Te
 <!-- field: traces -->
 #### Traces
 
-- rel22.0-uc001-provider-libraries S1
-- srd058-provider-libraries AC1
-- srd058-provider-libraries R3.2
+- [rel22.0-uc001-provider-libraries](../use-cases/rel22.0-uc001-provider-libraries.md) [S1](../use-cases/rel22.0-uc001-provider-libraries.md#s1)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC1](../software-requirements/srd058-provider-libraries.md#ac1)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R3.2](../software-requirements/srd058-provider-libraries.md#r32)
 
 <!-- case: The dialect path matches the compiled adapters | status: implemented -->
 ### The dialect path matches the compiled adapters
@@ -150,7 +150,7 @@ Run recorded multi-turn conversations through the Ollama and Cohere adapters and
 <!-- field: use_case -->
 #### Use case
 
-rel22.0-uc001-provider-libraries
+[rel22.0-uc001-provider-libraries](../use-cases/rel22.0-uc001-provider-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -169,13 +169,13 @@ go test ./internal/tools/llm/... -run 'TestProviderDialectParity'
 <!-- field: traces -->
 #### Traces
 
-- rel22.0-uc001-provider-libraries S2
-- srd058-provider-libraries AC2
-- srd058-provider-libraries R2.2
-- srd058-provider-libraries R3.1
-- srd058-provider-libraries R3.3
-- srd058-provider-libraries R5.1
-- srd058-provider-libraries R5.2
+- [rel22.0-uc001-provider-libraries](../use-cases/rel22.0-uc001-provider-libraries.md) [S2](../use-cases/rel22.0-uc001-provider-libraries.md#s2)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC2](../software-requirements/srd058-provider-libraries.md#ac2)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R2.2](../software-requirements/srd058-provider-libraries.md#r22)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R3.1](../software-requirements/srd058-provider-libraries.md#r31)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R3.3](../software-requirements/srd058-provider-libraries.md#r33)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R5.1](../software-requirements/srd058-provider-libraries.md#r51)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R5.2](../software-requirements/srd058-provider-libraries.md#r52)
 
 <!-- case: Credentials resolve at call time and never leak | status: implemented -->
 ### Credentials resolve at call time and never leak
@@ -185,7 +185,7 @@ Call through a dialect whose token_ref names a variable set only through the inj
 <!-- field: use_case -->
 #### Use case
 
-rel22.0-uc001-provider-libraries
+[rel22.0-uc001-provider-libraries](../use-cases/rel22.0-uc001-provider-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -202,10 +202,10 @@ go test ./internal/tools/llm/... -run 'TestDialectCredentialResolvedAtCallTime|T
 <!-- field: traces -->
 #### Traces
 
-- rel22.0-uc001-provider-libraries S2
-- srd058-provider-libraries AC2
-- srd058-provider-libraries R1.5
-- srd058-provider-libraries R3.5
+- [rel22.0-uc001-provider-libraries](../use-cases/rel22.0-uc001-provider-libraries.md) [S2](../use-cases/rel22.0-uc001-provider-libraries.md#s2)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC2](../software-requirements/srd058-provider-libraries.md#ac2)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R1.5](../software-requirements/srd058-provider-libraries.md#r15)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R3.5](../software-requirements/srd058-provider-libraries.md#r35)
 
 <!-- case: A library parser profile wins over the embedded registry | status: implemented -->
 ### A library parser profile wins over the embedded registry
@@ -215,7 +215,7 @@ Bind a library whose parser profile shares a name with an embedded profile and c
 <!-- field: use_case -->
 #### Use case
 
-rel22.0-uc001-provider-libraries
+[rel22.0-uc001-provider-libraries](../use-cases/rel22.0-uc001-provider-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -230,9 +230,9 @@ go test ./internal/model/llm ./internal/tools/llm/... -run 'TestLibraryParserPro
 <!-- field: traces -->
 #### Traces
 
-- rel22.0-uc001-provider-libraries S2
-- srd058-provider-libraries AC2
-- srd058-provider-libraries R3.4
+- [rel22.0-uc001-provider-libraries](../use-cases/rel22.0-uc001-provider-libraries.md) [S2](../use-cases/rel22.0-uc001-provider-libraries.md#s2)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC2](../software-requirements/srd058-provider-libraries.md#ac2)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R3.4](../software-requirements/srd058-provider-libraries.md#r34)
 
 <!-- case: Stage fragments splice with each library and route every failure | status: implemented -->
 ### Stage fragments splice with each library and route every failure
@@ -242,7 +242,7 @@ Expand the embed-query, embed-document, and rerank stages in a fixture machine b
 <!-- field: use_case -->
 #### Use case
 
-rel22.0-uc001-provider-libraries
+[rel22.0-uc001-provider-libraries](../use-cases/rel22.0-uc001-provider-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -265,10 +265,10 @@ go test ./internal/load ./internal/tools/rest -run 'TestEmbedStageFragmentsSplic
 <!-- field: traces -->
 #### Traces
 
-- rel22.0-uc001-provider-libraries S3
-- srd058-provider-libraries AC3
-- srd058-provider-libraries R1.4
-- srd058-provider-libraries R4.1
+- [rel22.0-uc001-provider-libraries](../use-cases/rel22.0-uc001-provider-libraries.md) [S3](../use-cases/rel22.0-uc001-provider-libraries.md#s3)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC3](../software-requirements/srd058-provider-libraries.md#ac3)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R1.4](../software-requirements/srd058-provider-libraries.md#r14)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R4.1](../software-requirements/srd058-provider-libraries.md#r41)
 
 <!-- case: No hand-written provider embedding remains | status: implemented -->
 ### No hand-written provider embedding remains
@@ -278,7 +278,7 @@ Scan the monorepo's REST declarations for provider embed and rerank operations d
 <!-- field: use_case -->
 #### Use case
 
-rel22.0-uc001-provider-libraries
+[rel22.0-uc001-provider-libraries](../use-cases/rel22.0-uc001-provider-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -295,9 +295,9 @@ go test ./internal/declstyle -run 'TestNoHandWrittenProviderEmbedding|TestHandWr
 <!-- field: traces -->
 #### Traces
 
-- rel22.0-uc001-provider-libraries S3
-- srd058-provider-libraries AC3
-- srd058-provider-libraries R4.2
+- [rel22.0-uc001-provider-libraries](../use-cases/rel22.0-uc001-provider-libraries.md) [S3](../use-cases/rel22.0-uc001-provider-libraries.md#s3)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC3](../software-requirements/srd058-provider-libraries.md#ac3)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R4.2](../software-requirements/srd058-provider-libraries.md#r42)
 
 <!-- case: A synthetic third provider needs no Go and no agent edit | status: implemented -->
 ### A synthetic third provider needs no Go and no agent edit
@@ -307,7 +307,7 @@ Bind the OpenAI-shaped testdata library, a chat dialect with its parser profile 
 <!-- field: use_case -->
 #### Use case
 
-rel22.0-uc001-provider-libraries
+[rel22.0-uc001-provider-libraries](../use-cases/rel22.0-uc001-provider-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -327,8 +327,8 @@ go test ./internal/tools/llm ./internal/tools/rest ./internal/load -run 'TestSyn
 <!-- field: traces -->
 #### Traces
 
-- rel22.0-uc001-provider-libraries S4
-- srd058-provider-libraries AC4
-- srd058-provider-libraries R1.3
-- srd058-provider-libraries R1.4
-- srd058-provider-libraries R5.3
+- [rel22.0-uc001-provider-libraries](../use-cases/rel22.0-uc001-provider-libraries.md) [S4](../use-cases/rel22.0-uc001-provider-libraries.md#s4)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC4](../software-requirements/srd058-provider-libraries.md#ac4)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R1.3](../software-requirements/srd058-provider-libraries.md#r13)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R1.4](../software-requirements/srd058-provider-libraries.md#r14)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R5.3](../software-requirements/srd058-provider-libraries.md#r53)

@@ -46,10 +46,10 @@ Render the chart or run mage integration:helmSmoke after mage helmPrepare.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd003-helm-topology R3.4 | S1 traces this requirement in the existing success criteria. |
-| T2 | srd003-helm-topology R3.3 | S2 traces this requirement in the existing success criteria. |
-| T3 | srd004-helm-package-validation R1.1, R1.2, R1.3 | S3 traces this requirement in the existing success criteria. |
-| T4 | srd005-live-helm-smoke R3.3 | S4 traces this requirement in the existing success criteria. |
+| T1 | [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [R3.4](../software-requirements/srd003-helm-topology.md#r34) | S1 traces this requirement in the existing success criteria. |
+| T2 | [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [R3.3](../software-requirements/srd003-helm-topology.md#r33) | S2 traces this requirement in the existing success criteria. |
+| T3 | [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R1.1](../software-requirements/srd004-helm-package-validation.md#r11), [R1.2](../software-requirements/srd004-helm-package-validation.md#r12), [R1.3](../software-requirements/srd004-helm-package-validation.md#r13) | S3 traces this requirement in the existing success criteria. |
+| T4 | [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R3.3](../software-requirements/srd005-live-helm-smoke.md#r33) | S4 traces this requirement in the existing success criteria. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -62,8 +62,8 @@ Helm renders the collector agent and no Jaeger manifest under default and CI val
 <!-- field: traces -->
 #### Traces
 
-- srd003-helm-topology R3.4
-- srd003-helm-topology AC3
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [R3.4](../software-requirements/srd003-helm-topology.md#r34)
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [AC3](../software-requirements/srd003-helm-topology.md#ac3)
 
 <!-- sc: S2 -->
 ### S2
@@ -73,8 +73,8 @@ Every role exports OTLP to the collector with a distinct service name.
 <!-- field: traces -->
 #### Traces
 
-- srd003-helm-topology R3.3
-- srd003-helm-topology AC3
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [R3.3](../software-requirements/srd003-helm-topology.md#r33)
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [AC3](../software-requirements/srd003-helm-topology.md#ac3)
 
 <!-- sc: S3 -->
 ### S3
@@ -84,10 +84,10 @@ The schema fixture matrix proves valid spool default, valid overrides, and inval
 <!-- field: traces -->
 #### Traces
 
-- srd004-helm-package-validation R1.1
-- srd004-helm-package-validation R1.2
-- srd004-helm-package-validation R1.3
-- srd004-helm-package-validation AC1
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R1.1](../software-requirements/srd004-helm-package-validation.md#r11)
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R1.2](../software-requirements/srd004-helm-package-validation.md#r12)
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R1.3](../software-requirements/srd004-helm-package-validation.md#r13)
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [AC1](../software-requirements/srd004-helm-package-validation.md#ac1)
 
 <!-- sc: S4 -->
 ### S4
@@ -97,8 +97,8 @@ The live smoke finds all role service names under the submitted trace ID via the
 <!-- field: traces -->
 #### Traces
 
-- srd005-live-helm-smoke R3.3
-- srd005-live-helm-smoke AC1
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R3.3](../software-requirements/srd005-live-helm-smoke.md#r33)
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [AC1](../software-requirements/srd005-live-helm-smoke.md#ac1)
 
 <!-- sc: S5 -->
 ### S5
@@ -108,10 +108,10 @@ Catalog-root discovery resolves applications/catalog from relative and absolute 
 <!-- field: traces -->
 #### Traces
 
-- srd004-helm-package-validation R1.1
-- srd004-helm-package-validation R1.2
-- srd004-helm-package-validation R1.3
-- srd004-helm-package-validation AC1
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R1.1](../software-requirements/srd004-helm-package-validation.md#r11)
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R1.2](../software-requirements/srd004-helm-package-validation.md#r12)
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R1.3](../software-requirements/srd004-helm-package-validation.md#r13)
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [AC1](../software-requirements/srd004-helm-package-validation.md#ac1)
 
 <!-- field: out_of_scope -->
 ## Out of scope

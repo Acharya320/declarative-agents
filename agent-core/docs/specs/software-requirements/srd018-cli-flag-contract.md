@@ -225,16 +225,16 @@ Ten standard flag name constants are exported and match the canonical CLI surfac
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.4
-- R1.5
-- R1.6
-- R1.7
-- R1.8
-- R1.9
-- R1.10
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R1.5](#r15)
+- [R1.6](#r16)
+- [R1.7](#r17)
+- [R1.8](#r18)
+- [R1.9](#r19)
+- [R1.10](#r110)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -244,11 +244,11 @@ PropagateArgs.Build() produces a correct flag slice, omitting flags with zero va
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
-- R2.5
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
+- [R2.5](#r25)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -258,8 +258,8 @@ RemainingBudget returns 0 for unlimited or exhausted budgets, and the correct re
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
+- [R3.1](#r31)
+- [R3.2](#r32)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -269,11 +269,11 @@ An agent whose machine reaches a failure terminal exits non-zero with a code dis
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
-- R6.3
-- R6.4
-- R6.5
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
+- [R6.4](#r64)
+- [R6.5](#r65)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -283,7 +283,7 @@ FormatFlag returns a two-element slice with the prefixed flag name and value.
 <!-- field: traces -->
 #### Traces
 
-- R4.1
+- [R4.1](#r41)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -293,10 +293,10 @@ The agent documents --dolt-dsn as the MySQL-wire DSN selecting the Dolt-backed p
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
-- R5.4
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
 
 <!-- ac: AC7 -->
 ### AC7
@@ -306,10 +306,10 @@ The live telemetry flags compose file and OTLP export, set stable service identi
 <!-- field: traces -->
 #### Traces
 
-- R7.1
-- R7.2
-- R7.3
-- R7.4
+- [R7.1](#r71)
+- [R7.2](#r72)
+- [R7.3](#r73)
+- [R7.4](#r74)
 
 <!-- field: diagrams -->
 ## Diagrams

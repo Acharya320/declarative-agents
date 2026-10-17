@@ -491,11 +491,11 @@ REST server tools are documented as first-class boundary ToolDef words that expo
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.4
-- R1.5
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R1.5](#r15)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -505,13 +505,13 @@ rest_server_launch requirements define inputs, outputs, signals, side effects, e
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
-- R2.5
-- R2.6
-- R2.7
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
+- [R2.5](#r25)
+- [R2.6](#r26)
+- [R2.7](#r27)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -521,14 +521,14 @@ rest_server_await requirements define blocking event receipt, queue input, outpu
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
-- R3.4
-- R3.5
-- R3.6
-- R3.7
-- R3.8
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R3.4](#r34)
+- [R3.5](#r35)
+- [R3.6](#r36)
+- [R3.7](#r37)
+- [R3.8](#r38)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -538,13 +538,13 @@ rest_server_stop requirements define graceful shutdown, drain policy, output sum
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
-- R4.4
-- R4.5
-- R4.6
-- R4.7
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R4.4](#r44)
+- [R4.5](#r45)
+- [R4.6](#r46)
+- [R4.7](#r47)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -554,16 +554,16 @@ Endpoint binding requirements cover emit_signal, emit_dynamic_signal, read_state
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
-- R5.4
-- R5.5
-- R5.6
-- R5.7
-- R5.8
-- R5.9
-- R5.10
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
+- [R5.5](#r55)
+- [R5.6](#r56)
+- [R5.7](#r57)
+- [R5.8](#r58)
+- [R5.9](#r59)
+- [R5.10](#r510)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -573,13 +573,13 @@ Inbound HTTP requests become grammar-visible signals or state/metadata reads onl
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
-- R6.3
-- R6.4
-- R6.5
-- R6.6
-- R6.7
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
+- [R6.4](#r64)
+- [R6.5](#r65)
+- [R6.6](#r66)
+- [R6.7](#r67)
 
 <!-- ac: AC11 -->
 ### AC11
@@ -589,8 +589,8 @@ GET and POST on one path each reach their own endpoint, an undeclared method ans
 <!-- field: traces -->
 #### Traces
 
-- R6.8
-- R6.9
+- [R6.8](#r68)
+- [R6.9](#r69)
 
 <!-- ac: AC7 -->
 ### AC7
@@ -600,12 +600,12 @@ Server lifecycle requirements cover shared server state, address binding, route 
 <!-- field: traces -->
 #### Traces
 
-- R7.1
-- R7.2
-- R7.3
-- R7.4
-- R7.5
-- R7.6
+- [R7.1](#r71)
+- [R7.2](#r72)
+- [R7.3](#r73)
+- [R7.4](#r74)
+- [R7.5](#r75)
+- [R7.6](#r76)
 
 <!-- ac: AC8 -->
 ### AC8
@@ -615,11 +615,11 @@ OpenAPI operation IDs can bind configured server handlers, compile schemas into 
 <!-- field: traces -->
 #### Traces
 
-- R8.1
-- R8.2
-- R8.3
-- R8.4
-- R8.5
+- [R8.1](#r81)
+- [R8.2](#r82)
+- [R8.3](#r83)
+- [R8.4](#r84)
+- [R8.5](#r85)
 
 <!-- ac: AC9 -->
 ### AC9
@@ -629,18 +629,18 @@ Observability, redaction, metric, error, and recovery requirements cover server 
 <!-- field: traces -->
 #### Traces
 
-- R9.1
-- R9.2
-- R9.3
-- R9.4
-- R9.5
-- R9.6
-- R9.7
-- R10.1
-- R10.2
-- R10.3
-- R10.4
-- R10.5
+- [R9.1](#r91)
+- [R9.2](#r92)
+- [R9.3](#r93)
+- [R9.4](#r94)
+- [R9.5](#r95)
+- [R9.6](#r96)
+- [R9.7](#r97)
+- [R10.1](#r101)
+- [R10.2](#r102)
+- [R10.3](#r103)
+- [R10.4](#r104)
+- [R10.5](#r105)
 
 <!-- ac: AC10 -->
 ### AC10
@@ -650,14 +650,14 @@ Server event queues expose named sources for rest_await_event, stopped-source be
 <!-- field: traces -->
 #### Traces
 
-- R11.1
-- R11.2
-- R11.3
-- R11.4
-- R11.5
-- R11.6
-- R11.7
-- R11.8
+- [R11.1](#r111)
+- [R11.2](#r112)
+- [R11.3](#r113)
+- [R11.4](#r114)
+- [R11.5](#r115)
+- [R11.6](#r116)
+- [R11.7](#r117)
+- [R11.8](#r118)
 
 <!-- field: related_documents -->
 ## Related documents

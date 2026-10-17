@@ -158,7 +158,7 @@ Helm renders exactly one curator and one collector workload with the shared prof
 <!-- field: traces -->
 #### Traces
 
-- R1
+- [R1](#r1---deployed-topology)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -168,8 +168,8 @@ Preparation regenerates and checksum-validates the catalog-owned curator and col
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
+- [R2.1](#r21)
+- [R2.2](#r22)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -179,9 +179,9 @@ The values schema and template guards accept every valid fixture and reject each
 <!-- field: traces -->
 #### Traces
 
-- R2.3
-- R2.4
-- R2.5
+- [R2.3](#r23)
+- [R2.4](#r24)
+- [R2.5](#r25)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -191,7 +191,7 @@ A bounded kind install of the validated archive brings the curator and collector
 <!-- field: traces -->
 #### Traces
 
-- R3
+- [R3](#r3---live-kind-smoke)
 
 <!-- field: external_contracts | form: "tree" -->
 ## External contracts

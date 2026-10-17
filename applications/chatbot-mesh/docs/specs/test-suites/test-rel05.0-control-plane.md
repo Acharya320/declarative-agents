@@ -29,7 +29,7 @@ criteria structurally, not as behavioral proof.
 <!-- field: traces -->
 ## Traces
 
-- rel05.0-uc001-control-plane-provisioning
+- [rel05.0-uc001-control-plane-provisioning](../use-cases/rel05.0-uc001-control-plane-provisioning.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -64,7 +64,7 @@ Not proven by this fake-backed tracer (see overview): real corpus-ingest count v
 <!-- field: use_case -->
 #### Use case
 
-rel05.0-uc001-control-plane-provisioning
+[rel05.0-uc001-control-plane-provisioning](../use-cases/rel05.0-uc001-control-plane-provisioning.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -94,22 +94,22 @@ mage integration:controlPlane
 <!-- field: traces -->
 #### Traces
 
-- rel05.0-uc001-control-plane-provisioning S1
-- rel05.0-uc001-control-plane-provisioning S2
-- rel05.0-uc001-control-plane-provisioning S3
-- rel05.0-uc001-control-plane-provisioning S4
-- rel05.0-uc001-control-plane-provisioning S5
-- srd004-provisioning-workflow-orchestrator AC1
-- srd004-provisioning-workflow-orchestrator AC2
-- srd004-provisioning-workflow-orchestrator AC3
-- srd004-provisioning-workflow-orchestrator AC4
-- srd004-provisioning-workflow-orchestrator AC5
-- srd005-creator AC1
-- srd005-creator AC2
-- srd005-creator AC3
-- srd005-creator AC4
-- srd005-creator AC5
-- srd003-chatbot-deployment AC4
+- [rel05.0-uc001-control-plane-provisioning](../use-cases/rel05.0-uc001-control-plane-provisioning.md) [S1](../use-cases/rel05.0-uc001-control-plane-provisioning.md#s1)
+- [rel05.0-uc001-control-plane-provisioning](../use-cases/rel05.0-uc001-control-plane-provisioning.md) [S2](../use-cases/rel05.0-uc001-control-plane-provisioning.md#s2)
+- [rel05.0-uc001-control-plane-provisioning](../use-cases/rel05.0-uc001-control-plane-provisioning.md) [S3](../use-cases/rel05.0-uc001-control-plane-provisioning.md#s3)
+- [rel05.0-uc001-control-plane-provisioning](../use-cases/rel05.0-uc001-control-plane-provisioning.md) [S4](../use-cases/rel05.0-uc001-control-plane-provisioning.md#s4)
+- [rel05.0-uc001-control-plane-provisioning](../use-cases/rel05.0-uc001-control-plane-provisioning.md) [S5](../use-cases/rel05.0-uc001-control-plane-provisioning.md#s5)
+- [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [AC1](../software-requirements/srd004-provisioning-workflow-orchestrator.md#ac1)
+- [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [AC2](../software-requirements/srd004-provisioning-workflow-orchestrator.md#ac2)
+- [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [AC3](../software-requirements/srd004-provisioning-workflow-orchestrator.md#ac3)
+- [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [AC4](../software-requirements/srd004-provisioning-workflow-orchestrator.md#ac4)
+- [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [AC5](../software-requirements/srd004-provisioning-workflow-orchestrator.md#ac5)
+- [srd005-creator](../software-requirements/srd005-creator.md) [AC1](../software-requirements/srd005-creator.md#ac1)
+- [srd005-creator](../software-requirements/srd005-creator.md) [AC2](../software-requirements/srd005-creator.md#ac2)
+- [srd005-creator](../software-requirements/srd005-creator.md) [AC3](../software-requirements/srd005-creator.md#ac3)
+- [srd005-creator](../software-requirements/srd005-creator.md) [AC4](../software-requirements/srd005-creator.md#ac4)
+- [srd005-creator](../software-requirements/srd005-creator.md) [AC5](../software-requirements/srd005-creator.md#ac5)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC4](../software-requirements/srd003-chatbot-deployment.md#ac4)
 
 <!-- case: A mismatched embedding family is refused before the ingest leg reads a count | status: implemented -->
 ### A mismatched embedding family is refused before the ingest leg reads a count
@@ -142,7 +142,7 @@ Not proven here: a corpus-ingest child running, documents written, or a turn ove
 <!-- field: use_case -->
 #### Use case
 
-rel05.0-uc001-control-plane-provisioning
+[rel05.0-uc001-control-plane-provisioning](../use-cases/rel05.0-uc001-control-plane-provisioning.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -167,6 +167,6 @@ mage integration:controlPlane
 <!-- field: traces -->
 #### Traces
 
-- rel05.0-uc001-control-plane-provisioning S2
-- srd004-provisioning-workflow-orchestrator AC2
-- srd005-creator AC3
+- [rel05.0-uc001-control-plane-provisioning](../use-cases/rel05.0-uc001-control-plane-provisioning.md) [S2](../use-cases/rel05.0-uc001-control-plane-provisioning.md#s2)
+- [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [AC2](../software-requirements/srd004-provisioning-workflow-orchestrator.md#ac2)
+- [srd005-creator](../software-requirements/srd005-creator.md) [AC3](../software-requirements/srd005-creator.md#ac3)

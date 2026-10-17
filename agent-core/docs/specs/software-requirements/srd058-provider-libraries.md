@@ -192,11 +192,11 @@ A deployment switches Ollama to Cohere by rebinding --library providers, with no
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R2.3
-- R3.2
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R2.3](#r23)
+- [R3.2](#r32)
 
 <!-- ac: AC8 -->
 ### AC8
@@ -206,9 +206,9 @@ With the opt-in, a mapped error status and a transport timeout each reach the ma
 <!-- field: traces -->
 #### Traces
 
-- R2.4
-- R2.5
-- R3.3
+- [R2.4](#r24)
+- [R2.5](#r25)
+- [R3.3](#r33)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -218,15 +218,15 @@ invoke_llm produces the same request JSON documents and equivalent histories, si
 <!-- field: traces -->
 #### Traces
 
-- R1.5
-- R2.1
-- R2.2
-- R3.1
-- R3.3
-- R3.4
-- R3.5
-- R5.1
-- R5.2
+- [R1.5](#r15)
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R3.1](#r31)
+- [R3.3](#r33)
+- [R3.4](#r34)
+- [R3.5](#r35)
+- [R5.1](#r51)
+- [R5.2](#r52)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -236,9 +236,9 @@ The embed stage fragments replace both hand-written embedding openings and both 
 <!-- field: traces -->
 #### Traces
 
-- R1.4
-- R4.1
-- R4.2
+- [R1.4](#r14)
+- [R4.1](#r41)
+- [R4.2](#r42)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -248,9 +248,9 @@ The synthetic third-provider conformance suite passes with zero Go and zero agen
 <!-- field: traces -->
 #### Traces
 
-- R1.3
-- R1.4
-- R5.3
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R5.3](#r53)
 
 <!-- field: related_documents -->
 ## Related documents

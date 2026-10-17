@@ -9,7 +9,7 @@ release: "15.0"
 <!-- field: traces -->
 ## Traces
 
-- rel15.0-uc001-cohere-invoke
+- [rel15.0-uc001-cohere-invoke](../use-cases/rel15.0-uc001-cohere-invoke.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -31,7 +31,7 @@ lookup.
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-cohere-invoke
+[rel15.0-uc001-cohere-invoke](../use-cases/rel15.0-uc001-cohere-invoke.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -48,9 +48,9 @@ go test ./internal/tools/llm -run 'Test(NewInvokeLLMBuilder_CohereNoProbe|Invoke
 <!-- field: traces -->
 #### Traces
 
-- rel15.0-uc001-cohere-invoke S1
-- srd048-cohere-adapter AC1
-- srd048-cohere-adapter AC4
+- [rel15.0-uc001-cohere-invoke](../use-cases/rel15.0-uc001-cohere-invoke.md) [S1](../use-cases/rel15.0-uc001-cohere-invoke.md#s1)
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC1](../software-requirements/srd048-cohere-adapter.md#ac1)
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC4](../software-requirements/srd048-cohere-adapter.md#ac4)
 
 <!-- case: Cohere Chat sends the declared v2 request | status: implemented -->
 ### Cohere Chat sends the declared v2 request
@@ -61,7 +61,7 @@ bearer header, model, chronological messages, temperature, and seed.
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-cohere-invoke
+[rel15.0-uc001-cohere-invoke](../use-cases/rel15.0-uc001-cohere-invoke.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -86,9 +86,9 @@ go test ./internal/tools/llm -run TestProviderDialectParity/cohere
 <!-- field: traces -->
 #### Traces
 
-- rel15.0-uc001-cohere-invoke S2
-- srd048-cohere-adapter AC1
-- srd048-cohere-adapter AC2
+- [rel15.0-uc001-cohere-invoke](../use-cases/rel15.0-uc001-cohere-invoke.md) [S2](../use-cases/rel15.0-uc001-cohere-invoke.md#s2)
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC1](../software-requirements/srd048-cohere-adapter.md#ac1)
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC2](../software-requirements/srd048-cohere-adapter.md#ac2)
 
 <!-- case: Cohere response joins text and maps usage | status: implemented -->
 ### Cohere response joins text and maps usage
@@ -99,7 +99,7 @@ adapter preserves text order, excludes non-text data, and maps usage.
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-cohere-invoke
+[rel15.0-uc001-cohere-invoke](../use-cases/rel15.0-uc001-cohere-invoke.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -119,8 +119,8 @@ go test ./internal/tools/llm ./internal/tools/llm/dialect -run 'Test(ProviderDia
 <!-- field: traces -->
 #### Traces
 
-- rel15.0-uc001-cohere-invoke S3
-- srd048-cohere-adapter AC3
+- [rel15.0-uc001-cohere-invoke](../use-cases/rel15.0-uc001-cohere-invoke.md) [S3](../use-cases/rel15.0-uc001-cohere-invoke.md#s3)
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC3](../software-requirements/srd048-cohere-adapter.md#ac3)
 
 <!-- case: Credential and provider failures remain safe and single-attempt | status: implemented -->
 ### Credential and provider failures remain safe and single-attempt
@@ -131,7 +131,7 @@ malformed JSON, missing text, and an unreachable invoke_llm dispatch.
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-cohere-invoke
+[rel15.0-uc001-cohere-invoke](../use-cases/rel15.0-uc001-cohere-invoke.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -149,11 +149,11 @@ go test ./internal/tools/llm -run 'Test(InvokeLLM_CohereCommandError|DialectMiss
 <!-- field: traces -->
 #### Traces
 
-- rel15.0-uc001-cohere-invoke S5
-- rel15.0-uc001-cohere-invoke S6
-- srd048-cohere-adapter AC2
-- srd048-cohere-adapter AC4
-- srd048-cohere-adapter AC5
+- [rel15.0-uc001-cohere-invoke](../use-cases/rel15.0-uc001-cohere-invoke.md) [S5](../use-cases/rel15.0-uc001-cohere-invoke.md#s5)
+- [rel15.0-uc001-cohere-invoke](../use-cases/rel15.0-uc001-cohere-invoke.md) [S6](../use-cases/rel15.0-uc001-cohere-invoke.md#s6)
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC2](../software-requirements/srd048-cohere-adapter.md#ac2)
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC4](../software-requirements/srd048-cohere-adapter.md#ac4)
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC5](../software-requirements/srd048-cohere-adapter.md#ac5)
 
 <!-- case: Provider validation preserves Ollama defaults | status: implemented -->
 ### Provider validation preserves Ollama defaults
@@ -164,7 +164,7 @@ URLs. Omitted provider remains Ollama; Cohere requires its own URL.
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-cohere-invoke
+[rel15.0-uc001-cohere-invoke](../use-cases/rel15.0-uc001-cohere-invoke.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -182,9 +182,9 @@ go test ./internal/tools/llm -run TestInvokeLLMProviderSelection
 <!-- field: traces -->
 #### Traces
 
-- rel15.0-uc001-cohere-invoke S1
-- rel15.0-uc001-cohere-invoke S6
-- srd048-cohere-adapter AC4
+- [rel15.0-uc001-cohere-invoke](../use-cases/rel15.0-uc001-cohere-invoke.md) [S1](../use-cases/rel15.0-uc001-cohere-invoke.md#s1)
+- [rel15.0-uc001-cohere-invoke](../use-cases/rel15.0-uc001-cohere-invoke.md) [S6](../use-cases/rel15.0-uc001-cohere-invoke.md#s6)
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC4](../software-requirements/srd048-cohere-adapter.md#ac4)
 
 <!-- case: Cohere parser profile handles joined classifier output | status: implemented -->
 ### Cohere parser profile handles joined classifier output
@@ -196,7 +196,7 @@ unchanged.
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-cohere-invoke
+[rel15.0-uc001-cohere-invoke](../use-cases/rel15.0-uc001-cohere-invoke.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -213,9 +213,9 @@ go test ./internal/model/llm -run TestCohereResponseProfile
 <!-- field: traces -->
 #### Traces
 
-- rel15.0-uc001-cohere-invoke S4
-- srd048-cohere-adapter AC3
-- srd048-cohere-adapter AC4
+- [rel15.0-uc001-cohere-invoke](../use-cases/rel15.0-uc001-cohere-invoke.md) [S4](../use-cases/rel15.0-uc001-cohere-invoke.md#s4)
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC3](../software-requirements/srd048-cohere-adapter.md#ac3)
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC4](../software-requirements/srd048-cohere-adapter.md#ac4)
 
 <!-- case: Cohere transport emits GenAI attributes with caller parenting | status: implemented -->
 ### Cohere transport emits GenAI attributes with caller parenting
@@ -226,7 +226,7 @@ transport child and dispatch attributes.
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-cohere-invoke
+[rel15.0-uc001-cohere-invoke](../use-cases/rel15.0-uc001-cohere-invoke.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -250,8 +250,8 @@ go test ./internal/tools/llm ./internal/observability/tracing ./internal/observa
 <!-- field: traces -->
 #### Traces
 
-- rel15.0-uc001-cohere-invoke S5
-- srd048-cohere-adapter AC5
+- [rel15.0-uc001-cohere-invoke](../use-cases/rel15.0-uc001-cohere-invoke.md) [S5](../use-cases/rel15.0-uc001-cohere-invoke.md#s5)
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC5](../software-requirements/srd048-cohere-adapter.md#ac5)
 
 <!-- case: Existing Ollama provider behavior remains compatible | status: implemented -->
 ### Existing Ollama provider behavior remains compatible
@@ -262,7 +262,7 @@ provider switch is added.
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-cohere-invoke
+[rel15.0-uc001-cohere-invoke](../use-cases/rel15.0-uc001-cohere-invoke.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -278,5 +278,5 @@ go test ./internal/tools/llm
 <!-- field: traces -->
 #### Traces
 
-- rel15.0-uc001-cohere-invoke S1
-- srd048-cohere-adapter AC4
+- [rel15.0-uc001-cohere-invoke](../use-cases/rel15.0-uc001-cohere-invoke.md) [S1](../use-cases/rel15.0-uc001-cohere-invoke.md#s1)
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC4](../software-requirements/srd048-cohere-adapter.md#ac4)

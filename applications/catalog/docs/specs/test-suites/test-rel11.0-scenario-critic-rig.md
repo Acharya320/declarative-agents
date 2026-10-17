@@ -32,8 +32,8 @@ specified, not claimed by the implemented cases below.
 <!-- field: traces -->
 ## Traces
 
-- rel11.0-uc001-scenario-critic-scenario-run
-- rel11.0-uc002-mock-serves-fixtures
+- [rel11.0-uc001-scenario-critic-scenario-run](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md)
+- [rel11.0-uc002-mock-serves-fixtures](../use-cases/rel11.0-uc002-mock-serves-fixtures.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -56,7 +56,7 @@ unmatched route.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc002-mock-serves-fixtures
+[rel11.0-uc002-mock-serves-fixtures](../use-cases/rel11.0-uc002-mock-serves-fixtures.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -91,8 +91,8 @@ go test ./conformance -run TestMockServesFixtureSequence
 <!-- field: traces -->
 #### Traces
 
-- rel11.0-uc002-mock-serves-fixtures S2
-- srd019-mock AC1
+- [rel11.0-uc002-mock-serves-fixtures](../use-cases/rel11.0-uc002-mock-serves-fixtures.md) [S2](../use-cases/rel11.0-uc002-mock-serves-fixtures.md#s2)
+- [srd019-mock](../software-requirements/srd019-mock.md) [AC1](../software-requirements/srd019-mock.md#ac1)
 
 <!-- case: Two mocks from one profile serve different dependencies | status: implemented -->
 ### Two mocks from one profile serve different dependencies
@@ -104,7 +104,7 @@ neither instance observing the other's requests.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc002-mock-serves-fixtures
+[rel11.0-uc002-mock-serves-fixtures](../use-cases/rel11.0-uc002-mock-serves-fixtures.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -128,10 +128,10 @@ go test ./conformance -run TestMockTwoInstancesDifferentFixtures
 <!-- field: traces -->
 #### Traces
 
-- rel11.0-uc002-mock-serves-fixtures S1
-- rel11.0-uc002-mock-serves-fixtures S5
-- srd019-mock AC2
-- srd019-mock AC3
+- [rel11.0-uc002-mock-serves-fixtures](../use-cases/rel11.0-uc002-mock-serves-fixtures.md) [S1](../use-cases/rel11.0-uc002-mock-serves-fixtures.md#s1)
+- [rel11.0-uc002-mock-serves-fixtures](../use-cases/rel11.0-uc002-mock-serves-fixtures.md) [S5](../use-cases/rel11.0-uc002-mock-serves-fixtures.md#s5)
+- [srd019-mock](../software-requirements/srd019-mock.md) [AC2](../software-requirements/srd019-mock.md#ac2)
+- [srd019-mock](../software-requirements/srd019-mock.md) [AC3](../software-requirements/srd019-mock.md#ac3)
 
 <!-- case: Request log exposes outbound calls and misses | status: implemented -->
 ### Request log exposes outbound calls and misses
@@ -144,7 +144,7 @@ validator or prove correct-versus-wrong validator outcomes.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc002-mock-serves-fixtures
+[rel11.0-uc002-mock-serves-fixtures](../use-cases/rel11.0-uc002-mock-serves-fixtures.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -166,8 +166,8 @@ go test ./conformance -run TestMockRequestLogRecordsCalls
 <!-- field: traces -->
 #### Traces
 
-- srd019-mock R3.1
-- srd019-mock R3.3
+- [srd019-mock](../software-requirements/srd019-mock.md) [R3.1](../software-requirements/srd019-mock.md#r31)
+- [srd019-mock](../software-requirements/srd019-mock.md) [R3.3](../software-requirements/srd019-mock.md#r33)
 
 <!-- case: Configuration validation rejects malformed fixtures | status: implemented -->
 ### Configuration validation rejects malformed fixtures
@@ -179,7 +179,7 @@ routes. It does not start a serving process or probe an endpoint.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc002-mock-serves-fixtures
+[rel11.0-uc002-mock-serves-fixtures](../use-cases/rel11.0-uc002-mock-serves-fixtures.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -202,7 +202,7 @@ go test ./conformance -run TestMockMalformedFixtureFailsStartup
 <!-- field: traces -->
 #### Traces
 
-- srd019-mock R2.4
+- [srd019-mock](../software-requirements/srd019-mock.md) [R2.4](../software-requirements/srd019-mock.md#r24)
 
 <!-- case: Explicit authority gates a Kubernetes-addressable Ollama mock | status: implemented -->
 ### Explicit authority gates a Kubernetes-addressable Ollama mock
@@ -216,7 +216,7 @@ with absent or malformed authorization fails configuration validation.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc002-mock-serves-fixtures
+[rel11.0-uc002-mock-serves-fixtures](../use-cases/rel11.0-uc002-mock-serves-fixtures.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -246,8 +246,8 @@ go test ./conformance -run 'TestMockAuthorizedPublicListenerServesOllamaFixture|
 <!-- field: traces -->
 #### Traces
 
-- srd019-mock R1.5
-- srd019-mock R2.5
+- [srd019-mock](../software-requirements/srd019-mock.md) [R1.5](../software-requirements/srd019-mock.md#r15)
+- [srd019-mock](../software-requirements/srd019-mock.md) [R2.5](../software-requirements/srd019-mock.md#r25)
 - srd039-mock-endpoint-binding R1.6
 
 <!-- case: Scenario Critic runs one scenario end to end to a verdict | status: implemented -->
@@ -261,7 +261,7 @@ verdict, and tears down. No live external service participates.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc001-scenario-critic-scenario-run
+[rel11.0-uc001-scenario-critic-scenario-run](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -283,9 +283,9 @@ mage rig
 <!-- field: traces -->
 #### Traces
 
-- rel11.0-uc001-scenario-critic-scenario-run S1
-- srd018-scenario-critic AC1
-- srd018-scenario-critic AC4
+- [rel11.0-uc001-scenario-critic-scenario-run](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md) [S1](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md#s1)
+- [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [AC1](../software-requirements/srd018-scenario-critic.md#ac1)
+- [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [AC4](../software-requirements/srd018-scenario-critic.md#ac4)
 
 <!-- case: Fixture array drives machine-visible sequential mock starts | status: implemented -->
 ### Fixture array drives machine-visible sequential mock starts
@@ -299,7 +299,7 @@ without replay. The former start_scenario_mocks Go collection loop is gone.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc001-scenario-critic-scenario-run
+[rel11.0-uc001-scenario-critic-scenario-run](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -328,8 +328,8 @@ cd ../../agent-core && go test ./internal/runtime/core ./internal/tools/service 
 <!-- field: traces -->
 #### Traces
 
-- rel11.0-uc001-scenario-critic-scenario-run S1
-- srd018-scenario-critic AC1
+- [rel11.0-uc001-scenario-critic-scenario-run](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md) [S1](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md#s1)
+- [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [AC1](../software-requirements/srd018-scenario-critic.md#ac1)
 
 <!-- case: One subject carries several scenarios added as data only | status: implemented -->
 ### One subject carries several scenarios added as data only
@@ -342,7 +342,7 @@ against a fresh subject instance.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc001-scenario-critic-scenario-run
+[rel11.0-uc001-scenario-critic-scenario-run](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -366,8 +366,8 @@ mage rig
 <!-- field: traces -->
 #### Traces
 
-- rel11.0-uc001-scenario-critic-scenario-run S2
-- srd018-scenario-critic AC2
+- [rel11.0-uc001-scenario-critic-scenario-run](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md) [S2](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md#s2)
+- [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [AC2](../software-requirements/srd018-scenario-critic.md#ac2)
 
 <!-- case: Validator and teardown collections are machine-visible | status: implemented -->
 ### Validator and teardown collections are machine-visible
@@ -381,7 +381,7 @@ no service tool restores hidden validator goroutines.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc001-scenario-critic-scenario-run
+[rel11.0-uc001-scenario-critic-scenario-run](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -417,9 +417,9 @@ cd ../../agent-core && go test ./internal/tools/service -run '^(TestRunOneValida
 <!-- field: traces -->
 #### Traces
 
-- rel11.0-uc001-scenario-critic-scenario-run S1
-- rel11.0-uc001-scenario-critic-scenario-run S5
-- srd018-scenario-critic AC1
+- [rel11.0-uc001-scenario-critic-scenario-run](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md) [S1](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md#s1)
+- [rel11.0-uc001-scenario-critic-scenario-run](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md) [S5](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md#s5)
+- [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [AC1](../software-requirements/srd018-scenario-critic.md#ac1)
 
 <!-- case: Subject readiness is a machine-visible REST retry loop | status: implemented -->
 ### Subject readiness is a machine-visible REST retry loop
@@ -433,7 +433,7 @@ budget exhaustion route through the ordinary verdict and teardown words.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc001-scenario-critic-scenario-run
+[rel11.0-uc001-scenario-critic-scenario-run](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -467,8 +467,8 @@ cd ../../agent-core && go test ./internal/tools/lifecycle ./internal/tools/rest/
 <!-- field: traces -->
 #### Traces
 
-- rel11.0-uc001-scenario-critic-scenario-run S1
-- srd018-scenario-critic R1.8
+- [rel11.0-uc001-scenario-critic-scenario-run](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md) [S1](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md#s1)
+- [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [R1.8](../software-requirements/srd018-scenario-critic.md#r18)
 - srd040-service-child-tools AC2
 
 <!-- case: Scripted dependency-failure scenario reaches a passing verdict | status: implemented -->
@@ -481,7 +481,7 @@ separately assert the subject terminal or validator explanation.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc001-scenario-critic-scenario-run
+[rel11.0-uc001-scenario-critic-scenario-run](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -502,7 +502,7 @@ mage rig
 <!-- field: traces -->
 #### Traces
 
-- srd018-scenario-critic R6.3
+- [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [R6.3](../software-requirements/srd018-scenario-critic.md#r63)
 
 <!-- case: A wrong expectation makes the scenario and aggregate fail | status: implemented -->
 ### A wrong expectation makes the scenario and aggregate fail
@@ -514,7 +514,7 @@ asserts those failures; it does not assert a validator name or reason.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc001-scenario-critic-scenario-run
+[rel11.0-uc001-scenario-critic-scenario-run](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -535,7 +535,7 @@ mage rig
 <!-- field: traces -->
 #### Traces
 
-- srd018-scenario-critic R6.3
+- [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [R6.3](../software-requirements/srd018-scenario-critic.md#r63)
 
 <!-- case: Stop dispatches are visible and consecutive runs are repeatable | status: implemented -->
 ### Stop dispatches are visible and consecutive runs are repeatable
@@ -547,7 +547,7 @@ inspect operating-system process survival or induce a mock-start failure.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc001-scenario-critic-scenario-run
+[rel11.0-uc001-scenario-critic-scenario-run](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -568,7 +568,7 @@ go test ./conformance -run TestRigSelfProof
 <!-- field: traces -->
 #### Traces
 
-- srd018-scenario-critic R1.9
+- [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [R1.9](../software-requirements/srd018-scenario-critic.md#r19)
 
 <!-- case: Discovery covers the applications tree with no special-casing | status: implemented -->
 ### Discovery covers the applications tree with no special-casing
@@ -580,7 +580,7 @@ with no absolute paths and no per-area rig.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc001-scenario-critic-scenario-run
+[rel11.0-uc001-scenario-critic-scenario-run](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -604,8 +604,8 @@ mage integration:rig (run from applications/chatbot-mesh)
 <!-- field: traces -->
 #### Traces
 
-- rel11.0-uc001-scenario-critic-scenario-run S6
-- srd018-scenario-critic AC3
+- [rel11.0-uc001-scenario-critic-scenario-run](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md) [S6](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md#s6)
+- [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [AC3](../software-requirements/srd018-scenario-critic.md#ac3)
 
 <!-- case: Scenario Critic and mock profiles validate and boot as shipped profiles | status: implemented -->
 ### Scenario Critic and mock profiles validate and boot as shipped profiles
@@ -617,7 +617,7 @@ the role catalog grows without breaking profile wiring.
 <!-- field: use_case -->
 #### Use case
 
-rel11.0-uc001-scenario-critic-scenario-run
+[rel11.0-uc001-scenario-critic-scenario-run](../use-cases/rel11.0-uc001-scenario-critic-scenario-run.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -640,6 +640,6 @@ mage validate
 <!-- field: traces -->
 #### Traces
 
-- srd018-scenario-critic AC5
-- srd019-mock AC4
-- srd019-mock AC5
+- [srd018-scenario-critic](../software-requirements/srd018-scenario-critic.md) [AC5](../software-requirements/srd018-scenario-critic.md#ac5)
+- [srd019-mock](../software-requirements/srd019-mock.md) [AC4](../software-requirements/srd019-mock.md#ac4)
+- [srd019-mock](../software-requirements/srd019-mock.md) [AC5](../software-requirements/srd019-mock.md#ac5)

@@ -48,9 +48,9 @@ Run the mage preparation target followed by helm lint, helm template, or the pac
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd001-helm-deployment AC1 | The rendered topology runs the curator and collector as truthful workloads from mounted closures. |
-| T2 | srd001-helm-deployment AC2 | Preparation stages and checksum-validates the catalog-owned closures. |
-| T3 | srd001-helm-deployment AC3 | The schema, guards, and self-contained archive hold. |
+| T1 | [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [AC1](../software-requirements/srd001-helm-deployment.md#ac1) | The rendered topology runs the curator and collector as truthful workloads from mounted closures. |
+| T2 | [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [AC2](../software-requirements/srd001-helm-deployment.md#ac2) | Preparation stages and checksum-validates the catalog-owned closures. |
+| T3 | [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [AC3](../software-requirements/srd001-helm-deployment.md#ac3) | The schema, guards, and self-contained archive hold. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -63,8 +63,8 @@ The rendered topology contains exactly one curator and one collector workload wi
 <!-- field: traces -->
 #### Traces
 
-- srd001-helm-deployment R1
-- srd001-helm-deployment AC1
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [R1](../software-requirements/srd001-helm-deployment.md#r1---deployed-topology)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [AC1](../software-requirements/srd001-helm-deployment.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -74,9 +74,9 @@ Preparation regenerates and checksum-validates the catalog-owned curator and col
 <!-- field: traces -->
 #### Traces
 
-- srd001-helm-deployment R2.1
-- srd001-helm-deployment R2.2
-- srd001-helm-deployment AC2
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [R2.1](../software-requirements/srd001-helm-deployment.md#r21)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [R2.2](../software-requirements/srd001-helm-deployment.md#r22)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [AC2](../software-requirements/srd001-helm-deployment.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -86,10 +86,10 @@ The values schema and template guards accept every valid fixture and reject each
 <!-- field: traces -->
 #### Traces
 
-- srd001-helm-deployment R2.3
-- srd001-helm-deployment R2.4
-- srd001-helm-deployment R2.5
-- srd001-helm-deployment AC3
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [R2.3](../software-requirements/srd001-helm-deployment.md#r23)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [R2.4](../software-requirements/srd001-helm-deployment.md#r24)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [R2.5](../software-requirements/srd001-helm-deployment.md#r25)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [AC3](../software-requirements/srd001-helm-deployment.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -99,8 +99,8 @@ The curator's OTLP export to the in-cluster collector renders coherently under d
 <!-- field: traces -->
 #### Traces
 
-- srd001-helm-deployment R1.5
-- srd001-helm-deployment AC1
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [R1.5](../software-requirements/srd001-helm-deployment.md#r15)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [AC1](../software-requirements/srd001-helm-deployment.md#ac1)
 
 <!-- field: out_of_scope -->
 ## Out of scope

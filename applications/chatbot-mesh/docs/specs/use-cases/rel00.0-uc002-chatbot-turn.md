@@ -51,8 +51,8 @@ chatbot agent's chat endpoint with one RAG server declared.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd002-chatbot-agent AC1 | The turn is a request-scoped machine with $from() data flow and one embedding computed once. |
-| T2 | srd002-chatbot-agent AC4 | The turn is stateless; the browser sends conversation history with each turn. |
+| T1 | [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC1](../software-requirements/srd002-chatbot-agent.md#ac1) | The turn is a request-scoped machine with $from() data flow and one embedding computed once. |
+| T2 | [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC4](../software-requirements/srd002-chatbot-agent.md#ac4) | The turn is stateless; the browser sends conversation history with each turn. |
 | T3 | test-rel00.0-chatbot-mesh chatbot_turn | The suite records the turn inputs and the expected embed -> retrieve -> compose -> answer trace, including the degraded-RAG case. |
 
 <!-- field: success_criteria -->
@@ -66,10 +66,10 @@ One query embedding is computed once, and the original query and the retrieved c
 <!-- field: traces -->
 #### Traces
 
-- srd002-chatbot-agent R1.1
-- srd002-chatbot-agent R1.2
-- srd002-chatbot-agent R1.3
-- srd002-chatbot-agent AC1
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [R1.1](../software-requirements/srd002-chatbot-agent.md#r11)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [R1.2](../software-requirements/srd002-chatbot-agent.md#r12)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [R1.3](../software-requirements/srd002-chatbot-agent.md#r13)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC1](../software-requirements/srd002-chatbot-agent.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -79,8 +79,8 @@ A RAG failure degrades the turn so it answers from the message alone as a mapped
 <!-- field: traces -->
 #### Traces
 
-- srd002-chatbot-agent R3.2
-- srd002-chatbot-agent AC3
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [R3.2](../software-requirements/srd002-chatbot-agent.md#r32)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC3](../software-requirements/srd002-chatbot-agent.md#ac3)
 
 <!-- sc: S3 -->
 ### S3
@@ -90,8 +90,8 @@ The turn is stateless; conversation history arrives from the browser with each t
 <!-- field: traces -->
 #### Traces
 
-- srd002-chatbot-agent R4.1
-- srd002-chatbot-agent AC4
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [R4.1](../software-requirements/srd002-chatbot-agent.md#r41)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC4](../software-requirements/srd002-chatbot-agent.md#ac4)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -103,4 +103,4 @@ The turn is stateless; conversation history arrives from the browser with each t
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel00.0-chatbot-mesh
+[test-rel00.0-chatbot-mesh](../test-suites/test-rel00.0-chatbot-mesh.md)

@@ -851,6 +851,13 @@ document_types:
           - applies_to
           - usage
       fields:
+        srd_to_use_case_mapping: {in: [document_field], link_columns: [use_case, srd]}
+        test_suite_index: {in: [document_field], link_columns: [id, traces, srds]}
+        use_case_index: {in: [document_field], link_columns: [id, test_suite, srds]}
+        semantic_model_index: {in: [document_field], link_columns: [id]}
+        config_format_index: {in: [document_field], link_columns: [id]}
+        srd_index: {in: [document_field], link_columns: [id]}
+        foundation_document_index: {in: [document_field], link_columns: [id]}
         overview: {in: [document_field], shape: prose}
       required_fields: [overview, roadmap_summary, foundation_document_index, srd_index, config_format_index, semantic_model_index, use_case_index, test_suite_index, coverage_gaps]
       prose_containment:
@@ -985,6 +992,8 @@ document_types:
           - release_14_status
           - note
       fields:
+        test_suites: {in: [release_field], link_columns: [id]}
+        use_cases: {in: [release_field], link_columns: [id]}
         overview: {in: [document_field], shape: prose}
       required_nodes: {release: 1}
       attributes:
@@ -1513,7 +1522,7 @@ document_types:
         needs_clarification: {in: [document_field], shape: table, columns: [id, question]}
         evidence: {in: [item_field], shape: prose}
         endpoints: {in: [item_field], shape: table, columns: [path, owner]}
-        traces: {in: [criterion_field], shape: list, item_pattern: '^R[0-9]+(\.[0-9]+){0,2}[a-z]?$'}
+        traces: {in: [criterion_field], shape: list, item_pattern: '^R[0-9]+(\.[0-9]+){0,2}[a-z]?$', links: true}
       required_fields: [problem, goals, non_goals, acceptance_criteria]
       required_nodes: {requirement_group: 1}
       exempt_status: [relocated, retired]
@@ -1688,19 +1697,20 @@ document_types:
           - relevant_surfaces
           - normalization_focus
       fields:
+        test_suite_trace: {in: [document_field], links: true}
         summary: {in: [document_field], shape: prose}
         actor: {in: [document_field], shape: prose}
         trigger: {in: [document_field], shape: prose}
         preconditions: {in: [document_field], shape: list}
         flow: {in: [document_field], shape: list, item_pattern: '^F[0-9]+: ', value: outline, id: id, content: text}
-        touchpoints: {in: [document_field], shape: table, columns: [id, target, reason], split: ' -- '}
+        touchpoints: {in: [document_field], shape: table, columns: [id, target, reason], split: ' -- ', link_columns: [target]}
         success_criteria: {in: [document_field], shape: empty}
         failure_scenarios: {in: [document_field], shape: table, columns: [id, scenario, expected]}
         out_of_scope: {in: [document_field], shape: list}
         assumptions: {in: [document_field], shape: list, item_pattern: '^A[0-9]+: '}
         edge_cases: {in: [document_field], shape: list, item_pattern: '^E[0-9]+: '}
         needs_clarification: {in: [document_field], shape: table, columns: [id, question]}
-        traces: {in: [criterion_field], shape: list}
+        traces: {in: [criterion_field], shape: list, links: true}
       required_fields: [summary, actor, trigger, flow, touchpoints, success_criteria, out_of_scope]
       exempt_status: [relocated, retired]
       attributes:
@@ -1846,8 +1856,10 @@ document_types:
           - binding
           - scenarios
       fields:
+        srds: {in: [document_field], links: true}
+        use_case: {in: [case_field], links: true}
         overview: {in: [document_field], shape: prose}
-        traces: {in: [document_field, case_field], shape: list}
+        traces: {in: [document_field, case_field], shape: list, links: true}
         preconditions: {in: [document_field], shape: list}
         test_cases: {in: [document_field], shape: empty}
         needs_clarification: {in: [document_field], shape: table, columns: [id, question]}
@@ -2840,7 +2852,7 @@ document_types:
           - migration_impact
       fields:
         purpose: {in: [document_field], shape: prose}
-        related_documents: {in: [document_field], shape: list}
+        related_documents: {in: [document_field], shape: list, links: true}
         non_goals: {in: [document_field], shape: list}
         invariants: {in: [document_field], shape: list}
       required_fields: [purpose]
@@ -4097,7 +4109,7 @@ document_types:
           - description
       fields:
         purpose: {in: [document_field], shape: prose}
-        related_documents: {in: [document_field], shape: list}
+        related_documents: {in: [document_field], shape: list, links: true}
         implementation: {in: [document_field], shape: list}
       required_fields: [purpose]
       prose_containment:

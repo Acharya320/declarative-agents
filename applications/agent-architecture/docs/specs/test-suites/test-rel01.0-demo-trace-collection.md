@@ -19,7 +19,7 @@ dependency-gated.
 <!-- field: traces -->
 ## Traces
 
-- rel01.0-uc001-demo-trace-collection
+- [rel01.0-uc001-demo-trace-collection](../use-cases/rel01.0-uc001-demo-trace-collection.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -45,7 +45,7 @@ tracing_enabled
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-demo-trace-collection
+[rel01.0-uc001-demo-trace-collection](../use-cases/rel01.0-uc001-demo-trace-collection.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -72,7 +72,7 @@ go test ./magefiles -run '^TestTracingEnabled'
 <!-- field: traces -->
 #### Traces
 
-- rel01.0-uc001-demo-trace-collection S3
+- [rel01.0-uc001-demo-trace-collection](../use-cases/rel01.0-uc001-demo-trace-collection.md) [S3](../use-cases/rel01.0-uc001-demo-trace-collection.md#s3)
 
 <!-- case: Collector agent command construction | status: implemented -->
 ### Collector agent command construction
@@ -92,7 +92,7 @@ collector_command
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-demo-trace-collection
+[rel01.0-uc001-demo-trace-collection](../use-cases/rel01.0-uc001-demo-trace-collection.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -117,8 +117,8 @@ go test ./magefiles -run '^TestCollector(Command|Endpoint)|^TestConcurrentCollec
 <!-- field: traces -->
 #### Traces
 
-- rel01.0-uc001-demo-trace-collection S1
-- rel01.0-uc001-demo-trace-collection S4
+- [rel01.0-uc001-demo-trace-collection](../use-cases/rel01.0-uc001-demo-trace-collection.md) [S1](../use-cases/rel01.0-uc001-demo-trace-collection.md#s1)
+- [rel01.0-uc001-demo-trace-collection](../use-cases/rel01.0-uc001-demo-trace-collection.md) [S4](../use-cases/rel01.0-uc001-demo-trace-collection.md#s4)
 
 <!-- case: Curator receives OTLP export flags | status: implemented -->
 ### Curator receives OTLP export flags
@@ -135,7 +135,7 @@ traced_curator_command
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-demo-trace-collection
+[rel01.0-uc001-demo-trace-collection](../use-cases/rel01.0-uc001-demo-trace-collection.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -157,4 +157,4 @@ go test ./magefiles -run '^TestTracedCurator'
 <!-- field: traces -->
 #### Traces
 
-- rel01.0-uc001-demo-trace-collection S2
+- [rel01.0-uc001-demo-trace-collection](../use-cases/rel01.0-uc001-demo-trace-collection.md) [S2](../use-cases/rel01.0-uc001-demo-trace-collection.md#s2)

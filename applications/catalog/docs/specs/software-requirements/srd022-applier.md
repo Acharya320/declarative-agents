@@ -191,13 +191,13 @@ Catalog conformance boots the standalone profile and checks lifecycle, apply, ro
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R2.1
-- R2.2
-- R2.3
-- R5.1
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R5.1](#r51)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -207,9 +207,9 @@ All three consumers select the canonical machines and shared ToolDefs while reta
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -219,9 +219,9 @@ Fake and applicable live tests prove validation precedes mutation and verificati
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -231,10 +231,10 @@ Deterministic package, duplicate, release, role-binding, and statistics audits p
 <!-- field: traces -->
 #### Traces
 
-- R5.2
-- R5.3
-- R5.4
-- R5.5
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
+- [R5.5](#r55)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -244,11 +244,11 @@ Catalog conformance drives the deploy machine over standalone exec doubles to De
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
-- R6.3
-- R6.4
-- R6.5
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
+- [R6.4](#r64)
+- [R6.5](#r65)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -258,8 +258,8 @@ A guard test scans every rendered deploy argv and fails when a placeholder chart
 <!-- field: traces -->
 #### Traces
 
-- R6.6
-- R6.7
+- [R6.6](#r66)
+- [R6.7](#r67)
 
 <!-- field: platform_dependencies | form: "typed table" -->
 ## Platform dependencies

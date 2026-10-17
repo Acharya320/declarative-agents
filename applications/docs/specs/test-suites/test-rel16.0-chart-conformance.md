@@ -25,12 +25,12 @@ audit.
 <!-- field: traces -->
 ## Traces
 
-- rel16.0-uc001-chart-conformance
+- [rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md)
 
 <!-- field: srds -->
 ## SRDs
 
-- srd005-chart-conformance
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -53,7 +53,7 @@ TC1
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-chart-conformance
+[rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -154,8 +154,8 @@ PY
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-chart-conformance S1
-- srd005-chart-conformance AC1
+- [rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md) [S1](../use-cases/rel16.0-uc001-chart-conformance.md#s1)
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC1](../software-requirements/srd005-chart-conformance.md#ac1)
 
 <!-- case: Every chart renders under its defaults and every checked-in overlay | status: implemented -->
 ### Every chart renders under its defaults and every checked-in overlay
@@ -168,7 +168,7 @@ TC2
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-chart-conformance
+[rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -199,8 +199,8 @@ cd magefiles && go test . -run TestChartConformance
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-chart-conformance S1
-- srd005-chart-conformance AC1
+- [rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md) [S1](../use-cases/rel16.0-uc001-chart-conformance.md#s1)
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC1](../software-requirements/srd005-chart-conformance.md#ac1)
 
 <!-- case: A floating tag fails the gate | status: implemented -->
 ### A floating tag fails the gate
@@ -213,7 +213,7 @@ TC3
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-chart-conformance
+[rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -242,8 +242,8 @@ cd magefiles && go test . -run TestChartConformance
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-chart-conformance S2
-- srd005-chart-conformance AC1
+- [rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md) [S2](../use-cases/rel16.0-uc001-chart-conformance.md#s2)
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC1](../software-requirements/srd005-chart-conformance.md#ac1)
 
 <!-- case: Third-party images need digests and repository images need commit tags | status: implemented -->
 ### Third-party images need digests and repository images need commit tags
@@ -256,7 +256,7 @@ TC4
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-chart-conformance
+[rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -285,8 +285,8 @@ cd magefiles && go test . -run TestChartConformance
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-chart-conformance S2
-- srd005-chart-conformance AC2
+- [rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md) [S2](../use-cases/rel16.0-uc001-chart-conformance.md#s2)
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC2](../software-requirements/srd005-chart-conformance.md#ac2)
 
 <!-- case: Pull policy and service type stay inside what kind provides | status: implemented -->
 ### Pull policy and service type stay inside what kind provides
@@ -299,7 +299,7 @@ TC5
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-chart-conformance
+[rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -328,8 +328,8 @@ cd magefiles && go test . -run TestChartConformance
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-chart-conformance S1
-- srd005-chart-conformance AC1
+- [rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md) [S1](../use-cases/rel16.0-uc001-chart-conformance.md#s1)
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC1](../software-requirements/srd005-chart-conformance.md#ac1)
 
 <!-- case: A selected workload declares readiness | status: implemented -->
 ### A selected workload declares readiness
@@ -342,7 +342,7 @@ TC6
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-chart-conformance
+[rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -371,8 +371,8 @@ cd magefiles && go test . -run TestChartConformance
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-chart-conformance S1
-- srd005-chart-conformance AC1
+- [rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md) [S1](../use-cases/rel16.0-uc001-chart-conformance.md#s1)
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC1](../software-requirements/srd005-chart-conformance.md#ac1)
 
 <!-- case: Kind configurations pin the node image by version and digest | status: implemented -->
 ### Kind configurations pin the node image by version and digest
@@ -385,7 +385,7 @@ TC7
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-chart-conformance
+[rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -414,8 +414,8 @@ cd magefiles && go test . -run TestChartConformance
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-chart-conformance S3
-- srd005-chart-conformance AC3
+- [rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md) [S3](../use-cases/rel16.0-uc001-chart-conformance.md#s3)
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC3](../software-requirements/srd005-chart-conformance.md#ac3)
 
 <!-- case: The exception baseline suspends, refuses, and expires | status: implemented -->
 ### The exception baseline suspends, refuses, and expires
@@ -428,7 +428,7 @@ TC8
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-chart-conformance
+[rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -459,8 +459,8 @@ cd magefiles && go test . -run TestChartConformance
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-chart-conformance S4
-- srd005-chart-conformance AC4
+- [rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md) [S4](../use-cases/rel16.0-uc001-chart-conformance.md#s4)
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC4](../software-requirements/srd005-chart-conformance.md#ac4)
 
 <!-- case: A finding names chart, overlay, resource, value, and rule | status: implemented -->
 ### A finding names chart, overlay, resource, value, and rule
@@ -473,7 +473,7 @@ TC9
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-chart-conformance
+[rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -504,8 +504,8 @@ cd magefiles && go test . -run TestChartConformance
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-chart-conformance S5
-- srd005-chart-conformance AC5
+- [rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md) [S5](../use-cases/rel16.0-uc001-chart-conformance.md#s5)
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC5](../software-requirements/srd005-chart-conformance.md#ac5)
 
 <!-- case: The seeded violations are pinned and the baseline holds no floating tag | status: implemented -->
 ### The seeded violations are pinned and the baseline holds no floating tag
@@ -518,7 +518,7 @@ TC10
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-chart-conformance
+[rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -549,10 +549,10 @@ mage audit
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-chart-conformance S2
-- srd005-chart-conformance AC1
-- srd005-chart-conformance AC2
-- srd005-chart-conformance AC6
+- [rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md) [S2](../use-cases/rel16.0-uc001-chart-conformance.md#s2)
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC1](../software-requirements/srd005-chart-conformance.md#ac1)
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC2](../software-requirements/srd005-chart-conformance.md#ac2)
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC6](../software-requirements/srd005-chart-conformance.md#ac6)
 
 <!-- case: Image references match the grammar and prohibited aliases fail | status: implemented -->
 ### Image references match the grammar and prohibited aliases fail
@@ -565,7 +565,7 @@ TC11
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-chart-conformance
+[rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -598,9 +598,9 @@ cd magefiles && go test ./chartconf -run 'TestImageReferenceGrammar|TestConformi
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-chart-conformance S2
-- srd005-chart-conformance AC7
-- srd005-chart-conformance AC5
+- [rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md) [S2](../use-cases/rel16.0-uc001-chart-conformance.md#s2)
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC7](../software-requirements/srd005-chart-conformance.md#ac7)
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC5](../software-requirements/srd005-chart-conformance.md#ac5)
 
 <!-- case: The applier Role covers every kind its chart renders | status: implemented -->
 ### The applier Role covers every kind its chart renders
@@ -613,7 +613,7 @@ TC12
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-chart-conformance
+[rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -643,6 +643,6 @@ cd magefiles && go test ./chartconf -run 'TestApplierRole|TestReadOnlyApplier|Te
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-chart-conformance S6
-- srd005-chart-conformance AC8
-- srd005-chart-conformance AC5
+- [rel16.0-uc001-chart-conformance](../use-cases/rel16.0-uc001-chart-conformance.md) [S6](../use-cases/rel16.0-uc001-chart-conformance.md#s6)
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC8](../software-requirements/srd005-chart-conformance.md#ac8)
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC5](../software-requirements/srd005-chart-conformance.md#ac5)

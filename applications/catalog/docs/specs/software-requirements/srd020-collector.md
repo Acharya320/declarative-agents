@@ -266,9 +266,9 @@ The catalog conformance suite passes with the collector family; the profile laun
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.3
-- R3.2
+- [R1.1](#r11)
+- [R1.3](#r13)
+- [R3.2](#r32)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -278,9 +278,9 @@ The role-realization audit passes with both the catalog and mesh bindings presen
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R4.1
-- R4.2
+- [R3.1](#r31)
+- [R4.1](#r41)
+- [R4.2](#r42)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -290,8 +290,8 @@ The relay endpoint config has no default; the decide predicate defaults COLLECTO
 <!-- field: traces -->
 #### Traces
 
-- R1.2
-- R1.3
+- [R1.2](#r12)
+- [R1.3](#r13)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -301,9 +301,9 @@ The collector_query server serves the UI index at / and resolves SPA deep links 
 <!-- field: traces -->
 #### Traces
 
-- R7.1
-- R7.2
-- R7.3
+- [R7.1](#r71)
+- [R7.2](#r72)
+- [R7.3](#r73)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -313,8 +313,8 @@ The UI root is a literal profile-declared path with no new environment variable,
 <!-- field: traces -->
 #### Traces
 
-- R7.4
-- R7.5
+- [R7.4](#r74)
+- [R7.5](#r75)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -324,10 +324,10 @@ GET /query/spans/stats returns the heatmap, group-by, and exemplar-trace-ID cont
 <!-- field: traces -->
 #### Traces
 
-- R8.1
-- R8.2
-- R8.3
-- R8.4
+- [R8.1](#r81)
+- [R8.2](#r82)
+- [R8.3](#r83)
+- [R8.4](#r84)
 
 <!-- ac: AC7 -->
 ### AC7
@@ -337,7 +337,7 @@ An empty or absent spool yields a well-formed empty stats and breakdown response
 <!-- field: traces -->
 #### Traces
 
-- R8.5
+- [R8.5](#r85)
 
 <!-- ac: AC8 -->
 ### AC8
@@ -347,9 +347,9 @@ The Explore page renders the heatmap, drag-selects a region, shows the ranked di
 <!-- field: traces -->
 #### Traces
 
-- R9.1
-- R9.2
-- R9.3
+- [R9.1](#r91)
+- [R9.2](#r92)
+- [R9.3](#r93)
 
 <!-- ac: AC9 -->
 ### AC9
@@ -359,12 +359,12 @@ Every monitor view answers without carrying span content, while the query surfac
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R5.1
-- R5.2
-- R5.3
-- R5.4
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
 
 <!-- ac: AC10 -->
 ### AC10
@@ -374,8 +374,8 @@ The shipped ui/ tree renders the trace list and per-trace waterfall from the que
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
+- [R6.1](#r61)
+- [R6.2](#r62)
 
 <!-- ac: AC11 -->
 ### AC11
@@ -385,10 +385,10 @@ With the object backend selected, the collector spool persists immutable objects
 <!-- field: traces -->
 #### Traces
 
-- R10.1
-- R10.2
-- R10.3
-- R10.6
+- [R10.1](#r101)
+- [R10.2](#r102)
+- [R10.3](#r103)
+- [R10.6](#r106)
 
 <!-- ac: AC12 -->
 ### AC12
@@ -398,9 +398,9 @@ Every query REST response body carries storage_status from the srd042 R11 engine
 <!-- field: traces -->
 #### Traces
 
-- R10.2
-- R10.4
-- R10.5
+- [R10.2](#r102)
+- [R10.4](#r104)
+- [R10.5](#r105)
 
 <!-- ac: AC13 -->
 ### AC13
@@ -410,10 +410,10 @@ A mismatched confirmation reaches Refused without a storage call; exact confirma
 <!-- field: traces -->
 #### Traces
 
-- R11.1
-- R11.2
-- R11.3
-- R11.4
+- [R11.1](#r111)
+- [R11.2](#r112)
+- [R11.3](#r113)
+- [R11.4](#r114)
 
 <!-- field: platform_dependencies_note -->
 ## Platform dependencies note

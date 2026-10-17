@@ -50,11 +50,11 @@ against it before starting the subject.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd019-mock R1 | The mock serves through the agent-core mock binding, exposes health, and exits on a lifecycle signal without calling a model. |
-| T2 | srd019-mock R2 | The fixture is selected by environment, so one profile serves any dependency and several mocks run per scenario. |
-| T3 | srd019-mock R3 | The request log is readable, per-instance, and sufficient to verify outbound calls including misses. |
-| T4 | srd007-rest R1 | The mock is a REST server profile over the shared server runtime. |
-| T5 | sm-agent-role-taxonomy | The mock family enters the catalog as the mock stand-in for a dependency. |
+| T1 | [srd019-mock](../software-requirements/srd019-mock.md) [R1](../software-requirements/srd019-mock.md#r1---behavior-model) | The mock serves through the agent-core mock binding, exposes health, and exits on a lifecycle signal without calling a model. |
+| T2 | [srd019-mock](../software-requirements/srd019-mock.md) [R2](../software-requirements/srd019-mock.md#r2---fixture-selection-and-scope) | The fixture is selected by environment, so one profile serves any dependency and several mocks run per scenario. |
+| T3 | [srd019-mock](../software-requirements/srd019-mock.md) [R3](../software-requirements/srd019-mock.md#r3---request-log) | The request log is readable, per-instance, and sufficient to verify outbound calls including misses. |
+| T4 | [srd007-rest](../software-requirements/srd007-rest.md) [R1](../software-requirements/srd007-rest.md#r1---behavior-model) | The mock is a REST server profile over the shared server runtime. |
+| T5 | [sm-agent-role-taxonomy](../semantic-models/agent-role-taxonomy.md) | The mock family enters the catalog as the mock stand-in for a dependency. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -67,7 +67,7 @@ One shipped mock profile serves two different dependencies in one scenario, diff
 <!-- field: traces -->
 #### Traces
 
-- srd019-mock AC2
+- [srd019-mock](../software-requirements/srd019-mock.md) [AC2](../software-requirements/srd019-mock.md#ac2)
 
 <!-- sc: S2 -->
 ### S2
@@ -77,7 +77,7 @@ A route declaring an ordered response sequence returns them in order and repeats
 <!-- field: traces -->
 #### Traces
 
-- srd019-mock AC1
+- [srd019-mock](../software-requirements/srd019-mock.md) [AC1](../software-requirements/srd019-mock.md#ac1)
 
 <!-- sc: S3 -->
 ### S3
@@ -87,7 +87,7 @@ A validator reading the log route can assert the subject's calls, distinguishing
 <!-- field: traces -->
 #### Traces
 
-- srd019-mock AC3
+- [srd019-mock](../software-requirements/srd019-mock.md) [AC3](../software-requirements/srd019-mock.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -97,7 +97,7 @@ A malformed fixture prevents the mock from serving, failing at configuration val
 <!-- field: traces -->
 #### Traces
 
-- srd019-mock AC2
+- [srd019-mock](../software-requirements/srd019-mock.md) [AC2](../software-requirements/srd019-mock.md#ac2)
 
 <!-- sc: S5 -->
 ### S5
@@ -107,7 +107,7 @@ A fresh mock instance starts with an empty log, so one scenario never observes a
 <!-- field: traces -->
 #### Traces
 
-- srd019-mock AC3
+- [srd019-mock](../software-requirements/srd019-mock.md) [AC3](../software-requirements/srd019-mock.md#ac3)
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios
@@ -134,4 +134,4 @@ A fresh mock instance starts with an empty log, so one scenario never observes a
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel11.0-scenario-critic-rig
+[test-rel11.0-scenario-critic-rig](../test-suites/test-rel11.0-scenario-critic-rig.md)

@@ -19,7 +19,7 @@ applicable; its absent targets are not treated as passing evidence.
 <!-- field: traces -->
 ## Traces
 
-- rel00.0-uc001-application-contract-conformance
+- [rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -42,7 +42,7 @@ TC1
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-application-contract-conformance
+[rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -121,8 +121,8 @@ PY
 <!-- field: traces -->
 #### Traces
 
-- rel00.0-uc001-application-contract-conformance S3
-- srd001-application-module-contract AC3
+- [rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md) [S3](../use-cases/rel00.0-uc001-application-contract-conformance.md#s3)
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC3](../software-requirements/srd001-application-module-contract.md#ac3)
 
 <!-- case: Root module classification and dispatch are pinned | status: implemented -->
 ### Root module classification and dispatch are pinned
@@ -135,7 +135,7 @@ TC2
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-application-contract-conformance
+[rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -173,11 +173,11 @@ go test . -run 'Test(ApplicationModulesParticipateInAudit|ChatbotMeshIsAnApplica
 <!-- field: traces -->
 #### Traces
 
-- rel00.0-uc001-application-contract-conformance S1
-- rel00.0-uc001-application-contract-conformance S4
-- srd001-application-module-contract AC1
-- srd001-application-module-contract AC4
-- srd001-application-module-contract AC6
+- [rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md) [S1](../use-cases/rel00.0-uc001-application-contract-conformance.md#s1)
+- [rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md) [S4](../use-cases/rel00.0-uc001-application-contract-conformance.md#s4)
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC1](../software-requirements/srd001-application-module-contract.md#ac1)
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC4](../software-requirements/srd001-application-module-contract.md#ac4)
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC6](../software-requirements/srd001-application-module-contract.md#ac6)
 
 <!-- case: Canonical agents are counted once | status: implemented -->
 ### Canonical agents are counted once
@@ -190,7 +190,7 @@ TC3
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-application-contract-conformance
+[rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -232,9 +232,9 @@ go_test
 <!-- field: traces -->
 #### Traces
 
-- rel00.0-uc001-application-contract-conformance S2
-- srd001-application-module-contract AC2
-- srd001-application-module-contract AC5
+- [rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md) [S2](../use-cases/rel00.0-uc001-application-contract-conformance.md#s2)
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC2](../software-requirements/srd001-application-module-contract.md#ac2)
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC5](../software-requirements/srd001-application-module-contract.md#ac5)
 
 <!-- case: Current runnable applications pass their owned audit gates | status: implemented -->
 ### Current runnable applications pass their owned audit gates
@@ -247,7 +247,7 @@ TC4
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-application-contract-conformance
+[rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -283,10 +283,10 @@ mage audit
 <!-- field: traces -->
 #### Traces
 
-- rel00.0-uc001-application-contract-conformance S3
-- rel00.0-uc001-application-contract-conformance S4
-- srd001-application-module-contract AC3
-- srd001-application-module-contract AC4
+- [rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md) [S3](../use-cases/rel00.0-uc001-application-contract-conformance.md#s3)
+- [rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md) [S4](../use-cases/rel00.0-uc001-application-contract-conformance.md#s4)
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC3](../software-requirements/srd001-application-module-contract.md#ac3)
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC4](../software-requirements/srd001-application-module-contract.md#ac4)
 
 <!-- case: Managed-service evidence status is application-owned and truthful | status: implemented -->
 ### Managed-service evidence status is application-owned and truthful
@@ -299,7 +299,7 @@ TC5
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-application-contract-conformance
+[rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -339,10 +339,10 @@ application_test_suites
 <!-- field: traces -->
 #### Traces
 
-- rel00.0-uc001-application-contract-conformance S5
-- srd002-managed-application-services AC1
-- srd002-managed-application-services AC2
-- srd002-managed-application-services AC3
+- [rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md) [S5](../use-cases/rel00.0-uc001-application-contract-conformance.md#s5)
+- [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [AC1](../software-requirements/srd002-managed-application-services.md#ac1)
+- [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [AC2](../software-requirements/srd002-managed-application-services.md#ac2)
+- [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [AC3](../software-requirements/srd002-managed-application-services.md#ac3)
 
 <!-- case: Package and Helm claims have executable evidence | status: implemented -->
 ### Package and Helm claims have executable evidence
@@ -355,7 +355,7 @@ TC6
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-application-contract-conformance
+[rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -389,9 +389,9 @@ application_test_suites
 <!-- field: traces -->
 #### Traces
 
-- rel00.0-uc001-application-contract-conformance S6
-- srd002-managed-application-services AC4
-- srd002-managed-application-services AC5
+- [rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md) [S6](../use-cases/rel00.0-uc001-application-contract-conformance.md#s6)
+- [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [AC4](../software-requirements/srd002-managed-application-services.md#ac4)
+- [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [AC5](../software-requirements/srd002-managed-application-services.md#ac5)
 
 <!-- case: kind-demo claims defer to ENG01 evidence | status: implemented -->
 ### kind-demo claims defer to ENG01 evidence
@@ -404,7 +404,7 @@ TC7
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-application-contract-conformance
+[rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -437,8 +437,8 @@ referenced_engineering_contract
 <!-- field: traces -->
 #### Traces
 
-- rel00.0-uc001-application-contract-conformance S7
-- srd002-managed-application-services AC6
+- [rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md) [S7](../use-cases/rel00.0-uc001-application-contract-conformance.md#s7)
+- [srd002-managed-application-services](../software-requirements/srd002-managed-application-services.md) [AC6](../software-requirements/srd002-managed-application-services.md#ac6)
 
 <!-- case: Root statistics complete after conformance | status: implemented -->
 ### Root statistics complete after conformance
@@ -451,7 +451,7 @@ TC8
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-application-contract-conformance
+[rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -485,10 +485,10 @@ mage stats
 <!-- field: traces -->
 #### Traces
 
-- rel00.0-uc001-application-contract-conformance S2
-- rel00.0-uc001-application-contract-conformance S4
-- srd001-application-module-contract AC4
-- srd001-application-module-contract AC5
+- [rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md) [S2](../use-cases/rel00.0-uc001-application-contract-conformance.md#s2)
+- [rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md) [S4](../use-cases/rel00.0-uc001-application-contract-conformance.md#s4)
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC4](../software-requirements/srd001-application-module-contract.md#ac4)
+- [srd001-application-module-contract](../software-requirements/srd001-application-module-contract.md) [AC5](../software-requirements/srd001-application-module-contract.md#ac5)
 
 <!-- case: Actor classifications and reference-role bindings conform | status: implemented -->
 ### Actor classifications and reference-role bindings conform
@@ -501,7 +501,7 @@ TC9
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-application-contract-conformance
+[rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -540,6 +540,6 @@ go_test
 <!-- field: traces -->
 #### Traces
 
-- rel00.0-uc001-application-contract-conformance S3
-- rel00.0-uc001-application-contract-conformance S4
-- sm-agent-role-realizations
+- [rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md) [S3](../use-cases/rel00.0-uc001-application-contract-conformance.md#s3)
+- [rel00.0-uc001-application-contract-conformance](../use-cases/rel00.0-uc001-application-contract-conformance.md) [S4](../use-cases/rel00.0-uc001-application-contract-conformance.md#s4)
+- [sm-agent-role-realizations](../semantic-models/agent-role-realizations.md)

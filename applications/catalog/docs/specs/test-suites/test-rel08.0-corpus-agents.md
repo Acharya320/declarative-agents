@@ -22,8 +22,8 @@ operations, prompt, and tool selection remain in control.
 <!-- field: traces -->
 ## Traces
 
-- rel08.0-uc001-corpus-ingest
-- rel08.0-uc002-corpus-query
+- [rel08.0-uc001-corpus-ingest](../use-cases/rel08.0-uc001-corpus-ingest.md)
+- [rel08.0-uc002-corpus-query](../use-cases/rel08.0-uc002-corpus-query.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -40,7 +40,7 @@ operations, prompt, and tool selection remain in control.
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-corpus-ingest
+[rel08.0-uc001-corpus-ingest](../use-cases/rel08.0-uc001-corpus-ingest.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -56,8 +56,8 @@ go test ./conformance -run TestCorpusIngestListsTrustedCorpusBeforeModelControl
 <!-- field: traces -->
 #### Traces
 
-- srd012-chroma-corpus-agents R1.2
-- srd012-chroma-corpus-agents R4.4
+- [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [R1.2](../software-requirements/srd012-chroma-corpus-agents.md#r12)
+- [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [R4.4](../software-requirements/srd012-chroma-corpus-agents.md#r44)
 
 <!-- case: Consuming wrapper selects its document-embedding provider | status: implemented -->
 ### Consuming wrapper selects its document-embedding provider
@@ -65,7 +65,7 @@ go test ./conformance -run TestCorpusIngestListsTrustedCorpusBeforeModelControl
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-corpus-ingest
+[rel08.0-uc001-corpus-ingest](../use-cases/rel08.0-uc001-corpus-ingest.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -84,9 +84,9 @@ go test ./conformance -run TestCorpusIngestSelectsConfiguredEmbeddingProvider
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-corpus-ingest S4
-- srd012-chroma-corpus-agents R2.6
-- srd012-chroma-corpus-agents R4.5
+- [rel08.0-uc001-corpus-ingest](../use-cases/rel08.0-uc001-corpus-ingest.md) [S4](../use-cases/rel08.0-uc001-corpus-ingest.md#s4)
+- [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [R2.6](../software-requirements/srd012-chroma-corpus-agents.md#r26)
+- [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [R4.5](../software-requirements/srd012-chroma-corpus-agents.md#r45)
 
 <!-- case: Ingest normalizes flat and single-row provider vectors | status: implemented -->
 ### Ingest normalizes flat and single-row provider vectors
@@ -94,7 +94,7 @@ go test ./conformance -run TestCorpusIngestSelectsConfiguredEmbeddingProvider
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-corpus-ingest
+[rel08.0-uc001-corpus-ingest](../use-cases/rel08.0-uc001-corpus-ingest.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -115,10 +115,10 @@ go test ./conformance -run TestCorpusIngestNormalizesProviderEmbeddings
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-corpus-ingest S1
-- rel08.0-uc001-corpus-ingest S4
-- srd012-chroma-corpus-agents R3.5
-- srd012-chroma-corpus-agents R6.2
+- [rel08.0-uc001-corpus-ingest](../use-cases/rel08.0-uc001-corpus-ingest.md) [S1](../use-cases/rel08.0-uc001-corpus-ingest.md#s1)
+- [rel08.0-uc001-corpus-ingest](../use-cases/rel08.0-uc001-corpus-ingest.md) [S4](../use-cases/rel08.0-uc001-corpus-ingest.md#s4)
+- [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [R3.5](../software-requirements/srd012-chroma-corpus-agents.md#r35)
+- [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [R6.2](../software-requirements/srd012-chroma-corpus-agents.md#r62)
 
 <!-- case: Shipped reader embeds, retrieves, and answers from known chunks | status: implemented -->
 ### Shipped reader embeds, retrieves, and answers from known chunks
@@ -126,7 +126,7 @@ go test ./conformance -run TestCorpusIngestNormalizesProviderEmbeddings
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc002-corpus-query
+[rel08.0-uc002-corpus-query](../use-cases/rel08.0-uc002-corpus-query.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -144,9 +144,9 @@ go test ./conformance -run TestCorpusReaderConformance
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc002-corpus-query S1
-- rel08.0-uc002-corpus-query S2
-- rel08.0-uc002-corpus-query S3
+- [rel08.0-uc002-corpus-query](../use-cases/rel08.0-uc002-corpus-query.md) [S1](../use-cases/rel08.0-uc002-corpus-query.md#s1)
+- [rel08.0-uc002-corpus-query](../use-cases/rel08.0-uc002-corpus-query.md) [S2](../use-cases/rel08.0-uc002-corpus-query.md#s2)
+- [rel08.0-uc002-corpus-query](../use-cases/rel08.0-uc002-corpus-query.md) [S3](../use-cases/rel08.0-uc002-corpus-query.md#s3)
 
 <!-- case: Reader REST failure reaches Failed before embedding | status: implemented -->
 ### Reader REST failure reaches Failed before embedding
@@ -154,7 +154,7 @@ go test ./conformance -run TestCorpusReaderConformance
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc002-corpus-query
+[rel08.0-uc002-corpus-query](../use-cases/rel08.0-uc002-corpus-query.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -170,5 +170,5 @@ go test ./conformance -run TestCorpusReaderRESTFailureConformance
 <!-- field: traces -->
 #### Traces
 
-- srd012-chroma-corpus-agents R2.1
-- srd012-chroma-corpus-agents R6.2
+- [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [R2.1](../software-requirements/srd012-chroma-corpus-agents.md#r21)
+- [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [R6.2](../software-requirements/srd012-chroma-corpus-agents.md#r62)

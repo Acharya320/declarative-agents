@@ -9,7 +9,7 @@ release: "09.0"
 <!-- field: traces -->
 ## Traces
 
-- rel09.0-uc001-canonical-collector
+- [rel09.0-uc001-canonical-collector](../use-cases/rel09.0-uc001-canonical-collector.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -30,7 +30,7 @@ A default helm template render produces no string matching jaeger in any templat
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-canonical-collector
+[rel09.0-uc001-canonical-collector](../use-cases/rel09.0-uc001-canonical-collector.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -46,8 +46,8 @@ go test ./magefiles -run '^TestCollectorDefaultRenderStaysSelfContained$'
 <!-- field: traces -->
 #### Traces
 
-- rel09.0-uc001-canonical-collector S1
-- rel09.0-uc001-canonical-collector S2
+- [rel09.0-uc001-canonical-collector](../use-cases/rel09.0-uc001-canonical-collector.md) [S1](../use-cases/rel09.0-uc001-canonical-collector.md#s1)
+- [rel09.0-uc001-canonical-collector](../use-cases/rel09.0-uc001-canonical-collector.md) [S2](../use-cases/rel09.0-uc001-canonical-collector.md#s2)
 
 <!-- case: Spool identity holds without Jaeger cross-check | status: implemented -->
 ### Spool identity holds without Jaeger cross-check
@@ -57,7 +57,7 @@ The smoke test asserts collector spool identity by reading the spool directly vi
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-canonical-collector
+[rel09.0-uc001-canonical-collector](../use-cases/rel09.0-uc001-canonical-collector.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -74,8 +74,8 @@ mage integration:helmSmoke
 <!-- field: traces -->
 #### Traces
 
-- rel09.0-uc001-canonical-collector S4
-- srd007-collector-agent AC2
+- [rel09.0-uc001-canonical-collector](../use-cases/rel09.0-uc001-canonical-collector.md) [S4](../use-cases/rel09.0-uc001-canonical-collector.md#s4)
+- [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [AC2](../software-requirements/srd007-collector-agent.md#ac2)
 
 <!-- case: Agent-mode metric evidence needs no in-cluster Dolt scrape | status: implemented -->
 ### Agent-mode metric evidence needs no in-cluster Dolt scrape
@@ -85,7 +85,7 @@ In default agent mode the collector agent owns OTLP metric intake; agent metrics
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-canonical-collector
+[rel09.0-uc001-canonical-collector](../use-cases/rel09.0-uc001-canonical-collector.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -102,8 +102,8 @@ go test ./magefiles -run '^TestCollectSharedMetricsEvidenceAgentModeNeedsNoDolt$
 <!-- field: traces -->
 #### Traces
 
-- rel09.0-uc001-canonical-collector S5
-- srd003-chatbot-deployment AC5
+- [rel09.0-uc001-canonical-collector](../use-cases/rel09.0-uc001-canonical-collector.md) [S5](../use-cases/rel09.0-uc001-canonical-collector.md#s5)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC5](../software-requirements/srd003-chatbot-deployment.md#ac5)
 
 <!-- case: Contrib collector still retains Dolt metric evidence when opted in | status: implemented -->
 ### Contrib collector still retains Dolt metric evidence when opted in
@@ -113,7 +113,7 @@ When the opt-in contrib collector is selected its Prometheus scrape still surfac
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-canonical-collector
+[rel09.0-uc001-canonical-collector](../use-cases/rel09.0-uc001-canonical-collector.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -130,8 +130,8 @@ go test ./magefiles -run '^TestCollectSharedMetricsEvidenceRetainsAgentAndDolt$'
 <!-- field: traces -->
 #### Traces
 
-- rel09.0-uc001-canonical-collector S5
-- srd003-chatbot-deployment AC5
+- [rel09.0-uc001-canonical-collector](../use-cases/rel09.0-uc001-canonical-collector.md) [S5](../use-cases/rel09.0-uc001-canonical-collector.md#s5)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC5](../software-requirements/srd003-chatbot-deployment.md#ac5)
 
 <!-- case: Collector program consumed from catalog | status: implemented -->
 ### Collector program consumed from catalog
@@ -141,7 +141,7 @@ The chart profile source redirects the collector program to the catalog root alo
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-canonical-collector
+[rel09.0-uc001-canonical-collector](../use-cases/rel09.0-uc001-canonical-collector.md)
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -152,7 +152,7 @@ rel09.0-uc001-canonical-collector
 <!-- field: traces -->
 #### Traces
 
-- rel09.0-uc001-canonical-collector S6
+- [rel09.0-uc001-canonical-collector](../use-cases/rel09.0-uc001-canonical-collector.md) [S6](../use-cases/rel09.0-uc001-canonical-collector.md#s6)
 
 <!-- case: UX waterfall transforms collector query format | status: implemented -->
 ### UX waterfall transforms collector query format
@@ -162,7 +162,7 @@ The ui-kit traceApi module the chatbot UI imports converts collector query respo
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-canonical-collector
+[rel09.0-uc001-canonical-collector](../use-cases/rel09.0-uc001-canonical-collector.md)
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -174,4 +174,4 @@ rel09.0-uc001-canonical-collector
 <!-- field: traces -->
 #### Traces
 
-- rel09.0-uc001-canonical-collector S3
+- [rel09.0-uc001-canonical-collector](../use-cases/rel09.0-uc001-canonical-collector.md) [S3](../use-cases/rel09.0-uc001-canonical-collector.md#s3)

@@ -18,7 +18,7 @@ real production agent binary.
 <!-- field: traces -->
 ## Traces
 
-- rel03.0-uc001-package-serving-profiles
+- [rel03.0-uc001-package-serving-profiles](../use-cases/rel03.0-uc001-package-serving-profiles.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -36,7 +36,7 @@ real production agent binary.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-package-serving-profiles
+[rel03.0-uc001-package-serving-profiles](../use-cases/rel03.0-uc001-package-serving-profiles.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -46,7 +46,7 @@ go test ./magefiles -run '^TestDeploymentPackage(ContainsExactRoleClosures|IsDet
 <!-- field: traces -->
 #### Traces
 
-- srd002-deployment-profile-package AC1
+- [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [AC1](../software-requirements/srd002-deployment-profile-package.md#ac1)
 
 <!-- case: ConfigMap partition boundaries | status: implemented -->
 ### ConfigMap partition boundaries
@@ -54,7 +54,7 @@ go test ./magefiles -run '^TestDeploymentPackage(ContainsExactRoleClosures|IsDet
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-package-serving-profiles
+[rel03.0-uc001-package-serving-profiles](../use-cases/rel03.0-uc001-package-serving-profiles.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -64,7 +64,7 @@ go test ./magefiles -run '^TestConfigMapPartition'
 <!-- field: traces -->
 #### Traces
 
-- srd002-deployment-profile-package AC2
+- [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [AC2](../software-requirements/srd002-deployment-profile-package.md#ac2)
 
 <!-- case: Unsafe deployment sources fail | status: implemented -->
 ### Unsafe deployment sources fail
@@ -72,7 +72,7 @@ go test ./magefiles -run '^TestConfigMapPartition'
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-package-serving-profiles
+[rel03.0-uc001-package-serving-profiles](../use-cases/rel03.0-uc001-package-serving-profiles.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -82,7 +82,7 @@ go test ./magefiles -run '^TestDeployment(SourceRejectsSymlink|ServingReference)
 <!-- field: traces -->
 #### Traces
 
-- srd002-deployment-profile-package AC2
+- [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [AC2](../software-requirements/srd002-deployment-profile-package.md#ac2)
 
 <!-- case: Profile-free packaged runtime validates | status: implemented -->
 ### Profile-free packaged runtime validates
@@ -90,7 +90,7 @@ go test ./magefiles -run '^TestDeployment(SourceRejectsSymlink|ServingReference)
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-package-serving-profiles
+[rel03.0-uc001-package-serving-profiles](../use-cases/rel03.0-uc001-package-serving-profiles.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -105,4 +105,4 @@ go test ./magefiles -run '^TestDeploymentManifestPreservesProfileFreeRuntime$'
 <!-- field: traces -->
 #### Traces
 
-- srd002-deployment-profile-package AC3
+- [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [AC3](../software-requirements/srd002-deployment-profile-package.md#ac3)

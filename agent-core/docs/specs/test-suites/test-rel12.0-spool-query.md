@@ -9,7 +9,7 @@ release: "12.0"
 <!-- field: traces -->
 ## Traces
 
-- rel12.0-uc001-spool-query
+- [rel12.0-uc001-spool-query](../use-cases/rel12.0-uc001-spool-query.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -32,7 +32,7 @@ zero.
 <!-- field: use_case -->
 #### Use case
 
-rel12.0-uc001-spool-query
+[rel12.0-uc001-spool-query](../use-cases/rel12.0-uc001-spool-query.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -57,8 +57,8 @@ go test ./internal/tools/otlp -run TestListTracesAcrossActiveAndRotated
 <!-- field: traces -->
 #### Traces
 
-- rel12.0-uc001-spool-query S1
-- srd044-spool-query-tools AC1
+- [rel12.0-uc001-spool-query](../use-cases/rel12.0-uc001-spool-query.md) [S1](../use-cases/rel12.0-uc001-spool-query.md#s1)
+- [srd044-spool-query-tools](../software-requirements/srd044-spool-query-tools.md) [AC1](../software-requirements/srd044-spool-query-tools.md#ac1)
 
 <!-- case: Pagination returns the correct page with offset and page size | status: implemented -->
 ### Pagination returns the correct page with offset and page size
@@ -70,7 +70,7 @@ remains 5.
 <!-- field: use_case -->
 #### Use case
 
-rel12.0-uc001-spool-query
+[rel12.0-uc001-spool-query](../use-cases/rel12.0-uc001-spool-query.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -94,8 +94,8 @@ go test ./internal/tools/otlp -run TestListTracesPagination
 <!-- field: traces -->
 #### Traces
 
-- rel12.0-uc001-spool-query S2
-- srd044-spool-query-tools AC2
+- [rel12.0-uc001-spool-query](../use-cases/rel12.0-uc001-spool-query.md) [S2](../use-cases/rel12.0-uc001-spool-query.md#s2)
+- [srd044-spool-query-tools](../software-requirements/srd044-spool-query-tools.md) [AC2](../software-requirements/srd044-spool-query-tools.md#ac2)
 
 <!-- case: Page size is capped at max_page_size | status: implemented -->
 ### Page size is capped at max_page_size
@@ -106,7 +106,7 @@ page size of 5.
 <!-- field: use_case -->
 #### Use case
 
-rel12.0-uc001-spool-query
+[rel12.0-uc001-spool-query](../use-cases/rel12.0-uc001-spool-query.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -128,7 +128,7 @@ go test ./internal/tools/otlp -run TestListTracesPageSizeCap
 <!-- field: traces -->
 #### Traces
 
-- srd044-spool-query-tools AC2
+- [srd044-spool-query-tools](../software-requirements/srd044-spool-query-tools.md) [AC2](../software-requirements/srd044-spool-query-tools.md#ac2)
 
 <!-- case: Empty or absent spool returns an empty result | status: implemented -->
 ### Empty or absent spool returns an empty result
@@ -139,7 +139,7 @@ and zero total, not an error.
 <!-- field: use_case -->
 #### Use case
 
-rel12.0-uc001-spool-query
+[rel12.0-uc001-spool-query](../use-cases/rel12.0-uc001-spool-query.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -160,8 +160,8 @@ go test ./internal/tools/otlp -run TestListTracesEmptySpool
 <!-- field: traces -->
 #### Traces
 
-- rel12.0-uc001-spool-query S4
-- srd044-spool-query-tools AC4
+- [rel12.0-uc001-spool-query](../use-cases/rel12.0-uc001-spool-query.md) [S4](../use-cases/rel12.0-uc001-spool-query.md#s4)
+- [srd044-spool-query-tools](../software-requirements/srd044-spool-query-tools.md) [AC4](../software-requirements/srd044-spool-query-tools.md#ac4)
 
 <!-- case: Malformed NDJSON lines are skipped and counted | status: implemented -->
 ### Malformed NDJSON lines are skipped and counted
@@ -172,7 +172,7 @@ summary with skipped_lines equal to 2.
 <!-- field: use_case -->
 #### Use case
 
-rel12.0-uc001-spool-query
+[rel12.0-uc001-spool-query](../use-cases/rel12.0-uc001-spool-query.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -195,7 +195,7 @@ go test ./internal/tools/otlp -run TestListTracesMalformedLineTolerance
 <!-- field: traces -->
 #### Traces
 
-- srd044-spool-query-tools AC4
+- [srd044-spool-query-tools](../software-requirements/srd044-spool-query-tools.md) [AC4](../software-requirements/srd044-spool-query-tools.md#ac4)
 
 <!-- case: Get trace returns span details with waterfall fields | status: implemented -->
 ### Get trace returns span details with waterfall fields
@@ -207,7 +207,7 @@ name, and timing. The span from trace t2 is excluded.
 <!-- field: use_case -->
 #### Use case
 
-rel12.0-uc001-spool-query
+[rel12.0-uc001-spool-query](../use-cases/rel12.0-uc001-spool-query.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -232,8 +232,8 @@ go test ./internal/tools/otlp -run TestGetTraceReturnsSpanDetails
 <!-- field: traces -->
 #### Traces
 
-- rel12.0-uc001-spool-query S3
-- srd044-spool-query-tools AC3
+- [rel12.0-uc001-spool-query](../use-cases/rel12.0-uc001-spool-query.md) [S3](../use-cases/rel12.0-uc001-spool-query.md#s3)
+- [srd044-spool-query-tools](../software-requirements/srd044-spool-query-tools.md) [AC3](../software-requirements/srd044-spool-query-tools.md#ac3)
 
 <!-- case: Get trace reads across rotated files | status: implemented -->
 ### Get trace reads across rotated files
@@ -244,7 +244,7 @@ trace. Both appear in the result sorted by start time.
 <!-- field: use_case -->
 #### Use case
 
-rel12.0-uc001-spool-query
+[rel12.0-uc001-spool-query](../use-cases/rel12.0-uc001-spool-query.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -267,8 +267,8 @@ go test ./internal/tools/otlp -run TestGetTraceAcrossRotatedFiles
 <!-- field: traces -->
 #### Traces
 
-- srd044-spool-query-tools AC1
-- srd044-spool-query-tools AC3
+- [srd044-spool-query-tools](../software-requirements/srd044-spool-query-tools.md) [AC1](../software-requirements/srd044-spool-query-tools.md#ac1)
+- [srd044-spool-query-tools](../software-requirements/srd044-spool-query-tools.md) [AC3](../software-requirements/srd044-spool-query-tools.md#ac3)
 
 <!-- case: Unknown trace ID returns empty spans | status: implemented -->
 ### Unknown trace ID returns empty spans
@@ -279,7 +279,7 @@ TraceRetrieved with zero spans.
 <!-- field: use_case -->
 #### Use case
 
-rel12.0-uc001-spool-query
+[rel12.0-uc001-spool-query](../use-cases/rel12.0-uc001-spool-query.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -300,7 +300,7 @@ go test ./internal/tools/otlp -run TestGetTraceUnknownTraceID
 <!-- field: traces -->
 #### Traces
 
-- srd044-spool-query-tools AC3
+- [srd044-spool-query-tools](../software-requirements/srd044-spool-query-tools.md) [AC3](../software-requirements/srd044-spool-query-tools.md#ac3)
 
 <!-- case: Empty trace ID emits CommandError | status: implemented -->
 ### Empty trace ID emits CommandError
@@ -311,7 +311,7 @@ before reading any file.
 <!-- field: use_case -->
 #### Use case
 
-rel12.0-uc001-spool-query
+[rel12.0-uc001-spool-query](../use-cases/rel12.0-uc001-spool-query.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -331,7 +331,7 @@ go test ./internal/tools/otlp -run TestGetTraceEmptyTraceIDError
 <!-- field: traces -->
 #### Traces
 
-- srd044-spool-query-tools AC5
+- [srd044-spool-query-tools](../software-requirements/srd044-spool-query-tools.md) [AC5](../software-requirements/srd044-spool-query-tools.md#ac5)
 
 <!-- case: Empty spool path emits CommandError | status: implemented -->
 ### Empty spool path emits CommandError
@@ -341,7 +341,7 @@ A spool_list_traces with an empty path config emits CommandError.
 <!-- field: use_case -->
 #### Use case
 
-rel12.0-uc001-spool-query
+[rel12.0-uc001-spool-query](../use-cases/rel12.0-uc001-spool-query.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -361,4 +361,4 @@ go test ./internal/tools/otlp -run TestListTracesEmptyPathError
 <!-- field: traces -->
 #### Traces
 
-- srd044-spool-query-tools AC5
+- [srd044-spool-query-tools](../software-requirements/srd044-spool-query-tools.md) [AC5](../software-requirements/srd044-spool-query-tools.md#ac5)

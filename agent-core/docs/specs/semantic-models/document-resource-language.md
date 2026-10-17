@@ -152,8 +152,8 @@ sequenceDiagram
 <!-- field: related_documents -->
 ## Related documents
 
-- srd031-declarative-document-resources
-- srd030-machine-request-rest-binding
-- sm-machine-request-http
-- sm-rest-tool-language
-- cfg-rest-tool-format
+- [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md)
+- [sm-machine-request-http](machine-request-http.md)
+- [sm-rest-tool-language](rest-tool-language.md)
+- [cfg-rest-tool-format](../config-formats/rest-tool-format.md)

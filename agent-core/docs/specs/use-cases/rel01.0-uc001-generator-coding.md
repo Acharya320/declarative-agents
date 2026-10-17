@@ -63,13 +63,13 @@ A developer, or the coding-agent executorLive integration, runs:
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd006-yaml-machine-config R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R1.7, R1.8, R1.9, R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R2.7, R2.8, R2.9, R2.10, R2.11, R3.1, R3.2, R3.3, R3.4, R3.5, R4.1, R4.2, R4.3, R4.4 | MachineSpec loading, $tool dispatch, transition validation |
-| T2 | srd009-ollama-adapter R1.1, R1.2, R1.3, R1.4, R2.1, R2.2, R2.3, R2.4, R4.1, R4.2, R4.3, R4.4 | configured adapter, Ollama Chat API request, model availability |
-| T3 | srd013-standard-tool-library R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R2.1, R2.2, R2.3, R2.4, R3.1, R3.2, R3.3, R3.4, R3.5, R3.6, R3.7, R5.1, R5.2, R5.3, R5.4, R5.5, R5.6, R5.7, R8.1, R8.2, R8.3, R9.1, R9.2 | file tools, build tools, LLM commands, declarations, validation, done |
-| T4 | srd017-llm-extensions R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R2.7, R2.8, R2.9, R4.1, R4.2, R4.3, R4.4, R4.5 | qwen profile resolution, thinking-block stripping, envelope extraction |
-| T5 | cfg-runtime-contract | profile-first invocation and compatibility flags |
-| T6 | cfg-tool-declaration-format | builtin, exec, and llm tool declarations |
-| T7 | cfg-tool-selection-format | tools.yaml name-list filtering |
+| T1 | [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [R1.1](../software-requirements/srd006-yaml-machine-config.md#r11), [R1.2](../software-requirements/srd006-yaml-machine-config.md#r12), [R1.3](../software-requirements/srd006-yaml-machine-config.md#r13), [R1.4](../software-requirements/srd006-yaml-machine-config.md#r14), [R1.5](../software-requirements/srd006-yaml-machine-config.md#r15), [R1.6](../software-requirements/srd006-yaml-machine-config.md#r16), [R1.7](../software-requirements/srd006-yaml-machine-config.md#r17), [R1.8](../software-requirements/srd006-yaml-machine-config.md#r18), [R1.9](../software-requirements/srd006-yaml-machine-config.md#r19), [R2.1](../software-requirements/srd006-yaml-machine-config.md#r21), [R2.2](../software-requirements/srd006-yaml-machine-config.md#r22), [R2.3](../software-requirements/srd006-yaml-machine-config.md#r23), [R2.4](../software-requirements/srd006-yaml-machine-config.md#r24), [R2.5](../software-requirements/srd006-yaml-machine-config.md#r25), [R2.6](../software-requirements/srd006-yaml-machine-config.md#r26), [R2.7](../software-requirements/srd006-yaml-machine-config.md#r27), [R2.8](../software-requirements/srd006-yaml-machine-config.md#r28), [R2.9](../software-requirements/srd006-yaml-machine-config.md#r29), [R2.10](../software-requirements/srd006-yaml-machine-config.md#r210), [R2.11](../software-requirements/srd006-yaml-machine-config.md#r211), [R3.1](../software-requirements/srd006-yaml-machine-config.md#r31), [R3.2](../software-requirements/srd006-yaml-machine-config.md#r32), [R3.3](../software-requirements/srd006-yaml-machine-config.md#r33), [R3.4](../software-requirements/srd006-yaml-machine-config.md#r34), [R3.5](../software-requirements/srd006-yaml-machine-config.md#r35), [R4.1](../software-requirements/srd006-yaml-machine-config.md#r41), [R4.2](../software-requirements/srd006-yaml-machine-config.md#r42), [R4.3](../software-requirements/srd006-yaml-machine-config.md#r43), [R4.4](../software-requirements/srd006-yaml-machine-config.md#r44) | MachineSpec loading, $tool dispatch, transition validation |
+| T2 | [srd009-ollama-adapter](../software-requirements/srd009-ollama-adapter.md) [R1.1](../software-requirements/srd009-ollama-adapter.md#r11), [R1.2](../software-requirements/srd009-ollama-adapter.md#r12), [R1.3](../software-requirements/srd009-ollama-adapter.md#r13), [R1.4](../software-requirements/srd009-ollama-adapter.md#r14), [R2.1](../software-requirements/srd009-ollama-adapter.md#r21), [R2.2](../software-requirements/srd009-ollama-adapter.md#r22), [R2.3](../software-requirements/srd009-ollama-adapter.md#r23), [R2.4](../software-requirements/srd009-ollama-adapter.md#r24), [R4.1](../software-requirements/srd009-ollama-adapter.md#r41), [R4.2](../software-requirements/srd009-ollama-adapter.md#r42), [R4.3](../software-requirements/srd009-ollama-adapter.md#r43), [R4.4](../software-requirements/srd009-ollama-adapter.md#r44) | configured adapter, Ollama Chat API request, model availability |
+| T3 | [srd013-standard-tool-library](../software-requirements/srd013-standard-tool-library.md) [R1.1](../software-requirements/srd013-standard-tool-library.md#r11), [R1.2](../software-requirements/srd013-standard-tool-library.md#r12), [R1.3](../software-requirements/srd013-standard-tool-library.md#r13), [R1.4](../software-requirements/srd013-standard-tool-library.md#r14), [R1.5](../software-requirements/srd013-standard-tool-library.md#r15), [R1.6](../software-requirements/srd013-standard-tool-library.md#r16), [R2.1](../software-requirements/srd013-standard-tool-library.md#r21), [R2.2](../software-requirements/srd013-standard-tool-library.md#r22), [R2.3](../software-requirements/srd013-standard-tool-library.md#r23), [R2.4](../software-requirements/srd013-standard-tool-library.md#r24), [R3.1](../software-requirements/srd013-standard-tool-library.md#r31), [R3.2](../software-requirements/srd013-standard-tool-library.md#r32), [R3.3](../software-requirements/srd013-standard-tool-library.md#r33), [R3.4](../software-requirements/srd013-standard-tool-library.md#r34), [R3.5](../software-requirements/srd013-standard-tool-library.md#r35), [R3.6](../software-requirements/srd013-standard-tool-library.md#r36), [R3.7](../software-requirements/srd013-standard-tool-library.md#r37), [R5.1](../software-requirements/srd013-standard-tool-library.md#r51), [R5.2](../software-requirements/srd013-standard-tool-library.md#r52), [R5.3](../software-requirements/srd013-standard-tool-library.md#r53), [R5.4](../software-requirements/srd013-standard-tool-library.md#r54), [R5.5](../software-requirements/srd013-standard-tool-library.md#r55), [R5.6](../software-requirements/srd013-standard-tool-library.md#r56), [R5.7](../software-requirements/srd013-standard-tool-library.md#r57), [R8.1](../software-requirements/srd013-standard-tool-library.md#r81), [R8.2](../software-requirements/srd013-standard-tool-library.md#r82), [R8.3](../software-requirements/srd013-standard-tool-library.md#r83), [R9.1](../software-requirements/srd013-standard-tool-library.md#r91), [R9.2](../software-requirements/srd013-standard-tool-library.md#r92) | file tools, build tools, LLM commands, declarations, validation, done |
+| T4 | [srd017-llm-extensions](../software-requirements/srd017-llm-extensions.md) [R2.1](../software-requirements/srd017-llm-extensions.md#r21), [R2.2](../software-requirements/srd017-llm-extensions.md#r22), [R2.3](../software-requirements/srd017-llm-extensions.md#r23), [R2.4](../software-requirements/srd017-llm-extensions.md#r24), [R2.5](../software-requirements/srd017-llm-extensions.md#r25), [R2.6](../software-requirements/srd017-llm-extensions.md#r26), [R2.7](../software-requirements/srd017-llm-extensions.md#r27), [R2.8](../software-requirements/srd017-llm-extensions.md#r28), [R2.9](../software-requirements/srd017-llm-extensions.md#r29), [R4.1](../software-requirements/srd017-llm-extensions.md#r41), [R4.2](../software-requirements/srd017-llm-extensions.md#r42), [R4.3](../software-requirements/srd017-llm-extensions.md#r43), [R4.4](../software-requirements/srd017-llm-extensions.md#r44), [R4.5](../software-requirements/srd017-llm-extensions.md#r45) | qwen profile resolution, thinking-block stripping, envelope extraction |
+| T5 | [cfg-runtime-contract](../config-formats/runtime-contract.md) | profile-first invocation and compatibility flags |
+| T6 | [cfg-tool-declaration-format](../config-formats/tool-declaration-format.md) | builtin, exec, and llm tool declarations |
+| T7 | [cfg-tool-selection-format](../config-formats/tool-selection-format.md) | tools.yaml name-list filtering |
 | T8 | generator/machine.yaml | state machine states, signals, lifecycle |
 | T9 | internal/model/llm/profiles/qwen.yaml | model-specific parsing pipeline |
 | T10 | generator/profile.yaml | profile-relative runtime entry point under AGENT_CATALOG_ROOT |
@@ -90,7 +90,7 @@ Agent starts from YAML configs without any Go code changes.
 <!-- field: traces -->
 #### Traces
 
-- srd006-yaml-machine-config AC3
+- [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [AC3](../software-requirements/srd006-yaml-machine-config.md#ac3)
 
 <!-- sc: S2 -->
 ### S2
@@ -100,7 +100,7 @@ LLM is invoked with the configured model and system prompt.
 <!-- field: traces -->
 #### Traces
 
-- srd009-ollama-adapter AC1
+- [srd009-ollama-adapter](../software-requirements/srd009-ollama-adapter.md) [AC1](../software-requirements/srd009-ollama-adapter.md#ac1)
 
 <!-- sc: S3 -->
 ### S3
@@ -110,7 +110,7 @@ The qwen profile is selected automatically from the model name prefix.
 <!-- field: traces -->
 #### Traces
 
-- srd017-llm-extensions AC1
+- [srd017-llm-extensions](../software-requirements/srd017-llm-extensions.md) [AC1](../software-requirements/srd017-llm-extensions.md#ac1)
 
 <!-- sc: S4 -->
 ### S4
@@ -120,7 +120,7 @@ Thinking blocks (<think>...</think>) are stripped before tool call extraction.
 <!-- field: traces -->
 #### Traces
 
-- srd017-llm-extensions AC2
+- [srd017-llm-extensions](../software-requirements/srd017-llm-extensions.md) [AC2](../software-requirements/srd017-llm-extensions.md#ac2)
 
 <!-- sc: S5 -->
 ### S5
@@ -130,7 +130,7 @@ Tool calls are extracted from the [tool_call]...[/tool_call] envelope.
 <!-- field: traces -->
 #### Traces
 
-- srd017-llm-extensions AC3
+- [srd017-llm-extensions](../software-requirements/srd017-llm-extensions.md) [AC3](../software-requirements/srd017-llm-extensions.md#ac3)
 
 <!-- sc: S6 -->
 ### S6
@@ -140,7 +140,7 @@ Tool calls extracted from LLM responses are dispatched and results fed back.
 <!-- field: traces -->
 #### Traces
 
-- srd013-standard-tool-library AC1
+- [srd013-standard-tool-library](../software-requirements/srd013-standard-tool-library.md) [AC1](../software-requirements/srd013-standard-tool-library.md#ac1)
 
 <!-- sc: S7 -->
 ### S7
@@ -150,7 +150,7 @@ The done tool triggers build/vet/lint/test validation before declaring success.
 <!-- field: traces -->
 #### Traces
 
-- srd013-standard-tool-library AC2
+- [srd013-standard-tool-library](../software-requirements/srd013-standard-tool-library.md) [AC2](../software-requirements/srd013-standard-tool-library.md#ac2)
 
 <!-- sc: S8 -->
 ### S8
@@ -160,7 +160,7 @@ The agent reaches the Succeeded terminal state after passing build/lint/test val
 <!-- field: traces -->
 #### Traces
 
-- srd006-yaml-machine-config AC3
+- [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [AC3](../software-requirements/srd006-yaml-machine-config.md#ac3)
 
 <!-- sc: S9 -->
 ### S9
@@ -170,7 +170,7 @@ Oracle tests in the sample workspace pass without modification.
 <!-- field: traces -->
 #### Traces
 
-- srd013-standard-tool-library AC2
+- [srd013-standard-tool-library](../software-requirements/srd013-standard-tool-library.md) [AC2](../software-requirements/srd013-standard-tool-library.md#ac2)
 
 <!-- field: test_data -->
 ## Test data
@@ -192,4 +192,4 @@ generator/machine.yaml
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel01.0
+[test-rel01.0](../test-suites/test-rel01.0.md)

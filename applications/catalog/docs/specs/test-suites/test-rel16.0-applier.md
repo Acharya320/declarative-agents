@@ -10,7 +10,7 @@ release: "16.0"
 <!-- field: traces -->
 ## Traces
 
-- rel16.0-uc001-applier-family
+- [rel16.0-uc001-applier-family](../use-cases/rel16.0-uc001-applier-family.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -33,7 +33,7 @@ applier-catalog-closure
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-applier-family
+[rel16.0-uc001-applier-family](../use-cases/rel16.0-uc001-applier-family.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -48,7 +48,7 @@ mage validate
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-applier-family S1
+- [rel16.0-uc001-applier-family](../use-cases/rel16.0-uc001-applier-family.md) [S1](../use-cases/rel16.0-uc001-applier-family.md#s1)
 
 <!-- field: assertions -->
 #### Assertions
@@ -67,7 +67,7 @@ applier-machine-contract
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-applier-family
+[rel16.0-uc001-applier-family](../use-cases/rel16.0-uc001-applier-family.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -85,10 +85,10 @@ go test ./conformance -run '^TestCanonicalApplier'
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-applier-family S1
-- rel16.0-uc001-applier-family S3
-- rel16.0-uc001-applier-family S4
-- rel16.0-uc001-applier-family S5
+- [rel16.0-uc001-applier-family](../use-cases/rel16.0-uc001-applier-family.md) [S1](../use-cases/rel16.0-uc001-applier-family.md#s1)
+- [rel16.0-uc001-applier-family](../use-cases/rel16.0-uc001-applier-family.md) [S3](../use-cases/rel16.0-uc001-applier-family.md#s3)
+- [rel16.0-uc001-applier-family](../use-cases/rel16.0-uc001-applier-family.md) [S4](../use-cases/rel16.0-uc001-applier-family.md#s4)
+- [rel16.0-uc001-applier-family](../use-cases/rel16.0-uc001-applier-family.md) [S5](../use-cases/rel16.0-uc001-applier-family.md#s5)
 
 <!-- field: assertions -->
 #### Assertions
@@ -108,7 +108,7 @@ applier-wrapper-ownership
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-applier-family
+[rel16.0-uc001-applier-family](../use-cases/rel16.0-uc001-applier-family.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -124,8 +124,8 @@ go test ./conformance -run '^TestApplierPromotion'
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-applier-family S2
-- rel16.0-uc001-applier-family S6
+- [rel16.0-uc001-applier-family](../use-cases/rel16.0-uc001-applier-family.md) [S2](../use-cases/rel16.0-uc001-applier-family.md#s2)
+- [rel16.0-uc001-applier-family](../use-cases/rel16.0-uc001-applier-family.md) [S6](../use-cases/rel16.0-uc001-applier-family.md#s6)
 
 <!-- field: assertions -->
 #### Assertions
@@ -145,7 +145,7 @@ applier-consumers
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-applier-family
+[rel16.0-uc001-applier-family](../use-cases/rel16.0-uc001-applier-family.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -164,11 +164,11 @@ mage audit
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-applier-family S2
-- rel16.0-uc001-applier-family S3
-- rel16.0-uc001-applier-family S4
-- rel16.0-uc001-applier-family S5
-- rel16.0-uc001-applier-family S6
+- [rel16.0-uc001-applier-family](../use-cases/rel16.0-uc001-applier-family.md) [S2](../use-cases/rel16.0-uc001-applier-family.md#s2)
+- [rel16.0-uc001-applier-family](../use-cases/rel16.0-uc001-applier-family.md) [S3](../use-cases/rel16.0-uc001-applier-family.md#s3)
+- [rel16.0-uc001-applier-family](../use-cases/rel16.0-uc001-applier-family.md) [S4](../use-cases/rel16.0-uc001-applier-family.md#s4)
+- [rel16.0-uc001-applier-family](../use-cases/rel16.0-uc001-applier-family.md) [S5](../use-cases/rel16.0-uc001-applier-family.md#s5)
+- [rel16.0-uc001-applier-family](../use-cases/rel16.0-uc001-applier-family.md) [S6](../use-cases/rel16.0-uc001-applier-family.md#s6)
 
 <!-- field: assertions -->
 #### Assertions
@@ -187,7 +187,7 @@ applier-statistics
 <!-- field: use_case -->
 #### Use case
 
-rel16.0-uc001-applier-family
+[rel16.0-uc001-applier-family](../use-cases/rel16.0-uc001-applier-family.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -202,7 +202,7 @@ mage stats
 <!-- field: traces -->
 #### Traces
 
-- rel16.0-uc001-applier-family S6
+- [rel16.0-uc001-applier-family](../use-cases/rel16.0-uc001-applier-family.md) [S6](../use-cases/rel16.0-uc001-applier-family.md#s6)
 
 <!-- field: assertions -->
 #### Assertions

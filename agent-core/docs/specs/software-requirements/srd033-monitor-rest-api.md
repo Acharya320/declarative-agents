@@ -478,11 +478,11 @@ API scope requirements define read-only cached monitor endpoints with profile-ow
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.4
-- R1.5
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R1.5](#r15)
 
 <!-- field: tests -->
 #### Tests
@@ -498,18 +498,18 @@ OpenAPI requirements cover configured endpoint descriptions, stable operation ID
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
-- R2.5
-- R2.6
-- R2.7
-- R2.8
-- R2.9
-- R2.10
-- R2.11
-- R2.12
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
+- [R2.5](#r25)
+- [R2.6](#r26)
+- [R2.7](#r27)
+- [R2.8](#r28)
+- [R2.9](#r29)
+- [R2.10](#r210)
+- [R2.11](#r211)
+- [R2.12](#r212)
 
 <!-- field: tests -->
 #### Tests
@@ -525,18 +525,18 @@ Snapshot endpoint requirements cover machine spec, current state, tools, per-too
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
-- R3.4
-- R3.5
-- R3.6
-- R3.7
-- R3.8
-- R3.9
-- R3.10
-- R3.11
-- R3.12
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R3.4](#r34)
+- [R3.5](#r35)
+- [R3.6](#r36)
+- [R3.7](#r37)
+- [R3.8](#r38)
+- [R3.9](#r39)
+- [R3.10](#r310)
+- [R3.11](#r311)
+- [R3.12](#r312)
 
 <!-- field: tests -->
 #### Tests
@@ -552,13 +552,13 @@ Event stream requirements expose cached monitor updates without creating workflo
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
-- R4.4
-- R4.5
-- R4.6
-- R4.7
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R4.4](#r44)
+- [R4.5](#r45)
+- [R4.6](#r46)
+- [R4.7](#r47)
 
 <!-- field: tests -->
 #### Tests
@@ -574,11 +574,11 @@ Redaction and failure requirements preserve monitor safety and do not change com
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
-- R5.4
-- R5.5
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
+- [R5.5](#r55)
 
 <!-- field: tests -->
 #### Tests
@@ -593,16 +593,16 @@ Serving lifecycle requirements keep the runtime-state-reader profile queryable u
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
-- R6.3
-- R6.4
-- R6.5
-- R6.6
-- R6.7
-- R6.8
-- R6.9
-- R6.10
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
+- [R6.4](#r64)
+- [R6.5](#r65)
+- [R6.6](#r66)
+- [R6.7](#r67)
+- [R6.8](#r68)
+- [R6.9](#r69)
+- [R6.10](#r610)
 
 <!-- field: tests -->
 #### Tests
@@ -617,13 +617,13 @@ The command_state view exposes only the redaction-cleared declared output of the
 <!-- field: traces -->
 #### Traces
 
-- R7.1
-- R7.2
-- R7.3
-- R7.4
-- R7.5
-- R7.6
-- R7.7
+- [R7.1](#r71)
+- [R7.2](#r72)
+- [R7.3](#r73)
+- [R7.4](#r74)
+- [R7.5](#r75)
+- [R7.6](#r76)
+- [R7.7](#r77)
 
 <!-- field: tests -->
 #### Tests
@@ -640,16 +640,16 @@ The declared_machines view returns the root first and each distinct machine_requ
 <!-- field: traces -->
 #### Traces
 
-- R8.1
-- R8.2
-- R8.3
-- R8.4
-- R8.5
-- R8.6
-- R8.7
-- R8.8
-- R8.9
-- R8.10
+- [R8.1](#r81)
+- [R8.2](#r82)
+- [R8.3](#r83)
+- [R8.4](#r84)
+- [R8.5](#r85)
+- [R8.6](#r86)
+- [R8.7](#r87)
+- [R8.8](#r88)
+- [R8.9](#r89)
+- [R8.10](#r810)
 
 <!-- field: tests -->
 #### Tests
@@ -665,13 +665,13 @@ The declared_tools view returns every word the profile closure declares, as auth
 <!-- field: traces -->
 #### Traces
 
-- R9.1
-- R9.2
-- R9.3
-- R9.4
-- R9.5
-- R9.6
-- R9.7
+- [R9.1](#r91)
+- [R9.2](#r92)
+- [R9.3](#r93)
+- [R9.4](#r94)
+- [R9.5](#r95)
+- [R9.6](#r96)
+- [R9.7](#r97)
 
 <!-- field: tests -->
 #### Tests

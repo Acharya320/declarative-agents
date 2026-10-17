@@ -89,13 +89,13 @@ operator is doing periodic maintenance.
 | T2 | magefiles/chartconf/ | Renders the charts whose images become the derived half of the inventory. |
 | T3 | magefiles/pinsurvey/ | Registry client, inventory, verdicts, and report. |
 | T4 | magefiles/kindrig/ | Holds the add-on digests and the node image the declared half enumerates. |
-| T5 | srd006-pin-currency AC1 | Inventory coverage, derived and declared. |
-| T6 | srd006-pin-currency AC2 | Integrity reported first. |
-| T7 | srd006-pin-currency AC3 | Currency and version comparison. |
-| T8 | srd006-pin-currency AC4 | Reports, never writes, and stays out of the audit. |
-| T9 | srd006-pin-currency AC5 | Unknown is not current. |
-| T10 | srd006-pin-currency AC6 | A finding names where to act. |
-| T11 | test-rel17.0-pin-currency | Structural and executable evidence for this flow. |
+| T5 | [srd006-pin-currency](../software-requirements/srd006-pin-currency.md) [AC1](../software-requirements/srd006-pin-currency.md#ac1) | Inventory coverage, derived and declared. |
+| T6 | [srd006-pin-currency](../software-requirements/srd006-pin-currency.md) [AC2](../software-requirements/srd006-pin-currency.md#ac2) | Integrity reported first. |
+| T7 | [srd006-pin-currency](../software-requirements/srd006-pin-currency.md) [AC3](../software-requirements/srd006-pin-currency.md#ac3) | Currency and version comparison. |
+| T8 | [srd006-pin-currency](../software-requirements/srd006-pin-currency.md) [AC4](../software-requirements/srd006-pin-currency.md#ac4) | Reports, never writes, and stays out of the audit. |
+| T9 | [srd006-pin-currency](../software-requirements/srd006-pin-currency.md) [AC5](../software-requirements/srd006-pin-currency.md#ac5) | Unknown is not current. |
+| T10 | [srd006-pin-currency](../software-requirements/srd006-pin-currency.md) [AC6](../software-requirements/srd006-pin-currency.md#ac6) | A finding names where to act. |
+| T11 | [test-rel17.0-pin-currency](../test-suites/test-rel17.0-pin-currency.md) | Structural and executable evidence for this flow. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -110,7 +110,7 @@ locations it names.
 <!-- field: traces -->
 #### Traces
 
-- srd006-pin-currency AC1
+- [srd006-pin-currency](../software-requirements/srd006-pin-currency.md) [AC1](../software-requirements/srd006-pin-currency.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -121,7 +121,7 @@ recorded and current digests.
 <!-- field: traces -->
 #### Traces
 
-- srd006-pin-currency AC2
+- [srd006-pin-currency](../software-requirements/srd006-pin-currency.md) [AC2](../software-requirements/srd006-pin-currency.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -132,7 +132,7 @@ names no version is not compared.
 <!-- field: traces -->
 #### Traces
 
-- srd006-pin-currency AC3
+- [srd006-pin-currency](../software-requirements/srd006-pin-currency.md) [AC3](../software-requirements/srd006-pin-currency.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -143,7 +143,7 @@ inside the audit.
 <!-- field: traces -->
 #### Traces
 
-- srd006-pin-currency AC4
+- [srd006-pin-currency](../software-requirements/srd006-pin-currency.md) [AC4](../software-requirements/srd006-pin-currency.md#ac4)
 
 <!-- sc: S5 -->
 ### S5
@@ -154,8 +154,8 @@ report names where every pin lives.
 <!-- field: traces -->
 #### Traces
 
-- srd006-pin-currency AC5
-- srd006-pin-currency AC6
+- [srd006-pin-currency](../software-requirements/srd006-pin-currency.md) [AC5](../software-requirements/srd006-pin-currency.md#ac5)
+- [srd006-pin-currency](../software-requirements/srd006-pin-currency.md) [AC6](../software-requirements/srd006-pin-currency.md#ac6)
 
 <!-- field: out_of_scope -->
 ## Out of scope
