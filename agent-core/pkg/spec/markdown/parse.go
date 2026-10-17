@@ -62,6 +62,7 @@ type frame struct {
 	container *yaml.Node // the list or map a record belongs to
 	blocks    []Block
 	form      string // a field's typed form, from its marker
+	nested    bool   // a field whose value holds nested fields
 }
 
 type reader struct {
@@ -154,7 +155,14 @@ func (rd *reader) holder(level int) *yaml.Node {
 	if level == 2 || rd.stack[level-1] == nil {
 		return rd.root
 	}
-	return rd.stack[level-1].value
+	parent := rd.stack[level-1]
+	if parent.field && !parent.nested {
+		// The first nested field turns its parent's value into a map (GH-2653).
+		parent.nested = true
+		parent.value = &yaml.Node{Kind: yaml.MappingNode, Tag: "!!map"}
+		setKey(parent.holder, parent.key, parent.value)
+	}
+	return parent.value
 }
 
 func (rd *reader) openField(level int, key string) *frame {
@@ -239,6 +247,12 @@ func (rd *reader) close(f *frame) error {
 	}
 	if f.field {
 		if _, records := rd.d.fieldRecords(f.key); records {
+			return nil
+		}
+		if f.nested {
+			if text != "" {
+				return fmt.Errorf("field %s: text before its nested fields belongs in a nested field", f.key)
+			}
 			return nil
 		}
 		value, err := rd.d.parseFieldForm(f.key, f.form, text)

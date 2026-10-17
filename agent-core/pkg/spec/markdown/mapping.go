@@ -90,11 +90,18 @@ func (r *Declaration) directRecords(level int, parent, key string) (string, bool
 // acceptance criteria sit under the acceptance_criteria field.
 func (r *Declaration) fieldRecords(key string) (string, bool) {
 	for _, name := range sortedKeys(r.Nodes) {
-		if r.Nodes[name].Parent == "field:"+key {
+		if node := r.Nodes[name]; node.Parent == "field:"+key && node.Tag != tagField {
 			return name, true
 		}
 	}
 	return "", false
+}
+
+// nestedSlot reports whether a field at level declares a slot for nested
+// fields one level down (eng10, declared fields and order; GH-2653).
+func (r *Declaration) nestedSlot(level int, key string) bool {
+	_, ok := r.fieldKind(level+1, "field:"+key)
+	return ok
 }
 
 // headingAcronyms are the words a generated heading prints in their
