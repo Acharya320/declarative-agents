@@ -9,6 +9,7 @@ import (
 	"sort"
 	"strings"
 	"testing"
+	"time"
 
 	apiextensionsv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -97,5 +98,25 @@ func TestApplyCreatesAndUpdates(t *testing.T) {
 	}
 	if err := c.Get(ctx, client.ObjectKey{Name: live.Name}, &live); err != nil || !live.Spec.Versions[0].Served {
 		t.Fatalf("drift not repaired: served=%v err=%v", live.Spec.Versions[0].Served, err)
+	}
+}
+
+// TestWaitEstablishedReturnsOnTheCondition waits for the Established
+// condition and gives up when the context ends.
+func TestWaitEstablishedReturnsOnTheCondition(t *testing.T) {
+	scheme := runtime.NewScheme()
+	if err := apiextensionsv1.AddToScheme(scheme); err != nil {
+		t.Fatal(err)
+	}
+	def, _ := Definition()
+	def.Status.Conditions = []apiextensionsv1.CustomResourceDefinitionCondition{{Type: apiextensionsv1.Established, Status: apiextensionsv1.ConditionTrue}}
+	c := fake.NewClientBuilder().WithScheme(scheme).WithObjects(def).Build()
+	if err := WaitEstablished(context.Background(), c); err != nil {
+		t.Fatal(err)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Millisecond)
+	defer cancel()
+	if err := WaitEstablished(ctx, fake.NewClientBuilder().WithScheme(scheme).Build()); err == nil {
+		t.Fatal("an absent CRD counted as established")
 	}
 }

@@ -959,7 +959,7 @@ None
 | docs/engineering/eng08-gcp-demo-rig.md |  | Cloud application buckets, workload identity, bucket IAM, and cluster-independent retention. |
 |  | mage audit | Structured documents parse and reciprocal traceability remains valid. |
 
-<!-- release: 20.0 | status: planned -->
+<!-- release: 20.0 | status: implemented -->
 ## 20.0 - Agent operator
 
 Add a Kubernetes operator that reconciles an Agent resource into the
@@ -1002,7 +1002,7 @@ health endpoint through the Service, and delete it.
 <!-- field: status -->
 ##### Status
 
-planned
+implemented
 
 <!-- field: implementation_sequence | form: "tree" -->
 ### Implementation sequence
@@ -1010,16 +1010,16 @@ planned
 1. - order: 1
    - action:
      - "Specify the operator": srd009, the use case, the suite, and this release (GH-2682).
-   - status: planned
+   - status: implemented
 1. - order: 2
    - action: Agent CRD and reconciler with status (GH-2683).
-   - status: planned
+   - status: implemented
 1. - order: 3
    - action: Operator image, chart, and platform install at boot (GH-2684).
-   - status: planned
+   - status: implemented
 1. - order: 4
    - action: Collector proof on kind and its release gate (GH-2685).
-   - status: planned
+   - status: implemented
 
 <!-- field: test_suites -->
 ### Test suites
@@ -1037,21 +1037,21 @@ proof.
 <!-- field: status -->
 ##### Status
 
-planned
+implemented
 
-<!-- field: implemented_cases | form: "empty list" -->
+<!-- field: implemented_cases -->
 ##### Implemented cases
-
-None
-
-<!-- field: planned_cases -->
-##### Planned cases
 
 - TC1
 - TC2
 - TC3
 - TC4
 - TC5
+
+<!-- field: planned_cases | form: "empty list" -->
+##### Planned cases
+
+None
 
 <!-- field: implementation_evidence | form: "typed table" -->
 ### Implementation evidence

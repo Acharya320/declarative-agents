@@ -10,6 +10,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"time"
 
 	apiextensionsv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -24,6 +25,10 @@ import (
 	"github.com/Nokia-Bell-Labs/declarative-agents/operator/internal/controller"
 	"github.com/Nokia-Bell-Labs/declarative-agents/operator/internal/crd"
 )
+
+// crdEstablishWait bounds the wait for the API server to serve the Agent
+// kind after the CRD is applied, so the controller's first watch finds it.
+const crdEstablishWait = 60 * time.Second
 
 func main() {
 	if err := run(); err != nil {
@@ -51,8 +56,13 @@ func run() error {
 	if err != nil {
 		return fmt.Errorf("client: %w", err)
 	}
-	if err := crd.Apply(context.Background(), boot); err != nil {
+	ctx, cancel := context.WithTimeout(context.Background(), crdEstablishWait)
+	defer cancel()
+	if err := crd.Apply(ctx, boot); err != nil {
 		return err // the CRD ships with the binary (srd009 R1.3)
+	}
+	if err := crd.WaitEstablished(ctx, boot); err != nil {
+		return err
 	}
 	mgr, err := ctrl.NewManager(cfg, ctrl.Options{
 		Scheme:                 scheme,
@@ -65,10 +75,13 @@ func run() error {
 	if err := (&controller.AgentReconciler{Client: mgr.GetClient(), Scheme: mgr.GetScheme()}).SetupWithManager(mgr); err != nil {
 		return fmt.Errorf("controller: %w", err)
 	}
-	for name, check := range map[string]healthz.Checker{"healthz": healthz.Ping, "readyz": healthz.Ping} {
-		if err := mgr.AddHealthzCheck(name, check); err != nil {
-			return err
-		}
+	// The chart probes liveness on /healthz and readiness on /readyz; each
+	// path serves only the checks registered for it.
+	if err := mgr.AddHealthzCheck("healthz", healthz.Ping); err != nil {
+		return err
+	}
+	if err := mgr.AddReadyzCheck("readyz", healthz.Ping); err != nil {
+		return err
 	}
 	return mgr.Start(ctrl.SetupSignalHandler())
 }

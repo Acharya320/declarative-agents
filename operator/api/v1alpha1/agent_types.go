@@ -33,7 +33,9 @@ func AddToScheme(s *runtime.Scheme) error {
 }
 
 // ProfileSource names the ConfigMap holding the agent's profile directory
-// and the path of the profile file inside it (srd009 R1.1).
+// and the path of the profile file inside it (srd009 R1.1). A key holding
+// "__" mounts at the directory path it spells, so a ConfigMap can carry the
+// sibling directories a profile imports (R2.1).
 type ProfileSource struct {
 	ConfigMap string `json:"configMap"`
 	Path      string `json:"path"`

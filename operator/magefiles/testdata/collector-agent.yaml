@@ -1,0 +1,23 @@
+# Copyright (c) 2026 Nokia
+# SPDX-License-Identifier: BSD-3-Clause
+# The catalog collector as an Agent (applications srd009 R5.1): its profile
+# directory and the units file it imports as one ConfigMap keyed
+# <dir>__<file>, the three REST ports, the control port as the
+# readiness signal, and the bind host set to every interface so the probe
+# and the Service reach the servers. The proof substitutes the image.
+apiVersion: declarative-agents.nokia.com/v1alpha1
+kind: Agent
+metadata:
+  name: collector
+spec:
+  profile: {configMap: collector-profile, path: collector/profile.yaml}
+  image: AGENT_CORE_IMAGE
+  ports:
+    - {name: control, port: 18191}
+    - {name: monitor, port: 18192}
+    - {name: query, port: 18193}
+  controlPort: control
+  env:
+    - {name: COLLECTOR_BIND_HOST, value: "0.0.0.0"}
+  workVolumes:
+    - {name: work, mountPath: /work}

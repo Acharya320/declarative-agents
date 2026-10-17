@@ -60,7 +60,7 @@ func (r *AgentReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl
 	}
 	dep := &appsv1.Deployment{ObjectMeta: metav1.ObjectMeta{Name: agent.Name, Namespace: agent.Namespace}}
 	if _, err := controllerutil.CreateOrUpdate(ctx, r.Client, dep, func() error {
-		desiredDeployment(&agent, dep)
+		desiredDeployment(&agent, &profile, dep)
 		return controllerutil.SetControllerReference(&agent, dep, r.Scheme)
 	}); err != nil {
 		return ctrl.Result{}, fmt.Errorf("reconcile Deployment: %w", err)

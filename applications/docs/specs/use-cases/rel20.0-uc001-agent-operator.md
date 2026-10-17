@@ -1,7 +1,7 @@
 ---
 id: rel20.0-uc001-agent-operator
 title: Apply an Agent for the Catalog Collector and Watch It Become Ready
-status: planned
+status: implemented
 test_suite: test-rel20.0-agent-operator
 ---
 <!-- Copyright (c) 2026 Nokia -->
@@ -17,7 +17,8 @@ test_suite: test-rel20.0-agent-operator
 
 An application operator boots the kind platform, which now carries the
 agent operator. They create a ConfigMap from the catalog collector's
-profile directory and apply one Agent resource naming it. The operator
+profile directory and the units file it imports, keyed as directories, and
+apply one Agent resource naming it. The operator
 reconciles the Agent into a Deployment and a Service, the Agent's status
 turns Ready, and the collector's health endpoint answers through the
 Service. Deleting the Agent removes the Deployment and the Service.
@@ -50,7 +51,9 @@ than by writing its Deployment and Service by hand.
     - srd009-agent-operator R1.3
     - srd009-agent-operator R4.2
 - F2: The operator creates a ConfigMap from the collector's profile
-  directory and applies an Agent naming that ConfigMap, the agent-core
+  directory and the units file it imports, keyed `<dir>__<file>` so the
+  mount reproduces the directories, and applies an Agent naming that
+  ConfigMap, the agent-core
   image, the control, monitor, and query ports, and a bind host of every
   interface.
   - traces:

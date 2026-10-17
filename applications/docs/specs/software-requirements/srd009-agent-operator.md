@@ -1,7 +1,7 @@
 ---
 id: srd009-agent-operator
 title: The Agent Operator and the Agent Resource
-status: planned
+status: implemented
 ---
 <!-- Copyright (c) 2026 Nokia -->
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
@@ -75,7 +75,10 @@ For each Agent the operator shall maintain one Deployment whose container
 runs the declared image with `--profile` at the mounted profile path, mounts
 the profile ConfigMap read-only, probes readiness with `GET
 /api/lifecycle/health` on the control port, and carries the declared
-resources, environment, secret references, and work volumes.
+resources, environment, secret references, and work volumes. A ConfigMap
+key holding `__` shall mount at the path the separator spells
+(`units__types.yaml` at `units/types.yaml`), because keys cannot hold a
+slash while profiles import sibling directories.
 
 <!-- req: R2.2 -->
 ### R2.2
@@ -136,7 +139,8 @@ ready operator.
 ### R5.1
 
 A kind proof shall create a ConfigMap from applications/catalog/agents/
-collector, apply an Agent for the collector with its control, monitor, and
+collector and the units file it imports, keyed as directories, apply an
+Agent for the collector with its control, monitor, and
 query ports and the bind host set to every interface, wait for the Ready
 condition, read `/api/lifecycle/health` through the Service, delete the
 Agent, and observe the Deployment and Service go.

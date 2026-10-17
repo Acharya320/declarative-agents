@@ -5,6 +5,8 @@ package controller
 
 import (
 	"path"
+	"sort"
+	"strings"
 
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
@@ -31,12 +33,45 @@ func labels(agent *v1alpha1.Agent) map[string]string {
 	}
 }
 
+// keyDirSeparator stands for "/" in a profile ConfigMap key: keys cannot
+// hold a slash, while profiles import sibling directories
+// (../units/types.yaml), so units__types.yaml mounts at units/types.yaml.
+const keyDirSeparator = "__"
+
+// profileItems maps a ConfigMap's keys onto mount paths when any key spells a
+// directory with the separator. A ConfigMap of flat keys returns nil, which
+// mounts every key at its own name and keeps following key additions
+// without a reconcile.
+func profileItems(profile *corev1.ConfigMap) []corev1.KeyToPath {
+	nested := false
+	keys := make([]string, 0, len(profile.Data)+len(profile.BinaryData))
+	for key := range profile.Data {
+		keys = append(keys, key)
+	}
+	for key := range profile.BinaryData {
+		keys = append(keys, key)
+	}
+	for _, key := range keys {
+		nested = nested || strings.Contains(key, keyDirSeparator)
+	}
+	if !nested {
+		return nil
+	}
+	sort.Strings(keys)
+	items := make([]corev1.KeyToPath, 0, len(keys))
+	for _, key := range keys {
+		items = append(items, corev1.KeyToPath{Key: key, Path: strings.ReplaceAll(key, keyDirSeparator, "/")})
+	}
+	return items
+}
+
 // desiredDeployment renders the one Deployment an Agent implies (srd009
 // R2.1): the image with --profile at the mounted path, the ConfigMap mounted
-// read-only, a readiness probe on the control port, and the declared
-// resources, environment, secret references, and work volumes. It writes
-// into dep, so CreateOrUpdate keeps what the server owns.
-func desiredDeployment(agent *v1alpha1.Agent, dep *appsv1.Deployment) {
+// read-only with its keys laid out as profileItems says, a readiness probe
+// on the control port, and the declared resources, environment, secret
+// references, and work volumes. It writes into dep, so CreateOrUpdate keeps
+// what the server owns.
+func desiredDeployment(agent *v1alpha1.Agent, profile *corev1.ConfigMap, dep *appsv1.Deployment) {
 	selector := labels(agent)
 	replicas := agent.DesiredReplicas()
 	container := corev1.Container{
@@ -63,6 +98,7 @@ func desiredDeployment(agent *v1alpha1.Agent, dep *appsv1.Deployment) {
 		Name: "profile",
 		VolumeSource: corev1.VolumeSource{ConfigMap: &corev1.ConfigMapVolumeSource{
 			LocalObjectReference: corev1.LocalObjectReference{Name: agent.Spec.Profile.ConfigMap},
+			Items:                profileItems(profile),
 		}},
 	}}
 	for _, w := range agent.Spec.WorkVolumes {

@@ -10,6 +10,7 @@ import (
 	"context"
 	_ "embed"
 	"fmt"
+	"time"
 
 	apiextensionsv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -29,6 +30,30 @@ func Definition() (*apiextensionsv1.CustomResourceDefinition, error) {
 		return nil, fmt.Errorf("decode embedded Agent CRD: %w", err)
 	}
 	return &def, nil
+}
+
+// WaitEstablished returns once the API server reports the CRD established,
+// polling until ctx ends.
+func WaitEstablished(ctx context.Context, c client.Client) error {
+	desired, err := Definition()
+	if err != nil {
+		return err
+	}
+	for {
+		var live apiextensionsv1.CustomResourceDefinition
+		if err := c.Get(ctx, client.ObjectKey{Name: desired.Name}, &live); err == nil {
+			for _, cond := range live.Status.Conditions {
+				if cond.Type == apiextensionsv1.Established && cond.Status == apiextensionsv1.ConditionTrue {
+					return nil
+				}
+			}
+		}
+		select {
+		case <-ctx.Done():
+			return fmt.Errorf("CRD %s was not established: %w", desired.Name, ctx.Err())
+		case <-time.After(500 * time.Millisecond):
+		}
+	}
 }
 
 // Apply creates the CRD or updates it to the embedded definition, keeping

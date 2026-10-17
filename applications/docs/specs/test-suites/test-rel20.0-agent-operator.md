@@ -2,7 +2,7 @@
 id: test-rel20.0-agent-operator
 title: Release 20.0 Agent Operator Test Suite
 release: "20.0"
-status: planned
+status: implemented
 ---
 <!-- Copyright (c) 2026 Nokia -->
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
@@ -40,7 +40,7 @@ the kind platform, which the release gates run.
 <!-- field: test_cases -->
 ## Test cases
 
-<!-- case: Release 20.0 documents parse and trace reciprocally | status: planned -->
+<!-- case: Release 20.0 documents parse and trace reciprocally | status: implemented -->
 ### Release 20.0 documents parse and trace reciprocally
 
 <!-- field: id -->
@@ -82,7 +82,7 @@ cd agent-core && mage audit
 - [rel20.0-uc001-agent-operator](../use-cases/rel20.0-uc001-agent-operator.md) [S1](../use-cases/rel20.0-uc001-agent-operator.md#s1)
 - [srd009-agent-operator](../software-requirements/srd009-agent-operator.md) [AC1](../software-requirements/srd009-agent-operator.md#ac1)
 
-<!-- case: The reconciler creates, rolls, and removes the Deployment and Service and reports status | status: planned -->
+<!-- case: The reconciler creates, rolls, and removes the Deployment and Service and reports status | status: implemented -->
 ### The reconciler creates, rolls, and removes the Deployment and Service and reports status
 
 <!-- field: id -->
@@ -94,11 +94,6 @@ TC2
 #### Use case
 
 [rel20.0-uc001-agent-operator](../use-cases/rel20.0-uc001-agent-operator.md)
-
-<!-- field: go_test -->
-#### Go test
-
-TestReconcileCreatesDeploymentAndService, TestReconcileRollsOnSpecChange, TestReconcileReportsMissingProfile, TestReconcileReportsReady
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -121,6 +116,7 @@ cd operator && go test ./internal/controller -run 'TestReconcile'
 #### Expected
 
 - deployment_and_service_created_with_owner_references: true
+- nested_configmap_keys_mount_as_directories: true
 - image_change_rolls_the_deployment: true
 - missing_configmap_sets_ready_false_with_reason: true
 - available_deployment_sets_ready_true: true
@@ -131,7 +127,7 @@ cd operator && go test ./internal/controller -run 'TestReconcile'
 - [rel20.0-uc001-agent-operator](../use-cases/rel20.0-uc001-agent-operator.md) [S2](../use-cases/rel20.0-uc001-agent-operator.md#s2)
 - [srd009-agent-operator](../software-requirements/srd009-agent-operator.md) [AC2](../software-requirements/srd009-agent-operator.md#ac2)
 
-<!-- case: The operator applies its CRD on boot | status: planned -->
+<!-- case: The operator applies its CRD on boot | status: implemented -->
 ### The operator applies its CRD on boot
 
 <!-- field: id -->
@@ -143,11 +139,6 @@ TC3
 #### Use case
 
 [rel20.0-uc001-agent-operator](../use-cases/rel20.0-uc001-agent-operator.md)
-
-<!-- field: go_test -->
-#### Go test
-
-TestCRDMatchesTypes, TestApplyCreatesAndUpdates
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -178,7 +169,7 @@ cd operator && go test ./internal/crd -run 'TestCRD'
 - [rel20.0-uc001-agent-operator](../use-cases/rel20.0-uc001-agent-operator.md) [S1](../use-cases/rel20.0-uc001-agent-operator.md#s1)
 - [srd009-agent-operator](../software-requirements/srd009-agent-operator.md) [AC1](../software-requirements/srd009-agent-operator.md#ac1)
 
-<!-- case: The kind platform boots with the operator ready | status: planned -->
+<!-- case: The kind platform boots with the operator ready | status: implemented -->
 ### The kind platform boots with the operator ready
 
 <!-- field: id -->
@@ -221,7 +212,7 @@ mage platform:up && kubectl --context kind-da-platform rollout status deployment
 - [rel20.0-uc001-agent-operator](../use-cases/rel20.0-uc001-agent-operator.md) [S3](../use-cases/rel20.0-uc001-agent-operator.md#s3)
 - [srd009-agent-operator](../software-requirements/srd009-agent-operator.md) [AC3](../software-requirements/srd009-agent-operator.md#ac3)
 
-<!-- case: The catalog collector Agent becomes Ready and answers its health endpoint | status: planned -->
+<!-- case: The catalog collector Agent becomes Ready and answers its health endpoint | status: implemented -->
 ### The catalog collector Agent becomes Ready and answers its health endpoint
 
 <!-- field: id -->

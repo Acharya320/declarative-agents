@@ -118,6 +118,33 @@ func TestReconcileCreatesDeploymentAndService(t *testing.T) {
 	}
 }
 
+// TestReconcileMountsNestedProfileKeys covers the directory convention in
+// srd009 R2.1: a ConfigMap whose keys spell directories with "__" mounts
+// every key at the path it spells, so a profile's ../units import resolves.
+func TestReconcileMountsNestedProfileKeys(t *testing.T) {
+	agent := collector()
+	agent.Spec.Profile.Path = "collector/profile.yaml"
+	profile := profileConfigMap()
+	profile.Data = map[string]string{
+		"units__types-collector.yaml": "types: []\n",
+		"collector__profile.yaml":     "name: collector\n",
+	}
+	r := newReconciler(t, agent, profile)
+	reconcile(t, r, agent)
+	dep := get(t, r, &appsv1.Deployment{}, "collector")
+	if args := strings.Join(dep.Spec.Template.Spec.Containers[0].Args, " "); args != "--profile /profiles/collector/profile.yaml" {
+		t.Errorf("args = %s", args)
+	}
+	items := dep.Spec.Template.Spec.Volumes[0].ConfigMap.Items
+	if len(items) != 2 || items[0].Key != "collector__profile.yaml" || items[0].Path != "collector/profile.yaml" ||
+		items[1].Key != "units__types-collector.yaml" || items[1].Path != "units/types-collector.yaml" {
+		t.Errorf("items = %+v", items)
+	}
+	if flat := profileItems(profileConfigMap()); flat != nil {
+		t.Errorf("flat keys render items %+v, want none so the mount follows the ConfigMap", flat)
+	}
+}
+
 // TestReconcileRollsOnSpecChange covers srd009 R2.3: a new image reaches the
 // Deployment's pod template on the next reconcile.
 func TestReconcileRollsOnSpecChange(t *testing.T) {
