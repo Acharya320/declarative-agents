@@ -110,36 +110,32 @@ in one file; a longer file is several concepts or a repeated shape, so split
 it or extract a fragment rather than extend it. internal/declstyle holds a
 shrink-only baseline of the files over the limit (GH-2111).
 
-<!-- field: workflows | form: "tree" -->
+<!-- field: workflows | form: "keyed table" -->
 ## Workflows
 
-- documentation:
-  - steps:
-    1. Read design.yaml and the issue required_reading.
-    1. Identify the output path, document type, required fields, and naming rule.
-    1. Write the document in valid YAML or Markdown as required.
-    1. Run mage audit.
-    1. Run de-AI lexical and structural checks on touched docs.
-    1. Add a stats comment, close the issue, and commit the work.
-- code:
-  - steps:
-    1. Read the relevant SRD, ARCHITECTURE section, test suite, source files, and issue.
-    1. Implement only the listed files.
-    1. Run go build ./...
-    1. Run go vet ./...
-    1. Run mage lint
-    1. Run go test ./...
-    1. Run mage audit if docs changed.
-    1. Add a stats comment, close the issue, and commit the work.
+| id | steps |
+| --- | --- |
+| documentation | [Read design.yaml and the issue required_reading., "Identify the output path, document type, required fields, and naming rule.", Write the document in valid YAML or Markdown as required., Run mage audit., Run de-AI lexical and structural checks on touched docs., "Add a stats comment, close the issue, and commit the work."] |
+| code | ["Read the relevant SRD, ARCHITECTURE section, test suite, source files, and issue.", Implement only the listed files., Run go build ./..., Run go vet ./..., Run mage lint, Run go test ./..., Run mage audit if docs changed., "Add a stats comment, close the issue, and commit the work."] |
 
-<!-- field: git | form: "tree" -->
+<!-- field: git -->
 ## Git
 
-- commit_per_issue: true
-- push_automatically: false
-- commit_message:
-  Use a concise message that names the outcome and, when applicable, the
-  issue ID or SRD. Do not batch unrelated issues into one commit.
+<!-- field: commit_per_issue | form: "scalar" -->
+### Commit per issue
+
+true
+
+<!-- field: push_automatically | form: "scalar" -->
+### Push automatically
+
+false
+
+<!-- field: commit_message -->
+### Commit message
+
+Use a concise message that names the outcome and, when applicable, the
+issue ID or SRD. Do not batch unrelated issues into one commit.
 
 <!-- field: references -->
 ## References

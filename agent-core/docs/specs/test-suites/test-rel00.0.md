@@ -1713,15 +1713,15 @@ TestNewRoot_TempFileUsesServiceName, TestNewRoot_FileExporter
 
 rel00.0-uc001-domain-agent-integration
 
-<!-- field: go_test -->
-#### Go test
-
-TestNewRoot_OTLPExporter
-
 <!-- field: follow_up_issue -->
 #### Follow up issue
 
 #601
+
+<!-- field: go_test -->
+#### Go test
+
+TestNewRoot_OTLPExporter
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -1746,15 +1746,15 @@ TestNewRoot_OTLPExporter
 
 rel00.0-uc001-domain-agent-integration
 
-<!-- field: go_test -->
-#### Go test
-
-TestTraceAdapter_SatisfiesInterface
-
 <!-- field: follow_up_issue -->
 #### Follow up issue
 
 #601
+
+<!-- field: go_test -->
+#### Go test
+
+TestTraceAdapter_SatisfiesInterface
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -2474,15 +2474,15 @@ TestLoadCorpus_Valid
 
 rel00.0-uc002-spec-corpus-validation
 
-<!-- field: go_test -->
-#### Go test
-
-go test ./pkg/spec -run TestExecuteChartersSpecCorpusAddsProvenance
-
 <!-- field: integration_target -->
 #### Integration target
 
 mage audit
+
+<!-- field: go_test -->
+#### Go test
+
+go test ./pkg/spec -run TestExecuteChartersSpecCorpusAddsProvenance
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs

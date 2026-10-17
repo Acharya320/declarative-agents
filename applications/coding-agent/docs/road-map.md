@@ -24,7 +24,7 @@ application outcome. Three ordered integration stages prove those
 boundaries without a fake agent binary.
 
 <!-- field: library_srds -->
-### Library srds
+### Library SRDs
 
 - srd002-executor
 - srd003-critic
@@ -53,7 +53,7 @@ canonical planning words, crosses declared executor and critic REST
 boundaries over one trusted shared workspace, and retains one W3C trace.
 
 <!-- field: application_srds -->
-### Application srds
+### Application SRDs
 
 - srd001-serving-contract
 
@@ -79,7 +79,7 @@ profile roots from one canonical source namespace. Deterministic manifests
 retain provenance and partition each role for bounded ConfigMaps.
 
 <!-- field: application_srds -->
-### Application srds
+### Application SRDs
 
 - srd002-deployment-profile-package
 
@@ -107,7 +107,7 @@ and collector-to-Jaeger tracing. Release 07.0 replaces the trace path
 with the canonical collector agent.
 
 <!-- field: application_srds -->
-### Application srds
+### Application SRDs
 
 - srd003-helm-topology
 
@@ -133,7 +133,7 @@ packages are checksum-validated, and a self-contained chart archive is
 inventory-checked, linted, and rendered independently.
 
 <!-- field: application_srds -->
-### Application srds
+### Application SRDs
 
 - srd004-helm-package-validation
 
@@ -159,7 +159,7 @@ role health, remote workspace mutation, critic acceptance, and one
 planner/executor/critic trace with classified failures and cleanup.
 
 <!-- field: application_srds -->
-### Application srds
+### Application SRDs
 
 - srd005-live-helm-smoke
 
@@ -188,7 +188,7 @@ Jaeger workload leave the chart, and the compatibility pin moves to
 applications/catalog/v0.20260730.0.
 
 <!-- field: application_srds -->
-### Application srds
+### Application SRDs
 
 - srd003-helm-topology
 - srd004-helm-package-validation
@@ -227,7 +227,7 @@ profile, chart resources, fake-boundary tests, and live integration target
 are implemented.
 
 <!-- field: application_srds -->
-### Application srds
+### Application SRDs
 
 - srd006-applier
 

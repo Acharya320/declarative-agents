@@ -157,19 +157,13 @@ rel10.0-uc001-value-predicate-branch
 
 go test ./internal/tools/control -run TestValuePredicateNumericCoercion
 
-<!-- field: inputs | form: "tree" -->
+<!-- field: inputs | form: "keyed table" -->
 #### Inputs
 
-- numeric:
-  - left: "10"
-  - op: gt
-  - right: "6"
-  - operand_type: default
-- lexicographic:
-  - left: "10"
-  - op: gt
-  - right: "6"
-  - operand_type: string
+| id | left | op | right | operand_type |
+| --- | --- | --- | --- | --- |
+| numeric | "10" | gt | "6" | default |
+| lexicographic | "10" | gt | "6" | string |
 
 <!-- field: expected | form: "tree" -->
 #### Expected

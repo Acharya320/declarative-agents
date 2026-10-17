@@ -287,6 +287,14 @@ Lifecycle tools SHALL NOT shell back into the agent binary to perform history or
 - Defining the Dolt schema or revert mechanics (srd036) or the checkpoint port wire format and Receipt shape (srd035).
 - Making core.Loop concurrent.
 
+<!-- field: test_trace_plan | form: "typed table" -->
+## Test trace plan
+
+| test_suite | covers |
+| --- | --- |
+| test-rel02.0-lifecycle | [AC1, AC2, AC3, AC4, AC5] |
+| test-rel02.0-tool-contracts | [AC3] |
+
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
 
@@ -375,14 +383,6 @@ Suspend and approval gates end the run through machine-declared signals with a c
 - R5.4
 - R5.5
 
-<!-- field: test_trace_plan | form: "typed table" -->
-## Test trace plan
-
-| test_suite | covers |
-| --- | --- |
-| test-rel02.0-lifecycle | [AC1, AC2, AC3, AC4, AC5] |
-| test-rel02.0-tool-contracts | [AC3] |
-
 <!-- field: historical_background -->
 ## Historical background
 
@@ -398,43 +398,47 @@ Suspend and approval gates end the run through machine-declared signals with a c
 - srd036-dolt-state-persistence
 - srd026-lifecycle-tools
 
-<!-- field: implementation_status | form: "tree" -->
+<!-- field: implementation_status -->
 ## Implementation status
 
-- done:
-  1. Checkpoint, history, suspend, and resume use the srd035 port; cmd/agent wires DoltCheckpoint when --dolt-dsn is set and NoopCheckpoint otherwise.
-  1. checkpoint_rollback uses Dolt Revert plus a reverse receipt walk over restored Results.
-  1. State-mutating tools encode receipts for persisted rollback; StateStore, Workspace/GitWorkspace, CheckpointPolicy, and the engine undo-walk are retired implementation history.
-  1. Suspend and resume operate around explicit approval-gate machine signals.
+<!-- field: done -->
+### Done
 
-<!-- field: diagrams | form: "tree" -->
+- Checkpoint, history, suspend, and resume use the srd035 port; cmd/agent wires DoltCheckpoint when --dolt-dsn is set and NoopCheckpoint otherwise.
+- checkpoint_rollback uses Dolt Revert plus a reverse receipt walk over restored Results.
+- State-mutating tools encode receipts for persisted rollback; StateStore, Workspace/GitWorkspace, CheckpointPolicy, and the engine undo-walk are retired implementation history.
+- Suspend and resume operate around explicit approval-gate machine signals.
+
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: Safe record, suspend, resume, and rollback on the checkpoint port"] --> Goals["Goals: Rollback, Checkpoint, Suspend, and Resume Lifecycle"]
-    Goals --> R1["R1: Checkpoint-port-backed persistence"]
-    Goals --> R2["R2: Execution history"]
-    Goals --> R3["R3: Receipt-driven reversibility"]
-    Goals --> R4["R4: Two-part rollback"]
-    Goals --> R5["R5: Suspend and approval gates"]
-    Goals --> R6["R6: Resume"]
-    Goals --> R7["R7: Opt-in and zero-overhead defaults"]
-    Goals --> R8["R8: Tool contract integration"]
-    Goals --> R9["R9: Declarative lifecycle tools and profiles"]
-    AC1["AC1: Port-backed persistence and resume; no legacy layers"]
-    R1 --> AC1
-    R6 --> AC1
-    R7 --> AC1
-    AC2["AC2: Ordered execution history with receipts"]
-    R2 --> AC2
-    AC3["AC3: Receipt-driven reversibility"]
-    R3 --> AC3
-    R8 --> AC3
-    AC4["AC4: Dolt Revert + lifecycle-tool receipt walk"]
-    R4 --> AC4
-    R9 --> AC4
-    AC5["AC5: Suspend/approval gates and single resume"]
-    R5 --> AC5
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: Safe record, suspend, resume, and rollback on the checkpoint port"] --> Goals["Goals: Rollback, Checkpoint, Suspend, and Resume Lifecycle"]
+  Goals --> R1["R1: Checkpoint-port-backed persistence"]
+  Goals --> R2["R2: Execution history"]
+  Goals --> R3["R3: Receipt-driven reversibility"]
+  Goals --> R4["R4: Two-part rollback"]
+  Goals --> R5["R5: Suspend and approval gates"]
+  Goals --> R6["R6: Resume"]
+  Goals --> R7["R7: Opt-in and zero-overhead defaults"]
+  Goals --> R8["R8: Tool contract integration"]
+  Goals --> R9["R9: Declarative lifecycle tools and profiles"]
+  AC1["AC1: Port-backed persistence and resume; no legacy layers"]
+  R1 --> AC1
+  R6 --> AC1
+  R7 --> AC1
+  AC2["AC2: Ordered execution history with receipts"]
+  R2 --> AC2
+  AC3["AC3: Receipt-driven reversibility"]
+  R3 --> AC3
+  R8 --> AC3
+  AC4["AC4: Dolt Revert + lifecycle-tool receipt walk"]
+  R4 --> AC4
+  R9 --> AC4
+  AC5["AC5: Suspend/approval gates and single resume"]
+  R5 --> AC5
+```

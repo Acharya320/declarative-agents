@@ -40,15 +40,15 @@ validated archive. Asserts the install source is the validated archive, not
 a source-tree surrogate, and that the packaged curator and collector
 closures are the mounted profile source.
 
-<!-- field: use_case -->
-#### Use case
-
-rel03.0-uc001-live-helm-smoke
-
 <!-- field: id -->
 #### ID
 
 install_packaged_chart
+
+<!-- field: use_case -->
+#### Use case
+
+rel03.0-uc001-live-helm-smoke
 
 <!-- field: integration_target -->
 #### Integration target
@@ -82,15 +82,15 @@ health endpoints to become ready, reaches the curator documentation
 interface, and issues a declarative lifecycle-exit request. Asserts the
 curator stops cleanly and releases its listeners rather than being killed.
 
-<!-- field: use_case -->
-#### Use case
-
-rel03.0-uc001-live-helm-smoke
-
 <!-- field: id -->
 #### ID
 
 readiness_and_exit
+
+<!-- field: use_case -->
+#### Use case
+
+rel03.0-uc001-live-helm-smoke
 
 <!-- field: integration_target -->
 #### Integration target
@@ -125,15 +125,15 @@ collector's spool surface for it. Asserts the collector retains the
 curator trace, proving the in-cluster OTLP path end to end rather than by
 render inspection alone.
 
-<!-- field: use_case -->
-#### Use case
-
-rel03.0-uc001-live-helm-smoke
-
 <!-- field: id -->
 #### ID
 
 trace_retained
+
+<!-- field: use_case -->
+#### Use case
+
+rel03.0-uc001-live-helm-smoke
 
 <!-- field: integration_target -->
 #### Integration target
@@ -165,15 +165,15 @@ the namespace, release, forwards, temporary files, and any owned cluster
 are cleaned, and that failure diagnostics share one deadline and include
 Helm status, workloads, events, and targeted curator and collector logs.
 
-<!-- field: use_case -->
-#### Use case
-
-rel03.0-uc001-live-helm-smoke
-
 <!-- field: id -->
 #### ID
 
 skip_and_cleanup
+
+<!-- field: use_case -->
+#### Use case
+
+rel03.0-uc001-live-helm-smoke
 
 <!-- field: integration_target -->
 #### Integration target

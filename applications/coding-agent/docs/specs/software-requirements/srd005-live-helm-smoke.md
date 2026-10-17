@@ -96,6 +96,21 @@ An unhealthy ready path shall report infrastructure unavailable; healthy ready p
 
 Failure diagnostics shall share one deadline and include Helm status/history, workloads, events, and targeted role, collector, and model logs.
 
+<!-- field: goals -->
+## Goals
+
+- G1: Prerequisites and ownership.
+- G2: Real packaged topology.
+- G3: End-to-end evidence.
+- G4: Failure classification.
+
+<!-- field: non_goals -->
+## Non-goals
+
+- Production model performance and GPU sizing.
+- Multi-node RWX and high availability.
+- Public ingress and authentication.
+
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
 
@@ -140,18 +155,3 @@ Deterministic tests distinguish infrastructure and semantic failures and prove b
 - R4.1
 - R4.2
 - R4.3
-
-<!-- field: goals -->
-## Goals
-
-- G1: Prerequisites and ownership.
-- G2: Real packaged topology.
-- G3: End-to-end evidence.
-- G4: Failure classification.
-
-<!-- field: non_goals -->
-## Non-goals
-
-- Production model performance and GPU sizing.
-- Multi-node RWX and high availability.
-- Public ingress and authentication.

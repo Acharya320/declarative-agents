@@ -153,6 +153,13 @@ The applier shall not select workload profiles or own agent lifecycle; those rem
 
 The applier shall run the shared agent-core image and receive the helm and kubectl CLIs at pod start from a digest-pinned CLI donor image (applier.cliDonor.image) that an init container copies into a volume mounted read-only at /opt/tools and placed first on the applier's PATH, so the binaries it execs cannot be replaced at runtime; the chart shall be delivered to the applier pod as a mounted volume rather than baked into an image. No image diverges from the profile-free, binary-only image contract (srd001 R1.2, GH-2222).
 
+<!-- field: non_goals -->
+## Non-goals
+
+- The applier does not decide the values change; the authorized operator or CI caller decides it and submits it as the apply request's values-plane content.
+- The applier does not select workload profiles or own agent lifecycle; those remain the packaging and chart's (srd001).
+- The applier runs the shared agent-core image and receives the helm and kubectl CLIs at pod start from a digest-pinned CLI donor image (applier.cliDonor.image) that an init container copies into a volume mounted read-only at /opt/tools and placed first on the applier's PATH, so the binaries it execs cannot be replaced at runtime; the chart is delivered to the applier pod as a mounted volume rather than baked into an image. No image diverges from the profile-free, binary-only image contract (srd001 R1.2, GH-2222).
+
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
 
@@ -234,47 +241,51 @@ agent-core runtime contracts this agent builds on. External references, owned by
 | srd021-agent-cli-exec-tool | agent-core | [R2, R3, R4] |
 | srd028-rest-client-tools | agent-core | [V30] |
 
-<!-- field: implementation_status | form: "tree" -->
+<!-- field: implementation_status -->
 ## Implementation status
 
-- implemented: []
-- planned:
-  1. The applier profile -- its apply, control, and monitor servers, the validate-apply-verify-rollback request machine, and the declared helm and kubectl exec bindings -- a chart values.schema.json validate step, the applier Deployment, image, and NetworkPolicy that keep the apply surface off the serving pods, and an integration target that drives a values patch through validate, apply, verify, and rollback against the packaged chart on the kind rig (srd001 R3). The applier runs the shared agent-core image; helm and kubectl arrive at pod start from a pinned CLI donor into a read-only volume, and the chart as a mounted volume (GH-2222). The code lands in later sub-issues of the release; this document and its use case and test suite land first.
+<!-- field: implemented | form: "empty list" -->
+### Implemented
 
-<!-- field: diagrams | form: "tree" -->
+None
+
+<!-- field: planned -->
+### Planned
+
+- The applier profile -- its apply, control, and monitor servers, the validate-apply-verify-rollback request machine, and the declared helm and kubectl exec bindings -- a chart values.schema.json validate step, the applier Deployment, image, and NetworkPolicy that keep the apply surface off the serving pods, and an integration target that drives a values patch through validate, apply, verify, and rollback against the packaged chart on the kind rig (srd001 R3). The applier runs the shared agent-core image; helm and kubectl arrive at pod start from a pinned CLI donor into a read-only volume, and the chart as a mounted volume (GH-2222). The code lands in later sub-issues of the release; this document and its use case and test suite land first.
+
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: chart actuation is hand-run helm and kubectl; the same actuation is a declarative agent binding container CLIs"] --> Goals["Goals: Declarative Applier Agent"]
-    Goals --> R1["R1: Actuation surface"]
-    Goals --> R2["R2: Validate then apply"]
-    Goals --> R3["R3: Verify and roll back"]
-    Goals --> R4["R4: Authority boundary"]
-    Goals --> R5["R5: Non-goals and packaging"]
-    R1 --> AC1["AC1: apply endpoint, control and monitor servers, no panel"]
-    R2 --> AC2["AC2: schema dry-run then values-file apply"]
-    R3 --> AC3["AC3: rollout verify and rollback"]
-    R4 --> AC4["AC4: applier holds the CLIs, authority by declared config"]
-    R5 --> AC5["AC5: not the decision or lifecycle; CLIs from a pinned donor"]
-  ```
-- actuation_machine:
-  ```mermaid
-  flowchart LR
-    Apply["POST apply (operator or CI caller)"] --> Validate["Validate: helm upgrade --dry-run -f overrides.yaml"]
-    Validate -->|Valid| ApplyStep["Apply: helm upgrade --reuse-values -f overrides.yaml"]
-    Validate -->|Invalid| Reject["400"]
-    ApplyStep -->|Applied| Verify["Verify: kubectl rollout status of the collector Deployment (stable server)"]
-    ApplyStep -->|CommandError| Failed["500"]
-    Verify -->|HealthReported| Done["200"]
-    Verify -->|RolloutStalled| Rollback["helm rollback"]
-    Rollback --> RolledBack["500"]
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
 
-<!-- field: non_goals -->
-## Non-goals
+```mermaid
+flowchart LR
+  Problem["Problem: chart actuation is hand-run helm and kubectl; the same actuation is a declarative agent binding container CLIs"] --> Goals["Goals: Declarative Applier Agent"]
+  Goals --> R1["R1: Actuation surface"]
+  Goals --> R2["R2: Validate then apply"]
+  Goals --> R3["R3: Verify and roll back"]
+  Goals --> R4["R4: Authority boundary"]
+  Goals --> R5["R5: Non-goals and packaging"]
+  R1 --> AC1["AC1: apply endpoint, control and monitor servers, no panel"]
+  R2 --> AC2["AC2: schema dry-run then values-file apply"]
+  R3 --> AC3["AC3: rollout verify and rollback"]
+  R4 --> AC4["AC4: applier holds the CLIs, authority by declared config"]
+  R5 --> AC5["AC5: not the decision or lifecycle; CLIs from a pinned donor"]
+```
 
-- The applier does not decide the values change; the authorized operator or CI caller decides it and submits it as the apply request's values-plane content.
-- The applier does not select workload profiles or own agent lifecycle; those remain the packaging and chart's (srd001).
-- The applier runs the shared agent-core image and receives the helm and kubectl CLIs at pod start from a digest-pinned CLI donor image (applier.cliDonor.image) that an init container copies into a volume mounted read-only at /opt/tools and placed first on the applier's PATH, so the binaries it execs cannot be replaced at runtime; the chart is delivered to the applier pod as a mounted volume rather than baked into an image. No image diverges from the profile-free, binary-only image contract (srd001 R1.2, GH-2222).
+<!-- field: actuation_machine -->
+### Actuation machine
+
+```mermaid
+flowchart LR
+  Apply["POST apply (operator or CI caller)"] --> Validate["Validate: helm upgrade --dry-run -f overrides.yaml"]
+  Validate -->|Valid| ApplyStep["Apply: helm upgrade --reuse-values -f overrides.yaml"]
+  Validate -->|Invalid| Reject["400"]
+  ApplyStep -->|Applied| Verify["Verify: kubectl rollout status of the collector Deployment (stable server)"]
+  ApplyStep -->|CommandError| Failed["500"]
+  Verify -->|HealthReported| Done["200"]
+  Verify -->|RolloutStalled| Rollback["helm rollback"]
+  Rollback --> RolledBack["500"]
+```

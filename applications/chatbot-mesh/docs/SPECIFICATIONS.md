@@ -32,61 +32,48 @@ alongside its requirement groups, and every acceptance criterion is covered by a
 test case. Every SRD is indexed and placed in ARCHITECTURE, every use case targets
 its SRDs through touchpoints, and every test suite traces its use case.
 
-<!-- field: role_alignment_index | form: "tree" -->
+<!-- field: role_alignment_index -->
 ## Role alignment index
 
-- authority: ../../docs/specs/semantic-models/agent-role-realizations.md#bindings.chatbot_mesh
-- architecture: docs/ARCHITECTURE.md#role_realization_alignment
-- rule: Actors assume roles; profile, wrapper, Helm workload, and values-selected instance names are realization identities, not canonical role definitions.
-- decisions:
-  1. - current_actor: chatbot
-     - canonical_role_sub_role: Planner / Intent Handler; Executor / Workflow Orchestrator; Knowledge Manager / Recommendation Generator
-     - retained_or_proposed_name: chatbot
-     - evidence: srd002
-     - migration_impact: none
-  1. - current_actor: rag-server
-     - canonical_role_sub_role: Knowledge Manager / Recommendation Generator
-     - retained_or_proposed_name: rag-server
-     - evidence: srd001
-     - migration_impact: none
-  1. - current_actor: corpus-ingest
-     - canonical_role_sub_role: inherited Knowledge Manager / Ontology Manager
-     - retained_or_proposed_name: corpus-ingest
-     - evidence: srd001 ingest boundary and wrapper profile
-     - migration_impact: none
-  1. - current_actor: provisioning-workflow-orchestrator
-     - canonical_role_sub_role: Executor / Workflow Orchestrator; not Coordinator
-     - retained_or_proposed_name: provisioning-workflow-orchestrator
-     - evidence: srd004
-     - migration_impact: GH-1077
-  1. - current_actor: creator
-     - canonical_role_sub_role: Creator / Instance Manager; Agent Owner / Agent Lifecycle Manager
-     - retained_or_proposed_name: creator
-     - evidence: srd005
-     - migration_impact: none
-  1. - current_actor: applier
-     - canonical_role_sub_role: Executor / Actuation Agent and Change Manager
-     - retained_or_proposed_name: applier
-     - evidence: srd006
-     - migration_impact: documentation-only
-  1. - current_actor: collector
-     - canonical_role_sub_role: Monitor / Telemetry Collector
-     - retained_or_proposed_name: collector
-     - evidence: srd007
-     - migration_impact: none
-  1. - current_actor: observer
-     - canonical_role_sub_role: Monitor / Fleet Observer
-     - retained_or_proposed_name: observer
-     - evidence: srd008
-     - migration_impact: none
-- deployment_evidence:
-  1. helm/templates/chatbot.yaml
-  1. helm/templates/rag-units.yaml
-  1. helm/templates/provisioning-workflow-orchestrator.yaml
-  1. helm/templates/creator.yaml
-  1. helm/templates/applier.yaml
-  1. helm/templates/collector.yaml
-  1. helm/templates/observer.yaml
+<!-- field: authority -->
+### Authority
+
+../../docs/specs/semantic-models/agent-role-realizations.md#bindings.chatbot_mesh
+
+<!-- field: architecture -->
+### Architecture
+
+docs/ARCHITECTURE.md#role_realization_alignment
+
+<!-- field: rule -->
+### Rule
+
+Actors assume roles; profile, wrapper, Helm workload, and values-selected instance names are realization identities, not canonical role definitions.
+
+<!-- field: decisions -->
+### Decisions
+
+| current_actor | canonical_role_sub_role | retained_or_proposed_name | evidence | migration_impact |
+| --- | --- | --- | --- | --- |
+| chatbot | Planner / Intent Handler; Executor / Workflow Orchestrator; Knowledge Manager / Recommendation Generator | chatbot | srd002 | none |
+| rag-server | Knowledge Manager / Recommendation Generator | rag-server | srd001 | none |
+| corpus-ingest | inherited Knowledge Manager / Ontology Manager | corpus-ingest | srd001 ingest boundary and wrapper profile | none |
+| provisioning-workflow-orchestrator | Executor / Workflow Orchestrator; not Coordinator | provisioning-workflow-orchestrator | srd004 | GH-1077 |
+| creator | Creator / Instance Manager; Agent Owner / Agent Lifecycle Manager | creator | srd005 | none |
+| applier | Executor / Actuation Agent and Change Manager | applier | srd006 | documentation-only |
+| collector | Monitor / Telemetry Collector | collector | srd007 | none |
+| observer | Monitor / Fleet Observer | observer | srd008 | none |
+
+<!-- field: deployment_evidence -->
+### Deployment evidence
+
+- helm/templates/chatbot.yaml
+- helm/templates/rag-units.yaml
+- helm/templates/provisioning-workflow-orchestrator.yaml
+- helm/templates/creator.yaml
+- helm/templates/applier.yaml
+- helm/templates/collector.yaml
+- helm/templates/observer.yaml
 
 <!-- field: roadmap_summary | form: "typed table" -->
 ## Roadmap summary
@@ -104,6 +91,16 @@ its SRDs through touchpoints, and every test suite traces its use case.
 | "08.0" | Fleet observer agent | 0 | 1 | planned |
 | "09.0" | Canonical collector and Jaeger retirement | 1 | 1 | done |
 
+<!-- field: foundation_document_index -->
+## Foundation document index
+
+| id | title | summary | path |
+| --- | --- | --- | --- |
+| chatbot-mesh-example | Chatbot Mesh: A Copyable Declarative Agent Application | Goals, boundaries, and success criteria for the chatbot mesh. | docs/VISION.md |
+| architecture-chatbot-mesh-example | Chatbot Mesh Architecture | Components, ownership boundaries, deployment, and runtime flows. | docs/ARCHITECTURE.md |
+| chatbot-mesh-example-roadmap | Chatbot Mesh Example Road Map | Release plan and implementation status for the application. | docs/road-map.md |
+| chatbot-mesh-how-it-works | How the Chatbot Mesh Works | Operator and developer guide to the application flow. | docs/guides/how-it-works.md |
+
 <!-- field: srd_index -->
 ## SRD index
 
@@ -117,6 +114,18 @@ its SRDs through touchpoints, and every test suite traces its use case.
 | srd006-applier | Applier Agent Functional Block | Executor / Actuation Agent realization that validates a values patch, applies and verifies a rollout, and rolls back, binding helm and kubectl as exec tools. | docs/specs/software-requirements/srd006-applier.md |
 | srd007-collector-agent | Collector Agent Functional Block | Monitor / Telemetry Collector realization composing bounded OTLP receive, deterministic spool, unchanged relay, lifecycle surfaces, and self-loop prevention while contrib retains metrics. | docs/specs/software-requirements/srd007-collector-agent.md |
 | srd008-observer-agent | Observer Agent Functional Block | Monitor / Fleet Observer realization that discovers mesh agents and the deployment topology from the Kubernetes API, polls each agent's monitor surface and per-pod resource usage (metrics.k8s.io), and serves a fleet-level view. | docs/specs/software-requirements/srd008-observer-agent.md |
+
+<!-- field: config_format_index | form: "empty list" -->
+## Config format index
+
+None
+
+<!-- field: semantic_model_index -->
+## Semantic model index
+
+| id | title | summary | path |
+| --- | --- | --- | --- |
+| sm-agent-role-realizations | Agent Role Realizations and Bindings | Canonical role bindings for chatbot-mesh actors and profiles. | ../../docs/specs/semantic-models/agent-role-realizations.md |
 
 <!-- field: use_case_index -->
 ## Use case index
@@ -148,28 +157,6 @@ its SRDs through touchpoints, and every test suite traces its use case.
 | test-rel06.0-applier | Test Suite for Release 06.0 Declarative Applier Agent | "06.0" | [rel06.0-uc001-declarative-applier] | docs/specs/test-suites/test-rel06.0-applier.md |
 | test-rel07.0-collector | Test Suite for Release 07.0 Collector Agent | "07.0" | [rel07.0-uc001-collector-ingress] | docs/specs/test-suites/test-rel07.0-collector.md |
 | test-rel08.0-observer | Test Suite for Release 08.0 Observer Agent | "08.0" | [rel08.0-uc001-mesh-observer] | docs/specs/test-suites/test-rel08.0-observer.md |
-
-<!-- field: foundation_document_index -->
-## Foundation document index
-
-| id | title | summary | path |
-| --- | --- | --- | --- |
-| chatbot-mesh-example | Chatbot Mesh: A Copyable Declarative Agent Application | Goals, boundaries, and success criteria for the chatbot mesh. | docs/VISION.md |
-| architecture-chatbot-mesh-example | Chatbot Mesh Architecture | Components, ownership boundaries, deployment, and runtime flows. | docs/ARCHITECTURE.md |
-| chatbot-mesh-example-roadmap | Chatbot Mesh Example Road Map | Release plan and implementation status for the application. | docs/road-map.md |
-| chatbot-mesh-how-it-works | How the Chatbot Mesh Works | Operator and developer guide to the application flow. | docs/guides/how-it-works.md |
-
-<!-- field: config_format_index | form: "scalar" -->
-## Config format index
-
-[]
-
-<!-- field: semantic_model_index -->
-## Semantic model index
-
-| id | title | summary | path |
-| --- | --- | --- | --- |
-| sm-agent-role-realizations | Agent Role Realizations and Bindings | Canonical role bindings for chatbot-mesh actors and profiles. | ../../docs/specs/semantic-models/agent-role-realizations.md |
 
 <!-- field: coverage_gaps -->
 ## Coverage gaps

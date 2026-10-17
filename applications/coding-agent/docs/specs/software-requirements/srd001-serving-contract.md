@@ -92,6 +92,21 @@ The workspace identity shall be carried as correlation metadata while the truste
 
 The planner inbound machine_request and both outbound REST operations shall use agent-core W3C trace propagation so all role spans share one trace identifier.
 
+<!-- field: goals -->
+## Goals
+
+- G1: Persistent role hosts.
+- G2: Canonical role composition.
+- G3: Remote application sequence.
+- G4: Shared workspace and trace.
+
+<!-- field: non_goals -->
+## Non-goals
+
+- Helm resources, profile ConfigMap sizing, and closure sharding.
+- Per-request filesystem roots or dynamically supplied transport authority.
+- Replacing the local canonical batch integrations.
+
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
 
@@ -143,18 +158,3 @@ The existing local batch coding-loop tests and integrations remain valid.
 #### Traces
 
 - R2.4
-
-<!-- field: goals -->
-## Goals
-
-- G1: Persistent role hosts.
-- G2: Canonical role composition.
-- G3: Remote application sequence.
-- G4: Shared workspace and trace.
-
-<!-- field: non_goals -->
-## Non-goals
-
-- Helm resources, profile ConfigMap sizing, and closure sharding.
-- Per-request filesystem roots or dynamically supplied transport authority.
-- Replacing the local canonical batch integrations.

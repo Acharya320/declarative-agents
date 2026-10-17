@@ -254,6 +254,14 @@ After a successful Revert, the adapter SHALL expose the target's exact reset has
 - Requiring Dolt when persistence is disabled; NoopCheckpoint remains the disabled-mode default per srd035.
 - Importing Dolt types into internal/runtime/core.
 
+<!-- field: test_trace_plan | form: "typed table" -->
+## Test trace plan
+
+| test_suite | covers |
+| --- | --- |
+| test-rel02.0-lifecycle | [AC1, AC2, AC4, AC5, AC6] |
+| test-rel07.0-command-state | [AC3] |
+
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
 
@@ -347,14 +355,6 @@ Revert(run_id, step_index) resets the run branch to the target commit for DB-onl
 - R6.5
 - R6.6
 
-<!-- field: test_trace_plan | form: "typed table" -->
-## Test trace plan
-
-| test_suite | covers |
-| --- | --- |
-| test-rel02.0-lifecycle | [AC1, AC2, AC4, AC5, AC6] |
-| test-rel07.0-command-state | [AC3] |
-
 <!-- field: reference_model -->
 ## Reference model
 
@@ -369,41 +369,49 @@ tool_results table into a forward plane (tool_outputs) and a reverse plane
 reaching a receipt. srd036 implements the port defined by
 srd035-checkpoint-port.
 
-<!-- field: implementation_status | form: "tree" -->
+<!-- field: implementation_status -->
 ## Implementation status
 
-- done:
-  1. DoltCheckpoint adapter, database/sql seam, generic schema, commit-per-step, branch-per-run, merge-on-terminal, and Revert.
-  1. cmd/agent wiring that enables Dolt through --dolt-dsn and uses NoopCheckpoint when persistence is disabled.
-  1. Five-table split of tool_results into tool_outputs (forward plane; signal, output, error, cost) and receipts (reverse plane; opaque receipt), both keyed (run_id, step_index) and written in one per-step transaction. An empty receipt is represented by receipts-row absence and restores "" on Load; tool_outputs carries no receipt column. Delivered by GH-275.
-  1. - "Two-plane lifetime invariants pinned by tests (GH-276)": revert reaps both planes past the target step by branch construction (R4, R6.4); terminal merge-and-delete reaps the run branch and both planes (R4.3).
-  1. "GH-489: Versioned redaction columns, defense-in-depth sanitization in DoltCheckpoint.Save, legacy-row preservation, and fail-closed output omission (R3.7-R3.11)."
-  1. "GH-1683: Immutable run/step/commit conversation references with strict parsing, run isolation, historical AS OF resolution, and fresh-adapter coverage (R5.5)."
-- planned: []
+<!-- field: done | form: "tree" -->
+### Done
 
-<!-- field: diagrams | form: "tree" -->
+1. DoltCheckpoint adapter, database/sql seam, generic schema, commit-per-step, branch-per-run, merge-on-terminal, and Revert.
+1. cmd/agent wiring that enables Dolt through --dolt-dsn and uses NoopCheckpoint when persistence is disabled.
+1. Five-table split of tool_results into tool_outputs (forward plane; signal, output, error, cost) and receipts (reverse plane; opaque receipt), both keyed (run_id, step_index) and written in one per-step transaction. An empty receipt is represented by receipts-row absence and restores "" on Load; tool_outputs carries no receipt column. Delivered by GH-275.
+1. - "Two-plane lifetime invariants pinned by tests (GH-276)": revert reaps both planes past the target step by branch construction (R4, R6.4); terminal merge-and-delete reaps the run branch and both planes (R4.3).
+1. "GH-489: Versioned redaction columns, defense-in-depth sanitization in DoltCheckpoint.Save, legacy-row preservation, and fail-closed output omission (R3.7-R3.11)."
+1. "GH-1683: Immutable run/step/commit conversation references with strict parsing, run isolation, historical AS OF resolution, and fresh-adapter coverage (R5.5)."
+
+<!-- field: planned | form: "empty list" -->
+### Planned
+
+None
+
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: Durable Dolt backend for the srd035 checkpoint port"] --> Goals["Goals: Dolt State Persistence"]
-    Goals --> R1["R1: Adapter and database seam"]
-    Goals --> R2["R2: Generic five-table schema"]
-    Goals --> R3["R3: Forward-plane outputs and reverse-plane receipts"]
-    Goals --> R4["R4: Commit-per-step and branch-per-run"]
-    Goals --> R5["R5: Load reconstruction"]
-    Goals --> R6["R6: Git-style revert"]
-    AC1["AC1: Port impl behind database/sql seam"]
-    R1 --> AC1
-    AC2["AC2: Generic five-table schema (forward/reverse planes)"]
-    R2 --> AC2
-    AC3["AC3: tool_outputs forward plane, receipts reverse plane, no forward receipt access"]
-    R3 --> AC3
-    AC4["AC4: Commit-per-step, branch-per-run, merge on terminal"]
-    R4 --> AC4
-    AC5["AC5: Load reconstructs Position and Execution"]
-    R5 --> AC5
-    AC6["AC6: DB-only git-style Revert"]
-    R6 --> AC6
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: Durable Dolt backend for the srd035 checkpoint port"] --> Goals["Goals: Dolt State Persistence"]
+  Goals --> R1["R1: Adapter and database seam"]
+  Goals --> R2["R2: Generic five-table schema"]
+  Goals --> R3["R3: Forward-plane outputs and reverse-plane receipts"]
+  Goals --> R4["R4: Commit-per-step and branch-per-run"]
+  Goals --> R5["R5: Load reconstruction"]
+  Goals --> R6["R6: Git-style revert"]
+  AC1["AC1: Port impl behind database/sql seam"]
+  R1 --> AC1
+  AC2["AC2: Generic five-table schema (forward/reverse planes)"]
+  R2 --> AC2
+  AC3["AC3: tool_outputs forward plane, receipts reverse plane, no forward receipt access"]
+  R3 --> AC3
+  AC4["AC4: Commit-per-step, branch-per-run, merge on terminal"]
+  R4 --> AC4
+  AC5["AC5: Load reconstructs Position and Execution"]
+  R5 --> AC5
+  AC6["AC6: DB-only git-style Revert"]
+  R6 --> AC6
+```

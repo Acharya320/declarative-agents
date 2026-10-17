@@ -52,15 +52,15 @@ present tool for agent-architecture.slide and uses the application root as
 the working directory. The live target serves the deck when its port is
 available.
 
-<!-- field: use_case -->
-#### Use case
-
-rel00.0-uc001-guided-agent-architecture
-
 <!-- field: id -->
 #### ID
 
 presentation_command
+
+<!-- field: use_case -->
+#### Use case
+
+rel00.0-uc001-guided-agent-architecture
 
 <!-- field: go_test -->
 #### Go test
@@ -106,15 +106,15 @@ catalog profile and passes --profile, --directory, and development
 --core-root to agent-core. The live target starts the curator when the
 runtime checkout and ports are available.
 
-<!-- field: use_case -->
-#### Use case
-
-rel00.0-uc001-guided-agent-architecture
-
 <!-- field: id -->
 #### ID
 
 canonical_curator_command
+
+<!-- field: use_case -->
+#### Use case
+
+rel00.0-uc001-guided-agent-architecture
 
 <!-- field: go_test -->
 #### Go test
@@ -168,15 +168,15 @@ the fixed demo reason to /api/lifecycle/exit, treats HTTP 200 and 202 as
 accepted, and transitions to Done. Dependency-gated live evidence
 observes the canonical curator reaching Done and releasing listeners.
 
-<!-- field: use_case -->
-#### Use case
-
-rel00.0-uc001-guided-agent-architecture
-
 <!-- field: id -->
 #### ID
 
 lifecycle_exit_contract
+
+<!-- field: use_case -->
+#### Use case
+
+rel00.0-uc001-guided-agent-architecture
 
 <!-- field: go_test -->
 #### Go test
@@ -234,15 +234,15 @@ no dedicated health or telemetry API, so evidence must record that signal
 limitation and cannot treat process existence as readiness. This case
 does not satisfy srd002 AC1 through AC3 until those observations run.
 
-<!-- field: use_case -->
-#### Use case
-
-rel00.0-uc001-guided-agent-architecture
-
 <!-- field: id -->
 #### ID
 
 managed_service_contract
+
+<!-- field: use_case -->
+#### Use case
+
+rel00.0-uc001-guided-agent-architecture
 
 <!-- field: go_test -->
 #### Go test
@@ -304,15 +304,15 @@ has separate profile/machine/REST coverage in lifecycle_exit_contract;
 audit does not claim to parse every lifecycle YAML file. Stats emits only
 the application composition fields and no agents section.
 
-<!-- field: use_case -->
-#### Use case
-
-rel00.0-uc001-guided-agent-architecture
-
 <!-- field: id -->
 #### ID
 
 application_contract
+
+<!-- field: use_case -->
+#### Use case
+
+rel00.0-uc001-guided-agent-architecture
 
 <!-- field: go_test -->
 #### Go test

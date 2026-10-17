@@ -333,6 +333,14 @@ Commands that mutate process-local state MAY implement a domain-neutral serial-d
 - Specifying receipt schemas for tool families other than the LLM v2 safety envelope in R3.6-R3.10; every originating tool remains the sole owner and decoder of its receipt.
 - Modeling workspace or git refs as a separately persisted state layer.
 
+<!-- field: test_trace_plan | form: "typed table" -->
+## Test trace plan
+
+| test_suite | covers |
+| --- | --- |
+| test-rel02.0-lifecycle | [AC1, AC2, AC3, AC4, AC5, AC6, AC8] |
+| test-rel07.0-command-state | [AC7] |
+
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
 
@@ -461,21 +469,6 @@ Stable run/step/revision references resolve authoritative conversation JSON afte
 - R8.6
 - R8.7
 
-<!-- field: test_trace_plan | form: "typed table" -->
-## Test trace plan
-
-| test_suite | covers |
-| --- | --- |
-| test-rel02.0-lifecycle | [AC1, AC2, AC3, AC4, AC5, AC6, AC8] |
-| test-rel07.0-command-state | [AC7] |
-
-<!-- field: related_documents -->
-## Related documents
-
-- cfg-runtime-contract
-- srd025-rollback-lifecycle
-- srd026-lifecycle-tools
-
 <!-- field: reference_model -->
 ## Reference model
 
@@ -485,48 +478,63 @@ adopts. srd035 pairs with srd036-dolt-state-persistence, which specifies the
 default persistent backend (Dolt versioned SQL) and the git-style revert that
 serves rollback in place of the retired engine undo-walk.
 
-<!-- field: implementation_status | form: "tree" -->
+<!-- field: related_documents -->
+## Related documents
+
+- cfg-runtime-contract
+- srd025-rollback-lifecycle
+- srd026-lifecycle-tools
+
+<!-- field: implementation_status -->
 ## Implementation status
 
-- done:
-  1. Typed Checkpoint port with Position, Execution, Entry, and opaque Receipt on Result.
-  1. NoopCheckpoint and InMemoryCheckpoint adapters, with DoltCheckpoint as the persistent backend when configured.
-  1. Save-after-dispatch timing, single resume path, and retirement of CheckpointPolicy and the engine undo-walk.
-  1. Boundary-value JSON round trips, byte-exact valid UTF-8 receipts, caller-memory isolation, nil/empty execution preservation, and invalid conversation rejection.
-  1. "GH-489: Versioned typed output-redaction metadata, pre-Entry field removal, adapter enforcement, and selector denial for unversioned legacy output (R7)."
-  1. "GH-1684: Reference-only LLM conversation receipt v2 with legacy decode, command-local direct Undo, and resolver-based restart restoration (R3.6-R3.10)."
-  1. "GH-1683: Stable run/step/revision conversation references, checkpoint-backed cmd/agent provider/resolver wiring, disabled-mode unavailability, and linear 10-turn trace-plus-receipt growth coverage (R5.6, R8)."
-- planned: []
+<!-- field: done -->
+### Done
 
-<!-- field: diagrams | form: "tree" -->
+- Typed Checkpoint port with Position, Execution, Entry, and opaque Receipt on Result.
+- NoopCheckpoint and InMemoryCheckpoint adapters, with DoltCheckpoint as the persistent backend when configured.
+- Save-after-dispatch timing, single resume path, and retirement of CheckpointPolicy and the engine undo-walk.
+- Boundary-value JSON round trips, byte-exact valid UTF-8 receipts, caller-memory isolation, nil/empty execution preservation, and invalid conversation rejection.
+- GH-489: Versioned typed output-redaction metadata, pre-Entry field removal, adapter enforcement, and selector denial for unversioned legacy output (R7).
+- GH-1684: Reference-only LLM conversation receipt v2 with legacy decode, command-local direct Undo, and resolver-based restart restoration (R3.6-R3.10).
+- GH-1683: Stable run/step/revision conversation references, checkpoint-backed cmd/agent provider/resolver wiring, disabled-mode unavailability, and linear 10-turn trace-plus-receipt growth coverage (R5.6, R8).
+
+<!-- field: planned | form: "empty list" -->
+### Planned
+
+None
+
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: Replace the key/blob StateStore with a typed checkpoint port"] --> Goals["Goals: Typed Checkpoint Port"]
-    Goals --> R1["R1: Checkpoint port"]
-    Goals --> R2["R2: Position and Execution wire format"]
-    Goals --> R3["R3: Opaque receipt on Entry"]
-    Goals --> R4["R4: Conversation in the typed snapshot"]
-    Goals --> R5["R5: Reference adapters and default backend"]
-    Goals --> R6["R6: Save timing, resume, and non-goals"]
-    Goals --> R7["R7: Typed output-redaction contract"]
-    Goals --> R8["R8: Stable references and linear duplicate-content growth"]
-    AC1["AC1: Two-method port; no key/blob StateStore"]
-    R1 --> AC1
-    AC2["AC2: Typed Position and Execution with JSON wire format"]
-    R2 --> AC2
-    AC3["AC3: Opaque receipt persisted verbatim"]
-    R3 --> AC3
-    AC4["AC4: Conversation folds into the snapshot"]
-    R4 --> AC4
-    AC5["AC5: Noop default, InMemory test adapter, Dolt backend"]
-    R5 --> AC5
-    AC6["AC6: Save timing, single resume, non-goals"]
-    R6 --> AC6
-    AC7["AC7: Typed redaction, fail closed, adapter enforcement"]
-    R7 --> AC7
-    AC8["AC8: Restart-resolvable references and linear trace-plus-receipt growth"]
-    R8 --> AC8
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: Replace the key/blob StateStore with a typed checkpoint port"] --> Goals["Goals: Typed Checkpoint Port"]
+  Goals --> R1["R1: Checkpoint port"]
+  Goals --> R2["R2: Position and Execution wire format"]
+  Goals --> R3["R3: Opaque receipt on Entry"]
+  Goals --> R4["R4: Conversation in the typed snapshot"]
+  Goals --> R5["R5: Reference adapters and default backend"]
+  Goals --> R6["R6: Save timing, resume, and non-goals"]
+  Goals --> R7["R7: Typed output-redaction contract"]
+  Goals --> R8["R8: Stable references and linear duplicate-content growth"]
+  AC1["AC1: Two-method port; no key/blob StateStore"]
+  R1 --> AC1
+  AC2["AC2: Typed Position and Execution with JSON wire format"]
+  R2 --> AC2
+  AC3["AC3: Opaque receipt persisted verbatim"]
+  R3 --> AC3
+  AC4["AC4: Conversation folds into the snapshot"]
+  R4 --> AC4
+  AC5["AC5: Noop default, InMemory test adapter, Dolt backend"]
+  R5 --> AC5
+  AC6["AC6: Save timing, single resume, non-goals"]
+  R6 --> AC6
+  AC7["AC7: Typed redaction, fail closed, adapter enforcement"]
+  R7 --> AC7
+  AC8["AC8: Restart-resolvable references and linear trace-plus-receipt growth"]
+  R8 --> AC8
+```

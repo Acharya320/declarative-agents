@@ -227,40 +227,44 @@ Generator imports internal/model/llm/ollama and deletes internal/llm/adapter.go.
 - R1.1
 - R1.2
 
-<!-- field: implementation_status | form: "tree" -->
+<!-- field: implementation_status -->
 ## Implementation status
 
-- current:
-  Superseded by srd058-provider-libraries R5.2. The compiled adapter in
-  internal/model/llm/ollama was removed after a capture-fixture parity run
-  (GH-2240). Ollama chat is now the tools/providers/ollama library, read by
-  the invoke_llm dialect client; provider: ollama and an omitted provider
-  resolve to its dialect. Construction without network I/O, tracing, and
-  failure reporting are held by internal/tools/llm tests.
+<!-- field: current -->
+### Current
 
-<!-- field: diagrams | form: "tree" -->
+Superseded by srd058-provider-libraries R5.2. The compiled adapter in
+internal/model/llm/ollama was removed after a capture-fixture parity run
+(GH-2240). Ollama chat is now the tools/providers/ollama library, read by
+the invoke_llm dialect client; provider: ollama and an omitted provider
+resolve to its dialect. Construction without network I/O, tracing, and
+failure reporting are held by internal/tools/llm tests.
+
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: Every agent built on agent-core needs to talk to an L..."] --> Goals["Goals: Ollama LLM Adapter"]
-    Goals --> R1["R1: Adapter struct"]
-    Goals --> R2["R2: Chat (POST /api/chat)"]
-    Goals --> R4["R4: Declarative model availability"]
-    Goals --> R5["R5: Tracing"]
-    Goals --> R6["R6: Error handling"]
-    AC1["AC1: NewAdapter returns a working llm.Client. Chat round-trips..."]
-    R1 --> AC1
-    R2 --> AC1
-    AC2["AC2: NewAdapter performs no hidden model-availability request..."]
-    R4 --> AC2
-    AC3["AC3: WithTracer enables Chat inference spans and error record..."]
-    R5 --> AC3
-    AC4["AC4: Connection failures, bad HTTP status, and malformed JSON..."]
-    R6 --> AC4
-    AC5["AC5: WithHTTPClient overrides the default 5-minute-timeout cli..."]
-    R1 --> AC5
-    AC6["AC6: Generator imports internal/model/llm/ollama and deletes i..."]
-    R1 --> AC6
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: Every agent built on agent-core needs to talk to an L..."] --> Goals["Goals: Ollama LLM Adapter"]
+  Goals --> R1["R1: Adapter struct"]
+  Goals --> R2["R2: Chat (POST /api/chat)"]
+  Goals --> R4["R4: Declarative model availability"]
+  Goals --> R5["R5: Tracing"]
+  Goals --> R6["R6: Error handling"]
+  AC1["AC1: NewAdapter returns a working llm.Client. Chat round-trips..."]
+  R1 --> AC1
+  R2 --> AC1
+  AC2["AC2: NewAdapter performs no hidden model-availability request..."]
+  R4 --> AC2
+  AC3["AC3: WithTracer enables Chat inference spans and error record..."]
+  R5 --> AC3
+  AC4["AC4: Connection failures, bad HTTP status, and malformed JSON..."]
+  R6 --> AC4
+  AC5["AC5: WithHTTPClient overrides the default 5-minute-timeout cli..."]
+  R1 --> AC5
+  AC6["AC6: Generator imports internal/model/llm/ollama and deletes i..."]
+  R1 --> AC6
+```

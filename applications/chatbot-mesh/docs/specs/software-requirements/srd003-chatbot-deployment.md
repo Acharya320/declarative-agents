@@ -10,22 +10,48 @@ depends_on:
 <!-- Copyright (c) 2026 Nokia -->
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
 
-<!-- field: role_realization_decision | form: "tree" -->
+<!-- field: role_realization_decision -->
 ## Role realization decision
 
-- current_actor: Helm chart and rendered workloads
-- implemented_responsibility: Render profile-backed actors, values-named RAG instances, wrapper closure, and infrastructure adapters into one deployment topology.
-- canonical_role_sub_role: Workload names inherit mounted profile bindings; Helm names are not canonical roles or sub-roles.
-- retained_or_proposed_name: Retain workload names; GH-1077 renamed the provisioning workflow realization to provisioning-workflow-orchestrator.
-- authority_boundary: Values and templates select deployment identity and configuration but do not define semantic role identity.
-- evidence:
-  1. helm/templates/chatbot.yaml
-  1. helm/templates/rag-units.yaml
-  1. helm/templates/provisioning-workflow-orchestrator.yaml
-  1. helm/templates/creator.yaml
-  1. helm/templates/applier.yaml
-  1. helm/templates/collector.yaml
-- migration_impact: GH-1077 renamed the provisioning-workflow-orchestrator workload and all selectors, policies, telemetry identities, integrations, and packaging references together.
+<!-- field: current_actor -->
+### Current actor
+
+Helm chart and rendered workloads
+
+<!-- field: implemented_responsibility -->
+### Implemented responsibility
+
+Render profile-backed actors, values-named RAG instances, wrapper closure, and infrastructure adapters into one deployment topology.
+
+<!-- field: canonical_role_sub_role -->
+### Canonical role sub role
+
+Workload names inherit mounted profile bindings; Helm names are not canonical roles or sub-roles.
+
+<!-- field: retained_or_proposed_name -->
+### Retained or proposed name
+
+Retain workload names; GH-1077 renamed the provisioning workflow realization to provisioning-workflow-orchestrator.
+
+<!-- field: authority_boundary -->
+### Authority boundary
+
+Values and templates select deployment identity and configuration but do not define semantic role identity.
+
+<!-- field: evidence -->
+### Evidence
+
+- helm/templates/chatbot.yaml
+- helm/templates/rag-units.yaml
+- helm/templates/provisioning-workflow-orchestrator.yaml
+- helm/templates/creator.yaml
+- helm/templates/applier.yaml
+- helm/templates/collector.yaml
+
+<!-- field: migration_impact -->
+### Migration impact
+
+GH-1077 renamed the provisioning-workflow-orchestrator workload and all selectors, policies, telemetry identities, integrations, and packaging references together.
 
 <!-- field: context -->
 ## Context
@@ -371,39 +397,46 @@ agent-core runtime contracts this chart deploys against. External references, ow
 | srd008-telemetry | agent-core | [R5] |
 | srd018-cli-flag-contract | agent-core | [R5] |
 
-<!-- field: implementation_status | form: "tree" -->
+<!-- field: implementation_status -->
 ## Implementation status
 
-- done:
-  1. "Helm chart topology (R1): one chart deploys the chatbot, a values-driven ragUnits list each rendering a rag-server and a Chroma store, a Dolt checkpoint backend, and an OTel collector with a Jaeger backend, all over the rel06.0 mounted-profile image with profiles projected from ConfigMaps."
-  1. "Values-to-config co-generation (R2): the ragUnits list renders the chatbot rest.yaml RAG clients, the fan-out machine, and the UX monitored-agents from one source, validated by a --validate-config init container and a helm template diff lock, so topology and client config cannot drift."
-  1. "Tiered hot swap (R3): repoint is a Kubernetes Service change touching no agent config; add or remove a RAG re-renders the ConfigMaps and rolls the chatbot; the old pod drains active machine_request responses before it exits, and the replacement pod serves subsequent turns."
-  1. "Observability wiring (R5) and the in-cluster LLM tier (R6): every agent exports OTLP to the collector and on to Jaeger; an optional Ollama tier (enabled by default) preloads the models and gates agent readiness on their presence, with an external-endpoint switch that leaves R2 unchanged."
-- planned:
-  1. A live on-cluster hot-swap turn citing a newly added corpus, paired with a Docker and Ollama host run.
-  1. The integration-only shared-sink overlay, native Chroma tracing, Dolt metric scraping, kind control-plane tracing, and retained evidence assertions specified by R5.5-R5.11.
+<!-- field: done -->
+### Done
 
-<!-- field: diagrams | form: "tree" -->
+- Helm chart topology (R1): one chart deploys the chatbot, a values-driven ragUnits list each rendering a rag-server and a Chroma store, a Dolt checkpoint backend, and an OTel collector with a Jaeger backend, all over the rel06.0 mounted-profile image with profiles projected from ConfigMaps.
+- Values-to-config co-generation (R2): the ragUnits list renders the chatbot rest.yaml RAG clients, the fan-out machine, and the UX monitored-agents from one source, validated by a --validate-config init container and a helm template diff lock, so topology and client config cannot drift.
+- Tiered hot swap (R3): repoint is a Kubernetes Service change touching no agent config; add or remove a RAG re-renders the ConfigMaps and rolls the chatbot; the old pod drains active machine_request responses before it exits, and the replacement pod serves subsequent turns.
+- Observability wiring (R5) and the in-cluster LLM tier (R6): every agent exports OTLP to the collector and on to Jaeger; an optional Ollama tier (enabled by default) preloads the models and gates agent readiness on their presence, with an external-endpoint switch that leaves R2 unchanged.
+
+<!-- field: planned -->
+### Planned
+
+- A live on-cluster hot-swap turn citing a newly added corpus, paired with a Docker and Ollama host run.
+- The integration-only shared-sink overlay, native Chroma tracing, Dolt metric scraping, kind control-plane tracing, and retained evidence assertions specified by R5.5-R5.11.
+
+<!-- field: diagrams -->
 ## Diagrams
 
-- deployment:
-  ```mermaid
-  flowchart TB
-    Ingress["Ingress"] --> Chatbot["Chatbot agent (UX + turn machine)"]
-    Chatbot -->|vector-in query| RAG1["RAG agent 1 + Chroma 1"]
-    Chatbot -->|vector-in query| RAGn["RAG agent N + Chroma N"]
-    Chatbot -->|invoke_llm / embed| LLM["LLM tier: Ollama subchart (default) or external endpoint"]
-    Preload["Model-preload Job"] -->|pull models to PVC| LLM
-    LLM -.->|/api/tags readiness gate| Chatbot
-    Chatbot -->|checkpoint persistence| Dolt["Dolt backend"]
-    Chatbot -->|OTLP| Collector["OTel collector"]
-    RAG1 -->|OTLP| Collector
-    RAGn -->|OTLP| Collector
-    Chroma["Chroma stores"] -->|native OTLP traces| Collector
-    Dolt -.->|Prometheus scrape, contrib collector only| Collector
-    Collector --> Backend["Trace backend (Tempo/Jaeger)"]
-    Collector --> Metrics["Prometheus-compatible metrics backend"]
-    Collector -. integration overlay .-> HostIngress["Persistent host OTLP ingress"]
-    Values["values.yaml RAG list"] -->|co-generate| RAGConfig["RAG Deployments + Services"]
-    Values -->|co-generate| ClientConfig["chatbot rest.yaml RAG clients (ValidateDefinition)"]
-  ```
+<!-- field: deployment -->
+### Deployment
+
+```mermaid
+flowchart TB
+  Ingress["Ingress"] --> Chatbot["Chatbot agent (UX + turn machine)"]
+  Chatbot -->|vector-in query| RAG1["RAG agent 1 + Chroma 1"]
+  Chatbot -->|vector-in query| RAGn["RAG agent N + Chroma N"]
+  Chatbot -->|invoke_llm / embed| LLM["LLM tier: Ollama subchart (default) or external endpoint"]
+  Preload["Model-preload Job"] -->|pull models to PVC| LLM
+  LLM -.->|/api/tags readiness gate| Chatbot
+  Chatbot -->|checkpoint persistence| Dolt["Dolt backend"]
+  Chatbot -->|OTLP| Collector["OTel collector"]
+  RAG1 -->|OTLP| Collector
+  RAGn -->|OTLP| Collector
+  Chroma["Chroma stores"] -->|native OTLP traces| Collector
+  Dolt -.->|Prometheus scrape, contrib collector only| Collector
+  Collector --> Backend["Trace backend (Tempo/Jaeger)"]
+  Collector --> Metrics["Prometheus-compatible metrics backend"]
+  Collector -. integration overlay .-> HostIngress["Persistent host OTLP ingress"]
+  Values["values.yaml RAG list"] -->|co-generate| RAGConfig["RAG Deployments + Services"]
+  Values -->|co-generate| ClientConfig["chatbot rest.yaml RAG clients (ValidateDefinition)"]
+```

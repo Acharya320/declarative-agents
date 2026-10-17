@@ -92,6 +92,7 @@ var (
 	itemPattern   = regexp.MustCompile(`^each item matching \^([A-Z]+)\[0-9\]\+: $`)
 	quotedItem    = regexp.MustCompile(`^item \d+: "(.*)"$`)
 	keyword       = regexp.MustCompile(`^"([A-Za-z ]+)" in `)
+	moveAhead     = regexp.MustCompile(`^move ([a-z_]+) ahead of ([a-z_]+),`)
 )
 
 // followHint applies the fix one finding asks for. Line numbers are 1-based.
@@ -109,6 +110,8 @@ func followHint(lines []string, f Finding) ([]string, error) {
 		return prefixItem(lines, f)
 	case "prose-containment":
 		return reword(lines, f)
+	case "field-out-of-order":
+		return moveField(lines, f)
 	}
 	return nil, fmt.Errorf("no fix follows from finding %s", f.Name)
 }
@@ -177,6 +180,43 @@ func reword(lines []string, f Finding) ([]string, error) {
 	}
 	out := append([]string(nil), lines...)
 	out[f.Line-1] = strings.Replace(out[f.Line-1], match[1]+" keep", "keeps", 1)
+	return out, nil
+}
+
+// moveField moves a field's section, marker to the next marker at its
+// heading level or above, ahead of the field the hint names.
+func moveField(lines []string, f Finding) ([]string, error) {
+	match := moveAhead.FindStringSubmatch(f.Hint)
+	if match == nil {
+		return nil, fmt.Errorf("hint names no field to move")
+	}
+	start, target := -1, -1
+	for i, line := range lines {
+		switch line {
+		case "<!-- field: " + match[1] + " -->":
+			start = i
+		case "<!-- field: " + match[2] + " -->":
+			target = i
+		}
+	}
+	if start < 0 || target < 0 || start+1 >= len(lines) {
+		return nil, fmt.Errorf("fields %s and %s not found", match[1], match[2])
+	}
+	level := len(lines[start+1]) - len(strings.TrimLeft(lines[start+1], "#"))
+	end := len(lines)
+	for j := start + 2; j+1 < len(lines); j++ {
+		depth := len(lines[j+1]) - len(strings.TrimLeft(lines[j+1], "#"))
+		if strings.HasPrefix(lines[j], "<!-- ") && depth > 0 && depth <= level {
+			end = j
+			break
+		}
+	}
+	section := append([]string(nil), lines[start:end]...)
+	rest := append(append([]string(nil), lines[:start]...), lines[end:]...)
+	if target > start {
+		target -= end - start
+	}
+	out := append(append(append([]string(nil), rest[:target]...), section...), rest[target:]...)
 	return out, nil
 }
 

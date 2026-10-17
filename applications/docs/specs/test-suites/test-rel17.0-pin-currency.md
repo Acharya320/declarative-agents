@@ -27,7 +27,7 @@ suite fail on somebody else's release day.
 - rel17.0-uc001-pin-currency
 
 <!-- field: srds -->
-## Srds
+## SRDs
 
 - srd006-pin-currency
 

@@ -23,6 +23,11 @@ The demo fixture needs a minimal specification corpus so the specification-criti
 
 Provide one SRD file for graph construction.
 
+<!-- field: non_goals -->
+## Non-goals
+
+- Anything beyond this fixture.
+
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
 
@@ -35,8 +40,3 @@ The fixture can be loaded before generic charter checks run.
 #### Traces
 
 - R1.1
-
-<!-- field: non_goals -->
-## Non-goals
-
-- Anything beyond this fixture.

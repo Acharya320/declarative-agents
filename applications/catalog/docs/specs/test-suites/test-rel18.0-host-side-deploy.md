@@ -26,15 +26,20 @@ release: "18.0"
 <!-- case: Deploy closure | status: planned -->
 ### Deploy closure
 
+<!-- field: id -->
+#### ID
+
+deploy-closure
+
 <!-- field: use_case -->
 #### Use case
 
 rel18.0-uc001-host-side-deploy
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-deploy-closure
+mage validate
 
 <!-- field: verifies -->
 #### Verifies
@@ -45,11 +50,6 @@ deploy-closure
 #### Traces
 
 - rel18.0-uc001-host-side-deploy S1
-
-<!-- field: go_test -->
-#### Go test
-
-mage validate
 
 <!-- field: assertions -->
 #### Assertions
@@ -61,15 +61,20 @@ mage validate
 <!-- case: Deploy reaches deployed | status: planned -->
 ### Deploy reaches deployed
 
+<!-- field: id -->
+#### ID
+
+deploy-reaches-deployed
+
 <!-- field: use_case -->
 #### Use case
 
 rel18.0-uc001-host-side-deploy
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-deploy-reaches-deployed
+go test ./conformance -run '^TestApplierDeployReachesDeployed'
 
 <!-- field: verifies -->
 #### Verifies
@@ -80,11 +85,6 @@ deploy-reaches-deployed
 #### Traces
 
 - rel18.0-uc001-host-side-deploy S1
-
-<!-- field: go_test -->
-#### Go test
-
-go test ./conformance -run '^TestApplierDeployReachesDeployed'
 
 <!-- field: assertions -->
 #### Assertions
@@ -96,15 +96,20 @@ go test ./conformance -run '^TestApplierDeployReachesDeployed'
 <!-- case: Deploy rejects a failed dry run | status: planned -->
 ### Deploy rejects a failed dry run
 
+<!-- field: id -->
+#### ID
+
+deploy-rejects-a-failed-dry-run
+
 <!-- field: use_case -->
 #### Use case
 
 rel18.0-uc001-host-side-deploy
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-deploy-rejects-a-failed-dry-run
+go test ./conformance -run '^TestApplierDeployRejectsAFailedDryRun'
 
 <!-- field: verifies -->
 #### Verifies
@@ -115,11 +120,6 @@ deploy-rejects-a-failed-dry-run
 #### Traces
 
 - rel18.0-uc001-host-side-deploy S5
-
-<!-- field: go_test -->
-#### Go test
-
-go test ./conformance -run '^TestApplierDeployRejectsAFailedDryRun'
 
 <!-- field: assertions -->
 #### Assertions
@@ -130,15 +130,20 @@ go test ./conformance -run '^TestApplierDeployRejectsAFailedDryRun'
 <!-- case: Deploy rolls back a stalled verify | status: planned -->
 ### Deploy rolls back a stalled verify
 
+<!-- field: id -->
+#### ID
+
+deploy-rolls-back-a-stalled-verify
+
 <!-- field: use_case -->
 #### Use case
 
 rel18.0-uc001-host-side-deploy
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-deploy-rolls-back-a-stalled-verify
+go test ./conformance -run '^TestApplierDeployRollsBackAStalledVerify'
 
 <!-- field: verifies -->
 #### Verifies
@@ -149,11 +154,6 @@ deploy-rolls-back-a-stalled-verify
 #### Traces
 
 - rel18.0-uc001-host-side-deploy S5
-
-<!-- field: go_test -->
-#### Go test
-
-go test ./conformance -run '^TestApplierDeployRollsBackAStalledVerify'
 
 <!-- field: assertions -->
 #### Assertions
@@ -164,15 +164,20 @@ go test ./conformance -run '^TestApplierDeployRollsBackAStalledVerify'
 <!-- case: Deploy fails when rollback fails | status: planned -->
 ### Deploy fails when rollback fails
 
+<!-- field: id -->
+#### ID
+
+deploy-fails-when-rollback-fails
+
 <!-- field: use_case -->
 #### Use case
 
 rel18.0-uc001-host-side-deploy
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-deploy-fails-when-rollback-fails
+go test ./conformance -run '^TestApplierDeployFailsWhenRollbackFails'
 
 <!-- field: verifies -->
 #### Verifies
@@ -184,11 +189,6 @@ deploy-fails-when-rollback-fails
 
 - rel18.0-uc001-host-side-deploy S5
 
-<!-- field: go_test -->
-#### Go test
-
-go test ./conformance -run '^TestApplierDeployFailsWhenRollbackFails'
-
 <!-- field: assertions -->
 #### Assertions
 
@@ -198,15 +198,20 @@ go test ./conformance -run '^TestApplierDeployFailsWhenRollbackFails'
 <!-- case: Undeploy removes and reports absent | status: planned -->
 ### Undeploy removes and reports absent
 
+<!-- field: id -->
+#### ID
+
+undeploy-removes-and-reports-absent
+
 <!-- field: use_case -->
 #### Use case
 
 rel18.0-uc001-host-side-deploy
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-undeploy-removes-and-reports-absent
+go test ./conformance -run '^TestApplierUndeployRemovesAndReportsAbsent'
 
 <!-- field: verifies -->
 #### Verifies
@@ -218,11 +223,6 @@ undeploy-removes-and-reports-absent
 
 - rel18.0-uc001-host-side-deploy S7
 
-<!-- field: go_test -->
-#### Go test
-
-go test ./conformance -run '^TestApplierUndeployRemovesAndReportsAbsent'
-
 <!-- field: assertions -->
 #### Assertions
 
@@ -233,15 +233,20 @@ go test ./conformance -run '^TestApplierUndeployRemovesAndReportsAbsent'
 <!-- case: Deploy declares no model word | status: planned -->
 ### Deploy declares no model word
 
+<!-- field: id -->
+#### ID
+
+deploy-declares-no-model-word
+
 <!-- field: use_case -->
 #### Use case
 
 rel18.0-uc001-host-side-deploy
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-deploy-declares-no-model-word
+go test ./conformance -run '^TestApplierDeployDeclaresNoModelWord'
 
 <!-- field: verifies -->
 #### Verifies
@@ -253,11 +258,6 @@ deploy-declares-no-model-word
 
 - rel18.0-uc001-host-side-deploy S1
 
-<!-- field: go_test -->
-#### Go test
-
-go test ./conformance -run '^TestApplierDeployDeclaresNoModelWord'
-
 <!-- field: assertions -->
 #### Assertions
 
@@ -267,15 +267,20 @@ go test ./conformance -run '^TestApplierDeployDeclaresNoModelWord'
 <!-- case: Deploy rendering resolves every coordinate | status: planned -->
 ### Deploy rendering resolves every coordinate
 
+<!-- field: id -->
+#### ID
+
+deploy-rendering-resolves-every-coordinate
+
 <!-- field: use_case -->
 #### Use case
 
 rel18.0-uc001-host-side-deploy
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-deploy-rendering-resolves-every-coordinate
+cd ../.. && go test ./magefiles/kindrig -run '^TestRenderDeployDeclarations'
 
 <!-- field: verifies -->
 #### Verifies
@@ -287,11 +292,6 @@ deploy-rendering-resolves-every-coordinate
 
 - rel18.0-uc001-host-side-deploy S2
 
-<!-- field: go_test -->
-#### Go test
-
-cd ../.. && go test ./magefiles/kindrig -run '^TestRenderDeployDeclarations'
-
 <!-- field: assertions -->
 #### Assertions
 
@@ -301,15 +301,20 @@ cd ../.. && go test ./magefiles/kindrig -run '^TestRenderDeployDeclarations'
 <!-- case: Deploy rendered argv guards | status: planned -->
 ### Deploy rendered argv guards
 
+<!-- field: id -->
+#### ID
+
+deploy-rendered-argv-guards
+
 <!-- field: use_case -->
 #### Use case
 
 rel18.0-uc001-host-side-deploy
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-deploy-rendered-argv-guards
+cd ../.. && go test ./magefiles/kindrig -run '^TestRenderedDeployArgv'
 
 <!-- field: verifies -->
 #### Verifies
@@ -323,11 +328,6 @@ deploy-rendered-argv-guards
 - rel18.0-uc001-host-side-deploy S2
 - rel18.0-uc001-host-side-deploy S3
 
-<!-- field: go_test -->
-#### Go test
-
-cd ../.. && go test ./magefiles/kindrig -run '^TestRenderedDeployArgv'
-
 <!-- field: assertions -->
 #### Assertions
 
@@ -337,15 +337,20 @@ cd ../.. && go test ./magefiles/kindrig -run '^TestRenderedDeployArgv'
 <!-- case: Deploy gates on a failure terminal | status: planned -->
 ### Deploy gates on a failure terminal
 
+<!-- field: id -->
+#### ID
+
+deploy-gates-on-a-failure-terminal
+
 <!-- field: use_case -->
 #### Use case
 
 rel18.0-uc001-host-side-deploy
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-deploy-gates-on-a-failure-terminal
+cd ../.. && go test ./magefiles/kindrig -run '^TestDeployGatesOnAFailureTerminal'
 
 <!-- field: verifies -->
 #### Verifies
@@ -357,11 +362,6 @@ deploy-gates-on-a-failure-terminal
 
 - rel18.0-uc001-host-side-deploy S6
 
-<!-- field: go_test -->
-#### Go test
-
-cd ../.. && go test ./magefiles/kindrig -run '^TestDeployGatesOnAFailureTerminal'
-
 <!-- field: assertions -->
 #### Assertions
 
@@ -371,15 +371,20 @@ cd ../.. && go test ./magefiles/kindrig -run '^TestDeployGatesOnAFailureTerminal
 <!-- case: Deploy atomic contract live | status: planned -->
 ### Deploy atomic contract live
 
+<!-- field: id -->
+#### ID
+
+deploy-atomic-contract-live
+
 <!-- field: use_case -->
 #### Use case
 
 rel18.0-uc001-host-side-deploy
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-deploy-atomic-contract-live
+GH-2304 adds the coding-agent deploy target; executable evidence lands with it
 
 <!-- field: verifies -->
 #### Verifies
@@ -392,11 +397,6 @@ deploy-atomic-contract-live
 
 - rel18.0-uc001-host-side-deploy S4
 - rel18.0-uc001-host-side-deploy S5
-
-<!-- field: go_test -->
-#### Go test
-
-GH-2304 adds the coding-agent deploy target; executable evidence lands with it
 
 <!-- field: assertions -->
 #### Assertions

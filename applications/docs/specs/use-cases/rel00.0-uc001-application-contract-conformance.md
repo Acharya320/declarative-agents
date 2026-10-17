@@ -35,16 +35,6 @@ root release.
 - Root Mage orchestration and Go tests are available.
 - The candidate declares runnable_module and any implemented optional capabilities in its architecture.
 
-<!-- field: current_candidates | form: "typed table" -->
-## Current candidates
-
-| path | ownership | runnable_module_status | managed_service_status | live_managed_service_evidence | packaged_status | helm_managed_status | kind_demo_status | classification | runnable |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| applications/chatbot-mesh | agent-owning |  |  |  |  |  |  |  |  |
-| applications/coding-agent | composition-only |  |  |  |  |  |  |  |  |
-| applications/agent-architecture | composition-only | implemented | partial | dependency_gated | planned | planned | planned |  |  |
-| applications/catalog |  |  |  |  |  |  |  | reusable catalog | false |
-
 <!-- field: flow -->
 ## Flow
 
@@ -78,6 +68,16 @@ root release.
   required without kind_demo.
 - F8: Root mage audit and mage stats complete. The maintainer records which
   evidence was executed and which capability groups were not applicable.
+
+<!-- field: current_candidates | form: "typed table" -->
+## Current candidates
+
+| path | ownership | runnable_module_status | managed_service_status | live_managed_service_evidence | packaged_status | helm_managed_status | kind_demo_status | classification | runnable |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| applications/chatbot-mesh | agent-owning |  |  |  |  |  |  |  |  |
+| applications/coding-agent | composition-only |  |  |  |  |  |  |  |  |
+| applications/agent-architecture | composition-only | implemented | partial | dependency_gated | planned | planned | planned |  |  |
+| applications/catalog |  |  |  |  |  |  |  | reusable catalog | false |
 
 <!-- field: touchpoints -->
 ## Touchpoints

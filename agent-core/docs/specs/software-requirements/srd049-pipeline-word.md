@@ -257,34 +257,41 @@ The word records no side effect, reverses as a noop, and mutates nothing; inject
 
 - cfg-tool-authoring-standard
 
-<!-- field: implementation_status | form: "tree" -->
+<!-- field: implementation_status -->
 ## Implementation status
 
-- implemented:
-  1. The pipeline word (internal/tools/pipeline), its factory registration as a standard family gated on the pipeline init, and stage-family co-selection in SelectedBuiltinInits shipped with GH-1957. Stages build eagerly at registration through their own factories, chain through the previous-Result contract, and propagate the injected command-state view, tracer, and monitor recorder.
-- planned:
-  1. Adopting the word in chatbot-mesh's request machines, where the three rerank marshalling blocks and the source-selection block are the motivating geometry.
+<!-- field: implemented -->
+### Implemented
 
-<!-- field: diagrams | form: "tree" -->
+- The pipeline word (internal/tools/pipeline), its factory registration as a standard family gated on the pipeline init, and stage-family co-selection in SelectedBuiltinInits shipped with GH-1957. Stages build eagerly at registration through their own factories, chain through the previous-Result contract, and propagate the injected command-state view, tracer, and monitor recorder.
+
+<!-- field: planned -->
+### Planned
+
+- Adopting the word in chatbot-mesh's request machines, where the three rerank marshalling blocks and the source-selection block are the motivating geometry.
+
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: every reshape around a boundary call must be a machine state"] --> Goals["Goals: Pipeline Word"]
-    Goals --> R0["R0: Tool authoring standard"]
-    Goals --> R1["R1: Declaration and configuration"]
-    Goals --> R2["R2: Stage vocabulary"]
-    Goals --> R3["R3: Execution and chaining"]
-    Goals --> R4["R4: Failure separation"]
-    Goals --> R5["R5: Purity"]
-    R1 --> AC1["AC1: a marshalling block runs as one word"]
-    R3 --> AC1
-    R3 --> AC2["AC2: stages read prior steps through $from"]
-    R1 --> AC3["AC3: misconfiguration fails registration"]
-    R2 --> AC3
-    R4 --> AC4["AC4: a failing stage is a named fault"]
-    R2 --> AC5["AC5: stage families co-select"]
-    R3 --> AC6["AC6: purity and propagation"]
-    R5 --> AC6
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: every reshape around a boundary call must be a machine state"] --> Goals["Goals: Pipeline Word"]
+  Goals --> R0["R0: Tool authoring standard"]
+  Goals --> R1["R1: Declaration and configuration"]
+  Goals --> R2["R2: Stage vocabulary"]
+  Goals --> R3["R3: Execution and chaining"]
+  Goals --> R4["R4: Failure separation"]
+  Goals --> R5["R5: Purity"]
+  R1 --> AC1["AC1: a marshalling block runs as one word"]
+  R3 --> AC1
+  R3 --> AC2["AC2: stages read prior steps through $from"]
+  R1 --> AC3["AC3: misconfiguration fails registration"]
+  R2 --> AC3
+  R4 --> AC4["AC4: a failing stage is a named fault"]
+  R2 --> AC5["AC5: stage families co-select"]
+  R3 --> AC6["AC6: purity and propagation"]
+  R5 --> AC6
+```

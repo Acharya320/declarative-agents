@@ -15,14 +15,24 @@ Release 14 moves every application-owned coding actor directly below
 agents/<actor>/ and makes agents/application.yaml the package and deployment
 authority. The shared lifecycle wrapper is explicitly named role-server.
 
-<!-- field: historical_source_layout | form: "tree" -->
+<!-- field: historical_source_layout -->
 ## Historical source layout
 
-- status: removed
-- path: applications/coding-agent/agents/serving/
-- note:
-  This path is historical documentation only. No profile, package, Helm
-  template, fixture, or runtime lookup resolves it.
+<!-- field: status -->
+### Status
+
+removed
+
+<!-- field: path -->
+### Path
+
+applications/coding-agent/agents/serving/
+
+<!-- field: note -->
+### Note
+
+This path is historical documentation only. No profile, package, Helm
+template, fixture, or runtime lookup resolves it.
 
 <!-- field: current_source_layout | form: "tree" -->
 ## Current source layout
@@ -43,13 +53,27 @@ authority. The shared lifecycle wrapper is explicitly named role-server.
 - applier: applications/coding-agent/applier/profile.yaml
 - shared_wrapper: applications/coding-agent/role-server/
 
-<!-- field: compatibility | form: "tree" -->
+<!-- field: compatibility -->
 ## Compatibility
 
-- source_paths: breaking
-- runtime_contract: preserved
-- aliases: none
-- guidance:
-  Source consumers must use the normalized actor paths. Released profile
-  packages remain self-contained; no source-tree compatibility alias is
-  shipped, preventing duplicate active actor trees.
+<!-- field: source_paths -->
+### Source paths
+
+breaking
+
+<!-- field: runtime_contract -->
+### Runtime contract
+
+preserved
+
+<!-- field: aliases -->
+### Aliases
+
+none
+
+<!-- field: guidance -->
+### Guidance
+
+Source consumers must use the normalized actor paths. Released profile
+packages remain self-contained; no source-tree compatibility alias is
+shipped, preventing duplicate active actor trees.

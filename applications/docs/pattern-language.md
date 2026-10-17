@@ -67,43 +67,121 @@ overlaps; syntax is a one-line sentence showing the pattern in combination;
 examples are independent occurrences, each cited to the bibliography, of
 kind external, internal, or sibling.
 
-<!-- field: declarative_agent_application | form: "tree" -->
+<!-- field: declarative_agent_application -->
 ## Declarative agent application
 
-- summary: A declarative agent application is a runnable, governed composition of one or more agent realizations, application-owned configuration and interfaces, and any package or deployment artifacts needed to operate them. It consumes canonical agent programs by reference and owns the topology that turns those programs into an end-to-end capability.
-- parts:
-  - catalog: Canonical reusable agent programs and their conformance evidence.
-  - composition: Application-owned references, sequencing, wrappers, and interfaces.
-  - package: A resolved closure with provenance when a distributable artifact is required.
-  - deployment: Role-scoped workloads, mounts, endpoints, authority, and lifecycle.
-  - governance: Capability-dependent requirements, local evidence, and root orchestration.
-- canonical_example: The coding-agent application references planner, executor, and critic in the catalog, resolves one closed profile tree at package time, mounts the appropriate closure into separate role workloads, and keeps its shared runtime image free of profiles.
+<!-- field: summary -->
+### Summary
 
-<!-- field: role_realization_conventions | form: "tree" -->
+A declarative agent application is a runnable, governed composition of one or more agent realizations, application-owned configuration and interfaces, and any package or deployment artifacts needed to operate them. It consumes canonical agent programs by reference and owns the topology that turns those programs into an end-to-end capability.
+
+<!-- field: parts -->
+### Parts
+
+<!-- field: catalog -->
+#### Catalog
+
+Canonical reusable agent programs and their conformance evidence.
+
+<!-- field: composition -->
+#### Composition
+
+Application-owned references, sequencing, wrappers, and interfaces.
+
+<!-- field: package -->
+#### Package
+
+A resolved closure with provenance when a distributable artifact is required.
+
+<!-- field: deployment -->
+#### Deployment
+
+Role-scoped workloads, mounts, endpoints, authority, and lifecycle.
+
+<!-- field: governance -->
+#### Governance
+
+Capability-dependent requirements, local evidence, and root orchestration.
+
+<!-- field: canonical_example -->
+### Canonical example
+
+The coding-agent application references planner, executor, and critic in the catalog, resolves one closed profile tree at package time, mounts the appropriate closure into separate role workloads, and keeps its shared runtime image free of profiles.
+
+<!-- field: role_realization_conventions -->
 ## Role realization conventions
 
-- authority: applications/docs/specs/semantic-models/agent-role-realizations.md
-- naming_form: <context-or-purpose>-<primary-role>[-<deployment-or-configuration-form>]
-- identifier_style: lower-kebab-case
-- directory_rules:
-  1. Canonical reusable realizations live under applications/catalog/agents/.
-  1. Application wrappers and compositions live under applications/<application>/agents/.
-  1. Deployment, UX, test, and documentation artifacts remain with the application that owns them.
-  1. Directory and profile names describe ownership and realization context; they do not define canonical roles.
+<!-- field: authority -->
+### Authority
 
-<!-- field: conventions | form: "tree" -->
+applications/docs/specs/semantic-models/agent-role-realizations.md
+
+<!-- field: naming_form -->
+### Naming form
+
+<context-or-purpose>-<primary-role>[-<deployment-or-configuration-form>]
+
+<!-- field: identifier_style -->
+### Identifier style
+
+lower-kebab-case
+
+<!-- field: directory_rules -->
+### Directory rules
+
+- Canonical reusable realizations live under applications/catalog/agents/.
+- Application wrappers and compositions live under applications/<application>/agents/.
+- Deployment, UX, test, and documentation artifacts remain with the application that owns them.
+- Directory and profile names describe ownership and realization context; they do not define canonical roles.
+
+<!-- field: conventions -->
 ## Conventions
 
-- confidence_scale:
-  - 2: Deep invariant; the same force is resolved the same way across many independent systems and prior literature.
-  - 1: Well supported by prior art, but the specific form presented here is more recent.
-  - 0: Tentative; corroboration is thin and the structure is largely from the single reference implementation.
-- relationship_types:
-  - within: Larger patterns whose context this pattern helps complete.
-  - requires: Patterns that must already be in place for this one to hold.
-  - contains: Smaller patterns that complete or refine this one.
-  - enables: Patterns that this one makes possible.
-  - overlaps: Patterns that address a neighbouring force by a different means.
+<!-- field: confidence_scale -->
+### Confidence scale
+
+<!-- field: 2 -->
+#### 2
+
+Deep invariant; the same force is resolved the same way across many independent systems and prior literature.
+
+<!-- field: 1 -->
+#### 1
+
+Well supported by prior art, but the specific form presented here is more recent.
+
+<!-- field: 0 -->
+#### 0
+
+Tentative; corroboration is thin and the structure is largely from the single reference implementation.
+
+<!-- field: relationship_types -->
+### Relationship types
+
+<!-- field: within -->
+#### Within
+
+Larger patterns whose context this pattern helps complete.
+
+<!-- field: requires -->
+#### Requires
+
+Patterns that must already be in place for this one to hold.
+
+<!-- field: contains -->
+#### Contains
+
+Smaller patterns that complete or refine this one.
+
+<!-- field: enables -->
+#### Enables
+
+Patterns that this one makes possible.
+
+<!-- field: overlaps -->
+#### Overlaps
+
+Patterns that address a neighbouring force by a different means.
 
 <!-- field: patterns -->
 ## Patterns
@@ -160,16 +238,21 @@ Define one mandatory runnable-module capability, then add ordered, independently
 
 Keep the capability vocabulary in shared application documents. Each application records its declared capabilities, status, evidence, and exclusions. Root orchestration verifies baseline participation; local tests verify optional surfaces. A higher rung may depend on a lower rung, but no empty chart, package, or service stub may satisfy a declaration.
 
-<!-- field: consequences | form: "tree" -->
+<!-- field: consequences -->
 #### Consequences
 
-- benefits:
-  1. Small applications retain a meaningful baseline without ceremonial deployment files.
-  1. Reviewers can identify exactly which checks apply to a module.
-  1. New capability classes can extend the contract without changing existing declarations.
-- liabilities:
-  1. Applicability logic adds another dimension to audits and traceability.
-  1. Teams may under-declare capabilities unless evidence checks inspect actual surfaces.
+<!-- field: benefits -->
+##### Benefits
+
+- Small applications retain a meaningful baseline without ceremonial deployment files.
+- Reviewers can identify exactly which checks apply to a module.
+- New capability classes can extend the contract without changing existing declarations.
+
+<!-- field: liabilities -->
+##### Liabilities
+
+- Applicability logic adds another dimension to audits and traceability.
+- Teams may under-declare capabilities unless evidence checks inspect actual surfaces.
 
 <!-- field: grammar | form: "tree" -->
 #### Grammar
@@ -256,16 +339,21 @@ Place each reusable profile family, its requirements, and conformance evidence i
 
 Admit a catalog member only when it is independently useful or has multiple consumers. Version compatibility-sensitive paths and contracts. Reject copied canonical machines or declarations in application audits. Track source path and release or revision in each application manifest, and count only the canonical owner in repository statistics.
 
-<!-- field: consequences | form: "tree" -->
+<!-- field: consequences -->
 #### Consequences
 
-- benefits:
-  1. Fixes and conformance changes have one upstream location.
-  1. Ownership is visible in paths and statistics.
-  1. Applications can upgrade a known catalog revision on their own schedule.
-- liabilities:
-  1. Consumers need reference resolution and compatibility policy.
-  1. A catalog change may require coordinated migration across several applications.
+<!-- field: benefits -->
+##### Benefits
+
+- Fixes and conformance changes have one upstream location.
+- Ownership is visible in paths and statistics.
+- Applications can upgrade a known catalog revision on their own schedule.
+
+<!-- field: liabilities -->
+##### Liabilities
+
+- Consumers need reference resolution and compatibility policy.
+- A catalog change may require coordinated migration across several applications.
 
 <!-- field: grammar | form: "tree" -->
 #### Grammar
@@ -350,16 +438,21 @@ Create one application-owned manifest that names every direct canonical and loca
 
 Use a schema-versioned YAML document. Reject duplicate runtime paths, missing sources, unsafe traversal, unresolved compatibility, and request input that selects trusted roots or credentials. Keep deployment entries separate from reusable catalog references. Validate the manifest in the application audit and pass it unchanged to the closure resolver.
 
-<!-- field: consequences | form: "tree" -->
+<!-- field: consequences -->
 #### Consequences
 
-- benefits:
-  1. Composition is reviewable without reading build scripts or chart templates.
-  1. Package roots and provenance have one machine-readable source.
-  1. Local configuration ownership is explicit.
-- liabilities:
-  1. The manifest can drift unless packaging and deployment consume it directly.
-  1. It adds a maintained index alongside the referenced profile files.
+<!-- field: benefits -->
+##### Benefits
+
+- Composition is reviewable without reading build scripts or chart templates.
+- Package roots and provenance have one machine-readable source.
+- Local configuration ownership is explicit.
+
+<!-- field: liabilities -->
+##### Liabilities
+
+- The manifest can drift unless packaging and deployment consume it directly.
+- It adds a maintained index alongside the referenced profile files.
 
 <!-- field: grammar | form: "tree" -->
 #### Grammar
@@ -444,16 +537,21 @@ Starting from the Composition Manifest, traverse profile references at package t
 
 Resolve relative references from the file that declares them and catalog references from the pinned catalog root. Exclude documented runtime-owned roots such as /opt/agent-core. Sort output deterministically, hash content, and emit an inventory that deployment consumes. Re-run profile validation against the assembled tree and verify that the release archive contains every inventory member and no undeclared profile source.
 
-<!-- field: consequences | form: "tree" -->
+<!-- field: consequences -->
 #### Consequences
 
-- benefits:
-  1. Missing dependencies fail packaging rather than a live workload.
-  1. Release artifacts are deterministic and independently deployable.
-  1. Every entry profile can be traced to an exact source revision.
-- liabilities:
-  1. Packaging duplicates bytes from the canonical source into release artifacts.
-  1. Closure traversal must track every reference-bearing schema field as formats evolve.
+<!-- field: benefits -->
+##### Benefits
+
+- Missing dependencies fail packaging rather than a live workload.
+- Release artifacts are deterministic and independently deployable.
+- Every entry profile can be traced to an exact source revision.
+
+<!-- field: liabilities -->
+##### Liabilities
+
+- Packaging duplicates bytes from the canonical source into release artifacts.
+- Closure traversal must track every reference-bearing schema field as formats evolve.
 
 <!-- field: grammar | form: "tree" -->
 #### Grammar
@@ -538,16 +636,21 @@ Build runtime images with the interpreter and required execution toolchain, but 
 
 Scan image and archive inventories for forbidden profile roots. Mount the closure at a stable path such as /profiles, use an argv profile selector, and keep workspace mounts separate. Include only runtime toolchains needed by the selected agents. Test rendered workloads for image identity, mount source, profile argument, and closure checksum.
 
-<!-- field: consequences | form: "tree" -->
+<!-- field: consequences -->
 #### Consequences
 
-- benefits:
-  1. Runtime patches do not silently change application behavior.
-  1. One tested image can execute several role-specific closures.
-  1. Profile provenance remains visible outside the image.
-- liabilities:
-  1. Deployment must coordinate image and mounted closure compatibility.
-  1. Mount and startup misconfiguration becomes a new failure mode.
+<!-- field: benefits -->
+##### Benefits
+
+- Runtime patches do not silently change application behavior.
+- One tested image can execute several role-specific closures.
+- Profile provenance remains visible outside the image.
+
+<!-- field: liabilities -->
+##### Liabilities
+
+- Deployment must coordinate image and mounted closure compatibility.
+- Mount and startup misconfiguration becomes a new failure mode.
 
 <!-- field: grammar | form: "tree" -->
 #### Grammar
@@ -631,16 +734,21 @@ Create a thin application profile that selects the canonical machine or closure 
 
 Keep wrappers under applications/<application>/agents/. Record the canonical inheritance target and reject cycles. Permit overrides of domain, execution scope, deployment form, and configuration; require an explicit responsibility justification before replacing role bindings. Package the wrapper and canonical assets in one closure without modifying the source checkout.
 
-<!-- field: consequences | form: "tree" -->
+<!-- field: consequences -->
 #### Consequences
 
-- benefits:
-  1. Applications vary configuration without forking reusable behavior.
-  1. Actor names communicate context while canonical role coverage remains stable.
-  1. Endpoint and deployment authority stays with the consuming application.
-- liabilities:
-  1. Deep wrapper chains can obscure the effective configuration.
-  1. An overly broad wrapper can become an ungoverned fork in disguise.
+<!-- field: benefits -->
+##### Benefits
+
+- Applications vary configuration without forking reusable behavior.
+- Actor names communicate context while canonical role coverage remains stable.
+- Endpoint and deployment authority stays with the consuming application.
+
+<!-- field: liabilities -->
+##### Liabilities
+
+- Deep wrapper chains can obscure the effective configuration.
+- An overly broad wrapper can become an ungoverned fork in disguise.
 
 <!-- field: grammar | form: "tree" -->
 #### Grammar
@@ -726,16 +834,21 @@ Assign each substantial serving role its own workload, entry profile, reachable 
 
 Generate role manifests from the Composition Manifest and closure inventory. Mount only reachable files and required workspaces. Give each workload truthful role-owned readiness and lifecycle endpoints, not an unrelated sidecar probe. Scope credentials and network access by role, include closure checksums in rollout identity, and test the real inter-role path.
 
-<!-- field: consequences | form: "tree" -->
+<!-- field: consequences -->
 #### Consequences
 
-- benefits:
-  1. Least authority, independent rollout, and role-attributable evidence.
-  1. Failure and resource boundaries mirror the application composition.
-  1. Workloads can scale according to role-specific demand.
-- liabilities:
-  1. More workloads increase deployment, networking, and observability overhead.
-  1. Remote boundaries add latency and partial-failure modes.
+<!-- field: benefits -->
+##### Benefits
+
+- Least authority, independent rollout, and role-attributable evidence.
+- Failure and resource boundaries mirror the application composition.
+- Workloads can scale according to role-specific demand.
+
+<!-- field: liabilities -->
+##### Liabilities
+
+- More workloads increase deployment, networking, and observability overhead.
+- Remote boundaries add latency and partial-failure modes.
 
 <!-- field: grammar | form: "tree" -->
 #### Grammar
@@ -821,17 +934,22 @@ Put intent decomposition and sequencing in an orchestrator workload. Send a boun
 
 Define separate profiles, services, credentials, and network policy. Keep deployment clients out of the orchestrator's tool inventory. Give the actuator a closed request schema, idempotency or transaction boundary, preflight validation, rollout observation, and compensation path. Link traces across both workloads and retain the decision and effect records.
 
-<!-- field: consequences | form: "tree" -->
+<!-- field: consequences -->
 #### Consequences
 
-- benefits:
-  1. Compromise of the planner does not directly confer deployment authority.
-  1. Decision and actuation failures are independently diagnosable.
-  1. Rollback and rollout validation stay close to the privileged tools.
-- liabilities:
-  1. The extra remote boundary introduces latency and partial failure.
-  1. Request schema evolution must be coordinated across both workloads.
-  1. Evidence in this repository is presently limited to one application topology.
+<!-- field: benefits -->
+##### Benefits
+
+- Compromise of the planner does not directly confer deployment authority.
+- Decision and actuation failures are independently diagnosable.
+- Rollback and rollout validation stay close to the privileged tools.
+
+<!-- field: liabilities -->
+##### Liabilities
+
+- The extra remote boundary introduces latency and partial failure.
+- Request schema evolution must be coordinated across both workloads.
+- Evidence in this repository is presently limited to one application topology.
 
 <!-- field: grammar | form: "tree" -->
 #### Grammar
@@ -915,18 +1033,23 @@ Run one persistent platform with shared external ingress and object service. Giv
 
 Derive application identity and bindings from agents/application.yaml. Use a shared application-rig package for lifecycle mechanics and thin Mage verbs. Record immutable object identity in a collector-local WAL before upload. Keep external HTTP at Traefik and send internal REST, OTLP, object, and vector traffic directly to their declared endpoints. Enforce cloud isolation with workload identity and bucket IAM; document local fake GCS as non-adversarial configuration isolation only.
 
-<!-- field: consequences | form: "tree" -->
+<!-- field: consequences -->
 #### Consequences
 
-- benefits:
-  1. Applications share platform cost without sharing compute lifecycle.
-  1. Telemetry survives collector, namespace, and cluster recreation.
-  1. Destructive authority is explicit and application scoped.
-  1. Local and cloud deployments retain one application declaration.
-- liabilities:
-  1. Shared-service failure can affect every dependent application.
-  1. A stopped application has retained objects but no live query API.
-  1. Local fake GCS cannot resist a malicious pod without a future authenticated gateway.
+<!-- field: benefits -->
+##### Benefits
+
+- Applications share platform cost without sharing compute lifecycle.
+- Telemetry survives collector, namespace, and cluster recreation.
+- Destructive authority is explicit and application scoped.
+- Local and cloud deployments retain one application declaration.
+
+<!-- field: liabilities -->
+##### Liabilities
+
+- Shared-service failure can affect every dependent application.
+- A stopped application has retained objects but no live query API.
+- Local fake GCS cannot resist a malicious pod without a future authenticated gateway.
 
 <!-- field: grammar | form: "tree" -->
 #### Grammar
@@ -955,60 +1078,35 @@ Deploy each Role-Sharded Workload from its Composition Manifest onto a Persisten
 | Twelve-Factor backing services | twelve-factor-build-release-run | external | A deploy can be replaced independently while a bound backing service retains data across releases. |
 | Declarative Agents da-platform | reference-implementation | internal | The target contract shares Traefik and fake GCS while each application keeps its namespace, collector, bucket, and lifecycle authority. |
 
-<!-- field: grammar_check | form: "tree" -->
+<!-- field: grammar_check -->
 ## Grammar check
 
-- note: Capability Ladder is the root. Every local pattern is connected through containment, prerequisites, or refinements, and all `da:` references resolve to the declared sibling language.
+<!-- field: note -->
+### Note
 
-<!-- field: bibliography | form: "tree" -->
+Capability Ladder is the root. Every local pattern is connected through containment, prerequisites, or refinements, and all `da:` references resolve to the declared sibling language.
+
+<!-- field: bibliography | form: "keyed table" -->
 ## Bibliography
 
-- reference-implementation:
-  - text: "Nokia Bell Labs. (2026). Declarative Agents repository: applications/catalog, applications/chatbot-mesh, applications/coding-agent, applications/agent-architecture, and shared application documents. Internal evidence, not an independent source."
-- operator-framework-capabilities:
-  - text: Operator Framework Authors. (2024). Operator Capability Levels. Operator SDK Documentation.
-  - url: https://sdk.operatorframework.io/docs/overview/operator-capabilities/
-- champeon-progressive-enhancement-2003:
-  - text: Champeon, S., & Finck, N. (2003). Inclusive Web Design for the Future with Progressive Enhancement. South by Southwest Interactive.
-- bazel-external-dependencies:
-  - text: Bazel Authors. (2025). External Dependencies Overview. Bazel Documentation.
-  - url: https://bazel.build/external/overview
-- git-submodules:
-  - text: "Chacon, S., \u0026 Straub, B. (2014). Pro Git (2nd ed.), Git Tools: Submodules. Apress."
-  - url: https://git-scm.com/book/en/v2/Git-Tools-Submodules
-- hunt-thomas-pragmatic-1999:
-  - text: "Hunt, A., \u0026 Thomas, D. (1999). The Pragmatic Programmer: From Journeyman to Master. Addison-Wesley. (Don't Repeat Yourself.)"
-- oci-image-spec:
-  - text: Open Container Initiative. (2024). OCI Image Format Specification, Version 1.1.
-  - url: https://github.com/opencontainers/image-spec
-- cyclonedx-spec:
-  - text: OWASP Foundation. (2024). CycloneDX Bill of Materials Standard, Version 1.6.
-  - url: https://cyclonedx.org/specification/overview/
-- dolstra-nix-2006:
-  - text: Dolstra, E. (2006). The Purely Functional Software Deployment Model. PhD thesis, Utrecht University.
-- bazel-runfiles:
-  - text: Bazel Authors. (2025). Runfiles and Runtime Dependencies. Bazel Documentation.
-  - url: https://bazel.build/extending/rules#runfiles
-- twelve-factor-build-release-run:
-  - text: "Wiggins, A. (2017). The Twelve-Factor App: Strictly Separate Build and Run Stages."
-  - url: https://12factor.net/build-release-run
-- kubernetes-configmaps:
-  - text: Kubernetes Authors. (2025). ConfigMaps. Kubernetes Documentation.
-  - url: https://kubernetes.io/docs/concepts/configuration/configmap/
-- kubernetes-kustomize:
-  - text: Kubernetes Authors. (2025). Declarative Management of Kubernetes Objects Using Kustomize. Kubernetes Documentation.
-  - url: https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/
-- gamma-design-patterns-1994:
-  - text: "Gamma, E., Helm, R., Johnson, R., \u0026 Vlissides, J. (1994). Design Patterns: Elements of Reusable Object-Oriented Software. Addison-Wesley. (Decorator.)"
-- newman-microservices-2021:
-  - text: Newman, S. (2021). Building Microservices (2nd ed.). O'Reilly Media.
-- saltzer-schroeder-1975:
-  - text: Saltzer, J. H., & Schroeder, M. D. (1975). The Protection of Information in Computer Systems. Proceedings of the IEEE, 63(9), 1278-1308.
-- kubernetes-workloads:
-  - text: Kubernetes Authors. (2025). Workloads. Kubernetes Documentation.
-  - url: https://kubernetes.io/docs/concepts/workloads/
-- burns-borg-omega-kubernetes-2016:
-  - text: Burns, B., Grant, B., Oppenheimer, D., Brewer, E., & Wilkes, J. (2016). Borg, Omega, and Kubernetes. Communications of the ACM, 59(5), 50-57.
-- fowler-cqrs-2011:
-  - text: Fowler, M. (2011). CQRS. martinfowler.com.
-  - url: https://martinfowler.com/bliki/CQRS.html
+| id | text | url |
+| --- | --- | --- |
+| reference-implementation | "Nokia Bell Labs. (2026). Declarative Agents repository: applications/catalog, applications/chatbot-mesh, applications/coding-agent, applications/agent-architecture, and shared application documents. Internal evidence, not an independent source." |  |
+| operator-framework-capabilities | Operator Framework Authors. (2024). Operator Capability Levels. Operator SDK Documentation. | https://sdk.operatorframework.io/docs/overview/operator-capabilities/ |
+| champeon-progressive-enhancement-2003 | Champeon, S., & Finck, N. (2003). Inclusive Web Design for the Future with Progressive Enhancement. South by Southwest Interactive. |  |
+| bazel-external-dependencies | Bazel Authors. (2025). External Dependencies Overview. Bazel Documentation. | https://bazel.build/external/overview |
+| git-submodules | "Chacon, S., \u0026 Straub, B. (2014). Pro Git (2nd ed.), Git Tools: Submodules. Apress." | https://git-scm.com/book/en/v2/Git-Tools-Submodules |
+| hunt-thomas-pragmatic-1999 | "Hunt, A., \u0026 Thomas, D. (1999). The Pragmatic Programmer: From Journeyman to Master. Addison-Wesley. (Don't Repeat Yourself.)" |  |
+| oci-image-spec | Open Container Initiative. (2024). OCI Image Format Specification, Version 1.1. | https://github.com/opencontainers/image-spec |
+| cyclonedx-spec | OWASP Foundation. (2024). CycloneDX Bill of Materials Standard, Version 1.6. | https://cyclonedx.org/specification/overview/ |
+| dolstra-nix-2006 | Dolstra, E. (2006). The Purely Functional Software Deployment Model. PhD thesis, Utrecht University. |  |
+| bazel-runfiles | Bazel Authors. (2025). Runfiles and Runtime Dependencies. Bazel Documentation. | https://bazel.build/extending/rules#runfiles |
+| twelve-factor-build-release-run | "Wiggins, A. (2017). The Twelve-Factor App: Strictly Separate Build and Run Stages." | https://12factor.net/build-release-run |
+| kubernetes-configmaps | Kubernetes Authors. (2025). ConfigMaps. Kubernetes Documentation. | https://kubernetes.io/docs/concepts/configuration/configmap/ |
+| kubernetes-kustomize | Kubernetes Authors. (2025). Declarative Management of Kubernetes Objects Using Kustomize. Kubernetes Documentation. | https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/ |
+| gamma-design-patterns-1994 | "Gamma, E., Helm, R., Johnson, R., \u0026 Vlissides, J. (1994). Design Patterns: Elements of Reusable Object-Oriented Software. Addison-Wesley. (Decorator.)" |  |
+| newman-microservices-2021 | Newman, S. (2021). Building Microservices (2nd ed.). O'Reilly Media. |  |
+| saltzer-schroeder-1975 | Saltzer, J. H., & Schroeder, M. D. (1975). The Protection of Information in Computer Systems. Proceedings of the IEEE, 63(9), 1278-1308. |  |
+| kubernetes-workloads | Kubernetes Authors. (2025). Workloads. Kubernetes Documentation. | https://kubernetes.io/docs/concepts/workloads/ |
+| burns-borg-omega-kubernetes-2016 | Burns, B., Grant, B., Oppenheimer, D., Brewer, E., & Wilkes, J. (2016). Borg, Omega, and Kubernetes. Communications of the ACM, 59(5), 50-57. |  |
+| fowler-cqrs-2011 | Fowler, M. (2011). CQRS. martinfowler.com. | https://martinfowler.com/bliki/CQRS.html |

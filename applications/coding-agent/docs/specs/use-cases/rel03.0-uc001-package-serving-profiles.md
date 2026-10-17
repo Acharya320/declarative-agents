@@ -42,6 +42,16 @@ Run mage package from applications/coding-agent.
 - F5: Write role manifests and the deployment layout manifest, then atomically publish the complete output.
 - F6: Boot-validate each role's packaged entry profile from its own root.
 
+<!-- field: touchpoints -->
+## Touchpoints
+
+| id | target | reason |
+| --- | --- | --- |
+| T1 | srd002-deployment-profile-package R1.1, R1.2, R1.3 | S1 traces this requirement in the existing success criteria. |
+| T2 | srd002-deployment-profile-package R2.1, R2.2, R2.3, R2.4 | S2 traces this requirement in the existing success criteria. |
+| T3 | srd002-deployment-profile-package R3.1, R3.2, R3.3 | S3 traces this requirement in the existing success criteria. |
+| T4 | srd002-deployment-profile-package R4.1, R4.2 | S4 traces this requirement in the existing success criteria. |
+
 <!-- field: success_criteria -->
 ## Success criteria
 
@@ -102,13 +112,3 @@ All packaged role entry profiles validate with the real binary.
 
 - Helm templates and values schema.
 - Live Kubernetes installation or smoke testing.
-
-<!-- field: touchpoints -->
-## Touchpoints
-
-| id | target | reason |
-| --- | --- | --- |
-| T1 | srd002-deployment-profile-package R1.1, R1.2, R1.3 | S1 traces this requirement in the existing success criteria. |
-| T2 | srd002-deployment-profile-package R2.1, R2.2, R2.3, R2.4 | S2 traces this requirement in the existing success criteria. |
-| T3 | srd002-deployment-profile-package R3.1, R3.2, R3.3 | S3 traces this requirement in the existing success criteria. |
-| T4 | srd002-deployment-profile-package R4.1, R4.2 | S4 traces this requirement in the existing success criteria. |

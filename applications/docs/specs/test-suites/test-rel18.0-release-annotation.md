@@ -27,7 +27,7 @@ the skill counterpart is coding-skills issue 395.
 - rel18.0-uc001-release-annotation
 
 <!-- field: srds -->
-## Srds
+## SRDs
 
 - srd007-release-annotation
 

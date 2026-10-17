@@ -136,61 +136,101 @@ The format keeps each issue small, traceable, and tied to listed files.
     Decisions made while shaping the issue. Prefer mappings with id and text
     when a decision has lasting design value.
 
-<!-- field: yaml_rules | form: "tree" -->
+<!-- field: yaml_rules -->
 ## YAML rules
 
-1. - id: Y1
-   - rule: Use valid YAML.
-   - check:
-     python3 - <<'PY'
-     import sys, yaml
-     for p in sys.argv[1:]: yaml.safe_load(open(p))
-     PY <files>
-1. - id: Y2
-   - rule: Use block literals for prose longer than one sentence.
-1. - id: Y3
-   - rule: Use ASCII punctuation. Use "--" instead of em dashes.
-1. - id: Y4
-   - rule: Quote strings that contain colons when YAML would parse them as mappings.
-1. - id: Y5
-   - rule: Keep paths repo-relative unless the issue explicitly targets another repository.
+<!-- yaml_rule: Y1 -->
+### Y1
 
-<!-- field: examples | form: "tree" -->
+<!-- field: rule -->
+#### Rule
+
+Use valid YAML.
+
+<!-- field: check -->
+#### Check
+
+python3 - <<'PY'
+import sys, yaml
+for p in sys.argv[1:]: yaml.safe_load(open(p))
+PY <files>
+
+<!-- yaml_rule: Y2 -->
+### Y2
+
+<!-- field: rule -->
+#### Rule
+
+Use block literals for prose longer than one sentence.
+
+<!-- yaml_rule: Y3 -->
+### Y3
+
+<!-- field: rule -->
+#### Rule
+
+Use ASCII punctuation. Use "--" instead of em dashes.
+
+<!-- yaml_rule: Y4 -->
+### Y4
+
+<!-- field: rule -->
+#### Rule
+
+Quote strings that contain colons when YAML would parse them as mappings.
+
+<!-- yaml_rule: Y5 -->
+### Y5
+
+<!-- field: rule -->
+#### Rule
+
+Keep paths repo-relative unless the issue explicitly targets another repository.
+
+<!-- field: examples -->
 ## Examples
 
-- documentation_issue:
-  deliverable_type: documentation
-  required_reading:
-    - docs/VISION.md
-    - docs/ARCHITECTURE.md
-  files:
-    - docs/specs/use-cases/rel02.0-uc001-example.yaml
-  requirements:
-    - Add the use case in the existing schema.
-    - Link every success criterion to SRD acceptance criteria.
-  acceptance_criteria:
-    - The YAML parses.
-    - mage audit reports no new warnings for the file.
-- documentation_issue_with_clarification:
-  An unresolved item reads
-  "requirements: [Retry the fetch N times, where N is [NEEDS CLARIFICATION:
-  how many retries before giving up?]]". The author who knows the answer
-  edits the item in place, and the resolved form reads "requirements: [Retry
-  the fetch 3 times]". No marker survives into a worked issue.
-- code_issue:
-  deliverable_type: code
-  required_reading:
-    - docs/specs/software-requirements/srd014-spec-graph.md
-    - pkg/spec/validate.go
-  files:
-    - pkg/spec/validate.go
-    - pkg/spec/validate_test.go
-  requirements:
-    - id: R1
-      text: Add the validator behavior described by the SRD.
-  acceptance_criteria:
-    - id: AC1
-      text: go test ./pkg/spec passes.
+<!-- field: documentation_issue -->
+### Documentation issue
+
+deliverable_type: documentation
+required_reading:
+  - docs/VISION.md
+  - docs/ARCHITECTURE.md
+files:
+  - docs/specs/use-cases/rel02.0-uc001-example.yaml
+requirements:
+  - Add the use case in the existing schema.
+  - Link every success criterion to SRD acceptance criteria.
+acceptance_criteria:
+  - The YAML parses.
+  - mage audit reports no new warnings for the file.
+
+<!-- field: documentation_issue_with_clarification -->
+### Documentation issue with clarification
+
+An unresolved item reads
+"requirements: [Retry the fetch N times, where N is [NEEDS CLARIFICATION:
+how many retries before giving up?]]". The author who knows the answer
+edits the item in place, and the resolved form reads "requirements: [Retry
+the fetch 3 times]". No marker survives into a worked issue.
+
+<!-- field: code_issue -->
+### Code issue
+
+deliverable_type: code
+required_reading:
+  - docs/specs/software-requirements/srd014-spec-graph.md
+  - pkg/spec/validate.go
+files:
+  - pkg/spec/validate.go
+  - pkg/spec/validate_test.go
+requirements:
+  - id: R1
+    text: Add the validator behavior described by the SRD.
+acceptance_criteria:
+  - id: AC1
+    text: go test ./pkg/spec passes.
 
 <!-- field: references -->
 ## References

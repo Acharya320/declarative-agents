@@ -50,6 +50,11 @@ proposed documentation patches through the Knowledge Manager boundary.
 | T6 | knowledge-manager/documentation-curator/ui/docs | profile-owned React source and built assets |
 | T7 | srd029-rest-server-tools R7.1, R7.2, R7.3, R7.4, R7.5, R7.6 and R11.1, R11.2, R11.3, R11.4, R11.5, R11.6, R11.7, R11.8 | lifecycle control endpoints enqueue events for MachineSpec routing and shutdown releases the owned documentation listener |
 
+<!-- field: proof_owner -->
+## Proof owner
+
+applications/catalog
+
 <!-- field: success_criteria -->
 ## Success criteria
 
@@ -113,11 +118,6 @@ The generic lifecycle exit endpoint causes ExitRequested, AgentExited, listener 
 - Editing documentation content without explicit patch approval.
 - Routing documentation UX through bench/profile.yaml under AGENT_CATALOG_ROOT.
 - Replacing the declarative REST runtime with generated clients.
-
-<!-- field: proof_owner -->
-## Proof owner
-
-applications/catalog
 
 <!-- field: machine_config -->
 ## Machine config

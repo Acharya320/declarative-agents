@@ -19,6 +19,19 @@ tool paths, runtime image profile exclusion, and mounted-profile execution.
 Remaining cleanup work belongs to stale documentation references, not to the
 container or resolver proof itself.
 
+<!-- field: traces -->
+## Traces
+
+- rel06.0-uc001-mounted-profile-container-runtime
+
+<!-- field: preconditions -->
+## Preconditions
+
+- applications/catalog exists as a checkout, release asset, or mounted fixture with standard agent profiles.
+- The Agent Core runtime image can be built from Dockerfile.
+- Core-owned shared tool declaration roots are available from the installed Agent Core runtime path.
+- Tests can mount an isolated workspace at /work.
+
 <!-- field: coverage_notes -->
 ## Coverage notes
 
@@ -36,19 +49,6 @@ docker builds a target that copies /opt/agent-core/tools, refuses
 profile-less startup, and documents the mounted /profiles command.
 applications/catalog owns the matching mounted-image smoke target for its profile
 bundle.
-
-<!-- field: traces -->
-## Traces
-
-- rel06.0-uc001-mounted-profile-container-runtime
-
-<!-- field: preconditions -->
-## Preconditions
-
-- applications/catalog exists as a checkout, release asset, or mounted fixture with standard agent profiles.
-- The Agent Core runtime image can be built from Dockerfile.
-- Core-owned shared tool declaration roots are available from the installed Agent Core runtime path.
-- Tests can mount an isolated workspace at /work.
 
 <!-- field: test_cases -->
 ## Test cases
@@ -109,15 +109,15 @@ belong to applications/catalog suites.
 
 rel06.0-uc001-mounted-profile-container-runtime
 
-<!-- field: go_test -->
-#### Go test
-
-TestResolveProfilePathMapsInstalledCoreHome
-
 <!-- field: integration_target -->
 #### Integration target
 
 applications/coding-agent mage integration:executorLive
+
+<!-- field: go_test -->
+#### Go test
+
+TestResolveProfilePathMapsInstalledCoreHome
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -160,15 +160,15 @@ release-image build wrapper for the same Dockerfile.
 
 rel06.0-uc001-mounted-profile-container-runtime
 
-<!-- field: go_test -->
-#### Go test
-
-cd magefiles && go test ./... -run 'TestDockerfileRuntimeExcludesAgentProfiles'
-
 <!-- field: integration_target -->
 #### Integration target
 
 mage docker
+
+<!-- field: go_test -->
+#### Go test
+
+cd magefiles && go test ./... -run 'TestDockerfileRuntimeExcludesAgentProfiles'
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -212,15 +212,15 @@ smoke command runs an installed image against /profiles.
 
 rel06.0-uc001-mounted-profile-container-runtime
 
-<!-- field: go_test -->
-#### Go test
-
-cd magefiles && go test ./... -run 'TestContainerBuildSummaryForDocker'
-
 <!-- field: integration_target -->
 #### Integration target
 
 mage docker; Dockerfile target integration; applications/catalog mage containerSmoke
+
+<!-- field: go_test -->
+#### Go test
+
+cd magefiles && go test ./... -run 'TestContainerBuildSummaryForDocker'
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs

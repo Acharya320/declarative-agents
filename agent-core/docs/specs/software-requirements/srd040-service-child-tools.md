@@ -201,14 +201,6 @@ list_services SHALL report every tracked child with its running or exited status
 
 start_service SHALL declare compensating undo that stops only the child named by its receipt; list_services undo SHALL be noop.
 
-<!-- field: non_goals -->
-## Non-goals
-
-- A Kubernetes or container backend for scenario child starts; children are local processes in this SRD.
-- Span-based assertion words; validators assert over HTTP responses and the srd039 request log.
-- Scenario scheduling policy beyond one rig machine's sequential scenario loop; cross-scenario parallelism belongs to the caller.
-- Scheduling policy across detached children beyond a declared count bound; queueing or prioritising launches belongs to the caller.
-
 <!-- field: tool_words | form: "typed table" -->
 ## Tool words
 
@@ -227,6 +219,14 @@ start_service SHALL declare compensating undo that stops only the child named by
 | report_scenario_session | all scenario verdicts retained in the session. | aggregate pass state, verdicts, and first failure. | [SessionPassed, SessionFailed] | [scenario_session_read] | [session_failed] | noop. |
 | start_service | a declared profile, an optional literal or selector-resolved service name, request, and output, a working directory, environment additions, and an optional max_running bound. | child identity, pid, address, base URL, start time, and receipt. | [ServiceStarted, ServiceLimitReached, CommandError] | [child_process_start] | [selector_resolution, address_allocation, spawn_failed] | stop only the child identified by the dispatch receipt. |
 | list_services | the shared service state. | every tracked child with running or exited status, exit code, and start and finish times. | [ChildrenListed] | [service_state_read] | [] | noop. |
+
+<!-- field: non_goals -->
+## Non-goals
+
+- A Kubernetes or container backend for scenario child starts; children are local processes in this SRD.
+- Span-based assertion words; validators assert over HTTP responses and the srd039 request log.
+- Scenario scheduling policy beyond one rig machine's sequential scenario loop; cross-scenario parallelism belongs to the caller.
+- Scheduling policy across detached children beyond a declared count bound; queueing or prioritising launches belongs to the caller.
 
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
@@ -315,11 +315,16 @@ start_service returns before its child exits, list_services shows the child runn
 - R7.4
 - R7.5
 
-<!-- field: implementation_status | form: "tree" -->
+<!-- field: implementation_status -->
 ## Implementation status
 
-- implemented:
-  1. GH-2197 adds start_service and list_services and shares the host service state with machine_request runs (R7); the bound is reserved under the state lock, so concurrent request runs cannot overshoot it.
-  1. GH-2188 gives the snake_case start_service fields and address_env their json tags, so a declaration decoded by the strict JSON config decoder loads.
-- planned:
-  1. GH-2188 is the first consumer, launching bench experiments as detached critic children behind a request capability.
+<!-- field: implemented -->
+### Implemented
+
+- GH-2197 adds start_service and list_services and shares the host service state with machine_request runs (R7); the bound is reserved under the state lock, so concurrent request runs cannot overshoot it.
+- GH-2188 gives the snake_case start_service fields and address_env their json tags, so a declaration decoded by the strict JSON config decoder loads.
+
+<!-- field: planned -->
+### Planned
+
+- GH-2188 is the first consumer, launching bench experiments as detached critic children behind a request capability.

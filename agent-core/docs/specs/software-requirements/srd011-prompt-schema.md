@@ -275,35 +275,37 @@ Missing required runtime prompt input emits CommandError without a partial comma
 - R7.2
 - R4.2
 
-<!-- field: diagrams | form: "tree" -->
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: Every agent needs a structured system prompt assemble..."] --> Goals["Goals: Prompt Schema and Loading"]
-    Goals --> R1["R1: Prompt struct"]
-    Goals --> R2["R2: Tool declaration schema"]
-    Goals --> R3["R3: Prompt construction"]
-    Goals --> R4["R4: Runtime task input"]
-    Goals --> R5["R5: Compiled defaults"]
-    Goals --> R6["R6: Assembly"]
-    Goals --> R7["R7: Validation"]
-    AC1["AC1: Prompt has four string fields and DefaultAssembler rende..."]
-    R1 --> AC1
-    R6 --> AC1
-    AC2["AC2: Structured YAML with task loads into a Prompt with defaul..."]
-    R2 --> AC2
-    R3 --> AC2
-    AC3["AC3: Both task and prompt returns error. Unknown fields ignore..."]
-    R2 --> AC3
-    R3 --> AC3
-    AC4["AC4: invoke_llm builds Prompt without hidden filesystem reads..."]
-    R3 --> AC4
-    R4 --> AC4
-    AC5["AC5: Compiled defaults provide Role, Constraints, OutputFormat..."]
-    R5 --> AC5
-    AC6["AC6: Missing required runtime prompt input emits CommandError..."]
-    R7 --> AC6
-    R4 --> AC6
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: Every agent needs a structured system prompt assemble..."] --> Goals["Goals: Prompt Schema and Loading"]
+  Goals --> R1["R1: Prompt struct"]
+  Goals --> R2["R2: Tool declaration schema"]
+  Goals --> R3["R3: Prompt construction"]
+  Goals --> R4["R4: Runtime task input"]
+  Goals --> R5["R5: Compiled defaults"]
+  Goals --> R6["R6: Assembly"]
+  Goals --> R7["R7: Validation"]
+  AC1["AC1: Prompt has four string fields and DefaultAssembler rende..."]
+  R1 --> AC1
+  R6 --> AC1
+  AC2["AC2: Structured YAML with task loads into a Prompt with defaul..."]
+  R2 --> AC2
+  R3 --> AC2
+  AC3["AC3: Both task and prompt returns error. Unknown fields ignore..."]
+  R2 --> AC3
+  R3 --> AC3
+  AC4["AC4: invoke_llm builds Prompt without hidden filesystem reads..."]
+  R3 --> AC4
+  R4 --> AC4
+  AC5["AC5: Compiled defaults provide Role, Constraints, OutputFormat..."]
+  R5 --> AC5
+  AC6["AC6: Missing required runtime prompt input emits CommandError..."]
+  R7 --> AC6
+  R4 --> AC6
+```

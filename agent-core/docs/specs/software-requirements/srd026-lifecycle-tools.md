@@ -344,6 +344,15 @@ exit_agent SHALL emit CommandError when previous Result output intended as event
 - Defining lifecycle behavior that only one agent profile or Knowledge Manager handler can use.
 - Letting REST handlers exit, pause, resume, roll back, or inject signals without a declared lifecycle word.
 
+<!-- field: test_trace_plan | form: "typed table" -->
+## Test trace plan
+
+| test_suite | covers | existing_go_tests |
+| --- | --- | --- |
+| test-rel02.0-lifecycle | [AC1, AC2, AC3, AC4, AC5, AC6] |  |
+| test-rel03.0-rest-tools | [AC7] |  |
+|  |  | [internal/tools/lifecycle/checkpoint_history_test.go, internal/tools/lifecycle/checkpoint_rollback_test.go, internal/tools/lifecycle/checkpoint_compensation_test.go, internal/tools/lifecycle/receipt_rollback_test.go, internal/tools/catalog/receipt_contract_test.go, internal/runtime/core/checkpoint_test.go, internal/runtime/core/checkpoint_adapters_test.go, internal/runtime/checkpoint/dolt/dolt_checkpoint_revert_test.go] |
+
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
 
@@ -463,14 +472,14 @@ Generic lifecycle control vocabulary defines exit_agent inputs, outputs, signals
 - R7.9
 - R7.10
 
-<!-- field: test_trace_plan | form: "typed table" -->
-## Test trace plan
+<!-- field: implementation -->
+## Implementation
 
-| test_suite | covers | existing_go_tests |
-| --- | --- | --- |
-| test-rel02.0-lifecycle | [AC1, AC2, AC3, AC4, AC5, AC6] |  |
-| test-rel03.0-rest-tools | [AC7] |  |
-|  |  | [internal/tools/lifecycle/checkpoint_history_test.go, internal/tools/lifecycle/checkpoint_rollback_test.go, internal/tools/lifecycle/checkpoint_compensation_test.go, internal/tools/lifecycle/receipt_rollback_test.go, internal/tools/catalog/receipt_contract_test.go, internal/runtime/core/checkpoint_test.go, internal/runtime/core/checkpoint_adapters_test.go, internal/runtime/checkpoint/dolt/dolt_checkpoint_revert_test.go] |
+- internal/tools/lifecycle/checkpoint.go
+- internal/tools/lifecycle/receipt_rollback.go
+- internal/tools/catalog/receipt_contract.go
+- internal/runtime/core/checkpoint.go
+- internal/runtime/core/checkpoint_adapters.go
 
 <!-- field: related_documents -->
 ## Related documents
@@ -483,53 +492,51 @@ Generic lifecycle control vocabulary defines exit_agent inputs, outputs, signals
 - srd025-rollback-lifecycle
 - srd027-rest-tool-runtime
 
-<!-- field: implementation -->
-## Implementation
-
-- internal/tools/lifecycle/checkpoint.go
-- internal/tools/lifecycle/receipt_rollback.go
-- internal/tools/catalog/receipt_contract.go
-- internal/runtime/core/checkpoint.go
-- internal/runtime/core/checkpoint_adapters.go
-
-<!-- field: implementation_status | form: "tree" -->
+<!-- field: implementation_status -->
 ## Implementation status
 
-- done:
-  1. testdata/conformance/lifecycle/history/profile.yaml and testdata/conformance/lifecycle/rollback/profile.yaml select the lifecycle machines and builtin tool declarations.
-  1. Hidden lifecycle subcommands have been removed from cmd/agent; lifecycle operations use the universal profile-first runtime path.
-- planned:
-  1. checkpoint_history reimplemented as a Dolt commit-history read through the srd035 checkpoint port.
-  1. checkpoint_rollback reimplemented as Dolt Revert plus a reverse receipt walk over restored Results, replacing the core rollback traversal and Workspace restore.
-  1. exit_agent lifecycle control word.
-  1. REST-triggered lifecycle control profiles for exit, pause, rollback request, resume, and signal injection.
+<!-- field: done -->
+### Done
 
-<!-- field: diagrams | form: "tree" -->
+- testdata/conformance/lifecycle/history/profile.yaml and testdata/conformance/lifecycle/rollback/profile.yaml select the lifecycle machines and builtin tool declarations.
+- Hidden lifecycle subcommands have been removed from cmd/agent; lifecycle operations use the universal profile-first runtime path.
+
+<!-- field: planned -->
+### Planned
+
+- checkpoint_history reimplemented as a Dolt commit-history read through the srd035 checkpoint port.
+- checkpoint_rollback reimplemented as Dolt Revert plus a reverse receipt walk over restored Results, replacing the core rollback traversal and Workspace restore.
+- exit_agent lifecycle control word.
+- REST-triggered lifecycle control profiles for exit, pause, rollback request, resume, and signal injection.
+
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: History and rollback must run through the same declar..."] --> Goals["Goals: Lifecycle Tool Adapters"]
-    Goals --> R1["R1: Adapter boundary"]
-    Goals --> R2["R2: checkpoint_history"]
-    Goals --> R3["R3: checkpoint_rollback"]
-    Goals --> R4["R4: Typed config and runtime inputs"]
-    Goals --> R5["R5: Tool declarations and machine integration"]
-    Goals --> R6["R6: Observability and errors"]
-    Goals --> R7["R7: Generic lifecycle control vocabulary"]
-    AC1["AC1: Lifecycle adapters are documented as STL builtin tools ar..."]
-    R1 --> AC1
-    AC2["AC2: checkpoint_history requirements define typed config, Stat..."]
-    R2 --> AC2
-    AC3["AC3: checkpoint_rollback requirements define typed config, Sta..."]
-    R3 --> AC3
-    AC4["AC4: Runtime inputs stay outside hidden lifecycle subcommand f..."]
-    R4 --> AC4
-    AC5["AC5: ToolDef declarations and lifecycle MachineSpec transition..."]
-    R5 --> AC5
-    AC6["AC6: Lifecycle adapter failures and partial rollback states ar..."]
-    R6 --> AC6
-    AC7["AC7: Generic lifecycle control vocabulary defines exit_agent i..."]
-    R7 --> AC7
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: History and rollback must run through the same declar..."] --> Goals["Goals: Lifecycle Tool Adapters"]
+  Goals --> R1["R1: Adapter boundary"]
+  Goals --> R2["R2: checkpoint_history"]
+  Goals --> R3["R3: checkpoint_rollback"]
+  Goals --> R4["R4: Typed config and runtime inputs"]
+  Goals --> R5["R5: Tool declarations and machine integration"]
+  Goals --> R6["R6: Observability and errors"]
+  Goals --> R7["R7: Generic lifecycle control vocabulary"]
+  AC1["AC1: Lifecycle adapters are documented as STL builtin tools ar..."]
+  R1 --> AC1
+  AC2["AC2: checkpoint_history requirements define typed config, Stat..."]
+  R2 --> AC2
+  AC3["AC3: checkpoint_rollback requirements define typed config, Sta..."]
+  R3 --> AC3
+  AC4["AC4: Runtime inputs stay outside hidden lifecycle subcommand f..."]
+  R4 --> AC4
+  AC5["AC5: ToolDef declarations and lifecycle MachineSpec transition..."]
+  R5 --> AC5
+  AC6["AC6: Lifecycle adapter failures and partial rollback states ar..."]
+  R6 --> AC6
+  AC7["AC7: Generic lifecycle control vocabulary defines exit_agent i..."]
+  R7 --> AC7
+```

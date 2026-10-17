@@ -74,6 +74,11 @@ A developer, or the coding-agent executorLive integration, runs:
 | T9 | internal/model/llm/profiles/qwen.yaml | model-specific parsing pipeline |
 | T10 | generator/profile.yaml | profile-relative runtime entry point under AGENT_CATALOG_ROOT |
 
+<!-- field: integration_test -->
+## Integration test
+
+applications/coding-agent mage integration:executorLive
+
 <!-- field: success_criteria -->
 ## Success criteria
 
@@ -167,20 +172,10 @@ Oracle tests in the sample workspace pass without modification.
 
 - srd013-standard-tool-library AC2
 
-<!-- field: integration_test -->
-## Integration test
-
-applications/coding-agent mage integration:executorLive
-
 <!-- field: test_data -->
 ## Test data
 
 applications/coding-agent/testdata/integration/coding-loop/workspace
-
-<!-- field: test_suite_trace -->
-## Test suite trace
-
-test-rel01.0
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -193,3 +188,8 @@ test-rel01.0
 ## Machine config
 
 generator/machine.yaml
+
+<!-- field: test_suite_trace -->
+## Test suite trace
+
+test-rel01.0

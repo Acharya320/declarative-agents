@@ -340,7 +340,7 @@ release below maps epics to use cases to a test suite one-to-one-to-one.
 Relocated to applications/chatbot-mesh (rel00.0). The mesh data-plane specs (SRDs, use cases, test suites) now live with the standalone example; this entry remains for history. The control plane (09.4) is relocated too (rel05.0, GH-430).
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd013-rag-server-agent
 - srd014-chatbot-agent
@@ -376,7 +376,7 @@ per-source chunks. Epic #294.
 Relocated to applications/chatbot-mesh (rel01.0). The mesh data-plane specs (SRDs, use cases, test suites) now live with the standalone example; this entry remains for history. The control plane (09.4) is relocated too (rel05.0, GH-430).
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd014-chatbot-agent
 
@@ -410,7 +410,7 @@ traceparent to the RAG servers. Epic #295.
 Relocated to applications/chatbot-mesh (rel02.0). The mesh data-plane specs (SRDs, use cases, test suites) now live with the standalone example; this entry remains for history. The control plane (09.4) is relocated too (rel05.0, GH-430).
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd014-chatbot-agent
 
@@ -443,7 +443,7 @@ and a provisioning deployment API. Epic #296.
 Relocated to applications/chatbot-mesh (rel03.0). The mesh data-plane specs (SRDs, use cases, test suites) now live with the standalone example; this entry remains for history. The control plane (09.4) is relocated too (rel05.0, GH-430).
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd015-chatbot-deployment
 
@@ -478,7 +478,7 @@ Authored by GH-329.
 Relocated to applications/chatbot-mesh (rel05.0) as srd004-provisioning-workflow-orchestrator and srd005-creator, with the rel05.0 control-plane use case and test suite; this entry remains for history and the example is the canonical copy (GH-430, GH-1077).
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd016-coordinator
 - srd017-creator
@@ -523,7 +523,7 @@ selection/fan-out; 09.5 is the next free number in the chatbot-mesh 09.x line.
 Relocated to applications/chatbot-mesh (rel04.0). The mesh data-plane specs (SRDs, use cases, test suites) now live with the standalone example; this entry remains for history. The control plane (09.4) is relocated too (rel05.0, GH-430).
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd015-chatbot-deployment
 
@@ -563,7 +563,7 @@ reads as a role catalog. Epic #323 (issues #325-#328, #330).
 - grep -r 'agents/critic\|agents/executor\|agents/chroma\|testdata/conformance/rest/\|testdata/conformance/control/\|testdata/conformance/lifecycle/' -- returns no stale path outside retained historical release records
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd013-rag-server-agent
 - srd014-chatbot-agent
@@ -651,6 +651,12 @@ teardown.
 | gh-678 | Add the scenario-session layer in agent-core (split from gh-669). | done |
 | gh-1072 | Rename the concrete test rig to scenario-critic and retain a time-bounded compatibility wrapper. | done |
 
+<!-- field: srds -->
+### SRDs
+
+- srd018-scenario-critic
+- srd019-mock
+
 <!-- field: historical_aliases | form: "tree" -->
 ### Historical aliases
 
@@ -660,12 +666,6 @@ teardown.
   1. rel11.0-uc001-assembler-scenario-run
 - test_suites:
   1. test-rel11.0-assembler-rig
-
-<!-- field: srds -->
-### Srds
-
-- srd018-scenario-critic
-- srd019-mock
 
 <!-- field: use_cases -->
 ### Use cases
@@ -717,14 +717,6 @@ Immutable tags are intentionally not published from this feature branch;
 after merge, mage tag must run from a clean main checkout and create the
 root, canonical catalog, and legacy alias tags atomically.
 
-<!-- field: dependencies -->
-### Dependencies
-
-| id | status | effect |
-| --- | --- | --- |
-| catalog-release-07.1 | in-progress | Historical boundary evidence remains independently incomplete; no status is promoted here. |
-| catalog-release-11.0 | in-progress | Historical rig evidence remains independently incomplete; renamed IDs and aliases preserve traceability. |
-
 <!-- field: planned_work -->
 ### Planned work
 
@@ -740,6 +732,14 @@ root, canonical catalog, and legacy alias tags atomically.
 | gh-1073 | Classify chatbot-mesh actors | done |
 | gh-1077 | Rename mesh coordinator realization | done |
 | gh-1071 | Coordinate aliases, pins, package closures, and release evidence | done |
+
+<!-- field: dependencies -->
+### Dependencies
+
+| id | status | effect |
+| --- | --- | --- |
+| catalog-release-07.1 | in-progress | Historical boundary evidence remains independently incomplete; no status is promoted here. |
+| catalog-release-11.0 | in-progress | Historical rig evidence remains independently incomplete; renamed IDs and aliases preserve traceability. |
 
 <!-- field: migration_note -->
 ### Migration note
@@ -786,17 +786,17 @@ docs/migrations/v0.20260727.0-agent-role-realization-alignment.md
 
 Collector family promotion
 
-<!-- field: dependencies -->
-### Dependencies
-
-- agent-core release 12.0 (spool query builtins)
-
 <!-- field: planned_work | form: "typed table" -->
 ### Planned work
 
 | gh | title | estimated_loc |
 | --- | --- | --- |
 | 1145 | Promote the collector agent to a canonical catalog family | 300 YAML, 250 test |
+
+<!-- field: dependencies -->
+### Dependencies
+
+- agent-core release 12.0 (spool query builtins)
 
 <!-- field: specification | form: "tree" -->
 ### Specification
@@ -833,11 +833,6 @@ Collector family promotion
 
 Served collector trace UI
 
-<!-- field: dependencies -->
-### Dependencies
-
-- catalog release 13.0 (collector family and shipped ui/)
-
 <!-- field: planned_work | form: "typed table" -->
 ### Planned work
 
@@ -848,6 +843,11 @@ Served collector trace UI
 | 1254 | Serve the collector UI from the coding-agent chart | "120" |
 | 1255 | Serve the collector UI from the agent-architecture chart | "120" |
 | 1256 | Serve the collector UI from the chatbot-mesh chart (dedicated ConfigMap, writable metrics spool) | "160" |
+
+<!-- field: dependencies -->
+### Dependencies
+
+- catalog release 13.0 (collector family and shipped ui/)
 
 <!-- field: specification | form: "tree" -->
 ### Specification
@@ -889,12 +889,6 @@ Collector Explore panel
 
 13.0
 
-<!-- field: dependencies -->
-### Dependencies
-
-- agent-core release 13.0 (span-analytics builtins)
-- catalog release 14.0 (served collector UI)
-
 <!-- field: planned_work | form: "typed table" -->
 ### Planned work
 
@@ -903,6 +897,12 @@ Collector Explore panel
 | 1239 | Specify span-analytics tools and the collector Explore surface | 0 (documentation) |
 | 1241 | "Collector Explore query routes: /query/spans/stats and /query/spans/breakdown" | 200 YAML, 250 test |
 | 1242 | Collector UI Explore page with heatmap drag-select and TraceDetail links | 500 TS/TSX |
+
+<!-- field: dependencies -->
+### Dependencies
+
+- agent-core release 13.0 (span-analytics builtins)
+- catalog release 14.0 (served collector UI)
 
 <!-- field: specification | form: "tree" -->
 ### Specification
@@ -940,18 +940,18 @@ Collector Explore panel
 
 Canonical applier family
 
-<!-- field: dependencies -->
-### Dependencies
-
-- applications Release 14.0 application consistency contract
-- manifest-derived closure and normalized application actor trees
-
 <!-- field: planned_work | form: "typed table" -->
 ### Planned work
 
 | gh | title | estimated_loc |
 | --- | --- | --- |
 | 1420 | Promote one canonical applier family and migrate application wrappers | 600 canonical production, 500 test |
+
+<!-- field: dependencies -->
+### Dependencies
+
+- applications Release 14.0 application consistency contract
+- manifest-derived closure and normalized application actor trees
 
 <!-- field: specification | form: "tree" -->
 ### Specification
@@ -1002,12 +1002,6 @@ docs/migrations/v0.20260804.0-applier-family.md
 
 Rig doctor root-cause analyst
 
-<!-- field: dependencies -->
-### Dependencies
-
-- Release 13.0 collector family (spool trace query words)
-- repository-root kind rig failure-evidence capture (eng01)
-
 <!-- field: planned_work | form: "typed table" -->
 ### Planned work
 
@@ -1016,6 +1010,12 @@ Rig doctor root-cause analyst
 | 2286 | "Specify the rig-doctor: srd023, use case, test suite, eng01 diagnose verb" | 0 (documentation) |
 | 2287 | Rig evidence capture with manifest and mage diagnose (capture only) | 180 production |
 | 2288 | rig-doctor profile on root-cause-analyst, registration, and diagnose wiring | 350 production and test |
+
+<!-- field: dependencies -->
+### Dependencies
+
+- Release 13.0 collector family (spool trace query words)
+- repository-root kind rig failure-evidence capture (eng01)
 
 <!-- field: specification | form: "tree" -->
 ### Specification
@@ -1062,12 +1062,6 @@ Rig doctor root-cause analyst
 
 Host-side deployer
 
-<!-- field: dependencies -->
-### Dependencies
-
-- Release 16.0 canonical applier family
-- Release 17.0 rig-doctor mage-target agent harness
-
 <!-- field: planned_work | form: "typed table" -->
 ### Planned work
 
@@ -1077,6 +1071,12 @@ Host-side deployer
 | 2301 | Catalog applier deploy and undeploy machines with standalone conformance | 200 YAML and 260 test |
 | 2302 | Host-side deploy declaration rendering and the kindrig deploy harness | 250 production and 240 test |
 | 2304 | Migrate coding-agent demo:up to mage deploy and add mage undeploy | 180 production and 140 test |
+
+<!-- field: dependencies -->
+### Dependencies
+
+- Release 16.0 canonical applier family
+- Release 17.0 rig-doctor mage-target agent harness
 
 <!-- field: specification | form: "tree" -->
 ### Specification
@@ -1125,17 +1125,17 @@ Host-side deployer
 
 Observer family promotion
 
-<!-- field: dependencies -->
-### Dependencies
-
-- chatbot-mesh release 08.0 (the fleet observer this family generalizes)
-
 <!-- field: planned_work | form: "typed table" -->
 ### Planned work
 
 | gh | title | estimated_loc |
 | --- | --- | --- |
 | 1247 | Specify the cross-application fleet observer (catalog promotion + per-application adoption) | 0 (documentation) |
+
+<!-- field: dependencies -->
+### Dependencies
+
+- chatbot-mesh release 08.0 (the fleet observer this family generalizes)
 
 <!-- field: specification | form: "tree" -->
 ### Specification

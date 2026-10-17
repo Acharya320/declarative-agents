@@ -23,6 +23,11 @@ The fixture needs a deterministic greeting implementation.
 
 Hello(name) must return "Hello, <name>!" where <name> is the argument.
 
+<!-- field: non_goals -->
+## Non-goals
+
+- Anything beyond this fixture.
+
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
 
@@ -35,8 +40,3 @@ All tests in greet_test.go pass.
 #### Traces
 
 - R1.1
-
-<!-- field: non_goals -->
-## Non-goals
-
-- Anything beyond this fixture.

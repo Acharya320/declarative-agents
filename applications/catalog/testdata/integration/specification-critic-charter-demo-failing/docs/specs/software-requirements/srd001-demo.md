@@ -29,6 +29,11 @@ Provide one SRD file for graph construction.
 
 Provide an uncovered requirement item so a charter error fires.
 
+<!-- field: non_goals -->
+## Non-goals
+
+- Anything beyond this fixture.
+
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
 
@@ -41,8 +46,3 @@ The fixture can be loaded before generic charter checks run.
 #### Traces
 
 - R1.1
-
-<!-- field: non_goals -->
-## Non-goals
-
-- Anything beyond this fixture.

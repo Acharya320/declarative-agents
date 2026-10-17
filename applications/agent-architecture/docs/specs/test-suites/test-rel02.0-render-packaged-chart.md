@@ -41,15 +41,15 @@ lifecycle-health readiness and liveness probes, and the non-root,
 no-privilege-escalation, dropped-capability, read-only-root, and
 disabled-token security defaults.
 
-<!-- field: use_case -->
-#### Use case
-
-rel02.0-uc001-render-packaged-chart
-
 <!-- field: id -->
 #### ID
 
 render_topology
+
+<!-- field: use_case -->
+#### Use case
+
+rel02.0-uc001-render-packaged-chart
 
 <!-- field: integration_target -->
 #### Integration target
@@ -86,15 +86,15 @@ only profile source, and that strict validation rejects stale roles,
 unknown fields, missing or extra files, checksum mismatch, and out-of-bound
 ConfigMap partitions before staging.
 
-<!-- field: use_case -->
-#### Use case
-
-rel02.0-uc001-render-packaged-chart
-
 <!-- field: id -->
 #### ID
 
 stage_and_checksum
+
+<!-- field: use_case -->
+#### Use case
+
+rel02.0-uc001-render-packaged-chart
 
 <!-- field: integration_target -->
 #### Integration target
@@ -134,15 +134,15 @@ fixed-port, and telemetry invariants when the schema is bypassed, and that
 the packaged archive lints and renders from a directory with no source
 checkout present.
 
-<!-- field: use_case -->
-#### Use case
-
-rel02.0-uc001-render-packaged-chart
-
 <!-- field: id -->
 #### ID
 
 schema_and_archive
+
+<!-- field: use_case -->
+#### Use case
+
+rel02.0-uc001-render-packaged-chart
 
 <!-- field: integration_target -->
 #### Integration target
@@ -183,15 +183,15 @@ name pointing at the in-cluster collector Service, and that the collector
 renders its receiver and query surface, so the in-cluster trace path is
 coherent under default and CI values.
 
-<!-- field: use_case -->
-#### Use case
-
-rel02.0-uc001-render-packaged-chart
-
 <!-- field: id -->
 #### ID
 
 trace_wiring
+
+<!-- field: use_case -->
+#### Use case
+
+rel02.0-uc001-render-packaged-chart
 
 <!-- field: integration_target -->
 #### Integration target

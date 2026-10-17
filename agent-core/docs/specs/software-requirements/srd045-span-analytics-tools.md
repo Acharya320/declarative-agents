@@ -262,10 +262,12 @@ All three analytics words return a deduplicated, deterministically ordered, exem
 - cfg-tool-authoring-standard
 - sm-tool-language
 
-<!-- field: implementation_status | form: "tree" -->
+<!-- field: implementation_status -->
 ## Implementation status
 
-- implemented:
-  1. "`internal/tools/otlp/analytics.go` and `analytics_compute.go` own span filtering, heatmap bucketing, group-by counting, exemplars, and attribute divergence over the srd044 read path."
-  1. "`tools/builtin/otlp/all.yaml` declares spool_span_heatmap, spool_span_group_by, and spool_span_breakdown with literal defaults and request-parameter schemas."
-  1. "`go test ./internal/tools/otlp -run 'TestSpanStats|TestSpanAnalytics|TestSpanBreakdown'` proves filtering, independent bucketing and group-by work, top-N, divergence ranking, determinism, exemplars, malformed-line handling, and error paths."
+<!-- field: implemented -->
+### Implemented
+
+- `internal/tools/otlp/analytics.go` and `analytics_compute.go` own span filtering, heatmap bucketing, group-by counting, exemplars, and attribute divergence over the srd044 read path.
+- `tools/builtin/otlp/all.yaml` declares spool_span_heatmap, spool_span_group_by, and spool_span_breakdown with literal defaults and request-parameter schemas.
+- `go test ./internal/tools/otlp -run 'TestSpanStats|TestSpanAnalytics|TestSpanBreakdown'` proves filtering, independent bucketing and group-by work, top-N, divergence ranking, determinism, exemplars, malformed-line handling, and error paths.

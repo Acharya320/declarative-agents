@@ -39,139 +39,134 @@ Only response words bridge machine output back to HTTP.
 | ResponseSelection | terminal_mapping | Selects which terminal signal or response word output becomes the HTTP response. | [status_mapping, header_mapping, body_mapping, error_mapping] |  |
 | RequestTrace | observability_record | Correlates the HTTP request, machine run, terminal state, terminal signal, and response mapping. | [request_id, correlation_id, run_summary] |  |
 
-<!-- field: language_model | form: "tree" -->
+<!-- field: language_model -->
 ## Language model
 
-- request_as_input:
-  An inbound HTTP request is not a workflow. It is grammar input. After
-  validation, the machine_request binding seeds the configured machine with a
-  RequestEvent.
-- machine_sentence_as_handler:
-  Request handling lives in the machine sentence. MachineSpec transitions
-  choose the words that inspect request data, read documents, call models,
-  validate output, and prepare a response.
-- response_word_as_output_bridge:
-  HTTP response data leaves the machine only through response words or
-  configured terminal response output. Direct Go handlers do not assemble demo
-  behavior after validation.
-- transport_boundary:
-  At the transport boundary, the HTTP handler owns validation, cancellation,
-  timeouts, and response writing. Request-specific workflow composition stays
-  in the machine.
-- request_server_ownership:
-  A request server may be launched by a parent MachineSpec through
-  rest_server_launch. A same-origin host proxy may also own the request
-  server lifecycle when the proxy only adapts browser traffic to a configured
-  generic REST server. In both cases, trusted REST configuration names the
-  route contract, request program, and response policy. The proxy must not
-  recompose request workflow in Go after launch.
-- request_tool_selection:
-  Profile-backed request runners load ToolDefs from trusted profile
-  declaration roots. They then select the actions named by the request
-  MachineSpec transitions and register builtin factories only for the selected
-  init names. This combination keeps vocabulary authority in the profile while
-  allowing the request machine to narrow the words it needs for one
-  short-lived sentence.
-- generic_trace_envelope:
-  The generic machine_request response trace belongs to internal/tools/rest.
-  It identifies the REST route, request machine, terminal signal, and run
-  outcome. Profile-specific proxies may forward or display that trace, but
-  they should not be the source of generic route or machine identity.
+<!-- field: request_as_input -->
+### Request as input
 
-<!-- field: relationships | form: "tree" -->
+An inbound HTTP request is not a workflow. It is grammar input. After
+validation, the machine_request binding seeds the configured machine with a
+RequestEvent.
+
+<!-- field: machine_sentence_as_handler -->
+### Machine sentence as handler
+
+Request handling lives in the machine sentence. MachineSpec transitions
+choose the words that inspect request data, read documents, call models,
+validate output, and prepare a response.
+
+<!-- field: response_word_as_output_bridge -->
+### Response word as output bridge
+
+HTTP response data leaves the machine only through response words or
+configured terminal response output. Direct Go handlers do not assemble demo
+behavior after validation.
+
+<!-- field: transport_boundary -->
+### Transport boundary
+
+At the transport boundary, the HTTP handler owns validation, cancellation,
+timeouts, and response writing. Request-specific workflow composition stays
+in the machine.
+
+<!-- field: request_server_ownership -->
+### Request server ownership
+
+A request server may be launched by a parent MachineSpec through
+rest_server_launch. A same-origin host proxy may also own the request
+server lifecycle when the proxy only adapts browser traffic to a configured
+generic REST server. In both cases, trusted REST configuration names the
+route contract, request program, and response policy. The proxy must not
+recompose request workflow in Go after launch.
+
+<!-- field: request_tool_selection -->
+### Request tool selection
+
+Profile-backed request runners load ToolDefs from trusted profile
+declaration roots. They then select the actions named by the request
+MachineSpec transitions and register builtin factories only for the selected
+init names. This combination keeps vocabulary authority in the profile while
+allowing the request machine to narrow the words it needs for one
+short-lived sentence.
+
+<!-- field: generic_trace_envelope -->
+### Generic trace envelope
+
+The generic machine_request response trace belongs to internal/tools/rest.
+It identifies the REST route, request machine, terminal signal, and run
+outcome. Profile-specific proxies may forward or display that trace, but
+they should not be the source of generic route or machine identity.
+
+<!-- field: relationships | form: "keyed table" -->
 ## Relationships
 
-- MachineRequestEndpoint_to_MachineRequestBinding:
-  - meaning: An endpoint with binding machine_request delegates accepted requests to the configured binding.
-  - invariant: The endpoint validates HTTP transport data before a machine run starts.
-- MachineRequestBinding_to_RequestMachine:
-  - meaning: The binding constructs the configured LoopParams, selected registry, initial state, and request seed data for one run.
-  - invariant: Trusted config chooses profile, machine, tool selection, and boundary config; HTTP callers do not.
-- Profile_to_RequestToolSelection:
-  - meaning: The request runner loads declarations from trusted profile config, selects only actions named by the request MachineSpec, and registers only selected builtin init names.
-  - invariant: Missing request-machine actions fail configuration validation before request execution, and unselected request factories remain unavailable.
-- RequestEvent_to_RequestMachine:
-  - meaning: The request event becomes structured input available to the first machine action and later response words.
-  - invariant: RequestEvent contains only declared, validated, and redacted request fields.
-- RequestMachine_to_ResponseWord:
-  - meaning: The machine routes to response vocabulary when it needs to shape the HTTP response.
-  - invariant: Response words are visible MachineSpec actions with declared outputs and signals.
-- ResponseWord_to_ResponseSelection:
-  - meaning: Response word output is mapped to HTTP status, headers, body, and content type.
-  - invariant: Undeclared response fields cannot be written to the HTTP response.
-- Error_to_ResponseSelection:
-  - meaning: Validation, config, timeout, run, and response failures map through configured error responses.
-  - invariant: Error responses redact secrets, raw prompts, credentials, internal paths, and unredacted body content.
-- RequestTrace_to_RunResult:
-  - meaning: The request trace links HTTP metadata with RunResult and RunEvent records.
-  - invariant: Traces record generic route identity and run outcome without secret material.
+| id | meaning | invariant |
+| --- | --- | --- |
+| MachineRequestEndpoint_to_MachineRequestBinding | An endpoint with binding machine_request delegates accepted requests to the configured binding. | The endpoint validates HTTP transport data before a machine run starts. |
+| MachineRequestBinding_to_RequestMachine | The binding constructs the configured LoopParams, selected registry, initial state, and request seed data for one run. | Trusted config chooses profile, machine, tool selection, and boundary config; HTTP callers do not. |
+| Profile_to_RequestToolSelection | The request runner loads declarations from trusted profile config, selects only actions named by the request MachineSpec, and registers only selected builtin init names. | Missing request-machine actions fail configuration validation before request execution, and unselected request factories remain unavailable. |
+| RequestEvent_to_RequestMachine | The request event becomes structured input available to the first machine action and later response words. | RequestEvent contains only declared, validated, and redacted request fields. |
+| RequestMachine_to_ResponseWord | The machine routes to response vocabulary when it needs to shape the HTTP response. | Response words are visible MachineSpec actions with declared outputs and signals. |
+| ResponseWord_to_ResponseSelection | Response word output is mapped to HTTP status, headers, body, and content type. | Undeclared response fields cannot be written to the HTTP response. |
+| Error_to_ResponseSelection | Validation, config, timeout, run, and response failures map through configured error responses. | Error responses redact secrets, raw prompts, credentials, internal paths, and unredacted body content. |
+| RequestTrace_to_RunResult | The request trace links HTTP metadata with RunResult and RunEvent records. | Traces record generic route identity and run outcome without secret material. |
 
-<!-- field: request_flow | form: "tree" -->
+<!-- field: request_flow -->
 ## Request flow
 
-- steps:
-  1. - id: F1
-     - actor: HTTP handler
-     - action: Match configured route and binding machine_request.
-  1. - id: F2
-     - actor: HTTP handler
-     - action: Validate method, path, query, headers, body, size, auth, and timeout policy.
-  1. - id: F3
-     - actor: MachineRequestBinding
-     - action: Build RequestEvent from declared request fields and redacted metadata.
-  1. - id: F4
-     - actor: MachineRequestBinding
-     - action: Resolve trusted profile, MachineSpec, selected ToolDefs, and response policy.
-  1. - id: F4a
-     - actor: ProfileMachineRequestRunner
-     - action: Load trusted profile declaration roots and select the request MachineSpec action names.
-  1. - id: F5
-     - actor: Loop
-     - action: Run the short-lived request machine with RequestEvent as seed input.
-  1. - id: F6
-     - actor: RequestMachine
-     - action: Compose request handling through visible MachineSpec transitions and selected words.
-  1. - id: F7
-     - actor: ResponseWord
-     - action: Produce structured terminal response output.
-  1. - id: F8
-     - actor: ResponseSelection
-     - action: Map terminal signal and response output to HTTP status, headers, content type, and body.
-  1. - id: F9
-     - actor: HTTP handler
-     - action: Write the mapped response and clean up request-scoped state.
+<!-- field: steps -->
+### Steps
 
-<!-- field: diagrams | form: "tree" -->
+| id | actor | action |
+| --- | --- | --- |
+| F1 | HTTP handler | Match configured route and binding machine_request. |
+| F2 | HTTP handler | Validate method, path, query, headers, body, size, auth, and timeout policy. |
+| F3 | MachineRequestBinding | Build RequestEvent from declared request fields and redacted metadata. |
+| F4 | MachineRequestBinding | Resolve trusted profile, MachineSpec, selected ToolDefs, and response policy. |
+| F4a | ProfileMachineRequestRunner | Load trusted profile declaration roots and select the request MachineSpec action names. |
+| F5 | Loop | Run the short-lived request machine with RequestEvent as seed input. |
+| F6 | RequestMachine | Compose request handling through visible MachineSpec transitions and selected words. |
+| F7 | ResponseWord | Produce structured terminal response output. |
+| F8 | ResponseSelection | Map terminal signal and response output to HTTP status, headers, content type, and body. |
+| F9 | HTTP handler | Write the mapped response and clean up request-scoped state. |
+
+<!-- field: diagrams -->
 ## Diagrams
 
-- request_to_machine_sentence:
-  ```mermaid
-  sequenceDiagram
-    participant H as HTTP handler
-    participant B as machine_request binding
-    participant M as MachineSpec
-    participant W as Tool words
-    participant R as response word
-    H->>H: validate request
-    H->>B: accepted request metadata and payload
-    B->>M: seed RequestEvent
-    M->>W: dispatch visible request-handling words
-    W-->>M: declared Result.Signal values
-    M->>R: dispatch response word
-    R-->>B: response output and terminal signal
-    B-->>H: mapped status, headers, body
-  ```
-- grammar_owns_request_behavior:
-  ```mermaid
-  flowchart LR
-    REQ[HTTP Request] --> VAL[Transport validation]
-    VAL --> EVENT[RequestEvent]
-    EVENT --> M[MachineSpec sentence]
-    M --> READ[read document word]
-    READ --> RESP[response word]
-    RESP --> HTTP[HTTP Response]
-    VAL -. not allowed .-> GO[Direct Go demo workflow]
-  ```
+<!-- field: request_to_machine_sentence -->
+### Request to machine sentence
+
+```mermaid
+sequenceDiagram
+  participant H as HTTP handler
+  participant B as machine_request binding
+  participant M as MachineSpec
+  participant W as Tool words
+  participant R as response word
+  H->>H: validate request
+  H->>B: accepted request metadata and payload
+  B->>M: seed RequestEvent
+  M->>W: dispatch visible request-handling words
+  W-->>M: declared Result.Signal values
+  M->>R: dispatch response word
+  R-->>B: response output and terminal signal
+  B-->>H: mapped status, headers, body
+```
+
+<!-- field: grammar_owns_request_behavior -->
+### Grammar owns request behavior
+
+```mermaid
+flowchart LR
+  REQ[HTTP Request] --> VAL[Transport validation]
+  VAL --> EVENT[RequestEvent]
+  EVENT --> M[MachineSpec sentence]
+  M --> READ[read document word]
+  READ --> RESP[response word]
+  RESP --> HTTP[HTTP Response]
+  VAL -. not allowed .-> GO[Direct Go demo workflow]
+```
 
 <!-- field: invariants -->
 ## Invariants

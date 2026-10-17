@@ -233,6 +233,13 @@ A mock-model regression SHALL run an existing model-bound profile through the un
 - Replacing machine_request for short-lived REST sentences whose request and response are already fully owned by one configured endpoint binding.
 - Changing invoke_llm, model response parsing, or the model-driven signal path.
 
+<!-- field: test_trace_plan | form: "typed table" -->
+## Test trace plan
+
+| test_suite | covers |
+| --- | --- |
+| test-rel14.0-agent-input-and-dolt | [AC1, AC2, AC3, AC4, AC5, AC6] |
+
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
 
@@ -322,13 +329,6 @@ Structured traces and errors cover every source outcome, ownership is always rel
 - R6.4
 - R6.5
 
-<!-- field: test_trace_plan | form: "typed table" -->
-## Test trace plan
-
-| test_suite | covers |
-| --- | --- |
-| test-rel14.0-agent-input-and-dolt | [AC1, AC2, AC3, AC4, AC5, AC6] |
-
 <!-- field: related_documents -->
 ## Related documents
 
@@ -337,12 +337,17 @@ Structured traces and errors cover every source outcome, ownership is always rel
 - docs/specs/semantic-models/machine-request-http.md
 - docs/guides/rest-tool.md
 
-<!-- field: implementation_status | form: "tree" -->
+<!-- field: implementation_status -->
 ## Implementation status
 
-- specified:
-  1. Signal-source envelope, trusted mapping, atomic admission outcomes, ordinary machine execution, lifecycle semantics, and compatibility proof.
-- implemented:
-  1. "GH-1742: transport-neutral SignalEnvelope, admission ownership, ordinary Loop execution, checkpoint behavior, and lifecycle outcomes."
-  1. "GH-1741: strict REST signal_source definition, request mapping, response policy, redaction, and trace behavior."
-  1. "GH-1743: profile-detected model-free serving, per-RunID in-memory or Dolt checkpoints, host state restoration, owned server shutdown, core-owned fixtures, and mock-model runOrResume regression."
+<!-- field: specified -->
+### Specified
+
+- Signal-source envelope, trusted mapping, atomic admission outcomes, ordinary machine execution, lifecycle semantics, and compatibility proof.
+
+<!-- field: implemented -->
+### Implemented
+
+- GH-1742: transport-neutral SignalEnvelope, admission ownership, ordinary Loop execution, checkpoint behavior, and lifecycle outcomes.
+- GH-1741: strict REST signal_source definition, request mapping, response policy, redaction, and trace behavior.
+- GH-1743: profile-detected model-free serving, per-RunID in-memory or Dolt checkpoints, host state restoration, owned server shutdown, core-owned fixtures, and mock-model runOrResume regression.

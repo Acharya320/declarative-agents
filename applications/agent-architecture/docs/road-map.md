@@ -151,17 +151,17 @@ the collector UI remains in its bounded role package.
 | packaged | implemented |
 | helm_managed | implemented |
 
+<!-- field: application_srds -->
+### Application SRDs
+
+- srd001-helm-deployment
+
 <!-- field: shared_requirements | form: "typed table" -->
 ### Shared requirements
 
 | owner | id | requirements |
 | --- | --- | --- |
 | applications | srd002-managed-application-services | [R4, R5] |
-
-<!-- field: application_srds -->
-### Application srds
-
-- srd001-helm-deployment
 
 <!-- field: external_requirements -->
 ### External requirements
@@ -212,17 +212,17 @@ prerequisite is unavailable.
 | --- | --- |
 | kind_demo | implemented |
 
+<!-- field: application_srds -->
+### Application SRDs
+
+- srd001-helm-deployment
+
 <!-- field: shared_requirements | form: "typed table" -->
 ### Shared requirements
 
 | owner | id | requirements |
 | --- | --- | --- |
 | applications | srd002-managed-application-services | [R6] |
-
-<!-- field: application_srds -->
-### Application srds
-
-- srd001-helm-deployment
 
 <!-- field: use_cases -->
 ### Use cases
@@ -266,7 +266,7 @@ application-local applier wrapper composes the canonical catalog applier
 while retaining chart-specific REST, command, schema, and rollout bindings.
 
 <!-- field: application_srds -->
-### Application srds
+### Application SRDs
 
 - srd002-applier
 

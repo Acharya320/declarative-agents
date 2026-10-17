@@ -160,8 +160,10 @@ The identity profile is the instance and its digest changes when the blueprint o
 - srd052-declaration-fragments
 - srd054-machine-templates
 
-<!-- field: implementation_status | form: "tree" -->
+<!-- field: implementation_status -->
 ## Implementation status
 
-- planned:
-  1. GH-2123 implements blueprints in the profile loader, the closure, the dump, profilestage, and profileaudit, once the corpus holds a profile group that is one agent with arguments. GH-2115 measured the four chatbot-mesh serve agents and found their duplication was the serve machine, which srd054's template removed; their request machines differ, so they were not that group.
+<!-- field: planned -->
+### Planned
+
+- GH-2123 implements blueprints in the profile loader, the closure, the dump, profilestage, and profileaudit, once the corpus holds a profile group that is one agent with arguments. GH-2115 measured the four chatbot-mesh serve agents and found their duplication was the serve machine, which srd054's template removed; their request machines differ, so they were not that group.

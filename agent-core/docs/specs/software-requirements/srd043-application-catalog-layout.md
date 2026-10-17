@@ -294,18 +294,16 @@ root tag v0.YYYYMMDD.N. New manifests use the root form. Package
 provenance always records what was actually checked out; a compatible tag
 never turns a dirty or different checkout into a release.
 
-<!-- field: implementation_status | form: "tree" -->
-## Implementation status
+<!-- field: non_goals -->
+## Non-goals
 
-- current:
-  This SRD, rel99.0-uc002-application-catalog-migration, and
-  test-rel99.0-application-catalog-migration govern the migration contract.
-  The source, resolver, core-isolation, root-orchestration, application, and
-  chatbot checkpoint cutovers, final taxonomy, active-path sweep, and complete
-  owner-root gate evidence are implemented.
-- planned:
-  No migration work remains. Future removal of the v0 compatibility aliases
-  requires a separately specified major-version transition.
+- Reorganizing catalog internals during the mechanical relocation.
+- Moving generic Go tool implementations or core shared declarations into the catalog.
+- Changing MachineSpec, ToolDef, profile-relative reference, or runtime dispatch semantics.
+- Changing the /profiles or /opt/agent-core/tools runtime mount contracts.
+- Making Agent Core tests validate catalog membership or product behavior.
+- Treating the runtime as a package resolver or profile registry.
+- Rewriting or deleting existing git tags.
 
 <!-- field: implementation_plan | form: "typed table" -->
 ## Implementation plan
@@ -326,17 +324,6 @@ never turns a dirty or different checkout into a release.
 | GH-1049 | [R1.5, R3.2, R3.6, R4.1, R4.3, R5.3, R7.3] | Chatbot integrations use the canonical catalog root |
 | GH-1050 | [R1.5, R3.1, R5.6, R7.5] | Chatbot checkpoint database initializes idempotently |
 | GH-1045 | [R1.3, R1.4, R1.5, R1.7, R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R4.7, R6.4, R7.4] | Taxonomy and active path references match the new ownership |
-
-<!-- field: non_goals -->
-## Non-goals
-
-- Reorganizing catalog internals during the mechanical relocation.
-- Moving generic Go tool implementations or core shared declarations into the catalog.
-- Changing MachineSpec, ToolDef, profile-relative reference, or runtime dispatch semantics.
-- Changing the /profiles or /opt/agent-core/tools runtime mount contracts.
-- Making Agent Core tests validate catalog membership or product behavior.
-- Treating the runtime as a package resolver or profile registry.
-- Rewriting or deleting existing git tags.
 
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
@@ -474,3 +461,21 @@ Every child issue in GH-1036 maps to requirements and one named formal test case
 - docs/road-map.md
 - docs/ARCHITECTURE.md
 - docs/constitutions/design.yaml
+
+<!-- field: implementation_status -->
+## Implementation status
+
+<!-- field: current -->
+### Current
+
+This SRD, rel99.0-uc002-application-catalog-migration, and
+test-rel99.0-application-catalog-migration govern the migration contract.
+The source, resolver, core-isolation, root-orchestration, application, and
+chatbot checkpoint cutovers, final taxonomy, active-path sweep, and complete
+owner-root gate evidence are implemented.
+
+<!-- field: planned -->
+### Planned
+
+No migration work remains. Future removal of the v0 compatibility aliases
+requires a separately specified major-version transition.

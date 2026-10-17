@@ -26,15 +26,20 @@ release: "17.0"
 <!-- case: Rig doctor closure | status: implemented -->
 ### Rig doctor closure
 
+<!-- field: id -->
+#### ID
+
+rig-doctor-closure
+
 <!-- field: use_case -->
 #### Use case
 
 rel17.0-uc001-rig-doctor
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-rig-doctor-closure
+mage validate
 
 <!-- field: verifies -->
 #### Verifies
@@ -46,11 +51,6 @@ rig-doctor-closure
 
 - rel17.0-uc001-rig-doctor S2
 
-<!-- field: go_test -->
-#### Go test
-
-mage validate
-
 <!-- field: assertions -->
 #### Assertions
 
@@ -61,35 +61,35 @@ mage validate
 <!-- case: Rig doctor diagnosed | status: implemented -->
 ### Rig doctor diagnosed
 
-<!-- field: use_case -->
-#### Use case
-
-rel17.0-uc001-rig-doctor
-
 <!-- field: id -->
 #### ID
 
 rig-doctor-diagnosed
 
-<!-- field: verifies -->
-#### Verifies
+<!-- field: use_case -->
+#### Use case
 
-- S3
-
-<!-- field: traces -->
-#### Traces
-
-- rel17.0-uc001-rig-doctor S3
+rel17.0-uc001-rig-doctor
 
 <!-- field: go_test -->
 #### Go test
 
 go test ./conformance -run '^TestRigDoctorDiagnosed'
 
+<!-- field: verifies -->
+#### Verifies
+
+- S3
+
 <!-- field: inputs | form: "tree" -->
 #### Inputs
 
 - evidence: conformance/testdata/rig-doctor/failing-rollout
+
+<!-- field: traces -->
+#### Traces
+
+- rel17.0-uc001-rig-doctor S3
 
 <!-- field: assertions -->
 #### Assertions
@@ -102,15 +102,20 @@ go test ./conformance -run '^TestRigDoctorDiagnosed'
 <!-- case: Rig doctor spool queries | status: implemented -->
 ### Rig doctor spool queries
 
+<!-- field: id -->
+#### ID
+
+rig-doctor-spool-queries
+
 <!-- field: use_case -->
 #### Use case
 
 rel17.0-uc001-rig-doctor
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-rig-doctor-spool-queries
+go test ./conformance -run '^TestRigDoctorQueriesTheCapturedSpool'
 
 <!-- field: verifies -->
 #### Verifies
@@ -118,21 +123,16 @@ rig-doctor-spool-queries
 - S2
 - S3
 
+<!-- field: inputs | form: "tree" -->
+#### Inputs
+
+- evidence: testdata/conformance/rig-doctor/failing-rollout
+
 <!-- field: traces -->
 #### Traces
 
 - rel17.0-uc001-rig-doctor S2
 - rel17.0-uc001-rig-doctor S3
-
-<!-- field: go_test -->
-#### Go test
-
-go test ./conformance -run '^TestRigDoctorQueriesTheCapturedSpool'
-
-<!-- field: inputs | form: "tree" -->
-#### Inputs
-
-- evidence: testdata/conformance/rig-doctor/failing-rollout
 
 <!-- field: assertions -->
 #### Assertions
@@ -144,35 +144,35 @@ go test ./conformance -run '^TestRigDoctorQueriesTheCapturedSpool'
 <!-- case: Rig doctor repairs its diagnosis | status: implemented -->
 ### Rig doctor repairs its diagnosis
 
-<!-- field: use_case -->
-#### Use case
-
-rel17.0-uc001-rig-doctor
-
 <!-- field: id -->
 #### ID
 
 rig-doctor-repairs-its-diagnosis
 
-<!-- field: verifies -->
-#### Verifies
+<!-- field: use_case -->
+#### Use case
 
-- S3
-
-<!-- field: traces -->
-#### Traces
-
-- rel17.0-uc001-rig-doctor S3
+rel17.0-uc001-rig-doctor
 
 <!-- field: go_test -->
 #### Go test
 
 go test ./conformance -run '^TestRigDoctorRepairs'
 
+<!-- field: verifies -->
+#### Verifies
+
+- S3
+
 <!-- field: inputs | form: "tree" -->
 #### Inputs
 
 - evidence: testdata/conformance/rig-doctor/failing-rollout
+
+<!-- field: traces -->
+#### Traces
+
+- rel17.0-uc001-rig-doctor S3
 
 <!-- field: assertions -->
 #### Assertions
@@ -183,15 +183,20 @@ go test ./conformance -run '^TestRigDoctorRepairs'
 <!-- case: Rig doctor refuses an incomplete diagnosis | status: implemented -->
 ### Rig doctor refuses an incomplete diagnosis
 
+<!-- field: id -->
+#### ID
+
+rig-doctor-refuses-an-incomplete-diagnosis
+
 <!-- field: use_case -->
 #### Use case
 
 rel17.0-uc001-rig-doctor
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-rig-doctor-refuses-an-incomplete-diagnosis
+go test ./conformance -run '^TestRigDoctorRefusesADiagnosisWithoutFindings'
 
 <!-- field: verifies -->
 #### Verifies
@@ -202,11 +207,6 @@ rig-doctor-refuses-an-incomplete-diagnosis
 #### Traces
 
 - rel17.0-uc001-rig-doctor S3
-
-<!-- field: go_test -->
-#### Go test
-
-go test ./conformance -run '^TestRigDoctorRefusesADiagnosisWithoutFindings'
 
 <!-- field: assertions -->
 #### Assertions
@@ -217,15 +217,20 @@ go test ./conformance -run '^TestRigDoctorRefusesADiagnosisWithoutFindings'
 <!-- case: Rig doctor retries a failed model call | status: implemented -->
 ### Rig doctor retries a failed model call
 
+<!-- field: id -->
+#### ID
+
+rig-doctor-retries-a-failed-model-call
+
 <!-- field: use_case -->
 #### Use case
 
 rel17.0-uc001-rig-doctor
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-rig-doctor-retries-a-failed-model-call
+go test ./conformance -run '^TestRigDoctorRetriesAFailedModelCall'
 
 <!-- field: verifies -->
 #### Verifies
@@ -239,11 +244,6 @@ rig-doctor-retries-a-failed-model-call
 - rel17.0-uc001-rig-doctor S3
 - rel17.0-uc001-rig-doctor S5
 
-<!-- field: go_test -->
-#### Go test
-
-go test ./conformance -run '^TestRigDoctorRetriesAFailedModelCall'
-
 <!-- field: assertions | form: "tree" -->
 #### Assertions
 
@@ -253,15 +253,20 @@ go test ./conformance -run '^TestRigDoctorRetriesAFailedModelCall'
 <!-- case: Rig doctor does not retry a rejected credential | status: implemented -->
 ### Rig doctor does not retry a rejected credential
 
+<!-- field: id -->
+#### ID
+
+rig-doctor-does-not-retry-a-rejected-credential
+
 <!-- field: use_case -->
 #### Use case
 
 rel17.0-uc001-rig-doctor
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-rig-doctor-does-not-retry-a-rejected-credential
+go test ./conformance -run '^TestRigDoctorDoesNotRetryARejectedCredential'
 
 <!-- field: verifies -->
 #### Verifies
@@ -272,11 +277,6 @@ rig-doctor-does-not-retry-a-rejected-credential
 #### Traces
 
 - rel17.0-uc001-rig-doctor S5
-
-<!-- field: go_test -->
-#### Go test
-
-go test ./conformance -run '^TestRigDoctorDoesNotRetryARejectedCredential'
 
 <!-- field: assertions -->
 #### Assertions
@@ -287,15 +287,20 @@ go test ./conformance -run '^TestRigDoctorDoesNotRetryARejectedCredential'
 <!-- case: Rig doctor gives up on an unreachable provider | status: implemented -->
 ### Rig doctor gives up on an unreachable provider
 
+<!-- field: id -->
+#### ID
+
+rig-doctor-gives-up-on-an-unreachable-provider
+
 <!-- field: use_case -->
 #### Use case
 
 rel17.0-uc001-rig-doctor
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-rig-doctor-gives-up-on-an-unreachable-provider
+go test ./conformance -run '^TestRigDoctorGivesUpOnAnUnreachableProvider'
 
 <!-- field: verifies -->
 #### Verifies
@@ -307,11 +312,6 @@ rig-doctor-gives-up-on-an-unreachable-provider
 
 - rel17.0-uc001-rig-doctor S5
 
-<!-- field: go_test -->
-#### Go test
-
-go test ./conformance -run '^TestRigDoctorGivesUpOnAnUnreachableProvider'
-
 <!-- field: assertions -->
 #### Assertions
 
@@ -321,35 +321,35 @@ go test ./conformance -run '^TestRigDoctorGivesUpOnAnUnreachableProvider'
 <!-- case: Rig doctor no evidence | status: implemented -->
 ### Rig doctor no evidence
 
-<!-- field: use_case -->
-#### Use case
-
-rel17.0-uc001-rig-doctor
-
 <!-- field: id -->
 #### ID
 
 rig-doctor-no-evidence
 
-<!-- field: verifies -->
-#### Verifies
+<!-- field: use_case -->
+#### Use case
 
-- S4
-
-<!-- field: traces -->
-#### Traces
-
-- rel17.0-uc001-rig-doctor S4
+rel17.0-uc001-rig-doctor
 
 <!-- field: go_test -->
 #### Go test
 
 go test ./conformance -run '^TestRigDoctorNoEvidence'
 
+<!-- field: verifies -->
+#### Verifies
+
+- S4
+
 <!-- field: inputs | form: "tree" -->
 #### Inputs
 
 - evidence: conformance/testdata/rig-doctor/empty
+
+<!-- field: traces -->
+#### Traces
+
+- rel17.0-uc001-rig-doctor S4
 
 <!-- field: assertions -->
 #### Assertions
@@ -360,15 +360,20 @@ go test ./conformance -run '^TestRigDoctorNoEvidence'
 <!-- case: Rig capture manifest | status: implemented -->
 ### Rig capture manifest
 
+<!-- field: id -->
+#### ID
+
+rig-capture-manifest
+
 <!-- field: use_case -->
 #### Use case
 
 rel17.0-uc001-rig-doctor
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-rig-capture-manifest
+cd ../.. && go test ./magefiles/kindrig -run '^TestCaptureEvidence'
 
 <!-- field: verifies -->
 #### Verifies
@@ -380,11 +385,6 @@ rig-capture-manifest
 
 - rel17.0-uc001-rig-doctor S1
 
-<!-- field: go_test -->
-#### Go test
-
-cd ../.. && go test ./magefiles/kindrig -run '^TestCaptureEvidence'
-
 <!-- field: assertions -->
 #### Assertions
 
@@ -394,15 +394,20 @@ cd ../.. && go test ./magefiles/kindrig -run '^TestCaptureEvidence'
 <!-- case: Rig doctor registration | status: implemented -->
 ### Rig doctor registration
 
+<!-- field: id -->
+#### ID
+
+rig-doctor-registration
+
 <!-- field: use_case -->
 #### Use case
 
 rel17.0-uc001-rig-doctor
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-rig-doctor-registration
+go test ./conformance -run '^TestFamily'
 
 <!-- field: verifies -->
 #### Verifies
@@ -414,11 +419,6 @@ rig-doctor-registration
 
 - rel17.0-uc001-rig-doctor S6
 
-<!-- field: go_test -->
-#### Go test
-
-go test ./conformance -run '^TestFamily'
-
 <!-- field: assertions -->
 #### Assertions
 
@@ -427,15 +427,20 @@ go test ./conformance -run '^TestFamily'
 <!-- case: Rig doctor live | status: implemented -->
 ### Rig doctor live
 
+<!-- field: id -->
+#### ID
+
+rig-doctor-live
+
 <!-- field: use_case -->
 #### Use case
 
 rel17.0-uc001-rig-doctor
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-rig-doctor-live
+cd ../chatbot-mesh && mage diagnose helm-smoke
 
 <!-- field: verifies -->
 #### Verifies
@@ -448,11 +453,6 @@ rig-doctor-live
 
 - rel17.0-uc001-rig-doctor S3
 - rel17.0-uc001-rig-doctor S5
-
-<!-- field: go_test -->
-#### Go test
-
-cd ../chatbot-mesh && mage diagnose helm-smoke
 
 <!-- field: assertions -->
 #### Assertions

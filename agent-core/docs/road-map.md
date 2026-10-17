@@ -12,7 +12,7 @@ Import the generic agentic loop engine from the generator project and add
 the support packages that make it usable as a library.
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd001-core-types
 - srd002-state-machine
@@ -59,7 +59,7 @@ planner packages, evaluator support, bench UI support, native Mage
 targets, and Go tests round out the release.
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd019-eval-harness
 - srd020-bench-web-ui
@@ -96,7 +96,7 @@ StateStore model, adding git-style Revert for DB-persisted state while
 tools own external compensation through opaque receipts.
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd025-rollback-lifecycle
 - srd026-lifecycle-tools
@@ -149,7 +149,7 @@ until future work implements them. The formal suite maps the implemented
 contracts to named executable tests.
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd027-rest-tool-runtime
 - srd028-rest-client-tools
@@ -204,7 +204,7 @@ data, but the runtime owns the cache and recorder ports. The release proof
 is mage integration:monitor.
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd032-tool-metrics-monitor-store
 - srd033-monitor-rest-api
@@ -244,7 +244,7 @@ token metrics while the agent process remains active, and exits through
 monitor control.
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd032-tool-metrics-monitor-store
 - srd033-monitor-rest-api
@@ -290,7 +290,7 @@ profile, and pass --directory to the mounted workspace. The runtime image
 does not copy migrated agent profile directories from agent-core.
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd034-external-agent-profiles
 
@@ -308,6 +308,13 @@ does not copy migrated agent profile directories from agent-core.
 | --- | --- | --- |
 | test-rel06.0-profile-migration | Formal tests for external profile root resolution, runtime image profile exclusion, and mounted-profile container execution | implemented |
 
+<!-- field: follow_up -->
+### Follow up
+
+| id | summary | status |
+| --- | --- | --- |
+| agent-core-xcbg | Normalize stale in-repo agent path references after profile migration | done |
+
 <!-- field: proof -->
 ### Proof
 
@@ -318,13 +325,6 @@ does not copy migrated agent profile directories from agent-core.
 - applications/coding-agent mage integration:executorLive
 - applications/coding-agent mage integration:criticGate
 - applications/catalog mage containerSmoke
-
-<!-- field: follow_up -->
-### Follow up
-
-| id | summary | status |
-| --- | --- | --- |
-| agent-core-xcbg | Normalize stale in-repo agent path references after profile migration | done |
 
 <!-- release: 07.0 | status: implemented -->
 ## 07.0 - Command-state store and two-plane persistence
@@ -346,7 +346,7 @@ use cases; the core store and REST consumption land in epics GH-269 and
 GH-270.
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd038-command-state-store
 - srd036-dolt-state-persistence
@@ -390,7 +390,7 @@ the tracer-bullet use case; the inject/extract implementation lands in
 Epic #295 (GH-310).
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd016-traceparent
 
@@ -437,7 +437,7 @@ scenario tracer remains planned.
 | gh-667 | Add service-child, validator, and scenario-discovery builtin tools. | done |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd039-mock-endpoint-binding
 - srd040-service-child-tools
@@ -498,7 +498,7 @@ specified in GH-769 and implemented in GH-770.
 | gh-770 | Implement the value predicate word in internal/tools/control. | done |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd041-value-predicate-tool
 
@@ -548,7 +548,7 @@ metrics evidence from srd008 R9 retain a separate metrics path.
 | gh-861 | Implement declared OTLP batch relay and self-loop rejection. | implemented |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd042-otlp-receiver-tools
 
@@ -590,7 +590,7 @@ lines, and treat an absent spool as empty.
 | gh-1144 | Add spool query builtin tools (agent-core release 12.0). | done |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd044-spool-query-tools
 
@@ -635,7 +635,7 @@ without environment variables, and produce deterministic output.
 | gh-1240 | Add span-analytics builtin tools (agent-core release 13.0). | done |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd045-span-analytics-tools
 
@@ -689,7 +689,7 @@ authority refusal, and database isolation.
 | gh-1733 | Implement the HTTP request signal source, model-free profiles, lifecycle coverage, and model regression. | implemented |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd046-request-driven-signal-source
 - srd047-dolt-boundary-word
@@ -739,7 +739,7 @@ words remain unchanged.
 | gh-1952 | Implement the Cohere adapter, invoke_llm provider selection, parser profile, and hermetic tests. | implemented |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd048-cohere-adapter
 
@@ -787,7 +787,7 @@ both-forms precedent.
 | gh-1957 | Specify and ship the pipeline word, stage co-selection, and the render_each current-value items selector. | implemented |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd049-pipeline-word
 
@@ -835,7 +835,7 @@ declaration output is committed.
 | gh-1978 | Enforce unused imports and add the control-imports closure proof. | implemented |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd050-declaration-imports
 
@@ -887,7 +887,7 @@ unit earns its place with two importers or one expansion.
 | gh-2085 | Factor the top duplicated blocks into fragments and shared units, reporting stats:reuse before and after. | implemented |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd052-declaration-fragments
 
@@ -936,7 +936,7 @@ migration signs its tools, deletes the prose, and deletes its lines.
 | gh-2150 | Categorize or fold the catalog critic session and LLM overlay tools, then promote R6.14 and R6.15 into the corpus audit. | implemented |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd051-declaration-types
 
@@ -1000,7 +1000,7 @@ it only specified.
 | gh-2116 | Migrate the remaining identical-state-set machine groups to templates. | implemented |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd054-machine-templates
 - srd055-agent-blueprints
@@ -1067,7 +1067,7 @@ would be a mechanism this release does not add.
 | gh-2171 | Measured six shared request capabilities trapped behind machine overrides and closed as decided. Bench cleaved in gh-2188 and ended as a template instance; collector intake is not extractable under srd057 R1.1; vector query and the provisioning and creator request sides stay out of the catalog because their SRDs are tombstones; document read and the scenario rigs belong to consumer repositories. | done |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd057-capability-profiles
 
@@ -1123,7 +1123,7 @@ by rebinding --library providers, and a new provider needs no Go.
 | gh-2244 | The synthetic OpenAI-shaped third-provider conformance suite. | implemented |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd058-provider-libraries
 
@@ -1177,7 +1177,7 @@ consumer migrates when it chooses.
 | gh-2307 | The rig-doctor retries on ProviderUnavailable instead of CommandError. | implemented |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd058-provider-libraries
 - srd009-ollama-adapter
@@ -1234,7 +1234,7 @@ between kind, GCS, and S3 changes a values overlay and nothing else.
 | gh-2425 | The fake-gcs live proof and the release close-out. | implemented |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd059-objectstore-tools
 
@@ -1287,7 +1287,7 @@ branch on. Faults that are not an expired budget keep failing.
 | gh-2449 | Classify the deadline in the stop path and report the drain field. | implemented |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd033-monitor-rest-api
 
@@ -1340,7 +1340,7 @@ at their next pin bump.
 | gh-2530 | Migrate chatbot-mesh onto the fragment, return metadatas from rag-server, and file consumer adoption issues. | implemented |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd060-retrieval-client-contract
 - srd056-unit-libraries
@@ -1412,7 +1412,7 @@ root v0.* tag.
 | gh-1045 | Update catalog taxonomy and sweep migrated path references. | done |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd037-tool-dispatch-simplification
 - srd043-application-catalog-layout

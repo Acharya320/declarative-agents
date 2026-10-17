@@ -29,18 +29,30 @@ prove it stays fixed.
 - G3: Give an accepted violation one checked-in place to live, and make that place shrink.
 - G4: Report a violation as the chart, the overlay, the resource, and the rule, so a reader can act without re-rendering.
 
-<!-- field: applicability | form: "tree" -->
+<!-- field: applicability -->
 ## Applicability
 
-- baseline:
-  R1 through R5, R9, and R10 apply to every application chart in this
-  repository and to every checked-in values overlay that chart renders
-  under. R6 applies to every checked-in kind configuration. R7 governs
-  the exception baseline and applies whenever any other requirement is
-  suspended. R8 applies to every finding the gate reports.
-- capability_gates:
-  - helm_managed: R1 through R5, R8, R9, and R10 apply only to an application that ships a chart.
-  - kind_demo: R6 applies only to an application that carries a kind configuration.
+<!-- field: baseline -->
+### Baseline
+
+R1 through R5, R9, and R10 apply to every application chart in this
+repository and to every checked-in values overlay that chart renders
+under. R6 applies to every checked-in kind configuration. R7 governs
+the exception baseline and applies whenever any other requirement is
+suspended. R8 applies to every finding the gate reports.
+
+<!-- field: capability_gates -->
+### Capability gates
+
+<!-- field: helm_managed -->
+#### Helm managed
+
+R1 through R5, R8, R9, and R10 apply only to an application that ships a chart.
+
+<!-- field: kind_demo -->
+#### Kind demo
+
+R6 applies only to an application that carries a kind configuration.
 
 <!-- req: R1 -->
 ## R1 - Image tags do not float

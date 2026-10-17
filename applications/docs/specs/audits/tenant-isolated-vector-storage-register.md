@@ -6,107 +6,329 @@ audit_date: "2026-09-22"
 <!-- Copyright (c) 2026 Nokia -->
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
 
-<!-- field: scope | form: "tree" -->
+<!-- field: scope -->
 ## Scope
 
-- issue: GH-2481
-- decision: Retain application-owned vector stores; do not add a shared vector service to da-platform.
-- evidence_boundary:
-  The audit covers every in-repository first-party application and searches
-  the accessible Nokia-Bell-Labs GitHub corpus for downstream CHROMA_URL and
-  chromadb consumers. Prose Editor is documented as downstream-owned, but its
-  source and a second downstream application are not present or discoverable
-  from this checkout; no claim is made about their private implementation.
-- examined:
-  1. applications/chatbot-mesh/helm/templates/rag-units.yaml
-  1. applications/chatbot-mesh/helm/values.yaml
-  1. applications/chatbot-mesh/agents/rag-server/
-  1. applications/catalog/agents/knowledge-manager/
-  1. applications/coding-agent/agents/application.yaml
-  1. applications/agent-architecture/agents/application.yaml
-  1. applications/catalog/docs/specs/software-requirements/srd012-chroma-corpus-agents.md
-  1. docs/engineering/eng01-kind-test-demo-rig.md
+<!-- field: issue -->
+### Issue
 
-<!-- field: inventory | form: "tree" -->
+GH-2481
+
+<!-- field: decision -->
+### Decision
+
+Retain application-owned vector stores; do not add a shared vector service to da-platform.
+
+<!-- field: evidence_boundary -->
+### Evidence boundary
+
+The audit covers every in-repository first-party application and searches
+the accessible Nokia-Bell-Labs GitHub corpus for downstream CHROMA_URL and
+chromadb consumers. Prose Editor is documented as downstream-owned, but its
+source and a second downstream application are not present or discoverable
+from this checkout; no claim is made about their private implementation.
+
+<!-- field: examined -->
+### Examined
+
+- applications/chatbot-mesh/helm/templates/rag-units.yaml
+- applications/chatbot-mesh/helm/values.yaml
+- applications/chatbot-mesh/agents/rag-server/
+- applications/catalog/agents/knowledge-manager/
+- applications/coding-agent/agents/application.yaml
+- applications/agent-architecture/agents/application.yaml
+- applications/catalog/docs/specs/software-requirements/srd012-chroma-corpus-agents.md
+- docs/engineering/eng01-kind-test-demo-rig.md
+
+<!-- field: inventory -->
 ## Inventory
 
-- first_party:
-  1. - application: chatbot-mesh
-     - vector_workloads: One Chroma StatefulSet and PVC per declared ragUnits entry.
-     - current_local_instance: chatbot-mesh-chatbot-mesh-rag0-chroma
-     - namespace: app-chatbot-mesh
-     - collection: corpus
-     - embedding_identity:
-       - provider: Ollama
-       - model: qwen3-embedding:8b
-       - declared_separately_from_collection: true
-     - persistence: 256Mi ReadWriteOnce PVC mounted at /data
-     - credentials: none
-     - authorization: none in Chroma; local separation is workload/Service/PVC topology, not authenticated tenancy
-     - lifecycle:
-       - create: application Helm release
-       - ingest: catalog corpus-ingest profile through application-owned app:seed
-       - query: application rag-server
-       - backup: no declared production backup authority; benchmark used a read-only tar stream
-       - retention: PVC follows application namespace deletion today
-       - purge: no vector-specific portable purge contract
-  1. - application: coding-agent
-     - vector_workloads: none
-     - retrieval_policy: none
-  1. - application: agent-architecture
-     - vector_workloads: none
-     - retrieval_policy: Documentation curator reads files, not a vector engine.
-- downstream:
-  1. - application: prose-editor
-     - availability: documented downstream owner; source absent from this repository and inaccessible to this audit
-     - evidence: applications/catalog/docs/specs/software-requirements/srd021-observer.md R4.3
-  1. - application: second-downstream-consumer
-     - availability: not named in repository documentation and not discoverable through accessible organization code search
-     - disposition: No implementation facts inferred.
+<!-- field: first_party -->
+### First party
 
-<!-- field: measurements | form: "tree" -->
+<!-- first_party_entry: chatbot-mesh -->
+#### chatbot-mesh
+
+<!-- field: vector_workloads -->
+##### Vector workloads
+
+One Chroma StatefulSet and PVC per declared ragUnits entry.
+
+<!-- field: current_local_instance -->
+##### Current local instance
+
+chatbot-mesh-chatbot-mesh-rag0-chroma
+
+<!-- field: namespace -->
+##### Namespace
+
+app-chatbot-mesh
+
+<!-- field: collection -->
+##### Collection
+
+corpus
+
+<!-- field: embedding_identity | form: "tree" -->
+##### Embedding identity
+
+- provider: Ollama
+- model: qwen3-embedding:8b
+- declared_separately_from_collection: true
+
+<!-- field: persistence -->
+##### Persistence
+
+256Mi ReadWriteOnce PVC mounted at /data
+
+<!-- field: credentials -->
+##### Credentials
+
+none
+
+<!-- field: authorization -->
+##### Authorization
+
+none in Chroma; local separation is workload/Service/PVC topology, not authenticated tenancy
+
+<!-- field: lifecycle -->
+##### Lifecycle
+
+<!-- field: create -->
+###### Create
+
+application Helm release
+
+<!-- field: ingest -->
+###### Ingest
+
+catalog corpus-ingest profile through application-owned app:seed
+
+<!-- field: query -->
+###### Query
+
+application rag-server
+
+<!-- field: backup -->
+###### Backup
+
+no declared production backup authority; benchmark used a read-only tar stream
+
+<!-- field: retention -->
+###### Retention
+
+PVC follows application namespace deletion today
+
+<!-- field: purge -->
+###### Purge
+
+no vector-specific portable purge contract
+
+<!-- first_party_entry: coding-agent -->
+#### coding-agent
+
+<!-- field: vector_workloads -->
+##### Vector workloads
+
+none
+
+<!-- field: retrieval_policy -->
+##### Retrieval policy
+
+none
+
+<!-- first_party_entry: agent-architecture -->
+#### agent-architecture
+
+<!-- field: vector_workloads -->
+##### Vector workloads
+
+none
+
+<!-- field: retrieval_policy -->
+##### Retrieval policy
+
+Documentation curator reads files, not a vector engine.
+
+<!-- field: downstream | form: "typed table" -->
+### Downstream
+
+| application | availability | evidence | disposition |
+| --- | --- | --- | --- |
+| prose-editor | documented downstream owner; source absent from this repository and inaccessible to this audit | applications/catalog/docs/specs/software-requirements/srd021-observer.md R4.3 |  |
+| second-downstream-consumer | not named in repository documentation and not discoverable through accessible organization code search |  | No implementation facts inferred. |
+
+<!-- field: measurements -->
 ## Measurements
 
-- environment:
-  - platform: da-platform kind, kindest/node v1.36.1
-  - architecture: darwin arm64 host, linux/arm64 node
-  - workload: seeded chatbot-mesh rag0 Chroma 1.5.3
-  - sample_time: 2026-09-22T04:53Z
-- steady_state:
-  - cpu_millicores: 3
-  - memory_mib: 11
-  - pvc_capacity_mib: 256
-  - data_bytes: 188416
-  - command: kubectl top pod --containers and kubectl exec -- du -sb /data
-- heartbeat_latency:
-  - requests: 50
-  - min_ms: 2.437
-  - p50_ms: 3.393
-  - p95_ms: 6.420
-  - max_ms: 36.088
-  - command: curl /api/v2/heartbeat through a local Service port-forward
-- application_query_latency:
-  - requests: 3
-  - min_ms: 401.8
-  - median_ms: 465.2
-  - max_ms: 2515.7
-  - command: POST /api/v1/chat through shared Traefik after corpus seed
-  - note: End-to-end latency includes embedding, vector query, routing, and answer generation; it is not a Chroma-only measure.
-- ingest:
-  - corpus: checked-in chatbot-mesh integration corpus
-  - elapsed_seconds: 13.717
-  - result: corpus-ingest reached success and app:verify served a non-empty answer
-- restart:
-  - delete_to_ready_seconds: 12.202
-  - persistence_check: app:verify passed after the StatefulSet pod replacement
-- backup_stream:
-  - bytes: 194560
-  - elapsed_seconds: 0.091
-  - method: tar stream of /data through kubectl exec; no backup authority or schedule is implied
-- application_removal:
-  - app_down_seconds: 112.562
-  - result: namespace and Chroma PVC removed; application telemetry bucket remained separate and retained
-  - implication: Vector retention across app:down is not specified today and must not be silently changed by a shared service.
+<!-- field: environment | form: "tree" -->
+### Environment
+
+- platform: da-platform kind, kindest/node v1.36.1
+- architecture: darwin arm64 host, linux/arm64 node
+- workload: seeded chatbot-mesh rag0 Chroma 1.5.3
+- sample_time: 2026-09-22T04:53Z
+
+<!-- field: steady_state -->
+### Steady state
+
+<!-- field: cpu_millicores | form: "scalar" -->
+#### CPU millicores
+
+3
+
+<!-- field: memory_mib | form: "scalar" -->
+#### Memory mib
+
+11
+
+<!-- field: pvc_capacity_mib | form: "scalar" -->
+#### PVC capacity mib
+
+256
+
+<!-- field: data_bytes | form: "scalar" -->
+#### Data bytes
+
+188416
+
+<!-- field: command -->
+#### Command
+
+kubectl top pod --containers and kubectl exec -- du -sb /data
+
+<!-- field: heartbeat_latency -->
+### Heartbeat latency
+
+<!-- field: requests | form: "scalar" -->
+#### Requests
+
+50
+
+<!-- field: min_ms | form: "scalar" -->
+#### Min ms
+
+2.437
+
+<!-- field: p50_ms | form: "scalar" -->
+#### P50 ms
+
+3.393
+
+<!-- field: p95_ms | form: "scalar" -->
+#### P95 ms
+
+6.420
+
+<!-- field: max_ms | form: "scalar" -->
+#### Max ms
+
+36.088
+
+<!-- field: command -->
+#### Command
+
+curl /api/v2/heartbeat through a local Service port-forward
+
+<!-- field: application_query_latency -->
+### Application query latency
+
+<!-- field: requests | form: "scalar" -->
+#### Requests
+
+3
+
+<!-- field: min_ms | form: "scalar" -->
+#### Min ms
+
+401.8
+
+<!-- field: median_ms | form: "scalar" -->
+#### Median ms
+
+465.2
+
+<!-- field: max_ms | form: "scalar" -->
+#### Max ms
+
+2515.7
+
+<!-- field: command -->
+#### Command
+
+POST /api/v1/chat through shared Traefik after corpus seed
+
+<!-- field: note -->
+#### Note
+
+End-to-end latency includes embedding, vector query, routing, and answer generation; it is not a Chroma-only measure.
+
+<!-- field: ingest -->
+### Ingest
+
+<!-- field: corpus -->
+#### Corpus
+
+checked-in chatbot-mesh integration corpus
+
+<!-- field: elapsed_seconds | form: "scalar" -->
+#### Elapsed seconds
+
+13.717
+
+<!-- field: result -->
+#### Result
+
+corpus-ingest reached success and app:verify served a non-empty answer
+
+<!-- field: restart -->
+### Restart
+
+<!-- field: delete_to_ready_seconds | form: "scalar" -->
+#### Delete to ready seconds
+
+12.202
+
+<!-- field: persistence_check -->
+#### Persistence check
+
+app:verify passed after the StatefulSet pod replacement
+
+<!-- field: backup_stream -->
+### Backup stream
+
+<!-- field: bytes | form: "scalar" -->
+#### Bytes
+
+194560
+
+<!-- field: elapsed_seconds | form: "scalar" -->
+#### Elapsed seconds
+
+0.091
+
+<!-- field: method -->
+#### Method
+
+tar stream of /data through kubectl exec; no backup authority or schedule is implied
+
+<!-- field: application_removal -->
+### Application removal
+
+<!-- field: app_down_seconds | form: "scalar" -->
+#### App down seconds
+
+112.562
+
+<!-- field: result -->
+#### Result
+
+namespace and Chroma PVC removed; application telemetry bucket remained separate and retained
+
+<!-- field: implication -->
+#### Implication
+
+Vector retention across app:down is not specified today and must not be silently changed by a shared service.
 
 <!-- field: candidates -->
 ## Candidates
@@ -141,33 +363,73 @@ audit_date: "2026-09-22"
 | purge mistake |  |  | Vector purge remains application authority and is not inferred from namespace or collection naming. |
 | noisy-neighbor exhaustion |  |  | Per-application requests/limits and PVCs preserve attribution; shared candidates require explicit quotas before adoption. |
 
-<!-- field: authority | form: "tree" -->
+<!-- field: authority -->
 ## Authority
 
-- create: application lifecycle and chart
-- ingest: application-owned workflow using catalog corpus-ingest capability
-- query: application rag-server; platform never chooses retrieval/ranking/prompt policy
-- backup: application data authority; currently an identified gap
-- migration: application owner with embedding-identity compatibility proof
-- retention: application data authority
-- purge: separately approved application purge authority; no vector deletion fallback
+<!-- field: create -->
+### Create
 
-<!-- field: recommendation | form: "tree" -->
+application lifecycle and chart
+
+<!-- field: ingest -->
+### Ingest
+
+application-owned workflow using catalog corpus-ingest capability
+
+<!-- field: query -->
+### Query
+
+application rag-server; platform never chooses retrieval/ranking/prompt policy
+
+<!-- field: backup -->
+### Backup
+
+application data authority; currently an identified gap
+
+<!-- field: migration -->
+### Migration
+
+application owner with embedding-identity compatibility proof
+
+<!-- field: retention -->
+### Retention
+
+application data authority
+
+<!-- field: purge -->
+### Purge
+
+separately approved application purge authority; no vector deletion fallback
+
+<!-- field: recommendation -->
 ## Recommendation
 
-- decision: reject-shared-vector-service
-- rationale:
-  There is one measured first-party vector workload, no authenticated Chroma
-  tenant boundary, and no demonstrated resource pressure. A direct shared
-  Chroma leaks authority; a gateway or pgvector migration adds substantial
-  control-plane and migration cost before demand exists. Retaining
-  application-owned stores preserves behavior and failure isolation.
-- revisit_when:
-  1. At least two applications have measured concurrent vector workloads.
-  1. A stable workload identity and authorization contract exists.
-  1. Embedding identity, quotas, retention, backup, migration, and purge are specified and executable.
-  1. A benchmark demonstrates a material cost or operability advantage over per-application stores.
-- epic_effect: Record per-application vector storage as canonical for GH-2474; file no shared-service implementation issues.
+<!-- field: decision -->
+### Decision
+
+reject-shared-vector-service
+
+<!-- field: rationale -->
+### Rationale
+
+There is one measured first-party vector workload, no authenticated Chroma
+tenant boundary, and no demonstrated resource pressure. A direct shared
+Chroma leaks authority; a gateway or pgvector migration adds substantial
+control-plane and migration cost before demand exists. Retaining
+application-owned stores preserves behavior and failure isolation.
+
+<!-- field: revisit_when -->
+### Revisit when
+
+- At least two applications have measured concurrent vector workloads.
+- A stable workload identity and authorization contract exists.
+- Embedding identity, quotas, retention, backup, migration, and purge are specified and executable.
+- A benchmark demonstrates a material cost or operability advantage over per-application stores.
+
+<!-- field: epic_effect -->
+### Epic effect
+
+Record per-application vector storage as canonical for GH-2474; file no shared-service implementation issues.
 
 <!-- field: rejected_candidates -->
 ## Rejected candidates

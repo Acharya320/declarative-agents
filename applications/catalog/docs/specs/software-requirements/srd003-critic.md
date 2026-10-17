@@ -154,20 +154,22 @@ The canonical changed-workspace profile accepts a conforming candidate, rejects 
 - R2.4
 - R3.3
 
-<!-- field: diagrams | form: "tree" -->
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: Critic family needs its own requirements..."] --> Goals["Goals: Critic Functional Block"]
-    Goals --> R1["R1: Behavior model"]
-    Goals --> R2["R2: Inputs, tools, and runtime dependencies"]
-    Goals --> R3["R3: Outputs and outcomes"]
-    R1 --> AC1["AC1: Configured session and point pipeline"]
-    R2 --> AC2["AC2: Inputs, tools, dependencies named"]
-    R3 --> AC3["AC3: Outputs and outcomes checkable"]
-    R1 --> AC4["AC4: Existing candidate evaluated in place"]
-    R2 --> AC4
-    R3 --> AC4
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: Critic family needs its own requirements..."] --> Goals["Goals: Critic Functional Block"]
+  Goals --> R1["R1: Behavior model"]
+  Goals --> R2["R2: Inputs, tools, and runtime dependencies"]
+  Goals --> R3["R3: Outputs and outcomes"]
+  R1 --> AC1["AC1: Configured session and point pipeline"]
+  R2 --> AC2["AC2: Inputs, tools, dependencies named"]
+  R3 --> AC3["AC3: Outputs and outcomes checkable"]
+  R1 --> AC4["AC4: Existing candidate evaluated in place"]
+  R2 --> AC4
+  R3 --> AC4
+```

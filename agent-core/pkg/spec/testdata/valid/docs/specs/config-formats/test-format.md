@@ -10,20 +10,19 @@ title: Test Config Format
 
 A test config format spec for corpus validation.
 
-<!-- field: implementation -->
-## Implementation
-
-- tools/builtin.yaml
-
 <!-- field: examples -->
 ## Examples
 
-| file |
-| --- |
-| agents/test-agent/machine.yaml |
+<!-- example: agents/test-agent/machine.yaml -->
+### agents/test-agent/machine.yaml
 
 <!-- field: related_documents -->
 ## Related documents
 
 - sm-test-model
 - srd002-api
+
+<!-- field: implementation -->
+## Implementation
+
+- tools/builtin.yaml

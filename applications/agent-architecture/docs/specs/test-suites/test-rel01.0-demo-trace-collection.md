@@ -37,15 +37,15 @@ The deterministic test verifies that tracingEnabled returns true for
 empty, "true", and "1" environment values, and false only for
 case-insensitive "false".
 
-<!-- field: use_case -->
-#### Use case
-
-rel01.0-uc001-demo-trace-collection
-
 <!-- field: id -->
 #### ID
 
 tracing_enabled
+
+<!-- field: use_case -->
+#### Use case
+
+rel01.0-uc001-demo-trace-collection
 
 <!-- field: go_test -->
 #### Go test
@@ -84,15 +84,15 @@ assignments, and spool path. Reservation tests hold the Chatbot collector
 ports while allocating Agent Architecture endpoints and prove concurrent
 reservations remain disjoint.
 
-<!-- field: use_case -->
-#### Use case
-
-rel01.0-uc001-demo-trace-collection
-
 <!-- field: id -->
 #### ID
 
 collector_command
+
+<!-- field: use_case -->
+#### Use case
+
+rel01.0-uc001-demo-trace-collection
 
 <!-- field: go_test -->
 #### Go test
@@ -127,15 +127,15 @@ The deterministic test constructs the curator run command plan and
 appends the OTLP flags, verifying that --otel-otlp-endpoint and
 --otel-service-name appear with the correct values.
 
-<!-- field: use_case -->
-#### Use case
-
-rel01.0-uc001-demo-trace-collection
-
 <!-- field: id -->
 #### ID
 
 traced_curator_command
+
+<!-- field: use_case -->
+#### Use case
+
+rel01.0-uc001-demo-trace-collection
 
 <!-- field: go_test -->
 #### Go test

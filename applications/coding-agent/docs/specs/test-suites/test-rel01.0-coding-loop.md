@@ -24,21 +24,47 @@ substitutes a shell-script child or fake agent binary.
 
 - rel01.0-uc001-coding-loop
 
-<!-- field: deadline_hierarchy | form: "tree" -->
+<!-- field: deadline_hierarchy -->
 ## Deadline hierarchy
 
-- model_call: 30s
-- child_agent_run: 10m
-- outer_emergency: 12m
-- cleanup_grace: 3s
-- invariant: model_call < child_agent_run and child_agent_run + cleanup_grace < outer_emergency
-- timeout_evidence:
-  1. combined stdout and stderr
-  1. bounded trace tail
-  1. last observed state
-  1. last observed tool
-  1. classified active phase
-- cancellation: Outer emergency cancellation sends TERM and then KILL to the full process group after cleanup_grace.
+<!-- field: model_call -->
+### Model call
+
+30s
+
+<!-- field: child_agent_run -->
+### Child agent run
+
+10m
+
+<!-- field: outer_emergency -->
+### Outer emergency
+
+12m
+
+<!-- field: cleanup_grace -->
+### Cleanup grace
+
+3s
+
+<!-- field: invariant -->
+### Invariant
+
+model_call < child_agent_run and child_agent_run + cleanup_grace < outer_emergency
+
+<!-- field: timeout_evidence -->
+### Timeout evidence
+
+- combined stdout and stderr
+- bounded trace tail
+- last observed state
+- last observed tool
+- classified active phase
+
+<!-- field: cancellation -->
+### Cancellation
+
+Outer emergency cancellation sends TERM and then KILL to the full process group after cleanup_grace.
 
 <!-- field: preconditions -->
 ## Preconditions

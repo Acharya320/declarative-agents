@@ -27,6 +27,11 @@ from a feature branch.
 
 A maintainer preparing the naming-alignment release.
 
+<!-- field: trigger -->
+## Trigger
+
+A maintainer starts the coordinated compatibility release.
+
 <!-- field: preconditions -->
 ## Preconditions
 
@@ -43,6 +48,15 @@ A maintainer preparing the naming-alignment release.
 - F4: Catalog, coding-agent, and chatbot-mesh package closures are regenerated and validated from their source inventories.
 - F5: Root release tests derive one atomic v0.20260727.0, applications/catalog/v0.20260727.0, and agent-profiles/v0.20260727.0 tag set.
 - F6: After merge, a maintainer runs mage tag from a clean main checkout; this use case does not publish immutable tags.
+
+<!-- field: touchpoints -->
+## Touchpoints
+
+| id | target | reason |
+| --- | --- | --- |
+| T1 | migration-v0.20260727.0-agent-role-realization-alignment | Authoritative old-to-new table, compatibility duration, consumer pins, and publication boundary. |
+| T2 | sm-agent-role-realizations | Binding, classification, inheritance, and alias authority. |
+| T3 | test-rel12.0-agent-role-realization-alignment | Executable release, closure, render, drift, and zero-hit evidence. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -77,20 +91,6 @@ Root and catalog tests prove exact atomic tag semantics while historical tags re
 
 Root audit, test, and stats plus catalog validation/conformance/integration and application package/Helm checks pass.
 
-<!-- field: touchpoints -->
-## Touchpoints
-
-| id | target | reason |
-| --- | --- | --- |
-| T1 | migration-v0.20260727.0-agent-role-realization-alignment | Authoritative old-to-new table, compatibility duration, consumer pins, and publication boundary. |
-| T2 | sm-agent-role-realizations | Binding, classification, inheritance, and alias authority. |
-| T3 | test-rel12.0-agent-role-realization-alignment | Executable release, closure, render, drift, and zero-hit evidence. |
-
-<!-- field: test_suite_trace -->
-## Test suite trace
-
-test-rel12.0-agent-role-realization-alignment
-
 <!-- field: out_of_scope -->
 ## Out of scope
 
@@ -98,7 +98,7 @@ test-rel12.0-agent-role-realization-alignment
 - Publishing immutable release tags before this branch is merged to main.
 - Renaming stable capability words, historical IDs, or runtime monitor infrastructure.
 
-<!-- field: trigger -->
-## Trigger
+<!-- field: test_suite_trace -->
+## Test suite trace
 
-A maintainer starts the coordinated compatibility release.
+test-rel12.0-agent-role-realization-alignment

@@ -28,7 +28,7 @@ only for applications that declare the matching capability.
 - rel14.0-uc001-application-consistency
 
 <!-- field: srds -->
-## Srds
+## SRDs
 
 - srd003-application-consistency
 
@@ -39,6 +39,19 @@ only for applications that declare the matching capability.
 - Python 3 with PyYAML, Go, and Mage are available.
 - applications/catalog and agent-core are present for ownership and runtime validation.
 - A planned test is not passing evidence until its named command and expected observations exist.
+
+<!-- field: coverage_notes -->
+## Coverage notes
+
+<!-- field: implemented_now -->
+### Implemented now
+
+- TC1 through TC8 are executable and validate the completed Release 14 normalization, reciprocal traces, and repository audit.
+
+<!-- field: remaining -->
+### Remaining
+
+- A capability with no declaration remains not_applicable and does not need an empty directory or a passing no-op test.
 
 <!-- field: test_cases -->
 ## Test cases
@@ -454,101 +467,15 @@ mage audit
 - rel14.0-uc001-application-consistency S6
 - srd003-application-consistency AC7
 
-<!-- field: requirement_coverage | form: "tree" -->
+<!-- field: requirement_coverage | form: "keyed table" -->
 ## Requirement coverage
 
-- R1:
-  - requirement_items:
-    1. R1.1
-    1. R1.2
-    1. R1.3
-    1. R1.4
-    1. R1.5
-    1. R1.6
-  - acceptance_criterion: AC1
-  - use_case_steps:
-    1. F1
-    1. F2
-  - test_cases:
-    1. TC1
-    1. TC2
-    1. TC7
-- R2:
-  - requirement_items:
-    1. R2.1
-    1. R2.2
-    1. R2.3
-    1. R2.4
-  - acceptance_criterion: AC2
-  - use_case_steps:
-    1. F3
-  - test_cases:
-    1. TC3
-    1. TC7
-- R3:
-  - requirement_items:
-    1. R3.1
-    1. R3.2
-    1. R3.3
-    1. R3.4
-    1. R3.5
-  - acceptance_criterion: AC3
-  - use_case_steps:
-    1. F4
-  - test_cases:
-    1. TC3
-- R4:
-  - requirement_items:
-    1. R4.1
-    1. R4.2
-    1. R4.3
-    1. R4.4
-  - acceptance_criterion: AC4
-  - use_case_steps:
-    1. F5
-  - test_cases:
-    1. TC4
-  - applicability: packaged
-- R5:
-  - requirement_items:
-    1. R5.1
-    1. R5.2
-    1. R5.3
-  - acceptance_criterion: AC5
-  - use_case_steps:
-    1. F6
-  - test_cases:
-    1. TC5
-- R6:
-  - requirement_items:
-    1. R6.1
-    1. R6.2
-    1. R6.3
-    1. R6.4
-  - acceptance_criterion: AC6
-  - use_case_steps:
-    1. F1
-    1. F7
-  - test_cases:
-    1. TC1
-    1. TC6
-    1. TC7
-- R7:
-  - requirement_items:
-    1. R7.1
-    1. R7.2
-    1. R7.3
-  - acceptance_criterion: AC7
-  - use_case_steps:
-    1. F1
-    1. F8
-  - test_cases:
-    1. TC8
-
-<!-- field: coverage_notes | form: "tree" -->
-## Coverage notes
-
-- implemented_now:
-  1. TC1 through TC8 are executable and validate the completed Release 14 normalization, reciprocal traces, and repository audit.
-- remaining:
-  1. A capability with no declaration remains not_applicable and does not need an empty directory or a passing no-op test.
+| id | requirement_items | acceptance_criterion | use_case_steps | test_cases | applicability |
+| --- | --- | --- | --- | --- | --- |
+| R1 | [R1.1, R1.2, R1.3, R1.4, R1.5, R1.6] | AC1 | [F1, F2] | [TC1, TC2, TC7] |  |
+| R2 | [R2.1, R2.2, R2.3, R2.4] | AC2 | [F3] | [TC3, TC7] |  |
+| R3 | [R3.1, R3.2, R3.3, R3.4, R3.5] | AC3 | [F4] | [TC3] |  |
+| R4 | [R4.1, R4.2, R4.3, R4.4] | AC4 | [F5] | [TC4] | packaged |
+| R5 | [R5.1, R5.2, R5.3] | AC5 | [F6] | [TC5] |  |
+| R6 | [R6.1, R6.2, R6.3, R6.4] | AC6 | [F1, F7] | [TC1, TC6, TC7] |  |
+| R7 | [R7.1, R7.2, R7.3] | AC7 | [F1, F8] | [TC8] |  |

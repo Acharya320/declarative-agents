@@ -120,14 +120,18 @@ func (p *printer) member(level int, parent, key string, value *yaml.Node) error 
 	if kind, ok := p.d.directRecords(level, parent, key); ok {
 		return p.records(kind, value)
 	}
-	if _, ok := p.d.fieldKind(level, parent); !ok {
+	slot, ok := p.d.fieldKind(level, parent)
+	if !ok {
 		return fmt.Errorf("%s: no field is declared at level %d under %s", key, level, parent)
 	}
-	if kind, ok := p.d.fieldRecords(key); ok {
+	if kind, ok := p.d.fieldRecords(level, key); ok && p.d.recordsFit(kind, value) {
 		p.block(Marker{Tag: tagField, Value: key}.String(), strings.Repeat("#", level)+" "+p.d.fieldHeading(key))
 		return p.records(kind, value)
 	}
-	lines, form, err := p.d.renderField(key, value)
+	if value.Kind == yaml.MappingNode && len(value.Content) > 0 && p.d.nestedSlot(level, key) {
+		return p.nested(level, key, value)
+	}
+	lines, form, err := p.d.renderField(slot, key, value)
 	if err != nil {
 		return fmt.Errorf("field %s: %w", key, err)
 	}
@@ -141,6 +145,18 @@ func (p *printer) member(level int, parent, key string, value *yaml.Node) error 
 	p.block(marker.String(), strings.Repeat("#", level)+" "+p.d.fieldHeading(key))
 	if len(lines) > 0 {
 		p.block(lines...)
+	}
+	return nil
+}
+
+// nested prints a field whose value is a map as its heading, then each key
+// as a nested field one level down (GH-2653).
+func (p *printer) nested(level int, key string, value *yaml.Node) error {
+	p.block(Marker{Tag: tagField, Value: key}.String(), strings.Repeat("#", level)+" "+p.d.fieldHeading(key))
+	for i := 0; i+1 < len(value.Content); i += 2 {
+		if err := p.member(level+1, "field:"+key, value.Content[i].Value, value.Content[i+1]); err != nil {
+			return fmt.Errorf("field %s: %w", key, err)
+		}
 	}
 	return nil
 }

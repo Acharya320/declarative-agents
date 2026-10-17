@@ -50,26 +50,13 @@ or Workspace split, a CheckpointPolicy, or an engine-owned undo-walk.
 | MachineSpec | declarative_program | Defines states, signals, and actions; expresses approval/suspend routing and dispatches lifecycle tools. |  |  |  |  |  |  |
 | ToolDef | tool_contract | Declares tool side effects, reversibility, receipt-based undo, errors, and relationships. |  |  |  |  |  |  |
 
-<!-- field: persisted_state | form: "tree" -->
+<!-- field: persisted_state | form: "keyed table" -->
 ## Persisted state
 
-- db_persisted_state:
-  - owner: CheckpointPort (DoltCheckpoint by default)
-  - examples:
-    1. current State and current Signal (Position)
-    1. iteration, token, and cost counters (AgentSnapshot)
-    1. folded conversation snapshot
-    1. ordered Execution entries with result digests and receipts
-  - storage: Save(Position, Execution); one Dolt commit per step, one branch per run.
-  - rollback: git-style Revert(run_id, step_index) resets the run branch to the target commit.
-- external_effect_state:
-  - owner: originating Command (tool)
-  - examples:
-    1. files changed by write/edit
-    1. external resources created through boundary tools
-    1. child-agent or nested-machine effects
-  - storage: opaque Receipt encoded during Execute and persisted verbatim on the entry.
-  - rollback: the lifecycle tool replays each restored, receipt-bearing Result into the tool's receipt-consuming Undo.
+| id | owner | examples | storage | rollback |
+| --- | --- | --- | --- | --- |
+| db_persisted_state | CheckpointPort (DoltCheckpoint by default) | [current State and current Signal (Position), "iteration, token, and cost counters (AgentSnapshot)", folded conversation snapshot, ordered Execution entries with result digests and receipts] | Save(Position, Execution); one Dolt commit per step, one branch per run. | git-style Revert(run_id, step_index) resets the run branch to the target commit. |
+| external_effect_state | originating Command (tool) | [files changed by write/edit, external resources created through boundary tools, child-agent or nested-machine effects] | opaque Receipt encoded during Execute and persisted verbatim on the entry. | the lifecycle tool replays each restored, receipt-bearing Result into the tool's receipt-consuming Undo. |
 
 <!-- field: ownership_rules -->
 ## Ownership rules
@@ -81,118 +68,163 @@ or Workspace split, a CheckpointPolicy, or an engine-owned undo-walk.
 - MachineSpec owns visible control flow such as approval gates; checkpointing is storage/lifecycle behavior around the machine.
 - The reverse receipt walk is owned by CheckpointRollbackTool, not the engine.
 
-<!-- field: split | form: "tree" -->
+<!-- field: split -->
 ## Split
 
-- revert_covers: DB-persisted state (Position, Execution, conversation) through Dolt Revert.
-- receipts_cover: external effects (files, resources) through each tool's receipt-consuming Undo.
-- rule: Revert rewinds recorded state; receipts reverse the world outside the database. Neither substitutes for the other.
+<!-- field: revert_covers -->
+### Revert covers
 
-<!-- field: data_flow | form: "tree" -->
+DB-persisted state (Position, Execution, conversation) through Dolt Revert.
+
+<!-- field: receipts_cover -->
+### Receipts cover
+
+external effects (files, resources) through each tool's receipt-consuming Undo.
+
+<!-- field: rule -->
+### Rule
+
+Revert rewinds recorded state; receipts reverse the world outside the database. Neither substitutes for the other.
+
+<!-- field: data_flow -->
 ## Data flow
 
-- normal_execution:
-  Loop steps MachineSpec, dispatches Command, receives a Result carrying an
-  opaque Receipt, appends an Execution Entry, and calls Save(Position,
-  Execution) once per dispatch cycle. With DoltCheckpoint this creates one
-  commit per step on the run branch.
-- profile_first_history:
-  A LifecycleProfile selects the history MachineSpec and checkpoint_history
-  ToolDef. The machine dispatches CheckpointHistoryTool, which Loads the run's
-  Execution from Dolt commit history, formats a digest, and returns a declared
-  Result.Signal.
-- profile_first_rollback:
-  A LifecycleProfile selects the rollback MachineSpec and checkpoint_rollback
-  ToolDef. The machine dispatches CheckpointRollbackTool, which calls Revert to
-  rewind DB state to the target step, then walks the reverted entries in
-  reverse, handing each restored Result to its tool's receipt-consuming Undo,
-  skipping and logging irreversible entries, and returns a declared
-  Result.Signal.
-- suspend:
-  A machine action emits AwaitApproval. The runtime calls Save through the
-  checkpoint port and marks the run suspended.
-- resume_restore:
-  Resume Loads Position and Execution through the port, validates
-  MachineSpec/tool compatibility, restores agent state and conversation from
-  the typed snapshot, and re-enters Loop at the checkpointed position. There is
-  a single resume path.
-- terminal_merge:
-  On a terminal state, DoltCheckpoint merges the run branch to main and deletes
-  the run branch.
+<!-- field: normal_execution -->
+### Normal execution
 
-<!-- field: lifecycle_diagrams | form: "tree" -->
+Loop steps MachineSpec, dispatches Command, receives a Result carrying an
+opaque Receipt, appends an Execution Entry, and calls Save(Position,
+Execution) once per dispatch cycle. With DoltCheckpoint this creates one
+commit per step on the run branch.
+
+<!-- field: profile_first_history -->
+### Profile first history
+
+A LifecycleProfile selects the history MachineSpec and checkpoint_history
+ToolDef. The machine dispatches CheckpointHistoryTool, which Loads the run's
+Execution from Dolt commit history, formats a digest, and returns a declared
+Result.Signal.
+
+<!-- field: profile_first_rollback -->
+### Profile first rollback
+
+A LifecycleProfile selects the rollback MachineSpec and checkpoint_rollback
+ToolDef. The machine dispatches CheckpointRollbackTool, which calls Revert to
+rewind DB state to the target step, then walks the reverted entries in
+reverse, handing each restored Result to its tool's receipt-consuming Undo,
+skipping and logging irreversible entries, and returns a declared
+Result.Signal.
+
+<!-- field: suspend -->
+### Suspend
+
+A machine action emits AwaitApproval. The runtime calls Save through the
+checkpoint port and marks the run suspended.
+
+<!-- field: resume_restore -->
+### Resume restore
+
+Resume Loads Position and Execution through the port, validates
+MachineSpec/tool compatibility, restores agent state and conversation from
+the typed snapshot, and re-enters Loop at the checkpointed position. There is
+a single resume path.
+
+<!-- field: terminal_merge -->
+### Terminal merge
+
+On a terminal state, DoltCheckpoint merges the run branch to main and deletes
+the run branch.
+
+<!-- field: lifecycle_diagrams -->
 ## Lifecycle diagrams
 
-- checkpoint:
-  ```mermaid
-  sequenceDiagram
-    participant L as Loop
-    participant C as Command
-    participant P as CheckpointPort
-    L->>C: dispatch (Execute)
-    C-->>L: Result + opaque Receipt
-    L->>L: append Execution Entry
-    L->>P: Save(Position, Execution)
-    Note over P: DoltCheckpoint commits one step on the run branch
-  ```
-- suspend:
-  ```mermaid
-  stateDiagram-v2
-    [*] --> Running
-    Running --> AwaitingApproval: machine action emits AwaitApproval
-    AwaitingApproval --> Checkpointing: lifecycle enabled
-    Checkpointing --> Suspended: CheckpointPort Save succeeds
-    AwaitingApproval --> Failed: required checkpoint cannot be saved
-  ```
-- resume:
-  ```mermaid
-  sequenceDiagram
-    participant R as Resume
-    participant P as CheckpointPort
-    participant L as Loop
-    R->>P: Load()
-    P-->>R: Position + Execution
-    R->>R: validate machine/tool compatibility
-    R->>L: re-enter at Position (state, signal, conversation)
-  ```
-- rollback:
-  ```mermaid
-  flowchart TD
-    A[checkpoint_rollback: run_id, target step] --> B[Dolt Revert to target commit]
-    B --> C[Walk reverted entries in reverse]
-    C --> D{Entry reversible?}
-    D -- yes --> E[Hand restored Result to tool receipt-consuming Undo]
-    E --> F{More entries?}
-    F -- yes --> C
-    D -- no --> G[Skip and log irreversible entry]
-    G --> F
-    F -- no --> H[Return resumable position + report]
-  ```
-- declarative_lifecycle_boundary:
-  ```mermaid
-  flowchart LR
-    P[LifecycleProfile] --> M[MachineSpec]
-    P --> D[ToolDef selection]
-    M -->|action checkpoint_history| H[STL lifecycle tool]
-    M -->|action checkpoint_rollback| R[STL lifecycle tool]
-    H --> CP[CheckpointPort]
-    R --> CP
-    R --> DR[DoltCheckpoint Revert]
-    R --> U[Command receipt-consuming Undo]
-  ```
-- failure_handling:
-  ```mermaid
-  flowchart LR
-    A[Lifecycle failure] --> B{Failure class}
-    B --> C[Checkpoint backend error]
-    B --> D[Dolt Revert error]
-    B --> E[Receipt-walk Undo error]
-    B --> F[Checkpoint incompatibility]
-    C --> G[Report backend and operation]
-    D --> H[Report run_id and target step]
-    E --> I[Report which reverted entry's Undo failed]
-    F --> J[Refuse resume or rollback]
-  ```
+<!-- field: checkpoint -->
+### Checkpoint
+
+```mermaid
+sequenceDiagram
+  participant L as Loop
+  participant C as Command
+  participant P as CheckpointPort
+  L->>C: dispatch (Execute)
+  C-->>L: Result + opaque Receipt
+  L->>L: append Execution Entry
+  L->>P: Save(Position, Execution)
+  Note over P: DoltCheckpoint commits one step on the run branch
+```
+
+<!-- field: suspend -->
+### Suspend
+
+```mermaid
+stateDiagram-v2
+  [*] --> Running
+  Running --> AwaitingApproval: machine action emits AwaitApproval
+  AwaitingApproval --> Checkpointing: lifecycle enabled
+  Checkpointing --> Suspended: CheckpointPort Save succeeds
+  AwaitingApproval --> Failed: required checkpoint cannot be saved
+```
+
+<!-- field: resume -->
+### Resume
+
+```mermaid
+sequenceDiagram
+  participant R as Resume
+  participant P as CheckpointPort
+  participant L as Loop
+  R->>P: Load()
+  P-->>R: Position + Execution
+  R->>R: validate machine/tool compatibility
+  R->>L: re-enter at Position (state, signal, conversation)
+```
+
+<!-- field: rollback -->
+### Rollback
+
+```mermaid
+flowchart TD
+  A[checkpoint_rollback: run_id, target step] --> B[Dolt Revert to target commit]
+  B --> C[Walk reverted entries in reverse]
+  C --> D{Entry reversible?}
+  D -- yes --> E[Hand restored Result to tool receipt-consuming Undo]
+  E --> F{More entries?}
+  F -- yes --> C
+  D -- no --> G[Skip and log irreversible entry]
+  G --> F
+  F -- no --> H[Return resumable position + report]
+```
+
+<!-- field: declarative_lifecycle_boundary -->
+### Declarative lifecycle boundary
+
+```mermaid
+flowchart LR
+  P[LifecycleProfile] --> M[MachineSpec]
+  P --> D[ToolDef selection]
+  M -->|action checkpoint_history| H[STL lifecycle tool]
+  M -->|action checkpoint_rollback| R[STL lifecycle tool]
+  H --> CP[CheckpointPort]
+  R --> CP
+  R --> DR[DoltCheckpoint Revert]
+  R --> U[Command receipt-consuming Undo]
+```
+
+<!-- field: failure_handling -->
+### Failure handling
+
+```mermaid
+flowchart LR
+  A[Lifecycle failure] --> B{Failure class}
+  B --> C[Checkpoint backend error]
+  B --> D[Dolt Revert error]
+  B --> E[Receipt-walk Undo error]
+  B --> F[Checkpoint incompatibility]
+  C --> G[Report backend and operation]
+  D --> H[Report run_id and target step]
+  E --> I[Report which reverted entry's Undo failed]
+  F --> J[Refuse resume or rollback]
+```
 
 <!-- field: invariants -->
 ## Invariants

@@ -383,15 +383,15 @@ no service tool restores hidden validator goroutines.
 
 rel11.0-uc001-scenario-critic-scenario-run
 
-<!-- field: go_test -->
-#### Go test
-
-cd ../../agent-core && go test ./internal/tools/service -run '^(TestRunOneValidator_TerminalStateAndTimeout|TestRunScenarioValidator_EmitsItemReceipt|TestRecordScenarioValidators_PreservesJoinOrder|TestScenarioSteps_TeardownRunsOnFailurePath)$'
-
 <!-- field: integration_target -->
 #### Integration target
 
 mage rig
+
+<!-- field: go_test -->
+#### Go test
+
+cd ../../agent-core && go test ./internal/tools/service -run '^(TestRunOneValidator_TerminalStateAndTimeout|TestRunScenarioValidator_EmitsItemReceipt|TestRecordScenarioValidators_PreservesJoinOrder|TestScenarioSteps_TeardownRunsOnFailurePath)$'
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -435,15 +435,15 @@ budget exhaustion route through the ordinary verdict and teardown words.
 
 rel11.0-uc001-scenario-critic-scenario-run
 
-<!-- field: go_test -->
-#### Go test
-
-cd ../../agent-core && go test ./internal/tools/lifecycle ./internal/tools/rest/client ./internal/tools/service -run '^(TestDelay_ElapsedAndDeadlineSignals|TestDelay_CancellationAndValidation|TestRESTClient_CommandStateSelectsTrustedBaseURL|TestSubjectHealthTarget_PreservesRelativeAndAlternateListenerPaths)$'
-
 <!-- field: integration_target -->
 #### Integration target
 
 mage rig
+
+<!-- field: go_test -->
+#### Go test
+
+cd ../../agent-core && go test ./internal/tools/lifecycle ./internal/tools/rest/client ./internal/tools/service -run '^(TestDelay_ElapsedAndDeadlineSignals|TestDelay_CancellationAndValidation|TestRESTClient_CommandStateSelectsTrustedBaseURL|TestSubjectHealthTarget_PreservesRelativeAndAlternateListenerPaths)$'
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs

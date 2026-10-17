@@ -44,6 +44,11 @@ machine_request-backed documentation server with configured document resources.
 - F13: Puppeteer verifies visible content, raw YAML retrieval, rendered HTML, action dispatch, nested document path evidence, captured request IDs, machine names, terminal signals, and RunResult summaries.
 - F14: Browser, server, or machine failures produce a structured Puppeteer failure report with screenshot, console output, network log, and captured trace metadata.
 
+<!-- field: successor_to -->
+## Successor to
+
+rel03.0-uc006-documentation-curator
+
 <!-- field: touchpoints -->
 ## Touchpoints
 
@@ -56,6 +61,11 @@ machine_request-backed documentation server with configured document resources.
 | T5 | srd031-declarative-document-resources R6.1, R6.2, R6.3, R6.4, R6.5 | Knowledge Manager UI assets and action placement are human actor configuration |
 | T6 | rel03.0-uc006-documentation-curator | direct-host smoke behavior retained beside the machine_request successor proof |
 | T7 | applications/catalog profile integration suite | concrete browser orchestration for the profile-owned tracer bullet |
+
+<!-- field: proof_owner -->
+## Proof owner
+
+applications/catalog
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -141,16 +151,6 @@ Browser validation, suggestion, approval, and rejection use profile-owned machin
 - Replacing the rel03.0-uc006 direct-host smoke scenario.
 - Running Puppeteer against non-local public listener addresses.
 - Letting browser input choose document roots, parser modes, or machine files.
-
-<!-- field: successor_to -->
-## Successor to
-
-rel03.0-uc006-documentation-curator
-
-<!-- field: proof_owner -->
-## Proof owner
-
-applications/catalog
 
 <!-- field: machine_config -->
 ## Machine config

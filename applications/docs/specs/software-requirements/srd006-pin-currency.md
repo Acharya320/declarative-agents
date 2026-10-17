@@ -30,16 +30,28 @@ that drifts from what it describes.
 - G4: Report and change nothing, so a version bump stays a decision a person takes.
 - G5: Distinguish an unreachable registry from a current pin.
 
-<!-- field: applicability | form: "tree" -->
+<!-- field: applicability -->
 ## Applicability
 
-- baseline:
-  R1 through R6 apply to every pinned upstream dependency this repository
-  resolves from a registry. Go module versions are outside this scope; the
-  language's own tooling reports them.
-- capability_gates:
-  - helm_managed: The derived half of the inventory applies to an application that ships a chart.
-  - kind_demo: The declared half covers the rig add-ons and cluster configurations a kind demo uses.
+<!-- field: baseline -->
+### Baseline
+
+R1 through R6 apply to every pinned upstream dependency this repository
+resolves from a registry. Go module versions are outside this scope; the
+language's own tooling reports them.
+
+<!-- field: capability_gates -->
+### Capability gates
+
+<!-- field: helm_managed -->
+#### Helm managed
+
+The derived half of the inventory applies to an application that ships a chart.
+
+<!-- field: kind_demo -->
+#### Kind demo
+
+The declared half covers the rig add-ons and cluster configurations a kind demo uses.
 
 <!-- req: R1 -->
 ## R1 - The inventory covers both kinds of pin

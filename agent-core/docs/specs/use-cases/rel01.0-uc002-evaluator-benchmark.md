@@ -74,6 +74,11 @@ A developer running the benchmark profile runs:
 | T7 | generator/profile-qwen35b.yaml and profile-qwen27b.yaml | generator profiles under evaluation |
 | T8 | srd018-cli-flag-contract R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R1.7, R1.8, R1.9, R1.10, R2.1, R2.2, R2.3, R2.4, R2.5, R3.1, R3.2 | standard flags, traceparent propagation, model/directory/runtime data, remaining budget |
 
+<!-- field: integration_test -->
+## Integration test
+
+applications/coding-agent mage integration:criticGate
+
 <!-- field: success_criteria -->
 ## Success criteria
 
@@ -168,20 +173,10 @@ Every attempted point has machine-readable failure evidence, and the release gat
 - srd019-eval-harness AC2
 - srd019-eval-harness AC3
 
-<!-- field: integration_test -->
-## Integration test
-
-applications/coding-agent mage integration:criticGate
-
 <!-- field: test_data -->
 ## Test data
 
 testdata/integration/uc002-evaluator-benchmark
-
-<!-- field: test_suite_trace -->
-## Test suite trace
-
-test-rel01.0
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -190,6 +185,11 @@ test-rel01.0
 - Parallel grid point execution (points run sequentially).
 - Result visualization (handled by bench, see rel01.0-uc003).
 - Performance regression analysis.
+
+<!-- field: test_suite_trace -->
+## Test suite trace
+
+test-rel01.0
 
 <!-- field: machine_configs -->
 ## Machine configs

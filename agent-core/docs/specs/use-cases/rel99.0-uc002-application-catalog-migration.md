@@ -59,6 +59,11 @@ is indexed.
 | T8 | applications/catalog | reusable repository-specific tool and agent blocks |
 | T9 | applications/coding-agent and applications/chatbot-mesh | application-owned composition and end-to-end proof |
 
+<!-- field: implementation_status -->
+## Implementation status
+
+done
+
 <!-- field: success_criteria -->
 ## Success criteria
 
@@ -153,11 +158,6 @@ All fourteen GH-1036 child issues have one formal test case and execute in the a
 - Replacing /profiles or /opt/agent-core/tools runtime mounts.
 - Turning application-local agents into catalog members without satisfying the catalog membership contract.
 - Removing or retargeting immutable historical tags.
-
-<!-- field: implementation_status -->
-## Implementation status
-
-done
 
 <!-- field: srd -->
 ## SRD

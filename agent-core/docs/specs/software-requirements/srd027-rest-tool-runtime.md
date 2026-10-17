@@ -594,60 +594,67 @@ Generic REST event aggregation waits across configured server sources, applies s
 - docs/guides/boundary-tools-and-async.md
 - docs/guides/rest-tool.md
 
-<!-- field: implementation_status | form: "tree" -->
+<!-- field: implementation_status -->
 ## Implementation status
 
-- implemented:
-  1. internal/tools/rest package with declarative client, async client, server, OpenAPI import, machine_request, monitor, and fan-in support.
-  1. tools/builtin/rest declarations selected by REST profiles and tests.
-  1. docs/specs/config-formats/rest-tool-format.md and docs/specs/semantic-models/rest-tool-language.md.
-  1. Release 03.0 formal test-suite entries in docs/specs/test-suites/test-rel03.0-rest-tools.md.
-  1. - "Client safety and async request metadata": CIDR enforcement, response schema validation, domain_error_code output, correlation lookup, idempotency headers, and explicit MachineSpec probe/delay polling.
-  1. OpenAPI endpoint config preservation while importing transport and schema fields.
-  1. REST compensation undo mementos and rollback-time compensation execution for mutating client operations that declare compensation metadata.
-  1. machine_request terminal response schema validation before success responses.
-  1. Typed loading plus explicit validation rejection for reserved rest.document_resources and machine_request.document_resources config.
-  1. Strict known-field decoding for hand-authored REST YAML at every typed nesting level.
-  1. Exact single-object JSON request decoding with complete primitive/container type enforcement.
-- partial:
-  1. R10 lifecycle control routing is currently proven through configured emit_signal control routes and MachineSpec exit_agent transitions. Modeled lifecycle_control endpoint config remains reserved target-format behavior.
-  1. R10 read policy values outside the implemented first-available behavior are rejected during ToolDef factory validation.
+<!-- field: implemented | form: "tree" -->
+### Implemented
 
-<!-- field: diagrams | form: "tree" -->
+1. internal/tools/rest package with declarative client, async client, server, OpenAPI import, machine_request, monitor, and fan-in support.
+1. tools/builtin/rest declarations selected by REST profiles and tests.
+1. docs/specs/config-formats/rest-tool-format.md and docs/specs/semantic-models/rest-tool-language.md.
+1. Release 03.0 formal test-suite entries in docs/specs/test-suites/test-rel03.0-rest-tools.md.
+1. - "Client safety and async request metadata": CIDR enforcement, response schema validation, domain_error_code output, correlation lookup, idempotency headers, and explicit MachineSpec probe/delay polling.
+1. OpenAPI endpoint config preservation while importing transport and schema fields.
+1. REST compensation undo mementos and rollback-time compensation execution for mutating client operations that declare compensation metadata.
+1. machine_request terminal response schema validation before success responses.
+1. Typed loading plus explicit validation rejection for reserved rest.document_resources and machine_request.document_resources config.
+1. Strict known-field decoding for hand-authored REST YAML at every typed nesting level.
+1. Exact single-object JSON request decoding with complete primitive/container type enforcement.
+
+<!-- field: partial -->
+### Partial
+
+- R10 lifecycle control routing is currently proven through configured emit_signal control routes and MachineSpec exit_agent transitions. Modeled lifecycle_control endpoint config remains reserved target-format behavior.
+- R10 read policy values outside the implemented first-available behavior are rejected during ToolDef factory validation.
+
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: Agent Core needs REST client and REST server tools th..."] --> Goals["Goals: Declarative REST Tool Runtime"]
-    Goals --> R1["R1: Runtime scope"]
-    Goals --> R2["R2: Declarative REST definitions"]
-    Goals --> R3["R3: OpenAPI import model"]
-    Goals --> R4["R4: Runtime HTTP platform"]
-    Goals --> R5["R5: Synchronous and asynchronous semantics"]
-    Goals --> R6["R6: Validation and safety controls"]
-    Goals --> R7["R7: Observability and structured errors"]
-    Goals --> R8["R8: Side effects and rollback"]
-    Goals --> R9["R9: Planned layout"]
-    Goals --> R10["R10: Event aggregation and lifecycle control routing"]
-    AC1["AC1: REST runtime requirements define shared platform scope fo..."]
-    R1 --> AC1
-    AC2["AC2: REST definitions are declarative data, MachineSpec owns s..."]
-    R2 --> AC2
-    AC3["AC3: OpenAPI 3 is documented as an optional source format comp..."]
-    R3 --> AC3
-    AC4["AC4: Runtime platform requirements name net/http, internal/too..."]
-    R4 --> AC4
-    AC5["AC5: Synchronous and asynchronous REST semantics define blocki..."]
-    R5 --> AC5
-    AC6["AC6: Safety controls cover schema validation, auth abstraction..."]
-    R6 --> AC6
-    AC7["AC7: Observability and error requirements preserve redaction w..."]
-    R7 --> AC7
-    AC8["AC8: Side-effect, reversibility, undo, compensation, command-s..."]
-    R8 --> AC8
-    AC9["AC9: Planned layout names internal/tools/rest, tools/builtin/r..."]
-    R9 --> AC9
-    AC10["AC10: Generic REST event aggregation waits across configured se..."]
-    R10 --> AC10
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: Agent Core needs REST client and REST server tools th..."] --> Goals["Goals: Declarative REST Tool Runtime"]
+  Goals --> R1["R1: Runtime scope"]
+  Goals --> R2["R2: Declarative REST definitions"]
+  Goals --> R3["R3: OpenAPI import model"]
+  Goals --> R4["R4: Runtime HTTP platform"]
+  Goals --> R5["R5: Synchronous and asynchronous semantics"]
+  Goals --> R6["R6: Validation and safety controls"]
+  Goals --> R7["R7: Observability and structured errors"]
+  Goals --> R8["R8: Side effects and rollback"]
+  Goals --> R9["R9: Planned layout"]
+  Goals --> R10["R10: Event aggregation and lifecycle control routing"]
+  AC1["AC1: REST runtime requirements define shared platform scope fo..."]
+  R1 --> AC1
+  AC2["AC2: REST definitions are declarative data, MachineSpec owns s..."]
+  R2 --> AC2
+  AC3["AC3: OpenAPI 3 is documented as an optional source format comp..."]
+  R3 --> AC3
+  AC4["AC4: Runtime platform requirements name net/http, internal/too..."]
+  R4 --> AC4
+  AC5["AC5: Synchronous and asynchronous REST semantics define blocki..."]
+  R5 --> AC5
+  AC6["AC6: Safety controls cover schema validation, auth abstraction..."]
+  R6 --> AC6
+  AC7["AC7: Observability and error requirements preserve redaction w..."]
+  R7 --> AC7
+  AC8["AC8: Side-effect, reversibility, undo, compensation, command-s..."]
+  R8 --> AC8
+  AC9["AC9: Planned layout names internal/tools/rest, tools/builtin/r..."]
+  R9 --> AC9
+  AC10["AC10: Generic REST event aggregation waits across configured se..."]
+  R10 --> AC10
+```

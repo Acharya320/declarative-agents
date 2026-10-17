@@ -10,19 +10,45 @@ depends_on:
 <!-- Copyright (c) 2026 Nokia -->
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
 
-<!-- field: role_realization_decision | form: "tree" -->
+<!-- field: role_realization_decision -->
 ## Role realization decision
 
-- current_actor: chatbot
-- implemented_responsibility: Select sources and model tier, embed once, retrieve, compose a grounded prompt, answer, and host the browser request boundary.
-- canonical_role_sub_role: Planner / Intent Handler; Executor / Workflow Orchestrator; Knowledge Manager / Recommendation Generator.
-- retained_or_proposed_name: Retain `chatbot` as a descriptive multi-role actor.
-- authority_boundary: Selects declared words and trusted topology entries only; it has no lifecycle or deployment authority.
-- evidence:
-  1. agents/chatbot/profile.yaml
-  1. agents/chatbot/request-machine.yaml
-  1. srd002 R1-R6
-- migration_impact: None; the actor and Helm workload keep their descriptive identity while bindings remain separate.
+<!-- field: current_actor -->
+### Current actor
+
+chatbot
+
+<!-- field: implemented_responsibility -->
+### Implemented responsibility
+
+Select sources and model tier, embed once, retrieve, compose a grounded prompt, answer, and host the browser request boundary.
+
+<!-- field: canonical_role_sub_role -->
+### Canonical role sub role
+
+Planner / Intent Handler; Executor / Workflow Orchestrator; Knowledge Manager / Recommendation Generator.
+
+<!-- field: retained_or_proposed_name -->
+### Retained or proposed name
+
+Retain `chatbot` as a descriptive multi-role actor.
+
+<!-- field: authority_boundary -->
+### Authority boundary
+
+Selects declared words and trusted topology entries only; it has no lifecycle or deployment authority.
+
+<!-- field: evidence -->
+### Evidence
+
+- agents/chatbot/profile.yaml
+- agents/chatbot/request-machine.yaml
+- srd002 R1-R6
+
+<!-- field: migration_impact -->
+### Migration impact
+
+None; the actor and Helm workload keep their descriptive identity while bindings remain separate.
 
 <!-- field: context -->
 ## Context
@@ -300,36 +326,43 @@ agent-core runtime contracts this agent builds on. External references, owned by
 | srd033-monitor-rest-api | agent-core | [R1] |
 | srd038-command-state-store | agent-core | [R1, R2] |
 
-<!-- field: implementation_status | form: "tree" -->
+<!-- field: implementation_status -->
 ## Implementation status
 
-- done:
-  1. "Turn machine and single-RAG data flow (R1): the chatbot agent hosts a chat machine_request endpoint whose request-scoped turn sequences embed_query, rag_query, compose, and invoke_llm, threading non-adjacent data by command-state $from(); a RAG failure degrades to a mapped 200."
-  1. "LLM $tool tier selector (R2, GH-904): select_tier reads the original question, parse_tier validates one chat-LLM word, and a misparse or out-of-set selection falls back to the default word. GH-904 cleanly renamed the application-app environment from CHATBOT_ROUTER_MODEL to CHATBOT_TIER_MODEL with no compatibility fallback."
-  1. "Sequential multi-RAG fan-out (R3, GH-901): one MachineSpec for_each walks the trusted ordered topology through one selected-target REST operation. Its structured join feeds generic query-signal and embedding-model partitions, then render_each formats compatible chunks. Source additions change topology data but no word or state count; response metadata keeps compatible, model-excluded, vector-rejected, and degraded outcomes distinct."
-  1. "Source routing (R2.4-R2.8, R3.1, R3.4, R6.2, GH-903): required topology descriptions render a names-and-descriptions-only catalog. A separate select_sources classifier reads that catalog and the original question; capture_source_selection JSON-escapes the adjacent raw reply into one fixed response field, parse_structured validates `{names:[string]}`, and select_subset converts only declared names to trusted selected topology entries. The single for_each reads only that selected array, whose base URLs remain trusted command state. Classifier/capture errors, malformed output, empty picks, and only-undeclared picks select all declared sources; mixed picks discard undeclared names. Metadata reports declared not-selected names separately. The separate-call design keeps source routing atomic and preserves the tested select_tier contract."
-  1. Stateless sessions (R4) and the two-panel UX surface (R5) over a static_assets-served SPA; the observability panels (per-agent monitor and the cross-agent trace waterfall) render from monitor SSE and the trace backend.
-  1. The application-local chatbot-turn-critic realizes Critic / Output Evaluator for both the single-turn and degraded-RAG scenarios. Scenario scope stays in each tests/ directory and its configuration rather than creating a degraded-turn actor. The isolated single-turn case additionally binds Sandbox Validator because it proves that an undeclared URL-shaped source cannot cross the controlled mock topology; the degraded-RAG case evaluates turn output without claiming that isolation responsibility.
-- planned:
-  1. Concurrent multi-RAG fan-out (async await-any), and structured response metadata for the tier selection and the degraded and excluded RAG labels.
+<!-- field: done -->
+### Done
 
-<!-- field: diagrams | form: "tree" -->
+- Turn machine and single-RAG data flow (R1): the chatbot agent hosts a chat machine_request endpoint whose request-scoped turn sequences embed_query, rag_query, compose, and invoke_llm, threading non-adjacent data by command-state $from(); a RAG failure degrades to a mapped 200.
+- LLM $tool tier selector (R2, GH-904): select_tier reads the original question, parse_tier validates one chat-LLM word, and a misparse or out-of-set selection falls back to the default word. GH-904 cleanly renamed the application-app environment from CHATBOT_ROUTER_MODEL to CHATBOT_TIER_MODEL with no compatibility fallback.
+- Sequential multi-RAG fan-out (R3, GH-901): one MachineSpec for_each walks the trusted ordered topology through one selected-target REST operation. Its structured join feeds generic query-signal and embedding-model partitions, then render_each formats compatible chunks. Source additions change topology data but no word or state count; response metadata keeps compatible, model-excluded, vector-rejected, and degraded outcomes distinct.
+- Source routing (R2.4-R2.8, R3.1, R3.4, R6.2, GH-903): required topology descriptions render a names-and-descriptions-only catalog. A separate select_sources classifier reads that catalog and the original question; capture_source_selection JSON-escapes the adjacent raw reply into one fixed response field, parse_structured validates `{names:[string]}`, and select_subset converts only declared names to trusted selected topology entries. The single for_each reads only that selected array, whose base URLs remain trusted command state. Classifier/capture errors, malformed output, empty picks, and only-undeclared picks select all declared sources; mixed picks discard undeclared names. Metadata reports declared not-selected names separately. The separate-call design keeps source routing atomic and preserves the tested select_tier contract.
+- Stateless sessions (R4) and the two-panel UX surface (R5) over a static_assets-served SPA; the observability panels (per-agent monitor and the cross-agent trace waterfall) render from monitor SSE and the trace backend.
+- The application-local chatbot-turn-critic realizes Critic / Output Evaluator for both the single-turn and degraded-RAG scenarios. Scenario scope stays in each tests/ directory and its configuration rather than creating a degraded-turn actor. The isolated single-turn case additionally binds Sandbox Validator because it proves that an undeclared URL-shaped source cannot cross the controlled mock topology; the degraded-RAG case evaluates turn output without claiming that isolation responsibility.
+
+<!-- field: planned -->
+### Planned
+
+- Concurrent multi-RAG fan-out (async await-any), and structured response metadata for the tier selection and the degraded and excluded RAG labels.
+
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: Browser-facing agent turning a chat request into a routed, retrieval-augmented answer over N RAG sources"] --> Goals["Goals: Chatbot Agent Functional Block"]
-    Goals --> R1["R1: Turn machine shape and data flow"]
-    Goals --> R2["R2: LLM tier selection"]
-    Goals --> R3["R3: Multi-RAG fan-out and degradation"]
-    Goals --> R4["R4: Stateless sessions"]
-    Goals --> R5["R5: UX surface"]
-    Goals --> R6["R6: Transport-authority boundary"]
-    R1 --> AC1["AC1: request-scoped turn, $from data flow, one embedding fanned out"]
-    R2 --> AC2["AC2: separate source/tier classifiers with trusted fallback"]
-    R3 --> AC3["AC3: selected fan-out and distinct source outcomes"]
-    R4 --> AC4["AC4: stateless v1, durable sessions follow-on"]
-    R5 --> AC5["AC5: two-panel ui.yaml over static_assets SPA"]
-    R6 --> AC6["AC6: declared clients hold transport authority"]
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: Browser-facing agent turning a chat request into a routed, retrieval-augmented answer over N RAG sources"] --> Goals["Goals: Chatbot Agent Functional Block"]
+  Goals --> R1["R1: Turn machine shape and data flow"]
+  Goals --> R2["R2: LLM tier selection"]
+  Goals --> R3["R3: Multi-RAG fan-out and degradation"]
+  Goals --> R4["R4: Stateless sessions"]
+  Goals --> R5["R5: UX surface"]
+  Goals --> R6["R6: Transport-authority boundary"]
+  R1 --> AC1["AC1: request-scoped turn, $from data flow, one embedding fanned out"]
+  R2 --> AC2["AC2: separate source/tier classifiers with trusted fallback"]
+  R3 --> AC3["AC3: selected fan-out and distinct source outcomes"]
+  R4 --> AC4["AC4: stateless v1, durable sessions follow-on"]
+  R5 --> AC5["AC5: two-panel ui.yaml over static_assets SPA"]
+  R6 --> AC6["AC6: declared clients hold transport authority"]
+```

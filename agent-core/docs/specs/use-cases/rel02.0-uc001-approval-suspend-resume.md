@@ -32,23 +32,35 @@ The operator runs an agent with --dolt-dsn naming a Dolt backend and a
 machine.yaml transition that routes a risky action through an approval-gate
 (suspend) tool.
 
-<!-- field: reference_profile | form: "tree" -->
+<!-- field: reference_profile -->
 ## Reference profile
 
-- path: lifecycle/approval/profile.yaml under AGENT_CATALOG_ROOT
-- first_run:
-  agent --profile "$AGENT_CATALOG_ROOT/lifecycle/approval/profile.yaml" \
-        --dolt-dsn <mysql-wire-dsn>
-- resume_approved:
-  agent --profile "$AGENT_CATALOG_ROOT/lifecycle/approval/profile.yaml" \
-        --dolt-dsn <mysql-wire-dsn> \
-        --resume-checkpoint <run-id> \
-        --resume-signal Approved
-- resume_rejected:
-  agent --profile "$AGENT_CATALOG_ROOT/lifecycle/approval/profile.yaml" \
-        --dolt-dsn <mysql-wire-dsn> \
-        --resume-checkpoint <run-id> \
-        --resume-signal Rejected
+<!-- field: path -->
+### Path
+
+lifecycle/approval/profile.yaml under AGENT_CATALOG_ROOT
+
+<!-- field: first_run -->
+### First run
+
+agent --profile "$AGENT_CATALOG_ROOT/lifecycle/approval/profile.yaml" \
+      --dolt-dsn <mysql-wire-dsn>
+
+<!-- field: resume_approved -->
+### Resume approved
+
+agent --profile "$AGENT_CATALOG_ROOT/lifecycle/approval/profile.yaml" \
+      --dolt-dsn <mysql-wire-dsn> \
+      --resume-checkpoint <run-id> \
+      --resume-signal Approved
+
+<!-- field: resume_rejected -->
+### Resume rejected
+
+agent --profile "$AGENT_CATALOG_ROOT/lifecycle/approval/profile.yaml" \
+      --dolt-dsn <mysql-wire-dsn> \
+      --resume-checkpoint <run-id> \
+      --resume-signal Rejected
 
 <!-- field: flow -->
 ## Flow

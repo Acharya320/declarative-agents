@@ -204,34 +204,38 @@ Inbound REST server endpoints extract traceparent (and tracestate) to parent the
 - R5.3
 - R5.4
 
-<!-- field: implementation_status | form: "tree" -->
+<!-- field: implementation_status -->
 ## Implementation status
 
-- done:
-  1. ParseTraceparent, FormatTraceparent, and ParseParentSpan primitives, and the subprocess --otel-parent-span propagation path, which remains unchanged and complementary to HTTP propagation.
-  1. - "Outbound injection (R4)": the engine injects the active dispatch span into TraceContextAware commands (core.TraceContextAware, set in dispatchWithMonitor from the dispatch span context); the REST client's applyTraceContext writes traceparent (and tracestate when present) into every outbound request uniformly, omitting the header when no recording span is active. No rest-tool-format surface. Delivered by GH-310.
-  1. - "Inbound extraction (R5)": the REST server's startMachineRequestSpan extracts an incoming traceparent (and tracestate), parents the machine_request span on the remote SpanContext through the global tracer, and falls back to a new root on absent or malformed headers using the same parser; traceparent/tracestate are allowed undeclared request headers. Delivered by GH-310.
+<!-- field: done | form: "tree" -->
+### Done
 
-<!-- field: diagrams | form: "tree" -->
+1. ParseTraceparent, FormatTraceparent, and ParseParentSpan primitives, and the subprocess --otel-parent-span propagation path, which remains unchanged and complementary to HTTP propagation.
+1. - "Outbound injection (R4)": the engine injects the active dispatch span into TraceContextAware commands (core.TraceContextAware, set in dispatchWithMonitor from the dispatch span context); the REST client's applyTraceContext writes traceparent (and tracestate when present) into every outbound request uniformly, omitting the header when no recording span is active. No rest-tool-format surface. Delivered by GH-310.
+1. - "Inbound extraction (R5)": the REST server's startMachineRequestSpan extracts an incoming traceparent (and tracestate), parents the machine_request span on the remote SpanContext through the global tracer, and falls back to a new root on absent or malformed headers using the same parser; traceparent/tracestate are allowed undeclared request headers. Delivered by GH-310.
+
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: Agents that receive a parent trace context from an ex..."] --> Goals["Goals: W3C Traceparent Parse and Format"]
-    Goals --> R1["R1: ParseTraceparent"]
-    Goals --> R2["R2: FormatTraceparent"]
-    Goals --> R3["R3: ParseParentSpan"]
-    Goals --> R4["R4: Outbound REST traceparent injection"]
-    Goals --> R5["R5: Inbound REST traceparent extraction"]
-    AC1["AC1: ParseTraceparent correctly parses valid version-00 tracep..."]
-    R1 --> AC1
-    AC2["AC2: FormatTraceparent round-trips with ParseTraceparent. Inva..."]
-    R2 --> AC2
-    AC3["AC3: ParseParentSpan returns a context with remote span, handl..."]
-    R3 --> AC3
-    AC4["AC4: Outbound REST client injects traceparent from the active span"]
-    R4 --> AC4
-    AC5["AC5: Inbound REST server extracts traceparent to parent the span"]
-    R5 --> AC5
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: Agents that receive a parent trace context from an ex..."] --> Goals["Goals: W3C Traceparent Parse and Format"]
+  Goals --> R1["R1: ParseTraceparent"]
+  Goals --> R2["R2: FormatTraceparent"]
+  Goals --> R3["R3: ParseParentSpan"]
+  Goals --> R4["R4: Outbound REST traceparent injection"]
+  Goals --> R5["R5: Inbound REST traceparent extraction"]
+  AC1["AC1: ParseTraceparent correctly parses valid version-00 tracep..."]
+  R1 --> AC1
+  AC2["AC2: FormatTraceparent round-trips with ParseTraceparent. Inva..."]
+  R2 --> AC2
+  AC3["AC3: ParseParentSpan returns a context with remote span, handl..."]
+  R3 --> AC3
+  AC4["AC4: Outbound REST client injects traceparent from the active span"]
+  R4 --> AC4
+  AC5["AC5: Inbound REST server extracts traceparent to parent the span"]
+  R5 --> AC5
+```

@@ -116,6 +116,11 @@ test-evidence CLI mode.
 
 rel07.1-uc001-specification-critic-profile-boundary
 
+<!-- field: go_test -->
+#### Go test
+
+TestSpecificationCriticAuditProfileDeclaresEvidencePipeline
+
 <!-- field: inputs | form: "tree" -->
 #### Inputs
 
@@ -143,11 +148,6 @@ rel07.1-uc001-specification-critic-profile-boundary
 - reduction_step: reduce_test_evidence_run
 - report_step: format_report
 - special_cli_mode: false
-
-<!-- field: go_test -->
-#### Go test
-
-TestSpecificationCriticAuditProfileDeclaresEvidencePipeline
 
 <!-- field: traces -->
 #### Traces

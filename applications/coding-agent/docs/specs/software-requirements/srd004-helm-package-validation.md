@@ -68,6 +68,20 @@ Archive validation shall require Chart.yaml, values, schema, core templates, and
 
 The resulting .tgz shall lint and render from a directory with no source checkout.
 
+<!-- field: goals -->
+## Goals
+
+- G1: Strict values.
+- G2: Package integrity.
+- G3: Self-contained Helm archive.
+
+<!-- field: non_goals -->
+## Non-goals
+
+- Live Kubernetes installation.
+- kind cluster setup and teardown.
+- Operator deployment and teardown guide.
+
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
 
@@ -106,17 +120,3 @@ A packaged .tgz contains all role assets and independently passes helm lint and 
 - R3.1
 - R3.2
 - R3.3
-
-<!-- field: goals -->
-## Goals
-
-- G1: Strict values.
-- G2: Package integrity.
-- G3: Self-contained Helm archive.
-
-<!-- field: non_goals -->
-## Non-goals
-
-- Live Kubernetes installation.
-- kind cluster setup and teardown.
-- Operator deployment and teardown guide.

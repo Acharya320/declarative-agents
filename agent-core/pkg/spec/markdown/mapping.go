@@ -7,9 +7,11 @@ import (
 	"fmt"
 	"sort"
 	"strings"
+
+	"gopkg.in/yaml.v3"
 )
 
-// nodeYAML maps a node kind to the YAML records it comes from (eng10 Table 4):
+// nodeYAML maps a node kind to the YAML records it comes from (eng10 Table 5):
 // the key holding them, whether they are a list or a map keyed by id, and the
 // record keys holding the id, the heading title, and the prose content. A
 // keyed record may be written as a one-entry map from id to content.
@@ -54,6 +56,9 @@ func (r *Declaration) checkMapping() error {
 			return fmt.Errorf("nodes.%s.yaml.derive_id: only slug, from a title", name)
 		}
 	}
+	if err := r.checkSlots(); err != nil {
+		return err
+	}
 	for _, name := range sortedKeys(r.Fields) {
 		field := r.Fields[name]
 		switch {
@@ -64,6 +69,30 @@ func (r *Declaration) checkMapping() error {
 			return fmt.Errorf("fields.%s.value: %q is neither keyed nor outline", name, field.Value)
 		case field.ID == "" || field.ContentKey == "":
 			return fmt.Errorf("fields.%s: an outline names its id and content keys", name)
+		}
+	}
+	return nil
+}
+
+// checkSlots rejects a fields list on a node kind that is not a field slot,
+// a field listed twice, and a field rule naming a slot whose list lacks it.
+func (r *Declaration) checkSlots() error {
+	for _, name := range sortedKeys(r.Nodes) {
+		node := r.Nodes[name]
+		if len(node.Fields) > 0 && node.Tag != tagField {
+			return fmt.Errorf("nodes.%s.fields: only a field slot (tag field) lists fields", name)
+		}
+		for i, field := range node.Fields {
+			if indexOf(node.Fields[:i], field) >= 0 {
+				return fmt.Errorf("nodes.%s.fields: %s is listed twice", name, field)
+			}
+		}
+	}
+	for _, name := range sortedKeys(r.Fields) {
+		for _, slot := range r.Fields[name].In {
+			if listed := r.Nodes[slot].Fields; len(listed) > 0 && indexOf(listed, name) < 0 {
+				return fmt.Errorf("fields.%s.in: names %s, whose fields list lacks it", name, slot)
+			}
 		}
 	}
 	return nil
@@ -86,15 +115,44 @@ func (r *Declaration) directRecords(level int, parent, key string) (string, bool
 	return "", false
 }
 
-// fieldRecords finds the node kind whose records a field holds, as
-// acceptance criteria sit under the acceptance_criteria field.
-func (r *Declaration) fieldRecords(key string) (string, bool) {
+// fieldRecords finds the node kind whose records a field at level holds,
+// one level down, as acceptance criteria sit under the acceptance_criteria
+// field. The level tells apart one key holding records in one place and
+// something else in another (GH-2663).
+func (r *Declaration) fieldRecords(level int, key string) (string, bool) {
 	for _, name := range sortedKeys(r.Nodes) {
-		if r.Nodes[name].Parent == "field:"+key {
+		if node := r.Nodes[name]; node.Parent == "field:"+key && node.Tag != tagField && node.Level == level+1 {
 			return name, true
 		}
 	}
 	return "", false
+}
+
+// recordsFit reports a value that holds a node kind's records: a map for
+// map records, and for list records a list of maps, so a list of plain
+// strings under the same key keeps its own form while a malformed record
+// still fails to print.
+func (r *Declaration) recordsFit(kind string, value *yaml.Node) bool {
+	m := r.Nodes[kind].YAML
+	if m.Records == recordsMap {
+		return value.Kind == yaml.MappingNode
+	}
+	if value.Kind != yaml.SequenceNode {
+		return false
+	}
+	for _, item := range value.Content {
+		if item.Kind != yaml.MappingNode {
+			return false
+		}
+	}
+	return true
+}
+
+// nestedSlot reports whether a field at level declares a slot for nested
+// fields one level down (eng10, declared fields and order; GH-2653).
+func (r *Declaration) nestedSlot(level int, key string) bool {
+	_, ok := r.fieldKind(level+1, "field:"+key)
+	return ok
 }
 
 // headingAcronyms are the words a generated heading prints in their
@@ -102,7 +160,9 @@ func (r *Declaration) fieldRecords(key string) (string, bool) {
 var headingAcronyms = map[string]string{
 	"srd": "SRD", "id": "ID", "ids": "IDs", "api": "API", "ui": "UI", "ux": "UX", "llm": "LLM",
 	"cli": "CLI", "rest": "REST", "yaml": "YAML", "url": "URL", "json": "JSON", "http": "HTTP",
-	"otel": "OTel",
+	"otel": "OTel", "openapi": "OpenAPI", "srds": "SRDs", "sdk": "SDK", "oci": "OCI", "gcs": "GCS", "gcp": "GCP",
+	"ci": "CI", "pvc": "PVC", "rbac": "RBAC", "tls": "TLS", "dns": "DNS", "sql": "SQL", "uri": "URI", "html": "HTML",
+	"mcp": "MCP", "cqrs": "CQRS", "grpc": "gRPC", "crd": "CRD", "crds": "CRDs", "cpu": "CPU", "ttl": "TTL",
 }
 
 // fieldHeading is the heading a field prints with: the declared one, or the

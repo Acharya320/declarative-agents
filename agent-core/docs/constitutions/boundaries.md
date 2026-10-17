@@ -17,57 +17,86 @@ is decoration. A rule that lives only in prose is re-derived by hand in
 audits, months after the drift lands; every rule here therefore carries an
 executable check, and every check carries a negative test.
 
-<!-- field: ownership | form: "tree" -->
+<!-- field: ownership -->
 ## Ownership
 
-- principle: Code lives with the behavior that owns it, not where its dependencies are already imported.
-- rules:
-  1. A CLI flag is defined by the package that consumes it, in a Config struct with a RegisterFlags method. cmd packages register flags only for binary-contract concerns (profile selection, output paths, validation mode) and call RegisterFlags for everything else.
-  1. A builtin factory is registered by the package that builds the command, through a package-level RegisterFactories entry point taking an explicit FactoryDeps. cmd packages supply dependencies; they do not construct domain commands.
-  1. Configuration resolution logic (parsing, precedence, defaulting, validation) lives with the Config it resolves, never in package main.
-  1. A test lives in the package of the behavior it exercises. A domain test in a cmd package is evidence of misplaced production code, and the fix is moving the code, not the test.
+<!-- field: principle -->
+### Principle
 
-<!-- field: composition_root | form: "tree" -->
+Code lives with the behavior that owns it, not where its dependencies are already imported.
+
+<!-- field: rules -->
+### Rules
+
+- A CLI flag is defined by the package that consumes it, in a Config struct with a RegisterFlags method. cmd packages register flags only for binary-contract concerns (profile selection, output paths, validation mode) and call RegisterFlags for everything else.
+- A builtin factory is registered by the package that builds the command, through a package-level RegisterFactories entry point taking an explicit FactoryDeps. cmd packages supply dependencies; they do not construct domain commands.
+- Configuration resolution logic (parsing, precedence, defaulting, validation) lives with the Config it resolves, never in package main.
+- A test lives in the package of the behavior it exercises. A domain test in a cmd package is evidence of misplaced production code, and the fix is moving the code, not the test.
+
+<!-- field: composition_root -->
 ## Composition root
 
-- rules:
-  1. cmd packages contain flag fan-out, dependency construction, exit-code policy, and nothing else. They are the one place allowed to import every internal domain.
-  1. No package outside cmd registers flags, reads argv, or decides exit codes.
-  1. Registration entry points (RegisterFlags, RegisterFactories) are side-effect-free apart from their registry calls, because catalog probes invoke them eagerly against throwaway registries.
+<!-- field: rules -->
+### Rules
 
-<!-- field: import_law | form: "tree" -->
+- cmd packages contain flag fan-out, dependency construction, exit-code policy, and nothing else. They are the one place allowed to import every internal domain.
+- No package outside cmd registers flags, reads argv, or decides exit codes.
+- Registration entry points (RegisterFlags, RegisterFactories) are side-effect-free apart from their registry calls, because catalog probes invoke them eagerly against throwaway registries.
+
+<!-- field: import_law -->
 ## Import law
 
-- principle: The import graph is the architecture diagram. Edges are one-way and named here; an unlisted edge is a violation, not an oversight.
-- rules:
-  1. internal/runtime packages do not import internal/tools packages. The interpreter defines ports; tools implement them.
-  1. internal/runtime/core imports no storage engine, no SQL driver, and no database/sql. Concrete checkpoint backends live in their own packages and implement the core ports.
-  1. internal/observability packages do not import internal/tools or internal/runtime beyond the tracing ports they define.
-  1. pkg packages import internal packages only through surfaces already documented in docs/guides/package-layout.md; adding a new pkg-to-internal edge amends that document in the same change.
-  1. Only internal/tools/objectstore and internal/tools/otlp import gocloud.dev/blob or its drivers. Other packages reach object storage through the objectstore opener.
+<!-- field: principle -->
+### Principle
 
-<!-- field: package_shape | form: "tree" -->
+The import graph is the architecture diagram. Edges are one-way and named here; an unlisted edge is a violation, not an oversight.
+
+<!-- field: rules -->
+### Rules
+
+- internal/runtime packages do not import internal/tools packages. The interpreter defines ports; tools implement them.
+- internal/runtime/core imports no storage engine, no SQL driver, and no database/sql. Concrete checkpoint backends live in their own packages and implement the core ports.
+- internal/observability packages do not import internal/tools or internal/runtime beyond the tracing ports they define.
+- pkg packages import internal packages only through surfaces already documented in docs/guides/package-layout.md; adding a new pkg-to-internal edge amends that document in the same change.
+- Only internal/tools/objectstore and internal/tools/otlp import gocloud.dev/blob or its drivers. Other packages reach object storage through the objectstore opener.
+
+<!-- field: package_shape -->
 ## Package shape
 
-- principle: A package is the unit of comprehension. If a subsystem cannot be understood from ls and its import list, the package is doing too much.
-- rules:
-  1. Every package's production line count and file count are baselined. A change may not grow a package past its baseline; it may shrink it. Growing a package past baseline requires editing the baseline file in the same change, so the growth is a reviewed decision rather than an accident.
-  1. One declaration per fact. A statement literal, an identity computation, or a registration call that must exist exactly once is pinned by a singleton check (for example, one sql.Register per driver, one DOLT_COMMIT statement constant).
-  1. A hand-maintained list that mirrors code elsewhere (an init-name list, a family inventory) is a drift instrument. Derive it or gate equality between the list and its source.
+<!-- field: principle -->
+### Principle
 
-<!-- field: test_placement | form: "tree" -->
+A package is the unit of comprehension. If a subsystem cannot be understood from ls and its import list, the package is doing too much.
+
+<!-- field: rules -->
+### Rules
+
+- Every package's production line count and file count are baselined. A change may not grow a package past its baseline; it may shrink it. Growing a package past baseline requires editing the baseline file in the same change, so the growth is a reviewed decision rather than an accident.
+- One declaration per fact. A statement literal, an identity computation, or a registration call that must exist exactly once is pinned by a singleton check (for example, one sql.Register per driver, one DOLT_COMMIT statement constant).
+- A hand-maintained list that mirrors code elsewhere (an init-name list, a family inventory) is a drift instrument. Derive it or gate equality between the list and its source.
+
+<!-- field: test_placement -->
 ## Test placement
 
-- rules:
-  1. A test that starts a process, binds a listener through a production launch path, or sleeps multi-second wall-clock time guards itself with testing.Short and skips under the fast suite.
-  1. The guard lives in the shared helper that performs the heavyweight act, so every caller inherits it.
-  1. Naming a file _integration_test is documentation; the Short guard is the mechanism. A file with the name and not the guard, or the guard and a misleading name, fails review.
+<!-- field: rules -->
+### Rules
 
-<!-- field: enforcement | form: "tree" -->
+- A test that starts a process, binds a listener through a production launch path, or sleeps multi-second wall-clock time guards itself with testing.Short and skips under the fast suite.
+- The guard lives in the shared helper that performs the heavyweight act, so every caller inherits it.
+- Naming a file _integration_test is documentation; the Short guard is the mechanism. A file with the name and not the guard, or the guard and a misleading name, fails review.
+
+<!-- field: enforcement -->
 ## Enforcement
 
-- gate: internal/boundaries holds the executable form of this constitution, mirroring internal/gostyle. Import law runs as a go-list dependency walk; package shape runs against boundaries_baseline.txt (grandfathered at adoption, shrink-only, stale entries fail); singleton and derived-list checks run as source scans. Every check carries a negative test that plants a violation in a fixture and observes the failure, because a check that cannot fail is indistinguishable from a check that passes.
-- amendment: Changing an edge, a baseline, or a singleton is done by editing this constitution and the gate's data files in the same pull request that needs the change. The diff is the approval record. Exemptions carry an inline comment naming the contract that forces them, following the forbidigo precedent in go-style.
+<!-- field: gate -->
+### Gate
+
+internal/boundaries holds the executable form of this constitution, mirroring internal/gostyle. Import law runs as a go-list dependency walk; package shape runs against boundaries_baseline.txt (grandfathered at adoption, shrink-only, stale entries fail); singleton and derived-list checks run as source scans. Every check carries a negative test that plants a violation in a fixture and observes the failure, because a check that cannot fail is indistinguishable from a check that passes.
+
+<!-- field: amendment -->
+### Amendment
+
+Changing an edge, a baseline, or a singleton is done by editing this constitution and the gate's data files in the same pull request that needs the change. The diff is the approval record. Exemptions carry an inline comment naming the contract that forces them, following the forbidigo precedent in go-style.
 
 <!-- field: review_checklist -->
 ## Review checklist
