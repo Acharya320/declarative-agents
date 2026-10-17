@@ -345,23 +345,25 @@ The built-in spec_corpus charter reproduces the current specification corpus val
 - R5.2
 - R5.6
 
-<!-- field: diagrams | form: "tree" -->
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: As the number of SRDs, use cases, and test suites gro..."] --> Goals["Goals: Specification Graph Loader and Validator"]
-    Goals --> R1["R1: Parsing"]
-    Goals --> R2["R2: Graph construction"]
-    Goals --> R3["R3: Validation checks"]
-    Goals --> R4["R4: Corpus loading"]
-    AC1["AC1: ParseSRD, ParseUseCase, ParseTestSuite, ParseRoadmap, Par..."]
-    R1 --> AC1
-    AC2["AC2: BuildGraph constructs a directed labeled property graph f..."]
-    R2 --> AC2
-    AC3["AC3: Validate detects orphaned SRDs, broken touchpoints and ci..."]
-    R3 --> AC3
-    AC4["AC4: LoadCorpus discovers and parses all artifacts from the st..."]
-    R4 --> AC4
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: As the number of SRDs, use cases, and test suites gro..."] --> Goals["Goals: Specification Graph Loader and Validator"]
+  Goals --> R1["R1: Parsing"]
+  Goals --> R2["R2: Graph construction"]
+  Goals --> R3["R3: Validation checks"]
+  Goals --> R4["R4: Corpus loading"]
+  AC1["AC1: ParseSRD, ParseUseCase, ParseTestSuite, ParseRoadmap, Par..."]
+  R1 --> AC1
+  AC2["AC2: BuildGraph constructs a directed labeled property graph f..."]
+  R2 --> AC2
+  AC3["AC3: Validate detects orphaned SRDs, broken touchpoints and ci..."]
+  R3 --> AC3
+  AC4["AC4: LoadCorpus discovers and parses all artifacts from the st..."]
+  R4 --> AC4
+```

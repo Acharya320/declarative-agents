@@ -390,15 +390,15 @@ the pre-suspend state. Skipped when no dolt sql-server is reachable.
 
 rel02.0-uc001-approval-suspend-resume
 
-<!-- field: go_test -->
-#### Go test
-
-TestDoltCheckpointSuspendResumeAcrossProcesses
-
 <!-- field: integration_target -->
 #### Integration target
 
 mage integration:dolt
+
+<!-- field: go_test -->
+#### Go test
+
+TestDoltCheckpointSuspendResumeAcrossProcesses
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs

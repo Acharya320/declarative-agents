@@ -146,22 +146,24 @@ StateMachine.IsTerminal delegates to TerminalFunc.
 
 - R3.5
 
-<!-- field: diagrams | form: "tree" -->
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: The agentic loop drives behavior through state transi..."] --> Goals["Goals: State Machine"]
-    Goals --> R1["R1: Transition types"]
-    Goals --> R2["R2: TerminalFunc"]
-    Goals --> R3["R3: StateMachine struct"]
-    AC1["AC1: ActionFunc, TransitionInput, TransitionValue, and Transit..."]
-    R1 --> AC1
-    AC2["AC2: TerminalFunc is func(State) bool, supplied by the domain."]
-    R2 --> AC2
-    AC3["AC3: StateMachine.Step performs lookup, calls ActionFunc, retu..."]
-    R3 --> AC3
-    AC4["AC4: StateMachine.IsTerminal delegates to TerminalFunc."]
-    R3 --> AC4
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: The agentic loop drives behavior through state transi..."] --> Goals["Goals: State Machine"]
+  Goals --> R1["R1: Transition types"]
+  Goals --> R2["R2: TerminalFunc"]
+  Goals --> R3["R3: StateMachine struct"]
+  AC1["AC1: ActionFunc, TransitionInput, TransitionValue, and Transit..."]
+  R1 --> AC1
+  AC2["AC2: TerminalFunc is func(State) bool, supplied by the domain."]
+  R2 --> AC2
+  AC3["AC3: StateMachine.Step performs lookup, calls ActionFunc, retu..."]
+  R3 --> AC3
+  AC4["AC4: StateMachine.IsTerminal delegates to TerminalFunc."]
+  R3 --> AC4
+```

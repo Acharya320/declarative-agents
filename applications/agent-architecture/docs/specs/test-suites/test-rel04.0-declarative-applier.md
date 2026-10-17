@@ -60,15 +60,15 @@ behave as the declarations assume; the chart schema is covered by its own
 case below against real helm, and the live kind target supplies the
 on-cluster evidence.
 
-<!-- field: use_case -->
-#### Use case
-
-rel04.0-uc001-declarative-applier
-
 <!-- field: id -->
 #### ID
 
 validate_apply_verify
+
+<!-- field: use_case -->
+#### Use case
+
+rel04.0-uc001-declarative-applier
 
 <!-- field: integration_target -->
 #### Integration target
@@ -120,15 +120,15 @@ the offending path and the constraint it violated, not merely exit non-zero
 third assertion pins the constraint the fixture rests on, so loosening the
 schema reads as the guard being removed rather than as a broken fixture.
 
-<!-- field: use_case -->
-#### Use case
-
-rel04.0-uc001-declarative-applier
-
 <!-- field: id -->
 #### ID
 
 chart_schema_rejects
+
+<!-- field: use_case -->
+#### Use case
+
+rel04.0-uc001-declarative-applier
 
 <!-- field: integration_target -->
 #### Integration target
@@ -167,15 +167,15 @@ collector pods, so route and NetworkPolicy agree on one authority path, and
 that the applier delivers the CLIs through the pinned cli-donor init
 container on a read-only /opt/tools.
 
-<!-- field: use_case -->
-#### Use case
-
-rel04.0-uc001-declarative-applier
-
 <!-- field: id -->
 #### ID
 
 applier_holds_clis
+
+<!-- field: use_case -->
+#### Use case
+
+rel04.0-uc001-declarative-applier
 
 <!-- field: integration_target -->
 #### Integration target
@@ -214,15 +214,15 @@ alone would report an absent Deployment, a wrong kubeconfig, a denied RBAC
 read, or an unreachable API server as ongoing progress. A read the cluster
 cannot serve returns a gateway error rather than a phase.
 
-<!-- field: use_case -->
-#### Use case
-
-rel04.0-uc001-declarative-applier
-
 <!-- field: id -->
 #### ID
 
 broken_read_classified
+
+<!-- field: use_case -->
+#### Use case
+
+rel04.0-uc001-declarative-applier
 
 <!-- field: integration_target -->
 #### Integration target
@@ -268,15 +268,15 @@ validates locally is rejected here against the real chart schema, leaving
 the release untouched. Bounded host and in-pod probes classify a Kubernetes
 API or pod-network loss apart from the semantic proof.
 
-<!-- field: use_case -->
-#### Use case
-
-rel04.0-uc001-declarative-applier
-
 <!-- field: id -->
 #### ID
 
 live_rollout_rollback
+
+<!-- field: use_case -->
+#### Use case
+
+rel04.0-uc001-declarative-applier
 
 <!-- field: integration_target -->
 #### Integration target

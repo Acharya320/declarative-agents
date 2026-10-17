@@ -38,33 +38,6 @@ presentation.
 - The canonical documentation-curator profile exists at the catalog_root's agents/knowledge-manager/documentation-curator/profile.yaml.
 - Local presentation, documentation, control, and monitor ports are available.
 
-<!-- field: evidence | form: "tree" -->
-## Evidence
-
-- deterministic_status: implemented
-- deterministic_command: go test ./magefiles
-- proves:
-  The checked-in tests prove exact command construction, portable root
-  resolution, lifecycle-exit configuration, reciprocal traces, and
-  composition-only accounting.
-- live_observation_status: dependency_gated
-- live_steps:
-  1. F1
-  1. F2
-  1. F3
-  1. F5
-  1. F6
-  1. F7
-  1. F8
-- limitation:
-  Serving the deck, starting the curator, rendering the catalog-owned browser
-  interface, posting to a running control endpoint, observing Done, and
-  observing readiness, liveness, representative failure, diagnostics,
-  telemetry, shutdown, in-flight handling, and listener release require
-  available ports, a buildable agent-core checkout, and operator execution.
-  Deterministic command construction does not prove those live observations
-  or srd002 AC1 through AC3.
-
 <!-- field: flow -->
 ## Flow
 
@@ -76,6 +49,53 @@ presentation.
 - F6: The operator invokes the catalog-owned ../catalog/agents/lifecycle-exit/profile.yaml through the same agent-core interpreter.
 - F7: The lifecycle-exit machine posts its fixed reason to 127.0.0.1:18082/api/lifecycle/exit, accepts HTTP 202, and reaches its Done terminal.
 - F8: The canonical curator reaches Done and releases its documentation, control, and monitor listeners.
+
+<!-- field: evidence -->
+## Evidence
+
+<!-- field: deterministic_status -->
+### Deterministic status
+
+implemented
+
+<!-- field: deterministic_command -->
+### Deterministic command
+
+go test ./magefiles
+
+<!-- field: proves -->
+### Proves
+
+The checked-in tests prove exact command construction, portable root
+resolution, lifecycle-exit configuration, reciprocal traces, and
+composition-only accounting.
+
+<!-- field: live_observation_status -->
+### Live observation status
+
+dependency_gated
+
+<!-- field: live_steps -->
+### Live steps
+
+- F1
+- F2
+- F3
+- F5
+- F6
+- F7
+- F8
+
+<!-- field: limitation -->
+### Limitation
+
+Serving the deck, starting the curator, rendering the catalog-owned browser
+interface, posting to a running control endpoint, observing Done, and
+observing readiness, liveness, representative failure, diagnostics,
+telemetry, shutdown, in-flight handling, and listener release require
+available ports, a buildable agent-core checkout, and operator execution.
+Deterministic command construction does not prove those live observations
+or srd002 AC1 through AC3.
 
 <!-- field: touchpoints -->
 ## Touchpoints

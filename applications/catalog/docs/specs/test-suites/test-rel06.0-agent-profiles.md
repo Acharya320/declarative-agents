@@ -55,15 +55,15 @@ that /opt/agent-core/tools maps to the selected agent-core checkout while refere
 
 rel06.0-uc002-profile-validation
 
-<!-- field: go_test -->
-#### Go test
-
-go test ./magefiles -run 'Test(ValidatePortableProfileRefsResolvesExternalCoreToolRefs|DiscoverProfilesIncludesVariants|ValidatePortableProfileRefsValidatesProfileVariants|ValidatePortableProfileRefsRejectsCopiedCoreAgentRefs|ValidatePortableProfileRefsReportsMissingReference)$'
-
 <!-- field: integration_target -->
 #### Integration target
 
 mage validate
+
+<!-- field: go_test -->
+#### Go test
+
+go test ./magefiles -run 'Test(ValidatePortableProfileRefsResolvesExternalCoreToolRefs|DiscoverProfilesIncludesVariants|ValidatePortableProfileRefsValidatesProfileVariants|ValidatePortableProfileRefsRejectsCopiedCoreAgentRefs|ValidatePortableProfileRefsReportsMissingReference)$'
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -108,15 +108,15 @@ clean specification-critic fixture at /work, and runs the profile with
 
 rel06.0-uc001-mounted-profile-execution
 
-<!-- field: go_test -->
-#### Go test
-
-go test ./magefiles -run TestRunContainerSmokeCommands
-
 <!-- field: integration_target -->
 #### Integration target
 
 mage containerSmoke
+
+<!-- field: go_test -->
+#### Go test
+
+go test ./magefiles -run TestRunContainerSmokeCommands
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -157,15 +157,15 @@ ref_check, and consistency_check.
 
 rel06.0-uc002-profile-validation
 
-<!-- field: go_test -->
-#### Go test
-
-go test ./magefiles -run 'Test(WriteSpecificationCriticCharterDemoProfileFiles|AssertSpecificationCriticCharterDemoFindings)'
-
 <!-- field: integration_target -->
 #### Integration target
 
 mage validate
+
+<!-- field: go_test -->
+#### Go test
+
+go test ./magefiles -run 'Test(WriteSpecificationCriticCharterDemoProfileFiles|AssertSpecificationCriticCharterDemoFindings)'
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -208,15 +208,15 @@ runtime image tags.
 
 rel06.0-uc002-profile-validation
 
-<!-- field: go_test -->
-#### Go test
-
-cd ../../magefiles && go test ./... -run 'Test(CreateReleaseTag|NextRevisionFromTags|ValidateReleaseBranch)'
-
 <!-- field: integration_target -->
 #### Integration target
 
 mage tag
+
+<!-- field: go_test -->
+#### Go test
+
+cd ../../magefiles && go test ./... -run 'Test(CreateReleaseTag|NextRevisionFromTags|ValidateReleaseBranch)'
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -250,15 +250,15 @@ planner, executor, and critic profile closures.
 
 rel06.0-uc001-mounted-profile-execution
 
-<!-- field: go_test -->
-#### Go test
-
-applications/coding-agent package and integration targets
-
 <!-- field: integration_target -->
 #### Integration target
 
 mage integration:codingLoop with catalog_root set to /path/to/applications/catalog in demo.yaml
+
+<!-- field: go_test -->
+#### Go test
+
+applications/coding-agent package and integration targets
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -303,15 +303,15 @@ applications/agent-architecture.
 
 rel06.0-uc001-mounted-profile-execution
 
-<!-- field: go_test -->
-#### Go test
-
-agent-core integration targets
-
 <!-- field: integration_target -->
 #### Integration target
 
 mage integration:monitor with catalog_root set to /path/to/applications/catalog in demo.yaml
+
+<!-- field: go_test -->
+#### Go test
+
+agent-core integration targets
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs

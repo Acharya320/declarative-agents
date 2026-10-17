@@ -20,6 +20,13 @@ and scoped zero-hit policies. Tag publication remains a post-merge operation.
 
 - rel12.0-uc001-agent-role-realization-alignment
 
+<!-- field: preconditions -->
+## Preconditions
+
+- Issues 1068 through 1070 and 1072 through 1077 are complete.
+- The shared role-realization semantic model and executable validator are present.
+- Catalog releases 07.1 and 11.0 retain their independent in-progress evidence gaps.
+
 <!-- field: test_cases -->
 ## Test cases
 
@@ -67,15 +74,15 @@ cd ../../magefiles && go test . -run 'Test(AlignmentReleaseCreatesExactCatalogCo
 <!-- case: Coding-agent closure and provenance | status: implemented -->
 ### Coding-agent closure and provenance
 
-<!-- field: go_test -->
-#### Go test
-
-cd ../coding-agent && go test ./magefiles
-
 <!-- field: integration_target -->
 #### Integration target
 
 cd ../coding-agent && mage audit
+
+<!-- field: go_test -->
+#### Go test
+
+cd ../coding-agent && go test ./magefiles
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -92,15 +99,15 @@ cd ../coding-agent && mage audit
 <!-- case: Chatbot-mesh generated Helm package | status: implemented -->
 ### Chatbot-mesh generated Helm package
 
-<!-- field: go_test -->
-#### Go test
-
-cd ../chatbot-mesh && go test ./magefiles
-
 <!-- field: integration_target -->
 #### Integration target
 
 cd ../chatbot-mesh && mage helm:package
+
+<!-- field: go_test -->
+#### Go test
+
+cd ../chatbot-mesh && go test ./magefiles
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -153,10 +160,3 @@ go test ./conformance -run 'Test(NoActiveAssemblerPathConsumers|NoActiveMonitorP
 #### Traces
 
 - rel12.0-uc001-agent-role-realization-alignment S6
-
-<!-- field: preconditions -->
-## Preconditions
-
-- Issues 1068 through 1070 and 1072 through 1077 are complete.
-- The shared role-realization semantic model and executable validator are present.
-- Catalog releases 07.1 and 11.0 retain their independent in-progress evidence gaps.

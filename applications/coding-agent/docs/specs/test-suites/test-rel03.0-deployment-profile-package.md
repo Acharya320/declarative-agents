@@ -20,6 +20,13 @@ real production agent binary.
 
 - rel03.0-uc001-package-serving-profiles
 
+<!-- field: preconditions -->
+## Preconditions
+
+- agents/application.yaml names the three serving entry profiles.
+- The compatible applications/catalog checkout is available.
+- Application and canonical source trees contain no symlinks.
+
 <!-- field: test_cases -->
 ## Test cases
 
@@ -99,10 +106,3 @@ go test ./magefiles -run '^TestDeploymentManifestPreservesProfileFreeRuntime$'
 #### Traces
 
 - srd002-deployment-profile-package AC3
-
-<!-- field: preconditions -->
-## Preconditions
-
-- agents/application.yaml names the three serving entry profiles.
-- The compatible applications/catalog checkout is available.
-- Application and canonical source trees contain no symlinks.

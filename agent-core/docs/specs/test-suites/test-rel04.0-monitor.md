@@ -42,15 +42,15 @@ bound address discovery, and cached event-stream frames.
 
 rel04.0-uc001-configurable-tool-metrics
 
-<!-- field: go_test -->
-#### Go test
-
-TestMonitorReleaseProfileProof
-
 <!-- field: integration_target -->
 #### Integration target
 
 mage integration:monitor
+
+<!-- field: go_test -->
+#### Go test
+
+TestMonitorReleaseProfileProof
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -108,15 +108,15 @@ terminal routing.
 
 rel04.0-uc002-monitor-rest-api
 
-<!-- field: go_test -->
-#### Go test
-
-TestMonitorCLIProfileServesUntilControlExit
-
 <!-- field: integration_target -->
 #### Integration target
 
 mage integration:monitor
+
+<!-- field: go_test -->
+#### Go test
+
+TestMonitorCLIProfileServesUntilControlExit
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs

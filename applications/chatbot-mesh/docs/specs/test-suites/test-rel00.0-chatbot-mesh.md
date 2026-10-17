@@ -103,13 +103,28 @@ go test ./magefiles -run '^TestSeedRagServerCorpusUsesDeterministicDirectOperati
 - query_embeddings: Ollama-embedded query vector
 - n_results: 3
 
-<!-- field: scenario_critic_evidence | form: "tree" -->
+<!-- field: scenario_critic_evidence -->
 #### Scenario critic evidence
 
-- integration_target: mage integration:rig
-- scenario: agents/rag-server/tests/query
-- actor: rag-query-critic
-- binding: Critic / Output Evaluator
+<!-- field: integration_target -->
+##### Integration target
+
+mage integration:rig
+
+<!-- field: scenario -->
+##### Scenario
+
+agents/rag-server/tests/query
+
+<!-- field: actor -->
+##### Actor
+
+rag-query-critic
+
+<!-- field: binding -->
+##### Binding
+
+Critic / Output Evaluator
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -171,17 +186,26 @@ go test ./magefiles -run '^TestCitedRecordNumbersBracketed$|^TestCitedRecordNumb
 - turns: a turn answered from retrieved chunks, then a degraded follow-up with history
 - fault: the RAG stopped before the degraded turn
 
-<!-- field: scenario_critic_evidence | form: "tree" -->
+<!-- field: scenario_critic_evidence -->
 #### Scenario critic evidence
 
-- integration_target: mage integration:rig
-- actor: chatbot-turn-critic
-- scenarios:
-  1. - path: agents/chatbot/tests/single-turn
-     - binding: Critic / Output Evaluator / Sandbox Validator
-     - isolation: undeclared URL-shaped sources cannot escape the controlled mock topology
-  1. - path: agents/chatbot/tests/degraded-rag
-     - binding: Critic / Output Evaluator
+<!-- field: integration_target -->
+##### Integration target
+
+mage integration:rig
+
+<!-- field: actor -->
+##### Actor
+
+chatbot-turn-critic
+
+<!-- field: scenarios | form: "typed table" -->
+##### Scenarios
+
+| path | binding | isolation |
+| --- | --- | --- |
+| agents/chatbot/tests/single-turn | Critic / Output Evaluator / Sandbox Validator | undeclared URL-shaped sources cannot escape the controlled mock topology |
+| agents/chatbot/tests/degraded-rag | Critic / Output Evaluator |  |
 
 <!-- field: expected | form: "tree" -->
 #### Expected

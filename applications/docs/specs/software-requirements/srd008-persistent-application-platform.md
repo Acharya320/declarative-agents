@@ -31,17 +31,33 @@ isolation and data loss and therefore belong in the specification.
 - G4: Make every destructive lifecycle action explicit and separately authorized.
 - G5: Publish one reusable application-rig package consumed through thin Mage verbs.
 
-<!-- field: applicability | form: "tree" -->
+<!-- field: applicability -->
 ## Applicability
 
-- baseline:
-  R1 through R9 apply to applications that declare `helm_managed` and use the
-  shared application platform. Cluster-mutating integration scenarios remain
-  governed by ENG01's owned-cluster exception.
-- capability_gates:
-  - local_platform: R2, R4, R5, R7, and R8 local clauses.
-  - cloud_platform: R2, R4, R5, R7, and R8 cloud clauses.
-  - durable_collector: R3, R6, and R7 collector clauses.
+<!-- field: baseline -->
+### Baseline
+
+R1 through R9 apply to applications that declare `helm_managed` and use the
+shared application platform. Cluster-mutating integration scenarios remain
+governed by ENG01's owned-cluster exception.
+
+<!-- field: capability_gates -->
+### Capability gates
+
+<!-- field: local_platform -->
+#### Local platform
+
+R2, R4, R5, R7, and R8 local clauses.
+
+<!-- field: cloud_platform -->
+#### Cloud platform
+
+R2, R4, R5, R7, and R8 cloud clauses.
+
+<!-- field: durable_collector -->
+#### Durable collector
+
+R3, R6, and R7 collector clauses.
 
 <!-- req: R1 -->
 ## R1 - Ownership and authority are separate
@@ -624,16 +640,6 @@ reusable application-rig integration contract.
 - R9.1
 - R9.2
 
-<!-- field: use_case_traces -->
-## Use case traces
-
-- rel19.0-uc001-persistent-application-platform
-
-<!-- field: test_suite_traces -->
-## Test suite traces
-
-- test-rel19.0-persistent-application-platform
-
 <!-- field: related_documents -->
 ## Related documents
 
@@ -643,3 +649,13 @@ reusable application-rig integration contract.
 - agent-core/docs/specs/software-requirements/srd042-otlp-receiver-tools.md
 - agent-core/docs/specs/software-requirements/srd044-spool-query-tools.md
 - agent-core/docs/specs/software-requirements/srd059-objectstore-tools.md
+
+<!-- field: use_case_traces -->
+## Use case traces
+
+- rel19.0-uc001-persistent-application-platform
+
+<!-- field: test_suite_traces -->
+## Test suite traces
+
+- test-rel19.0-persistent-application-platform

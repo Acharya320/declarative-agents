@@ -25,15 +25,20 @@ release: "16.0"
 <!-- case: Applier catalog closure | status: implemented -->
 ### Applier catalog closure
 
+<!-- field: id -->
+#### ID
+
+applier-catalog-closure
+
 <!-- field: use_case -->
 #### Use case
 
 rel16.0-uc001-applier-family
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-applier-catalog-closure
+mage validate
 
 <!-- field: verifies -->
 #### Verifies
@@ -45,11 +50,6 @@ applier-catalog-closure
 
 - rel16.0-uc001-applier-family S1
 
-<!-- field: go_test -->
-#### Go test
-
-mage validate
-
 <!-- field: assertions -->
 #### Assertions
 
@@ -59,15 +59,20 @@ mage validate
 <!-- case: Applier machine contract | status: implemented -->
 ### Applier machine contract
 
+<!-- field: id -->
+#### ID
+
+applier-machine-contract
+
 <!-- field: use_case -->
 #### Use case
 
 rel16.0-uc001-applier-family
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-applier-machine-contract
+go test ./conformance -run '^TestCanonicalApplier'
 
 <!-- field: verifies -->
 #### Verifies
@@ -84,11 +89,6 @@ applier-machine-contract
 - rel16.0-uc001-applier-family S3
 - rel16.0-uc001-applier-family S4
 - rel16.0-uc001-applier-family S5
-
-<!-- field: go_test -->
-#### Go test
-
-go test ./conformance -run '^TestCanonicalApplier'
 
 <!-- field: assertions -->
 #### Assertions
@@ -100,15 +100,20 @@ go test ./conformance -run '^TestCanonicalApplier'
 <!-- case: Applier wrapper ownership | status: implemented -->
 ### Applier wrapper ownership
 
+<!-- field: id -->
+#### ID
+
+applier-wrapper-ownership
+
 <!-- field: use_case -->
 #### Use case
 
 rel16.0-uc001-applier-family
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-applier-wrapper-ownership
+go test ./conformance -run '^TestApplierPromotion'
 
 <!-- field: verifies -->
 #### Verifies
@@ -122,11 +127,6 @@ applier-wrapper-ownership
 - rel16.0-uc001-applier-family S2
 - rel16.0-uc001-applier-family S6
 
-<!-- field: go_test -->
-#### Go test
-
-go test ./conformance -run '^TestApplierPromotion'
-
 <!-- field: assertions -->
 #### Assertions
 
@@ -137,15 +137,20 @@ go test ./conformance -run '^TestApplierPromotion'
 <!-- case: Applier consumers | status: implemented -->
 ### Applier consumers
 
+<!-- field: id -->
+#### ID
+
+applier-consumers
+
 <!-- field: use_case -->
 #### Use case
 
 rel16.0-uc001-applier-family
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-applier-consumers
+mage audit
 
 <!-- field: verifies -->
 #### Verifies
@@ -165,11 +170,6 @@ applier-consumers
 - rel16.0-uc001-applier-family S5
 - rel16.0-uc001-applier-family S6
 
-<!-- field: go_test -->
-#### Go test
-
-mage audit
-
 <!-- field: assertions -->
 #### Assertions
 
@@ -179,15 +179,20 @@ mage audit
 <!-- case: Applier statistics | status: implemented -->
 ### Applier statistics
 
+<!-- field: id -->
+#### ID
+
+applier-statistics
+
 <!-- field: use_case -->
 #### Use case
 
 rel16.0-uc001-applier-family
 
-<!-- field: id -->
-#### ID
+<!-- field: go_test -->
+#### Go test
 
-applier-statistics
+mage stats
 
 <!-- field: verifies -->
 #### Verifies
@@ -198,11 +203,6 @@ applier-statistics
 #### Traces
 
 - rel16.0-uc001-applier-family S6
-
-<!-- field: go_test -->
-#### Go test
-
-mage stats
 
 <!-- field: assertions -->
 #### Assertions

@@ -42,6 +42,19 @@ POST /api/v1/coding with a task and workspace_id.
 - F5: After executor success, the planner invokes the declared critic REST client with the carried workspace identity.
 - F6: The critic endpoint runs the canonical changed-workspace critic and maps acceptance or rejection to the declared HTTP response.
 
+<!-- field: touchpoints -->
+## Touchpoints
+
+| id | target | reason |
+| --- | --- | --- |
+| T1 | srd001-serving-contract R1.1, R1.2, R1.3 | S1 traces this requirement in the existing success criteria. |
+| T2 | srd001-serving-contract AC1 | S1 traces this requirement in the existing success criteria. |
+| T3 | srd001-serving-contract R2.1, R2.2, R2.3, R2.4 | S2 traces this requirement in the existing success criteria. |
+| T4 | srd001-serving-contract R3.1, R3.2, R3.3 | S2 traces this requirement in the existing success criteria. |
+| T5 | srd001-serving-contract AC2 | S2 traces this requirement in the existing success criteria. |
+| T6 | srd001-serving-contract R4.3 | S3 traces this requirement in the existing success criteria. |
+| T7 | srd001-serving-contract AC3 | S3 traces this requirement in the existing success criteria. |
+
 <!-- field: success_criteria -->
 ## Success criteria
 
@@ -92,16 +105,3 @@ The three role trace files contain one caller-supplied W3C trace identifier.
 - Helm resources, profile ConfigMap sizing, and closure sharding.
 - Per-request filesystem roots or dynamically supplied transport authority.
 - Replacing the local canonical batch integrations.
-
-<!-- field: touchpoints -->
-## Touchpoints
-
-| id | target | reason |
-| --- | --- | --- |
-| T1 | srd001-serving-contract R1.1, R1.2, R1.3 | S1 traces this requirement in the existing success criteria. |
-| T2 | srd001-serving-contract AC1 | S1 traces this requirement in the existing success criteria. |
-| T3 | srd001-serving-contract R2.1, R2.2, R2.3, R2.4 | S2 traces this requirement in the existing success criteria. |
-| T4 | srd001-serving-contract R3.1, R3.2, R3.3 | S2 traces this requirement in the existing success criteria. |
-| T5 | srd001-serving-contract AC2 | S2 traces this requirement in the existing success criteria. |
-| T6 | srd001-serving-contract R4.3 | S3 traces this requirement in the existing success criteria. |
-| T7 | srd001-serving-contract AC3 | S3 traces this requirement in the existing success criteria. |

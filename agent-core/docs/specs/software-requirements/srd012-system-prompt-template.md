@@ -255,32 +255,34 @@ Schema JSON is re-indented to 2 spaces. Invalid JSON included as raw bytes.
 - R6.3
 - R6.7
 
-<!-- field: diagrams | form: "tree" -->
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: The generator assembles system prompts by rendering a..."] --> Goals["Goals: System Prompt Template and Manifest Serializati..."]
-    Goals --> R1["R1: Template embedding"]
-    Goals --> R2["R2: PromptData struct"]
-    Goals --> R3["R3: Envelope struct"]
-    Goals --> R4["R4: Template rendering"]
-    Goals --> R5["R5: Custom template support"]
-    Goals --> R6["R6: SerializeManifest"]
-    AC1["AC1: system.tmpl is embedded and parsed at init. RenderSystemP..."]
-    R1 --> AC1
-    R4 --> AC1
-    AC2["AC2: PromptData has all seven fields. Envelope controls tag di..."]
-    R2 --> AC2
-    R3 --> AC2
-    R4 --> AC2
-    AC3["AC3: Template error falls back to Role + Task. No trailing new..."]
-    R4 --> AC3
-    AC4["AC4: System prompt rendering uses the embedded reviewed templ..."]
-    R5 --> AC4
-    AC5["AC5: SerializeManifest produces"]
-    R6 --> AC5
-    AC6["AC6: Schema JSON is re-indented to 2 spaces. Invalid JSON incl..."]
-    R6 --> AC6
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: The generator assembles system prompts by rendering a..."] --> Goals["Goals: System Prompt Template and Manifest Serializati..."]
+  Goals --> R1["R1: Template embedding"]
+  Goals --> R2["R2: PromptData struct"]
+  Goals --> R3["R3: Envelope struct"]
+  Goals --> R4["R4: Template rendering"]
+  Goals --> R5["R5: Custom template support"]
+  Goals --> R6["R6: SerializeManifest"]
+  AC1["AC1: system.tmpl is embedded and parsed at init. RenderSystemP..."]
+  R1 --> AC1
+  R4 --> AC1
+  AC2["AC2: PromptData has all seven fields. Envelope controls tag di..."]
+  R2 --> AC2
+  R3 --> AC2
+  R4 --> AC2
+  AC3["AC3: Template error falls back to Role + Task. No trailing new..."]
+  R4 --> AC3
+  AC4["AC4: System prompt rendering uses the embedded reviewed templ..."]
+  R5 --> AC4
+  AC5["AC5: SerializeManifest produces"]
+  R6 --> AC5
+  AC6["AC6: Schema JSON is re-indented to 2 spaces. Invalid JSON incl..."]
+  R6 --> AC6
+```

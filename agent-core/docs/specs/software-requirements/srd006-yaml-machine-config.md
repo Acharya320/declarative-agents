@@ -404,29 +404,31 @@ Every shipped machine declares a finite command timeout strictly above each clos
 - R6.9
 - R6.10
 
-<!-- field: diagrams | form: "tree" -->
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: Hardcoded transition tables require Go code changes t..."] --> Goals["Goals: YAML State Machine Configuration"]
-    Goals --> R1["R1: YAML schema (MachineSpec)"]
-    Goals --> R2["R2: Validation"]
-    Goals --> R3["R3: BuildTransitionTable"]
-    Goals --> R4["R4: File loading"]
-    Goals --> R5["R5: Data-driven iteration and join"]
-    Goals --> R6["R6: Command timeout envelope"]
-    AC1["AC1: MachineSpec has name, initial_state, states, terminal_sta..."]
-    R1 --> AC1
-    AC2["AC2: Validation checks referential integrity for initial_state..."]
-    R2 --> AC2
-    AC3["AC3: BuildTransitionTable resolves named actions from Registry..."]
-    R3 --> AC3
-    AC4["AC4: LoadMachineSpec reads and parses YAML files. ParseMachine..."]
-    R4 --> AC4
-    AC5["AC5: trusted bounded iteration, join, and resume"]
-    R5 --> AC5
-    AC6["AC6: workload-derived finite command timeout envelopes"]
-    R6 --> AC6
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: Hardcoded transition tables require Go code changes t..."] --> Goals["Goals: YAML State Machine Configuration"]
+  Goals --> R1["R1: YAML schema (MachineSpec)"]
+  Goals --> R2["R2: Validation"]
+  Goals --> R3["R3: BuildTransitionTable"]
+  Goals --> R4["R4: File loading"]
+  Goals --> R5["R5: Data-driven iteration and join"]
+  Goals --> R6["R6: Command timeout envelope"]
+  AC1["AC1: MachineSpec has name, initial_state, states, terminal_sta..."]
+  R1 --> AC1
+  AC2["AC2: Validation checks referential integrity for initial_state..."]
+  R2 --> AC2
+  AC3["AC3: BuildTransitionTable resolves named actions from Registry..."]
+  R3 --> AC3
+  AC4["AC4: LoadMachineSpec reads and parses YAML files. ParseMachine..."]
+  R4 --> AC4
+  AC5["AC5: trusted bounded iteration, join, and resume"]
+  R5 --> AC5
+  AC6["AC6: workload-derived finite command timeout envelopes"]
+  R6 --> AC6
+```

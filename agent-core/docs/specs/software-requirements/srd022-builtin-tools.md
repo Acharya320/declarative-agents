@@ -323,49 +323,70 @@ project, flat_map, reorder_by_index, and render_each numeric item paths SHALL be
 
 normalize_vector SHALL read one dotted map-key path from the adjacent previous Result object, preserve a non-empty flat numeric vector, unwrap exactly one non-empty numeric matrix row, and preserve every unselected field and output-redaction path. Empty vectors, multiple rows, mixed nesting, non-numeric members, missing paths, and non-object input SHALL emit CommandError. The local shape check is separate from canonical command-state and REST selector syntax (srd038 R2.20).
 
-<!-- field: package_ownership | form: "tree" -->
+<!-- field: package_ownership -->
 ## Package ownership
 
-- status: planned
-- notes:
-  1. Builtin declaration structs and config decoding move to internal/tools/catalog.
-  1. BuiltinRegistry, RegisterSingleBuiltin, RegisterUnifiedTools, and selected-init factory catalog behavior move to internal/tools/registry.
-  1. Builtin implementations move to filesystem, llm, lifecycle, control, validation, exec, and undo packages.
-  1. internal/tools/stl exposes only thin aliases or wrappers during migration and is not the long-term builtin implementation package.
+<!-- field: status -->
+### Status
 
-<!-- field: declaration_layout | form: "tree" -->
+planned
+
+<!-- field: notes -->
+### Notes
+
+- Builtin declaration structs and config decoding move to internal/tools/catalog.
+- BuiltinRegistry, RegisterSingleBuiltin, RegisterUnifiedTools, and selected-init factory catalog behavior move to internal/tools/registry.
+- Builtin implementations move to filesystem, llm, lifecycle, control, validation, exec, and undo packages.
+- internal/tools/stl exposes only thin aliases or wrappers during migration and is not the long-term builtin implementation package.
+
+<!-- field: declaration_layout -->
 ## Declaration layout
 
-- status: planned
-- shared_groups:
-  1. tools/builtin/filesystem/
-  1. tools/builtin/llm/
-  1. tools/builtin/lifecycle/
-  1. tools/builtin/control/
-  1. tools/builtin/planner/
-  1. tools/builtin/critic-session/
-  1. tools/builtin/critic-point/
-  1. tools/builtin/bench/
-  1. tools/builtin/spec-validation/
-- compatibility_bundles:
-  1. tools/builtin.yaml
-  1. tools/builtin/all.yaml
-  1. tools/builtin/generator.yaml
-  1. tools/builtin/planner.yaml
-  1. tools/builtin/evaluator.yaml
-  1. tools/builtin/bench.yaml
-  1. tools/builtin/jurist.yaml
-  1. tools/builtin/lifecycle.yaml
-- mode_local_overrides:
-  1. agents/planner/builtin.yaml
-  1. agents/critic/builtin.yaml
-  1. agents/bench/builtin.yaml
-  1. agents/*/llm/*.yaml
-- rules:
-  1. Shared groups own reusable builtin identity, parameters, visibility, emits, and contract fields.
-  1. Mode-local overrides own config that binds a shared tool to one agent profile.
-  1. Compatibility bundles include shared groups so existing profile and direct CLI startup keep working during migration.
-  1. Tool selection files remain name-only.
+<!-- field: status -->
+### Status
+
+planned
+
+<!-- field: shared_groups -->
+### Shared groups
+
+- tools/builtin/filesystem/
+- tools/builtin/llm/
+- tools/builtin/lifecycle/
+- tools/builtin/control/
+- tools/builtin/planner/
+- tools/builtin/critic-session/
+- tools/builtin/critic-point/
+- tools/builtin/bench/
+- tools/builtin/spec-validation/
+
+<!-- field: compatibility_bundles -->
+### Compatibility bundles
+
+- tools/builtin.yaml
+- tools/builtin/all.yaml
+- tools/builtin/generator.yaml
+- tools/builtin/planner.yaml
+- tools/builtin/evaluator.yaml
+- tools/builtin/bench.yaml
+- tools/builtin/jurist.yaml
+- tools/builtin/lifecycle.yaml
+
+<!-- field: mode_local_overrides -->
+### Mode local overrides
+
+- agents/planner/builtin.yaml
+- agents/critic/builtin.yaml
+- agents/bench/builtin.yaml
+- agents/*/llm/*.yaml
+
+<!-- field: rules -->
+### Rules
+
+- Shared groups own reusable builtin identity, parameters, visibility, emits, and contract fields.
+- Mode-local overrides own config that binds a shared tool to one agent profile.
+- Compatibility bundles include shared groups so existing profile and direct CLI startup keep working during migration.
+- Tool selection files remain name-only.
 
 <!-- field: non_goals -->
 ## Non-goals
@@ -526,31 +547,33 @@ Generic collection words partition arrays, constrain candidate names, render ord
 - cfg-tool-authoring-standard
 - sm-tool-metrics-monitoring
 
-<!-- field: diagrams | form: "tree" -->
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: Builtin tools are Go-implemented capabilities exposed..."] --> Goals["Goals: Builtin Tool Declarations and Factories"]
-    Goals --> R0["R0: Tool authoring standard"]
-    Goals --> R1["R1: Builtin declaration schema"]
-    Goals --> R2["R2: BuiltinRegistry factory resolution"]
-    Goals --> R3["R3: Builtin config validation"]
-    Goals --> R4["R4: State-machine integration"]
-    Goals --> R5["R5: Reusable declarations and mode-local overrides"]
-    Goals --> R6["R6: Unified child agent invocation"]
-    AC1["AC1: Builtin YAML declarations provide name, type: builtin, in..."]
-    R0 --> AC1
-    R1 --> AC1
-    AC2["AC2: BuiltinRegistry resolves init names to factories and regi..."]
-    R2 --> AC2
-    AC3["AC3: Builtin tool config is decoded into typed structs at regi..."]
-    R3 --> AC3
-    AC4["AC4: Builtin tools can be referenced by machine actions or dyn..."]
-    R4 --> AC4
-    AC5["AC5: Reusable builtin declarations are separated from mode-loc..."]
-    R5 --> AC5
-    AC6["AC6: All child agent invocations share execute.Config and exec..."]
-    R6 --> AC6
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: Builtin tools are Go-implemented capabilities exposed..."] --> Goals["Goals: Builtin Tool Declarations and Factories"]
+  Goals --> R0["R0: Tool authoring standard"]
+  Goals --> R1["R1: Builtin declaration schema"]
+  Goals --> R2["R2: BuiltinRegistry factory resolution"]
+  Goals --> R3["R3: Builtin config validation"]
+  Goals --> R4["R4: State-machine integration"]
+  Goals --> R5["R5: Reusable declarations and mode-local overrides"]
+  Goals --> R6["R6: Unified child agent invocation"]
+  AC1["AC1: Builtin YAML declarations provide name, type: builtin, in..."]
+  R0 --> AC1
+  R1 --> AC1
+  AC2["AC2: BuiltinRegistry resolves init names to factories and regi..."]
+  R2 --> AC2
+  AC3["AC3: Builtin tool config is decoded into typed structs at regi..."]
+  R3 --> AC3
+  AC4["AC4: Builtin tools can be referenced by machine actions or dyn..."]
+  R4 --> AC4
+  AC5["AC5: Reusable builtin declarations are separated from mode-loc..."]
+  R5 --> AC5
+  AC6["AC6: All child agent invocations share execute.Config and exec..."]
+  R6 --> AC6
+```

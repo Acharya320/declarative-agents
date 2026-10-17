@@ -215,25 +215,6 @@ Tools SHALL treat a missing recorder as normal disabled-mode behavior.
 
 Monitor configuration SHALL be opt-in and profile-owned.
 
-<!-- field: implementation_status | form: "tree" -->
-## Implementation status
-
-- current:
-  internal/observability/monitor provides Store, Recorder, NoopRecorder,
-  snapshots, diagnostics, schema registration, bounded retention, and
-  OpenTelemetry metric emission. Runtime core can pass an optional monitor
-  recorder through LoopParams and dispatch context. ToolDef metrics and
-  MachineSpec metric_labels validation run during loading and spec audit.
-  Filesystem, LLM, REST, and exec tools emit specialized samples from
-  declared ToolDef metrics config. MachineSpec and transition metric_labels
-  apply to standard and specialized samples. cmd/agent allocates the live
-  monitor store during profile startup. TestMonitorReleaseProfileProof and
-  mage integration:monitor prove the configured Release 04.0 path.
-- remaining:
-  No remaining Release 04.0 implementation gap is tracked here. Residual
-  monitor limits are product boundaries: the store is in-process, bounded,
-  and not durable history.
-
 <!-- field: non_goals -->
 ## Non-goals
 
@@ -358,26 +339,52 @@ Disabled mode keeps monitoring opt-in and preserves current runtime behavior wit
 - cfg-tool-declaration-format
 - cfg-machine-format
 
-<!-- field: diagrams | form: "tree" -->
+<!-- field: implementation_status -->
+## Implementation status
+
+<!-- field: current -->
+### Current
+
+internal/observability/monitor provides Store, Recorder, NoopRecorder,
+snapshots, diagnostics, schema registration, bounded retention, and
+OpenTelemetry metric emission. Runtime core can pass an optional monitor
+recorder through LoopParams and dispatch context. ToolDef metrics and
+MachineSpec metric_labels validation run during loading and spec audit.
+Filesystem, LLM, REST, and exec tools emit specialized samples from
+declared ToolDef metrics config. MachineSpec and transition metric_labels
+apply to standard and specialized samples. cmd/agent allocates the live
+monitor store during profile startup. TestMonitorReleaseProfileProof and
+mage integration:monitor prove the configured Release 04.0 path.
+
+<!-- field: remaining -->
+### Remaining
+
+No remaining Release 04.0 implementation gap is tracked here. Residual
+monitor limits are product boundaries: the store is in-process, bounded,
+and not durable history.
+
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: Agent Core needs runtime metrics that remain close to..."] --> Goals["Goals: Tool Metrics Monitor Store"]
-    Goals --> R1["R1: Monitor store scope"]
-    Goals --> R2["R2: ToolMetricsRecorder port"]
-    Goals --> R3["R3: Metric schema and label validation"]
-    Goals --> R4["R4: OpenTelemetry metric export"]
-    Goals --> R5["R5: Disabled mode and overhead"]
-    AC1["AC1: The SRD defines monitor store scope, bounded cached state..."]
-    R1 --> AC1
-    AC2["AC2: Recorder requirements distinguish runtime-owned standard..."]
-    R2 --> AC2
-    AC3["AC3: Metric validation requirements cover instrument names, ki..."]
-    R3 --> AC3
-    AC4["AC4: OpenTelemetry export requirements consume normalized samp..."]
-    R4 --> AC4
-    AC5["AC5: Disabled mode keeps monitoring opt-in and preserves curre..."]
-    R5 --> AC5
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: Agent Core needs runtime metrics that remain close to..."] --> Goals["Goals: Tool Metrics Monitor Store"]
+  Goals --> R1["R1: Monitor store scope"]
+  Goals --> R2["R2: ToolMetricsRecorder port"]
+  Goals --> R3["R3: Metric schema and label validation"]
+  Goals --> R4["R4: OpenTelemetry metric export"]
+  Goals --> R5["R5: Disabled mode and overhead"]
+  AC1["AC1: The SRD defines monitor store scope, bounded cached state..."]
+  R1 --> AC1
+  AC2["AC2: Recorder requirements distinguish runtime-owned standard..."]
+  R2 --> AC2
+  AC3["AC3: Metric validation requirements cover instrument names, ki..."]
+  R3 --> AC3
+  AC4["AC4: OpenTelemetry export requirements consume normalized samp..."]
+  R4 --> AC4
+  AC5["AC5: Disabled mode keeps monitoring opt-in and preserves curre..."]
+  R5 --> AC5
+```

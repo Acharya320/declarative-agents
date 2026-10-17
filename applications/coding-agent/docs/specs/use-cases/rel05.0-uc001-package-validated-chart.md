@@ -39,6 +39,18 @@ Run mage helm:package.
 - F4: Package the temporary chart and inspect its gzip/tar entries for required source and profile files.
 - F5: Lint and render the resulting archive independently.
 
+<!-- field: touchpoints -->
+## Touchpoints
+
+| id | target | reason |
+| --- | --- | --- |
+| T1 | srd004-helm-package-validation R1.1, R1.2, R1.3 | S1 traces this requirement in the existing success criteria. |
+| T2 | srd004-helm-package-validation AC1 | S1 traces this requirement in the existing success criteria. |
+| T3 | srd004-helm-package-validation R2.1, R2.2, R2.3 | S2 traces this requirement in the existing success criteria. |
+| T4 | srd004-helm-package-validation AC2 | S2 traces this requirement in the existing success criteria. |
+| T5 | srd004-helm-package-validation R3.1, R3.2, R3.3 | S3 traces this requirement in the existing success criteria. |
+| T6 | srd004-helm-package-validation AC3 | S3 traces this requirement in the existing success criteria. |
+
 <!-- field: success_criteria -->
 ## Success criteria
 
@@ -87,15 +99,3 @@ The archive includes every generated role asset and renders independently.
 - Live Kubernetes installation.
 - kind cluster setup and teardown.
 - Operator deployment and teardown guide.
-
-<!-- field: touchpoints -->
-## Touchpoints
-
-| id | target | reason |
-| --- | --- | --- |
-| T1 | srd004-helm-package-validation R1.1, R1.2, R1.3 | S1 traces this requirement in the existing success criteria. |
-| T2 | srd004-helm-package-validation AC1 | S1 traces this requirement in the existing success criteria. |
-| T3 | srd004-helm-package-validation R2.1, R2.2, R2.3 | S2 traces this requirement in the existing success criteria. |
-| T4 | srd004-helm-package-validation AC2 | S2 traces this requirement in the existing success criteria. |
-| T5 | srd004-helm-package-validation R3.1, R3.2, R3.3 | S3 traces this requirement in the existing success criteria. |
-| T6 | srd004-helm-package-validation AC3 | S3 traces this requirement in the existing success criteria. |

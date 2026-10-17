@@ -101,6 +101,21 @@ mage helmPrepare shall regenerate
 
 Default and small-footprint CI values shall lint and render without requiring Helm schema work from the next issue.
 
+<!-- field: goals -->
+## Goals
+
+- G1: Real role workloads.
+- G2: Serving contract wiring.
+- G3: Model and observability tiers.
+- G4: Reproducible preparation.
+
+<!-- field: non_goals -->
+## Non-goals
+
+- values.schema.json and negative schema fixtures.
+- Packaged-chart archive testing.
+- Live kind installation and deployment documentation.
+
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
 
@@ -156,18 +171,3 @@ helm lint and default and CI helm template commands pass after mage helmPrepare.
 
 - R4.1
 - R4.2
-
-<!-- field: goals -->
-## Goals
-
-- G1: Real role workloads.
-- G2: Serving contract wiring.
-- G3: Model and observability tiers.
-- G4: Reproducible preparation.
-
-<!-- field: non_goals -->
-## Non-goals
-
-- values.schema.json and negative schema fixtures.
-- Packaged-chart archive testing.
-- Live kind installation and deployment documentation.

@@ -44,6 +44,17 @@ Run mage integration:helmSmoke.
 - F6: Submit one traced planner request and verify executor mutation, build, v2 lint, Go tests, critic acceptance, and the connected collector agent trace.
 - F7: On failure classify infrastructure versus semantics, emit bounded diagnostics, and clean up; on success clean up.
 
+<!-- field: touchpoints -->
+## Touchpoints
+
+| id | target | reason |
+| --- | --- | --- |
+| T1 | srd005-live-helm-smoke R3.1 | S1 traces this requirement in the existing success criteria. |
+| T2 | srd005-live-helm-smoke R3.2 | S2 traces this requirement in the existing success criteria. |
+| T3 | srd005-live-helm-smoke R3.3 | S3 traces this requirement in the existing success criteria. |
+| T4 | srd005-live-helm-smoke R1.1, R1.2, R1.3 | S4 traces this requirement in the existing success criteria. |
+| T5 | srd005-live-helm-smoke R4.1, R4.2, R4.3 | S4 traces this requirement in the existing success criteria. |
+
 <!-- field: success_criteria -->
 ## Success criteria
 
@@ -103,14 +114,3 @@ Skip, classification, diagnostics, and cleanup behavior are bounded and explicit
 - Production model performance and GPU sizing.
 - Multi-node RWX and high availability.
 - Public ingress and authentication.
-
-<!-- field: touchpoints -->
-## Touchpoints
-
-| id | target | reason |
-| --- | --- | --- |
-| T1 | srd005-live-helm-smoke R3.1 | S1 traces this requirement in the existing success criteria. |
-| T2 | srd005-live-helm-smoke R3.2 | S2 traces this requirement in the existing success criteria. |
-| T3 | srd005-live-helm-smoke R3.3 | S3 traces this requirement in the existing success criteria. |
-| T4 | srd005-live-helm-smoke R1.1, R1.2, R1.3 | S4 traces this requirement in the existing success criteria. |
-| T5 | srd005-live-helm-smoke R4.1, R4.2, R4.3 | S4 traces this requirement in the existing success criteria. |

@@ -43,6 +43,16 @@ Run mage run from the application root.
 - F5: The presenter opens the collector query surface to browse collected traces.
 - F6: After the curator exits, the run target posts to the collector control exit route, waits for the collector process to terminate, and removes the spool directory.
 
+<!-- field: touchpoints -->
+## Touchpoints
+
+| id | target | reason |
+| --- | --- | --- |
+| T1 | architecture-agent-architecture design_decisions 7 | S1 traces this requirement in the existing success criteria. |
+| T2 | test-rel01.0-demo-trace-collection collector_command | S1 traces this requirement in the existing success criteria. |
+| T3 | test-rel01.0-demo-trace-collection traced_curator_command | S2 traces this requirement in the existing success criteria. |
+| T4 | test-rel01.0-demo-trace-collection tracing_enabled | S3 traces this requirement in the existing success criteria. |
+
 <!-- field: success_criteria -->
 ## Success criteria
 
@@ -94,13 +104,3 @@ The collector exits cleanly via its control route after the curator, and no list
 - Changing the canonical collector or documentation-curator profiles.
 - Proving live spool content or query results (dependency-gated).
 - Browser automation of the collector query surface.
-
-<!-- field: touchpoints -->
-## Touchpoints
-
-| id | target | reason |
-| --- | --- | --- |
-| T1 | architecture-agent-architecture design_decisions 7 | S1 traces this requirement in the existing success criteria. |
-| T2 | test-rel01.0-demo-trace-collection collector_command | S1 traces this requirement in the existing success criteria. |
-| T3 | test-rel01.0-demo-trace-collection traced_curator_command | S2 traces this requirement in the existing success criteria. |
-| T4 | test-rel01.0-demo-trace-collection tracing_enabled | S3 traces this requirement in the existing success criteria. |

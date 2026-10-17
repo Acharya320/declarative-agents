@@ -246,21 +246,23 @@ Mock outputs and terminal outcomes are checkable by mounted execution or conform
 - R5.1
 - R5.2
 
-<!-- field: diagrams | form: "tree" -->
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: controlling dependency responses without live services"] --> Goals["Goals: Mock Functional Block"]
-    Goals --> R1["R1: Behavior model"]
-    Goals --> R2["R2: Fixture selection and scope"]
-    Goals --> R3["R3: Request log"]
-    Goals --> R4["R4: Inputs, tools, dependencies"]
-    Goals --> R5["R5: Outputs and outcomes"]
-    R1 --> AC1["AC1: Generic configured responder"]
-    R2 --> AC2["AC2: One profile, any dependency"]
-    R3 --> AC3["AC3: Readable per-instance request log"]
-    R4 --> AC4["AC4: Inputs, tools, dependencies named"]
-    R5 --> AC5["AC5: Outputs and outcomes checkable"]
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: controlling dependency responses without live services"] --> Goals["Goals: Mock Functional Block"]
+  Goals --> R1["R1: Behavior model"]
+  Goals --> R2["R2: Fixture selection and scope"]
+  Goals --> R3["R3: Request log"]
+  Goals --> R4["R4: Inputs, tools, dependencies"]
+  Goals --> R5["R5: Outputs and outcomes"]
+  R1 --> AC1["AC1: Generic configured responder"]
+  R2 --> AC2["AC2: One profile, any dependency"]
+  R3 --> AC3["AC3: Readable per-instance request log"]
+  R4 --> AC4["AC4: Inputs, tools, dependencies named"]
+  R5 --> AC5["AC5: Outputs and outcomes checkable"]
+```

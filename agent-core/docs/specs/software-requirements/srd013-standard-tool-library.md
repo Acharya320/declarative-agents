@@ -394,32 +394,44 @@ record_tracker_issue validates the configured tracker's common JSON id result an
 
 Agent-core SHALL NOT invoke or name a tracker CLI in planner production Go; the external planner profile SHALL select the tracker exec declaration.
 
-<!-- field: target_package_layout | form: "tree" -->
+<!-- field: target_package_layout -->
 ## Target package layout
 
-- status: current
-- notes:
-  1. Tool declaration loading, selection, ToolDef contracts, ToolSpec conversion, and config decoding move to internal/tools/catalog.
-  1. BuiltinRegistry, RegisterSingleBuiltin, RegisterUnifiedTools, selected init discovery, and standard factory catalog wiring move to internal/tools/registry.
-  1. ExecBuilder, ExecCmd, parameter-to-argv mapping, output caps, preconditions, and exec undo mementos move to internal/tools/exec.
-  1. read, write, edit, find, list_files, path validation, file snapshots, and workspace restore mementos move to internal/tools/filesystem.
-  1. invoke_llm, parse_response, report_parse_error, reset_history, nudge_reread, done, and conversation undo mementos move to internal/tools/llm.
-  1. suspend, checkpoint_history, checkpoint_rollback, and lifecycle checkpoint adapters move to internal/tools/lifecycle.
-  1. self_invoke and other child-agent or loop-control boundary tools move to internal/tools/control.
-  1. Spec audit commands live in internal/tools/validation.
-  1. Shared UndoMemento payloads, workspace restore payloads, and boundary compensation helpers move to internal/tools/undo.
+<!-- field: status -->
+### Status
 
-<!-- field: target_declaration_layout | form: "tree" -->
+current
+
+<!-- field: notes -->
+### Notes
+
+- Tool declaration loading, selection, ToolDef contracts, ToolSpec conversion, and config decoding move to internal/tools/catalog.
+- BuiltinRegistry, RegisterSingleBuiltin, RegisterUnifiedTools, selected init discovery, and standard factory catalog wiring move to internal/tools/registry.
+- ExecBuilder, ExecCmd, parameter-to-argv mapping, output caps, preconditions, and exec undo mementos move to internal/tools/exec.
+- read, write, edit, find, list_files, path validation, file snapshots, and workspace restore mementos move to internal/tools/filesystem.
+- invoke_llm, parse_response, report_parse_error, reset_history, nudge_reread, done, and conversation undo mementos move to internal/tools/llm.
+- suspend, checkpoint_history, checkpoint_rollback, and lifecycle checkpoint adapters move to internal/tools/lifecycle.
+- self_invoke and other child-agent or loop-control boundary tools move to internal/tools/control.
+- Spec audit commands live in internal/tools/validation.
+- Shared UndoMemento payloads, workspace restore payloads, and boundary compensation helpers move to internal/tools/undo.
+
+<!-- field: target_declaration_layout -->
 ## Target declaration layout
 
-- status: planned
-- notes:
-  1. Builtin declarations move from flat tools/builtin/ files into grouped shared families under tools/builtin/filesystem, llm, lifecycle, control, validation, planner, critic-session, critic-point, bench, and spec-validation.
-  1. Exec declarations move from flat tools/exec/ files into grouped shared families under tools/exec/go, workspace, git, and issues.
-  1. tools/builtin.yaml and tools/exec.yaml remain compatibility bundles during migration.
-  1. all.yaml and agent-family bundles import grouped units for profiles, direct CLI startup, and tests.
-  1. Agent-local overrides remain under agents/<agent>/builtin.yaml and agents/<agent>/llm/*.yaml.
-  1. Agent tools.yaml files remain name-only selections.
+<!-- field: status -->
+### Status
+
+planned
+
+<!-- field: notes -->
+### Notes
+
+- Builtin declarations move from flat tools/builtin/ files into grouped shared families under tools/builtin/filesystem, llm, lifecycle, control, validation, planner, critic-session, critic-point, bench, and spec-validation.
+- Exec declarations move from flat tools/exec/ files into grouped shared families under tools/exec/go, workspace, git, and issues.
+- tools/builtin.yaml and tools/exec.yaml remain compatibility bundles during migration.
+- all.yaml and agent-family bundles import grouped units for profiles, direct CLI startup, and tests.
+- Agent-local overrides remain under agents/<agent>/builtin.yaml and agents/<agent>/llm/*.yaml.
+- Agent tools.yaml files remain name-only selections.
 
 <!-- field: non_goals -->
 ## Non-goals
@@ -586,42 +598,44 @@ Planner state adapters format tracker-neutral inputs and record the configured t
 - R11.2
 - R11.3
 
-<!-- field: diagrams | form: "tree" -->
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: Every agentic agent needs a common set of tools: file..."] --> Goals["Goals: Standard Tool Library (STL)"]
-    Goals --> R1["R1: File tools"]
-    Goals --> R2["R2: Build tools"]
-    Goals --> R3["R3: LLM tools"]
-    Goals --> R4["R4: Subprocess utilities"]
-    Goals --> R7["R7: Metrics helpers"]
-    Goals --> R5["R5: Tool registration"]
-    Goals --> R6["R6: Workspace utilities"]
-    Goals --> R8["R8: Validation tool"]
-    Goals --> R9["R9: Nudge and done tools"]
-    Goals --> R10["R10: Evaluation harness tools"]
-    Goals --> R11["R11: Planner state adapters"]
-    AC1["AC1: File tools (read, write, edit, find, list_files) operate..."]
-    R1 --> AC1
-    R6 --> AC1
-    AC2["AC2: Build tools (build, vet, lint, test) execute Go toolchain..."]
-    R2 --> AC2
-    AC3["AC3: LLM tools (invoke_llm, parse_response, report_parse_error..."]
-    R3 --> AC3
-    AC4["AC4: SubprocessResult maps output to ToolDone/ToolFailed. Proc..."]
-    R4 --> AC4
-    AC7["AC7: ParseTestMetrics and ParseBuildMetrics extract structured..."]
-    R7 --> AC7
-    AC5["AC5: BuiltinRegistry maps init names to factory functions. YAM..."]
-    R5 --> AC5
-    AC8["AC8: Generator validation order is visible in machine.yaml; va..."]
-    R8 --> AC8
-    R9 --> AC8
-    AC9["AC9: Evaluation harness tools orchestrate a complete evaluatio..."]
-    R10 --> AC9
-    AC11["AC11: Planner adapters keep tracker policy profile-owned"]
-    R11 --> AC11
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: Every agentic agent needs a common set of tools: file..."] --> Goals["Goals: Standard Tool Library (STL)"]
+  Goals --> R1["R1: File tools"]
+  Goals --> R2["R2: Build tools"]
+  Goals --> R3["R3: LLM tools"]
+  Goals --> R4["R4: Subprocess utilities"]
+  Goals --> R7["R7: Metrics helpers"]
+  Goals --> R5["R5: Tool registration"]
+  Goals --> R6["R6: Workspace utilities"]
+  Goals --> R8["R8: Validation tool"]
+  Goals --> R9["R9: Nudge and done tools"]
+  Goals --> R10["R10: Evaluation harness tools"]
+  Goals --> R11["R11: Planner state adapters"]
+  AC1["AC1: File tools (read, write, edit, find, list_files) operate..."]
+  R1 --> AC1
+  R6 --> AC1
+  AC2["AC2: Build tools (build, vet, lint, test) execute Go toolchain..."]
+  R2 --> AC2
+  AC3["AC3: LLM tools (invoke_llm, parse_response, report_parse_error..."]
+  R3 --> AC3
+  AC4["AC4: SubprocessResult maps output to ToolDone/ToolFailed. Proc..."]
+  R4 --> AC4
+  AC7["AC7: ParseTestMetrics and ParseBuildMetrics extract structured..."]
+  R7 --> AC7
+  AC5["AC5: BuiltinRegistry maps init names to factory functions. YAM..."]
+  R5 --> AC5
+  AC8["AC8: Generator validation order is visible in machine.yaml; va..."]
+  R8 --> AC8
+  R9 --> AC8
+  AC9["AC9: Evaluation harness tools orchestrate a complete evaluatio..."]
+  R10 --> AC9
+  AC11["AC11: Planner adapters keep tracker policy profile-owned"]
+  R11 --> AC11
+```

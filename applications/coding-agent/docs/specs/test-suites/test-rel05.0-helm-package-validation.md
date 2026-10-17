@@ -19,6 +19,12 @@ release gate. No test installs Kubernetes resources.
 
 - rel05.0-uc001-package-validated-chart
 
+<!-- field: preconditions -->
+## Preconditions
+
+- Helm is available.
+- The
+
 <!-- field: test_cases -->
 ## Test cases
 
@@ -98,9 +104,3 @@ go test ./magefiles -run '^Test(HelmPackageArchiveIsSelfContained|ChartArchiveVa
 #### Traces
 
 - srd004-helm-package-validation AC3
-
-<!-- field: preconditions -->
-## Preconditions
-
-- Helm is available.
-- The

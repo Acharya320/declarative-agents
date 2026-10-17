@@ -41,6 +41,16 @@ Render the chart or run mage integration:helmSmoke after mage helmPrepare.
 - F4: Values and schema validation accept the collector block and reject unknown collector keys, including the removed utilityImage knob.
 - F5: The live smoke drives one traced request and reads the connected trace back through the collector query surface.
 
+<!-- field: touchpoints -->
+## Touchpoints
+
+| id | target | reason |
+| --- | --- | --- |
+| T1 | srd003-helm-topology R3.4 | S1 traces this requirement in the existing success criteria. |
+| T2 | srd003-helm-topology R3.3 | S2 traces this requirement in the existing success criteria. |
+| T3 | srd004-helm-package-validation R1.1, R1.2, R1.3 | S3 traces this requirement in the existing success criteria. |
+| T4 | srd005-live-helm-smoke R3.3 | S4 traces this requirement in the existing success criteria. |
+
 <!-- field: success_criteria -->
 ## Success criteria
 
@@ -108,13 +118,3 @@ Catalog-root discovery resolves applications/catalog from relative and absolute 
 
 - Metrics ingress; the coding chart exports no metrics pipeline.
 - Relay mode; the chart collector runs spool-only.
-
-<!-- field: touchpoints -->
-## Touchpoints
-
-| id | target | reason |
-| --- | --- | --- |
-| T1 | srd003-helm-topology R3.4 | S1 traces this requirement in the existing success criteria. |
-| T2 | srd003-helm-topology R3.3 | S2 traces this requirement in the existing success criteria. |
-| T3 | srd004-helm-package-validation R1.1, R1.2, R1.3 | S3 traces this requirement in the existing success criteria. |
-| T4 | srd005-live-helm-smoke R3.3 | S4 traces this requirement in the existing success criteria. |

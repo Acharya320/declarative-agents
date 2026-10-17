@@ -224,12 +224,17 @@ A machine expanding stages/s-${X:-a}.yaml beside s-a.yaml and s-b.yaml loads sta
 - srd050-declaration-imports
 - srd051-declaration-types
 
-<!-- field: implementation_status | form: "tree" -->
+<!-- field: implementation_status -->
 ## Implementation status
 
-- complete:
-  1. GH-2081 implements tool-declaration fragments and the substitution engine (R1, R2, R3 for the tools body), with the control-fragments profile expanding one fragment twice and dumping deterministically.
-  1. GH-2082 implements REST-definition fragments through the REST import resolver (R1, R2, R3 for the rest body); a prefix renames every produced entry and the fragment's own references to them, and a fragment's body is decoded only after its arguments arrive.
-  1. - "GH-2083 implements machine stage fragments (R4)": a stage is spliced into the importing machine's lists and the whole is validated as one machine; control-fragments splices its patient control stage from a fragment.
-- planned:
-  1. GH-2085 factors the top duplicated blocks into fragments and shared units, reporting mage stats:reuse before and after.
+<!-- field: complete | form: "tree" -->
+### Complete
+
+1. GH-2081 implements tool-declaration fragments and the substitution engine (R1, R2, R3 for the tools body), with the control-fragments profile expanding one fragment twice and dumping deterministically.
+1. GH-2082 implements REST-definition fragments through the REST import resolver (R1, R2, R3 for the rest body); a prefix renames every produced entry and the fragment's own references to them, and a fragment's body is decoded only after its arguments arrive.
+1. - "GH-2083 implements machine stage fragments (R4)": a stage is spliced into the importing machine's lists and the whole is validated as one machine; control-fragments splices its patient control stage from a fragment.
+
+<!-- field: planned -->
+### Planned
+
+- GH-2085 factors the top duplicated blocks into fragments and shared units, reporting mage stats:reuse before and after.

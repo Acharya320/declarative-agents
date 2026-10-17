@@ -41,6 +41,17 @@ Run mage helmPrepare followed by helm lint or helm template.
 - F5: Planner resolves executor and critic through fixed Service URLs; W3C trace context flows through the serving contract.
 - F6: Role OTLP exporters send to the collector agent, which spools traces and serves a query surface; model clients use the selected Ollama endpoint.
 
+<!-- field: touchpoints -->
+## Touchpoints
+
+| id | target | reason |
+| --- | --- | --- |
+| T1 | srd003-helm-topology R1.1, R1.2, R1.3, R1.4, R1.5 | S1 traces this requirement in the existing success criteria. |
+| T2 | srd003-helm-topology AC1 | S1 traces this requirement in the existing success criteria. |
+| T3 | srd003-helm-topology AC2 | S2 traces this requirement in the existing success criteria. |
+| T4 | srd003-helm-topology AC3 | S3 traces this requirement in the existing success criteria. |
+| T5 | srd003-helm-topology AC4 | S3 traces this requirement in the existing success criteria. |
+
 <!-- field: success_criteria -->
 ## Success criteria
 
@@ -86,14 +97,3 @@ Default, CI, and optional in-cluster Ollama renders are coherent.
 - values.schema.json and negative schema fixtures.
 - Packaged-chart archive testing.
 - Live kind installation and deployment documentation.
-
-<!-- field: touchpoints -->
-## Touchpoints
-
-| id | target | reason |
-| --- | --- | --- |
-| T1 | srd003-helm-topology R1.1, R1.2, R1.3, R1.4, R1.5 | S1 traces this requirement in the existing success criteria. |
-| T2 | srd003-helm-topology AC1 | S1 traces this requirement in the existing success criteria. |
-| T3 | srd003-helm-topology AC2 | S2 traces this requirement in the existing success criteria. |
-| T4 | srd003-helm-topology AC3 | S3 traces this requirement in the existing success criteria. |
-| T5 | srd003-helm-topology AC4 | S3 traces this requirement in the existing success criteria. |

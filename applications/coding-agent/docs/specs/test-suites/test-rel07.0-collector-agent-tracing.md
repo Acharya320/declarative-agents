@@ -21,6 +21,12 @@ in-cluster trace evidence through the collector query surface.
 
 - rel07.0-uc001-collector-agent-tracing
 
+<!-- field: preconditions -->
+## Preconditions
+
+- The applications/catalog checkout is discoverable or the demo.yaml catalog_root names it.
+- The prepared role packages and the staged collector profile are present in the chart.
+
 <!-- field: test_cases -->
 ## Test cases
 
@@ -114,9 +120,3 @@ mage integration:helmSmoke
 #### Traces
 
 - srd005-live-helm-smoke R3.3
-
-<!-- field: preconditions -->
-## Preconditions
-
-- The applications/catalog checkout is discoverable or the demo.yaml catalog_root names it.
-- The prepared role packages and the staged collector profile are present in the chart.

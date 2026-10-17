@@ -140,21 +140,6 @@ Container proof commands SHALL run cmd/agent with --profile pointing at the moun
 
 The runtime image SHALL install core-owned assets under a fixed path such as /opt/agent-core. That install path SHALL NOT imply that agent profiles are present there. Operators reference core-owned declaration trees with absolute paths in configuration when needed.
 
-<!-- field: implementation_status | form: "tree" -->
-## Implementation status
-
-- current:
-  Agent Core no longer stores standard agent profile directories, demos, or
-  profile-owned integration fixtures. Docker packaging, Mage integration
-  targets, tests, and README examples consume those assets from an external
-  applications/catalog checkout or bundle using explicit paths passed to --profile,
-  bind mounts, and documented mage inputs.
-- planned:
-  Future runtime work should keep this boundary: profile-owned agent programs
-  move in applications/catalog, while agent-core keeps the binary, Go runtime,
-  shared tool implementations, core-owned tool declarations, and runtime
-  packaging.
-
 <!-- field: non_goals -->
 ## Non-goals
 
@@ -251,24 +236,46 @@ Container proof requirements show agent execution with mounted profiles and moun
 - docs/ARCHITECTURE.md
 - docs/road-map.md
 
-<!-- field: diagrams | form: "tree" -->
+<!-- field: implementation_status -->
+## Implementation status
+
+<!-- field: current -->
+### Current
+
+Agent Core no longer stores standard agent profile directories, demos, or
+profile-owned integration fixtures. Docker packaging, Mage integration
+targets, tests, and README examples consume those assets from an external
+applications/catalog checkout or bundle using explicit paths passed to --profile,
+bind mounts, and documented mage inputs.
+
+<!-- field: planned -->
+### Planned
+
+Future runtime work should keep this boundary: profile-owned agent programs
+move in applications/catalog, while agent-core keeps the binary, Go runtime,
+shared tool implementations, core-owned tool declarations, and runtime
+packaging.
+
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: Agent Core has been carrying two kinds of things."] --> Goals["Goals: External Agent Profiles and Mounted Runtime Ass..."]
-    Goals --> R1["R1: Agent Core runtime ownership"]
-    Goals --> R2["R2: Agent profile repository ownership"]
-    Goals --> R3["R3: External profile path resolution"]
-    Goals --> R4["R4: Mounted-profile container runtime"]
-    AC1["AC1: Runtime ownership requirements separate agent-core binary..."]
-    R1 --> AC1
-    R2 --> AC1
-    AC2["AC2: External profile path requirements define --profile behav..."]
-    R3 --> AC2
-    AC3["AC3: Container requirements exclude profile copies from the ru..."]
-    R4 --> AC3
-    AC4["AC4: Container proof requirements show agent execution with mo..."]
-    R4 --> AC4
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: Agent Core has been carrying two kinds of things."] --> Goals["Goals: External Agent Profiles and Mounted Runtime Ass..."]
+  Goals --> R1["R1: Agent Core runtime ownership"]
+  Goals --> R2["R2: Agent profile repository ownership"]
+  Goals --> R3["R3: External profile path resolution"]
+  Goals --> R4["R4: Mounted-profile container runtime"]
+  AC1["AC1: Runtime ownership requirements separate agent-core binary..."]
+  R1 --> AC1
+  R2 --> AC1
+  AC2["AC2: External profile path requirements define --profile behav..."]
+  R3 --> AC2
+  AC3["AC3: Container requirements exclude profile copies from the ru..."]
+  R4 --> AC3
+  AC4["AC4: Container proof requirements show agent execution with mo..."]
+  R4 --> AC4
+```

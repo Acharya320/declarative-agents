@@ -46,22 +46,6 @@ roots fail with diagnostics that name AGENT_CATALOG_ROOT.
 On purpose, the container remains boring. It owns the executable runtime,
 while the mounted profile owns the program under test.
 
-<!-- field: implementation_status -->
-## Implementation status
-
-implemented
-
-<!-- field: proof -->
-## Proof
-
-- TestResolveProfilePathMapsInstalledCoreHome maps /opt/agent-core/tools to AGENT_CORE_HOME for installed runtime assets.
-- TestDockerfileRuntimeExcludesAgentProfiles verifies that the runtime image copies /opt/agent-core/tools and does not copy migrated profile directories.
-- TestContainerBuildSummaryForDocker documents the mounted /profiles/agents runtime command emitted by mage docker.
-- TestDockerfileDefinesIntegrationTarget verifies the Dockerfile integration target used for Mage integration runs inside the image.
-- applications/coding-agent mage integration:executorLive packages and consumes the canonical executor profile through AGENT_CATALOG_ROOT.
-- Profile-owned documentation-curator and browser UX tracer bullets belong to applications/catalog, where the concrete profile and profile-local UX config live.
-- applications/catalog mage containerSmoke runs the installed runtime image with the profile repository mounted at /profiles.
-
 <!-- field: flow -->
 ## Flow
 
@@ -75,6 +59,17 @@ implemented
 - F8: The runtime loads core-owned shared declarations from /opt/agent-core when the mounted profile references them.
 - F9: Missing mounted profile paths fail before the loop starts with a diagnostic that names the missing path.
 
+<!-- field: proof -->
+## Proof
+
+- TestResolveProfilePathMapsInstalledCoreHome maps /opt/agent-core/tools to AGENT_CORE_HOME for installed runtime assets.
+- TestDockerfileRuntimeExcludesAgentProfiles verifies that the runtime image copies /opt/agent-core/tools and does not copy migrated profile directories.
+- TestContainerBuildSummaryForDocker documents the mounted /profiles/agents runtime command emitted by mage docker.
+- TestDockerfileDefinesIntegrationTarget verifies the Dockerfile integration target used for Mage integration runs inside the image.
+- applications/coding-agent mage integration:executorLive packages and consumes the canonical executor profile through AGENT_CATALOG_ROOT.
+- Profile-owned documentation-curator and browser UX tracer bullets belong to applications/catalog, where the concrete profile and profile-local UX config live.
+- applications/catalog mage containerSmoke runs the installed runtime image with the profile repository mounted at /profiles.
+
 <!-- field: touchpoints -->
 ## Touchpoints
 
@@ -86,6 +81,11 @@ implemented
 | T4 | srd034-external-agent-profiles R1.1, R1.2, R1.3, R1.4, R2.1, R2.2, R2.3, R2.4, R3.1, R3.2, R3.3, R3.4, R4.1, R4.2, R4.3, R4.4, R4.5 | ownership and mounted runtime contract |
 | T5 | knowledge-manager/documentation-curator/profile.yaml | profile-relative asset example under /profiles/agents |
 | T6 | knowledge-manager/documentation-curator/ui/ux.yaml | profile-local UX config example under /profiles/agents |
+
+<!-- field: implementation_status -->
+## Implementation status
+
+implemented
 
 <!-- field: success_criteria -->
 ## Success criteria

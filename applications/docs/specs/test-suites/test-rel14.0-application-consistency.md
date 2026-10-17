@@ -40,6 +40,19 @@ only for applications that declare the matching capability.
 - applications/catalog and agent-core are present for ownership and runtime validation.
 - A planned test is not passing evidence until its named command and expected observations exist.
 
+<!-- field: coverage_notes -->
+## Coverage notes
+
+<!-- field: implemented_now -->
+### Implemented now
+
+- TC1 through TC8 are executable and validate the completed Release 14 normalization, reciprocal traces, and repository audit.
+
+<!-- field: remaining -->
+### Remaining
+
+- A capability with no declaration remains not_applicable and does not need an empty directory or a passing no-op test.
+
 <!-- field: test_cases -->
 ## Test cases
 
@@ -466,11 +479,3 @@ mage audit
 | R5 | [R5.1, R5.2, R5.3] | AC5 | [F6] | [TC5] |  |
 | R6 | [R6.1, R6.2, R6.3, R6.4] | AC6 | [F1, F7] | [TC1, TC6, TC7] |  |
 | R7 | [R7.1, R7.2, R7.3] | AC7 | [F1, F8] | [TC8] |  |
-
-<!-- field: coverage_notes | form: "tree" -->
-## Coverage notes
-
-- implemented_now:
-  1. TC1 through TC8 are executable and validate the completed Release 14 normalization, reciprocal traces, and repository audit.
-- remaining:
-  1. A capability with no declaration remains not_applicable and does not need an empty directory or a passing no-op test.

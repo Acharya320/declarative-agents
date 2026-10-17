@@ -20,6 +20,12 @@ follow-up suites.
 
 - rel04.0-uc001-render-helm-topology
 
+<!-- field: preconditions -->
+## Preconditions
+
+- The
+- Helm is available.
+
 <!-- field: test_cases -->
 ## Test cases
 
@@ -96,9 +102,3 @@ go test ./magefiles -run '^TestHelmSmallAndOllamaValuesRender$'
 
 - srd003-helm-topology AC3
 - srd003-helm-topology AC4
-
-<!-- field: preconditions -->
-## Preconditions
-
-- The
-- Helm is available.

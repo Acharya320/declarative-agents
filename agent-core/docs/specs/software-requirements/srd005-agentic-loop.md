@@ -359,32 +359,34 @@ Checkpoint port integration saves typed position and execution history after dis
 
 - docs/specs/semantic-models/tool-metrics-monitoring.md
 
-<!-- field: diagrams | form: "tree" -->
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: The core iteration pattern -- check budget, step the..."] --> Goals["Goals: Agentic Loop"]
-    Goals --> R1["R1: Budget"]
-    Goals --> R2["R2: RunStatus and RunResult"]
-    Goals --> R3["R3: LoopHooks"]
-    Goals --> R4["R4: LoopParams"]
-    Goals --> R5["R5: Loop function"]
-    Goals --> R6["R6: ValidateBuilders helper"]
-    Goals --> R7["R7: Checkpoint port integration"]
-    AC1["AC1: Budget has MaxIterations, MaxTokens, and MaxDuration. Zer..."]
-    R1 --> AC1
-    AC2["AC2: RunStatus has five constants. RunResult carries status, i..."]
-    R2 --> AC2
-    AC3["AC3: LoopHooks has ValidateParams, BudgetExceeded, TerminalSta..."]
-    R3 --> AC3
-    AC4["AC4: LoopParams bundles all inputs for Loop including AgentNam..."]
-    R4 --> AC4
-    AC5["AC5: Loop drives state machine from InitialState to terminal,..."]
-    R5 --> AC5
-    AC6["AC6: ValidateBuilders returns a ValidateParams hook checking n..."]
-    R6 --> AC6
-    AC7["AC7: Checkpoint port integration compile and model agent st..."]
-    R7 --> AC7
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: The core iteration pattern -- check budget, step the..."] --> Goals["Goals: Agentic Loop"]
+  Goals --> R1["R1: Budget"]
+  Goals --> R2["R2: RunStatus and RunResult"]
+  Goals --> R3["R3: LoopHooks"]
+  Goals --> R4["R4: LoopParams"]
+  Goals --> R5["R5: Loop function"]
+  Goals --> R6["R6: ValidateBuilders helper"]
+  Goals --> R7["R7: Checkpoint port integration"]
+  AC1["AC1: Budget has MaxIterations, MaxTokens, and MaxDuration. Zer..."]
+  R1 --> AC1
+  AC2["AC2: RunStatus has five constants. RunResult carries status, i..."]
+  R2 --> AC2
+  AC3["AC3: LoopHooks has ValidateParams, BudgetExceeded, TerminalSta..."]
+  R3 --> AC3
+  AC4["AC4: LoopParams bundles all inputs for Loop including AgentNam..."]
+  R4 --> AC4
+  AC5["AC5: Loop drives state machine from InitialState to terminal,..."]
+  R5 --> AC5
+  AC6["AC6: ValidateBuilders returns a ValidateParams hook checking n..."]
+  R6 --> AC6
+  AC7["AC7: Checkpoint port integration compile and model agent st..."]
+  R7 --> AC7
+```

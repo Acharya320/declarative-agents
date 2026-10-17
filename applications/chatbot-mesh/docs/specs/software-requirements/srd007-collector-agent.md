@@ -8,19 +8,45 @@ depends_on:
 <!-- Copyright (c) 2026 Nokia -->
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
 
-<!-- field: role_realization_decision | form: "tree" -->
+<!-- field: role_realization_decision -->
 ## Role realization decision
 
-- current_actor: collector
-- implemented_responsibility: Receive bounded OTLP trace batches, apply declared policy, spool evidence, optionally relay unchanged traces, and expose lifecycle state.
-- canonical_role_sub_role: Monitor / Telemetry Collector.
-- retained_or_proposed_name: Retain `collector` as a compatible descriptive actor.
-- authority_boundary: Owns trace and OTLP metric intake (GH-1207); the in-cluster Dolt Prometheus scrape is retired (GH-1366), contrib is an opt-in trace-path option only, and file-only self-telemetry prevents a loop.
-- evidence:
-  1. agents/collector/machine.yaml
-  1. agents/collector/declarations.yaml
-  1. helm/templates/collector.yaml
-- migration_impact: Agent mode is the default and deploys no contrib collector or collector-metrics infrastructure; contrib remains selectable for the trace path only.
+<!-- field: current_actor -->
+### Current actor
+
+collector
+
+<!-- field: implemented_responsibility -->
+### Implemented responsibility
+
+Receive bounded OTLP trace batches, apply declared policy, spool evidence, optionally relay unchanged traces, and expose lifecycle state.
+
+<!-- field: canonical_role_sub_role -->
+### Canonical role sub role
+
+Monitor / Telemetry Collector.
+
+<!-- field: retained_or_proposed_name -->
+### Retained or proposed name
+
+Retain `collector` as a compatible descriptive actor.
+
+<!-- field: authority_boundary -->
+### Authority boundary
+
+Owns trace and OTLP metric intake (GH-1207); the in-cluster Dolt Prometheus scrape is retired (GH-1366), contrib is an opt-in trace-path option only, and file-only self-telemetry prevents a loop.
+
+<!-- field: evidence -->
+### Evidence
+
+- agents/collector/machine.yaml
+- agents/collector/declarations.yaml
+- helm/templates/collector.yaml
+
+<!-- field: migration_impact -->
+### Migration impact
+
+Agent mode is the default and deploys no contrib collector or collector-metrics infrastructure; contrib remains selectable for the trace path only.
 
 <!-- field: context -->
 ## Context
@@ -289,10 +315,15 @@ Agent mode is the default and deploys no contrib collector or collector-metrics 
 | srd042-otlp-receiver-tools | agent-core | [R1, R2, R3, R4, R5, R6, R7, R8] |
 | srd008-telemetry | agent-core | [R9] |
 
-<!-- field: implementation_status | form: "tree" -->
+<!-- field: implementation_status -->
 ## Implementation status
 
-- implemented:
-  1. The collector profile, bounded OTLP intake, deterministic spool and relay modes, self-loop exclusion, default agent-mode trace and OTLP metric intake with the opt-in contrib trace path, and persistent evidence checks. mage integration:rig drives a real client batch through the shipped filter-to-spool machine leg, while Helm smoke and observability evidence cover live routing and identity.
-- planned:
-  1. One lifecycle integration that exits while await_spans is blocked, proves the receiver, control, and monitor addresses all rebind, and records the bounded final monitor outcome required by R4 and AC4.
+<!-- field: implemented -->
+### Implemented
+
+- The collector profile, bounded OTLP intake, deterministic spool and relay modes, self-loop exclusion, default agent-mode trace and OTLP metric intake with the opt-in contrib trace path, and persistent evidence checks. mage integration:rig drives a real client batch through the shipped filter-to-spool machine leg, while Helm smoke and observability evidence cover live routing and identity.
+
+<!-- field: planned -->
+### Planned
+
+- One lifecycle integration that exits while await_spans is blocked, proves the receiver, control, and monitor addresses all rebind, and records the bounded final monitor outcome required by R4 and AC4.

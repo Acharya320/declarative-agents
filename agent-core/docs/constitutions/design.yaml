@@ -1226,7 +1226,57 @@ document_types:
         allowed: [id, title, status, retired_in, replaced_by, depends_on, derived_from]
         id_matches_filename: true
       nodes:
-        document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
+        document_field:
+          tag: field
+          level: 2
+          parent: document
+          heading: free
+          content: any
+          fields:
+          - family_srds
+          - historical_aliases
+          - canonical_path
+          - role_realization_decision
+          - conformance_fixture_srds
+          - context
+          - design_notes
+          - note
+          - problem
+          - goals
+          - package_ownership
+          - migration_notes
+          - compatibility_policy
+          - capability_classes
+          - applicability
+          - target_package_layout
+          - declaration_layout
+          - deployment_api_contract
+          - tool_words
+          - target_declaration_layout
+          - non_goals
+          - test_trace_plan
+          - implementation_plan
+          - acceptance_criteria
+          - depends_on_note
+          - historical_background
+          - external_contracts
+          - implementation_follow_up
+          - neighboring_contracts
+          - platform_dependencies_note
+          - reference_model
+          - implementation
+          - related_documents
+          - implementation_targets
+          - related_agents
+          - use_case_traces
+          - platform_dependencies
+          - implementation_examples
+          - implementation_status
+          - diagrams
+          - test_suite_traces
+          - follow_up
+          - assumptions
+          - needs_clarification
         requirement_group:
           tag: req
           level: 2
@@ -1236,7 +1286,14 @@ document_types:
           content: none
           unique_id: true
           yaml: {from: requirements, records: map, id: id, title: title}
-        group_field: {tag: field, level: 3, parent: requirement_group, heading: free, content: any}
+        group_field:
+          tag: field
+          level: 3
+          parent: requirement_group
+          heading: free
+          content: any
+          fields:
+          - applicability
         requirement_item:
           tag: req
           level: 3
@@ -1248,7 +1305,16 @@ document_types:
           unique_id: true
           attributes: [weight, status, retired_in, replaced_by, derived_from]
           yaml: {from: items, records: list, id: id, content: text, keyed: true}
-        item_field: {tag: field, level: 4, parent: requirement_item, heading: free, content: any}
+        item_field:
+          tag: field
+          level: 4
+          parent: requirement_item
+          heading: free
+          content: any
+          fields:
+          - endpoints
+          - evidence
+          - applies_when
         acceptance_criterion:
           tag: ac
           level: 3
@@ -1260,7 +1326,177 @@ document_types:
           attributes: [status, retired_in, replaced_by, derived_from]
           required_fields: [traces]
           yaml: {from: acceptance_criteria, records: list, id: id, content: criterion}
-        criterion_field: {tag: field, level: 4, parent: acceptance_criterion, heading: free, content: any}
+        criterion_field:
+          tag: field
+          level: 4
+          parent: acceptance_criterion
+          heading: free
+          content: any
+          fields:
+          - traces
+          - tests
+          - applicability
+        applicability_field:
+          tag: field
+          level: 3
+          parent: 'field:applicability'
+          heading: free
+          content: any
+          fields:
+          - capability
+          - baseline
+          - applies_to
+          - excludes
+          - capability_gates
+        declaration_layout_field:
+          tag: field
+          level: 3
+          parent: 'field:declaration_layout'
+          heading: free
+          content: any
+          fields:
+          - status
+          - shared_groups
+          - compatibility_bundles
+          - mode_local_overrides
+          - rules
+        deployment_api_contract_field:
+          tag: field
+          level: 3
+          parent: 'field:deployment_api_contract'
+          heading: free
+          content: any
+          fields:
+          - version
+          - description
+          - apply_request
+          - apply_response
+          - rollout_response
+          - state_response
+        diagrams_field:
+          tag: field
+          level: 3
+          parent: 'field:diagrams'
+          heading: free
+          content: any
+          fields:
+          - requirements_trace
+          - deployment
+          - deployed_topology
+          - actuation_machine
+          - scenario_pipeline
+          - control_plane
+        implementation_status_field:
+          tag: field
+          level: 3
+          parent: 'field:implementation_status'
+          heading: free
+          content: any
+          fields:
+          - current
+          - done
+          - specified
+          - complete
+          - implemented
+          - reserved
+          - partial
+          - planned
+          - planned_follow_up
+          - remaining
+        package_ownership_field:
+          tag: field
+          level: 3
+          parent: 'field:package_ownership'
+          heading: free
+          content: any
+          fields:
+          - status
+          - notes
+        role_realization_decision_field:
+          tag: field
+          level: 3
+          parent: 'field:role_realization_decision'
+          heading: free
+          content: any
+          fields:
+          - current_actor
+          - implemented_responsibility
+          - canonical_role_sub_role
+          - retained_or_proposed_name
+          - authority_boundary
+          - evidence
+          - migration_impact
+        target_declaration_layout_field:
+          tag: field
+          level: 3
+          parent: 'field:target_declaration_layout'
+          heading: free
+          content: any
+          fields:
+          - status
+          - notes
+        target_package_layout_field:
+          tag: field
+          level: 3
+          parent: 'field:target_package_layout'
+          heading: free
+          content: any
+          fields:
+          - status
+          - notes
+        apply_request_field:
+          tag: field
+          level: 4
+          parent: 'field:apply_request'
+          heading: free
+          content: any
+          fields:
+          - endpoint
+          - fields
+          - constraints
+        apply_response_field:
+          tag: field
+          level: 4
+          parent: 'field:apply_response'
+          heading: free
+          content: any
+          fields:
+          - fields
+        capability_gates_field:
+          tag: field
+          level: 4
+          parent: 'field:capability_gates'
+          heading: free
+          content: any
+          fields:
+          - managed_service
+          - local_platform
+          - packaged
+          - helm_managed
+          - ui
+          - cloud_platform
+          - kind_demo
+          - embedded_bundle
+          - durable_collector
+        rollout_response_field:
+          tag: field
+          level: 4
+          parent: 'field:rollout_response'
+          heading: free
+          content: any
+          fields:
+          - endpoint
+          - fields
+        state_response_field:
+          tag: field
+          level: 4
+          parent: 'field:state_response'
+          heading: free
+          content: any
+          fields:
+          - endpoint
+          - description
+          - fields
       fields:
         problem: {in: [document_field], shape: prose}
         goals: {in: [document_field], shape: list, item_pattern: '^G[0-9]+: ', value: outline, id: id, content: text}
@@ -1282,7 +1518,7 @@ document_types:
         derived_from: references
       prose_containment:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
-        outside: [document_field, acceptance_criterion, criterion_field]
+        outside: [document_field, acceptance_criterion, criterion_field, applicability_field, declaration_layout_field, deployment_api_contract_field, diagrams_field, implementation_status_field, package_ownership_field, role_realization_decision_field, target_declaration_layout_field, target_package_layout_field, apply_request_field, apply_response_field, capability_gates_field, rollout_response_field, state_response_field]
   use_case:
     location: docs/specs/use-cases/relNN.N-ucNNN-short-name.md
     converts_from: docs/specs/use-cases/relNN.N-ucNNN-short-name.yaml
@@ -1326,7 +1562,55 @@ document_types:
         allowed: [id, title, status, priority, retired_in, replaced_by, test_suite]
         id_matches_filename: true
       nodes:
-        document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
+        document_field:
+          tag: field
+          level: 2
+          parent: document
+          heading: free
+          content: any
+          fields:
+          - historical_aliases
+          - canonical_path
+          - release
+          - note
+          - summary
+          - actor
+          - trigger
+          - reference_profile
+          - runtime_notes
+          - preconditions
+          - flow
+          - successor_to
+          - proof
+          - evidence
+          - current_candidates
+          - candidate_matrix
+          - endpoint_usage_review
+          - touchpoints
+          - proof_owner
+          - integration_test
+          - implementation_status
+          - success_criteria
+          - test_data
+          - failure_scenarios
+          - out_of_scope
+          - machine_config
+          - rest_definitions
+          - document_resource
+          - browser_harness
+          - integration_target
+          - semantic_model
+          - evidence_gaps
+          - entry_point
+          - config_format
+          - test_suite_trace
+          - machine_configs
+          - config_formats
+          - srd
+          - test_evidence
+          - assumptions
+          - edge_cases
+          - needs_clarification
         success_criterion:
           tag: sc
           level: 3
@@ -1337,7 +1621,65 @@ document_types:
           unique_id: true
           attributes: [status, retired_in, replaced_by]
           yaml: {from: success_criteria, records: list, id: id, content: criterion}
-        criterion_field: {tag: field, level: 4, parent: success_criterion, heading: free, content: any}
+        criterion_field:
+          tag: field
+          level: 4
+          parent: success_criterion
+          heading: free
+          content: any
+          fields:
+          - traces
+        candidate_matrix_entry:
+          tag: candidate_matrix_entry
+          level: 3
+          parent: 'field:candidate_matrix'
+          heading: id
+          content: none
+          yaml: {from: candidate_matrix, records: list, id: application}
+        endpoint_usage_review_field:
+          tag: field
+          level: 3
+          parent: 'field:endpoint_usage_review'
+          heading: free
+          content: any
+          fields:
+          - reviewed_at
+          - urls
+        evidence_field:
+          tag: field
+          level: 3
+          parent: 'field:evidence'
+          heading: free
+          content: any
+          fields:
+          - deterministic_status
+          - deterministic_command
+          - proves
+          - live_observation_status
+          - live_steps
+          - limitation
+        reference_profile_field:
+          tag: field
+          level: 3
+          parent: 'field:reference_profile'
+          heading: free
+          content: any
+          fields:
+          - path
+          - first_run
+          - resume_approved
+          - resume_rejected
+        candidate_matrix_entry_field:
+          tag: field
+          level: 4
+          parent: candidate_matrix_entry
+          heading: free
+          content: any
+          fields:
+          - current_module_state
+          - current_ownership
+          - relevant_surfaces
+          - normalization_focus
       fields:
         summary: {in: [document_field], shape: prose}
         actor: {in: [document_field], shape: prose}
@@ -1360,7 +1702,7 @@ document_types:
         replaced_by: list
       prose_containment:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
-        outside: [document_field, success_criterion, criterion_field]
+        outside: [document_field, success_criterion, criterion_field, candidate_matrix_entry, endpoint_usage_review_field, evidence_field, reference_profile_field, candidate_matrix_entry_field]
   test_suite:
     location: docs/specs/test-suites/test-relNN.N-short-name.md
     converts_from: docs/specs/test-suites/test-relNN.N-short-name.yaml
@@ -1383,7 +1725,30 @@ document_types:
         allowed: [id, title, release, status, retired_in, replaced_by]
         id_matches_filename: true
       nodes:
-        document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
+        document_field:
+          tag: field
+          level: 2
+          parent: document
+          heading: free
+          content: any
+          fields:
+          - canonical_path
+          - historical_aliases
+          - test_case_count
+          - overview
+          - live_observation_status
+          - note
+          - traces
+          - integration_target
+          - deadline_hierarchy
+          - srds
+          - live_integration_target
+          - preconditions
+          - coverage_notes
+          - case_groups
+          - test_cases
+          - requirement_coverage
+          - needs_clarification
         test_case:
           tag: case
           level: 3
@@ -1393,7 +1758,86 @@ document_types:
           unique_id: true
           attributes: [status, retired_in, replaced_by]
           yaml: {from: test_cases, records: list, id: name, content: description}
-        case_field: {tag: field, level: 4, parent: test_case, heading: free, content: any}
+        case_field:
+          tag: field
+          level: 4
+          parent: test_case
+          heading: free
+          content: any
+          fields:
+          - planned_note
+          - family
+          - commands
+          - go_test_note
+          - expected_note
+          - id
+          - use_case
+          - issue
+          - gate
+          - stage
+          - follow_up_issue
+          - test
+          - integration_target
+          - go_test
+          - evidence_type
+          - replacement_target
+          - owner
+          - verifies
+          - non_executable_scope_assertion
+          - live_target
+          - live_evidence
+          - audit_target
+          - coverage
+          - applicability
+          - implemented_by
+          - live_status
+          - stats_target
+          - inputs
+          - command
+          - coverage_note
+          - scenario_critic_evidence
+          - variants
+          - expected
+          - expected_outputs
+          - evidence
+          - planned
+          - traces
+          - assertions
+        coverage_notes_field:
+          tag: field
+          level: 3
+          parent: 'field:coverage_notes'
+          heading: free
+          content: any
+          fields:
+          - implemented_now
+          - remaining
+        deadline_hierarchy_field:
+          tag: field
+          level: 3
+          parent: 'field:deadline_hierarchy'
+          heading: free
+          content: any
+          fields:
+          - model_call
+          - child_agent_run
+          - outer_emergency
+          - cleanup_grace
+          - invariant
+          - timeout_evidence
+          - cancellation
+        scenario_critic_evidence_field:
+          tag: field
+          level: 5
+          parent: 'field:scenario_critic_evidence'
+          heading: free
+          content: any
+          fields:
+          - integration_target
+          - scenario
+          - actor
+          - binding
+          - scenarios
       fields:
         overview: {in: [document_field], shape: prose}
         traces: {in: [document_field, case_field], shape: list}
@@ -1409,7 +1853,7 @@ document_types:
         replaced_by: list
       prose_containment:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
-        outside: [document_field, test_case, case_field]
+        outside: [document_field, test_case, case_field, coverage_notes_field, deadline_hierarchy_field, scenario_critic_evidence_field]
   audit_register:
     location: docs/specs/audits/name-register.md
     converts_from: docs/specs/audits/name.yaml

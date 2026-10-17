@@ -150,14 +150,6 @@ cd magefiles
 go test . -run 'Test(ApplicationModulesParticipateInAudit|ChatbotMeshIsAnApplicationModule|CodingAgentParticipatesInAudit|AgentArchitectureIsCompositionApplicationModule|EveryOrchestratedModuleDirectoryExists|OrchestrationUsesStableApplicationPaths|ApplicationModulesExcludedFromSubModules|StatsParticipantsIncludeApplicationModules|TestSubModulesDispatchesApplicationModules)$'
 ```
 
-<!-- field: evidence -->
-#### Evidence
-
-- magefiles/build.go
-- magefiles/example_modules_test.go
-- magefiles/test.go
-- magefiles/tag.go
-
 <!-- field: expected | form: "tree" -->
 #### Expected
 
@@ -169,6 +161,14 @@ go test . -run 'Test(ApplicationModulesParticipateInAudit|ChatbotMeshIsAnApplica
 - applications_excluded_from_platform_build_default: true
 - agent_architecture_registered: true
 - catalog_is_reusable_submodule: true
+
+<!-- field: evidence -->
+#### Evidence
+
+- magefiles/build.go
+- magefiles/example_modules_test.go
+- magefiles/test.go
+- magefiles/tag.go
 
 <!-- field: traces -->
 #### Traces
@@ -207,6 +207,15 @@ go_test
 (cd applications/agent-architecture && go test ./magefiles -run '^TestStatsCompositionOnlyJSON$')
 ```
 
+<!-- field: expected | form: "tree" -->
+#### Expected
+
+- composition_only_has_no_agents_section: true
+- local_agents_counted_by_owner: true
+- composition_references_reported_separately: true
+- root_total_sums_agents_sections_only: true
+- canonical_agent_total: 15
+
 <!-- field: evidence -->
 #### Evidence
 
@@ -219,15 +228,6 @@ go_test
 - applications/chatbot-mesh/magefiles/agent_stats_test.go
 - applications/agent-architecture/magefiles/magefile.go
 - applications/agent-architecture/magefiles/magefile_test.go
-
-<!-- field: expected | form: "tree" -->
-#### Expected
-
-- composition_only_has_no_agents_section: true
-- local_agents_counted_by_owner: true
-- composition_references_reported_separately: true
-- root_total_sums_agents_sections_only: true
-- canonical_agent_total: 15
 
 <!-- field: traces -->
 #### Traces
@@ -261,6 +261,15 @@ mage_gate
 mage audit
 ```
 
+<!-- field: expected | form: "tree" -->
+#### Expected
+
+- root_audit_green: true
+- chatbot_mesh_audit_executed: true
+- coding_agent_audit_executed: true
+- agent_architecture_audit_executed: true
+- local_evidence_owned_by_application: true
+
 <!-- field: evidence -->
 #### Evidence
 
@@ -270,15 +279,6 @@ mage audit
 - applications/chatbot-mesh/docs/SPECIFICATIONS.md
 - applications/coding-agent/docs/SPECIFICATIONS.md
 - applications/agent-architecture/docs/SPECIFICATIONS.md
-
-<!-- field: expected | form: "tree" -->
-#### Expected
-
-- root_audit_green: true
-- chatbot_mesh_audit_executed: true
-- coding_agent_audit_executed: true
-- agent_architecture_audit_executed: true
-- local_evidence_owned_by_application: true
 
 <!-- field: traces -->
 #### Traces
@@ -315,14 +315,6 @@ application_test_suites
 (cd applications/agent-architecture && go test ./magefiles -run '^TestManagedServicesEvidenceContract$')
 ```
 
-<!-- field: evidence -->
-#### Evidence
-
-- applications/coding-agent/docs/specs/test-suites/test-rel02.0-serving-contract.md
-- applications/chatbot-mesh/docs/specs/test-suites/test-rel03.0-mesh-deployment.md
-- applications/chatbot-mesh/docs/specs/test-suites/test-rel02.0-observability.md
-- applications/agent-architecture/docs/specs/test-suites/test-rel00.0-guided-agent-architecture.md
-
 <!-- field: expected | form: "tree" -->
 #### Expected
 
@@ -335,6 +327,14 @@ application_test_suites
 - knowledge_manager_managed_service_status: partial
 - knowledge_manager_live_observations: dependency_gated
 - knowledge_manager_srd002_ac1_ac3_satisfied: false
+
+<!-- field: evidence -->
+#### Evidence
+
+- applications/coding-agent/docs/specs/test-suites/test-rel02.0-serving-contract.md
+- applications/chatbot-mesh/docs/specs/test-suites/test-rel03.0-mesh-deployment.md
+- applications/chatbot-mesh/docs/specs/test-suites/test-rel02.0-observability.md
+- applications/agent-architecture/docs/specs/test-suites/test-rel00.0-guided-agent-architecture.md
 
 <!-- field: traces -->
 #### Traces
@@ -370,14 +370,6 @@ application_test_suites
 (cd applications/chatbot-mesh && go test ./magefiles -run 'Test(StagedProfilesCoverEnabledDeployments|HelmPackage)')
 ```
 
-<!-- field: evidence -->
-#### Evidence
-
-- applications/coding-agent/docs/specs/test-suites/test-rel03.0-deployment-profile-package.md
-- applications/coding-agent/docs/specs/test-suites/test-rel04.0-helm-topology.md
-- applications/coding-agent/docs/specs/test-suites/test-rel05.0-helm-package-validation.md
-- applications/chatbot-mesh/docs/specs/test-suites/test-rel03.0-mesh-deployment.md
-
 <!-- field: expected | form: "tree" -->
 #### Expected
 
@@ -385,6 +377,14 @@ application_test_suites
 - unsafe_input_rejection_exists: true
 - helm_schema_and_render_evidence_exists: true
 - packaged_archive_validation_exists: true
+
+<!-- field: evidence -->
+#### Evidence
+
+- applications/coding-agent/docs/specs/test-suites/test-rel03.0-deployment-profile-package.md
+- applications/coding-agent/docs/specs/test-suites/test-rel04.0-helm-topology.md
+- applications/coding-agent/docs/specs/test-suites/test-rel05.0-helm-package-validation.md
+- applications/chatbot-mesh/docs/specs/test-suites/test-rel03.0-mesh-deployment.md
 
 <!-- field: traces -->
 #### Traces
@@ -419,13 +419,6 @@ referenced_engineering_contract
 (cd applications/chatbot-mesh && go test ./magefiles -run 'TestHelmSmokeSkipReasonMissingBinary|TestCollectSharedTelemetryEvidenceIdentifiesSlowComponent')
 ```
 
-<!-- field: evidence -->
-#### Evidence
-
-- docs/engineering/eng01-kind-test-demo-rig.md
-- applications/coding-agent/docs/specs/test-suites/test-rel06.0-live-helm-smoke.md
-- applications/chatbot-mesh/docs/specs/test-suites/test-rel03.0-mesh-deployment.md
-
 <!-- field: expected | form: "tree" -->
 #### Expected
 
@@ -433,6 +426,13 @@ referenced_engineering_contract
 - missing_prerequisite_classification_is_tested: true
 - bounded_failure_evidence_is_tested: true
 - undeclared_kind_demo_is_not_applicable: true
+
+<!-- field: evidence -->
+#### Evidence
+
+- docs/engineering/eng01-kind-test-demo-rig.md
+- applications/coding-agent/docs/specs/test-suites/test-rel06.0-live-helm-smoke.md
+- applications/chatbot-mesh/docs/specs/test-suites/test-rel03.0-mesh-deployment.md
 
 <!-- field: traces -->
 #### Traces
@@ -465,14 +465,6 @@ mage_gate
 mage stats
 ```
 
-<!-- field: evidence -->
-#### Evidence
-
-- magefiles/stats.go
-- applications/chatbot-mesh/magefiles/stats.go
-- applications/coding-agent/magefiles/stats.go
-- applications/agent-architecture/magefiles/magefile.go
-
 <!-- field: expected | form: "tree" -->
 #### Expected
 
@@ -481,6 +473,14 @@ mage stats
 - repository_agent_total_present: true
 - repository_agent_total: 15
 - knowledge_manager_agents_contributed: 0
+
+<!-- field: evidence -->
+#### Evidence
+
+- magefiles/stats.go
+- applications/chatbot-mesh/magefiles/stats.go
+- applications/coding-agent/magefiles/stats.go
+- applications/agent-architecture/magefiles/magefile.go
 
 <!-- field: traces -->
 #### Traces
@@ -516,15 +516,6 @@ go_test
 (cd applications/catalog && go test ./conformance -run 'Test(ShippedProfilesMatchFoundationModels|CatalogMembershipUsesSharedRealizationAndAliasAuthority)$')
 ```
 
-<!-- field: evidence -->
-#### Evidence
-
-- magefiles/agent_role_realizations_test.go
-- magefiles/audit.go
-- applications/docs/specs/semantic-models/agent-role-realizations.md
-- applications/catalog/conformance/family_inventory_test.go
-- applications/catalog/conformance/membership_contract_test.go
-
 <!-- field: expected | form: "tree" -->
 #### Expected
 
@@ -536,6 +527,15 @@ go_test
 - inheritance_and_alias_rules_validated: true
 - canonical_name_collisions_rejected: true
 - root_mage_audit_invokes_validation: true
+
+<!-- field: evidence -->
+#### Evidence
+
+- magefiles/agent_role_realizations_test.go
+- magefiles/audit.go
+- applications/docs/specs/semantic-models/agent-role-realizations.md
+- applications/catalog/conformance/family_inventory_test.go
+- applications/catalog/conformance/membership_contract_test.go
 
 <!-- field: traces -->
 #### Traces

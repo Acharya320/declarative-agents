@@ -42,48 +42,6 @@ root orchestration.
 - agent-core validators are available for referenced profile, machine, tool, ToolDef, and REST documents.
 - The maintainer records current evidence before changing a status claim.
 
-<!-- field: candidate_matrix | form: "tree" -->
-## Candidate matrix
-
-1. - application: chatbot-mesh
-   - current_module_state: runnable
-   - current_ownership: agent-owning
-   - relevant_surfaces:
-     1. managed_service
-     1. packaged
-     1. helm_managed
-     1. kind_demo
-     1. ui
-   - normalization_focus:
-     Add the manifest authority over local actors, the canonical
-     corpus-ingest and collector consumers, deployment entries, and both
-     actor-served UIs; prove canonical design-token consumption.
-1. - application: coding-agent
-   - current_module_state: runnable
-   - current_ownership: composition-only
-   - relevant_surfaces:
-     1. managed_service
-     1. packaged
-     1. helm_managed
-     1. kind_demo
-   - normalization_focus:
-     Retain canonical planner, executor, critic, collector, and applier
-     implementations while classifying local serving and applier profiles as
-     composition wrappers that contribute no duplicate agents.
-1. - application: agent-architecture
-   - current_module_state: runnable
-   - current_ownership: composition-only
-   - relevant_surfaces:
-     1. managed_service
-     1. packaged
-     1. helm_managed
-     1. kind_demo
-     1. ui
-   - normalization_focus:
-     Derive curator, collector, applier, deployment, UI, and catalog-doc
-     package assets from the manifest and classify the local applier as a
-     composition wrapper over the canonical implementation.
-
 <!-- field: flow -->
 ## Flow
 
@@ -158,6 +116,95 @@ root orchestration.
     - srd003-application-consistency R7.1
     - srd003-application-consistency R7.2
     - srd003-application-consistency R7.3
+
+<!-- field: candidate_matrix -->
+## Candidate matrix
+
+<!-- candidate_matrix_entry: chatbot-mesh -->
+### chatbot-mesh
+
+<!-- field: current_module_state -->
+#### Current module state
+
+runnable
+
+<!-- field: current_ownership -->
+#### Current ownership
+
+agent-owning
+
+<!-- field: relevant_surfaces -->
+#### Relevant surfaces
+
+- managed_service
+- packaged
+- helm_managed
+- kind_demo
+- ui
+
+<!-- field: normalization_focus -->
+#### Normalization focus
+
+Add the manifest authority over local actors, the canonical
+corpus-ingest and collector consumers, deployment entries, and both
+actor-served UIs; prove canonical design-token consumption.
+
+<!-- candidate_matrix_entry: coding-agent -->
+### coding-agent
+
+<!-- field: current_module_state -->
+#### Current module state
+
+runnable
+
+<!-- field: current_ownership -->
+#### Current ownership
+
+composition-only
+
+<!-- field: relevant_surfaces -->
+#### Relevant surfaces
+
+- managed_service
+- packaged
+- helm_managed
+- kind_demo
+
+<!-- field: normalization_focus -->
+#### Normalization focus
+
+Retain canonical planner, executor, critic, collector, and applier
+implementations while classifying local serving and applier profiles as
+composition wrappers that contribute no duplicate agents.
+
+<!-- candidate_matrix_entry: agent-architecture -->
+### agent-architecture
+
+<!-- field: current_module_state -->
+#### Current module state
+
+runnable
+
+<!-- field: current_ownership -->
+#### Current ownership
+
+composition-only
+
+<!-- field: relevant_surfaces -->
+#### Relevant surfaces
+
+- managed_service
+- packaged
+- helm_managed
+- kind_demo
+- ui
+
+<!-- field: normalization_focus -->
+#### Normalization focus
+
+Derive curator, collector, applier, deployment, UI, and catalog-doc
+package assets from the manifest and classify the local applier as a
+composition wrapper over the canonical implementation.
 
 <!-- field: touchpoints -->
 ## Touchpoints

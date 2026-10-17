@@ -25,20 +25,44 @@ and Helm inventories can also drift from the declared composition.
 - G4: Make canonical promotion, shared UI-token consumption, README shape, and conformance status evidence-backed.
 - G5: Preserve explicit boundaries among applications, applications/catalog, and agent-core.
 
-<!-- field: applicability | form: "tree" -->
+<!-- field: applicability -->
 ## Applicability
 
-- baseline:
-  R1, R2, R3, R5, R6, and R7 apply to every runnable application and to an
-  application entering the root audit-only transition. Audit-only means the
-  documentation and manifest gates are executable; it does not claim a
-  runnable composition.
-- capability_gates:
-  - managed_service: Service lifecycle artifacts and evidence apply only when declared.
-  - packaged: R4 applies only when a distributable artifact is produced.
-  - helm_managed: Helm deployment entries apply only when a chart is shipped and imply packaged.
-  - kind_demo: kind evidence applies only when declared and remains governed by ENG01.
-  - ui: UI entries and shared-token checks apply only when an application or actor ships UI assets.
+<!-- field: baseline -->
+### Baseline
+
+R1, R2, R3, R5, R6, and R7 apply to every runnable application and to an
+application entering the root audit-only transition. Audit-only means the
+documentation and manifest gates are executable; it does not claim a
+runnable composition.
+
+<!-- field: capability_gates -->
+### Capability gates
+
+<!-- field: managed_service -->
+#### Managed service
+
+Service lifecycle artifacts and evidence apply only when declared.
+
+<!-- field: packaged -->
+#### Packaged
+
+R4 applies only when a distributable artifact is produced.
+
+<!-- field: helm_managed -->
+#### Helm managed
+
+Helm deployment entries apply only when a chart is shipped and imply packaged.
+
+<!-- field: ui -->
+#### UI
+
+UI entries and shared-token checks apply only when an application or actor ships UI assets.
+
+<!-- field: kind_demo -->
+#### Kind demo
+
+kind evidence applies only when declared and remains governed by ENG01.
 
 <!-- req: R1 -->
 ## R1 - Composition manifest authority

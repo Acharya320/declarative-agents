@@ -21,14 +21,24 @@ executable evidence.
 - G3: Make documentation, root Mage participation, release participation, and agent accounting structurally observable.
 - G4: Let application-local documents extend the shared contract by reference.
 
-<!-- field: applicability | form: "tree" -->
+<!-- field: applicability -->
 ## Applicability
 
-- capability: runnable_module
-- applies_to: Every runnable application under applications/.
-- excludes:
-  1. applications/catalog, because it is a reusable catalog module.
-  1. Directories that contain only shared documentation or fixtures and expose no runnable application composition.
+<!-- field: capability -->
+### Capability
+
+runnable_module
+
+<!-- field: applies_to -->
+### Applies to
+
+Every runnable application under applications/.
+
+<!-- field: excludes -->
+### Excludes
+
+- applications/catalog, because it is a reusable catalog module.
+- Directories that contain only shared documentation or fixtures and expose no runnable application composition.
 
 <!-- req: R1 -->
 ## R1 - Module identity and ownership

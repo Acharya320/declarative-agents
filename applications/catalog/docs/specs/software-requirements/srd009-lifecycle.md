@@ -129,17 +129,19 @@ Lifecycle outputs and terminal outcomes are checkable by mounted execution or in
 - R3.1
 - R3.2
 
-<!-- field: diagrams | form: "tree" -->
+<!-- field: diagrams -->
 ## Diagrams
 
-- requirements_trace:
-  ```mermaid
-  flowchart LR
-    Problem["Problem: Lifecycle family needs its own requirements..."] --> Goals["Goals: Lifecycle Functional Blocks"]
-    Goals --> R1["R1: Behavior model"]
-    Goals --> R2["R2: Inputs, tools, and runtime dependencies"]
-    Goals --> R3["R3: Outputs and outcomes"]
-    R1 --> AC1["AC1: History, rollback, approval as machine actions"]
-    R2 --> AC2["AC2: Inputs, tools, dependencies named"]
-    R3 --> AC3["AC3: Outputs and outcomes checkable"]
-  ```
+<!-- field: requirements_trace -->
+### Requirements trace
+
+```mermaid
+flowchart LR
+  Problem["Problem: Lifecycle family needs its own requirements..."] --> Goals["Goals: Lifecycle Functional Blocks"]
+  Goals --> R1["R1: Behavior model"]
+  Goals --> R2["R2: Inputs, tools, and runtime dependencies"]
+  Goals --> R3["R3: Outputs and outcomes"]
+  R1 --> AC1["AC1: History, rollback, approval as machine actions"]
+  R2 --> AC2["AC2: Inputs, tools, dependencies named"]
+  R3 --> AC3["AC3: Outputs and outcomes checkable"]
+```

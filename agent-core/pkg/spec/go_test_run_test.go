@@ -37,7 +37,8 @@ func evidenceFixture(t *testing.T, suite string, tests map[string]string) string
 		}
 	}
 	write("go.mod", "module example.test/fixture\n\ngo 1.24\n")
-	writeCorpusDocument(t, root, TSSubdir+"/test-rel09.0-example.yaml", suite+suiteHeader)
+	// The header's fields come ahead of test_cases, in the declared order.
+	writeCorpusDocument(t, root, TSSubdir+"/test-rel09.0-example.yaml", strings.Replace(suite, "test_cases:", suiteHeader+"test_cases:", 1))
 	var body strings.Builder
 	body.WriteString("package subject\n\nimport \"testing\"\n")
 	for name, code := range tests {

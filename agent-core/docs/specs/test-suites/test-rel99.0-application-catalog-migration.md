@@ -94,15 +94,15 @@ rel99.0-uc002-application-catalog-migration
 
 GH-1037
 
-<!-- field: go_test -->
-#### Go test
-
-mage audit
-
 <!-- field: integration_target -->
 #### Integration target
 
 root Mage module-list regression; go test ./... in applications/coding-agent and applications/chatbot-mesh
+
+<!-- field: go_test -->
+#### Go test
+
+mage audit
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -154,15 +154,15 @@ rel99.0-uc002-application-catalog-migration
 
 GH-1038
 
-<!-- field: go_test -->
-#### Go test
-
-mage audit
-
 <!-- field: integration_target -->
 #### Integration target
 
 cd magefiles && go test ./...; mage integration:monitor; mage integration:ollamaRest; mage integration:ollamaMonitor; mage integration:dolt; mage integration:doltWord
+
+<!-- field: go_test -->
+#### Go test
+
+mage audit
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -213,15 +213,15 @@ rel99.0-uc002-application-catalog-migration
 
 GH-1039
 
-<!-- field: go_test -->
-#### Go test
-
-go test ./...
-
 <!-- field: integration_target -->
 #### Integration target
 
 mage audit
+
+<!-- field: go_test -->
+#### Go test
+
+go test ./...
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -271,15 +271,15 @@ rel99.0-uc002-application-catalog-migration
 
 GH-1041
 
-<!-- field: go_test -->
-#### Go test
-
-go test ./...
-
 <!-- field: integration_target -->
 #### Integration target
 
 mage validate; mage conformance; mage integration:all
+
+<!-- field: go_test -->
+#### Go test
+
+go test ./...
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -328,15 +328,15 @@ rel99.0-uc002-application-catalog-migration
 
 GH-1043
 
-<!-- field: go_test -->
-#### Go test
-
-mage audit
-
 <!-- field: integration_target -->
 #### Integration target
 
 focused internal/support/profiles and magefiles catalog-root tests
+
+<!-- field: go_test -->
+#### Go test
+
+mage audit
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -391,15 +391,15 @@ rel99.0-uc002-application-catalog-migration
 
 GH-1046
 
-<!-- field: go_test -->
-#### Go test
-
-mage audit
-
 <!-- field: integration_target -->
 #### Integration target
 
 root magefiles tests; mage audit; mage test; mage stats
+
+<!-- field: go_test -->
+#### Go test
+
+mage audit
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -452,15 +452,15 @@ rel99.0-uc002-application-catalog-migration
 
 GH-1044
 
-<!-- field: go_test -->
-#### Go test
-
-mage audit
-
 <!-- field: integration_target -->
 #### Integration target
 
 coding-agent magefiles tests; mage package; mage packageValidate; mage integration:codingLoop; mage integration:servingHealth
+
+<!-- field: go_test -->
+#### Go test
+
+mage audit
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -514,15 +514,15 @@ rel99.0-uc002-application-catalog-migration
 
 GH-1042
 
-<!-- field: go_test -->
-#### Go test
-
-mage audit
-
 <!-- field: integration_target -->
 #### Integration target
 
 chatbot-mesh magefiles tests; mage audit; mage helm:package; mage integration:rig; mage integration:helmSmoke
+
+<!-- field: go_test -->
+#### Go test
+
+mage audit
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -572,15 +572,15 @@ rel99.0-uc002-application-catalog-migration
 
 GH-1047
 
-<!-- field: go_test -->
-#### Go test
-
-go test ./...
-
 <!-- field: integration_target -->
 #### Integration target
 
 mage audit; mage integration:all
+
+<!-- field: go_test -->
+#### Go test
+
+go test ./...
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -626,15 +626,15 @@ rel99.0-uc002-application-catalog-migration
 
 GH-1048
 
-<!-- field: go_test -->
-#### Go test
-
-cd magefiles && go test ./...
-
 <!-- field: integration_target -->
 #### Integration target
 
 mage audit; mage test
+
+<!-- field: go_test -->
+#### Go test
+
+cd magefiles && go test ./...
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -682,15 +682,15 @@ rel99.0-uc002-application-catalog-migration
 
 GH-1049
 
-<!-- field: go_test -->
-#### Go test
-
-go test ./...
-
 <!-- field: integration_target -->
 #### Integration target
 
 mage audit; mage integration:chroma; mage integration:rig; mage integration:embeddingExclusion
+
+<!-- field: go_test -->
+#### Go test
+
+go test ./...
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -736,15 +736,15 @@ rel99.0-uc002-application-catalog-migration
 
 GH-1050
 
-<!-- field: go_test -->
-#### Go test
-
-go test ./...
-
 <!-- field: integration_target -->
 #### Integration target
 
 mage helm:package; mage integration:helmSmoke
+
+<!-- field: go_test -->
+#### Go test
+
+go test ./...
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -789,15 +789,15 @@ rel99.0-uc002-application-catalog-migration
 
 GH-1045
 
-<!-- field: go_test -->
-#### Go test
-
-mage audit
-
 <!-- field: integration_target -->
 #### Integration target
 
 mage audit in repository root, agent-core, applications/catalog, applications/coding-agent, and applications/chatbot-mesh
+
+<!-- field: go_test -->
+#### Go test
+
+mage audit
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs

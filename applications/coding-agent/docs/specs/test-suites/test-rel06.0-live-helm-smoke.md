@@ -24,6 +24,12 @@ are delivered by the smoke refactor (GH-2496) and the model-mock deployment
 
 - rel06.0-uc001-live-helm-smoke
 
+<!-- field: preconditions -->
+## Preconditions
+
+- Docker, kind, Helm, kubectl, and the required local images are available.
+- The agent-core and applications/catalog checkouts are present.
+
 <!-- field: test_cases -->
 ## Test cases
 
@@ -98,9 +104,3 @@ mage integration:helmSmoke
 #### Traces
 
 - srd005-live-helm-smoke AC1
-
-<!-- field: preconditions -->
-## Preconditions
-
-- Docker, kind, Helm, kubectl, and the required local images are available.
-- The agent-core and applications/catalog checkouts are present.

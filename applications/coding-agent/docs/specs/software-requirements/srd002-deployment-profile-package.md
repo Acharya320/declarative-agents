@@ -87,6 +87,20 @@ Every packaged serving entry profile shall pass agent-core --validate-config fro
 
 Local combined-tree serving integrations shall remain unchanged.
 
+<!-- field: goals -->
+## Goals
+
+- G1: Role-specific closures.
+- G2: Safe reproducible package.
+- G3: ConfigMap partitions.
+- G4: Runtime proof.
+
+<!-- field: non_goals -->
+## Non-goals
+
+- Helm templates and values schema.
+- Live Kubernetes installation or smoke testing.
+
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
 
@@ -129,17 +143,3 @@ mage audit boot-validates every produced role profile with the real agent binary
 
 - R4.1
 - R4.2
-
-<!-- field: goals -->
-## Goals
-
-- G1: Role-specific closures.
-- G2: Safe reproducible package.
-- G3: ConfigMap partitions.
-- G4: Runtime proof.
-
-<!-- field: non_goals -->
-## Non-goals
-
-- Helm templates and values schema.
-- Live Kubernetes installation or smoke testing.

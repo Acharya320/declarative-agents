@@ -415,30 +415,16 @@ A mismatched confirmation reaches Refused without a storage call; exact confirma
 - R11.3
 - R11.4
 
+<!-- field: platform_dependencies_note -->
+## Platform dependencies note
+
+These SRDs live in the agent-core corpus, not this one; they are platform dependencies rather than in-corpus depends_on (GH-2310).
+
 <!-- field: related_documents -->
 ## Related documents
 
 - srd007-collector-agent
 - cfg-tool-authoring-standard
-
-<!-- field: implementation_status | form: "tree" -->
-## Implementation status
-
-- implemented:
-  1. applications/catalog/agents/collector/ owns the canonical collector family.
-  1. applications/catalog/conformance/collector_test.go proves receive-spool-exit in spool mode.
-  1. applications/docs/specs/semantic-models/agent-role-realizations.md carries the catalog binding.
-  1. "R10: the collector spool and query declarations select an object backend through env-templated storage config (filesystem default), so the spool persists to and the query reads the configured application bucket via the srd042 R10/R11 engine; the profile boot-smokes with these declarations (GH-2484, GH-2489, GH-2490)."
-  1. "R10.2/R10.4: every /query/* REST response surfaces storage_status, and the shared agent-services chart readiness/liveness probes target control lifecycle health identically for both backends, pinned by chatbot-mesh render tests, so a bucket outage never flips a WAL-backed collector unready (GH-2484 R6, GH-2491 R6)."
-  1. "R10.5: the shipped trace UI performs a bounded storage-status read and renders complete, partial, unavailable, or unknown with explicit incomplete-history language; catalog conformance pins the source/API contract (GH-2490)."
-  1. "R10.6: object envelopes stamp retention_class, optional retain_until, and purge_authority=app:purge from the versioned chart/declaration contract; no teardown path consumes that metadata (GH-2490)."
-  1. "R11: the approved model-free application-purge profile requires exact application confirmation, invokes internal object_delete_prefix over rendered authority, verifies zero remaining, and writes an external audit. Unit, profile conformance, and live fake-GCS isolation proofs cover refusal and success (GH-2488, GH-2490, GH-2493)."
-  1. Cloud application-bucket IAM is pinned by the gcprig three-application policy fixture; authenticated GKE denial remains dependency-gated where gcloud credentials are unavailable (GH-2505).
-
-<!-- field: platform_dependencies_note -->
-## Platform dependencies note
-
-These SRDs live in the agent-core corpus, not this one; they are platform dependencies rather than in-corpus depends_on (GH-2310).
 
 <!-- field: platform_dependencies | form: "typed table" -->
 ## Platform dependencies
@@ -449,3 +435,19 @@ These SRDs live in the agent-core corpus, not this one; they are platform depend
 | srd044-spool-query-tools | agent-core | [spool_list_traces, spool_get_trace] |
 | srd059-objectstore-tools | agent-core | [declaration-bound object_delete_prefix with bounded verification and external audit (R5)] |
 | srd045-span-analytics-tools | agent-core | [spool_span_heatmap, spool_span_group_by, spool_span_breakdown] |
+
+<!-- field: implementation_status -->
+## Implementation status
+
+<!-- field: implemented -->
+### Implemented
+
+- applications/catalog/agents/collector/ owns the canonical collector family.
+- applications/catalog/conformance/collector_test.go proves receive-spool-exit in spool mode.
+- applications/docs/specs/semantic-models/agent-role-realizations.md carries the catalog binding.
+- R10: the collector spool and query declarations select an object backend through env-templated storage config (filesystem default), so the spool persists to and the query reads the configured application bucket via the srd042 R10/R11 engine; the profile boot-smokes with these declarations (GH-2484, GH-2489, GH-2490).
+- R10.2/R10.4: every /query/* REST response surfaces storage_status, and the shared agent-services chart readiness/liveness probes target control lifecycle health identically for both backends, pinned by chatbot-mesh render tests, so a bucket outage never flips a WAL-backed collector unready (GH-2484 R6, GH-2491 R6).
+- R10.5: the shipped trace UI performs a bounded storage-status read and renders complete, partial, unavailable, or unknown with explicit incomplete-history language; catalog conformance pins the source/API contract (GH-2490).
+- R10.6: object envelopes stamp retention_class, optional retain_until, and purge_authority=app:purge from the versioned chart/declaration contract; no teardown path consumes that metadata (GH-2490).
+- R11: the approved model-free application-purge profile requires exact application confirmation, invokes internal object_delete_prefix over rendered authority, verifies zero remaining, and writes an external audit. Unit, profile conformance, and live fake-GCS isolation proofs cover refusal and success (GH-2488, GH-2490, GH-2493).
+- Cloud application-bucket IAM is pinned by the gcprig three-application policy fixture; authenticated GKE denial remains dependency-gated where gcloud credentials are unavailable (GH-2505).
