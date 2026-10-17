@@ -220,10 +220,12 @@ func relativePath(from, target string) string {
 	return strings.Join(append(up, toParts[i:]...), "/")
 }
 
-// unlink reads every generated link in text back as its text: a link whose
-// text is a document id and whose file is named after it, or whose text is
-// an item and whose anchor starts with the item's own anchor. Any other
-// link stays as written.
+// unlink reads every reference link in text back as its text: a link whose
+// text is a document id and whose target is a relative Markdown file, or
+// whose text is an item and whose target holds an anchor starting with the
+// item's own. File names need not match ids (cfg-runtime-contract lives in
+// runtime-contract.md), so the converter owns the target and mage fmt
+// rewrites a stale one. Any other link stays as written.
 func unlink(text string) string {
 	if !strings.Contains(text, "](") {
 		return text
@@ -233,7 +235,7 @@ func unlink(text string) string {
 		label, target := m[1], m[2]
 		file, anchor, _ := strings.Cut(target, "#")
 		switch {
-		case idToken.MatchString(label) && anchor == "" && strings.TrimSuffix(path.Base(file), ".md") == label:
+		case idToken.MatchString(label) && anchor == "" && strings.HasSuffix(file, ".md") && !strings.Contains(file, "://"):
 			return label
 		case itemToken.MatchString(label) && anchor != "" && strings.HasPrefix(anchor, slug(label)):
 			return label

@@ -118,9 +118,10 @@ func TestUnlinkReadsBackOnlyGeneratedLinks(t *testing.T) {
 	for in, want := range map[string]string{
 		"[R1.1](#r11)": "R1.1",
 		"[srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC5](../software-requirements/srd005-agentic-loop.md#ac5)": "srd005-agentic-loop AC5",
-		"[R1.1](#ac2)":                    "[R1.1](#ac2)",
-		"[srd005-agentic-loop](other.md)": "[srd005-agentic-loop](other.md)",
-		"[see this](#r11)":                "[see this](#r11)",
+		"[R1.1](#ac2)": "[R1.1](#ac2)",
+		"[cfg-runtime-contract](../config-formats/runtime-contract.md)": "cfg-runtime-contract",
+		"[srd005-agentic-loop](https://example.com/srd005.md)":          "[srd005-agentic-loop](https://example.com/srd005.md)",
+		"[see this](#r11)": "[see this](#r11)",
 	} {
 		if got := unlink(in); got != want {
 			t.Errorf("unlink(%q) = %q, want %q", in, got, want)
