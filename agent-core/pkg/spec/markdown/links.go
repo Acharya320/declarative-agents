@@ -188,6 +188,20 @@ func (c *linkContext) link(value string) string {
 	return out + " " + strings.Join(items, ", ")
 }
 
+// linkCell links a table cell: one reference, or each reference in a
+// typed-table cell holding a flow list of them, [a, b], which the parser
+// unlinks before it decodes the flow value (GH-2669).
+func (c *linkContext) linkCell(cell string) string {
+	if len(cell) < 3 || cell[0] != '[' || cell[len(cell)-1] != ']' {
+		return c.link(cell)
+	}
+	items := strings.Split(cell[1:len(cell)-1], ", ")
+	for i, item := range items {
+		items[i] = c.link(item)
+	}
+	return "[" + strings.Join(items, ", ") + "]"
+}
+
 // relativePath is target's path from the directory holding from, with
 // forward slashes.
 func relativePath(from, target string) string {
@@ -242,7 +256,7 @@ func (c *linkContext) linkLines(field fieldRule, lines []string) []string {
 			cells := splitRow(out[i])
 			for j, column := range header {
 				if j < len(cells) && contains(field.LinkColumns, column) {
-					cells[j] = c.link(cells[j])
+					cells[j] = c.linkCell(cells[j])
 				}
 			}
 			out[i] = tableRow(cells)

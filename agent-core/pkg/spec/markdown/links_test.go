@@ -184,3 +184,46 @@ func TestCorpusRootAndPaths(t *testing.T) {
 		t.Errorf("DocumentID = %q", id)
 	}
 }
+
+// TestTableReferencesLink links an index table's id column and the use
+// cases a typed-table cell lists as a flow value, and reads both back as the
+// same values (GH-2669).
+func TestTableReferencesLink(t *testing.T) {
+	design := strings.Replace(linkedDesign, "        touchpoints:", "        suite_index: {in: [document_field], link_columns: [id, use_cases]}\n        touchpoints:", 1)
+	declarations, err := LoadDeclarations([]byte(design))
+	if err != nil {
+		t.Fatal(err)
+	}
+	d := declarations["plan"]
+	indexes := LinkIndexes{}
+	for _, id := range []string{"test-rel00.0", "rel00.0-uc001-domain", "rel00.0-uc002-eval"} {
+		dir := "use-cases"
+		if strings.HasPrefix(id, "test-") {
+			dir = "test-suites"
+		}
+		indexes.Add("docs/specs/"+dir+"/"+id+".md", []byte("---\nid: "+id+"\ntitle: x\n---\n"))
+	}
+	original := yamlDoc(t, `id: plan
+title: Plan
+suite_index:
+  - id: test-rel00.0
+    release: "00.0"
+    cases: 12
+    use_cases: [rel00.0-uc001-domain, rel00.0-uc002-eval, rel09.9-uc404-missing]
+`)
+	md, err := d.PrintLinked(original, "docs/SPECIFICATIONS.md", indexes.For("docs/SPECIFICATIONS.md"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := `| [test-rel00.0](specs/test-suites/test-rel00.0.md) | "00.0" | 12 | [[rel00.0-uc001-domain](specs/use-cases/rel00.0-uc001-domain.md), [rel00.0-uc002-eval](specs/use-cases/rel00.0-uc002-eval.md), rel09.9-uc404-missing] |`
+	if !strings.Contains(string(md), want) {
+		t.Fatalf("printed Markdown lacks %q\n%s", want, md)
+	}
+	back, findings, err := d.Parse(md, "docs/SPECIFICATIONS.md")
+	if err != nil || len(findings) > 0 {
+		t.Fatalf("parse: %v %v", err, findings)
+	}
+	if diff := Diff(original, back); diff != "" {
+		t.Fatalf("round trip changed %s\n%s", diff, md)
+	}
+}
