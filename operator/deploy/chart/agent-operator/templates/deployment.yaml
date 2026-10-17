@@ -1,0 +1,47 @@
+# Copyright (c) 2026 Nokia
+# SPDX-License-Identifier: BSD-3-Clause
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agent-operator
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "agent-operator.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: agent-operator
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        {{- include "agent-operator.labels" . | nindent 8 }}
+    spec:
+      serviceAccountName: agent-operator
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+      containers:
+        - name: operator
+          image: {{ include "agent-operator.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - --health-probe-bind-address=:8081
+            - --metrics-bind-address=:8080
+          ports:
+            - {name: metrics, containerPort: 8080}
+            - {name: probes, containerPort: 8081}
+          readinessProbe:
+            httpGet: {path: /readyz, port: probes}
+            periodSeconds: 5
+          livenessProbe:
+            httpGet: {path: /healthz, port: probes}
+            periodSeconds: 20
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: {drop: [ALL]}

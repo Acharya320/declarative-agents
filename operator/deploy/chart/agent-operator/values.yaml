@@ -1,0 +1,12 @@
+# Copyright (c) 2026 Nokia
+# SPDX-License-Identifier: BSD-3-Clause
+# The image is the checkout's build under first-party naming (srd009 R4.1);
+# the platform install sets the tag to the revision it built.
+image:
+  repository: localhost/declarative-agents/runtime/agent-operator
+  tag: ""
+  pullPolicy: IfNotPresent
+replicaCount: 1
+resources:
+  requests: {cpu: 50m, memory: 64Mi}
+  limits: {cpu: 500m, memory: 256Mi}

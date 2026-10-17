@@ -444,6 +444,10 @@ func BootPlatform(run CommandRunner, cluster string) error {
 	if _, err := InstallFakeGCS(run, cluster); err != nil {
 		return fmt.Errorf("install fake-gcs: %w", err)
 	}
+	// The agent operator ships with the platform (applications srd009 R4.2).
+	if _, err := InstallAgentOperator(run, cluster); err != nil {
+		return fmt.Errorf("install agent-operator: %w", err)
+	}
 	return nil
 }
 
