@@ -58,69 +58,28 @@ definitions decide when the resource is used.
   Response modes make output shape explicit. YAML and Markdown can be returned
   raw, parsed, or both when configuration allows it.
 
-<!-- field: relationships | form: "tree" -->
+<!-- field: relationships | form: "keyed table" -->
 ## Relationships
 
-- DocumentResource_to_CorpusRoot:
-  - meaning: A resource names the trusted filesystem root for every operation.
-  - invariant: Runtime selectors cannot replace the configured root.
-- DocumentResource_to_PathPolicy:
-  - meaning: Include patterns, extension allowlists, symlink policy, size limits, and binary policy constrain every read.
-  - invariant: A selected path must pass path policy before any file content is read.
-- DocumentSelector_to_PathPolicy:
-  - meaning: Runtime request data is normalized into one relative path or query inside the configured policy.
-  - invariant: Empty paths, absolute paths, parent segments, encoded traversal, and root escapes fail before dispatch output is produced.
-- DocumentResourceWord_to_DocumentResponseMode:
-  - meaning: Each operation returns only the configured output shape.
-  - invariant: Parser selection is trusted config, not browser or model input.
-- DocumentResourceWord_to_MachineSpec:
-  - meaning: A machine_request run may dispatch document resource words while handling one HTTP request.
-  - invariant: The machine sentence owns request-specific sequencing.
-- UIActorConfig_to_DocumentResource:
-  - meaning: The UI references named document resources and actions for sidebar grouping, labels, and display rules.
-  - invariant: UI config can select known resources but cannot grant new filesystem authority.
+| id | meaning | invariant |
+| --- | --- | --- |
+| DocumentResource_to_CorpusRoot | A resource names the trusted filesystem root for every operation. | Runtime selectors cannot replace the configured root. |
+| DocumentResource_to_PathPolicy | Include patterns, extension allowlists, symlink policy, size limits, and binary policy constrain every read. | A selected path must pass path policy before any file content is read. |
+| DocumentSelector_to_PathPolicy | Runtime request data is normalized into one relative path or query inside the configured policy. | Empty paths, absolute paths, parent segments, encoded traversal, and root escapes fail before dispatch output is produced. |
+| DocumentResourceWord_to_DocumentResponseMode | Each operation returns only the configured output shape. | Parser selection is trusted config, not browser or model input. |
+| DocumentResourceWord_to_MachineSpec | A machine_request run may dispatch document resource words while handling one HTTP request. | The machine sentence owns request-specific sequencing. |
+| UIActorConfig_to_DocumentResource | The UI references named document resources and actions for sidebar grouping, labels, and display rules. | UI config can select known resources but cannot grant new filesystem authority. |
 
-<!-- field: operations | form: "tree" -->
+<!-- field: operations | form: "keyed table" -->
 ## Operations
 
-- list:
-  - input: Newline-delimited resource-relative paths from a preceding declared filesystem CLI dispatch.
-  - output: path, name, category, extension, size, and configured metadata.
-  - signals:
-    1. DocumentListReady
-    1. DocumentResourceDenied
-    1. CommandError
-- get:
-  - input: Resource-relative path from a declared selector.
-  - output: path, raw content, parsed content, content type, extension, size, and parse diagnostics according to response mode.
-  - signals:
-    1. DocumentReady
-    1. DocumentMissing
-    1. DocumentResourceDenied
-    1. DocumentParseFailed
-    1. CommandError
-- search:
-  - input: Query text and optional configured category or prefix filter.
-  - output: query, matches, count, and redacted excerpts when configured.
-  - signals:
-    1. DocumentSearchReady
-    1. DocumentResourceDenied
-    1. CommandError
-- validate:
-  - input: Resource-relative paths or configured validation scope.
-  - output: status, findings, checked paths, and parser diagnostics.
-  - signals:
-    1. DocumentValidationPassed
-    1. DocumentValidationFailed
-    1. DocumentResourceDenied
-    1. CommandError
-- suggest:
-  - input: Resource-relative path and instruction payload from a trusted machine or UI action.
-  - output: suggestion ID, path, suggestions, and redacted patch preview.
-  - signals:
-    1. DocumentSuggestionReady
-    1. DocumentResourceDenied
-    1. CommandError
+| id | input | output | signals |
+| --- | --- | --- | --- |
+| list | Newline-delimited resource-relative paths from a preceding declared filesystem CLI dispatch. | path, name, category, extension, size, and configured metadata. | [DocumentListReady, DocumentResourceDenied, CommandError] |
+| get | Resource-relative path from a declared selector. | path, raw content, parsed content, content type, extension, size, and parse diagnostics according to response mode. | [DocumentReady, DocumentMissing, DocumentResourceDenied, DocumentParseFailed, CommandError] |
+| search | Query text and optional configured category or prefix filter. | query, matches, count, and redacted excerpts when configured. | [DocumentSearchReady, DocumentResourceDenied, CommandError] |
+| validate | Resource-relative paths or configured validation scope. | status, findings, checked paths, and parser diagnostics. | [DocumentValidationPassed, DocumentValidationFailed, DocumentResourceDenied, CommandError] |
+| suggest | Resource-relative path and instruction payload from a trusted machine or UI action. | suggestion ID, path, suggestions, and redacted patch preview. | [DocumentSuggestionReady, DocumentResourceDenied, CommandError] |
 
 <!-- field: diagrams | form: "tree" -->
 ## Diagrams

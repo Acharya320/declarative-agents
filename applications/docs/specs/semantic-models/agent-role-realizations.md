@@ -159,36 +159,20 @@ create another canonical role definition.
 | agent-custodian | agent-owner |
 | agent-retirer | agent-owner |
 
-<!-- field: classifications | form: "tree" -->
+<!-- field: classifications | form: "keyed table" -->
 ## Classifications
 
-- role_realization:
-  - counts_toward_role_coverage: true
-  - description: A production or reusable actor with justified canonical bindings.
-- descriptive_multi_role_actor:
-  - counts_toward_role_coverage: true
-  - description: An actor whose stable identity is clearer than any one primary role.
-- wrapper:
-  - counts_toward_role_coverage: false
-  - description: An application or serving wrapper that inherits a canonical realization.
-- configuration_variant:
-  - counts_toward_role_coverage: false
-  - description: A model or configuration choice over one realization.
-- human_interface:
-  - counts_toward_role_coverage: false
-  - description: A human boundary that launches or observes role realizations.
-- test_harness:
-  - counts_toward_role_coverage: false
-  - description: A scenario composer or test runner.
-- mock:
-  - counts_toward_role_coverage: false
-  - description: A scripted test double; the source architecture has no equivalent role.
-- fixture:
-  - counts_toward_role_coverage: false
-  - description: Test-only profile or data.
-- infrastructure_adapter:
-  - counts_toward_role_coverage: false
-  - description: Runtime, protocol, serving, or lifecycle boundary adapter.
+| id | counts_toward_role_coverage | description |
+| --- | --- | --- |
+| role_realization | true | A production or reusable actor with justified canonical bindings. |
+| descriptive_multi_role_actor | true | An actor whose stable identity is clearer than any one primary role. |
+| wrapper | false | An application or serving wrapper that inherits a canonical realization. |
+| configuration_variant | false | A model or configuration choice over one realization. |
+| human_interface | false | A human boundary that launches or observes role realizations. |
+| test_harness | false | A scenario composer or test runner. |
+| mock | false | A scripted test double; the source architecture has no equivalent role. |
+| fixture | false | Test-only profile or data. |
+| infrastructure_adapter | false | Runtime, protocol, serving, or lifecycle boundary adapter. |
 
 <!-- field: bindings | form: "tree" -->
 ## Bindings

@@ -94,44 +94,18 @@ redefining those terms.
 - rest_readers: REST and OpenAPI monitor readers read cached snapshots only.
 - reader_limits: Monitor readers do not execute tools, inspect prompts, or scrape workspace files.
 
-<!-- field: standard_metric_set | form: "tree" -->
+<!-- field: standard_metric_set | form: "keyed table" -->
 ## Standard metric set
 
-- dispatch_duration:
-  - kind: histogram
-  - unit: ms
-  - source: runtime_dispatch
-  - meaning: Wall-clock duration for one command dispatch.
-- dispatch_count:
-  - kind: counter
-  - unit: "{dispatch}"
-  - source: runtime_dispatch
-  - meaning: Count of tool dispatch attempts.
-- dispatch_success:
-  - kind: counter
-  - unit: "{dispatch}"
-  - source: runtime_dispatch
-  - meaning: Count of dispatches whose Result.Signal indicates success for the declared tool.
-- dispatch_failure:
-  - kind: counter
-  - unit: "{dispatch}"
-  - source: runtime_dispatch
-  - meaning: Count of command errors, failed signals, panics, or timeouts.
-- input_bytes:
-  - kind: histogram
-  - unit: By
-  - source: tool_or_runtime
-  - meaning: Size of structured or serialized input when the tool can report it safely.
-- output_bytes:
-  - kind: histogram
-  - unit: By
-  - source: tool_or_runtime
-  - meaning: Size of safe structured output or redacted output preview.
-- retry_count:
-  - kind: counter
-  - unit: "{retry}"
-  - source: tool
-  - meaning: Count of retries attempted inside one declared tool word.
+| id | kind | unit | source | meaning |
+| --- | --- | --- | --- | --- |
+| dispatch_duration | histogram | ms | runtime_dispatch | Wall-clock duration for one command dispatch. |
+| dispatch_count | counter | "{dispatch}" | runtime_dispatch | Count of tool dispatch attempts. |
+| dispatch_success | counter | "{dispatch}" | runtime_dispatch | Count of dispatches whose Result.Signal indicates success for the declared tool. |
+| dispatch_failure | counter | "{dispatch}" | runtime_dispatch | Count of command errors, failed signals, panics, or timeouts. |
+| input_bytes | histogram | By | tool_or_runtime | Size of structured or serialized input when the tool can report it safely. |
+| output_bytes | histogram | By | tool_or_runtime | Size of safe structured output or redacted output preview. |
+| retry_count | counter | "{retry}" | tool | Count of retries attempted inside one declared tool word. |
 
 <!-- field: specialized_metric_families | form: "tree" -->
 ## Specialized metric families
@@ -183,36 +157,20 @@ redefining those terms.
   be safely classified, the tool should omit the attribute and emit a monitor
   diagnostic instead.
 
-<!-- field: relationships | form: "tree" -->
+<!-- field: relationships | form: "keyed table" -->
 ## Relationships
 
-- ToolDef_to_metric_schema:
-  - meaning: ToolDef metrics config declares instruments and allowed attributes for one vocabulary word.
-  - invariant: ToolDef config cannot make the LLM choose metric names, labels, or secret material.
-- Command_to_recorder_port:
-  - meaning: A command emits standard or specialized samples through the shared recorder port.
-  - invariant: Commands do not write directly to REST handlers, OpenTelemetry exporters, or monitor store internals.
-- Runtime_dispatch_to_standard_metrics:
-  - meaning: Dispatch can add duration and status context. It can also add state, signal, and tool identity.
-  - invariant: Runtime code does not invent specialized tool-family metric meaning.
-- MachineSpec_to_workflow_labels:
-  - meaning: Machine or transition metadata can attach stable workflow labels to samples.
-  - invariant: Workflow labels are trusted config values and are not derived from model text or tool output.
-- Recorder_port_to_monitor_store:
-  - meaning: The recorder validates and normalizes samples before the store caches them.
-  - invariant: Invalid samples are rejected or recorded as diagnostics without failing the agent loop.
-- Monitor_store_to_monitor_snapshot:
-  - meaning: The store builds snapshots from bounded recent samples and aggregate state.
-  - invariant: Snapshots are cached monitor views, not durable audit logs.
-- Monitor_store_to_OpenTelemetry:
-  - meaning: Export reads normalized samples or aggregates and maps them to OpenTelemetry metric instruments.
-  - invariant: Export failure does not change tool execution results.
-- Monitor_store_to_REST_API:
-  - meaning: REST and OpenAPI handlers return cached snapshots, schema, and recent sample windows.
-  - invariant: Read handlers do not execute tools or expose prohibited labels.
-- Metrics_to_rollback_lifecycle:
-  - meaning: Metric samples are observability records and do not replace checkpoints, history, UndoMemento data, or workspace refs.
-  - invariant: Rollback uses lifecycle state. Monitor snapshots may help operators inspect behavior but do not restore state.
+| id | meaning | invariant |
+| --- | --- | --- |
+| ToolDef_to_metric_schema | ToolDef metrics config declares instruments and allowed attributes for one vocabulary word. | ToolDef config cannot make the LLM choose metric names, labels, or secret material. |
+| Command_to_recorder_port | A command emits standard or specialized samples through the shared recorder port. | Commands do not write directly to REST handlers, OpenTelemetry exporters, or monitor store internals. |
+| Runtime_dispatch_to_standard_metrics | Dispatch can add duration and status context. It can also add state, signal, and tool identity. | Runtime code does not invent specialized tool-family metric meaning. |
+| MachineSpec_to_workflow_labels | Machine or transition metadata can attach stable workflow labels to samples. | Workflow labels are trusted config values and are not derived from model text or tool output. |
+| Recorder_port_to_monitor_store | The recorder validates and normalizes samples before the store caches them. | Invalid samples are rejected or recorded as diagnostics without failing the agent loop. |
+| Monitor_store_to_monitor_snapshot | The store builds snapshots from bounded recent samples and aggregate state. | Snapshots are cached monitor views, not durable audit logs. |
+| Monitor_store_to_OpenTelemetry | Export reads normalized samples or aggregates and maps them to OpenTelemetry metric instruments. | Export failure does not change tool execution results. |
+| Monitor_store_to_REST_API | REST and OpenAPI handlers return cached snapshots, schema, and recent sample windows. | Read handlers do not execute tools or expose prohibited labels. |
+| Metrics_to_rollback_lifecycle | Metric samples are observability records and do not replace checkpoints, history, UndoMemento data, or workspace refs. | Rollback uses lifecycle state. Monitor snapshots may help operators inspect behavior but do not restore state. |
 
 <!-- field: monitor_snapshot_shape | form: "tree" -->
 ## Monitor snapshot shape

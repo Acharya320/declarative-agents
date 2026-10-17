@@ -50,26 +50,13 @@ or Workspace split, a CheckpointPolicy, or an engine-owned undo-walk.
 | MachineSpec | declarative_program | Defines states, signals, and actions; expresses approval/suspend routing and dispatches lifecycle tools. |  |  |  |  |  |  |
 | ToolDef | tool_contract | Declares tool side effects, reversibility, receipt-based undo, errors, and relationships. |  |  |  |  |  |  |
 
-<!-- field: persisted_state | form: "tree" -->
+<!-- field: persisted_state | form: "keyed table" -->
 ## Persisted state
 
-- db_persisted_state:
-  - owner: CheckpointPort (DoltCheckpoint by default)
-  - examples:
-    1. current State and current Signal (Position)
-    1. iteration, token, and cost counters (AgentSnapshot)
-    1. folded conversation snapshot
-    1. ordered Execution entries with result digests and receipts
-  - storage: Save(Position, Execution); one Dolt commit per step, one branch per run.
-  - rollback: git-style Revert(run_id, step_index) resets the run branch to the target commit.
-- external_effect_state:
-  - owner: originating Command (tool)
-  - examples:
-    1. files changed by write/edit
-    1. external resources created through boundary tools
-    1. child-agent or nested-machine effects
-  - storage: opaque Receipt encoded during Execute and persisted verbatim on the entry.
-  - rollback: the lifecycle tool replays each restored, receipt-bearing Result into the tool's receipt-consuming Undo.
+| id | owner | examples | storage | rollback |
+| --- | --- | --- | --- | --- |
+| db_persisted_state | CheckpointPort (DoltCheckpoint by default) | [current State and current Signal (Position), "iteration, token, and cost counters (AgentSnapshot)", folded conversation snapshot, ordered Execution entries with result digests and receipts] | Save(Position, Execution); one Dolt commit per step, one branch per run. | git-style Revert(run_id, step_index) resets the run branch to the target commit. |
+| external_effect_state | originating Command (tool) | [files changed by write/edit, external resources created through boundary tools, child-agent or nested-machine effects] | opaque Receipt encoded during Execute and persisted verbatim on the entry. | the lifecycle tool replays each restored, receipt-bearing Result into the tool's receipt-consuming Undo. |
 
 <!-- field: ownership_rules -->
 ## Ownership rules

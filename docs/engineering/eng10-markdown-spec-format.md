@@ -126,6 +126,7 @@ Table 3: Field shapes
 | table | one GFM table | columns, when declared, exactly and in order |
 | scalar | one line holding a YAML flow scalar (form: scalar) | the field marker carries the form |
 | typed table | one GFM table whose cells are YAML flow values (form: typed table) | the field marker carries the form |
+| keyed table | a typed table whose first column, id, holds each record's key (form: keyed table) | the field marker carries the form |
 | tree | nested lists: bullets for map entries, numbers for list elements (form: tree) | the field marker carries the form |
 | none | the line None, for an empty list or map (form: empty list, form: empty map) | the field marker carries the form |
 | empty | nothing; the field only holds child nodes | none |
@@ -188,6 +189,7 @@ Table 6: Value conversions
 | number, boolean, null, or a string prose would misread | scalar | pattern confidence, test_case_count |
 | list of records with scalar or scalar-list values | typed table | index tables with counts, road-map use_cases |
 | map under a field whose slot is declared | nested fields, one heading per key | architecture overview, receipt groups |
+| map of records keyed by id sharing their attributes | keyed table | semantic-model relationships, metric definitions |
 | any other map or list | tree | test-case inputs and expected, implementation_status, diagrams |
 | a value no other form holds exactly | fenced yaml block, reported | none in the corpus once regenerated, or each one listed |
 
@@ -202,6 +204,8 @@ Inside a typed form every value is a YAML flow value on one line. A number, bool
 
 The scalar form holds one such value on one line. The typed table form is a GFM table with one column per key, in the first record's key order extended by keys later records add; a cell holds the record's value under its column, and an empty cell means the record has no such key. An empty string prints as "" so it stays distinct from an absent key, and a pipe inside a cell is escaped as \|.
 
+The keyed table form holds records keyed by id: a map of two or more records that share their attributes, each record holding at least half of the attributes any record holds and the attributes numbering at most two more than the largest record. It prints as a typed table whose first column, id, holds the map key, and reads back as the same map. Such a map is data, a table of named things such as relationships or metric definitions, so its ids are not fields and the constitution does not list them (GH-2662).
+
 The tree form prints a map as a bullet list, one entry per key: `- key: value` for a scalar, or `- key:` followed by the nested value indented by two spaces. It prints a list as a numbered list, `1. value` for a scalar element, or `1.` followed by the nested value. Bullets mean map entries and numbers mean list elements, so the reader and the parser tell a list of maps from a map of lists without punctuation. A multi-line string prints after `- key:` as indented Markdown text, so a Mermaid diagram under a key draws, and it reads back verbatim with the indentation removed. An empty map or list inside a tree prints as {} or []. A field whose whole value is an empty list or map prints the line None, with form: empty list or form: empty map, so the reader sees a word and the parser restores the exact empty value.
 
 Table 7: Typed forms, one example each
@@ -210,6 +214,7 @@ Table 7: Typed forms, one example each
 | --- | --- | --- |
 | scalar | test_case_count: 12 | `<!-- field: test_case_count \| form: "scalar" -->`, then the line 12 |
 | typed table | roadmap_summary: [{version: "00.0", use_cases_done: 2}] | header \| version \| use_cases_done \|, row \| "00.0" \| 2 \| |
+| keyed table | relationships: {ToolDef_to_ToolSpec: {meaning: ..., invariant: ...}} | header \| id \| meaning \| invariant \|, row \| ToolDef_to_ToolSpec \| ... \| ... \| |
 | tree | inputs: {profile: p.yaml, retries: 3, words: [read, edit]} | - profile: p.yaml, - retries: 3, - words:, then 1. read and 1. edit indented |
 
 A key the tree form cannot print as a bare name, text whose first line would read back as a list item, and a table cell holding a newline keep the fenced yaml block, reported.

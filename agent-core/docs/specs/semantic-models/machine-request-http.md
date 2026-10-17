@@ -78,33 +78,19 @@ Only response words bridge machine output back to HTTP.
   outcome. Profile-specific proxies may forward or display that trace, but
   they should not be the source of generic route or machine identity.
 
-<!-- field: relationships | form: "tree" -->
+<!-- field: relationships | form: "keyed table" -->
 ## Relationships
 
-- MachineRequestEndpoint_to_MachineRequestBinding:
-  - meaning: An endpoint with binding machine_request delegates accepted requests to the configured binding.
-  - invariant: The endpoint validates HTTP transport data before a machine run starts.
-- MachineRequestBinding_to_RequestMachine:
-  - meaning: The binding constructs the configured LoopParams, selected registry, initial state, and request seed data for one run.
-  - invariant: Trusted config chooses profile, machine, tool selection, and boundary config; HTTP callers do not.
-- Profile_to_RequestToolSelection:
-  - meaning: The request runner loads declarations from trusted profile config, selects only actions named by the request MachineSpec, and registers only selected builtin init names.
-  - invariant: Missing request-machine actions fail configuration validation before request execution, and unselected request factories remain unavailable.
-- RequestEvent_to_RequestMachine:
-  - meaning: The request event becomes structured input available to the first machine action and later response words.
-  - invariant: RequestEvent contains only declared, validated, and redacted request fields.
-- RequestMachine_to_ResponseWord:
-  - meaning: The machine routes to response vocabulary when it needs to shape the HTTP response.
-  - invariant: Response words are visible MachineSpec actions with declared outputs and signals.
-- ResponseWord_to_ResponseSelection:
-  - meaning: Response word output is mapped to HTTP status, headers, body, and content type.
-  - invariant: Undeclared response fields cannot be written to the HTTP response.
-- Error_to_ResponseSelection:
-  - meaning: Validation, config, timeout, run, and response failures map through configured error responses.
-  - invariant: Error responses redact secrets, raw prompts, credentials, internal paths, and unredacted body content.
-- RequestTrace_to_RunResult:
-  - meaning: The request trace links HTTP metadata with RunResult and RunEvent records.
-  - invariant: Traces record generic route identity and run outcome without secret material.
+| id | meaning | invariant |
+| --- | --- | --- |
+| MachineRequestEndpoint_to_MachineRequestBinding | An endpoint with binding machine_request delegates accepted requests to the configured binding. | The endpoint validates HTTP transport data before a machine run starts. |
+| MachineRequestBinding_to_RequestMachine | The binding constructs the configured LoopParams, selected registry, initial state, and request seed data for one run. | Trusted config chooses profile, machine, tool selection, and boundary config; HTTP callers do not. |
+| Profile_to_RequestToolSelection | The request runner loads declarations from trusted profile config, selects only actions named by the request MachineSpec, and registers only selected builtin init names. | Missing request-machine actions fail configuration validation before request execution, and unselected request factories remain unavailable. |
+| RequestEvent_to_RequestMachine | The request event becomes structured input available to the first machine action and later response words. | RequestEvent contains only declared, validated, and redacted request fields. |
+| RequestMachine_to_ResponseWord | The machine routes to response vocabulary when it needs to shape the HTTP response. | Response words are visible MachineSpec actions with declared outputs and signals. |
+| ResponseWord_to_ResponseSelection | Response word output is mapped to HTTP status, headers, body, and content type. | Undeclared response fields cannot be written to the HTTP response. |
+| Error_to_ResponseSelection | Validation, config, timeout, run, and response failures map through configured error responses. | Error responses redact secrets, raw prompts, credentials, internal paths, and unredacted body content. |
+| RequestTrace_to_RunResult | The request trace links HTTP metadata with RunResult and RunEvent records. | Traces record generic route identity and run outcome without secret material. |
 
 <!-- field: request_flow | form: "tree" -->
 ## Request flow

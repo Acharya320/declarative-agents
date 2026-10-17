@@ -95,3 +95,51 @@ func TestUnknownFormIsAFinding(t *testing.T) {
 		t.Error("an unknown form raised no finding")
 	}
 }
+
+// TestKeyedTableHoldsRecordsKeyedByID prints records keyed by id as a table
+// with an id column, an optional attribute as an empty cell, and keeps a
+// heterogeneous map in the tree form (GH-2662).
+func TestKeyedTableHoldsRecordsKeyedByID(t *testing.T) {
+	d := toyDeclaration(t)
+	original := yamlDoc(t, recipeWith(`relationships:
+  DocumentResource_to_CorpusRoot:
+    meaning: A resource reads one corpus root.
+    invariant: The root is absolute.
+  ToolDef_to_ToolSpec:
+    meaning: A declaration becomes one spec.
+    invariant: Names match.
+bibliography:
+  fowler-cqrs-2011:
+    text: Fowler, CQRS, 2011.
+    url: https://martinfowler.com/bliki/CQRS.html
+  gamma-design-patterns-1994:
+    text: Gamma et al., Design Patterns, 1994.
+  "2":
+    text: A key that looks like a number stays a string.
+measurements:
+  environment:
+    platform: kind
+    architecture: arm64
+  steady_state:
+    cpu_millicores: 12
+    memory_mib: 40
+    pvc_capacity_mib: 1024
+    data_bytes: 2048
+`))
+	md, back := roundTrip(t, d, original)
+	if diff := Diff(original, back); diff != "" {
+		t.Fatalf("round trip changed %s\n%s", diff, md)
+	}
+	for field, want := range map[string]string{
+		"relationships": "| id | meaning | invariant |\n| --- | --- | --- |\n| DocumentResource_to_CorpusRoot | A resource reads one corpus root. | The root is absolute. |",
+		"bibliography":  "| id | text | url |\n| --- | --- | --- |\n| fowler-cqrs-2011 | Fowler, CQRS, 2011. | https://martinfowler.com/bliki/CQRS.html |\n| gamma-design-patterns-1994 | Gamma et al., Design Patterns, 1994. |  |\n| \"2\" |",
+		"measurements":  "- environment:\n  - platform: kind",
+	} {
+		if !strings.Contains(fieldSection(md, field), want) {
+			t.Errorf("%s section lacks %q\n%s", field, want, fieldSection(md, field))
+		}
+	}
+	if !strings.Contains(md, `<!-- field: relationships | form: "keyed table" -->`) {
+		t.Errorf("relationships did not take the keyed table form\n%s", md)
+	}
+}

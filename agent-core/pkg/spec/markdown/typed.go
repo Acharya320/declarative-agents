@@ -24,6 +24,8 @@ const (
 	formTree        = "tree"
 	formEmptyList   = "empty list"
 	formEmptyMap    = "empty map"
+	formKeyedTable  = "keyed table"
+	keyedIDColumn   = "id"
 	noneText        = "None"
 	flowPlainReject = "[]{},#&*!|>'\"%@`"
 )
@@ -37,7 +39,7 @@ func typedFormFor(value *yaml.Node) (string, []string, bool) {
 	candidates := []struct {
 		form  string
 		print func(*yaml.Node) ([]string, error)
-	}{{formScalar, scalarLines}, {formTypedTable, typedTableLines}, {formTree, treeLines}}
+	}{{formScalar, scalarLines}, {formTypedTable, typedTableLines}, {formKeyedTable, keyedTableLines}, {formTree, treeLines}}
 	for _, c := range candidates {
 		lines, err := c.print(value)
 		if err != nil {
@@ -83,6 +85,8 @@ func parseTyped(form, text string) (*yaml.Node, error) {
 		return parseTypedTable(text)
 	case formTree:
 		return parseTree(text)
+	case formKeyedTable:
+		return parseKeyedTable(text)
 	case formEmptyList, formEmptyMap:
 		if strings.TrimSpace(text) != noneText {
 			return nil, fmt.Errorf("form %s holds the line %s", form, noneText)
@@ -96,7 +100,7 @@ func parseTyped(form, text string) (*yaml.Node, error) {
 }
 
 // typedForms are the forms a field marker may name.
-var typedForms = []string{formScalar, formTypedTable, formTree, formEmptyList, formEmptyMap}
+var typedForms = []string{formScalar, formTypedTable, formKeyedTable, formTree, formEmptyList, formEmptyMap}
 
 // emptyForm names the form an empty list or map prints in: the line None,
 // which a reader takes for a word and the parser restores exactly (GH-2655).
@@ -188,6 +192,65 @@ func scalarLines(value *yaml.Node) ([]string, error) {
 	}
 	text, err := encodeFlowScalar(value)
 	return []string{text}, err
+}
+
+// keyedRecords reports a map of two or more records keyed by id that share
+// a small common attribute set: every record a map holding at least half of
+// the attributes any record holds, and that union at most two keys larger
+// than the largest record. Such a map is data, a table of records, not a set
+// of nested fields (GH-2662).
+func keyedRecords(value *yaml.Node) bool {
+	if value.Kind != yaml.MappingNode || len(value.Content) < 4 {
+		return false
+	}
+	union, largest, smallest := map[string]bool{}, 0, len(value.Content)
+	for i := 1; i < len(value.Content); i += 2 {
+		record := value.Content[i]
+		if record.Kind != yaml.MappingNode || len(record.Content) == 0 {
+			return false
+		}
+		largest, smallest = max(largest, len(record.Content)/2), min(smallest, len(record.Content)/2)
+		for j := 0; j < len(record.Content); j += 2 {
+			union[record.Content[j].Value] = true
+		}
+	}
+	return len(union) <= largest+2 && 2*smallest >= len(union)
+}
+
+// keyedTableLines prints records keyed by id as a typed table whose first
+// column, id, holds each record's key.
+func keyedTableLines(value *yaml.Node) ([]string, error) {
+	if !keyedRecords(value) {
+		return nil, errors.New("a keyed table holds records keyed by id sharing their attributes")
+	}
+	rows := &yaml.Node{Kind: yaml.SequenceNode, Tag: "!!seq"}
+	for i := 0; i+1 < len(value.Content); i += 2 {
+		record := value.Content[i+1]
+		if mapValue(record, keyedIDColumn) != nil {
+			return nil, errors.New("a record holds its own id key")
+		}
+		row := &yaml.Node{Kind: yaml.MappingNode, Tag: "!!map",
+			Content: append([]*yaml.Node{stringNode(keyedIDColumn), value.Content[i]}, record.Content...)}
+		rows.Content = append(rows.Content, row)
+	}
+	return typedTableLines(rows)
+}
+
+// parseKeyedTable reads a keyed table back into the map of records it holds.
+func parseKeyedTable(text string) (*yaml.Node, error) {
+	rows, err := parseTypedTable(text)
+	if err != nil {
+		return nil, err
+	}
+	out := &yaml.Node{Kind: yaml.MappingNode, Tag: "!!map"}
+	for _, row := range rows.Content {
+		if len(row.Content) < 2 || row.Content[0].Value != keyedIDColumn {
+			return nil, errors.New("a keyed table row starts with its id")
+		}
+		out.Content = append(out.Content, row.Content[1],
+			&yaml.Node{Kind: yaml.MappingNode, Tag: "!!map", Content: row.Content[2:]})
+	}
+	return out, nil
 }
 
 // typedTableLines prints a list of records whose values are scalars or lists

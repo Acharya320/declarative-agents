@@ -960,55 +960,27 @@ Deploy each Role-Sharded Workload from its Composition Manifest onto a Persisten
 
 - note: Capability Ladder is the root. Every local pattern is connected through containment, prerequisites, or refinements, and all `da:` references resolve to the declared sibling language.
 
-<!-- field: bibliography | form: "tree" -->
+<!-- field: bibliography | form: "keyed table" -->
 ## Bibliography
 
-- reference-implementation:
-  - text: "Nokia Bell Labs. (2026). Declarative Agents repository: applications/catalog, applications/chatbot-mesh, applications/coding-agent, applications/agent-architecture, and shared application documents. Internal evidence, not an independent source."
-- operator-framework-capabilities:
-  - text: Operator Framework Authors. (2024). Operator Capability Levels. Operator SDK Documentation.
-  - url: https://sdk.operatorframework.io/docs/overview/operator-capabilities/
-- champeon-progressive-enhancement-2003:
-  - text: Champeon, S., & Finck, N. (2003). Inclusive Web Design for the Future with Progressive Enhancement. South by Southwest Interactive.
-- bazel-external-dependencies:
-  - text: Bazel Authors. (2025). External Dependencies Overview. Bazel Documentation.
-  - url: https://bazel.build/external/overview
-- git-submodules:
-  - text: "Chacon, S., \u0026 Straub, B. (2014). Pro Git (2nd ed.), Git Tools: Submodules. Apress."
-  - url: https://git-scm.com/book/en/v2/Git-Tools-Submodules
-- hunt-thomas-pragmatic-1999:
-  - text: "Hunt, A., \u0026 Thomas, D. (1999). The Pragmatic Programmer: From Journeyman to Master. Addison-Wesley. (Don't Repeat Yourself.)"
-- oci-image-spec:
-  - text: Open Container Initiative. (2024). OCI Image Format Specification, Version 1.1.
-  - url: https://github.com/opencontainers/image-spec
-- cyclonedx-spec:
-  - text: OWASP Foundation. (2024). CycloneDX Bill of Materials Standard, Version 1.6.
-  - url: https://cyclonedx.org/specification/overview/
-- dolstra-nix-2006:
-  - text: Dolstra, E. (2006). The Purely Functional Software Deployment Model. PhD thesis, Utrecht University.
-- bazel-runfiles:
-  - text: Bazel Authors. (2025). Runfiles and Runtime Dependencies. Bazel Documentation.
-  - url: https://bazel.build/extending/rules#runfiles
-- twelve-factor-build-release-run:
-  - text: "Wiggins, A. (2017). The Twelve-Factor App: Strictly Separate Build and Run Stages."
-  - url: https://12factor.net/build-release-run
-- kubernetes-configmaps:
-  - text: Kubernetes Authors. (2025). ConfigMaps. Kubernetes Documentation.
-  - url: https://kubernetes.io/docs/concepts/configuration/configmap/
-- kubernetes-kustomize:
-  - text: Kubernetes Authors. (2025). Declarative Management of Kubernetes Objects Using Kustomize. Kubernetes Documentation.
-  - url: https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/
-- gamma-design-patterns-1994:
-  - text: "Gamma, E., Helm, R., Johnson, R., \u0026 Vlissides, J. (1994). Design Patterns: Elements of Reusable Object-Oriented Software. Addison-Wesley. (Decorator.)"
-- newman-microservices-2021:
-  - text: Newman, S. (2021). Building Microservices (2nd ed.). O'Reilly Media.
-- saltzer-schroeder-1975:
-  - text: Saltzer, J. H., & Schroeder, M. D. (1975). The Protection of Information in Computer Systems. Proceedings of the IEEE, 63(9), 1278-1308.
-- kubernetes-workloads:
-  - text: Kubernetes Authors. (2025). Workloads. Kubernetes Documentation.
-  - url: https://kubernetes.io/docs/concepts/workloads/
-- burns-borg-omega-kubernetes-2016:
-  - text: Burns, B., Grant, B., Oppenheimer, D., Brewer, E., & Wilkes, J. (2016). Borg, Omega, and Kubernetes. Communications of the ACM, 59(5), 50-57.
-- fowler-cqrs-2011:
-  - text: Fowler, M. (2011). CQRS. martinfowler.com.
-  - url: https://martinfowler.com/bliki/CQRS.html
+| id | text | url |
+| --- | --- | --- |
+| reference-implementation | "Nokia Bell Labs. (2026). Declarative Agents repository: applications/catalog, applications/chatbot-mesh, applications/coding-agent, applications/agent-architecture, and shared application documents. Internal evidence, not an independent source." |  |
+| operator-framework-capabilities | Operator Framework Authors. (2024). Operator Capability Levels. Operator SDK Documentation. | https://sdk.operatorframework.io/docs/overview/operator-capabilities/ |
+| champeon-progressive-enhancement-2003 | Champeon, S., & Finck, N. (2003). Inclusive Web Design for the Future with Progressive Enhancement. South by Southwest Interactive. |  |
+| bazel-external-dependencies | Bazel Authors. (2025). External Dependencies Overview. Bazel Documentation. | https://bazel.build/external/overview |
+| git-submodules | "Chacon, S., \u0026 Straub, B. (2014). Pro Git (2nd ed.), Git Tools: Submodules. Apress." | https://git-scm.com/book/en/v2/Git-Tools-Submodules |
+| hunt-thomas-pragmatic-1999 | "Hunt, A., \u0026 Thomas, D. (1999). The Pragmatic Programmer: From Journeyman to Master. Addison-Wesley. (Don't Repeat Yourself.)" |  |
+| oci-image-spec | Open Container Initiative. (2024). OCI Image Format Specification, Version 1.1. | https://github.com/opencontainers/image-spec |
+| cyclonedx-spec | OWASP Foundation. (2024). CycloneDX Bill of Materials Standard, Version 1.6. | https://cyclonedx.org/specification/overview/ |
+| dolstra-nix-2006 | Dolstra, E. (2006). The Purely Functional Software Deployment Model. PhD thesis, Utrecht University. |  |
+| bazel-runfiles | Bazel Authors. (2025). Runfiles and Runtime Dependencies. Bazel Documentation. | https://bazel.build/extending/rules#runfiles |
+| twelve-factor-build-release-run | "Wiggins, A. (2017). The Twelve-Factor App: Strictly Separate Build and Run Stages." | https://12factor.net/build-release-run |
+| kubernetes-configmaps | Kubernetes Authors. (2025). ConfigMaps. Kubernetes Documentation. | https://kubernetes.io/docs/concepts/configuration/configmap/ |
+| kubernetes-kustomize | Kubernetes Authors. (2025). Declarative Management of Kubernetes Objects Using Kustomize. Kubernetes Documentation. | https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/ |
+| gamma-design-patterns-1994 | "Gamma, E., Helm, R., Johnson, R., \u0026 Vlissides, J. (1994). Design Patterns: Elements of Reusable Object-Oriented Software. Addison-Wesley. (Decorator.)" |  |
+| newman-microservices-2021 | Newman, S. (2021). Building Microservices (2nd ed.). O'Reilly Media. |  |
+| saltzer-schroeder-1975 | Saltzer, J. H., & Schroeder, M. D. (1975). The Protection of Information in Computer Systems. Proceedings of the IEEE, 63(9), 1278-1308. |  |
+| kubernetes-workloads | Kubernetes Authors. (2025). Workloads. Kubernetes Documentation. | https://kubernetes.io/docs/concepts/workloads/ |
+| burns-borg-omega-kubernetes-2016 | Burns, B., Grant, B., Oppenheimer, D., Brewer, E., & Wilkes, J. (2016). Borg, Omega, and Kubernetes. Communications of the ACM, 59(5), 50-57. |  |
+| fowler-cqrs-2011 | Fowler, M. (2011). CQRS. martinfowler.com. | https://martinfowler.com/bliki/CQRS.html |
