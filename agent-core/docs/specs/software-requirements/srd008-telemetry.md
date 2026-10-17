@@ -391,43 +391,41 @@ Integration runs dual-export file and OTLP evidence with bounded run identity an
 
 - docs/specs/semantic-models/tool-metrics-monitoring.md
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Every agent built on agent-core needs OpenTelemetry w..."] --> Goals["Goals: Telemetry Implementation"]
-      Goals --> R1["R1: ExporterConfig"]
-      Goals --> R2["R2: Trace type"]
-      Goals --> R3["R3: NewRoot"]
-      Goals --> R4["R4: File exporter"]
-      Goals --> R5["R5: OTLP exporter"]
-      Goals --> R6["R6: TraceAdapter"]
-      Goals --> R7["R7: Offline replay"]
-      Goals --> R8["R8: Monitor metric export"]
-      Goals --> R9["R9: Persistent integration observability"]
-      AC1["AC1: ExporterConfig requires at least one exporter. NewRoot re..."]
-      R1 --> AC1
-      AC2["AC2: Trace.Push creates a child span. Trace.Event records an e..."]
-      R2 --> AC2
-      AC3["AC3: Trace.Context returns a context.Context. Trace.Meter retu..."]
-      R2 --> AC3
-      AC4["AC4: NewRoot accepts a service name used for OTel resource, tr..."]
-      R3 --> AC4
-      AC5["AC5: Shutdown flushes, ends the root span, closes files, and i..."]
-      R3 --> AC5
-      AC6["AC6: File exporter writes to a temp file and renames atomicall..."]
-      R4 --> AC6
-      AC7["AC7: OTLP exporter sends traces and metrics via insecure gRPC,..."]
-      R5 --> AC7
-      R8 --> AC7
-      AC8["AC8: TraceAdapter satisfies tracing.Tracer at compile time. Pu..."]
-      R6 --> AC8
-      AC9["AC9: Declared OTLP words load and relay an offline protobuf-JSON batch"]
-      R7 --> AC9
-      AC10["AC10: Integration runs retain attributable trace and metric evidence..."]
-      R9 --> AC10
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Every agent built on agent-core needs OpenTelemetry w..."] --> Goals["Goals: Telemetry Implementation"]
+    Goals --> R1["R1: ExporterConfig"]
+    Goals --> R2["R2: Trace type"]
+    Goals --> R3["R3: NewRoot"]
+    Goals --> R4["R4: File exporter"]
+    Goals --> R5["R5: OTLP exporter"]
+    Goals --> R6["R6: TraceAdapter"]
+    Goals --> R7["R7: Offline replay"]
+    Goals --> R8["R8: Monitor metric export"]
+    Goals --> R9["R9: Persistent integration observability"]
+    AC1["AC1: ExporterConfig requires at least one exporter. NewRoot re..."]
+    R1 --> AC1
+    AC2["AC2: Trace.Push creates a child span. Trace.Event records an e..."]
+    R2 --> AC2
+    AC3["AC3: Trace.Context returns a context.Context. Trace.Meter retu..."]
+    R2 --> AC3
+    AC4["AC4: NewRoot accepts a service name used for OTel resource, tr..."]
+    R3 --> AC4
+    AC5["AC5: Shutdown flushes, ends the root span, closes files, and i..."]
+    R3 --> AC5
+    AC6["AC6: File exporter writes to a temp file and renames atomicall..."]
+    R4 --> AC6
+    AC7["AC7: OTLP exporter sends traces and metrics via insecure gRPC,..."]
+    R5 --> AC7
+    R8 --> AC7
+    AC8["AC8: TraceAdapter satisfies tracing.Tracer at compile time. Pu..."]
+    R6 --> AC8
+    AC9["AC9: Declared OTLP words load and relay an offline protobuf-JSON batch"]
+    R7 --> AC9
+    AC10["AC10: Integration runs retain attributable trace and metric evidence..."]
+    R9 --> AC10
+  ```

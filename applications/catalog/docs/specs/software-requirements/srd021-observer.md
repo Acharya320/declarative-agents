@@ -156,15 +156,13 @@ The specification names coding-agent, agent-architecture, and the chatbot-mesh a
 - srd008-observer-agent
 - srd020-collector
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-planned:
-    - "The generalized catalog observer profile, tools, declarations, REST definitions, and UX, promoted from applications/chatbot-mesh/agents/observer."
-    - "bindings.catalog and per-application deployment_realizations rows in agent-role-realizations.md, added when the catalog observer profile and per-application workloads exist."
-    - "Coding-agent and agent-architecture adoption of the family against their release selectors; chatbot-mesh observer rebinding to the catalog family."
-```
+- planned:
+  1. The generalized catalog observer profile, tools, declarations, REST definitions, and UX, promoted from applications/chatbot-mesh/agents/observer.
+  1. bindings.catalog and per-application deployment_realizations rows in agent-role-realizations.md, added when the catalog observer profile and per-application workloads exist.
+  1. Coding-agent and agent-architecture adoption of the family against their release selectors; chatbot-mesh observer rebinding to the catalog family.
 
 <!-- field: platform_dependencies_note -->
 ## Platform dependencies note

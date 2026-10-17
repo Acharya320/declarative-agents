@@ -269,33 +269,31 @@ Config, source, and actions API endpoints work, and documentation API routes are
 - R8.2
 - R8.3
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Evaluation results (session summaries, per-point metr..."] --> Goals["Goals: Bench Web UI"]
-      Goals --> R1["R1: HTTP server and SPA routing"]
-      Goals --> R2["R2: Session API"]
-      Goals --> R3["R3: Config API"]
-      Goals --> R4["R4: Frontend pages"]
-      Goals --> R5["R5: Build integration"]
-      Goals --> R6["R6: Documentation ownership boundary"]
-      Goals --> R7["R7: Source API"]
-      Goals --> R8["R8: Actions API"]
-      AC1["AC1: The agent, configured with the bench machine, serves the..."]
-      R1 --> AC1
-      R5 --> AC1
-      AC2["AC2: Session, point, trace, and experiment API endpoints retur..."]
-      R2 --> AC2
-      AC3["AC3: The dashboard, session detail, trace viewer, and launch p..."]
-      R4 --> AC3
-      AC4["AC4: Config, source, and actions API endpoints work, and docum..."]
-      R3 --> AC4
-      R6 --> AC4
-      R7 --> AC4
-      R8 --> AC4
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Evaluation results (session summaries, per-point metr..."] --> Goals["Goals: Bench Web UI"]
+    Goals --> R1["R1: HTTP server and SPA routing"]
+    Goals --> R2["R2: Session API"]
+    Goals --> R3["R3: Config API"]
+    Goals --> R4["R4: Frontend pages"]
+    Goals --> R5["R5: Build integration"]
+    Goals --> R6["R6: Documentation ownership boundary"]
+    Goals --> R7["R7: Source API"]
+    Goals --> R8["R8: Actions API"]
+    AC1["AC1: The agent, configured with the bench machine, serves the..."]
+    R1 --> AC1
+    R5 --> AC1
+    AC2["AC2: Session, point, trace, and experiment API endpoints retur..."]
+    R2 --> AC2
+    AC3["AC3: The dashboard, session detail, trace viewer, and launch p..."]
+    R4 --> AC3
+    AC4["AC4: Config, source, and actions API endpoints work, and docum..."]
+    R3 --> AC4
+    R6 --> AC4
+    R7 --> AC4
+    R8 --> AC4
+  ```

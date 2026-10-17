@@ -24,23 +24,21 @@ substitutes a shell-script child or fake agent binary.
 
 - rel01.0-uc001-coding-loop
 
-<!-- field: deadline_hierarchy -->
+<!-- field: deadline_hierarchy | form: "tree" -->
 ## Deadline hierarchy
 
-```yaml
-model_call: 30s
-child_agent_run: 10m
-outer_emergency: 12m
-cleanup_grace: 3s
-invariant: model_call < child_agent_run and child_agent_run + cleanup_grace < outer_emergency
-timeout_evidence:
-    - combined stdout and stderr
-    - bounded trace tail
-    - last observed state
-    - last observed tool
-    - classified active phase
-cancellation: Outer emergency cancellation sends TERM and then KILL to the full process group after cleanup_grace.
-```
+- model_call: 30s
+- child_agent_run: 10m
+- outer_emergency: 12m
+- cleanup_grace: 3s
+- invariant: model_call < child_agent_run and child_agent_run + cleanup_grace < outer_emergency
+- timeout_evidence:
+  1. combined stdout and stderr
+  1. bounded trace tail
+  1. last observed state
+  1. last observed tool
+  1. classified active phase
+- cancellation: Outer emergency cancellation sends TERM and then KILL to the full process group after cleanup_grace.
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -79,32 +77,28 @@ A
 
 mage integration:executorLive
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-agent_binary: production agent-core binary built from the demo.yaml core_root
-executor_profile: applications/catalog/agents/executor/profile.yaml resolved through the application package
-task_prompt: Implement the greeting behavior specified by srd001-greet.yaml.
-workspace: fresh testdata/integration/coding-loop/workspace copy
-model_config: canonical model identity served by the deterministic Ollama-compatible release boundary
-model_call_deadline: 30s
-run_deadline: 12m outer emergency bound
-validation_command: go test ./...
-```
+- agent_binary: production agent-core binary built from the demo.yaml core_root
+- executor_profile: applications/catalog/agents/executor/profile.yaml resolved through the application package
+- task_prompt: Implement the greeting behavior specified by srd001-greet.yaml.
+- workspace: fresh testdata/integration/coding-loop/workspace copy
+- model_config: canonical model identity served by the deterministic Ollama-compatible release boundary
+- model_call_deadline: 30s
+- run_deadline: 12m outer emergency bound
+- validation_command: go test ./...
 
-<!-- field: expected_outputs -->
+<!-- field: expected_outputs | form: "tree" -->
 #### Expected outputs
 
-```yaml
-workspace_change: The greet implementation differs from the baseline and satisfies the SRD.
-validation_result: go test ./... exits successfully in the changed workspace.
-executor_status: Succeeded
-tool_results: Filesystem edits and Go validation results are present.
-task_summary: Names the implemented greeting behavior and successful validation.
-deterministic_model_sequence: edit, then done
-fake_agent_invocations: 0
-```
+- workspace_change: The greet implementation differs from the baseline and satisfies the SRD.
+- validation_result: go test ./... exits successfully in the changed workspace.
+- executor_status: Succeeded
+- tool_results: Filesystem edits and Go validation results are present.
+- task_summary: Names the implemented greeting behavior and successful validation.
+- deterministic_model_sequence: edit, then done
+- fake_agent_invocations: 0
 
 <!-- field: traces -->
 #### Traces
@@ -139,35 +133,31 @@ B
 
 mage integration:plannerDelegation
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-agent_binary: production agent-core binary used for both parent and child profile execution
-planner_profile: applications/catalog/agents/planner/profile.yaml resolved through the application package
-executor_profile: applications/catalog/agents/executor/profile.yaml resolved through the same package
-requirement_graph: testdata/integration/coding-loop requirement graph with one ready greet requirement
-srd_context: testdata/integration/coding-loop/srd001-greet.yaml
-workspace: fresh testdata/integration/coding-loop/workspace copy
-planning_model_config: canonical planner model identity served by the deterministic Ollama-compatible release boundary
-execution_model_config: canonical executor model identity served by the same deterministic boundary and inherited by the real child process
-model_call_deadline: 30s
-child_agent_deadline: 10m
-outer_emergency_deadline: 12m with 3s process-group cleanup grace
-```
+- agent_binary: production agent-core binary used for both parent and child profile execution
+- planner_profile: applications/catalog/agents/planner/profile.yaml resolved through the application package
+- executor_profile: applications/catalog/agents/executor/profile.yaml resolved through the same package
+- requirement_graph: testdata/integration/coding-loop requirement graph with one ready greet requirement
+- srd_context: testdata/integration/coding-loop/srd001-greet.yaml
+- workspace: fresh testdata/integration/coding-loop/workspace copy
+- planning_model_config: canonical planner model identity served by the deterministic Ollama-compatible release boundary
+- execution_model_config: canonical executor model identity served by the same deterministic boundary and inherited by the real child process
+- model_call_deadline: 30s
+- child_agent_deadline: 10m
+- outer_emergency_deadline: 12m with 3s process-group cleanup grace
 
-<!-- field: expected_outputs -->
+<!-- field: expected_outputs | form: "tree" -->
 #### Expected outputs
 
-```yaml
-materialized_task: One issue or task names the greet requirement, workspace, and go test ./... validation.
-delegation: The planner invokes the canonical executor profile through the real agent binary.
-workspace_change: The delegated executor produces the greet implementation.
-validation_result: go test ./... exits successfully in the changed workspace.
-planner_outcome: Records created task, graph status change, executor outcome, and Completed terminal state.
-planner_model_invocations: 1
-fake_agent_invocations: 0
-```
+- materialized_task: One issue or task names the greet requirement, workspace, and go test ./... validation.
+- delegation: The planner invokes the canonical executor profile through the real agent binary.
+- workspace_change: The delegated executor produces the greet implementation.
+- validation_result: go test ./... exits successfully in the changed workspace.
+- planner_outcome: Records created task, graph status change, executor outcome, and Completed terminal state.
+- planner_model_invocations: 1
+- fake_agent_invocations: 0
 
 <!-- field: traces -->
 #### Traces
@@ -211,32 +201,28 @@ mage integration:criticGate
 
 go test ./magefiles -run '^Test(ApplicationOutcomeMapsOnlyCanonicalVerdicts|CriticCandidateFixturesHaveOppositeOracleResults|CodingLoopStagesGenerateOnceAndPreserveExactWorkspace|RunBuiltAgentTimeoutRetainsPhaseDiagnosticsAndKillsGroup)$'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-agent_binary: production agent-core binary used for critic point execution
-critic_profile: applications/catalog/agents/critic/profile-workspace.yaml resolved through the application package
-composite_accepted_candidate: exact workspace object produced by Stage B, retained until both critic verdicts complete
-standalone_accepted_candidate: deterministic conforming fixture
-rejected_candidate: fixture variant whose greeting violates srd001-greet.yaml
-oracle_command: canonical profile declaration runs go test ./...
-```
+- agent_binary: production agent-core binary used for critic point execution
+- critic_profile: applications/catalog/agents/critic/profile-workspace.yaml resolved through the application package
+- composite_accepted_candidate: exact workspace object produced by Stage B, retained until both critic verdicts complete
+- standalone_accepted_candidate: deterministic conforming fixture
+- rejected_candidate: fixture variant whose greeting violates srd001-greet.yaml
+- oracle_command: canonical profile declaration runs go test ./...
 
-<!-- field: expected_outputs -->
+<!-- field: expected_outputs | form: "tree" -->
 #### Expected outputs
 
-```yaml
-oracle_results: The conforming candidate passes and the non-conforming candidate fails.
-accepted_verdict: critic-verdict.json records verdict accepted, accepted true, and oracle status passed.
-rejected_verdict: critic-verdict.json records verdict rejected, accepted false, and oracle status failed.
-accepted_session: The conforming candidate reaches Succeeded and maps to application Succeeded.
-rejected_session: The non-conforming candidate reaches Rejected and maps to application Failed.
-composite_workspace_handoff: Stage C receives the identical path returned by Stage B and cleanup occurs only after Stage C.
-standalone_planner_invocations: 0
-composite_planner_invocations: 1
-fake_agent_invocations: 0
-```
+- oracle_results: The conforming candidate passes and the non-conforming candidate fails.
+- accepted_verdict: critic-verdict.json records verdict accepted, accepted true, and oracle status passed.
+- rejected_verdict: critic-verdict.json records verdict rejected, accepted false, and oracle status failed.
+- accepted_session: The conforming candidate reaches Succeeded and maps to application Succeeded.
+- rejected_session: The non-conforming candidate reaches Rejected and maps to application Failed.
+- composite_workspace_handoff: Stage C receives the identical path returned by Stage B and cleanup occurs only after Stage C.
+- standalone_planner_invocations: 0
+- composite_planner_invocations: 1
+- fake_agent_invocations: 0
 
 <!-- field: traces -->
 #### Traces

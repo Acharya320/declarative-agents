@@ -12,205 +12,185 @@ We use this schema for issue descriptions. Agents parse the
 description as YAML before they read, edit, test, close, and commit work.
 The format keeps each issue small, traceable, and tied to listed files.
 
-<!-- field: schema -->
+<!-- field: schema | form: "tree" -->
 ## Schema
 
-```yaml
-required_fields:
-    - deliverable_type
-    - required_reading
-    - files
-    - requirements
-    - acceptance_criteria
-optional_fields:
-    - format_rule
-    - required_sections
-    - design_decisions
-    - dependencies
-    - notes
-```
+- required_fields:
+  1. deliverable_type
+  1. required_reading
+  1. files
+  1. requirements
+  1. acceptance_criteria
+- optional_fields:
+  1. format_rule
+  1. required_sections
+  1. design_decisions
+  1. dependencies
+  1. notes
 
-<!-- field: field_specs -->
+<!-- field: field_specs | form: "tree" -->
 ## Field specs
 
-```yaml
-deliverable_type:
-    type: string
-    required: true
-    values:
-        - code
-        - documentation
-    description: 'The kind of deliverable. Use code when the issue touches cmd/,
+- deliverable_type:
+  - type: string
+  - required: true
+  - values:
+    1. code
+    1. documentation
+  - description:
+    The kind of deliverable. Use code when the issue touches cmd/,
+    internal/, pkg/, tools that require Go changes, or tests. Use
+    documentation when the issue only changes docs, YAML specs, or guides.
+- required_reading:
+  - type: list of strings
+  - required: true
+  - description:
+    Repo-relative paths the worker must read before changing files. Include
+    upstream specs, architecture sections, source files, tests, and related
+    issue context.
+- files:
+  - type: list
+  - required: true
+  - accepted_item_shapes:
+    1. string
+    1. mapping
+  - mapping_fields:
+    - path:
+      - type: string
+      - required: true
+    - action:
+      - type: string
+      - values:
+        1. create
+        1. modify
+        1. delete
+      - required: false
+    - note:
+      - type: string
+      - required: false
+  - description:
+    Repo-relative paths the worker may change. Current agent-core issues
+    often use a simple list of path strings. More complex issues may use
+    mappings with path, action, and note.
+- requirements:
+  - type: list
+  - required: true
+  - accepted_item_shapes:
+    1. string
+    1. mapping
+  - mapping_fields:
+    - id:
+      - type: string
+      - required: false
+      - pattern: R[0-9]+
+    - text:
+      - type: string
+      - required: false
+  - description:
+    Specific work to complete. Use numbered mappings for new issues when
+    practical. String items remain valid for compatibility with the current
+    queue. An item may carry the literal marker [NEEDS CLARIFICATION: question]
+    for a decision nobody has made; an issue carrying one is not ready for a
+    worker, and resolving it means replacing the marker with the decision in
+    the same item. The inline marker is the tracker-issue convention only;
+    corpus YAML documents record unmade decisions in their structured
+    needs_clarification field (design.yaml clarification_marker).
+- acceptance_criteria:
+  - type: list
+  - required: true
+  - accepted_item_shapes:
+    1. string
+    1. mapping
+  - mapping_fields:
+    - id:
+      - type: string
+      - required: false
+      - pattern: AC[0-9]+
+    - text:
+      - type: string
+      - required: false
+  - description:
+    Checkable outcomes. Each item must be verifiable by inspection, tests,
+    mage audit, or another named command. An item may carry the literal marker
+    [NEEDS CLARIFICATION: question]; an issue carrying one is not ready for a
+    worker, and resolving it means replacing the marker with the decision in
+    the same item. The inline marker is the tracker-issue convention only;
+    corpus YAML documents use the needs_clarification field instead
+    (design.yaml clarification_marker).
+- format_rule:
+  - type: string
+  - required: false
+  - description:
+    Documentation issues may name the governing document type, such as
+    srd-format, use-case-format, test-suite-format, or constitution-format.
+- required_sections:
+  - type: list of strings
+  - required: false
+  - description:
+    Documentation issues may list headings or YAML fields that must appear in
+    the output artifact.
+- design_decisions:
+  - type: list
+  - required: false
+  - description:
+    Decisions made while shaping the issue. Prefer mappings with id and text
+    when a decision has lasting design value.
 
-        internal/, pkg/, tools that require Go changes, or tests. Use
-
-        documentation when the issue only changes docs, YAML specs, or guides.
-
-'
-required_reading:
-    type: list of strings
-    required: true
-    description: 'Repo-relative paths the worker must read before changing files. Include
-
-        upstream specs, architecture sections, source files, tests, and related
-
-        issue context.
-
-'
-files:
-    type: list
-    required: true
-    accepted_item_shapes:
-        - string
-        - mapping
-    mapping_fields:
-        path:
-            type: string
-            required: true
-        action:
-            type: string
-            values:
-                - create
-                - modify
-                - delete
-            required: false
-        note:
-            type: string
-            required: false
-    description: 'Repo-relative paths the worker may change. Current agent-core issues
-
-        often use a simple list of path strings. More complex issues may use
-
-        mappings with path, action, and note.
-
-'
-requirements:
-    type: list
-    required: true
-    accepted_item_shapes:
-        - string
-        - mapping
-    mapping_fields:
-        id:
-            type: string
-            required: false
-            pattern: R[0-9]+
-        text:
-            type: string
-            required: false
-    description: 'Specific work to complete. Use numbered mappings for new issues when
-
-        practical. String items remain valid for compatibility with the current
-
-        queue. An item may carry the literal marker [NEEDS CLARIFICATION: question]
-
-        for a decision nobody has made; an issue carrying one is not ready for a
-
-        worker, and resolving it means replacing the marker with the decision in
-
-        the same item. The inline marker is the tracker-issue convention only;
-
-        corpus YAML documents record unmade decisions in their structured
-
-        needs_clarification field (design.yaml clarification_marker).
-
-'
-acceptance_criteria:
-    type: list
-    required: true
-    accepted_item_shapes:
-        - string
-        - mapping
-    mapping_fields:
-        id:
-            type: string
-            required: false
-            pattern: AC[0-9]+
-        text:
-            type: string
-            required: false
-    description: 'Checkable outcomes. Each item must be verifiable by inspection, tests,
-
-        mage audit, or another named command. An item may carry the literal marker
-
-        [NEEDS CLARIFICATION: question]; an issue carrying one is not ready for a
-
-        worker, and resolving it means replacing the marker with the decision in
-
-        the same item. The inline marker is the tracker-issue convention only;
-
-        corpus YAML documents use the needs_clarification field instead
-
-        (design.yaml clarification_marker).
-
-'
-format_rule:
-    type: string
-    required: false
-    description: 'Documentation issues may name the governing document type, such as
-
-        srd-format, use-case-format, test-suite-format, or constitution-format.
-
-'
-required_sections:
-    type: list of strings
-    required: false
-    description: 'Documentation issues may list headings or YAML fields that must appear in
-
-        the output artifact.
-
-'
-design_decisions:
-    type: list
-    required: false
-    description: 'Decisions made while shaping the issue. Prefer mappings with id and text
-
-        when a decision has lasting design value.
-
-'
-```
-
-<!-- field: yaml_rules -->
+<!-- field: yaml_rules | form: "tree" -->
 ## Yaml rules
 
-```yaml
-- id: Y1
-  rule: Use valid YAML.
-  check: 'python3 - <<''PY''
+1. - id: Y1
+   - rule: Use valid YAML.
+   - check:
+     python3 - <<'PY'
+     import sys, yaml
+     for p in sys.argv[1:]: yaml.safe_load(open(p))
+     PY <files>
+1. - id: Y2
+   - rule: Use block literals for prose longer than one sentence.
+1. - id: Y3
+   - rule: Use ASCII punctuation. Use "--" instead of em dashes.
+1. - id: Y4
+   - rule: Quote strings that contain colons when YAML would parse them as mappings.
+1. - id: Y5
+   - rule: Keep paths repo-relative unless the issue explicitly targets another repository.
 
-    import sys, yaml
-
-    for p in sys.argv[1:]: yaml.safe_load(open(p))
-
-    PY <files>'
-- id: Y2
-  rule: Use block literals for prose longer than one sentence.
-- id: Y3
-  rule: Use ASCII punctuation. Use "--" instead of em dashes.
-- id: Y4
-  rule: Quote strings that contain colons when YAML would parse them as mappings.
-- id: Y5
-  rule: Keep paths repo-relative unless the issue explicitly targets another repository.
-```
-
-<!-- field: examples -->
+<!-- field: examples | form: "tree" -->
 ## Examples
 
-```yaml
-documentation_issue: "deliverable_type: documentation\nrequired_reading:\n  - docs/VISION.md\n  - docs/ARCHITECTURE.md\nfiles:\n  - docs/specs/use-cases/rel02.0-uc001-example.yaml\nrequirements:\n  - Add the use case in the existing schema.\n  - Link every success criterion to SRD acceptance criteria.\nacceptance_criteria:\n  - The YAML parses.\n  - mage audit reports no new warnings for the file.\n"
-documentation_issue_with_clarification: 'An unresolved item reads
-
-    "requirements: [Retry the fetch N times, where N is [NEEDS CLARIFICATION:
-
-    how many retries before giving up?]]". The author who knows the answer
-
-    edits the item in place, and the resolved form reads "requirements: [Retry
-
-    the fetch 3 times]". No marker survives into a worked issue.
-
-'
-code_issue: "deliverable_type: code\nrequired_reading:\n  - docs/specs/software-requirements/srd014-spec-graph.md\n  - pkg/spec/validate.go\nfiles:\n  - pkg/spec/validate.go\n  - pkg/spec/validate_test.go\nrequirements:\n  - id: R1\n    text: Add the validator behavior described by the SRD.\nacceptance_criteria:\n  - id: AC1\n    text: go test ./pkg/spec passes.\n"
-```
+- documentation_issue:
+  deliverable_type: documentation
+  required_reading:
+    - docs/VISION.md
+    - docs/ARCHITECTURE.md
+  files:
+    - docs/specs/use-cases/rel02.0-uc001-example.yaml
+  requirements:
+    - Add the use case in the existing schema.
+    - Link every success criterion to SRD acceptance criteria.
+  acceptance_criteria:
+    - The YAML parses.
+    - mage audit reports no new warnings for the file.
+- documentation_issue_with_clarification:
+  An unresolved item reads
+  "requirements: [Retry the fetch N times, where N is [NEEDS CLARIFICATION:
+  how many retries before giving up?]]". The author who knows the answer
+  edits the item in place, and the resolved form reads "requirements: [Retry
+  the fetch 3 times]". No marker survives into a worked issue.
+- code_issue:
+  deliverable_type: code
+  required_reading:
+    - docs/specs/software-requirements/srd014-spec-graph.md
+    - pkg/spec/validate.go
+  files:
+    - pkg/spec/validate.go
+    - pkg/spec/validate_test.go
+  requirements:
+    - id: R1
+      text: Add the validator behavior described by the SRD.
+  acceptance_criteria:
+    - id: AC1
+      text: go test ./pkg/spec passes.
 
 <!-- field: references -->
 ## References

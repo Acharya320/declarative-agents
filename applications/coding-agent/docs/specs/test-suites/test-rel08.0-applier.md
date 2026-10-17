@@ -66,26 +66,23 @@ rel08.0-uc001-declarative-applier
 
 mage integration:applier
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-valid_patch: adjust a coding role parameter through a values-plane patch
-invalid_patch: a patch violating the coding chart values schema
-agents: [applier]
-```
+- valid_patch: adjust a coding role parameter through a values-plane patch
+- invalid_patch: a patch violating the coding chart values schema
+- agents:
+  1. applier
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-invalid_patch_rejected_by_schema_dry_run_no_rollout: true
-valid_patch_applied_as_values_file_reuse_values_no_wait: true
-no_per_field_set_construction: true
-rollout_verified_via_kubectl_rollout_status: true
-verify_stall_rolls_back_apply_failure_reports_failed: true
-patch_carries_no_endpoint_or_credential: true
-```
+- invalid_patch_rejected_by_schema_dry_run_no_rollout: true
+- valid_patch_applied_as_values_file_reuse_values_no_wait: true
+- no_per_field_set_construction: true
+- rollout_verified_via_kubectl_rollout_status: true
+- verify_stall_rolls_back_apply_failure_reports_failed: true
+- patch_carries_no_endpoint_or_credential: true
 
 <!-- field: traces -->
 #### Traces
@@ -124,22 +121,18 @@ rel08.0-uc001-declarative-applier
 
 mage test (coding chart values.schema.json against real helm)
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-conforming: a values patch within the chart schema
-non_conforming: a values patch violating the chart schema
-```
+- conforming: a values patch within the chart schema
+- non_conforming: a values patch violating the chart schema
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-conforming_patch_renders: true
-non_conforming_patch_rejected_by_path_and_constraint: true
-constrained_value_pinned_by_a_third_assertion: true
-```
+- conforming_patch_renders: true
+- non_conforming_patch_rejected_by_path_and_constraint: true
+- constrained_value_pinned_by_a_third_assertion: true
 
 <!-- field: traces -->
 #### Traces
@@ -168,22 +161,18 @@ rel08.0-uc001-declarative-applier
 
 mage test (rendered chart and role profiles)
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-rendered_chart: staged chart with the applier enabled and networkPolicy enabled
-```
+- rendered_chart: staged chart with the applier enabled and networkPolicy enabled
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-applier_alone_binds_helm_and_kubectl: true
-serving_roles_carry_no_deployment_cli: true
-apply_surface_admits_only_the_authorized_caller: true
-apply_surface_not_reachable_from_serving_or_collector_pods: true
-```
+- applier_alone_binds_helm_and_kubectl: true
+- serving_roles_carry_no_deployment_cli: true
+- apply_surface_admits_only_the_authorized_caller: true
+- apply_surface_not_reachable_from_serving_or_collector_pods: true
 
 <!-- field: traces -->
 #### Traces
@@ -213,20 +202,16 @@ rel08.0-uc001-declarative-applier
 
 mage test (applier rollout machine)
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-deployment_shapes: rolled out, no replica ready yet, and unreadable
-```
+- deployment_shapes: rolled out, no replica ready yet, and unreadable
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-unreadable_rollout_returns_gateway_error_not_a_phase: true
-complete_and_progressing_remain_distinguishable: true
-```
+- unreadable_rollout_returns_gateway_error_not_a_phase: true
+- complete_and_progressing_remain_distinguishable: true
 
 <!-- field: traces -->
 #### Traces
@@ -263,26 +248,22 @@ rel08.0-uc001-declarative-applier
 
 mage integration:applierLive
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-cluster: kind with the agent-core runtime and the pinned CLI donor loaded
-patch: a conforming coding values patch
-rollback_trigger: a patch that forces a post-upgrade verification failure
-rejected: a non-conforming coding values patch
-```
+- cluster: kind with the agent-core runtime and the pinned CLI donor loaded
+- patch: a conforming coding values patch
+- rollback_trigger: a patch that forces a post-upgrade verification failure
+- rejected: a non-conforming coding values patch
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-real_helm_upgrade_changes_the_release: true
-post_upgrade_verify_failure_reaches_rolled_back: true
-real_helm_rollback_restores_prior_computed_values: true
-coding_role_deployments_recover_after_rollback: true
-non_conforming_patch_rejected_on_the_cluster: true
-```
+- real_helm_upgrade_changes_the_release: true
+- post_upgrade_verify_failure_reaches_rolled_back: true
+- real_helm_rollback_restores_prior_computed_values: true
+- coding_role_deployments_recover_after_rollback: true
+- non_conforming_patch_rejected_on_the_cluster: true
 
 <!-- field: traces -->
 #### Traces

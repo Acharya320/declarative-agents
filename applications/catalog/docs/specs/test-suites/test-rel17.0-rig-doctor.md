@@ -86,12 +86,10 @@ rig-doctor-diagnosed
 
 go test ./conformance -run '^TestRigDoctorDiagnosed'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-evidence: conformance/testdata/rig-doctor/failing-rollout
-```
+- evidence: conformance/testdata/rig-doctor/failing-rollout
 
 <!-- field: assertions -->
 #### Assertions
@@ -131,12 +129,10 @@ rig-doctor-spool-queries
 
 go test ./conformance -run '^TestRigDoctorQueriesTheCapturedSpool'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-evidence: testdata/conformance/rig-doctor/failing-rollout
-```
+- evidence: testdata/conformance/rig-doctor/failing-rollout
 
 <!-- field: assertions -->
 #### Assertions
@@ -173,12 +169,10 @@ rig-doctor-repairs-its-diagnosis
 
 go test ./conformance -run '^TestRigDoctorRepairs'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-evidence: testdata/conformance/rig-doctor/failing-rollout
-```
+- evidence: testdata/conformance/rig-doctor/failing-rollout
 
 <!-- field: assertions -->
 #### Assertions
@@ -354,12 +348,10 @@ rig-doctor-no-evidence
 
 go test ./conformance -run '^TestRigDoctorNoEvidence'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-evidence: conformance/testdata/rig-doctor/empty
-```
+- evidence: conformance/testdata/rig-doctor/empty
 
 <!-- field: assertions -->
 #### Assertions

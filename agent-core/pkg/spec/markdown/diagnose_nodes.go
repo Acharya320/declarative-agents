@@ -51,6 +51,9 @@ func (d *diagnosis) heading(b Block, level int, heading string) {
 	d.finishFrom(level)
 	node := &dnode{kind: kind, tag: m.Tag, id: m.Value, level: level, line: line,
 		markerLine: markerLine, fields: map[string]bool{}}
+	if m.Tag == tagField {
+		node.form = markerForm(m)
+	}
 	d.counts[kind]++
 	d.checkNode(node, m, heading)
 	d.stack[level] = node
@@ -285,8 +288,10 @@ func (d *diagnosis) contentText(node *dnode) string {
 
 // proseContainment reports RFC 2119 keywords in paragraphs and lists outside
 // any req-tagged block; code blocks are not prose.
+// A typed form holds data, as the fenced yaml block it replaced did, so
+// containment reads neither (eng10, prose containment; GH-2642).
 func (d *diagnosis) proseContainment(node *dnode) {
-	if d.rules.keywordRegexp == nil {
+	if d.rules.keywordRegexp == nil || node.form != "" {
 		return
 	}
 	for _, b := range node.content {

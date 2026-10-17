@@ -234,48 +234,43 @@ agent-core runtime contracts this agent builds on. External references, owned by
 | srd021-agent-cli-exec-tool | agent-core | [R2, R3, R4] |
 | srd028-rest-client-tools | agent-core | [V30] |
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-implemented: []
-planned:
-    - >-
-      The applier profile -- its apply, control, and monitor servers, the validate-apply-verify-rollback request machine, and the declared helm and kubectl exec bindings -- a chart values.schema.json validate step, the applier Deployment, image, and NetworkPolicy that keep the apply surface off the serving pods, and an integration target that drives a values patch through validate, apply, verify, and rollback against the packaged chart on the kind rig (srd001 R3). The applier runs the shared agent-core image; helm and kubectl arrive at pod start from a pinned CLI donor into a read-only volume, and the chart as a mounted volume (GH-2222). The code lands in later sub-issues of the release; this document and its use case and test suite land first.
-```
+- implemented: []
+- planned:
+  1. The applier profile -- its apply, control, and monitor servers, the validate-apply-verify-rollback request machine, and the declared helm and kubectl exec bindings -- a chart values.schema.json validate step, the applier Deployment, image, and NetworkPolicy that keep the apply surface off the serving pods, and an integration target that drives a values patch through validate, apply, verify, and rollback against the packaged chart on the kind rig (srd001 R3). The applier runs the shared agent-core image; helm and kubectl arrive at pod start from a pinned CLI donor into a read-only volume, and the chart as a mounted volume (GH-2222). The code lands in later sub-issues of the release; this document and its use case and test suite land first.
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: chart actuation is hand-run helm and kubectl; the same actuation is a declarative agent binding container CLIs"] --> Goals["Goals: Declarative Applier Agent"]
-      Goals --> R1["R1: Actuation surface"]
-      Goals --> R2["R2: Validate then apply"]
-      Goals --> R3["R3: Verify and roll back"]
-      Goals --> R4["R4: Authority boundary"]
-      Goals --> R5["R5: Non-goals and packaging"]
-      R1 --> AC1["AC1: apply endpoint, control and monitor servers, no panel"]
-      R2 --> AC2["AC2: schema dry-run then values-file apply"]
-      R3 --> AC3["AC3: rollout verify and rollback"]
-      R4 --> AC4["AC4: applier holds the CLIs, authority by declared config"]
-      R5 --> AC5["AC5: not the decision or lifecycle; CLIs from a pinned donor"]
-    ```
-actuation_machine: |
-    ```mermaid
-    flowchart LR
-      Apply["POST apply (operator or CI caller)"] --> Validate["Validate: helm upgrade --dry-run -f overrides.yaml"]
-      Validate -->|Valid| ApplyStep["Apply: helm upgrade --reuse-values -f overrides.yaml"]
-      Validate -->|Invalid| Reject["400"]
-      ApplyStep -->|Applied| Verify["Verify: kubectl rollout status of the collector Deployment (stable server)"]
-      ApplyStep -->|CommandError| Failed["500"]
-      Verify -->|HealthReported| Done["200"]
-      Verify -->|RolloutStalled| Rollback["helm rollback"]
-      Rollback --> RolledBack["500"]
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: chart actuation is hand-run helm and kubectl; the same actuation is a declarative agent binding container CLIs"] --> Goals["Goals: Declarative Applier Agent"]
+    Goals --> R1["R1: Actuation surface"]
+    Goals --> R2["R2: Validate then apply"]
+    Goals --> R3["R3: Verify and roll back"]
+    Goals --> R4["R4: Authority boundary"]
+    Goals --> R5["R5: Non-goals and packaging"]
+    R1 --> AC1["AC1: apply endpoint, control and monitor servers, no panel"]
+    R2 --> AC2["AC2: schema dry-run then values-file apply"]
+    R3 --> AC3["AC3: rollout verify and rollback"]
+    R4 --> AC4["AC4: applier holds the CLIs, authority by declared config"]
+    R5 --> AC5["AC5: not the decision or lifecycle; CLIs from a pinned donor"]
+  ```
+- actuation_machine:
+  ```mermaid
+  flowchart LR
+    Apply["POST apply (operator or CI caller)"] --> Validate["Validate: helm upgrade --dry-run -f overrides.yaml"]
+    Validate -->|Valid| ApplyStep["Apply: helm upgrade --reuse-values -f overrides.yaml"]
+    Validate -->|Invalid| Reject["400"]
+    ApplyStep -->|Applied| Verify["Verify: kubectl rollout status of the collector Deployment (stable server)"]
+    ApplyStep -->|CommandError| Failed["500"]
+    Verify -->|HealthReported| Done["200"]
+    Verify -->|RolloutStalled| Rollback["helm rollback"]
+    Rollback --> RolledBack["500"]
+  ```
 
 <!-- field: non_goals -->
 ## Non-goals

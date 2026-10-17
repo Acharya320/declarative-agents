@@ -31,19 +31,17 @@ isolation and data loss and therefore belong in the specification.
 - G4: Make every destructive lifecycle action explicit and separately authorized.
 - G5: Publish one reusable application-rig package consumed through thin Mage verbs.
 
-<!-- field: applicability -->
+<!-- field: applicability | form: "tree" -->
 ## Applicability
 
-```yaml
-baseline: |
-    R1 through R9 apply to applications that declare `helm_managed` and use the
-    shared application platform. Cluster-mutating integration scenarios remain
-    governed by ENG01's owned-cluster exception.
-capability_gates:
-    local_platform: R2, R4, R5, R7, and R8 local clauses.
-    cloud_platform: R2, R4, R5, R7, and R8 cloud clauses.
-    durable_collector: R3, R6, and R7 collector clauses.
-```
+- baseline:
+  R1 through R9 apply to applications that declare `helm_managed` and use the
+  shared application platform. Cluster-mutating integration scenarios remain
+  governed by ENG01's owned-cluster exception.
+- capability_gates:
+  - local_platform: R2, R4, R5, R7, and R8 local clauses.
+  - cloud_platform: R2, R4, R5, R7, and R8 cloud clauses.
+  - durable_collector: R3, R6, and R7 collector clauses.
 
 <!-- req: R1 -->
 ## R1 - Ownership and authority are separate

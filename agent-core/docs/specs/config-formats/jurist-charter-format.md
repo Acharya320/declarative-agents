@@ -167,154 +167,150 @@ so a genuine SRD repo cannot silently degrade to a charter-only audit.
       description: Target-relative glob patterns excluded for this check.
 ```
 
-<!-- field: check_kinds -->
+<!-- field: check_kinds | form: "tree" -->
 ## Check kinds
 
-```yaml
-- kind: grep_check
-  purpose: |
-    Finds forbidden or required text patterns in target files. Use this for
-    constitution vocabulary rules, banned phrases, or local prose checks.
-  config_fields:
-    - field: patterns
-      type: "[]string"
-      required: true
-      description: Literal or regular-expression patterns to search.
-    - field: mode
-      type: string
-      required: false
-      description: |
-        match forbids matching text and emits a finding for each match.
-        missing requires at least one match and emits a finding when no file
-        matches. Defaults to match.
-        Supported values are match and missing.
-    - field: regex
-      type: bool
-      required: false
-      description: Treat patterns as regular expressions when true.
-- kind: ref_check
-  purpose: |
-    Resolves references found in target files against configured inventories.
-    Use this for citation keys, manifest IDs, data artifact names, or
-    target-relative file paths.
-  config_fields:
-    - field: references
-      type: object
-      required: true
-      description: |
-        Source of allowed reference values. Supported keys are values, keys,
-        inline, file, directory, and format.
+1. - kind: grep_check
+   - purpose:
+     Finds forbidden or required text patterns in target files. Use this for
+     constitution vocabulary rules, banned phrases, or local prose checks.
+   - config_fields:
+     1. - field: patterns
+        - type: "[]string"
+        - required: true
+        - description: Literal or regular-expression patterns to search.
+     1. - field: mode
+        - type: string
+        - required: false
+        - description:
+          match forbids matching text and emits a finding for each match.
+          missing requires at least one match and emits a finding when no file
+          matches. Defaults to match.
+          Supported values are match and missing.
+     1. - field: regex
+        - type: bool
+        - required: false
+        - description: Treat patterns as regular expressions when true.
+1. - kind: ref_check
+   - purpose:
+     Resolves references found in target files against configured inventories.
+     Use this for citation keys, manifest IDs, data artifact names, or
+     target-relative file paths.
+   - config_fields:
+     1. - field: references
+        - type: object
+        - required: true
+        - description:
+          Source of allowed reference values. Supported keys are values, keys,
+          inline, file, directory, and format.
 
-        values, keys, and inline are equivalent inline string lists. file is
-        a target-relative, charter-root-relative, or absolute file path. By
-        default, file lines are parsed as one reference per non-empty,
-        non-comment line. With format: bibtex_keys, file content is parsed for
-        BibTeX entry keys. directory is a target-relative, charter-root-
-        relative, or absolute directory path; every file below that directory
-        contributes its slash-normalized relative path as an allowed value.
-    - field: extract
-      type: object
-      required: true
-      description: |
-        Rule for extracting reference values from checked files. The current
-        implementation supports regex, with an optional group number.
+          values, keys, and inline are equivalent inline string lists. file is
+          a target-relative, charter-root-relative, or absolute file path. By
+          default, file lines are parsed as one reference per non-empty,
+          non-comment line. With format: bibtex_keys, file content is parsed for
+          BibTeX entry keys. directory is a target-relative, charter-root-
+          relative, or absolute directory path; every file below that directory
+          contributes its slash-normalized relative path as an allowed value.
+     1. - field: extract
+        - type: object
+        - required: true
+        - description:
+          Rule for extracting reference values from checked files. The current
+          implementation supports regex, with an optional group number.
 
-        regex is a regular expression evaluated against each line of each
-        checked file. group defaults to 1 and selects the capture group used
-        as the reference value. group may be 0 to use the full match.
-    - field: allow_missing
-      type: bool
-      required: false
-      description: Do not emit findings when no references are present.
-- kind: consistency_check
-  purpose: |
-    Compares simple facts across files or verifies declared artifacts exist.
-    Use this for manifest status versus artifact paths, MVP flags versus issue
-    IDs, or matching YAML field values.
-  config_fields:
-    - field: source
-      type: object
-      required: true
-      description: |
-        YAML source selector. source.yaml_path is required and uses the
-        jurist YAML path selector, such as $.field or $.items[*].id.
-        A segment may carry a filter predicate, $.items[?field=value].sub or
-        $.items[?field!=value].sub, which selects only the sequence items
-        whose mapping field equals (or, with !=, differs from) value and
-        then descends into each match. This expresses conditional checks such
-        as "experiments with status done have artifact paths that exist" via
-        $.experiments[?status=done].apparatus.artifacts[*] without flagging
-        planned or deferred entries. Filter field names and values must not
-        contain a dot or bracket.
-        This is a versioned JSONPath-like charter syntax, not a yq expression:
-        yq uses different traversal/filter grammar, typed comparison, and
-        zero-based line semantics. Implementations must preserve this syntax
-        and its lexical comparison/one-based provenance contract rather than
-        passing selectors unchanged to yq.
-        source.file is optional and selects one target-relative, charter-root-
-        relative, or absolute YAML file instead of the check include set.
-    - field: rule
-      type: string
-      required: true
-      description: |
-        Deterministic comparison rule. Supported values are equals,
-        required_path_exists, and required_when.
-    - field: target
-      type: object
-      required: false
-      description: |
-        Selector or value compared with source. equals supports target.value
-        for a literal value or target.yaml_path for another YAML path in the
-        same source document. required_path_exists supports target.path_root.
-        required_when uses target.yaml_path and emits a finding when the
-        source value is truthy and the target path has no values.
-- kind: spec_corpus
-  purpose: |
-    Runs the built-in Agent Core specification corpus checks that currently
-    back mage audit. This kind preserves srd014 behavior while making the
-    jurist default suite data-driven.
-  config_fields:
-    - field: checks
-      type: "[]string"
-      required: false
-      description: |
-        Optional subset of built-in spec check identifiers. Omitted means run
-        the full spec-corpus suite. Values must match existing spec-corpus
-        finding check identifiers, such as orphaned-srd or uncovered-ac.
-```
+          regex is a regular expression evaluated against each line of each
+          checked file. group defaults to 1 and selects the capture group used
+          as the reference value. group may be 0 to use the full match.
+     1. - field: allow_missing
+        - type: bool
+        - required: false
+        - description: Do not emit findings when no references are present.
+1. - kind: consistency_check
+   - purpose:
+     Compares simple facts across files or verifies declared artifacts exist.
+     Use this for manifest status versus artifact paths, MVP flags versus issue
+     IDs, or matching YAML field values.
+   - config_fields:
+     1. - field: source
+        - type: object
+        - required: true
+        - description:
+          YAML source selector. source.yaml_path is required and uses the
+          jurist YAML path selector, such as $.field or $.items[*].id.
+          A segment may carry a filter predicate, $.items[?field=value].sub or
+          $.items[?field!=value].sub, which selects only the sequence items
+          whose mapping field equals (or, with !=, differs from) value and
+          then descends into each match. This expresses conditional checks such
+          as "experiments with status done have artifact paths that exist" via
+          $.experiments[?status=done].apparatus.artifacts[*] without flagging
+          planned or deferred entries. Filter field names and values must not
+          contain a dot or bracket.
+          This is a versioned JSONPath-like charter syntax, not a yq expression:
+          yq uses different traversal/filter grammar, typed comparison, and
+          zero-based line semantics. Implementations must preserve this syntax
+          and its lexical comparison/one-based provenance contract rather than
+          passing selectors unchanged to yq.
+          source.file is optional and selects one target-relative, charter-root-
+          relative, or absolute YAML file instead of the check include set.
+     1. - field: rule
+        - type: string
+        - required: true
+        - description:
+          Deterministic comparison rule. Supported values are equals,
+          required_path_exists, and required_when.
+     1. - field: target
+        - type: object
+        - required: false
+        - description:
+          Selector or value compared with source. equals supports target.value
+          for a literal value or target.yaml_path for another YAML path in the
+          same source document. required_path_exists supports target.path_root.
+          required_when uses target.yaml_path and emits a finding when the
+          source value is truthy and the target path has no values.
+1. - kind: spec_corpus
+   - purpose:
+     Runs the built-in Agent Core specification corpus checks that currently
+     back mage audit. This kind preserves srd014 behavior while making the
+     jurist default suite data-driven.
+   - config_fields:
+     1. - field: checks
+        - type: "[]string"
+        - required: false
+        - description:
+          Optional subset of built-in spec check identifiers. Omitted means run
+          the full spec-corpus suite. Values must match existing spec-corpus
+          finding check identifiers, such as orphaned-srd or uncovered-ac.
 
-<!-- field: kind_required_fields -->
+<!-- field: kind_required_fields | form: "tree" -->
 ## Kind required fields
 
-```yaml
-- kind: grep_check
-  required_fields:
-    - patterns
-  notes: |
-    regex: true requires ripgrep-supported syntax; rg validates each lowered
-    plan and an invalid expression becomes a command error. mode defaults to
-    match. No Go/RE2 compatibility is required.
-- kind: ref_check
-  required_fields:
-    - references
-    - extract.regex
-  notes: |
-    references must produce at least one allowed value. extract.group
-    defaults to 1.
-- kind: consistency_check
-  required_fields:
-    - source.yaml_path
-    - rule
-  notes: |
-    Rule-specific target fields are required by behavior: equals needs either
-    target.value or target.yaml_path, and required_when needs
-    target.yaml_path.
-- kind: spec_corpus
-  required_fields: []
-  notes: |
-    checks is optional. When provided, each entry names a built-in
-    spec-corpus finding check identifier.
-```
+1. - kind: grep_check
+   - required_fields:
+     1. patterns
+   - notes:
+     regex: true requires ripgrep-supported syntax; rg validates each lowered
+     plan and an invalid expression becomes a command error. mode defaults to
+     match. No Go/RE2 compatibility is required.
+1. - kind: ref_check
+   - required_fields:
+     1. references
+     1. extract.regex
+   - notes:
+     references must produce at least one allowed value. extract.group
+     defaults to 1.
+1. - kind: consistency_check
+   - required_fields:
+     1. source.yaml_path
+     1. rule
+   - notes:
+     Rule-specific target fields are required by behavior: equals needs either
+     target.value or target.yaml_path, and required_when needs
+     target.yaml_path.
+1. - kind: spec_corpus
+   - required_fields: []
+   - notes:
+     checks is optional. When provided, each entry names a built-in
+     spec-corpus finding check identifier.
 
 <!-- field: finding_provenance -->
 ## Finding provenance

@@ -651,14 +651,15 @@ teardown.
 | gh-678 | Add the scenario-session layer in agent-core (split from gh-669). | done |
 | gh-1072 | Rename the concrete test rig to scenario-critic and retain a time-bounded compatibility wrapper. | done |
 
-<!-- field: historical_aliases -->
+<!-- field: historical_aliases | form: "tree" -->
 ### Historical aliases
 
-```yaml
-srds: [srd018-assembler]
-use_cases: [rel11.0-uc001-assembler-scenario-run]
-test_suites: [test-rel11.0-assembler-rig]
-```
+- srds:
+  1. srd018-assembler
+- use_cases:
+  1. rel11.0-uc001-assembler-scenario-run
+- test_suites:
+  1. test-rel11.0-assembler-rig
 
 <!-- field: srds -->
 ### Srds
@@ -799,13 +800,11 @@ Collector family promotion
 | --- | --- | --- |
 | 1145 | Promote the collector agent to a canonical catalog family | 300 YAML, 250 test |
 
-<!-- field: specification -->
+<!-- field: specification | form: "tree" -->
 ### Specification
 
-```yaml
-srd: srd020-collector
-status: implemented
-```
+- srd: srd020-collector
+- status: implemented
 
 <!-- field: use_cases -->
 ### Use cases
@@ -852,13 +851,11 @@ Served collector trace UI
 | 1255 | Serve the collector UI from the agent-architecture chart | "120" |
 | 1256 | Serve the collector UI from the chatbot-mesh chart (dedicated ConfigMap, writable metrics spool) | "160" |
 
-<!-- field: specification -->
+<!-- field: specification | form: "tree" -->
 ### Specification
 
-```yaml
-srd: srd020-collector
-status: implemented
-```
+- srd: srd020-collector
+- status: implemented
 
 <!-- field: use_cases -->
 ### Use cases
@@ -909,13 +906,11 @@ Collector Explore panel
 | 1241 | "Collector Explore query routes: /query/spans/stats and /query/spans/breakdown" | 200 YAML, 250 test |
 | 1242 | Collector UI Explore page with heatmap drag-select and TraceDetail links | 500 TS/TSX |
 
-<!-- field: specification -->
+<!-- field: specification | form: "tree" -->
 ### Specification
 
-```yaml
-srd: srd020-collector
-status: implemented
-```
+- srd: srd020-collector
+- status: implemented
 
 <!-- field: use_cases -->
 ### Use cases
@@ -960,13 +955,11 @@ Canonical applier family
 | --- | --- | --- |
 | 1420 | Promote one canonical applier family and migrate application wrappers | 600 canonical production, 500 test |
 
-<!-- field: specification -->
+<!-- field: specification | form: "tree" -->
 ### Specification
 
-```yaml
-srd: srd022-applier
-status: implemented
-```
+- srd: srd022-applier
+- status: implemented
 
 <!-- field: migration -->
 ### Migration
@@ -1026,13 +1019,11 @@ Rig doctor root-cause analyst
 | 2287 | Rig evidence capture with manifest and mage diagnose (capture only) | 180 production |
 | 2288 | rig-doctor profile on root-cause-analyst, registration, and diagnose wiring | 350 production and test |
 
-<!-- field: specification -->
+<!-- field: specification | form: "tree" -->
 ### Specification
 
-```yaml
-srd: srd023-rig-doctor
-status: implemented
-```
+- srd: srd023-rig-doctor
+- status: implemented
 
 <!-- field: use_cases -->
 ### Use cases
@@ -1089,13 +1080,11 @@ Host-side deployer
 | 2302 | Host-side deploy declaration rendering and the kindrig deploy harness | 250 production and 240 test |
 | 2304 | Migrate coding-agent demo:up to mage deploy and add mage undeploy | 180 production and 140 test |
 
-<!-- field: specification -->
+<!-- field: specification | form: "tree" -->
 ### Specification
 
-```yaml
-srd: srd022-applier
-status: implemented
-```
+- srd: srd022-applier
+- status: implemented
 
 <!-- field: use_cases -->
 ### Use cases
@@ -1150,13 +1139,11 @@ Observer family promotion
 | --- | --- | --- |
 | 1247 | Specify the cross-application fleet observer (catalog promotion + per-application adoption) | 0 (documentation) |
 
-<!-- field: specification -->
+<!-- field: specification | form: "tree" -->
 ### Specification
 
-```yaml
-srd: srd021-observer
-status: planned
-```
+- srd: srd021-observer
+- status: planned
 
 <!-- field: use_cases -->
 ### Use cases

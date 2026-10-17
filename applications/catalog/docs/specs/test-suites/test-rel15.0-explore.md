@@ -39,21 +39,17 @@ rel15.0-uc001-explore-panel
 
 go test ./conformance -run TestCollectorSpanStatsContract
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-spool: seeded fixture
-request: GET /query/spans/stats
-```
+- spool: seeded fixture
+- request: GET /query/spans/stats
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-status: 200
-cell_sum_equals_matched: true
-```
+- status: 200
+- cell_sum_equals_matched: true
 
 <!-- field: traces -->
 #### Traces
@@ -79,21 +75,17 @@ rel15.0-uc001-explore-panel
 
 go test ./conformance -run TestCollectorSpanBreakdownContract
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-spool: seeded fixture
-request: GET /query/spans/breakdown
-```
+- spool: seeded fixture
+- request: GET /query/spans/breakdown
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-status: 200
-top_ranked: the concentrated value
-```
+- status: 200
+- top_ranked: the concentrated value
 
 <!-- field: traces -->
 #### Traces
@@ -118,22 +110,18 @@ rel15.0-uc001-explore-panel
 
 go test ./conformance -run TestCollectorExploreCapsFromConfig
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-requested_top_n: 1000
-configured_cap: 1
-```
+- requested_top_n: 1000
+- configured_cap: 1
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-status: 200
-returned_groups: 1
-dropped_groups: 1
-```
+- status: 200
+- returned_groups: 1
+- dropped_groups: 1
 
 <!-- field: traces -->
 #### Traces
@@ -157,21 +145,17 @@ rel15.0-uc001-explore-panel
 
 go test ./conformance -run TestCollectorExploreEmptySpool
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-spool: absent
-```
+- spool: absent
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-status: 200
-matched: 0
-ranked: 0
-```
+- status: 200
+- matched: 0
+- ranked: 0
 
 <!-- field: traces -->
 #### Traces
@@ -196,19 +180,15 @@ rel15.0-uc001-explore-panel
 
 go test ./conformance -run TestCollectorExploreRouteDeclared
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-file: agents/collector/ui/ui.yaml
-```
+- file: agents/collector/ui/ui.yaml
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-explore_route_declared: true
-```
+- explore_route_declared: true
 
 <!-- field: traces -->
 #### Traces
@@ -232,19 +212,15 @@ rel15.0-uc001-explore-panel
 
 mage uiDist
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-ui_dir: agents/collector/ui
-```
+- ui_dir: agents/collector/ui
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-dist_diff: none
-```
+- dist_diff: none
 
 <!-- field: traces -->
 #### Traces

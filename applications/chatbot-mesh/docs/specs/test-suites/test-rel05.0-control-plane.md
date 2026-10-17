@@ -71,25 +71,25 @@ rel05.0-uc001-control-plane-provisioning
 
 mage integration:controlPlane
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-intent: add a directory as a knowledge source
-directories: [one seeded directory]
-agents: [chatbot, provisioning-workflow-orchestrator, creator]
-```
+- intent: add a directory as a knowledge source
+- directories:
+  1. one seeded directory
+- agents:
+  1. chatbot
+  1. provisioning-workflow-orchestrator
+  1. creator
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-chatbot_delegates_intent_no_credential: true
-provisioning_workflow_orchestrator_sequences_ingest_then_rollout: true
-provisioning_workflow_orchestrator_forwards_values_and_requests_rollout: true
-creator_drives_apply_and_reads_rollout_via_deployment_api: true
-only_creator_calls_deployment_api: true
-```
+- chatbot_delegates_intent_no_credential: true
+- provisioning_workflow_orchestrator_sequences_ingest_then_rollout: true
+- provisioning_workflow_orchestrator_forwards_values_and_requests_rollout: true
+- creator_drives_apply_and_reads_rollout_via_deployment_api: true
+- only_creator_calls_deployment_api: true
 
 <!-- field: traces -->
 #### Traces
@@ -149,24 +149,20 @@ rel05.0-uc001-control-plane-provisioning
 
 mage integration:controlPlane
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-deployed_family: the family fixed in the creator's environment for the run
-mismatched_intent: an ingest intent expecting a different family
-matched_intent: an ingest intent expecting the deployed family
-```
+- deployed_family: the family fixed in the creator's environment for the run
+- mismatched_intent: an ingest intent expecting a different family
+- matched_intent: an ingest intent expecting the deployed family
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-mismatched_intent_answers_422_embedding_family_mismatch: true
-refusal_reports_the_deployed_family_not_the_requested_one: true
-refused_intent_never_reads_a_collection_count: true
-matched_intent_is_admitted_past_the_judge: true
-```
+- mismatched_intent_answers_422_embedding_family_mismatch: true
+- refusal_reports_the_deployed_family_not_the_requested_one: true
+- refused_intent_never_reads_a_collection_count: true
+- matched_intent_is_admitted_past_the_judge: true
 
 <!-- field: traces -->
 #### Traces

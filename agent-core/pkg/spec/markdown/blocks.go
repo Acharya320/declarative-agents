@@ -4,6 +4,7 @@
 package markdown
 
 import (
+	"regexp"
 	"sort"
 	"strings"
 
@@ -13,6 +14,9 @@ import (
 	east "github.com/yuin/goldmark/extension/ast"
 	"github.com/yuin/goldmark/text"
 )
+
+// bareMarker matches a list marker line with no text after it.
+var bareMarker = regexp.MustCompile(`^ *(?:[-*+]|[0-9]+[.)])$`)
 
 // markdown is the CommonMark + GFM-table parser every read goes through.
 var markdown = goldmark.New(goldmark.WithExtensions(extension.Table))
@@ -35,6 +39,9 @@ func topLevelBlocks(src []byte) ([]Block, []string) {
 	var blocks []Block
 	for node := doc.FirstChild(); node != nil; node = node.NextSibling() {
 		if start, ok := startLine(node, src, starts); ok {
+			if _, list := node.(*ast.List); list {
+				start = bareMarkerStart(lines, start)
+			}
 			blocks = append(blocks, Block{Node: node, Start: start})
 		}
 	}
@@ -49,6 +56,17 @@ func topLevelBlocks(src []byte) ([]Block, []string) {
 		blocks[i].End = end
 	}
 	return blocks, lines
+}
+
+// bareMarkerStart moves a list's start back over a marker line with no
+// text after it ("1." or "-"): an item whose content begins on the next line
+// has no segment on its marker line, so the list would otherwise start one
+// line late (GH-2642).
+func bareMarkerStart(lines []string, start int) int {
+	for start > 0 && bareMarker.MatchString(strings.TrimRight(lines[start-1], " ")) {
+		start--
+	}
+	return start
 }
 
 func lineStarts(src []byte) []int {

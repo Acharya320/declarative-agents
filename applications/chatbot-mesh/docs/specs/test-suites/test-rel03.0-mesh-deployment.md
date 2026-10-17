@@ -78,37 +78,36 @@ mage integration:helmSmoke
 
 go test ./magefiles -run '^TestSplitImageRef$|^TestKindDependencyImagesCoverEveryExternalPodImage$|^TestAssertSmokeChatServedAcceptsAnswer$|^TestAssertSmokeChatServedRejectsEmptyAnswer$|^TestHelmSmokeSkipReasonMissingBinary$|^TestHelmInstallSmokePassesRunIdentityToGateway$|^TestHelmSmokeInstallReturnsCapturedOutput$|^TestHelmFailureEvidenceIsBoundedAndNamesRootCauses$'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-chart: applications/chatbot-mesh/helm/
-values: applications/chatbot-mesh/helm/ci/kind-values.yaml
-values_rag_list: [rag0]
-```
+- chart: applications/chatbot-mesh/helm/
+- values: applications/chatbot-mesh/helm/ci/kind-values.yaml
+- values_rag_list:
+  1. rag0
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-chart_deploys_full_mesh: true
-chat_turn_served: true
-spans_from_multiple_services: true
-skips_clean_without_toolchain: true
-projected_release_secret_max_bytes: 917504
-actual_release_secret_max_bytes: 917504
-external_ui_archives_out_of_release: [collector, observer]
-runtime_ui_inventory_verified: true
-canonical_package_closure_complete: true
-required_images_host_pulled_and_kind_loaded: true
-node_registry_pull_required: false
-trace_ingress: local_collector_agent
-integration_metric_ingress: persistent_host_collector
-run_correlated_metric_evidence_retained: true
-owned_cluster_removed: true
-bounded_failure_evidence_before_cleanup: true
-exact_unready_container_cause_reported: true
-```
+- chart_deploys_full_mesh: true
+- chat_turn_served: true
+- spans_from_multiple_services: true
+- skips_clean_without_toolchain: true
+- projected_release_secret_max_bytes: 917504
+- actual_release_secret_max_bytes: 917504
+- external_ui_archives_out_of_release:
+  1. collector
+  1. observer
+- runtime_ui_inventory_verified: true
+- canonical_package_closure_complete: true
+- required_images_host_pulled_and_kind_loaded: true
+- node_registry_pull_required: false
+- trace_ingress: local_collector_agent
+- integration_metric_ingress: persistent_host_collector
+- run_correlated_metric_evidence_retained: true
+- owned_cluster_removed: true
+- bounded_failure_evidence_before_cleanup: true
+- exact_unready_container_cause_reported: true
 
 <!-- field: traces -->
 #### Traces
@@ -145,27 +144,26 @@ mage integration:helmSmoke
 
 go test ./magefiles -run '^TestChatbotRestCoGeneratedFromRagUnits$|^TestChatbotUIMonitoredAgentsCoGenerated$|^TestChatbotFanOutCoGeneratedForNRags$|^TestRenderedProfileProjectionKeysExistInConfigMap$'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-chart: applications/chatbot-mesh/helm/
-values_rag_list: [alpha, bravo, charlie]
-```
+- chart: applications/chatbot-mesh/helm/
+- values_rag_list:
+  1. alpha
+  1. bravo
+  1. charlie
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-topology_data_cogenerated: true
-selected_target_rag_operation_count: 1
-machine_for_each_count: 1
-word_and_state_counts_independent_of_source_count: true
-no_drifted_or_stale_client: true
-rendered_profile_validates: true
-projected_profile_keys_exist_in_configmap_data: true
-legacy_request_fanout_name_absent: true
-```
+- topology_data_cogenerated: true
+- selected_target_rag_operation_count: 1
+- machine_for_each_count: 1
+- word_and_state_counts_independent_of_source_count: true
+- no_drifted_or_stale_client: true
+- rendered_profile_validates: true
+- projected_profile_keys_exist_in_configmap_data: true
+- legacy_request_fanout_name_absent: true
 
 <!-- field: traces -->
 #### Traces
@@ -216,35 +214,38 @@ mage integration:helmSwap
 
 go test ./magefiles -run '^TestChatbotFanOutCoGeneratedForNRags$|^TestKindDependencyImagesCoverEveryExternalPodImage$|^TestHelmFailureEvidenceIsBoundedAndNamesRootCauses$|^TestHelmSwapInstallAndUpgradeUseThinReleaseArgs$|^TestHelmSwapReturnsCapturedOutput$|^TestObserverTierDecisionAfterAcceptsDispatchAndFallback$'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-chart: applications/chatbot-mesh/helm/
-values_rag_list: [rag0, rag1, rag2]
-swap_repoint: rag0 Service selector change
-swap_replace_middle: remove rag1 and add rag4
-```
+- chart: applications/chatbot-mesh/helm/
+- values_rag_list:
+  1. rag0
+  1. rag1
+  1. rag2
+- swap_repoint: rag0 Service selector change
+- swap_replace_middle: remove rag1 and add rag4
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-repoint_leaves_chatbot_pod_unchanged: true
-middle_rag_replacement_rerenders_and_rolls_chatbot: true
-later_rag_identity_does_not_drift: true
-active_turn_completes_before_old_pod_exits: true
-replacement_pod_serves_next_turn: true
-observer_tier_decision_accepts_dispatch_or_fallback: true
-projected_release_secret_max_bytes: 917504
-actual_release_secret_max_bytes: 917504
-helm_release_revisions_checked: [1, 2]
-external_ui_archives_out_of_release: [collector, observer]
-runtime_ui_inventory_verified_each_revision: true
-dependency_closure_equals_smoke: true
-node_registry_pull_required: false
-bounded_failure_evidence_before_cleanup: true
-```
+- repoint_leaves_chatbot_pod_unchanged: true
+- middle_rag_replacement_rerenders_and_rolls_chatbot: true
+- later_rag_identity_does_not_drift: true
+- active_turn_completes_before_old_pod_exits: true
+- replacement_pod_serves_next_turn: true
+- observer_tier_decision_accepts_dispatch_or_fallback: true
+- projected_release_secret_max_bytes: 917504
+- actual_release_secret_max_bytes: 917504
+- helm_release_revisions_checked:
+  1. 1
+  1. 2
+- external_ui_archives_out_of_release:
+  1. collector
+  1. observer
+- runtime_ui_inventory_verified_each_revision: true
+- dependency_closure_equals_smoke: true
+- node_registry_pull_required: false
+- bounded_failure_evidence_before_cleanup: true
 
 <!-- field: traces -->
 #### Traces

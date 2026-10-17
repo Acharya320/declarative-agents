@@ -1548,104 +1548,102 @@ the tool set is stable during execution.
 | OTLP trace transport | google.golang.org/grpc and go.opentelemetry.io/proto/otlp | TraceService receive and unchanged upstream relay for complete OTLP requests |
 | Test assertions | testify (stretchr/testify) | Test assertions and helpers |
 
-<!-- field: project_structure -->
+<!-- field: project_structure | form: "tree" -->
 ## Project structure
 
-```yaml
-binaries:
-    - path: cmd/agent/
-      role: Unified agent binary — generator, evaluator, planner, specification-critic, bench modes via YAML config
-bench:
-    - path: internal/evaluation/
-      role: Evaluator session/point runtime, result artifacts, metrics, convergence, trace analysis, and HTTP-independent artifact query words
-    - path: ../applications/catalog/agents/bench/
-      role: External profile-owned REST routes, host/request machines, declarations, and React frontend
-engine:
-    - path: internal/runtime/core/
-      role: Generic agentic loop engine (types, state machine, dispatch, registry, loop, machine config)
-    - path: internal/runtime/checkpoint/
-      role: Agent checkpoint Config, flags, and backend open used by cmd/agent
-    - path: internal/runtime/checkpoint/dolt/
-      role: Dolt-backed Checkpoint adapter; implements core ports through internal/doltsql
-infrastructure:
-    - path: internal/doltsql/
-      role: Shared Dolt SQL seam, driver registration, database identity, and DOLT_* statements
-    - path: internal/version/
-      role: Build-time binary identity (Version, Commit, Date) populated via -ldflags -X; CLI --version uses String(), traces and checkpoints record Version
-    - path: internal/observability/tracing/
-      role: Tracer port interface for OpenTelemetry (5 methods) and NoopTracer
-    - path: internal/observability/telemetry/
-      role: OTel implementation (providers, exporters, adapter, traceparent, replay)
-    - path: internal/observability/telemetry/genai/
-      role: OTel GenAI semantic convention constants, span name builders, attribute helpers
-    - path: internal/observability/monitor/
-      role: Embedded monitor store, recorder ports, metric schema registry, and OpenTelemetry metric export for normalized samples
-    - path: internal/model/llm/
-      role: Model-boundary client, conversation, profiles, parse utilities, domain interfaces
-    - path: internal/tools/llm/dialect/
-      role: Chat dialect loader, body renderer, reply selectors, and failure map a provider library declares (srd058)
-    - path: internal/model/prompt/
-      role: Prompt struct, YAML loading, system prompt template, and manifest serialization
-    - path: internal/tools/catalog/
-      role: ToolDef, declaration loading, tool selection, ToolSpec conversion, and config decoding package
-    - path: internal/tools/registry/
-      role: BuiltinRegistry, registration, and standard factory catalog package
-    - path: internal/tools/exec/
-      role: Exec tool builder, argv mapping, subprocess command, and exec undo package
-    - path: internal/tools/filesystem/
-      role: File tools, path validation, snapshots, and workspace restore package
-    - path: internal/tools/llm/
-      role: Model-boundary, response parsing, conversation state, and done tool package
-    - path: internal/tools/rest/
-      role: REST client/server boundary tool package with OpenAPI loading, operation definitions, async inbox integration, and net/http runtime behavior
-    - path: internal/tools/dolt/
-      role: Configured Dolt provision, query, and write boundary words with trusted connection references and commit receipts
-    - path: internal/tools/service/
-      role: Scenario-rig service-child lifecycle, deterministic discovery, validator execution, and session words
-    - path: internal/tools/otlp/
-      role: OTLP trace receive, bounded await, stdouttrace-compatible spool, relay, and stop boundary words
-    - path: internal/tools/lifecycle/
-      role: Checkpoint history, rollback, and lifecycle adapter package
-    - path: internal/tools/control/
-      role: Child-agent, predicate, partition, and declared-subset control tool package
-    - path: internal/tools/compose/
-      role: Flat substitution and ordered per-item rendering tool package
-    - path: internal/tools/validation/
-      role: Validation and audit tool adapter package
-    - path: internal/tools/undo/
-      role: Shared undo memento and compensation payload package
-    - path: internal/support/cli/
-      role: Standard CLI flag constants, PropagateArgs builder, and budget helpers
-    - path: internal/support/subprocess/
-      role: Subprocess execution utilities (Run, EnvVar)
-domain:
-    - path: internal/support/execute/
-      role: Agent subprocess execution with process groups and timeouts
-    - path: internal/planning/pipeline/
-      role: Planner tools and state adapters for extract, assemble, parse, profile-selected tracker results, execute, and check
-    - path: internal/planning/plan/
-      role: Implementation plan parsing and prompt assembly
-    - path: internal/planning/extract/
-      role: Task extraction from requirement graphs
-    - path: internal/planning/graph/
-      role: Requirement DAG construction, traversal, and persistence
-    - path: pkg/spec/
-      role: Public specification corpus parsing, graph construction, cross-artifact validation, and mirrored tool declaration completeness checks
-configuration:
-    - path: external applications/catalog/agents/
-      role: Standard agent programs, including generator, evaluator, planner, specification-critic, bench, REST, monitor, control, lifecycle, and Knowledge Manager profile assets
-    - path: tools/
-      role: Shared tool declarations — builtin.yaml and exec.yaml
-    - path: internal/model/llm/profiles/
-      role: Embedded LLM response profiles (9 model families)
-build:
-    - path: magefiles/
-      role: Mage build targets (build, lint, install, clean, tag, stats)
-    - path: docs/
-      role: Documentation, specifications, and roadmap
-    - path: external applications/catalog/agents/knowledge-manager/documentation-curator/
-      role: Profile-owned curator MachineSpecs, REST routes, ToolDefs, UX configuration, and React UI
-```
+- binaries:
+  1. - path: cmd/agent/
+     - role: Unified agent binary — generator, evaluator, planner, specification-critic, bench modes via YAML config
+- bench:
+  1. - path: internal/evaluation/
+     - role: Evaluator session/point runtime, result artifacts, metrics, convergence, trace analysis, and HTTP-independent artifact query words
+  1. - path: ../applications/catalog/agents/bench/
+     - role: External profile-owned REST routes, host/request machines, declarations, and React frontend
+- engine:
+  1. - path: internal/runtime/core/
+     - role: Generic agentic loop engine (types, state machine, dispatch, registry, loop, machine config)
+  1. - path: internal/runtime/checkpoint/
+     - role: Agent checkpoint Config, flags, and backend open used by cmd/agent
+  1. - path: internal/runtime/checkpoint/dolt/
+     - role: Dolt-backed Checkpoint adapter; implements core ports through internal/doltsql
+- infrastructure:
+  1. - path: internal/doltsql/
+     - role: Shared Dolt SQL seam, driver registration, database identity, and DOLT_* statements
+  1. - path: internal/version/
+     - role: Build-time binary identity (Version, Commit, Date) populated via -ldflags -X; CLI --version uses String(), traces and checkpoints record Version
+  1. - path: internal/observability/tracing/
+     - role: Tracer port interface for OpenTelemetry (5 methods) and NoopTracer
+  1. - path: internal/observability/telemetry/
+     - role: OTel implementation (providers, exporters, adapter, traceparent, replay)
+  1. - path: internal/observability/telemetry/genai/
+     - role: OTel GenAI semantic convention constants, span name builders, attribute helpers
+  1. - path: internal/observability/monitor/
+     - role: Embedded monitor store, recorder ports, metric schema registry, and OpenTelemetry metric export for normalized samples
+  1. - path: internal/model/llm/
+     - role: Model-boundary client, conversation, profiles, parse utilities, domain interfaces
+  1. - path: internal/tools/llm/dialect/
+     - role: Chat dialect loader, body renderer, reply selectors, and failure map a provider library declares (srd058)
+  1. - path: internal/model/prompt/
+     - role: Prompt struct, YAML loading, system prompt template, and manifest serialization
+  1. - path: internal/tools/catalog/
+     - role: ToolDef, declaration loading, tool selection, ToolSpec conversion, and config decoding package
+  1. - path: internal/tools/registry/
+     - role: BuiltinRegistry, registration, and standard factory catalog package
+  1. - path: internal/tools/exec/
+     - role: Exec tool builder, argv mapping, subprocess command, and exec undo package
+  1. - path: internal/tools/filesystem/
+     - role: File tools, path validation, snapshots, and workspace restore package
+  1. - path: internal/tools/llm/
+     - role: Model-boundary, response parsing, conversation state, and done tool package
+  1. - path: internal/tools/rest/
+     - role: REST client/server boundary tool package with OpenAPI loading, operation definitions, async inbox integration, and net/http runtime behavior
+  1. - path: internal/tools/dolt/
+     - role: Configured Dolt provision, query, and write boundary words with trusted connection references and commit receipts
+  1. - path: internal/tools/service/
+     - role: Scenario-rig service-child lifecycle, deterministic discovery, validator execution, and session words
+  1. - path: internal/tools/otlp/
+     - role: OTLP trace receive, bounded await, stdouttrace-compatible spool, relay, and stop boundary words
+  1. - path: internal/tools/lifecycle/
+     - role: Checkpoint history, rollback, and lifecycle adapter package
+  1. - path: internal/tools/control/
+     - role: Child-agent, predicate, partition, and declared-subset control tool package
+  1. - path: internal/tools/compose/
+     - role: Flat substitution and ordered per-item rendering tool package
+  1. - path: internal/tools/validation/
+     - role: Validation and audit tool adapter package
+  1. - path: internal/tools/undo/
+     - role: Shared undo memento and compensation payload package
+  1. - path: internal/support/cli/
+     - role: Standard CLI flag constants, PropagateArgs builder, and budget helpers
+  1. - path: internal/support/subprocess/
+     - role: Subprocess execution utilities (Run, EnvVar)
+- domain:
+  1. - path: internal/support/execute/
+     - role: Agent subprocess execution with process groups and timeouts
+  1. - path: internal/planning/pipeline/
+     - role: Planner tools and state adapters for extract, assemble, parse, profile-selected tracker results, execute, and check
+  1. - path: internal/planning/plan/
+     - role: Implementation plan parsing and prompt assembly
+  1. - path: internal/planning/extract/
+     - role: Task extraction from requirement graphs
+  1. - path: internal/planning/graph/
+     - role: Requirement DAG construction, traversal, and persistence
+  1. - path: pkg/spec/
+     - role: Public specification corpus parsing, graph construction, cross-artifact validation, and mirrored tool declaration completeness checks
+- configuration:
+  1. - path: external applications/catalog/agents/
+     - role: Standard agent programs, including generator, evaluator, planner, specification-critic, bench, REST, monitor, control, lifecycle, and Knowledge Manager profile assets
+  1. - path: tools/
+     - role: Shared tool declarations — builtin.yaml and exec.yaml
+  1. - path: internal/model/llm/profiles/
+     - role: Embedded LLM response profiles (9 model families)
+- build:
+  1. - path: magefiles/
+     - role: Mage build targets (build, lint, install, clean, tag, stats)
+  1. - path: docs/
+     - role: Documentation, specifications, and roadmap
+  1. - path: external applications/catalog/agents/knowledge-manager/documentation-curator/
+     - role: Profile-owned curator MachineSpecs, REST routes, ToolDefs, UX configuration, and React UI
 
 <!-- field: package_specification_coverage -->
 ## Package specification coverage
@@ -1682,50 +1680,48 @@ skipped until an automated browser harness joins the quality gate. Planner
 SRDs are optional unless planner behavior becomes a stable product surface
 outside profile configs.
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-current_focus: Release 09 end-to-end scenario tracing and remaining cross-package proof gaps
-progress:
-    - done: Core engine (internal/runtime/core) — types, state machine, dispatch, registry, loop, machine config
-    - done: Tracing port (internal/observability/tracing) — 5-method Tracer interface with NoopTracer
-    - done: Telemetry (internal/observability/telemetry) — OTel providers, exporters, adapter, traceparent, replay
-    - done: GenAI semconv (internal/observability/telemetry/genai) — constants, span builders, attribute helpers
-    - done: Model boundary support (internal/model/llm) — Client, Conversation, profiles, parseutil, interfaces
-    - done: Provider chat through shipped libraries (tools/providers/ollama, tools/providers/cohere) read by the dialect client (internal/tools/llm/dialect); the compiled Ollama and Cohere adapters retired at parity (srd058 R5.2)
-    - done: Prompt assembly (internal/model/prompt) — Prompt struct, YAML loading, system template
-    - done: Standard tool library behavior — file, build, model boundary, lifecycle adapters, config loading
-    - done: Standard tool library package split — internal/tools/catalog, registry, exec, filesystem, llm, rest, service, otlp, lifecycle, control, compose, validation, and undo
-    - done: CLI flags (internal/support/cli) — standard flag constants, PropagateArgs, RemainingBudget
-    - done: Subprocess (internal/support/subprocess) — process execution utilities
-    - done: Planner pipeline (internal/planning/pipeline, internal/planning/plan, internal/planning/extract, internal/planning/graph) with tracker invocation selected by external profile declarations
-    - done: Agent execution (internal/support/execute) — subprocess execution with process groups
-    - done: Specification tooling (pkg/spec) — corpus parsing, graph, validation
-    - done: Unified agent binary (cmd/agent) — generator, evaluator, planner, specification-critic, bench
-    - done: Bench profile — profile-owned REST routes, host/request machines, static React assets, evaluation queries, and self-invoke launch boundary
-    - done: Evaluation runtime (internal/evaluation) — profile suites, point execution, result artifacts, metrics, convergence, and trace analysis
-    - done: YAML tool definitions — shared builtin and exec declaration directories, compatibility aggregate files, plus agent-local overrides
-    - done: External agent profiles and configurations — generator, evaluator, planner, specification-critic, bench, REST, monitor, control, lifecycle, and Knowledge Manager profiles are supplied from applications/catalog through explicit --profile paths to a checkout or bundle mounted or copied beside the workspace
-    - done: Grammar Machine alignment — selected-tool contract enforcement, rollback strategy vocabulary, profile-first child boundaries, and centralized builtin factory catalog
-    - done: Rollback lifecycle core operations — Checkpoint port, NoopCheckpoint, InMemoryCheckpoint, DoltCheckpoint, history, resume, Revert, and receipt rollback traversal
-    - done: Lifecycle adapters and external profiles — checkpoint_history and checkpoint_rollback selected by applications/catalog lifecycle profiles
-    - done: LLM profiles — 9 model families with extraction pipelines
-    - done: Mage build targets — build, lint, install, clean, tag, stats, docker
-    - done: Release container runtime — slim multi-stage image with agent binary, Unix utilities, and shared YAML assets under /opt/agent-core
-    - done: REST runtime package -- internal/tools/rest implements declarative client, async client, server, fan-in, machine_request, monitor, OpenAPI import behavior, reserved-field validation, compensation mementos, rollback-time REST compensation execution, and named executable conformance evidence
-    - done: Scenario rig runtime components — internal/tools/rest implements the mock binding and internal/tools/service implements service-child lifecycle, deterministic discovery, validator execution, and session words
-    - partial: Release 09 scenario proof — component tests are executable, while the full TestScenarioRig_EndToEndVerdict tracer remains planned
-    - done: OTLP receiver runtime — internal/tools/otlp implements bounded receive, await, stdouttrace-compatible spool, unchanged relay, stop, and static self-loop rejection
-    - done: REST sample profile — applications/catalog owns REST profile assets while agent-core keeps core REST runtime conformance fixtures under testdata/integration/rel03-rest-tools
-    - done: Machine request REST path — documentation_curator routes execute the external documentation-curator request machine for document, search, validation, suggestion, and decision requests, with actions selected from trusted profile declarations
-    - done: Declarative document resources — documentation_corpus uses reusable filesystem resource words for docs/ list and read behavior
-    - done: Knowledge Manager machine_request proof — applications/catalog conformance and integration verify generic REST lifecycle, trace evidence, raw YAML, rendered HTML, search, specification validation, persistent review creation, and guarded approval
-    - done: cobbler-scaffold dependency removed
-    - done: Go test suite across all packages
-    - done: Specification index — 42 SRDs, 28 use cases, and 14 formal test suites are indexed with current release status
-    - done: Embedded monitor runtime — in-memory store, recorder ports, ToolDef and MachineSpec metric validation, config-driven tool-owned metric emission, workflow label propagation, OpenTelemetry metric export, REST/OpenAPI cached-state readers, cmd/agent live-store wiring, and mage integration:monitor release proof
-```
+- current_focus: Release 09 end-to-end scenario tracing and remaining cross-package proof gaps
+- progress:
+  1. - done: Core engine (internal/runtime/core) — types, state machine, dispatch, registry, loop, machine config
+  1. - done: Tracing port (internal/observability/tracing) — 5-method Tracer interface with NoopTracer
+  1. - done: Telemetry (internal/observability/telemetry) — OTel providers, exporters, adapter, traceparent, replay
+  1. - done: GenAI semconv (internal/observability/telemetry/genai) — constants, span builders, attribute helpers
+  1. - done: Model boundary support (internal/model/llm) — Client, Conversation, profiles, parseutil, interfaces
+  1. - done: Provider chat through shipped libraries (tools/providers/ollama, tools/providers/cohere) read by the dialect client (internal/tools/llm/dialect); the compiled Ollama and Cohere adapters retired at parity (srd058 R5.2)
+  1. - done: Prompt assembly (internal/model/prompt) — Prompt struct, YAML loading, system template
+  1. - done: Standard tool library behavior — file, build, model boundary, lifecycle adapters, config loading
+  1. - done: Standard tool library package split — internal/tools/catalog, registry, exec, filesystem, llm, rest, service, otlp, lifecycle, control, compose, validation, and undo
+  1. - done: CLI flags (internal/support/cli) — standard flag constants, PropagateArgs, RemainingBudget
+  1. - done: Subprocess (internal/support/subprocess) — process execution utilities
+  1. - done: Planner pipeline (internal/planning/pipeline, internal/planning/plan, internal/planning/extract, internal/planning/graph) with tracker invocation selected by external profile declarations
+  1. - done: Agent execution (internal/support/execute) — subprocess execution with process groups
+  1. - done: Specification tooling (pkg/spec) — corpus parsing, graph, validation
+  1. - done: Unified agent binary (cmd/agent) — generator, evaluator, planner, specification-critic, bench
+  1. - done: Bench profile — profile-owned REST routes, host/request machines, static React assets, evaluation queries, and self-invoke launch boundary
+  1. - done: Evaluation runtime (internal/evaluation) — profile suites, point execution, result artifacts, metrics, convergence, and trace analysis
+  1. - done: YAML tool definitions — shared builtin and exec declaration directories, compatibility aggregate files, plus agent-local overrides
+  1. - done: External agent profiles and configurations — generator, evaluator, planner, specification-critic, bench, REST, monitor, control, lifecycle, and Knowledge Manager profiles are supplied from applications/catalog through explicit --profile paths to a checkout or bundle mounted or copied beside the workspace
+  1. - done: Grammar Machine alignment — selected-tool contract enforcement, rollback strategy vocabulary, profile-first child boundaries, and centralized builtin factory catalog
+  1. - done: Rollback lifecycle core operations — Checkpoint port, NoopCheckpoint, InMemoryCheckpoint, DoltCheckpoint, history, resume, Revert, and receipt rollback traversal
+  1. - done: Lifecycle adapters and external profiles — checkpoint_history and checkpoint_rollback selected by applications/catalog lifecycle profiles
+  1. - done: LLM profiles — 9 model families with extraction pipelines
+  1. - done: Mage build targets — build, lint, install, clean, tag, stats, docker
+  1. - done: Release container runtime — slim multi-stage image with agent binary, Unix utilities, and shared YAML assets under /opt/agent-core
+  1. - done: REST runtime package -- internal/tools/rest implements declarative client, async client, server, fan-in, machine_request, monitor, OpenAPI import behavior, reserved-field validation, compensation mementos, rollback-time REST compensation execution, and named executable conformance evidence
+  1. - done: Scenario rig runtime components — internal/tools/rest implements the mock binding and internal/tools/service implements service-child lifecycle, deterministic discovery, validator execution, and session words
+  1. - partial: Release 09 scenario proof — component tests are executable, while the full TestScenarioRig_EndToEndVerdict tracer remains planned
+  1. - done: OTLP receiver runtime — internal/tools/otlp implements bounded receive, await, stdouttrace-compatible spool, unchanged relay, stop, and static self-loop rejection
+  1. - done: REST sample profile — applications/catalog owns REST profile assets while agent-core keeps core REST runtime conformance fixtures under testdata/integration/rel03-rest-tools
+  1. - done: Machine request REST path — documentation_curator routes execute the external documentation-curator request machine for document, search, validation, suggestion, and decision requests, with actions selected from trusted profile declarations
+  1. - done: Declarative document resources — documentation_corpus uses reusable filesystem resource words for docs/ list and read behavior
+  1. - done: Knowledge Manager machine_request proof — applications/catalog conformance and integration verify generic REST lifecycle, trace evidence, raw YAML, rendered HTML, search, specification validation, persistent review creation, and guarded approval
+  1. - done: cobbler-scaffold dependency removed
+  1. - done: Go test suite across all packages
+  1. - done: Specification index — 42 SRDs, 28 use cases, and 14 formal test suites are indexed with current release status
+  1. - done: Embedded monitor runtime — in-memory store, recorder ports, ToolDef and MachineSpec metric validation, config-driven tool-owned metric emission, workflow label propagation, OpenTelemetry metric export, REST/OpenAPI cached-state readers, cmd/agent live-store wiring, and mage integration:monitor release proof
 
 <!-- field: related_documents -->
 ## Related documents

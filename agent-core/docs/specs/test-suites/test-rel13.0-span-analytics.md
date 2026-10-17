@@ -38,21 +38,21 @@ rel13.0-uc001-span-analytics
 
 go test ./internal/tools/otlp -run TestSpanStatsFilterConjunction
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-services: 2
-filter: {service: svc-a, span_name: handle, attribute: {phase: parse}}
-```
+- services: 2
+- filter:
+  - service: svc-a
+  - span_name: handle
+  - attribute:
+    - phase: parse
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: SpanHeatmapReady
-matched: exact conjunction
-```
+- signal: SpanHeatmapReady
+- matched: exact conjunction
 
 <!-- field: traces -->
 #### Traces
@@ -76,20 +76,16 @@ rel13.0-uc001-span-analytics
 
 go test ./internal/tools/otlp -run TestSpanStatsEmptyFilterMatchesAll
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-filter: {}
-```
+- filter: {}
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: SpanHeatmapReady
-matched: all valid spans
-```
+- signal: SpanHeatmapReady
+- matched: all valid spans
 
 <!-- field: traces -->
 #### Traces
@@ -114,21 +110,21 @@ rel13.0-uc001-span-analytics
 
 go test ./internal/tools/otlp -run TestSpanStatsHeatmapGrid
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-time_buckets: 4
-duration_boundaries_ms: [0, 10, 100, 1000]
-```
+- time_buckets: 4
+- duration_boundaries_ms:
+  1. 0
+  1. 10
+  1. 100
+  1. 1000
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: SpanHeatmapReady
-cell_sum_equals_matched: true
-```
+- signal: SpanHeatmapReady
+- cell_sum_equals_matched: true
 
 <!-- field: traces -->
 #### Traces
@@ -154,23 +150,19 @@ rel13.0-uc001-span-analytics
 
 go test ./internal/tools/otlp -run TestSpanStatsGroupByTopN
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-distinct_values: 5
-group_by: tool.name
-top_n: 3
-```
+- distinct_values: 5
+- group_by: tool.name
+- top_n: 3
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: SpanGroupByReady
-returned_groups: 3
-dropped_groups: 2
-```
+- signal: SpanGroupByReady
+- returned_groups: 3
+- dropped_groups: 2
 
 <!-- field: traces -->
 #### Traces
@@ -195,14 +187,12 @@ rel13.0-uc001-span-analytics
 
 go test ./internal/tools/otlp -run TestSpanAnalyticsWordsRemainIndependentAcrossMachineSteps
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-heatmap_has_groups: false
-group_by_has_heatmap: false
-group_by_seed_recovered: true
-```
+- heatmap_has_groups: false
+- group_by_has_heatmap: false
+- group_by_seed_recovered: true
 
 <!-- field: traces -->
 #### Traces
@@ -228,22 +218,19 @@ rel13.0-uc001-span-analytics
 
 go test ./internal/tools/otlp -run TestSpanBreakdownDivergenceRanking
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-baseline_filter: {}
-selection_filter: {min_duration_ms: 500}
-top_n: 5
-```
+- baseline_filter: {}
+- selection_filter:
+  - min_duration_ms: 500
+- top_n: 5
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: SpanBreakdownReady
-top_ranked: the concentrated value
-```
+- signal: SpanBreakdownReady
+- top_ranked: the concentrated value
 
 <!-- field: traces -->
 #### Traces
@@ -267,20 +254,17 @@ rel13.0-uc001-span-analytics
 
 go test ./internal/tools/otlp -run TestSpanBreakdownEmptySelection
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-selection_filter: {service: nonexistent}
-```
+- selection_filter:
+  - service: nonexistent
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: SpanBreakdownReady
-ranked: 0
-```
+- signal: SpanBreakdownReady
+- ranked: 0
 
 <!-- field: traces -->
 #### Traces
@@ -304,21 +288,17 @@ rel13.0-uc001-span-analytics
 
 go test ./internal/tools/otlp -run TestSpanStatsMalformedAndDeterministic
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-malformed_lines: 2
-```
+- malformed_lines: 2
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: SpanHeatmapReady
-skipped_lines: 2
-deterministic: true
-```
+- signal: SpanHeatmapReady
+- skipped_lines: 2
+- deterministic: true
 
 <!-- field: traces -->
 #### Traces
@@ -341,19 +321,15 @@ rel13.0-uc001-span-analytics
 
 go test ./internal/tools/otlp -run TestSpanStatsEmptyPathError
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-path: ""
-```
+- path: ""
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: CommandError
-```
+- signal: CommandError
 
 <!-- field: traces -->
 #### Traces
@@ -378,19 +354,15 @@ rel13.0-uc001-span-analytics
 
 go test ./internal/tools/otlp -run Exemplar
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-exemplar_cap: 2
-```
+- exemplar_cap: 2
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-exemplar_trace_ids_deterministic: true
-```
+- exemplar_trace_ids_deterministic: true
 
 <!-- field: traces -->
 #### Traces

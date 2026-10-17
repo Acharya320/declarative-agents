@@ -10,18 +10,19 @@ depends_on:
 <!-- Copyright (c) 2026 Nokia -->
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
 
-<!-- field: role_realization_decision -->
+<!-- field: role_realization_decision | form: "tree" -->
 ## Role realization decision
 
-```yaml
-current_actor: creator
-implemented_responsibility: Launch a corpus-ingest child, drive decided rollout operations, read resulting health and state, and own the deployment-API client boundary.
-canonical_role_sub_role: Creator / Instance Manager and Agent Owner / Agent Lifecycle Manager.
-retained_or_proposed_name: Retain `creator`; instance realization is an implemented primary responsibility and Agent Owner is an additional trait.
-authority_boundary: Acts on a decided operation and alone reaches the deployment API; it does not decide desired values or orchestrate the end-to-end intent.
-evidence: [agents/creator/request-machine.yaml, agents/creator/request-declarations.yaml, helm/templates/creator.yaml]
-migration_impact: None; actor and workload names remain compatible with canonical Creator.
-```
+- current_actor: creator
+- implemented_responsibility: Launch a corpus-ingest child, drive decided rollout operations, read resulting health and state, and own the deployment-API client boundary.
+- canonical_role_sub_role: Creator / Instance Manager and Agent Owner / Agent Lifecycle Manager.
+- retained_or_proposed_name: Retain `creator`; instance realization is an implemented primary responsibility and Agent Owner is an additional trait.
+- authority_boundary: Acts on a decided operation and alone reaches the deployment API; it does not decide desired values or orchestrate the end-to-end intent.
+- evidence:
+  1. agents/creator/request-machine.yaml
+  1. agents/creator/request-declarations.yaml
+  1. helm/templates/creator.yaml
+- migration_impact: None; actor and workload names remain compatible with canonical Creator.
 
 <!-- field: context -->
 ## Context
@@ -260,45 +261,36 @@ agent-core runtime contracts this agent builds on. External references, owned by
 | srd034-external-agent-profiles | agent-core | [R2] |
 | srd028-rest-client-tools | agent-core | [V30] |
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-implemented:
-    - >-
-      The creator profile (agents/creator): its instance endpoint, the values-plane rollout client to the deployment API (apply_instance), the rollout health verification (verify_health, R4), the deployed-values state read the provisioning panel loads through (read_state, srd006 R1.5), and the authority boundary (R5) -- the creator is the mesh's only declared deployment-API client. mage integration:controlPlane drives the panel's values apply through provisioning-workflow-orchestrator -> creator -> deployment API against the real agents and a recording fake, asserting the decided document crosses each hop and that no endpoint or credential does.
-    - >-
-      The corpus-ingest child run (R3.1) shipped with GH-762: POST /api/v1/ingest runs a corpus-ingest child agent over the requested directory through agent-core's agent-as-child-CLI contract (srd021) -- the creator runs the agent binary its image already carries against the child profile, so no agent-core change was needed -- then resolves the ingested collection and reads its count to report what the run actually wrote. That read is not redundant with the child's exit code: corpus-ingest reaches its own Succeeded terminal on CountReady whatever the count, so a run that ingested nothing still exits zero. The ingest is its own endpoint and machine leg because initial_signal is per-endpoint and a machine cannot branch on a body field, which is why an ingest posted at /instance could only ever take the values-apply leg (GH-755).
-    - >-
-      Rejecting an ingest that wrote no documents (AC3's shortfall half) shipped with GH-763, once agent-core's value predicate word (srd041) made the comparison expressible. GH-772 made that comparison measure the run rather than the collection: the creator resolves the collection and reads its count before the child, reads it again afterward, and uses command state to compare the post-run count with the pre-run baseline. A zero delta answers 422 and reaches the provisioning-workflow-orchestrator's Rejected leg even when the collection was already populated. An unchanged re-ingest is deliberately a shortfall: the operation promises a run contribution, not merely an already-satisfied storage state. The corpus-ingest contract remains unchanged for its other callers. A count that will not resolve reaches IngestFailed rather than IngestRejected, because a broken read is not an empty corpus. GH-790 carried the judged post-run count from the terminal predicate's raw left operand into the creator success response and through the provisioning-workflow-orchestrator client mapping.
-    - >-
-      Ingesting into a caller-named collection shipped with GH-1894, once agent-core gave exec declarations an environment seam (GH-1884). The creator resolves the collection the intent names, counts it, and hands the child the same name by overlaying CORPUS_INGEST_COLLECTION on the environment the child inherits, so the collection resolved, counted, and written is one value the request chose. get_or_create makes a caller's first ingest into a new collection a create rather than a missing resource. Until that seam existed the child could only inherit the creator's own collection: exec tools passed no environment and the corpus-ingest profile hardcoded its collection name, so the field was accepted for intent wholeness and silently ignored.
-    - >-
-      The embedding family goes the other way, and GH-1894 made it a judged field rather than an honoured or an ignored one. It stays deployment configuration, because a source embedded at a family the serving RAG unit does not report is excluded from every turn (srd002 R3.3): the only value a caller could supply other than the deployment's own is one that makes its own ingest unretrievable. Until then the field was accepted by the orchestrator's intent, sent on the wire, accepted by the creator's ingest schema, seeded into its machine request, and read by no word at all, so an intent expecting another family was answered 200 over documents no turn could retrieve. The creator now compares the expected family against the one it ingests at (requested_family_matches) and answers 422 embedding_family_mismatch before any child runs, distinct from the ingest_shortfall a run that wrote nothing earns. The field is required on both the intent and the ingest endpoint: a predicate operand that does not resolve is a CommandError rather than a false comparison (agent-core srd041 R4.2), so an omitted family could only fail late or read as a mismatch, and intake is where it is caught.
-```
+- implemented:
+  1. "The creator profile (agents/creator): its instance endpoint, the values-plane rollout client to the deployment API (apply_instance), the rollout health verification (verify_health, R4), the deployed-values state read the provisioning panel loads through (read_state, srd006 R1.5), and the authority boundary (R5) -- the creator is the mesh's only declared deployment-API client. mage integration:controlPlane drives the panel's values apply through provisioning-workflow-orchestrator -\u003e creator -\u003e deployment API against the real agents and a recording fake, asserting the decided document crosses each hop and that no endpoint or credential does."
+  1. "The corpus-ingest child run (R3.1) shipped with GH-762: POST /api/v1/ingest runs a corpus-ingest child agent over the requested directory through agent-core's agent-as-child-CLI contract (srd021) -- the creator runs the agent binary its image already carries against the child profile, so no agent-core change was needed -- then resolves the ingested collection and reads its count to report what the run actually wrote. That read is not redundant with the child's exit code: corpus-ingest reaches its own Succeeded terminal on CountReady whatever the count, so a run that ingested nothing still exits zero. The ingest is its own endpoint and machine leg because initial_signal is per-endpoint and a machine cannot branch on a body field, which is why an ingest posted at /instance could only ever take the values-apply leg (GH-755)."
+  1. "Rejecting an ingest that wrote no documents (AC3's shortfall half) shipped with GH-763, once agent-core's value predicate word (srd041) made the comparison expressible. GH-772 made that comparison measure the run rather than the collection: the creator resolves the collection and reads its count before the child, reads it again afterward, and uses command state to compare the post-run count with the pre-run baseline. A zero delta answers 422 and reaches the provisioning-workflow-orchestrator's Rejected leg even when the collection was already populated. An unchanged re-ingest is deliberately a shortfall: the operation promises a run contribution, not merely an already-satisfied storage state. The corpus-ingest contract remains unchanged for its other callers. A count that will not resolve reaches IngestFailed rather than IngestRejected, because a broken read is not an empty corpus. GH-790 carried the judged post-run count from the terminal predicate's raw left operand into the creator success response and through the provisioning-workflow-orchestrator client mapping."
+  1. "Ingesting into a caller-named collection shipped with GH-1894, once agent-core gave exec declarations an environment seam (GH-1884). The creator resolves the collection the intent names, counts it, and hands the child the same name by overlaying CORPUS_INGEST_COLLECTION on the environment the child inherits, so the collection resolved, counted, and written is one value the request chose. get_or_create makes a caller's first ingest into a new collection a create rather than a missing resource. Until that seam existed the child could only inherit the creator's own collection: exec tools passed no environment and the corpus-ingest profile hardcoded its collection name, so the field was accepted for intent wholeness and silently ignored."
+  1. "The embedding family goes the other way, and GH-1894 made it a judged field rather than an honoured or an ignored one. It stays deployment configuration, because a source embedded at a family the serving RAG unit does not report is excluded from every turn (srd002 R3.3): the only value a caller could supply other than the deployment's own is one that makes its own ingest unretrievable. Until then the field was accepted by the orchestrator's intent, sent on the wire, accepted by the creator's ingest schema, seeded into its machine request, and read by no word at all, so an intent expecting another family was answered 200 over documents no turn could retrieve. The creator now compares the expected family against the one it ingests at (requested_family_matches) and answers 422 embedding_family_mismatch before any child runs, distinct from the ingest_shortfall a run that wrote nothing earns. The field is required on both the intent and the ingest endpoint: a predicate operand that does not resolve is a CommandError rather than a false comparison (agent-core srd041 R4.2), so an omitted family could only fail late or read as a mismatch, and intake is where it is caught."
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: A decided reconfiguration must be realized against real instances behind one authority boundary"] --> Goals["Goals: Creator Agent Functional Block"]
-      Goals --> R1["R1: Instance-request boundary"]
-      Goals --> R2["R2: Template selection"]
-      Goals --> R3["R3: Instance operations"]
-      Goals --> R4["R4: Health monitoring"]
-      Goals --> R5["R5: Authority boundary"]
-      Goals --> R6["R6: Non-goals"]
-      R1 --> AC1["AC1: instance endpoint from the provisioning-workflow-orchestrator"]
-      R2 --> AC2["AC2: role to profile + rendered config, mounted-profile contract"]
-      R3 --> AC3["AC3: child ingest runs, resume rollout, terminate"]
-      R4 --> AC4["AC4: post-op health reported to the provisioning-workflow-orchestrator"]
-      R5 --> AC5["AC5: sole deployment-API authority, no endpoint into an agent"]
-      R6 --> AC5
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: A decided reconfiguration must be realized against real instances behind one authority boundary"] --> Goals["Goals: Creator Agent Functional Block"]
+    Goals --> R1["R1: Instance-request boundary"]
+    Goals --> R2["R2: Template selection"]
+    Goals --> R3["R3: Instance operations"]
+    Goals --> R4["R4: Health monitoring"]
+    Goals --> R5["R5: Authority boundary"]
+    Goals --> R6["R6: Non-goals"]
+    R1 --> AC1["AC1: instance endpoint from the provisioning-workflow-orchestrator"]
+    R2 --> AC2["AC2: role to profile + rendered config, mounted-profile contract"]
+    R3 --> AC3["AC3: child ingest runs, resume rollout, terminate"]
+    R4 --> AC4["AC4: post-op health reported to the provisioning-workflow-orchestrator"]
+    R5 --> AC5["AC5: sole deployment-API authority, no endpoint into an agent"]
+    R6 --> AC5
+  ```
 
 <!-- field: non_goals -->
 ## Non-goals

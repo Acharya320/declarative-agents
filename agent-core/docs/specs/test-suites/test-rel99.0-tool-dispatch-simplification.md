@@ -39,20 +39,16 @@ rel99.0-uc001-tool-dispatch-simplification
 
 mage audit
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-design_doc: srd037-tool-dispatch-simplification
-```
+- design_doc: srd037-tool-dispatch-simplification
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-dispatch_model_unchanged: true
-extension_points_named: true
-```
+- dispatch_model_unchanged: true
+- extension_points_named: true
 
 <!-- field: traces -->
 #### Traces
@@ -76,21 +72,17 @@ rel99.0-uc001-tool-dispatch-simplification
 
 go test ./internal/runtime/core -run 'TestRegistry(CheckedRegistrationReturnsConfigurationErrors|CompatibilityWrappersStillPanic)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-registry: core.Registry
-startup_path: profile tool declaration registration
-```
+- registry: core.Registry
+- startup_path: profile tool declaration registration
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-configuration_errors_returned: true
-compatibility_wrappers_available: true
-```
+- configuration_errors_returned: true
+- compatibility_wrappers_available: true
 
 <!-- field: traces -->
 #### Traces
@@ -114,21 +106,19 @@ rel99.0-uc001-tool-dispatch-simplification
 
 go test ./internal/tools/registry -run 'Test(RegisterUnifiedToolsDuplicateReturnsRegistryError|RegisterSingleBuiltinUnknownInitMatchesUnifiedPath|RegisterSingleBuiltinOverrides)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-builtin_paths: [RegisterSingleBuiltin, RegisterUnifiedTools]
-exec_path: registerExec
-```
+- builtin_paths:
+  1. RegisterSingleBuiltin
+  1. RegisterUnifiedTools
+- exec_path: registerExec
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-builtin_helper_shared: true
-exec_registration_separate: true
-```
+- builtin_helper_shared: true
+- exec_registration_separate: true
 
 <!-- field: traces -->
 #### Traces
@@ -152,21 +142,22 @@ rel99.0-uc001-tool-dispatch-simplification
 
 go test ./internal/tools/registry -run TestDynamicToolActionAndParseResponseShareAvailabilityRule
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-paths: [Registry.Manifest, parse_response, dynamic_$tool_dispatch]
-states: [available, unavailable]
-```
+- paths:
+  1. Registry.Manifest
+  1. parse_response
+  1. dynamic_$tool_dispatch
+- states:
+  1. available
+  1. unavailable
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-shared_availability_rule: true
-existing_error_contracts_preserved: true
-```
+- shared_availability_rule: true
+- existing_error_contracts_preserved: true
 
 <!-- field: traces -->
 #### Traces
@@ -191,25 +182,28 @@ rel99.0-uc001-tool-dispatch-simplification
 
 go test ./internal/tools/catalog ./internal/tools/llm -run 'Test(ValidateToolPhases(RejectsActualSelectorStateDifferentFromDynamicTarget|RejectsActualParserStateDifferentFromDynamicTarget|AcceptsManifestStateMatchingDynamicTarget|RejectsWordScopedToNoState|IgnoresUnrelatedInvokeManifestStatesAndOrder)|ParseResponseOwnsManifestStateIndependentOfInvokeRegistration|PhaseScopedChapterExamplesLoadAndDeriveAvailability)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-manifest_states: [matching_target, mismatched_selector, mismatched_parser, unrelated_invoke]
-zero_phase_causes: [empty_explicit_intersection, missing_emits, unroutable_emit]
-```
+- manifest_states:
+  1. matching_target
+  1. mismatched_selector
+  1. mismatched_parser
+  1. unrelated_invoke
+- zero_phase_causes:
+  1. empty_explicit_intersection
+  1. missing_emits
+  1. unroutable_emit
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-mismatched_validating_state_rejected: true
-unrelated_invoke_ignored: true
-declaration_order_independent: true
-zero_phase_word_rejected_with_cause: true
-matching_target_state_accepted: true
-chapter_examples_pass_complete_phase_validation: true
-```
+- mismatched_validating_state_rejected: true
+- unrelated_invoke_ignored: true
+- declaration_order_independent: true
+- zero_phase_word_rejected_with_cause: true
+- matching_target_state_accepted: true
+- chapter_examples_pass_complete_phase_validation: true
 
 <!-- field: traces -->
 #### Traces
@@ -235,21 +229,17 @@ rel99.0-uc001-tool-dispatch-simplification
 
 go test ./internal/runtime/core ./internal/tools/registry ./internal/tools/llm
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-code_task: GH-171#173
-```
+- code_task: GH-171#173
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-machinespec_unchanged: true
-command_execution_unchanged: true
-parser_syntax_unchanged: true
-```
+- machinespec_unchanged: true
+- command_execution_unchanged: true
+- parser_syntax_unchanged: true
 
 <!-- field: traces -->
 #### Traces

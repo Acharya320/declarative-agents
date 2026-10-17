@@ -37,20 +37,16 @@ rel14.0-uc001-served-trace-ui
 
 go test ./conformance -run TestCollectorServesUIIndex
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-request: GET /
-```
+- request: GET /
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-status: 200
-content_type: text/html
-```
+- status: 200
+- content_type: text/html
 
 <!-- field: traces -->
 #### Traces
@@ -74,21 +70,17 @@ rel14.0-uc001-served-trace-ui
 
 go test ./conformance -run TestCollectorServesUIDeepLink
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-request: GET /traces/trace-aaa
-```
+- request: GET /traces/trace-aaa
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-status: 200
-content_type: text/html
-body: SPA index
-```
+- status: 200
+- content_type: text/html
+- body: SPA index
 
 <!-- field: traces -->
 #### Traces
@@ -113,21 +105,25 @@ rel14.0-uc001-served-trace-ui
 
 go test ./conformance -run TestCollectorQueryUnaffectedByUI
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-spool: seeded two-trace fixture
-requests: [GET /query/traces, GET /query/traces/trace-aaa]
-```
+- spool: seeded two-trace fixture
+- requests:
+  1. GET /query/traces
+  1. GET /query/traces/trace-aaa
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-status: 200
-summary_keys: [duration_ms, root_service, root_span_name, span_count, start_time, trace_id]
-```
+- status: 200
+- summary_keys:
+  1. duration_ms
+  1. root_service
+  1. root_span_name
+  1. span_count
+  1. start_time
+  1. trace_id
 
 <!-- field: traces -->
 #### Traces
@@ -152,20 +148,16 @@ rel14.0-uc001-served-trace-ui
 
 go test ./conformance -run TestCollectorMissingUIRoot
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-ui_root: absent directory
-request: GET /
-```
+- ui_root: absent directory
+- request: GET /
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-status: explicit error (not 200, not empty body)
-```
+- status: explicit error (not 200, not empty body)
 
 <!-- field: traces -->
 #### Traces
@@ -190,19 +182,15 @@ rel14.0-uc001-served-trace-ui
 
 go test ./conformance -run TestCollectorUIRootLiteral
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-file: agents/collector/rest.yaml
-```
+- file: agents/collector/rest.yaml
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-new_ui_env_var: none
-```
+- new_ui_env_var: none
 
 <!-- field: traces -->
 #### Traces
@@ -228,21 +216,21 @@ rel14.0-uc001-served-trace-ui
 
 go test ./conformance -run TestServedUIsComposeOnKitShell
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-ui_dirs: [agents/collector/ui, agents/bench/ui]
-```
+- ui_dirs:
+  1. agents/collector/ui
+  1. agents/bench/ui
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-ui_yaml_version: 2
-unregistered_panels: none
-raw_fetch: {collector: 0, bench: 1}
-```
+- ui_yaml_version: 2
+- unregistered_panels: none
+- raw_fetch:
+  - collector: 0
+  - bench: 1
 
 <!-- field: traces -->
 #### Traces

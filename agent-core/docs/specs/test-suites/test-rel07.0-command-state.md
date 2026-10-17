@@ -43,13 +43,11 @@ rel07.0-uc001-command-state-threading
 
 go test ./internal/runtime/core -run TestResolveFromSelectorReturnsRawLabeledOutput
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-raw_output_preserved: true
-receipt_exposed: false
-```
+- raw_output_preserved: true
+- receipt_exposed: false
 
 <!-- field: traces -->
 #### Traces
@@ -75,15 +73,13 @@ rel07.0-uc001-command-state-threading
 
 go test ./internal/runtime/core ./internal/tools/rest -run 'TestSelectorIndexesArraysAndKeepsDigitKeys|TestFromSelectorIndexesAPriorStepsArray|TestResponseSelectorsShareNestedMapSemantics'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-array_indexed: true
-digit_key_on_object_preserved: true
-out_of_range_unresolved: true
-signed_index_unresolved: true
-```
+- array_indexed: true
+- digit_key_on_object_preserved: true
+- out_of_range_unresolved: true
+- signed_index_unresolved: true
 
 <!-- field: traces -->
 #### Traces
@@ -108,22 +104,20 @@ rel07.0-uc001-command-state-threading
 
 go test ./internal/tools/rest/client -run TestRESTClient_CommandStateThreadsNonAdjacentStep
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-chain: [embed_query, query_collection]
-selector: $from(embed_query).embedding
-body_source: command_state
-```
+- chain:
+  1. embed_query
+  1. query_collection
+- selector: $from(embed_query).embedding
+- body_source: command_state
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-selected_param_present: true
-undeclared_params_absent: true
-```
+- selected_param_present: true
+- undeclared_params_absent: true
 
 <!-- field: traces -->
 #### Traces
@@ -154,21 +148,20 @@ rel07.0-uc001-command-state-threading
 
 go test ./internal/tools/rest/client -run 'TestRESTClient_CommandState(ThreadsNonAdjacentStep|TracerBulletNonAdjacentWithRestart)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-chain: [embed_query, record_event, query_collection]
-selector: $from(embed_query).embedding
-```
+- chain:
+  1. embed_query
+  1. record_event
+  1. query_collection
+- selector: $from(embed_query).embedding
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-request_body_query_embeddings: nested_array
-intervening_word_ignored: true
-```
+- request_body_query_embeddings: nested_array
+- intervening_word_ignored: true
 
 <!-- field: traces -->
 #### Traces
@@ -199,23 +192,26 @@ go test ./internal/tools/exec -run TestExecBuilderCommandStateSourceAcrossInterv
 
 GH-786
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-chain: [capture_request, count_before, run_corpus_ingest]
-sourced_parameter: {name: directory, source: "$from(capture_request).parameters.directory"}
-adjacent_parameter: {name: mode, previous_result_path: parameters.mode}
-```
+- chain:
+  1. capture_request
+  1. count_before
+  1. run_corpus_ingest
+- sourced_parameter:
+  - name: directory
+  - source: $from(capture_request).parameters.directory
+- adjacent_parameter:
+  - name: mode
+  - previous_result_path: parameters.mode
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-sourced_argument_present: true
-intervening_word_ignored: true
-adjacent_mapping_unchanged: true
-```
+- sourced_argument_present: true
+- intervening_word_ignored: true
+- adjacent_mapping_unchanged: true
 
 <!-- field: traces -->
 #### Traces
@@ -246,24 +242,20 @@ go test ./internal/tools/exec -run TestExecBuilderCommandStateSourceFailures
 
 GH-786
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-missing_label: "$from(absent).parameters.directory"
-missing_path: "$from(seed).parameters.absent"
-malformed_source: "$from(seed"
-```
+- missing_label: $from(absent).parameters.directory
+- missing_path: $from(seed).parameters.absent
+- malformed_source: $from(seed
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: CommandError
-typed_cause_preserved: true
-subprocess_started: false
-malformed_source_rejected_at_startup: true
-```
+- signal: CommandError
+- typed_cause_preserved: true
+- subprocess_started: false
+- malformed_source_rejected_at_startup: true
 
 <!-- field: traces -->
 #### Traces
@@ -299,29 +291,35 @@ go test ./internal/tools/catalog ./internal/tools/exec -run 'Test(ParseToolDefsE
 
 GH-895
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-chain: [produce_words, count_words]
-producer_binary: printf
-consumer_binary: wc
-selector: "$from(produce_words).output"
-invalid_sources: [malformed, missing, empty, non_string, oversized, receipt]
-lifecycle: [cancel, checkpoint_save_load]
-```
+- chain:
+  1. produce_words
+  1. count_words
+- producer_binary: printf
+- consumer_binary: wc
+- selector: $from(produce_words).output
+- invalid_sources:
+  1. malformed
+  1. missing
+  1. empty
+  1. non_string
+  1. oversized
+  1. receipt
+- lifecycle:
+  1. cancel
+  1. checkpoint_save_load
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-consumer_word_count: 2
-shell_invoked: false
-invalid_input_launches: 0
-cancellation_joins_process: true
-safe_output_survives_resume: true
-stdin_in_telemetry_or_receipt: false
-```
+- consumer_word_count: 2
+- shell_invoked: false
+- invalid_input_launches: 0
+- cancellation_joins_process: true
+- safe_output_survives_resume: true
+- stdin_in_telemetry_or_receipt: false
 
 <!-- field: traces -->
 #### Traces
@@ -360,26 +358,29 @@ go test ./internal/tools/catalog ./internal/tools/exec -run 'Test(ParseToolDefsE
 
 GH-1884
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-env:
-    - GH1884_COLLECTION={{ params.collection }}
-sourced_parameter: {name: collection, source: "$from(seed).parameters.collection"}
-invalid: [malformed, undeclared_token, missing, empty, builtin]
-```
+- env:
+  1. GH1884_COLLECTION={{ params.collection }}
+- sourced_parameter:
+  - name: collection
+  - source: $from(seed).parameters.collection
+- invalid:
+  1. malformed
+  1. undeclared_token
+  1. missing
+  1. empty
+  1. builtin
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-child_inherits_parent_environment: true
-declared_keys_overlay: true
-env_only_parameter_argv_entries: 0
-invalid_input_launches: 0
-env_in_telemetry_or_receipt: false
-```
+- child_inherits_parent_environment: true
+- declared_keys_overlay: true
+- env_only_parameter_argv_entries: 0
+- invalid_input_launches: 0
+- env_in_telemetry_or_receipt: false
 
 <!-- field: traces -->
 #### Traces
@@ -414,27 +415,23 @@ go test ./internal/tools/rest -run 'TestMachineRequest(Seed(CommandStateAddress|
 
 GH-489
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-selector: "$from(seed).parameters.directory"
-sensitive_selector: "$from(seed).parameters.token"
-intervening_words: 2
-resume_with_seed_entry: true
-```
+- selector: $from(seed).parameters.directory
+- sensitive_selector: $from(seed).parameters.token
+- intervening_words: 2
+- resume_with_seed_entry: true
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-directory_resolved: true
-sensitive_field_resolved: false
-sensitive_value_persisted: false
-malformed_output_omitted: true
-seed_entries_fresh_run: 1
-seed_entries_resumed_run: 1
-```
+- directory_resolved: true
+- sensitive_field_resolved: false
+- sensitive_value_persisted: false
+- malformed_output_omitted: true
+- seed_entries_fresh_run: 1
+- seed_entries_resumed_run: 1
 
 <!-- field: traces -->
 #### Traces
@@ -462,22 +459,22 @@ rel07.0-uc001-command-state-threading
 
 go test ./internal/runtime/core -run TestCommandStateViewDuplicateLabelMostRecentWins
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-steps:
-    - {label: fetch, command_name: rest_get, step_index: 0}
-    - {label: fetch, command_name: rest_retry, step_index: 2}
-selector: $from(fetch).id
-```
+- steps:
+  1. - label: fetch
+     - command_name: rest_get
+     - step_index: 0
+  1. - label: fetch
+     - command_name: rest_retry
+     - step_index: 2
+- selector: $from(fetch).id
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-resolved_step_index: 2
-```
+- resolved_step_index: 2
 
 <!-- field: traces -->
 #### Traces
@@ -508,25 +505,25 @@ go test ./internal/runtime/core -run TestCommandStateAuthoredLabelMachineExecuti
 
 GH-782
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-transition:
-    action: fetch_document
-    label: source
-invalid_labels: ["", "source.part", "source label", "source(label)"]
-```
+- transition:
+  - action: fetch_document
+  - label: source
+- invalid_labels:
+  1. ""
+  1. source.part
+  1. source label
+  1. source(label)
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-entry_label: source
-entry_command_name: fetch_document
-invalid_label_rejected: true
-duplicate_valid_labels_accepted: true
-```
+- entry_label: source
+- entry_command_name: fetch_document
+- invalid_label_rejected: true
+- duplicate_valid_labels_accepted: true
 
 <!-- field: traces -->
 #### Traces
@@ -558,25 +555,27 @@ go test ./internal/runtime/core -run TestCommandStateViewCommandNameFallbackAndA
 
 GH-783
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-steps:
-    - {label: fetch, command_name: rest_get, step_index: 0}
-    - {label: transform, command_name: fetch, step_index: 1}
-    - {label: fetch, command_name: rest_get, step_index: 2}
-```
+- steps:
+  1. - label: fetch
+     - command_name: rest_get
+     - step_index: 0
+  1. - label: transform
+     - command_name: fetch
+     - step_index: 1
+  1. - label: fetch
+     - command_name: rest_get
+     - step_index: 2
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-authored_label_fetch_resolves_step_index: 2
-command_name_rest_get_resolves_step_index: 2
-label_command_name_collision_uses_newest_match: true
-unlabeled_legacy_entry_uses_command_name: true
-```
+- authored_label_fetch_resolves_step_index: 2
+- command_name_rest_get_resolves_step_index: 2
+- label_command_name_collision_uses_newest_match: true
+- unlabeled_legacy_entry_uses_command_name: true
 
 <!-- field: traces -->
 #### Traces
@@ -606,22 +605,18 @@ go test ./internal/runtime/core -run TestResolveFromSelectorTypedErrors
 
 GH-783
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-unresolved_label: missing
-unresolved_path: mapped.absent
-```
+- unresolved_label: missing
+- unresolved_path: mapped.absent
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-unresolved_label_error_typed: true
-unresolved_path_error_typed: true
-consumer_wrap_preserves_cause: true
-```
+- unresolved_label_error_typed: true
+- unresolved_path_error_typed: true
+- consumer_wrap_preserves_cause: true
 
 <!-- field: traces -->
 #### Traces
@@ -651,22 +646,18 @@ go test ./internal/runtime/core ./internal/runtime/checkpoint/dolt -run 'TestCom
 
 component-integration
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-suspend_after: embed_query
-resume_in: fresh_process
-selector: $from(embed_query).embedding
-```
+- suspend_after: embed_query
+- resume_in: fresh_process
+- selector: $from(embed_query).embedding
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-label_resolved_after_restart: true
-value_equivalent_to_live_run: true
-```
+- label_resolved_after_restart: true
+- value_equivalent_to_live_run: true
 
 <!-- field: traces -->
 #### Traces
@@ -702,26 +693,22 @@ GH-781
 
 component-integration
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-authored_label: embed
-command_name: rest_embed
-legacy_label: null
-upgrade_runs: 2
-```
+- authored_label: embed
+- command_name: rest_embed
+- legacy_label: null
+- upgrade_runs: 2
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-authored_label_round_trips: true
-fresh_view_resolves_label: true
-legacy_row_uses_command_name: true
-repeated_upgrade_succeeds: true
-receipt_remains_unaddressable: true
-```
+- authored_label_round_trips: true
+- fresh_view_resolves_label: true
+- legacy_row_uses_command_name: true
+- repeated_upgrade_succeeds: true
+- receipt_remains_unaddressable: true
 
 <!-- field: traces -->
 #### Traces
@@ -748,23 +735,25 @@ rel07.0-uc001-command-state-threading
 
 go test ./internal/tools/rest/client -run 'TestRESTClient_CommandState(RejectionTable|MissNamesLabel|NoViewConfiguredRejected)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-cases:
-    - {selector: $from(embed_query).embedding, target: undeclared_param, reject: true}
-    - {selector: $from(embed_query).headers.authorization, target: auth_header, reject: true}
-    - {selector: "$from(.broken", target: query_embeddings, reject: true}
-```
+- cases:
+  1. - selector: $from(embed_query).embedding
+     - target: undeclared_param
+     - reject: true
+  1. - selector: $from(embed_query).headers.authorization
+     - target: auth_header
+     - reject: true
+  1. - selector: $from(.broken
+     - target: query_embeddings
+     - reject: true
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-all_rejected: true
-transport_authority_unreachable: true
-```
+- all_rejected: true
+- transport_authority_unreachable: true
 
 <!-- field: traces -->
 #### Traces
@@ -798,24 +787,20 @@ go test ./internal/tools/rest/client -run TestRESTClient_RedactionRunsBeforePers
 
 component-integration
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-configured_selector: body.secret
-response_secret: body-secret
-```
+- configured_selector: body.secret
+- response_secret: body-secret
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-original_secret_absent_from_result: true
-replacement_marker_present_in_result: true
-field_absent_from_live_entry: true
-field_absent_after_reload: true
-selector_resolves_field: false
-```
+- original_secret_absent_from_result: true
+- replacement_marker_present_in_result: true
+- field_absent_from_live_entry: true
+- field_absent_after_reload: true
+- selector_resolves_field: false
 
 <!-- field: traces -->
 #### Traces
@@ -853,27 +838,28 @@ GH-489
 
 component-integration
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-redacted_field: body.secret
-selector: $from(fetch).body.secret
-persistence_backends: [in_memory, dolt]
-failure_cases: [invalid_path, non_object_output, unversioned_legacy]
-```
+- redacted_field: body.secret
+- selector: $from(fetch).body.secret
+- persistence_backends:
+  1. in_memory
+  1. dolt
+- failure_cases:
+  1. invalid_path
+  1. non_object_output
+  1. unversioned_legacy
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-field_absent_from_live_entry: true
-field_absent_in_tool_outputs: true
-selector_resolves_field: false
-unsafe_output_omitted: true
-legacy_selector_error_typed: true
-receipt_unchanged: true
-```
+- field_absent_from_live_entry: true
+- field_absent_in_tool_outputs: true
+- selector_resolves_field: false
+- unsafe_output_omitted: true
+- legacy_selector_error_typed: true
+- receipt_unchanged: true
 
 <!-- field: traces -->
 #### Traces
@@ -902,22 +888,23 @@ rel07.0-uc002-two-plane-revert
 
 go test ./internal/runtime/checkpoint/dolt -run 'TestDoltCheckpoint(SaveLoadRoundTrip|SplitsToolOutputsAndReceipts)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-steps: 3
-tables: [machines, transitions, execution_steps, tool_outputs, receipts]
-```
+- steps: 3
+- tables:
+  1. machines
+  1. transitions
+  1. execution_steps
+  1. tool_outputs
+  1. receipts
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-tool_outputs_rows: 3
-receipts_rows: 3
-load_restores_both_planes: true
-```
+- tool_outputs_rows: 3
+- receipts_rows: 3
+- load_restores_both_planes: true
 
 <!-- field: traces -->
 #### Traces
@@ -942,22 +929,18 @@ rel07.0-uc002-two-plane-revert
 
 go test ./internal/runtime/checkpoint/dolt -run 'TestDoltCheckpoint(RevertReapsBothPlanes|TerminalReapsRunHistoryBeforeMerge)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-steps: 3
-revert_to_step_index: 1
-```
+- steps: 3
+- revert_to_step_index: 1
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-later_tool_outputs_rows_resolve: false
-later_receipts_rows_resolve: false
-store_later_entries_invalid: true
-```
+- later_tool_outputs_rows_resolve: false
+- later_receipts_rows_resolve: false
+- store_later_entries_invalid: true
 
 <!-- field: traces -->
 #### Traces
@@ -986,21 +969,17 @@ rel07.0-uc002-two-plane-revert
 
 go test ./internal/runtime/checkpoint/dolt -run TestDoltCheckpointReceiptWalkReversesSurvivingStep
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-surviving_step: 1
-receipt_source: receipts
-```
+- surviving_step: 1
+- receipt_source: receipts
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-surviving_step_reversed: true
-receipt_forward_addressable: false
-```
+- surviving_step_reversed: true
+- receipt_forward_addressable: false
 
 <!-- field: traces -->
 #### Traces

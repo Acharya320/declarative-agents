@@ -10,16 +10,12 @@ title: Specification Critic Demo Specification Index
 
 Minimal specification index for running generic jurist charter checks.
 
-<!-- field: roadmap_summary -->
+<!-- field: roadmap_summary | form: "typed table" -->
 ## Roadmap summary
 
-```yaml
-- version: "99.0"
-  name: Charter demo
-  use_cases_done: 0
-  use_cases_total: 0
-  status: open
-```
+| version | name | use_cases_done | use_cases_total | status |
+| --- | --- | --- | --- | --- |
+| "99.0" | Charter demo | 0 | 0 | open |
 
 <!-- field: srd_index -->
 ## Srd index

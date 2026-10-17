@@ -19,21 +19,19 @@ capability through net/http and internal/tools/rest. That split keeps
 transport authority in trusted profile and tool configuration while preserving
 visible grammar flow.
 
-<!-- field: requirements_source -->
+<!-- field: requirements_source | form: "tree" -->
 ## Requirements source
 
-```yaml
-canonical:
-    - docs/specs/software-requirements/srd027-rest-tool-runtime.md
-    - docs/specs/software-requirements/srd028-rest-client-tools.md
-    - docs/specs/software-requirements/srd029-rest-server-tools.md
-    - docs/specs/software-requirements/srd030-machine-request-rest-binding.md
-supporting:
-    - docs/specs/semantic-models/tool-language.md
-    - docs/specs/semantic-models/rollback-lifecycle.md
-    - docs/guides/declarative-programming-pattern.md
-    - docs/guides/boundary-tools-and-async.md
-```
+- canonical:
+  1. docs/specs/software-requirements/srd027-rest-tool-runtime.md
+  1. docs/specs/software-requirements/srd028-rest-client-tools.md
+  1. docs/specs/software-requirements/srd029-rest-server-tools.md
+  1. docs/specs/software-requirements/srd030-machine-request-rest-binding.md
+- supporting:
+  1. docs/specs/semantic-models/tool-language.md
+  1. docs/specs/semantic-models/rollback-lifecycle.md
+  1. docs/guides/declarative-programming-pattern.md
+  1. docs/guides/boundary-tools-and-async.md
 
 <!-- field: primary_entities | form: "typed table" -->
 ## Primary entities
@@ -61,126 +59,133 @@ supporting:
 | ToolDef | declaration_contract | Declares each REST tool word, its runtime contract, and its lifecycle contract. |  |  | [RestDefinition] |
 | MachineSpec | declarative_program | Composes REST words into visible sync and async workflows through states, signals, and transition actions. |  |  | [ToolDef] |
 
-<!-- field: tool_words -->
+<!-- field: tool_words | form: "tree" -->
 ## Tool words
 
-```yaml
-client_resource:
-    words: [rest_client_get, rest_client_set, rest_client_create, rest_client_delete]
-    meaning: Resource words operate on configured stored state and expose resource-specific signals, effects, and compensation.
-    preferred_when: The endpoint maps to read, write, create, delete, or deactivate behavior for a named resource.
-client_invoke:
-    words: [rest_client_invoke]
-    meaning: Invoke calls a configured RPC-shaped or action-shaped operation that does not fit the resource model.
-    preferred_when: The endpoint represents approve, reject, trigger, exchange, calculate, search, or another action that is not simple resource state access.
-client_async:
-    words: [rest_client_send, rest_client_await]
-    meaning: Send completes one HTTP submission transaction and records accepted AsyncRequest state. Await receives the stored completion and emits the configured result signal.
-server:
-    words: [rest_server_launch, rest_server_await, rest_server_stop]
-    meaning: Launch activates configured routes. Await receives validated InboundEvent messages. Stop shuts down shared server state.
-event_aggregation:
-    words: [rest_await_event]
-    meaning: Await receives one event from multiple configured REST server event sources and returns the selected signal to MachineSpec.
-lifecycle_control:
-    words: [exit_agent]
-    meaning: Lifecycle control words consume validated REST event payloads or profile config and perform explicit MachineSpec-selected lifecycle actions.
-machine_request:
-    words: [machine_request]
-    meaning: Endpoint binding that turns one accepted HTTP request into one short-lived MachineSpec run and maps terminal response output back to HTTP.
-```
+- client_resource:
+  - words:
+    1. rest_client_get
+    1. rest_client_set
+    1. rest_client_create
+    1. rest_client_delete
+  - meaning: Resource words operate on configured stored state and expose resource-specific signals, effects, and compensation.
+  - preferred_when: The endpoint maps to read, write, create, delete, or deactivate behavior for a named resource.
+- client_invoke:
+  - words:
+    1. rest_client_invoke
+  - meaning: Invoke calls a configured RPC-shaped or action-shaped operation that does not fit the resource model.
+  - preferred_when: The endpoint represents approve, reject, trigger, exchange, calculate, search, or another action that is not simple resource state access.
+- client_async:
+  - words:
+    1. rest_client_send
+    1. rest_client_await
+  - meaning: Send completes one HTTP submission transaction and records accepted AsyncRequest state. Await receives the stored completion and emits the configured result signal.
+- server:
+  - words:
+    1. rest_server_launch
+    1. rest_server_await
+    1. rest_server_stop
+  - meaning: Launch activates configured routes. Await receives validated InboundEvent messages. Stop shuts down shared server state.
+- event_aggregation:
+  - words:
+    1. rest_await_event
+  - meaning: Await receives one event from multiple configured REST server event sources and returns the selected signal to MachineSpec.
+- lifecycle_control:
+  - words:
+    1. exit_agent
+  - meaning: Lifecycle control words consume validated REST event payloads or profile config and perform explicit MachineSpec-selected lifecycle actions.
+- machine_request:
+  - words:
+    1. machine_request
+  - meaning: Endpoint binding that turns one accepted HTTP request into one short-lived MachineSpec run and maps terminal response output back to HTTP.
 
-<!-- field: relationships -->
+<!-- field: relationships | form: "tree" -->
 ## Relationships
 
-```yaml
-RestDefinition_to_ToolDef:
-    meaning: REST ToolDefs point to configured REST definitions by named client, server, resource, operation, or endpoint reference.
-    invariant: ToolDef owns the vocabulary word contract; RestDefinition owns the HTTP-specific authority.
-RestDefinition_to_OpenAPIImport:
-    meaning: OpenAPIImport may populate resources, operations, endpoints, request schemas, and response schemas in RestDefinition.
-    invariant: Imported definitions use the same internal model as hand-authored YAML and do not generate Go clients or servers.
-RestClient_to_Operation:
-    meaning: A RestClient owns outbound Operation definitions and resource groupings.
-    invariant: Runtime input can fill declared fields but cannot choose method, destination, or auth authority.
-Resource_to_client_words:
-    meaning: Resource operations bind to rest_client_get, rest_client_set, rest_client_create, and rest_client_delete.
-    invariant: Resource words keep state access and rollback expectations visible in the word contract.
-Operation_to_invoke:
-    meaning: RPC-shaped operations bind to rest_client_invoke when no resource word describes the action.
-    invariant: Invoke remains one configured boundary word and must not hide a service workflow.
-rest_client_send_to_AsyncRequest:
-    meaning: rest_client_send creates AsyncRequest state after submitting configured outbound work.
-    invariant: The returned RESTAccepted signal means submission happened; final service outcome belongs to rest_client_await.
-rest_client_await_to_AsyncRequest:
-    meaning: rest_client_await reads AsyncRequest state and maps completion, timeout, missing state, or domain failure into Result.Signal.
-    invariant: Await words declare every signal they can emit in the machine state where they run.
-RestServer_to_Endpoint:
-    meaning: A RestServer owns configured Endpoint routes and shared listener state.
-    invariant: HTTP handlers validate requests and enqueue configured events; they do not choose hidden MachineSpec actions.
-Endpoint_to_InboundEvent:
-    meaning: Signal-producing endpoints translate accepted HTTP requests into InboundEvent messages.
-    invariant: Invalid requests do not enqueue grammar events.
-rest_server_await_to_InboundEvent:
-    meaning: rest_server_await consumes queued InboundEvent messages and returns the event signal to MachineSpec.
-    invariant: The HTTP request becomes grammar-visible only through the await word result.
-rest_await_event_to_RestEventSource:
-    meaning: rest_await_event waits over one or more configured RestEventSource entries and returns the first matching event, timeout, stopped-source, or error signal.
-    invariant: Source filters are declarative and include server names, route names, allowed signals, timeout, and stopped-source behavior.
-LifecycleControlEndpoint_to_InboundEvent:
-    meaning: A lifecycle control endpoint validates a control request and enqueues an event such as AgentExitRequested, PauseRequested, RollbackRequested, ResumeRequested, or an allowlisted injected signal.
-    invariant: The HTTP handler does not execute exit, pause, rollback, resume, or signal injection directly.
-MachineRequestBinding_to_RequestEvent:
-    meaning: A machine_request endpoint validates HTTP input and builds one RequestEvent for the configured request machine.
-    invariant: Invalid HTTP input does not enqueue events or start a machine run.
-MachineRequestBinding_to_MachineSpec:
-    meaning: The binding resolves a trusted profile, MachineSpec, selected ToolDefs, and response policy for one short-lived run.
-    invariant: Runtime HTTP callers cannot choose profile, machine, tool declaration roots, model config, credentials, URLs, or workspace roots.
-MachineSpec_to_ResponseWord:
-    meaning: Request machines route to response vocabulary when they need to shape an HTTP response.
-    invariant: Direct Go handlers do not compose Agent Architecture request behavior.
-ResponseWord_to_HTTPResponse:
-    meaning: Response word output and terminal signal mappings produce HTTP status, headers, content type, and body.
-    invariant: HTTP responses use configured terminal response selection and declared response output fields only.
-InboundEvent_to_LifecycleControlWord:
-    meaning: MachineSpec routes a lifecycle event from rest_server_await or rest_await_event to profile-selected vocabulary such as exit_agent or checkpoint_rollback.
-    invariant: Lifecycle behavior remains visible as declared ToolDef words and MachineSpec transitions.
-RestToolState_to_lifecycle:
-    meaning: RestToolState is command/domain state for async requests, server queues, active streams, and route ownership.
-    invariant: Lifecycle storage captures REST command state separately from workspace files and agent loop position.
-```
+- RestDefinition_to_ToolDef:
+  - meaning: REST ToolDefs point to configured REST definitions by named client, server, resource, operation, or endpoint reference.
+  - invariant: ToolDef owns the vocabulary word contract; RestDefinition owns the HTTP-specific authority.
+- RestDefinition_to_OpenAPIImport:
+  - meaning: OpenAPIImport may populate resources, operations, endpoints, request schemas, and response schemas in RestDefinition.
+  - invariant: Imported definitions use the same internal model as hand-authored YAML and do not generate Go clients or servers.
+- RestClient_to_Operation:
+  - meaning: A RestClient owns outbound Operation definitions and resource groupings.
+  - invariant: Runtime input can fill declared fields but cannot choose method, destination, or auth authority.
+- Resource_to_client_words:
+  - meaning: Resource operations bind to rest_client_get, rest_client_set, rest_client_create, and rest_client_delete.
+  - invariant: Resource words keep state access and rollback expectations visible in the word contract.
+- Operation_to_invoke:
+  - meaning: RPC-shaped operations bind to rest_client_invoke when no resource word describes the action.
+  - invariant: Invoke remains one configured boundary word and must not hide a service workflow.
+- rest_client_send_to_AsyncRequest:
+  - meaning: rest_client_send creates AsyncRequest state after submitting configured outbound work.
+  - invariant: The returned RESTAccepted signal means submission happened; final service outcome belongs to rest_client_await.
+- rest_client_await_to_AsyncRequest:
+  - meaning: rest_client_await reads AsyncRequest state and maps completion, timeout, missing state, or domain failure into Result.Signal.
+  - invariant: Await words declare every signal they can emit in the machine state where they run.
+- RestServer_to_Endpoint:
+  - meaning: A RestServer owns configured Endpoint routes and shared listener state.
+  - invariant: HTTP handlers validate requests and enqueue configured events; they do not choose hidden MachineSpec actions.
+- Endpoint_to_InboundEvent:
+  - meaning: Signal-producing endpoints translate accepted HTTP requests into InboundEvent messages.
+  - invariant: Invalid requests do not enqueue grammar events.
+- rest_server_await_to_InboundEvent:
+  - meaning: rest_server_await consumes queued InboundEvent messages and returns the event signal to MachineSpec.
+  - invariant: The HTTP request becomes grammar-visible only through the await word result.
+- rest_await_event_to_RestEventSource:
+  - meaning: rest_await_event waits over one or more configured RestEventSource entries and returns the first matching event, timeout, stopped-source, or error signal.
+  - invariant: Source filters are declarative and include server names, route names, allowed signals, timeout, and stopped-source behavior.
+- LifecycleControlEndpoint_to_InboundEvent:
+  - meaning: A lifecycle control endpoint validates a control request and enqueues an event such as AgentExitRequested, PauseRequested, RollbackRequested, ResumeRequested, or an allowlisted injected signal.
+  - invariant: The HTTP handler does not execute exit, pause, rollback, resume, or signal injection directly.
+- MachineRequestBinding_to_RequestEvent:
+  - meaning: A machine_request endpoint validates HTTP input and builds one RequestEvent for the configured request machine.
+  - invariant: Invalid HTTP input does not enqueue events or start a machine run.
+- MachineRequestBinding_to_MachineSpec:
+  - meaning: The binding resolves a trusted profile, MachineSpec, selected ToolDefs, and response policy for one short-lived run.
+  - invariant: Runtime HTTP callers cannot choose profile, machine, tool declaration roots, model config, credentials, URLs, or workspace roots.
+- MachineSpec_to_ResponseWord:
+  - meaning: Request machines route to response vocabulary when they need to shape an HTTP response.
+  - invariant: Direct Go handlers do not compose Agent Architecture request behavior.
+- ResponseWord_to_HTTPResponse:
+  - meaning: Response word output and terminal signal mappings produce HTTP status, headers, content type, and body.
+  - invariant: HTTP responses use configured terminal response selection and declared response output fields only.
+- InboundEvent_to_LifecycleControlWord:
+  - meaning: MachineSpec routes a lifecycle event from rest_server_await or rest_await_event to profile-selected vocabulary such as exit_agent or checkpoint_rollback.
+  - invariant: Lifecycle behavior remains visible as declared ToolDef words and MachineSpec transitions.
+- RestToolState_to_lifecycle:
+  - meaning: RestToolState is command/domain state for async requests, server queues, active streams, and route ownership.
+  - invariant: Lifecycle storage captures REST command state separately from workspace files and agent loop position.
 
-<!-- field: state_layers -->
+<!-- field: state_layers | form: "tree" -->
 ## State layers
 
-```yaml
-agent_state:
-    owner: Loop
-    rest_examples:
-        - Current MachineSpec state after RESTAccepted, RESTResponded, ServerLaunched, or configured inbound signals.
-        - Iteration and budget counters around blocking or async REST words.
-    rollback_rule: Rest tools do not own agent state directly; Loop snapshots it when lifecycle policy requests a checkpoint.
-command_domain_state:
-    owner: RestToolState
-    rest_examples:
-        - AsyncRequest records created by rest_client_send.
-        - Shared server registry entries created by rest_server_launch.
-        - InboundEvent queues consumed by rest_server_await.
-        - Active stream metadata and shutdown status.
-    rollback_rule: REST commands undo or compensate command-owned state according to ToolDef undo contracts.
-workspace_environment_state:
-    owner: Workspace
-    rest_examples:
-        - REST tools normally do not mutate workspace files.
-        - Future REST tools may write downloaded artifacts only when ToolDef declares filesystem side effects.
-    rollback_rule: Workspace restore applies only when a REST word declares workspace effects.
-external_service_state:
-    owner: remote_http_service
-    rest_examples:
-        - Resources created, updated, deleted, approved, triggered, or cancelled through outbound REST calls.
-        - Network listeners exposed by REST server tools.
-    rollback_rule: External effects use noop, configured compensation, cancellation, or confirmation rules. The lifecycle model cannot erase remote audit history.
-```
+- agent_state:
+  - owner: Loop
+  - rest_examples:
+    1. Current MachineSpec state after RESTAccepted, RESTResponded, ServerLaunched, or configured inbound signals.
+    1. Iteration and budget counters around blocking or async REST words.
+  - rollback_rule: Rest tools do not own agent state directly; Loop snapshots it when lifecycle policy requests a checkpoint.
+- command_domain_state:
+  - owner: RestToolState
+  - rest_examples:
+    1. AsyncRequest records created by rest_client_send.
+    1. Shared server registry entries created by rest_server_launch.
+    1. InboundEvent queues consumed by rest_server_await.
+    1. Active stream metadata and shutdown status.
+  - rollback_rule: REST commands undo or compensate command-owned state according to ToolDef undo contracts.
+- workspace_environment_state:
+  - owner: Workspace
+  - rest_examples:
+    1. REST tools normally do not mutate workspace files.
+    1. Future REST tools may write downloaded artifacts only when ToolDef declares filesystem side effects.
+  - rollback_rule: Workspace restore applies only when a REST word declares workspace effects.
+- external_service_state:
+  - owner: remote_http_service
+  - rest_examples:
+    1. Resources created, updated, deleted, approved, triggered, or cancelled through outbound REST calls.
+    1. Network listeners exposed by REST server tools.
+  - rollback_rule: External effects use noop, configured compensation, cancellation, or confirmation rules. The lifecycle model cannot erase remote audit history.
 
 <!-- field: invariants -->
 ## Invariants
@@ -218,106 +223,104 @@ external_service_state:
 - Allowing model text or inbound callers to choose transport authority.
 - Modeling every provider-specific REST API.
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-outbound_sync: |
-    ```mermaid
-    sequenceDiagram
-      participant M as MachineSpec
-      participant T as REST client word
-      participant D as RestDefinition
-      participant H as net/http
-      participant R as Result
-      M->>T: dispatch rest_client_get or invoke
-      T->>D: resolve client, resource, operation
-      T->>D: bind declared request fields
-      T->>H: send configured HTTP request
-      H-->>T: status, headers, body
-      T->>D: apply ResponseMapping
-      T-->>R: structured output and signal
-      R-->>M: route next transition
-    ```
-outbound_async_send_await: |
-    ```mermaid
-    sequenceDiagram
-      participant M as MachineSpec
-      participant S as rest_client_send
-      participant A as AsyncRequest
-      participant H as net/http
-      participant W as rest_client_await
-      M->>S: dispatch send
-      S->>H: submit configured outbound work
-      H-->>S: accepted status and response
-      S->>A: store accepted request state
-      S-->>M: RESTAccepted
-      M->>W: dispatch await later
-      W->>A: read request state
-      W-->>M: RESTResponded, RESTDomainFailed, RESTMissing, RESTAwaitTimedOut, or CommandError
-    ```
-inbound_server_launch_await: |
-    ```mermaid
-    sequenceDiagram
-      participant M as MachineSpec
-      participant L as rest_server_launch
-      participant S as RestServer
-      participant E as Endpoint handler
-      participant Q as InboundEvent queue
-      participant A as rest_server_await
-      M->>L: dispatch launch
-      L->>S: bind address and register routes
-      L-->>M: ServerLaunched
-      E->>E: validate inbound HTTP request
-      E->>Q: enqueue configured signal and payload
-      M->>A: dispatch await
-      A->>Q: receive event
-      A-->>M: configured event signal
-    ```
-multi_source_rest_await_event: |
-    ```mermaid
-    sequenceDiagram
-      participant H1 as Control endpoint
-      participant H2 as Domain endpoint
-      participant Q as Server event queues
-      participant A as rest_await_event
-      participant M as MachineSpec
-      H1->>Q: enqueue AgentExitRequested
-      H2->>Q: enqueue DomainEventReceived
-      M->>A: dispatch with source and signal filters
-      A->>Q: select first matching event
-      A-->>M: selected event signal and payload
-      M->>M: route to visible lifecycle or domain action
-    ```
-machine_request_binding: |
-    ```mermaid
-    sequenceDiagram
-      participant H as HTTP handler
-      participant B as machine_request binding
-      participant M as MachineSpec
-      participant W as request words
-      participant R as response word
-      H->>H: validate request
-      H->>B: accepted request fields
-      B->>M: seed RequestEvent
-      M->>W: compose request sentence
-      W-->>M: declared signals
-      M->>R: prepare response
-      R-->>B: response output
-      B-->>H: mapped HTTP response
-    ```
-openapi_import_to_internal_definition: |
-    ```mermaid
-    flowchart LR
-      O[OpenAPI 3 document] --> I[OpenAPIImport]
-      I --> V[openapi3 validation]
-      V --> D[RestDefinition]
-      D --> C[RestClient operations]
-      D --> S[RestServer endpoints]
-      C --> T[REST client ToolDefs]
-      S --> U[REST server ToolDefs]
-    ```
-````
+- outbound_sync:
+  ```mermaid
+  sequenceDiagram
+    participant M as MachineSpec
+    participant T as REST client word
+    participant D as RestDefinition
+    participant H as net/http
+    participant R as Result
+    M->>T: dispatch rest_client_get or invoke
+    T->>D: resolve client, resource, operation
+    T->>D: bind declared request fields
+    T->>H: send configured HTTP request
+    H-->>T: status, headers, body
+    T->>D: apply ResponseMapping
+    T-->>R: structured output and signal
+    R-->>M: route next transition
+  ```
+- outbound_async_send_await:
+  ```mermaid
+  sequenceDiagram
+    participant M as MachineSpec
+    participant S as rest_client_send
+    participant A as AsyncRequest
+    participant H as net/http
+    participant W as rest_client_await
+    M->>S: dispatch send
+    S->>H: submit configured outbound work
+    H-->>S: accepted status and response
+    S->>A: store accepted request state
+    S-->>M: RESTAccepted
+    M->>W: dispatch await later
+    W->>A: read request state
+    W-->>M: RESTResponded, RESTDomainFailed, RESTMissing, RESTAwaitTimedOut, or CommandError
+  ```
+- inbound_server_launch_await:
+  ```mermaid
+  sequenceDiagram
+    participant M as MachineSpec
+    participant L as rest_server_launch
+    participant S as RestServer
+    participant E as Endpoint handler
+    participant Q as InboundEvent queue
+    participant A as rest_server_await
+    M->>L: dispatch launch
+    L->>S: bind address and register routes
+    L-->>M: ServerLaunched
+    E->>E: validate inbound HTTP request
+    E->>Q: enqueue configured signal and payload
+    M->>A: dispatch await
+    A->>Q: receive event
+    A-->>M: configured event signal
+  ```
+- multi_source_rest_await_event:
+  ```mermaid
+  sequenceDiagram
+    participant H1 as Control endpoint
+    participant H2 as Domain endpoint
+    participant Q as Server event queues
+    participant A as rest_await_event
+    participant M as MachineSpec
+    H1->>Q: enqueue AgentExitRequested
+    H2->>Q: enqueue DomainEventReceived
+    M->>A: dispatch with source and signal filters
+    A->>Q: select first matching event
+    A-->>M: selected event signal and payload
+    M->>M: route to visible lifecycle or domain action
+  ```
+- machine_request_binding:
+  ```mermaid
+  sequenceDiagram
+    participant H as HTTP handler
+    participant B as machine_request binding
+    participant M as MachineSpec
+    participant W as request words
+    participant R as response word
+    H->>H: validate request
+    H->>B: accepted request fields
+    B->>M: seed RequestEvent
+    M->>W: compose request sentence
+    W-->>M: declared signals
+    M->>R: prepare response
+    R-->>B: response output
+    B-->>H: mapped HTTP response
+  ```
+- openapi_import_to_internal_definition:
+  ```mermaid
+  flowchart LR
+    O[OpenAPI 3 document] --> I[OpenAPIImport]
+    I --> V[openapi3 validation]
+    V --> D[RestDefinition]
+    D --> C[RestClient operations]
+    D --> S[RestServer endpoints]
+    C --> T[REST client ToolDefs]
+    S --> U[REST server ToolDefs]
+  ```
 
 <!-- field: related_documents -->
 ## Related documents
@@ -333,22 +336,20 @@ openapi_import_to_internal_definition: |
 - cfg-tool-declaration-format
 - cfg-tool-authoring-standard
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-implemented:
-    - internal/tools/rest and tools/builtin/rest.
-    - docs/specs/config-formats/rest-tool-format.md.
-    - REST client resource, invoke, send, and await words.
-    - REST server launch, await, stop, and rest_await_event fan-in words.
-    - exit_agent lifecycle control word selected by MachineSpec after REST control events.
-    - machine_request endpoint binding for short-lived request-machine runs.
-    - OpenAPIImport preserves configured endpoint behavior while importing transport and schema fields.
-    - ResponseMapping schema validation is enforced for client responses and machine_request terminal responses.
-    - External service compensation metadata produces REST client undo mementos for mutating operations and drives rollback-time compensation execution through receipt rollback.
-    - Top-level REST document_resources and machine_request.document_resources are typed target-format fields and are rejected explicitly until generic loading exists.
-partial:
-    - LifecycleControlEndpoint remains a target semantic entity. Current release 03.0 control routes use emit_signal endpoint bindings and MachineSpec transitions; modeled lifecycle_control endpoint config remains reserved.
-    - RestEventSource non-default read_policy behavior remains reserved; unsupported values are rejected during ToolDef factory validation.
-```
+- implemented:
+  1. internal/tools/rest and tools/builtin/rest.
+  1. docs/specs/config-formats/rest-tool-format.md.
+  1. REST client resource, invoke, send, and await words.
+  1. REST server launch, await, stop, and rest_await_event fan-in words.
+  1. exit_agent lifecycle control word selected by MachineSpec after REST control events.
+  1. machine_request endpoint binding for short-lived request-machine runs.
+  1. OpenAPIImport preserves configured endpoint behavior while importing transport and schema fields.
+  1. ResponseMapping schema validation is enforced for client responses and machine_request terminal responses.
+  1. External service compensation metadata produces REST client undo mementos for mutating operations and drives rollback-time compensation execution through receipt rollback.
+  1. Top-level REST document_resources and machine_request.document_resources are typed target-format fields and are rejected explicitly until generic loading exists.
+- partial:
+  1. LifecycleControlEndpoint remains a target semantic entity. Current release 03.0 control routes use emit_signal endpoint bindings and MachineSpec transitions; modeled lifecycle_control endpoint config remains reserved.
+  1. RestEventSource non-default read_policy behavior remains reserved; unsupported values are rejected during ToolDef factory validation.

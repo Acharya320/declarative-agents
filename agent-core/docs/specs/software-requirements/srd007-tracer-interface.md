@@ -133,22 +133,20 @@ NoopTracer satisfies Tracer at compile time and discards all operations.
 - R3.2
 - R3.3
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: The agentic loop engine needs to emit OpenTelemetry s..."] --> Goals["Goals: Tracer Port Interface"]
-      Goals --> R1["R1: Tracer interface"]
-      Goals --> R2["R2: Dependencies"]
-      Goals --> R3["R3: NoopTracer"]
-      AC1["AC1: Tracer interface has Push, Event, SetAttributes, RecordEr..."]
-      R1 --> AC1
-      AC2["AC2: internal/observability/tracing depends on go.opentelemetr..."]
-      R2 --> AC2
-      AC3["AC3: NoopTracer satisfies Tracer at compile time and discards..."]
-      R3 --> AC3
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: The agentic loop engine needs to emit OpenTelemetry s..."] --> Goals["Goals: Tracer Port Interface"]
+    Goals --> R1["R1: Tracer interface"]
+    Goals --> R2["R2: Dependencies"]
+    Goals --> R3["R3: NoopTracer"]
+    AC1["AC1: Tracer interface has Push, Event, SetAttributes, RecordEr..."]
+    R1 --> AC1
+    AC2["AC2: internal/observability/tracing depends on go.opentelemetr..."]
+    R2 --> AC2
+    AC3["AC3: NoopTracer satisfies Tracer at compile time and discards..."]
+    R3 --> AC3
+  ```

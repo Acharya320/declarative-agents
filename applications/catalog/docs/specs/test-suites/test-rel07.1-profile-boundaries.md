@@ -57,30 +57,41 @@ provenance-rich report for both pass and fail outcomes.
 
 rel07.1-uc001-specification-critic-profile-boundary
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profile: agents/specification-critic/profile.yaml
-machine: agents/specification-critic/machine.yaml
-tools: agents/specification-critic/tools.yaml
-charter_suite: agents/specification-critic/suites/demo-charter.yaml
-target_directory: a specification corpus directory
-```
+- profile: agents/specification-critic/profile.yaml
+- machine: agents/specification-critic/machine.yaml
+- tools: agents/specification-critic/tools.yaml
+- charter_suite: agents/specification-critic/suites/demo-charter.yaml
+- target_directory: a specification corpus directory
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-selected_tools: [load_corpus, validate_specs, jurist_rg, reduce_grep_checks, format_report]
-executable_dependency: rg
-visible_grep_steps: [jurist_rg, reduce_grep_checks]
-llm_tool_family_selected: false
-report_formatted_on_pass: true
-report_formatted_on_fail: true
-finding_provenance_fields: [suite, check, severity, message, file, line]
-terminal_states: [Passed, Failed]
-```
+- selected_tools:
+  1. load_corpus
+  1. validate_specs
+  1. jurist_rg
+  1. reduce_grep_checks
+  1. format_report
+- executable_dependency: rg
+- visible_grep_steps:
+  1. jurist_rg
+  1. reduce_grep_checks
+- llm_tool_family_selected: false
+- report_formatted_on_pass: true
+- report_formatted_on_fail: true
+- finding_provenance_fields:
+  1. suite
+  1. check
+  1. severity
+  1. message
+  1. file
+  1. line
+- terminal_states:
+  1. Passed
+  1. Failed
 
 <!-- field: traces -->
 #### Traces
@@ -105,33 +116,33 @@ test-evidence CLI mode.
 
 rel07.1-uc001-specification-critic-profile-boundary
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profile: agents/specification-critic/audit-profile.yaml
-machine: agents/specification-critic/audit-machine.yaml
-tools: agents/specification-critic/audit-tools.yaml
-declarations: agents/specification-critic/go-test.yaml
-```
+- profile: agents/specification-critic/audit-profile.yaml
+- machine: agents/specification-critic/audit-machine.yaml
+- tools: agents/specification-critic/audit-tools.yaml
+- declarations: agents/specification-critic/go-test.yaml
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-claims_step: load_test_claims
-inventory_steps: [go_module, go_packages_raw, go_packages, go_test_inventory]
-package_normalization_input: $from(go_packages_raw).output
-resolution_step: resolve_test_evidence
-inventory_failure_reduction: resolve_test_evidence
-inventory_failure_reported: true
-implicit_module_download: false
-execution_step: go_test_run
-conformance_tmpdir: private_staged_directory
-reduction_step: reduce_test_evidence_run
-report_step: format_report
-special_cli_mode: false
-```
+- claims_step: load_test_claims
+- inventory_steps:
+  1. go_module
+  1. go_packages_raw
+  1. go_packages
+  1. go_test_inventory
+- package_normalization_input: $from(go_packages_raw).output
+- resolution_step: resolve_test_evidence
+- inventory_failure_reduction: resolve_test_evidence
+- inventory_failure_reported: true
+- implicit_module_download: false
+- execution_step: go_test_run
+- conformance_tmpdir: private_staged_directory
+- reduction_step: reduce_test_evidence_run
+- report_step: format_report
+- special_cli_mode: false
 
 <!-- field: go_test -->
 #### Go test
@@ -158,33 +169,35 @@ signals rather than hidden CLI branches.
 
 rel07.1-uc002-lifecycle-profile-boundary
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-history_machine: testdata/conformance/lifecycle/history.yaml
-rollback_machine: testdata/conformance/lifecycle/rollback.yaml
-approval_machine: testdata/conformance/lifecycle/approval/machine.yaml
-history_rollback_tools: testdata/conformance/lifecycle/tools.yaml
-approval_tools: testdata/conformance/lifecycle/approval/tools.yaml
-checkpoint_id: a saved checkpoint ID
-target_iteration: a rollback target iteration
-approval_signal: Approved or Rejected
-```
+- history_machine: testdata/conformance/lifecycle/history.yaml
+- rollback_machine: testdata/conformance/lifecycle/rollback.yaml
+- approval_machine: testdata/conformance/lifecycle/approval/machine.yaml
+- history_rollback_tools: testdata/conformance/lifecycle/tools.yaml
+- approval_tools: testdata/conformance/lifecycle/approval/tools.yaml
+- checkpoint_id: a saved checkpoint ID
+- target_iteration: a rollback target iteration
+- approval_signal: Approved or Rejected
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-history_selected_tool: checkpoint_history
-rollback_selected_tool: checkpoint_rollback
-approval_selected_tools: [suspend, done]
-suspend_is_machine_action: true
-approved_reaches: Succeeded
-rejected_reaches: Rejected
-approved_path_skipped_on_reject: true
-terminal_states: [Done, Succeeded, Rejected, Failed]
-```
+- history_selected_tool: checkpoint_history
+- rollback_selected_tool: checkpoint_rollback
+- approval_selected_tools:
+  1. suspend
+  1. done
+- suspend_is_machine_action: true
+- approved_reaches: Succeeded
+- rejected_reaches: Rejected
+- approved_path_skipped_on_reject: true
+- terminal_states:
+  1. Done
+  1. Succeeded
+  1. Rejected
+  1. Failed
 
 <!-- field: traces -->
 #### Traces
@@ -209,30 +222,39 @@ and OpenAPI imports that do not generate Go code.
 
 rel07.1-uc003-rest-profile-boundary
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profile: testdata/conformance/rest/profile.yaml
-ollama_profile: testdata/conformance/rest/ollama-profile.yaml
-machine: testdata/conformance/rest/machine.yaml
-tools: testdata/conformance/rest/tools.yaml
-rest_definitions: testdata/conformance/rest/rest.yaml
-ollama_rest_definitions: testdata/conformance/rest/ollama-rest.yaml
-openapi_assets: [testdata/conformance/rest/openapi/payments.yaml, testdata/conformance/rest/openapi/ollama.yaml]
-```
+- profile: testdata/conformance/rest/profile.yaml
+- ollama_profile: testdata/conformance/rest/ollama-profile.yaml
+- machine: testdata/conformance/rest/machine.yaml
+- tools: testdata/conformance/rest/tools.yaml
+- rest_definitions: testdata/conformance/rest/rest.yaml
+- ollama_rest_definitions: testdata/conformance/rest/ollama-rest.yaml
+- openapi_assets:
+  1. testdata/conformance/rest/openapi/payments.yaml
+  1. testdata/conformance/rest/openapi/ollama.yaml
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-selected_tools: [get_payment, create_payment, await_payment, launch_payment_webhooks, await_payment_webhook, stop_payment_webhooks]
-server_states_explicit: [LaunchingWebhook, WaitingWebhook, StoppingWebhook]
-rest_authority_owner: profile
-openapi_generates_go_code: false
-listener_released_at_terminal: true
-terminal_states: [Succeeded, Failed]
-```
+- selected_tools:
+  1. get_payment
+  1. create_payment
+  1. await_payment
+  1. launch_payment_webhooks
+  1. await_payment_webhook
+  1. stop_payment_webhooks
+- server_states_explicit:
+  1. LaunchingWebhook
+  1. WaitingWebhook
+  1. StoppingWebhook
+- rest_authority_owner: profile
+- openapi_generates_go_code: false
+- listener_released_at_terminal: true
+- terminal_states:
+  1. Succeeded
+  1. Failed
 
 <!-- field: traces -->
 #### Traces

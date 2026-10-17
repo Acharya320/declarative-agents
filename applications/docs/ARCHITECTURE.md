@@ -5,62 +5,60 @@ title: Shared Applications Architecture
 <!-- Copyright (c) 2026 Nokia -->
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
 
-<!-- field: overview -->
+<!-- field: overview | form: "tree" -->
 ## Overview
 
-````yaml
-summary: |
-    applications/ contains runnable modules and one reusable catalog module.
-    Runnable modules own executable composition, application-specific
-    configuration, end-to-end evidence, and operator-facing artifacts. The
-    catalog owns canonical reusable declarative blocks and their conformance.
-    agent-core owns runtime execution.
+- summary:
+  applications/ contains runnable modules and one reusable catalog module.
+  Runnable modules own executable composition, application-specific
+  configuration, end-to-end evidence, and operator-facing artifacts. The
+  catalog owns canonical reusable declarative blocks and their conformance.
+  agent-core owns runtime execution.
 
-    Baseline governance applies to each runnable module. Managed-service,
-    packaging, Helm, and kind-demo layers apply only when an application
-    declares the matching capability and provides structural evidence.
-capability_diagram: |
-    ```mermaid
-    flowchart TB
-      C[applications/catalog<br/>reusable catalog, not runnable]
-      R[Runnable application<br/>baseline module contract]
-      S[Managed-service capability]
-      P[Packaged capability]
-      H[Helm-managed capability]
-      K[kind-demo capability]
-      C -->|canonical references| R
-      R -. when declared .-> S
-      R -. when declared .-> P
-      P -. when Helm is used .-> H
-      H -. when kind demo exists .-> K
-      K -->|governed by reference| E[ENG01]
-    ```
-governance_flow: |
-    ```mermaid
-    flowchart LR
-      L[Application-local docs and targets] --> A[Application audit/test/stats]
-      A --> R[Root mage audit/test/stats]
-      R --> G[Root release gates]
-      D[Shared SRDs] --> L
-      X[Application SRDs] --> L
-    ```
-persistent_platform_flow: |
-    ```mermaid
-    flowchart LR
-      U[External HTTP client] -->|HTTP ingress| T[Shared Traefik]
-      T -->|HTTP| AS[Application Service]
-      AA[Application agent] -->|internal REST / Service DNS| AS
-      AA -->|OTLP / Service DNS| C[Application collector]
-      C -->|WAL then immutable objects| B[(Application-specific bucket)]
-      Q[Application UI or operator] -->|REST query| C
-      AA -->|vector query / Service DNS| V[Application vector service]
-      C -. optional OTLP relay .-> H[Host integration-evidence ingress]
-    ```
-    Traefik owns external HTTP only. Internal REST, OTLP, object storage, and
-    vector queries use their declared service or provider endpoints. The
-    application collector is the query authority for its bucket; retained
-    objects alone are not a live query service.
-````
+  Baseline governance applies to each runnable module. Managed-service,
+  packaging, Helm, and kind-demo layers apply only when an application
+  declares the matching capability and provides structural evidence.
+- capability_diagram:
+  ```mermaid
+  flowchart TB
+    C[applications/catalog<br/>reusable catalog, not runnable]
+    R[Runnable application<br/>baseline module contract]
+    S[Managed-service capability]
+    P[Packaged capability]
+    H[Helm-managed capability]
+    K[kind-demo capability]
+    C -->|canonical references| R
+    R -. when declared .-> S
+    R -. when declared .-> P
+    P -. when Helm is used .-> H
+    H -. when kind demo exists .-> K
+    K -->|governed by reference| E[ENG01]
+  ```
+- governance_flow:
+  ```mermaid
+  flowchart LR
+    L[Application-local docs and targets] --> A[Application audit/test/stats]
+    A --> R[Root mage audit/test/stats]
+    R --> G[Root release gates]
+    D[Shared SRDs] --> L
+    X[Application SRDs] --> L
+  ```
+- persistent_platform_flow:
+  ```mermaid
+  flowchart LR
+    U[External HTTP client] -->|HTTP ingress| T[Shared Traefik]
+    T -->|HTTP| AS[Application Service]
+    AA[Application agent] -->|internal REST / Service DNS| AS
+    AA -->|OTLP / Service DNS| C[Application collector]
+    C -->|WAL then immutable objects| B[(Application-specific bucket)]
+    Q[Application UI or operator] -->|REST query| C
+    AA -->|vector query / Service DNS| V[Application vector service]
+    C -. optional OTLP relay .-> H[Host integration-evidence ingress]
+  ```
+  Traefik owns external HTTP only. Internal REST, OTLP, object storage, and
+  vector queries use their declared service or provider endpoints. The
+  application collector is the query authority for its bucket; retained
+  objects alone are not a live query service.
 
 <!-- field: interfaces -->
 ## Interfaces
@@ -431,17 +429,15 @@ application ownership of endpoints, deployment, and configuration.
 Fixtures, mocks, human interfaces, and infrastructure adapters are
 classified explicitly and excluded from role-coverage counts.
 
-<!-- field: boundaries -->
+<!-- field: boundaries | form: "tree" -->
 #### Boundaries
 
-```yaml
-role: Stable reference responsibility with canonical role and sub-role IDs.
-realization: Configured program binding roles in a domain and execution scope.
-actor: Runtime identity that may bind one or many roles.
-wrapper: Application or serving profile inheriting a canonical realization.
-fixture: Test-only profile or data excluded from production role coverage.
-adapter: Infrastructure or protocol boundary excluded from role coverage unless separately justified.
-```
+- role: Stable reference responsibility with canonical role and sub-role IDs.
+- realization: Configured program binding roles in a domain and execution scope.
+- actor: Runtime identity that may bind one or many roles.
+- wrapper: Application or serving profile inheriting a canonical realization.
+- fixture: Test-only profile or data excluded from production role coverage.
+- adapter: Infrastructure or protocol boundary excluded from role coverage unless separately justified.
 
 <!-- field: benefits -->
 #### Benefits
@@ -677,182 +673,176 @@ applications/docs/specs/audits/tenant-isolated-vector-storage-register.md
 | Optional cluster packaging | Helm and kind | Implement helm_managed and kind_demo capabilities when declared. |
 | Durable application telemetry | Application collector, local WAL, and GCS/S3-compatible object storage | Retain immutable application-scoped trace and metric objects beyond compute lifecycles. |
 
-<!-- field: project_structure -->
+<!-- field: project_structure | form: "tree" -->
 ## Project structure
 
-```yaml
-target_application:
-    - path: applications/<application>/agents/application.yaml
-      required_for: runnable_module or audit_only
-      role: |
-        Single schema-versioned composition, capability, status, deployment,
-        UI, compatibility, and runtime-path authority.
-    - path: applications/<application>/agents/<actor>/
-      required_for: each application-owned production actor or wrapper
-      role: |
-        profile.yaml plus only the machine, tools, declarations, REST, request,
-        configuration, tests, and UI files the actor actually uses.
-    - path: applications/<application>/agents/<actor>/ui/
-      required_for: actor-served UI only
-      role: UI source and generated output served by that actor's REST definition.
-    - path: applications/<application>/ui/
-      required_for: application-wide UI with no serving actor only
-      role: Application-owned UI declared with an explicit serving boundary.
-    - path: applications/<application>/docs/
-      required_for: runnable_module or audit_only
-      role: Local vision, architecture, roadmap, specifications, and evidence traces.
-    - path: applications/<application>/magefiles/
-      required_for: runnable_module or audit_only
-      role: |
-        Local audit and applicable executable evidence; packaged applications
-        also derive closure and provenance from agents/application.yaml.
-    - path: applications/<application>/helm/
-      required_for: helm_managed only
-      role: Chart consuming manifest-derived package outputs.
-    - path: applications/<application>/testdata/ or agents/<actor>/tests/
-      required_for: tests that need fixtures only
-      role: Non-production fixtures excluded from direct roots and role accounting.
-shared:
-    - path: applications/README.md
-      role: |
-        Human entry point for the shared vision, multi-agent construction
-        sequence, capability vocabulary, and current module classification.
-    - path: applications/docs/pattern-language.md
-      role: |
-        Application composition patterns for catalog consumption, package-time
-        closure, deployment topology, and module governance. It extends the
-        single-agent language instead of restating agent internals.
-    - path: applications/docs/VISION.md
-      role: |
-        Canonical multi-agent application rationale, intent and feedback flows,
-        human governance boundary, construction sequence, source provenance,
-        shared capability contract, and success criteria.
-    - path: applications/docs/ARCHITECTURE.md
-      role: Ownership layers, capability model, interfaces, and decisions.
-    - path: applications/docs/SPECIFICATIONS.md
-      role: Shared specification and traceability index.
-    - path: applications/docs/road-map.md
-      role: Shared contract implementation status.
-    - path: applications/docs/specs/
-      role: Shared SRDs, conformance use case, and structural test suite.
-modules:
-    - path: applications/catalog/
-      role: Reusable catalog module; excluded from runnable application classes.
-    - path: applications/chatbot-mesh/
-      role: Runnable application with local agents and all optional capability classes.
-    - path: applications/coding-agent/
-      role: |
-        Runnable application consuming canonical planner, executor, and critic
-        roots while shipping local serving and applier composition wrappers.
-        It remains composition-only, contributes zero agents, and derives all
-        package roots from the normalized manifest.
-    - path: applications/agent-architecture/
-      role: |
-        Runnable application consuming canonical curator and collector roots
-        while shipping a local wrapper over the canonical applier. It remains
-        composition-only and contributes zero agents. Baseline, package, Helm,
-        kind, and catalog UI evidence is implemented; managed-service evidence
-        remains partial.
-orchestration:
-    - path: magefiles/build.go
-      role: Module classification and audit/stats participant lists.
-    - path: magefiles/test.go
-      role: Root test dispatch.
-    - path: magefiles/stats.go
-      role: Root metrics aggregation and canonical agent totals.
-    - path: magefiles/tag.go
-      role: Root release gates and the single repository release tag.
-    - path: magefiles/apprig/
-      role: |
-        Planned reusable manifest-driven application lifecycle package for
-        first-party and downstream thin Mage verbs.
-```
+- target_application:
+  1. - path: applications/<application>/agents/application.yaml
+     - required_for: runnable_module or audit_only
+     - role:
+       Single schema-versioned composition, capability, status, deployment,
+       UI, compatibility, and runtime-path authority.
+  1. - path: applications/<application>/agents/<actor>/
+     - required_for: each application-owned production actor or wrapper
+     - role:
+       profile.yaml plus only the machine, tools, declarations, REST, request,
+       configuration, tests, and UI files the actor actually uses.
+  1. - path: applications/<application>/agents/<actor>/ui/
+     - required_for: actor-served UI only
+     - role: UI source and generated output served by that actor's REST definition.
+  1. - path: applications/<application>/ui/
+     - required_for: application-wide UI with no serving actor only
+     - role: Application-owned UI declared with an explicit serving boundary.
+  1. - path: applications/<application>/docs/
+     - required_for: runnable_module or audit_only
+     - role: Local vision, architecture, roadmap, specifications, and evidence traces.
+  1. - path: applications/<application>/magefiles/
+     - required_for: runnable_module or audit_only
+     - role:
+       Local audit and applicable executable evidence; packaged applications
+       also derive closure and provenance from agents/application.yaml.
+  1. - path: applications/<application>/helm/
+     - required_for: helm_managed only
+     - role: Chart consuming manifest-derived package outputs.
+  1. - path: applications/<application>/testdata/ or agents/<actor>/tests/
+     - required_for: tests that need fixtures only
+     - role: Non-production fixtures excluded from direct roots and role accounting.
+- shared:
+  1. - path: applications/README.md
+     - role:
+       Human entry point for the shared vision, multi-agent construction
+       sequence, capability vocabulary, and current module classification.
+  1. - path: applications/docs/pattern-language.md
+     - role:
+       Application composition patterns for catalog consumption, package-time
+       closure, deployment topology, and module governance. It extends the
+       single-agent language instead of restating agent internals.
+  1. - path: applications/docs/VISION.md
+     - role:
+       Canonical multi-agent application rationale, intent and feedback flows,
+       human governance boundary, construction sequence, source provenance,
+       shared capability contract, and success criteria.
+  1. - path: applications/docs/ARCHITECTURE.md
+     - role: Ownership layers, capability model, interfaces, and decisions.
+  1. - path: applications/docs/SPECIFICATIONS.md
+     - role: Shared specification and traceability index.
+  1. - path: applications/docs/road-map.md
+     - role: Shared contract implementation status.
+  1. - path: applications/docs/specs/
+     - role: Shared SRDs, conformance use case, and structural test suite.
+- modules:
+  1. - path: applications/catalog/
+     - role: Reusable catalog module; excluded from runnable application classes.
+  1. - path: applications/chatbot-mesh/
+     - role: Runnable application with local agents and all optional capability classes.
+  1. - path: applications/coding-agent/
+     - role:
+       Runnable application consuming canonical planner, executor, and critic
+       roots while shipping local serving and applier composition wrappers.
+       It remains composition-only, contributes zero agents, and derives all
+       package roots from the normalized manifest.
+  1. - path: applications/agent-architecture/
+     - role:
+       Runnable application consuming canonical curator and collector roots
+       while shipping a local wrapper over the canonical applier. It remains
+       composition-only and contributes zero agents. Baseline, package, Helm,
+       kind, and catalog UI evidence is implemented; managed-service evidence
+       remains partial.
+- orchestration:
+  1. - path: magefiles/build.go
+     - role: Module classification and audit/stats participant lists.
+  1. - path: magefiles/test.go
+     - role: Root test dispatch.
+  1. - path: magefiles/stats.go
+     - role: Root metrics aggregation and canonical agent totals.
+  1. - path: magefiles/tag.go
+     - role: Root release gates and the single repository release tag.
+  1. - path: magefiles/apprig/
+     - role:
+       Planned reusable manifest-driven application lifecycle package for
+       first-party and downstream thin Mage verbs.
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-current_focus: |
-    The shared vision now connects scenario-led multi-agent design to the
-    existing runnable-module contract. It defines when actor separation is
-    justified, how roles become realizations and application-owned
-    relationships, how intent and assurance flows close, and how canonical
-    profiles become package closures with executable evidence.
+- current_focus:
+  The shared vision now connects scenario-led multi-agent design to the
+  existing runnable-module contract. It defines when actor separation is
+  justified, how roles become realizations and application-owned
+  relationships, how intent and assurance flows close, and how canonical
+  profiles become package closures with executable evidence.
 
-    The contract also documents existing root orchestration and the current
-    chatbot-mesh, coding-agent, and agent-architecture structures.
-    Structural commands verify shared YAML, module paths, root participation,
-    and ownership-aware stats.
+  The contract also documents existing root orchestration and the current
+  chatbot-mesh, coding-agent, and agent-architecture structures.
+  Structural commands verify shared YAML, module paths, root participation,
+  and ownership-aware stats.
 
-    Release 14.0 implements the normalized composition authority, actor and
-    UI ownership grammar, operation-prefixed names, manifest-derived package and
-    provenance flow, promotion and shared-token rules, README/status vocabulary,
-    and explicit catalog/application/agent-core boundaries. The shared
-    documentation, reciprocal traces, application migrations, ownership/status
-    reconciliation, and current three-application classification are executable.
-progress:
-    - implemented: Multi-agent rationale, bidirectional operating flows, human governance boundary, six-step construction sequence, and pinned conceptual-source provenance in the canonical shared vision.
-    - implemented: applications/README.md links the canonical vision and gives the concise scenario-to-evidence construction guide.
-    - implemented: Shared vision, architecture, roadmap, specification index, two SRDs, one conformance use case, and one test suite.
-    - implemented: Root tests pin runnable application membership, path stability, audit/test/stats dispatch, and application exclusion from platform Build and All.
-    - implemented: Root stats sums only module agents sections; coding-agent and agent-architecture report composition-only wrappers without agents sections.
-    - implemented: chatbot-mesh and coding-agent own local audit, tests, stats, packaging, Helm, and kind integration evidence.
-    - implemented: agent-architecture owns a runnable composition, local audit and Go tests, manifest-derived package assets, and composition-only stats; magefiles/build.go registers it for root audit, test, stats, and release participation.
-    - implemented: Root stats counts canonical implementations once and reports application composition wrappers outside agents sections.
-    - partial: agent-architecture managed-service conformance; deterministic command and configuration evidence is implemented, while live srd002 AC1 through AC3 observations remain dependency-gated.
-    - implemented: applications/catalog remains a submodule and canonical catalog, not a runnable application.
-    - implemented: Release 14.0 srd003, cross-application use case, and eight-case capability-aware test suite with complete requirement and acceptance-criterion coverage.
-    - implemented: Release 14.0 shared YAML parsing, reciprocal indexing, manifest validation, actor naming, package assets, canonical promotion, token imports, README/status checks, three-app matrix, and root Mage gates.
-    - implemented: Chatbot Mesh reports five local implementations and two wrappers; Coding Agent and Agent Architecture are composition-only with four and one wrappers respectively.
-    - implemented: Release 15.0 srd004. The UI kit owns tokens, the client, fixtures, shell, and panels; Chatbot Mesh, bench, collector, and the curator monitor run on it; the observer is an embedded bundle.
-    - planned: Release 19.0 srd008 defines one persistent local/cloud platform, separate platform/application/data authorities, per-application collector and bucket identity, WAL-first immutable telemetry, teardown/query semantics, and the reusable application-rig boundary.
-```
+  Release 14.0 implements the normalized composition authority, actor and
+  UI ownership grammar, operation-prefixed names, manifest-derived package and
+  provenance flow, promotion and shared-token rules, README/status vocabulary,
+  and explicit catalog/application/agent-core boundaries. The shared
+  documentation, reciprocal traces, application migrations, ownership/status
+  reconciliation, and current three-application classification are executable.
+- progress:
+  1. - implemented: Multi-agent rationale, bidirectional operating flows, human governance boundary, six-step construction sequence, and pinned conceptual-source provenance in the canonical shared vision.
+  1. - implemented: applications/README.md links the canonical vision and gives the concise scenario-to-evidence construction guide.
+  1. - implemented: Shared vision, architecture, roadmap, specification index, two SRDs, one conformance use case, and one test suite.
+  1. - implemented: Root tests pin runnable application membership, path stability, audit/test/stats dispatch, and application exclusion from platform Build and All.
+  1. - implemented: Root stats sums only module agents sections; coding-agent and agent-architecture report composition-only wrappers without agents sections.
+  1. - implemented: chatbot-mesh and coding-agent own local audit, tests, stats, packaging, Helm, and kind integration evidence.
+  1. - implemented: agent-architecture owns a runnable composition, local audit and Go tests, manifest-derived package assets, and composition-only stats; magefiles/build.go registers it for root audit, test, stats, and release participation.
+  1. - implemented: Root stats counts canonical implementations once and reports application composition wrappers outside agents sections.
+  1. - partial: agent-architecture managed-service conformance; deterministic command and configuration evidence is implemented, while live srd002 AC1 through AC3 observations remain dependency-gated.
+  1. - implemented: applications/catalog remains a submodule and canonical catalog, not a runnable application.
+  1. - implemented: Release 14.0 srd003, cross-application use case, and eight-case capability-aware test suite with complete requirement and acceptance-criterion coverage.
+  1. - implemented: Release 14.0 shared YAML parsing, reciprocal indexing, manifest validation, actor naming, package assets, canonical promotion, token imports, README/status checks, three-app matrix, and root Mage gates.
+  1. - implemented: Chatbot Mesh reports five local implementations and two wrappers; Coding Agent and Agent Architecture are composition-only with four and one wrappers respectively.
+  1. - implemented: Release 15.0 srd004. The UI kit owns tokens, the client, fixtures, shell, and panels; Chatbot Mesh, bench, collector, and the curator monitor run on it; the observer is an embedded bundle.
+  1. - planned: Release 19.0 srd008 defines one persistent local/cloud platform, separate platform/application/data authorities, per-application collector and bucket identity, WAL-first immutable telemetry, teardown/query semantics, and the reusable application-rig boundary.
 
-<!-- field: related_documents -->
+<!-- field: related_documents | form: "tree" -->
 ## Related documents
 
-```yaml
-- doc: docs/pattern-language.md
-  purpose: |
-    Sibling Alexandrian language for application composition, package-time
-    closure, deployment topology, and module governance. Single-agent
-    machines, tools, execution, and controls remain in
-    ../../design-patterns/pattern-language.yaml.
-- doc: docs/VISION.md
-  purpose: |
-    Canonical rationale and construction guide for declarative multi-agent
-    applications, including operating flows, human governance, role
-    realizations, package closure, capability-aware goals, and exclusions.
-- doc: docs/SPECIFICATIONS.md
-  purpose: Shared SRD, use-case, and test-suite index.
-- doc: ../../docs/engineering/eng01-kind-test-demo-rig.md
-  purpose: Referenced kind-demo engineering contract.
-- doc: ../catalog/docs/ARCHITECTURE.md
-  purpose: Canonical catalog ownership and consumer contract.
-- doc: docs/specs/semantic-models/agent-role-realizations.md
-  purpose: Canonical role provenance, realization naming, bindings, classifications, and aliases.
-- doc: docs/specs/software-requirements/srd003-application-consistency.md
-  purpose: Release 14.0 normalized manifest, ownership, naming, package, UI, README, status, and boundary contract.
-- doc: docs/specs/use-cases/rel14.0-uc001-application-consistency.md
-  purpose: Completed cross-application normalization flow for the current runnable applications.
-- doc: docs/specs/test-suites/test-rel14.0-application-consistency.md
-  purpose: Structural and capability-gated executable conformance evidence.
-- doc: docs/specs/software-requirements/srd004-declarative-ux.md
-  purpose: Release 15.0 presentation contract, panel unit, build-time composition, UI kit, and embedded bundles.
-- doc: docs/specs/use-cases/rel15.0-uc001-declarative-ux.md
-  purpose: Panel composition flow and the endpoint-usage review of all three repositories.
-- doc: docs/specs/test-suites/test-rel15.0-declarative-ux.md
-  purpose: Release 15.0 structural and planned executable evidence.
-- doc: ../chatbot-mesh/docs/ARCHITECTURE.md
-  purpose: Local-agent runnable application reference.
-- doc: ../coding-agent/docs/ARCHITECTURE.md
-  purpose: Composition-only runnable application reference.
-- doc: ../agent-architecture/docs/ARCHITECTURE.md
-  purpose: Composition-only demo classification and partial managed-service evidence boundary.
-- doc: docs/specs/software-requirements/srd008-persistent-application-platform.md
-  purpose: Persistent platform ownership, lifecycle, routing, storage, query, threat, and reusable runner contract.
-- doc: ../../docs/engineering/eng08-gcp-demo-rig.md
-  purpose: Cloud realization of the persistent application platform.
-- doc: ../../magefiles/build.go
-  purpose: Executable module classification.
-```
+1. - doc: docs/pattern-language.md
+   - purpose:
+     Sibling Alexandrian language for application composition, package-time
+     closure, deployment topology, and module governance. Single-agent
+     machines, tools, execution, and controls remain in
+     ../../design-patterns/pattern-language.yaml.
+1. - doc: docs/VISION.md
+   - purpose:
+     Canonical rationale and construction guide for declarative multi-agent
+     applications, including operating flows, human governance, role
+     realizations, package closure, capability-aware goals, and exclusions.
+1. - doc: docs/SPECIFICATIONS.md
+   - purpose: Shared SRD, use-case, and test-suite index.
+1. - doc: ../../docs/engineering/eng01-kind-test-demo-rig.md
+   - purpose: Referenced kind-demo engineering contract.
+1. - doc: ../catalog/docs/ARCHITECTURE.md
+   - purpose: Canonical catalog ownership and consumer contract.
+1. - doc: docs/specs/semantic-models/agent-role-realizations.md
+   - purpose: Canonical role provenance, realization naming, bindings, classifications, and aliases.
+1. - doc: docs/specs/software-requirements/srd003-application-consistency.md
+   - purpose: Release 14.0 normalized manifest, ownership, naming, package, UI, README, status, and boundary contract.
+1. - doc: docs/specs/use-cases/rel14.0-uc001-application-consistency.md
+   - purpose: Completed cross-application normalization flow for the current runnable applications.
+1. - doc: docs/specs/test-suites/test-rel14.0-application-consistency.md
+   - purpose: Structural and capability-gated executable conformance evidence.
+1. - doc: docs/specs/software-requirements/srd004-declarative-ux.md
+   - purpose: Release 15.0 presentation contract, panel unit, build-time composition, UI kit, and embedded bundles.
+1. - doc: docs/specs/use-cases/rel15.0-uc001-declarative-ux.md
+   - purpose: Panel composition flow and the endpoint-usage review of all three repositories.
+1. - doc: docs/specs/test-suites/test-rel15.0-declarative-ux.md
+   - purpose: Release 15.0 structural and planned executable evidence.
+1. - doc: ../chatbot-mesh/docs/ARCHITECTURE.md
+   - purpose: Local-agent runnable application reference.
+1. - doc: ../coding-agent/docs/ARCHITECTURE.md
+   - purpose: Composition-only runnable application reference.
+1. - doc: ../agent-architecture/docs/ARCHITECTURE.md
+   - purpose: Composition-only demo classification and partial managed-service evidence boundary.
+1. - doc: docs/specs/software-requirements/srd008-persistent-application-platform.md
+   - purpose: Persistent platform ownership, lifecycle, routing, storage, query, threat, and reusable runner contract.
+1. - doc: ../../docs/engineering/eng08-gcp-demo-rig.md
+   - purpose: Cloud realization of the persistent application platform.
+1. - doc: ../../magefiles/build.go
+   - purpose: Executable module classification.

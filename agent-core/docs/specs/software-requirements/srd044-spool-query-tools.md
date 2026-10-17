@@ -192,12 +192,10 @@ A missing trace id emits CommandError before any file read, an unreadable spool 
 - cfg-tool-authoring-standard
 - sm-tool-language
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-implemented:
-    - "`internal/tools/otlp/query.go` owns spool file discovery, NDJSON parsing, trace aggregation, pagination, and per-trace filtering."
-    - "`tools/builtin/otlp/all.yaml` declares the two query words and registry composition."
-    - "`go test ./internal/tools/otlp -run 'TestListTraces|TestGetTrace'` proves aggregation, rotation, pagination, malformed-line tolerance, empty spool, unknown trace, and error paths."
-```
+- implemented:
+  1. "`internal/tools/otlp/query.go` owns spool file discovery, NDJSON parsing, trace aggregation, pagination, and per-trace filtering."
+  1. "`tools/builtin/otlp/all.yaml` declares the two query words and registry composition."
+  1. "`go test ./internal/tools/otlp -run 'TestListTraces|TestGetTrace'` proves aggregation, rotation, pagination, malformed-line tolerance, empty spool, unknown trace, and error paths."

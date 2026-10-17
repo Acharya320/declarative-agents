@@ -36,14 +36,12 @@ rel25.0-uc001-drain-outcome
 
 go test ./internal/tools/rest/... -run 'TestServerStopIncompleteDrainSucceeds'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-stop_returns_no_command_error: true
-listener_refuses_new_connections: true
-server_deregistered: true
-```
+- stop_returns_no_command_error: true
+- listener_refuses_new_connections: true
+- server_deregistered: true
 
 <!-- field: traces -->
 #### Traces
@@ -67,14 +65,12 @@ rel25.0-uc001-drain-outcome
 
 go test ./internal/tools/rest/... -run 'TestServerStopReportsDrainOutcome'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-completed_drain_reported: true
-incomplete_drain_reported: true
-field_shape_identical: true
-```
+- completed_drain_reported: true
+- incomplete_drain_reported: true
+- field_shape_identical: true
 
 <!-- field: traces -->
 #### Traces
@@ -98,14 +94,12 @@ rel25.0-uc001-drain-outcome
 
 go test ./internal/tools/rest/... -run 'TestServerStopNonDrainFaultsFail'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-unlaunched_server_fails: true
-unrelated_shutdown_error_fails: true
-fault_named_in_error: true
-```
+- unlaunched_server_fails: true
+- unrelated_shutdown_error_fails: true
+- fault_named_in_error: true
 
 <!-- field: traces -->
 #### Traces
@@ -129,13 +123,11 @@ rel25.0-uc001-drain-outcome
 
 go test ./internal/tools/rest/... -run 'TestRESTDeclaredOutputPropertiesExistAtRuntime'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-drain_field_declared: true
-declaration_matches_runtime: true
-```
+- drain_field_declared: true
+- declaration_matches_runtime: true
 
 <!-- field: traces -->
 #### Traces
@@ -159,13 +151,11 @@ rel25.0-uc001-drain-outcome
 
 mage integration:monitor
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-run_status_succeeded: true
-shipped_budget_unchanged: true
-```
+- run_status_succeeded: true
+- shipped_budget_unchanged: true
 
 <!-- field: traces -->
 #### Traces

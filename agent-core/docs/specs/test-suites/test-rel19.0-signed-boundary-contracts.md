@@ -35,13 +35,11 @@ rel19.0-uc001-signed-boundary-contracts
 
 go test ./pkg/spec -run 'TestEmitsOnlySignatureCompletesABoundaryToolWithItsEffectBlocks|TestValidate_BoundaryWordMustDeclareASignature|TestSignatureNeverWaivesBoundarySideEffects|TestSignatureLeavesStatefulInternalSideEffectsRequired'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-complete_with_effect_blocks: true
-each_missing_effect_block_named: true
-```
+- complete_with_effect_blocks: true
+- each_missing_effect_block_named: true
 
 <!-- field: traces -->
 #### Traces
@@ -65,14 +63,12 @@ rel19.0-uc001-signed-boundary-contracts
 
 go test ./internal/declstyle -run 'TestUntypedAndUncategorizedToolClassification|TestDeclarationLegacyBaseline'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-unsigned_boundary_and_stateful_untyped: true
-no_category_uncategorized: true
-signed_boundary_listed: false
-```
+- unsigned_boundary_and_stateful_untyped: true
+- no_category_uncategorized: true
+- signed_boundary_listed: false
 
 <!-- field: traces -->
 #### Traces

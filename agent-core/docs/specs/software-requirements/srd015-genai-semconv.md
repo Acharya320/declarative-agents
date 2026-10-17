@@ -282,32 +282,30 @@ Each invoke_llm span carries a deterministic rendered-system-prompt hash, and ll
 - R6.6
 - R6.7
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: OpenTelemetry defines semantic conventions for GenAI..."] --> Goals["Goals: GenAI Semantic Convention Helpers"]
-      Goals --> R1["R1: Attribute key constants"]
-      Goals --> R2["R2: Operation name constants"]
-      Goals --> R3["R3: Provider, tool type, and output type constants"]
-      Goals --> R4["R4: Span name builders"]
-      Goals --> R5["R5: Attribute builders"]
-      Goals --> R6["R6: LLM content capture modes"]
-      AC1["AC1: All gen_ai.* attribute key constants match the OTel GenAI..."]
-      R1 --> AC1
-      AC2["AC2: Span name builders produce '(operation) (name)' format, f..."]
-      R2 --> AC2
-      R4 --> AC2
-      AC3["AC3: Attribute builders return correct attribute slices for in..."]
-      R5 --> AC3
-      AC4["AC4: Output type constants (text, json, image) and provider/to..."]
-      R3 --> AC4
-      AC5["AC5: Two-turn tests show delta, full, and off capture behavior"]
-      R6 --> AC5
-      AC6["AC6: Prompt hashes are deterministic and references are optional"]
-      R6 --> AC6
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: OpenTelemetry defines semantic conventions for GenAI..."] --> Goals["Goals: GenAI Semantic Convention Helpers"]
+    Goals --> R1["R1: Attribute key constants"]
+    Goals --> R2["R2: Operation name constants"]
+    Goals --> R3["R3: Provider, tool type, and output type constants"]
+    Goals --> R4["R4: Span name builders"]
+    Goals --> R5["R5: Attribute builders"]
+    Goals --> R6["R6: LLM content capture modes"]
+    AC1["AC1: All gen_ai.* attribute key constants match the OTel GenAI..."]
+    R1 --> AC1
+    AC2["AC2: Span name builders produce '(operation) (name)' format, f..."]
+    R2 --> AC2
+    R4 --> AC2
+    AC3["AC3: Attribute builders return correct attribute slices for in..."]
+    R5 --> AC3
+    AC4["AC4: Output type constants (text, json, image) and provider/to..."]
+    R3 --> AC4
+    AC5["AC5: Two-turn tests show delta, full, and off capture behavior"]
+    R6 --> AC5
+    AC6["AC6: Prompt hashes are deterministic and references are optional"]
+    R6 --> AC6
+  ```

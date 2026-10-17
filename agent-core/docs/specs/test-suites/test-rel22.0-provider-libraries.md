@@ -36,15 +36,13 @@ rel22.0-uc001-provider-libraries
 
 go test ./internal/tools/llm/... -run 'TestChatDialectLoadsStrictly|TestChatDialectRejectsUnknownField|TestChatDialectRejectsCredentialLiteral|TestChatDialectRejectsMessagesInsideString'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-valid_dialect_loads: true
-unknown_field_rejected: true
-credential_literal_rejected: true
-embedded_messages_reference_rejected: true
-```
+- valid_dialect_loads: true
+- unknown_field_rejected: true
+- credential_literal_rejected: true
+- embedded_messages_reference_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -70,14 +68,12 @@ rel22.0-uc001-provider-libraries
 
 go test ./internal/load -run 'TestProviderLibraryMissingDialectNamesPathAndDirectory|TestProviderLibraryMissingFragmentNamesPathAndDirectory'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-load_fails: true
-error_names_missing_path: true
-error_names_bound_directory: true
-```
+- load_fails: true
+- error_names_missing_path: true
+- error_names_bound_directory: true
 
 <!-- field: traces -->
 #### Traces
@@ -101,15 +97,13 @@ rel22.0-uc001-provider-libraries
 
 go test ./internal/load ./internal/tools/llm/... -run 'TestLibraryRebindSwitchesProvider|TestDumpRecordsDialectRoot'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-declaration_bytes_identical: true
-resolved_dialect_differs: true
-dump_records_dialect_path_and_root: true
-program_identity_differs: true
-```
+- declaration_bytes_identical: true
+- resolved_dialect_differs: true
+- dump_records_dialect_path_and_root: true
+- program_identity_differs: true
 
 <!-- field: traces -->
 #### Traces
@@ -135,13 +129,11 @@ rel22.0-uc001-provider-libraries
 
 go test ./internal/tools/llm/... -run 'TestInvokeLLMRejectsProviderAndDialect|TestInvokeLLMMapsLegacyProvider'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-both_fields_rejected: true
-legacy_provider_resolves_to_shipped_dialect: true
-```
+- both_fields_rejected: true
+- legacy_provider_resolves_to_shipped_dialect: true
 
 <!-- field: traces -->
 #### Traces
@@ -165,16 +157,14 @@ rel22.0-uc001-provider-libraries
 
 go test ./internal/tools/llm/... -run 'TestProviderDialectParity'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-request_documents_equal: true
-conversation_placed_as_array: true
-histories_equal: true
-signals_equal: true
-span_attributes_equal: true
-```
+- request_documents_equal: true
+- conversation_placed_as_array: true
+- histories_equal: true
+- signals_equal: true
+- span_attributes_equal: true
 
 <!-- field: traces -->
 #### Traces
@@ -202,14 +192,12 @@ rel22.0-uc001-provider-libraries
 
 go test ./internal/tools/llm/... -run 'TestDialectCredentialResolvedAtCallTime|TestDialectMissingCredentialFailsBeforeNetwork|TestDialectCredentialAbsentFromDiagnostics'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-bearer_sent_from_resolver: true
-empty_credential_fails_before_network: true
-credential_absent_from_output_errors_and_spans: true
-```
+- bearer_sent_from_resolver: true
+- empty_credential_fails_before_network: true
+- credential_absent_from_output_errors_and_spans: true
 
 <!-- field: traces -->
 #### Traces
@@ -234,12 +222,10 @@ rel22.0-uc001-provider-libraries
 
 go test ./internal/model/llm ./internal/tools/llm/... -run 'TestLibraryParserProfileOverridesEmbedded|TestDialectLibraryParserProfileResolves'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-library_profile_used: true
-```
+- library_profile_used: true
 
 <!-- field: traces -->
 #### Traces
@@ -263,14 +249,18 @@ rel22.0-uc001-provider-libraries
 
 go test ./internal/load ./internal/tools/rest -run 'TestEmbedStageFragmentsSpliceWithEachLibrary|TestProviderFailureSignalsRouted'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-label_and_exhaustiveness_checks_pass: true
-success_signals_emitted: [QueryEmbedded, DocumentEmbedded, Reranked]
-failure_signals_emitted: [ProviderUnauthorized, ProviderThrottled, ProviderUnavailable]
-```
+- label_and_exhaustiveness_checks_pass: true
+- success_signals_emitted:
+  1. QueryEmbedded
+  1. DocumentEmbedded
+  1. Reranked
+- failure_signals_emitted:
+  1. ProviderUnauthorized
+  1. ProviderThrottled
+  1. ProviderUnavailable
 
 <!-- field: traces -->
 #### Traces
@@ -295,14 +285,12 @@ rel22.0-uc001-provider-libraries
 
 go test ./internal/declstyle -run 'TestNoHandWrittenProviderEmbedding|TestHandWrittenProviderEmbeddingIsFound'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-hand_written_embed_blocks: 0
-embedding_openings_are_stage_instances: true
-ollama_path_declares_failures: true
-```
+- hand_written_embed_blocks: 0
+- embedding_openings_are_stage_instances: true
+- ollama_path_declares_failures: true
 
 <!-- field: traces -->
 #### Traces
@@ -326,17 +314,15 @@ rel22.0-uc001-provider-libraries
 
 go test ./internal/tools/llm ./internal/tools/rest ./internal/load -run 'TestSyntheticProviderConformance|TestSyntheticProviderFailuresUseTheSharedTaxonomy|TestSyntheticProviderEmbeddingIsIndexedOutOfItsArray|TestSyntheticProviderTouchesOnlyItsLibrary|TestEmbedStageFragmentsSpliceWithEachLibrary'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-chat_passes: true
-embedding_indexed_out_of_data_array: true
-library_parser_profile_used: true
-shared_vocabulary_emitted: true
-go_changes_required: 0
-agent_declaration_changes_required: 0
-```
+- chat_passes: true
+- embedding_indexed_out_of_data_array: true
+- library_parser_profile_used: true
+- shared_vocabulary_emitted: true
+- go_changes_required: 0
+- agent_declaration_changes_required: 0
 
 <!-- field: traces -->
 #### Traces

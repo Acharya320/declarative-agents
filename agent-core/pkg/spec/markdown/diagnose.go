@@ -60,6 +60,7 @@ type dnode struct {
 	markerLine int
 	fields     map[string]bool
 	content    []Block
+	form       string // a field's typed form: its content is data, not prose
 }
 
 // diagnosis walks one document collecting findings; it never stops early.

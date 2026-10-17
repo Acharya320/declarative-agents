@@ -39,20 +39,24 @@ rel09.0-uc001-scenario-rig-run
 
 go test ./internal/tools/rest -run TestRESTServer_MockBindingServesScriptedResponses
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-fixture_route: "POST /deploy with responses [200, 500]"
-requests: [POST /deploy, POST /deploy, POST /deploy, GET /nope]
-```
+- fixture_route: POST /deploy with responses [200, 500]
+- requests:
+  1. POST /deploy
+  1. POST /deploy
+  1. POST /deploy
+  1. GET /nope
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-statuses: [200, 500, 500, 404]
-```
+- statuses:
+  1. 200
+  1. 500
+  1. 500
+  1. 404
 
 <!-- field: traces -->
 #### Traces
@@ -78,21 +82,26 @@ rel09.0-uc001-scenario-rig-run
 
 go test ./internal/tools/rest -run TestRESTServer_MockBindingRequestLog
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-requests: [POST /deploy body A, GET /nope]
-```
+- requests:
+  1. POST /deploy body A
+  1. GET /nope
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-log_length: 2
-first_entry: {method: POST, path: /deploy, body: A, matched: true}
-second_entry: {method: GET, path: /nope, matched: false}
-```
+- log_length: 2
+- first_entry:
+  - method: POST
+  - path: /deploy
+  - body: A
+  - matched: true
+- second_entry:
+  - method: GET
+  - path: /nope
+  - matched: false
 
 <!-- field: traces -->
 #### Traces
@@ -117,21 +126,20 @@ rel09.0-uc001-scenario-rig-run
 
 go test ./internal/tools/rest -run TestRESTServer_MockBindingFixtureValidation
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-fixtures: [unknown_method, empty_responses, duplicate_route]
-```
+- fixtures:
+  1. unknown_method
+  1. empty_responses
+  1. duplicate_route
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-validate_config_fails: true
-server_start_fails: true
-error_named: true
-```
+- validate_config_fails: true
+- server_start_fails: true
+- error_named: true
 
 <!-- field: traces -->
 #### Traces
@@ -154,20 +162,16 @@ rel09.0-uc001-scenario-rig-run
 
 go test ./internal/tools/rest -run TestRESTServer_MockBindingConcurrentSequencing
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-concurrent_requests: 8
-script_length: 8
-```
+- concurrent_requests: 8
+- script_length: 8
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-each_position_served_once: true
-```
+- each_position_served_once: true
 
 <!-- field: traces -->
 #### Traces
@@ -193,23 +197,19 @@ rel09.0-uc001-scenario-rig-run
 
 go test ./internal/tools/service -run 'TestServiceChild_(StartStopNoOrphans|ParentCancellationKillsProcessGroup)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-child: serve-mode agent profile with env addition
-cycles: 2
-```
+- child: serve-mode agent profile with env addition
+- cycles: 2
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-runtime_target_reported: true
-child_group_gone_after_stop: true
-child_group_gone_after_parent_cancel: true
-second_cycle_passes: true
-```
+- runtime_target_reported: true
+- child_group_gone_after_stop: true
+- child_group_gone_after_parent_cancel: true
+- second_cycle_passes: true
 
 <!-- field: traces -->
 #### Traces
@@ -234,21 +234,17 @@ rel09.0-uc001-scenario-rig-run
 
 go test ./internal/tools/lifecycle ./internal/tools/rest/client -run 'TestDelay_ElapsedAndDeadlineSignals|TestRESTClient_CommandStateSelectsTrustedBaseURL'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-target: reserved unserved port
-timeout: declared
-```
+- target: reserved unserved port
+- timeout: declared
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-timeout_signal: true
-bounded_duration: true
-```
+- timeout_signal: true
+- bounded_duration: true
 
 <!-- field: traces -->
 #### Traces
@@ -272,21 +268,19 @@ rel09.0-uc001-scenario-rig-run
 
 go test ./internal/tools/service -run TestRunOneValidator_TerminalStateAndTimeout
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-validators: [passing, hung]
-item_timeout: declared
-```
+- validators:
+  1. passing
+  1. hung
+- item_timeout: declared
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-per_item_terminal_state: true
-hung_reported_timed_out: true
-```
+- per_item_terminal_state: true
+- hung_reported_timed_out: true
 
 <!-- field: traces -->
 #### Traces
@@ -312,21 +306,17 @@ rel09.0-uc001-scenario-rig-run
 
 go test ./internal/tools/service -run 'TestListScenarios_DeterministicDiscovery|TestScenarioSession_IteratesEachScenarioOnce'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-tree: two subjects, three tests/<scenario>/ directories
-```
+- tree: two subjects, three tests/<scenario>/ directories
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-entries: 3
-sorted: true
-repeat_identical: true
-```
+- entries: 3
+- sorted: true
+- repeat_identical: true
 
 <!-- field: traces -->
 #### Traces
@@ -352,23 +342,26 @@ rel09.0-uc001-scenario-rig-run
 
 go test ./internal/tools/service -run 'TestServiceDeclarationsMatchStandardInits|TestUndoStartedChildValidatesAndConsumesReceipt|TestServiceChild_StartRejectsBadSpawn'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-words: [init_scenario_session, start_scenario_mock, start_scenario_subject, stop_service, run_scenario_validator, start_service, list_services]
-spawn_failure_case: nonexistent profile path
-```
+- words:
+  1. init_scenario_session
+  1. start_scenario_mock
+  1. start_scenario_subject
+  1. stop_service
+  1. run_scenario_validator
+  1. start_service
+  1. list_services
+- spawn_failure_case: nonexistent profile path
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-reversibility_consistent: true
-no_undo_mismatch: true
-spawn_failure_is_error_signal: true
-no_model_invocation: true
-```
+- reversibility_consistent: true
+- no_undo_mismatch: true
+- spawn_failure_is_error_signal: true
+- no_model_invocation: true
 
 <!-- field: traces -->
 #### Traces
@@ -395,25 +388,25 @@ rel09.0-uc001-scenario-rig-run
 
 go test ./internal/tools/service -run 'TestStartService_DetachedReturnsAndListsExit|TestStartService_MaxRunningEmitsLimitReached|TestStartServiceUndoConsumesReceipt'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-child_modes: [exit3slow, hang]
-max_running: [1, 2]
-concurrent_starts: 8
-```
+- child_modes:
+  1. exit3slow
+  1. hang
+- max_running:
+  1. 1
+  1. 2
+- concurrent_starts: 8
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-returns_before_exit: true
-listed_exit_code: 3
-limit_signal: ServiceLimitReached
-concurrent_started: 2
-undo_stops_only_receipt_child: true
-```
+- returns_before_exit: true
+- listed_exit_code: 3
+- limit_signal: ServiceLimitReached
+- concurrent_started: 2
+- undo_stops_only_receipt_child: true
 
 <!-- field: traces -->
 #### Traces
@@ -440,21 +433,17 @@ rel09.0-uc001-scenario-rig-run
 
 go test ./internal/tools/service -run TestScenarioRig_EndToEndVerdict
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-scenario: mock + subject + validator, happy and scripted-failure variants
-```
+- scenario: mock + subject + validator, happy and scripted-failure variants
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-happy_verdict: Passed
-scripted_failure_verdict: Passed
-no_processes_after: true
-```
+- happy_verdict: Passed
+- scripted_failure_verdict: Passed
+- no_processes_after: true
 
 <!-- field: traces -->
 #### Traces
@@ -480,21 +469,17 @@ rel09.0-uc001-scenario-rig-run
 
 go test ./internal/tools/service -run TestScenarioSession_IteratesEachScenarioOnce
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-tree: two subjects, three scenarios
-```
+- tree: two subjects, three scenarios
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-visited_once_each: true
-deterministic_order: true
-exhausted_stays_exhausted: true
-```
+- visited_once_each: true
+- deterministic_order: true
+- exhausted_stays_exhausted: true
 
 <!-- field: traces -->
 #### Traces
@@ -521,21 +506,17 @@ rel09.0-uc001-scenario-rig-run
 
 go test ./internal/tools/service -run TestScenarioSteps_ThreadsMockURLIntoSubject
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-fixture: mocks/dep.yaml
-```
+- fixture: mocks/dep.yaml
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-env_var_derived: DEP_URL
-subject_observes_mock_url: true
-subject_profile_resolved_from_scenario: true
-```
+- env_var_derived: DEP_URL
+- subject_observes_mock_url: true
+- subject_profile_resolved_from_scenario: true
 
 <!-- field: traces -->
 #### Traces
@@ -560,22 +541,18 @@ rel09.0-uc001-scenario-rig-run
 
 go test ./internal/tools/service -run TestScenarioSteps_TeardownRunsOnFailurePath
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-subject: started but never serving
-health_timeout: declared
-```
+- subject: started but never serving
+- health_timeout: declared
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-health_timeout_signal: true
-nothing_running_after_teardown: true
-report_names_cause: true
-```
+- health_timeout_signal: true
+- nothing_running_after_teardown: true
+- report_names_cause: true
 
 <!-- field: traces -->
 #### Traces
@@ -600,21 +577,20 @@ rel09.0-uc001-scenario-rig-run
 
 go test ./internal/tools/service -run TestScenarioSession_VerdictNamesItsCause
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-scenarios: [all-pass, one-failing, forced-reason]
-```
+- scenarios:
+  1. all-pass
+  1. one-failing
+  1. forced-reason
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-pass_requires_all: true
-failure_names_validator: true
-empty_run_does_not_pass: true
-```
+- pass_requires_all: true
+- failure_names_validator: true
+- empty_run_does_not_pass: true
 
 <!-- field: traces -->
 #### Traces
@@ -642,21 +618,22 @@ rel09.0-uc001-scenario-rig-run
 
 go test ./cmd/agent -run TestExitCode
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-statuses: [succeeded, suspended, failed, budget_exceeded, cancelled]
-```
+- statuses:
+  1. succeeded
+  1. suspended
+  1. failed
+  1. budget_exceeded
+  1. cancelled
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-succeeded_and_suspended_exit_zero: true
-failure_terminal_exit_distinct_from_run_error: true
-mapping_from_run_status: true
-```
+- succeeded_and_suspended_exit_zero: true
+- failure_terminal_exit_distinct_from_run_error: true
+- mapping_from_run_status: true
 
 <!-- field: traces -->
 #### Traces

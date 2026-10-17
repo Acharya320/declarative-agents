@@ -189,56 +189,52 @@ fields:
             takes precedence. Valid only for the Ollama compatibility path.
 ```
 
-<!-- field: provider_behavior -->
+<!-- field: provider_behavior | form: "tree" -->
 ## Provider behavior
 
-```yaml
-status: implemented
-ollama: |
-    invoke_llm sends non-streaming POST /api/chat. Request decoding options
-    live under the Ollama options object, including num_ctx. No credential is
-    required. An omitted provider selects this compatibility path and defaults
-    provider_url to http://localhost:11434.
-cohere: |
-    invoke_llm sends non-streaming POST /v2/chat. model, messages,
-    temperature, and seed are top-level request fields. The adapter joins
-    ordered text blocks from message.content and maps usage.tokens into the
-    provider-neutral ChatResponse. num_ctx and Ollama request fields are not
-    sent.
-credential: |
-    Cohere Chat resolves COHERE_API_KEY from the process environment only when
-    Chat executes and sends it as Authorization Bearer. No API key or
-    credential-valued field is valid in this YAML format. Registration performs
-    no credential lookup.
-response_profile_boundary: |
-    response_profile operates after provider HTTP normalization. The cohere
-    profile extracts a [tool_call] envelope or bare JSON from the joined model
-    text; it does not parse the Cohere HTTP response object.
-```
+- status: implemented
+- ollama:
+  invoke_llm sends non-streaming POST /api/chat. Request decoding options
+  live under the Ollama options object, including num_ctx. No credential is
+  required. An omitted provider selects this compatibility path and defaults
+  provider_url to http://localhost:11434.
+- cohere:
+  invoke_llm sends non-streaming POST /v2/chat. model, messages,
+  temperature, and seed are top-level request fields. The adapter joins
+  ordered text blocks from message.content and maps usage.tokens into the
+  provider-neutral ChatResponse. num_ctx and Ollama request fields are not
+  sent.
+- credential:
+  Cohere Chat resolves COHERE_API_KEY from the process environment only when
+  Chat executes and sends it as Authorization Bearer. No API key or
+  credential-valued field is valid in this YAML format. Registration performs
+  no credential lookup.
+- response_profile_boundary:
+  response_profile operates after provider HTTP normalization. The cohere
+  profile extracts a [tool_call] envelope or bare JSON from the joined model
+  text; it does not parse the Cohere HTTP response object.
 
-<!-- field: parse_response_config -->
+<!-- field: parse_response_config | form: "tree" -->
 ## Parse response config
 
-```yaml
-purpose: |
-    Defines the validation state and parser profile owned by one parse_response
-    ToolDef. These values do not come from mutable invoke_llm registration
-    state.
-fields:
-    - field: manifest_state
-      type: string
-      required: true when the parse word feeds $tool
-      description: |
-        The `$tool` target state whose external vocabulary validates the parsed
-        tool name. Startup links the actual selector, parser, and dynamic
-        transition and rejects a different value.
-    - field: response_profile
-      type: string
-      required: false
-      description: |
-        Explicit parser profile for this parse word. When omitted, the existing
-        resolved model parser remains the compatibility fallback.
-```
+- purpose:
+  Defines the validation state and parser profile owned by one parse_response
+  ToolDef. These values do not come from mutable invoke_llm registration
+  state.
+- fields:
+  1. - field: manifest_state
+     - type: string
+     - required: true when the parse word feeds $tool
+     - description:
+       The `$tool` target state whose external vocabulary validates the parsed
+       tool name. Startup links the actual selector, parser, and dynamic
+       transition and rejects a different value.
+  1. - field: response_profile
+     - type: string
+     - required: false
+     - description:
+       Explicit parser profile for this parse word. When omitted, the existing
+       resolved model parser remains the compatibility fallback.
 
 <!-- field: per_model_pattern -->
 ## Per model pattern
@@ -275,32 +271,30 @@ define output extraction for model families: match_prefixes, envelope,
 strict_format, and extraction_pipeline. invoke_llm uses one response parser
 profile to turn raw model text into a candidate tool call for parse_response.
 
-<!-- field: config_files -->
+<!-- field: config_files | form: "tree" -->
 ## Config files
 
-```yaml
-- directory: $AGENT_CATALOG_ROOT/agents/executor/llm/
-  variant_count: 9
-  description: |
-    Model variants for the generator agent: default, deepseek,
-    devstral, gemma4, glm, granite, laguna, mistral-small, and
-    nemotron. Each configures a different local model via Ollama
-    with generator-specific system prompts.
-- directory: $AGENT_CATALOG_ROOT/agents/critic/llm/
-  variant_count: 10
-  description: |
-    Model variants for the evaluator's benchmark grid:
-    deepseek-16b, devstral, gemma4, glm, granite, laguna,
-    mistral-small, nemotron, qwen3-8b, and qwen3-35b. These
-    are harness profiles used by child generator processes, not
-    by the evaluator state machine itself.
-- directory: $AGENT_CATALOG_ROOT/agents/planner/llm/
-  variant_count: 1
-  description: |
-    Single variant (default.yaml) for the planner agent. Includes
-    both system_prompt and tool_prompt fields since the planner
-    injects tool-use instructions into the LLM context.
-```
+1. - directory: $AGENT_CATALOG_ROOT/agents/executor/llm/
+   - variant_count: 9
+   - description:
+     Model variants for the generator agent: default, deepseek,
+     devstral, gemma4, glm, granite, laguna, mistral-small, and
+     nemotron. Each configures a different local model via Ollama
+     with generator-specific system prompts.
+1. - directory: $AGENT_CATALOG_ROOT/agents/critic/llm/
+   - variant_count: 10
+   - description:
+     Model variants for the evaluator's benchmark grid:
+     deepseek-16b, devstral, gemma4, glm, granite, laguna,
+     mistral-small, nemotron, qwen3-8b, and qwen3-35b. These
+     are harness profiles used by child generator processes, not
+     by the evaluator state machine itself.
+1. - directory: $AGENT_CATALOG_ROOT/agents/planner/llm/
+   - variant_count: 1
+   - description:
+     Single variant (default.yaml) for the planner agent. Includes
+     both system_prompt and tool_prompt fields since the planner
+     injects tool-use instructions into the LLM context.
 
 <!-- field: related_documents -->
 ## Related documents

@@ -191,16 +191,14 @@ The service-library convention is documented in the REST format, and the corpus 
 - srd050-declaration-imports
 - srd051-declaration-types
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-complete:
-    - GH-2118 implements the agent-core root for tool and REST imports, their fragments, and machine stage fragments (R1.1, R1.3, the import and stage parts of R1.2), rooted files in the closure, digest, usedness, and dump (R3.1, R3.2), and staging that leaves agent-core's library to the image (the agent-core part of R3.3); it deletes the five application copies of agent-core types.
-    - GH-2114 extends R1.2 to machine template instances.
-    - GH-2119 implements declared roots (R2), rooted files in the dump for declared roots, and staging of declared-root files to the staged position of the declared directory (R3.3); library-one and library-two under testdata/integration/profiles are the two-importer proof. The profile-versus-blueprint redeclaration error of R2.3 waits for blueprints (GH-2123).
-planned:
-    - GH-2123 extends R1.2 to blueprint machine mappings and adds the redeclaration error of R2.3.
-    - GH-2527 publishes the first service library (R4), the retrieval query client in agent-core (srd060-retrieval-client-contract).
-    - GH-2119 implements declared roots, the --library flag, the read-only rules, and rooted staging (R2, R3.3).
-```
+- complete:
+  1. GH-2118 implements the agent-core root for tool and REST imports, their fragments, and machine stage fragments (R1.1, R1.3, the import and stage parts of R1.2), rooted files in the closure, digest, usedness, and dump (R3.1, R3.2), and staging that leaves agent-core's library to the image (the agent-core part of R3.3); it deletes the five application copies of agent-core types.
+  1. GH-2114 extends R1.2 to machine template instances.
+  1. GH-2119 implements declared roots (R2), rooted files in the dump for declared roots, and staging of declared-root files to the staged position of the declared directory (R3.3); library-one and library-two under testdata/integration/profiles are the two-importer proof. The profile-versus-blueprint redeclaration error of R2.3 waits for blueprints (GH-2123).
+- planned:
+  1. GH-2123 extends R1.2 to blueprint machine mappings and adds the redeclaration error of R2.3.
+  1. GH-2527 publishes the first service library (R4), the retrieval query client in agent-core (srd060-retrieval-client-contract).
+  1. GH-2119 implements declared roots, the --library flag, the read-only rules, and rooted staging (R2, R3.3).

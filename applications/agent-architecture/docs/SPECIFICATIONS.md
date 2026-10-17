@@ -64,45 +64,55 @@ requirements.
 | srd001-helm-deployment | Agent Architecture Helm Deployment | planned | docs/specs/software-requirements/srd001-helm-deployment.md |
 | srd002-applier | Declarative Applier Agent | implemented | docs/specs/software-requirements/srd002-applier.md |
 
-<!-- field: external_requirement_references -->
+<!-- field: external_requirement_references | form: "tree" -->
 ## External requirement references
 
-```yaml
-- id: srd001-application-module-contract
-  owner: applications
-  path: ../docs/specs/software-requirements/srd001-application-module-contract.md
-  requirements: [R1, R2, R3, R4, R5, R6]
-  usage: |
-    Governs runnable-module identity, canonical references, local
-    documentation, Mage participation, and composition-only accounting.
-    This application supplies local paths and evidence without copying those
-    requirements.
-- id: srd002-managed-application-services
-  owner: applications
-  path: ../docs/specs/software-requirements/srd002-managed-application-services.md
-  requirements: [R1, R2, R3, R4, R5, R6]
-  applies_to:
-    - documentation-curator server launched by this application
-    - Go present server
-    - planned chart, package, and kind deployment
-  usage: |
-    Governs lifecycle, control and operator verbs, telemetry, and
-    configuration for both Release 00.0 managed services (R1 through R3). The
-    planned deployment cites the package (R4), Helm (R5), and kind (R6) groups,
-    supplying their evidence through srd001-helm-deployment.
-- id: srd011-knowledge-manager
-  owner: applications/catalog
-  path: ../catalog/docs/specs/software-requirements/srd011-knowledge-manager.md
-  usage: |
-    Defines the canonical documentation-curator profile, catalog-owned UI and
-    resources, agent-core runtime dependencies, and lifecycle outcomes.
-- id: rel07.0-uc001-documentation-curator-profile-ux
-  owner: applications/catalog
-  path: ../catalog/docs/specs/use-cases/rel07.0-uc001-documentation-curator-profile-ux.md
-  usage: |
-    Proves the catalog profile's browser, action-route, and lifecycle behavior.
-    Release 00.0 composes that behavior into a guided presentation.
-```
+1. - id: srd001-application-module-contract
+   - owner: applications
+   - path: ../docs/specs/software-requirements/srd001-application-module-contract.md
+   - requirements:
+     1. R1
+     1. R2
+     1. R3
+     1. R4
+     1. R5
+     1. R6
+   - usage:
+     Governs runnable-module identity, canonical references, local
+     documentation, Mage participation, and composition-only accounting.
+     This application supplies local paths and evidence without copying those
+     requirements.
+1. - id: srd002-managed-application-services
+   - owner: applications
+   - path: ../docs/specs/software-requirements/srd002-managed-application-services.md
+   - requirements:
+     1. R1
+     1. R2
+     1. R3
+     1. R4
+     1. R5
+     1. R6
+   - applies_to:
+     1. documentation-curator server launched by this application
+     1. Go present server
+     1. planned chart, package, and kind deployment
+   - usage:
+     Governs lifecycle, control and operator verbs, telemetry, and
+     configuration for both Release 00.0 managed services (R1 through R3). The
+     planned deployment cites the package (R4), Helm (R5), and kind (R6) groups,
+     supplying their evidence through srd001-helm-deployment.
+1. - id: srd011-knowledge-manager
+   - owner: applications/catalog
+   - path: ../catalog/docs/specs/software-requirements/srd011-knowledge-manager.md
+   - usage:
+     Defines the canonical documentation-curator profile, catalog-owned UI and
+     resources, agent-core runtime dependencies, and lifecycle outcomes.
+1. - id: rel07.0-uc001-documentation-curator-profile-ux
+   - owner: applications/catalog
+   - path: ../catalog/docs/specs/use-cases/rel07.0-uc001-documentation-curator-profile-ux.md
+   - usage:
+     Proves the catalog profile's browser, action-route, and lifecycle behavior.
+     Release 00.0 composes that behavior into a guided presentation.
 
 <!-- field: config_format_index -->
 ## Config format index
@@ -140,24 +150,22 @@ requirements.
 | test-rel03.0-live-helm-smoke | Test Suite for Release 03.0 Live Helm Smoke | "03.0" | planned | 4 | [rel03.0-uc001-live-helm-smoke] | docs/specs/test-suites/test-rel03.0-live-helm-smoke.md |
 | test-rel04.0-declarative-applier | Test Suite for Release 04.0 Declarative Applier Agent | "04.0" | planned | 5 | [rel04.0-uc001-declarative-applier] | docs/specs/test-suites/test-rel04.0-declarative-applier.md |
 
-<!-- field: coverage_gaps -->
+<!-- field: coverage_gaps | form: "tree" -->
 ## Coverage gaps
 
-```yaml
-- id: live-browser-observation
-  status: dependency_gated
-  description: |
-    Deterministic tests validate commands, configuration, reciprocal traces,
-    root dispatch, and accounting without starting servers. Live launch,
-    browser rendering, role readiness, exit, and listener-release evidence
-    requires available ports, a buildable agent-core checkout, and operator
-    execution. Command construction is not live-service proof.
-- id: kubernetes-deployment
-  status: implemented
-  description: |
-    The chart, profile-closure package, values schema, kind smoke, and applier
-    are implemented through srd001-helm-deployment and srd002-applier use
-    cases and test suites. Package, Helm, kind, and canonical-applier wrapper
-    evidence is executable; live runs retain their documented host
-    prerequisite gates.
-```
+1. - id: live-browser-observation
+   - status: dependency_gated
+   - description:
+     Deterministic tests validate commands, configuration, reciprocal traces,
+     root dispatch, and accounting without starting servers. Live launch,
+     browser rendering, role readiness, exit, and listener-release evidence
+     requires available ports, a buildable agent-core checkout, and operator
+     execution. Command construction is not live-service proof.
+1. - id: kubernetes-deployment
+   - status: implemented
+   - description:
+     The chart, profile-closure package, values schema, kind smoke, and applier
+     are implemented through srd001-helm-deployment and srd002-applier use
+     cases and test suites. Package, Helm, kind, and canonical-applier wrapper
+     evidence is executable; live runs retain their documented host
+     prerequisite gates.

@@ -55,22 +55,18 @@ install_packaged_chart
 
 mage integration:helmSmoke
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-cluster: kind with the runtime image built and loaded
-install_source: validated chart archive
-```
+- cluster: kind with the runtime image built and loaded
+- install_source: validated chart archive
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-installs_validated_archive_only: true
-profile_free_image_loaded: true
-packaged_closures_mounted: true
-```
+- installs_validated_archive_only: true
+- profile_free_image_loaded: true
+- packaged_closures_mounted: true
 
 <!-- field: traces -->
 #### Traces
@@ -101,21 +97,19 @@ readiness_and_exit
 
 mage integration:helmSmoke
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-workloads: [curator, collector]
-```
+- workloads:
+  1. curator
+  1. collector
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-real_lifecycle_health_ready: true
-curator_surface_served: true
-declarative_exit_stops_curator_cleanly: true
-```
+- real_lifecycle_health_ready: true
+- curator_surface_served: true
+- declarative_exit_stops_curator_cleanly: true
 
 <!-- field: traces -->
 #### Traces
@@ -146,19 +140,15 @@ trace_retained
 
 mage integration:helmSmoke
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-service_name: knowledge-manager-curator
-```
+- service_name: knowledge-manager-curator
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-collector_retains_curator_trace: true
-```
+- collector_retains_curator_trace: true
 
 <!-- field: traces -->
 #### Traces
@@ -190,22 +180,25 @@ skip_and_cleanup
 
 mage test (smoke preflight and cleanup)
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-missing_tools: [docker, kind, helm, kubectl]
-terminal_paths: [success, semantic_failure, infrastructure_failure]
-```
+- missing_tools:
+  1. docker
+  1. kind
+  1. helm
+  1. kubectl
+- terminal_paths:
+  1. success
+  1. semantic_failure
+  1. infrastructure_failure
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-missing_prerequisite_skips_without_cluster_mutation: true
-owned_resources_cleaned_on_every_terminal_path: true
-failure_diagnostics_bounded_and_targeted: true
-```
+- missing_prerequisite_skips_without_cluster_mutation: true
+- owned_resources_cleaned_on_every_terminal_path: true
+- failure_diagnostics_bounded_and_targeted: true
 
 <!-- field: traces -->
 #### Traces

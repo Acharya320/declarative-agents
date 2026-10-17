@@ -40,49 +40,66 @@ contract owner changes a response field a kit panel reads.
 - srd003 governs the application manifest, UI assets, and shared-token policy.
 - agent-core srd029 governs REST server bindings, including static_assets.
 
-<!-- field: endpoint_usage_review -->
+<!-- field: endpoint_usage_review | form: "tree" -->
 ## Endpoint usage review
 
-```yaml
-reviewed_at:
-    declarative-agents: bd71b931
-    cohere-demo: c67d082
-    agentic-wiki-mesh: 629a799
-urls:
-    - url: /monitor-proxy/{agent}/monitor/state
-      used_by: [chatbot-mesh chatbot, cohere-demo chatbot, agentic-wiki-mesh chatbot]
-      class: contract
-    - url: /monitor-proxy/{agent}/monitor/events/stream
-      used_by: [chatbot-mesh chatbot, cohere-demo chatbot turnActivity, agentic-wiki-mesh chatbot turnActivity]
-      class: contract
-    - url: /monitor-proxy/{trace_backend}/query/traces/{trace_id}
-      used_by: [chatbot-mesh chatbot, cohere-demo chatbot, agentic-wiki-mesh chatbot]
-      class: contract
-    - url: /monitor-proxy/{trace_backend}/query/traces
-      used_by: [agentic-wiki-mesh chatbot]
-      class: contract
-    - url: /monitor/fleet and /monitor/state on the observer origin
-      used_by: [chatbot-mesh observer, cohere-demo observer, agentic-wiki-mesh observer]
-      class: contract
-    - url: /monitor-proxy/{agent}/monitor/machines and /monitor/tools/declared
-      used_by: [agentic-wiki-mesh chatbot machineViews]
-      class: contract
-    - url: /trace-proxy/{agent}/monitor/machines, /monitor/tools/declared, /query/traces
-      used_by: [cohere-demo observer declaredViews and api]
-      class: contract under a retired proxy name; migrates to /monitor-proxy per srd004 R2.3
-    - url: /api/v1/chat
-      used_by: [all three chatbots]
-      class: domain
-    - url: /api/v1/audit, /api/v1/export, /api/v1/harvest, /api/v1/search, /api/v1/summarize, /api/v1/translate
-      used_by: [cohere-demo chatbot]
-      class: domain
-    - url: /api/v1/documents, /api/v1/documents/query
-      used_by: [cohere-demo ProvenancePanel through documentsApi]
-      class: domain; ProvenancePanel leaves the kit panel set per srd004 R4.4
-    - url: /provisioning/api
-      used_by: [chatbot-mesh chatbot ProvisioningPanel]
-      class: domain
-```
+- reviewed_at:
+  - declarative-agents: bd71b931
+  - cohere-demo: c67d082
+  - agentic-wiki-mesh: 629a799
+- urls:
+  1. - url: /monitor-proxy/{agent}/monitor/state
+     - used_by:
+       1. chatbot-mesh chatbot
+       1. cohere-demo chatbot
+       1. agentic-wiki-mesh chatbot
+     - class: contract
+  1. - url: /monitor-proxy/{agent}/monitor/events/stream
+     - used_by:
+       1. chatbot-mesh chatbot
+       1. cohere-demo chatbot turnActivity
+       1. agentic-wiki-mesh chatbot turnActivity
+     - class: contract
+  1. - url: /monitor-proxy/{trace_backend}/query/traces/{trace_id}
+     - used_by:
+       1. chatbot-mesh chatbot
+       1. cohere-demo chatbot
+       1. agentic-wiki-mesh chatbot
+     - class: contract
+  1. - url: /monitor-proxy/{trace_backend}/query/traces
+     - used_by:
+       1. agentic-wiki-mesh chatbot
+     - class: contract
+  1. - url: /monitor/fleet and /monitor/state on the observer origin
+     - used_by:
+       1. chatbot-mesh observer
+       1. cohere-demo observer
+       1. agentic-wiki-mesh observer
+     - class: contract
+  1. - url: /monitor-proxy/{agent}/monitor/machines and /monitor/tools/declared
+     - used_by:
+       1. agentic-wiki-mesh chatbot machineViews
+     - class: contract
+  1. - url: /trace-proxy/{agent}/monitor/machines, /monitor/tools/declared, /query/traces
+     - used_by:
+       1. cohere-demo observer declaredViews and api
+     - class: contract under a retired proxy name; migrates to /monitor-proxy per srd004 R2.3
+  1. - url: /api/v1/chat
+     - used_by:
+       1. all three chatbots
+     - class: domain
+  1. - url: /api/v1/audit, /api/v1/export, /api/v1/harvest, /api/v1/search, /api/v1/summarize, /api/v1/translate
+     - used_by:
+       1. cohere-demo chatbot
+     - class: domain
+  1. - url: /api/v1/documents, /api/v1/documents/query
+     - used_by:
+       1. cohere-demo ProvenancePanel through documentsApi
+     - class: domain; ProvenancePanel leaves the kit panel set per srd004 R4.4
+  1. - url: /provisioning/api
+     - used_by:
+       1. chatbot-mesh chatbot ProvisioningPanel
+     - class: domain
 
 <!-- field: flow -->
 ## Flow

@@ -65,28 +65,24 @@ go test ./magefiles -run 'Test(ValidatePortableProfileRefsResolvesExternalCoreTo
 
 mage validate
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profile_root: agents/
-core_root: demo.yaml core_root or sibling checkout
-supported_profile_names:
-    - profile.yaml
-    - profile-*.yaml
-    - "*-profile.yaml"
-```
+- profile_root: agents/
+- core_root: demo.yaml core_root or sibling checkout
+- supported_profile_names:
+  1. profile.yaml
+  1. profile-*.yaml
+  1. "*-profile.yaml"
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-profile_variants_discovered: true
-profile_local_paths_resolved: true
-core_tool_root_resolved: true
-copied_core_agent_refs_rejected: true
-missing_refs_reported: true
-```
+- profile_variants_discovered: true
+- profile_local_paths_resolved: true
+- core_tool_root_resolved: true
+- copied_core_agent_refs_rejected: true
+- missing_refs_reported: true
 
 <!-- field: traces -->
 #### Traces
@@ -122,27 +118,23 @@ go test ./magefiles -run TestRunContainerSmokeCommands
 
 mage containerSmoke
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-image: ${AGENT_CORE_IMAGE}
-profile_mount: /profiles
-workspace_source: testdata/integration/specification-critic-charter-demo
-workspace_mount: /work
-profile: /profiles/agents/specification-critic/profile.yaml
-```
+- image: ${AGENT_CORE_IMAGE}
+- profile_mount: /profiles
+- workspace_source: testdata/integration/specification-critic-charter-demo
+- workspace_mount: /work
+- profile: /profiles/agents/specification-critic/profile.yaml
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-runtime_image_agent_dir_absent: true
-profiles_mounted_read_only: true
-core_tools_mounted_read_only: true
-profile_flag_uses_profiles_mount: true
-workspace_flag_uses_work_mount: true
-```
+- runtime_image_agent_dir_absent: true
+- profiles_mounted_read_only: true
+- core_tools_mounted_read_only: true
+- profile_flag_uses_profiles_mount: true
+- workspace_flag_uses_work_mount: true
 
 <!-- field: traces -->
 #### Traces
@@ -175,25 +167,21 @@ go test ./magefiles -run 'Test(WriteSpecificationCriticCharterDemoProfileFiles|A
 
 mage validate
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-suite: agents/specification-critic/suites/demo-charter.yaml
-fixture: testdata/integration/specification-critic-charter-demo
-core_root: demo.yaml core_root or sibling checkout
-```
+- suite: agents/specification-critic/suites/demo-charter.yaml
+- fixture: testdata/integration/specification-critic-charter-demo
+- core_root: demo.yaml core_root or sibling checkout
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-profile_loads_default_core_suite_config: true
-demo_suite_selected_by_temp_profile_override: true
-grep_check_finding: specification-critic-demo-charter/no-internal-vocabulary
-ref_check_finding: specification-critic-demo-charter/citations-resolve
-consistency_check_finding: specification-critic-demo-charter/artifacts-exist
-```
+- profile_loads_default_core_suite_config: true
+- demo_suite_selected_by_temp_profile_override: true
+- grep_check_finding: specification-critic-demo-charter/no-internal-vocabulary
+- ref_check_finding: specification-critic-demo-charter/citations-resolve
+- consistency_check_finding: specification-critic-demo-charter/artifacts-exist
 
 <!-- field: traces -->
 #### Traces
@@ -230,23 +218,19 @@ cd ../../magefiles && go test ./... -run 'Test(CreateReleaseTag|NextRevisionFrom
 
 mage tag
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-branch: main
-tag_shape: v0.YYYYMMDD.N
-```
+- branch: main
+- tag_shape: v0.YYYYMMDD.N
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-main_branch_required: true
-next_daily_revision_created: true
-local_tags_used: true
-agent_core_image_tags_untouched: true
-```
+- main_branch_required: true
+- next_daily_revision_created: true
+- local_tags_used: true
+- agent_core_image_tags_untouched: true
 
 <!-- field: traces -->
 #### Traces
@@ -276,24 +260,20 @@ applications/coding-agent package and integration targets
 
 mage integration:codingLoop with catalog_root set to /path/to/applications/catalog in demo.yaml
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profile_root: demo.yaml catalog_root
-generator_fixture: testdata/integration/uc001-generator-coding
-evaluator_suite: testdata/integration/uc002-evaluator-benchmark/suite.yaml
-```
+- profile_root: demo.yaml catalog_root
+- generator_fixture: testdata/integration/uc001-generator-coding
+- evaluator_suite: testdata/integration/uc002-evaluator-benchmark/suite.yaml
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-generator_fixture_external: true
-evaluator_suite_external: true
-generator_profile_variants_external: true
-developer_absolute_paths_absent: true
-```
+- generator_fixture_external: true
+- evaluator_suite_external: true
+- generator_profile_variants_external: true
+- developer_absolute_paths_absent: true
 
 <!-- field: traces -->
 #### Traces
@@ -333,21 +313,17 @@ agent-core integration targets
 
 mage integration:monitor with catalog_root set to /path/to/applications/catalog in demo.yaml
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-runtime_state_reader_profile: agents/runtime-state-reader/profile.yaml
-knowledge_manager_profile_proof: test-rel07.0-profile-integrations
-```
+- runtime_state_reader_profile: agents/runtime-state-reader/profile.yaml
+- knowledge_manager_profile_proof: test-rel07.0-profile-integrations
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-runtime_state_reader_profile_external: true
-knowledge_manager_profile_evidence: rel07_catalog_owned
-```
+- runtime_state_reader_profile_external: true
+- knowledge_manager_profile_evidence: rel07_catalog_owned
 
 <!-- field: traces -->
 #### Traces

@@ -31,7 +31,7 @@ func typedFormFor(value *yaml.Node) (string, []string, bool) {
 	candidates := []struct {
 		form  string
 		print func(*yaml.Node) ([]string, error)
-	}{{formScalar, scalarLines}, {formTypedTable, typedTableLines}}
+	}{{formScalar, scalarLines}, {formTypedTable, typedTableLines}, {formTree, treeLines}}
 	for _, c := range candidates {
 		lines, err := c.print(value)
 		if err != nil {
@@ -52,6 +52,8 @@ func parseTyped(form, text string) (*yaml.Node, error) {
 		return decodeFlow(strings.TrimSpace(text))
 	case formTypedTable:
 		return parseTypedTable(text)
+	case formTree:
+		return parseTree(text)
 	}
 	return nil, fmt.Errorf("unknown form %q (scalar, typed table, or tree)", form)
 }
@@ -227,9 +229,11 @@ func mergeOrder(first []string, after map[string]map[string]bool) ([]string, err
 	return order, nil
 }
 
-// bareName reports a key the typed forms print without quoting.
+// bareName reports a key the typed forms print without quoting: letters,
+// digits, underscores, hyphens, and dots, starting with a letter, digit, or
+// underscore.
 func bareName(key string) bool {
-	if key == "" {
+	if key == "" || strings.ContainsAny(key[:1], "-.") {
 		return false
 	}
 	for _, r := range key {

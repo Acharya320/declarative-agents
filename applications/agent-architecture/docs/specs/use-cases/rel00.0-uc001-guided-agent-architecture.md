@@ -38,27 +38,32 @@ presentation.
 - The canonical documentation-curator profile exists at the catalog_root's agents/knowledge-manager/documentation-curator/profile.yaml.
 - Local presentation, documentation, control, and monitor ports are available.
 
-<!-- field: evidence -->
+<!-- field: evidence | form: "tree" -->
 ## Evidence
 
-```yaml
-deterministic_status: implemented
-deterministic_command: go test ./magefiles
-proves: |
-    The checked-in tests prove exact command construction, portable root
-    resolution, lifecycle-exit configuration, reciprocal traces, and
-    composition-only accounting.
-live_observation_status: dependency_gated
-live_steps: [F1, F2, F3, F5, F6, F7, F8]
-limitation: |
-    Serving the deck, starting the curator, rendering the catalog-owned browser
-    interface, posting to a running control endpoint, observing Done, and
-    observing readiness, liveness, representative failure, diagnostics,
-    telemetry, shutdown, in-flight handling, and listener release require
-    available ports, a buildable agent-core checkout, and operator execution.
-    Deterministic command construction does not prove those live observations
-    or srd002 AC1 through AC3.
-```
+- deterministic_status: implemented
+- deterministic_command: go test ./magefiles
+- proves:
+  The checked-in tests prove exact command construction, portable root
+  resolution, lifecycle-exit configuration, reciprocal traces, and
+  composition-only accounting.
+- live_observation_status: dependency_gated
+- live_steps:
+  1. F1
+  1. F2
+  1. F3
+  1. F5
+  1. F6
+  1. F7
+  1. F8
+- limitation:
+  Serving the deck, starting the curator, rendering the catalog-owned browser
+  interface, posting to a running control endpoint, observing Done, and
+  observing readiness, liveness, representative failure, diagnostics,
+  telemetry, shutdown, in-flight handling, and listener release require
+  available ports, a buildable agent-core checkout, and operator execution.
+  Deterministic command construction does not prove those live observations
+  or srd002 AC1 through AC3.
 
 <!-- field: flow -->
 ## Flow

@@ -237,25 +237,23 @@ Extraction functions handle code fences, envelopes, thinking blocks, braces, and
 - R4.4
 - R4.5
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: The LLM package provides infrastructure beyond the co..."] --> Goals["Goals: LLM Package Extensions (parseutil, profile, int..."]
-      Goals --> R1["R1: Parse utilities (parseutil)"]
-      Goals --> R2["R2: Model profiles"]
-      Goals --> R3["R3: Domain interfaces and types"]
-      Goals --> R4["R4: Extraction functions"]
-      AC1["AC1: Parse utilities handle JSON repair, flat params, token es..."]
-      R1 --> AC1
-      AC2["AC2: ProfileRegistry loads YAML profiles, resolves by model pr..."]
-      R2 --> AC2
-      AC3["AC3: ResponseParser and PromptAssembler are domain interfaces...."]
-      R3 --> AC3
-      AC4["AC4: Extraction functions handle code fences, envelopes, think..."]
-      R4 --> AC4
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: The LLM package provides infrastructure beyond the co..."] --> Goals["Goals: LLM Package Extensions (parseutil, profile, int..."]
+    Goals --> R1["R1: Parse utilities (parseutil)"]
+    Goals --> R2["R2: Model profiles"]
+    Goals --> R3["R3: Domain interfaces and types"]
+    Goals --> R4["R4: Extraction functions"]
+    AC1["AC1: Parse utilities handle JSON repair, flat params, token es..."]
+    R1 --> AC1
+    AC2["AC2: ProfileRegistry loads YAML profiles, resolves by model pr..."]
+    R2 --> AC2
+    AC3["AC3: ResponseParser and PromptAssembler are domain interfaces...."]
+    R3 --> AC3
+    AC4["AC4: Extraction functions handle code fences, envelopes, think..."]
+    R4 --> AC4
+  ```

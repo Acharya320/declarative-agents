@@ -59,12 +59,10 @@ mage integration:chroma
 
 go test ./magefiles -run '^TestCorpusIngestApplicationDirectoryContainsOnlyWrapperAndREST$|^TestCorpusIngestRuntimeStagesCanonicalLibraryProgram$|^TestChartStagesCanonicalCorpusIngestReference$'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-canonical_ingest_reaches_chroma: true
-```
+- canonical_ingest_reaches_chroma: true
 
 <!-- case: RAG server vector-in query tracer | status: implemented -->
 ### RAG server vector-in query tracer
@@ -96,37 +94,31 @@ mage integration:ragServer
 
 go test ./magefiles -run '^TestSeedRagServerCorpusUsesDeterministicDirectOperations$|^TestRagServerSetupHasNoModelDrivenIngestDependency$|^TestParseRagQueryResponseChunksAndMetadata$|^TestValidateAlignment$|^TestParseRagQueryResponseEmptyChunks$|^TestParseRagQueryResponseNoIDs$|^TestRagQueryBodyMarshalsVector$'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-rag_profile: agents/rag-server/profile.yaml
-chroma_rest: agents/rag-server/rest.yaml
-serving_fixture: testdata/integration/chroma-corpus/corpus
-query_embeddings: Ollama-embedded query vector
-n_results: 3
-```
+- rag_profile: agents/rag-server/profile.yaml
+- chroma_rest: agents/rag-server/rest.yaml
+- serving_fixture: testdata/integration/chroma-corpus/corpus
+- query_embeddings: Ollama-embedded query vector
+- n_results: 3
 
-<!-- field: scenario_critic_evidence -->
+<!-- field: scenario_critic_evidence | form: "tree" -->
 #### Scenario critic evidence
 
-```yaml
-integration_target: mage integration:rig
-scenario: agents/rag-server/tests/query
-actor: rag-query-critic
-binding: Critic / Output Evaluator
-```
+- integration_target: mage integration:rig
+- scenario: agents/rag-server/tests/query
+- actor: rag-query-critic
+- binding: Critic / Output Evaluator
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-query_endpoint_accepts_vector: true
-chunks_with_ids_and_distances: true
-metadata_names_embedding_model: true
-no_llm_answer_step: true
-no_model_driven_file_selection: true
-```
+- query_endpoint_accepts_vector: true
+- chunks_with_ids_and_distances: true
+- metadata_names_embedding_model: true
+- no_llm_answer_step: true
+- no_model_driven_file_selection: true
 
 <!-- field: traces -->
 #### Traces
@@ -172,41 +164,35 @@ mage integration:chatbot
 
 go test ./magefiles -run '^TestCitedRecordNumbersBracketed$|^TestCitedRecordNumbersDedupesAndSorts$|^TestCitedRecordNumbersUngrounded$|^TestChatResponseDecodesTrace$|^TestChatbotRequiredModelsResolveShippedDefaults$|^TestChatbotRequiredModelsUseDeploymentEnvironment$|^TestResolveModelReferenceLeavesLiteralName$'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-chatbot_profile: agents/chatbot/profile.yaml
-turns: a turn answered from retrieved chunks, then a degraded follow-up with history
-fault: the RAG stopped before the degraded turn
-```
+- chatbot_profile: agents/chatbot/profile.yaml
+- turns: a turn answered from retrieved chunks, then a degraded follow-up with history
+- fault: the RAG stopped before the degraded turn
 
-<!-- field: scenario_critic_evidence -->
+<!-- field: scenario_critic_evidence | form: "tree" -->
 #### Scenario critic evidence
 
-```yaml
-integration_target: mage integration:rig
-actor: chatbot-turn-critic
-scenarios:
-    - path: agents/chatbot/tests/single-turn
-      binding: Critic / Output Evaluator / Sandbox Validator
-      isolation: undeclared URL-shaped sources cannot escape the controlled mock topology
-    - path: agents/chatbot/tests/degraded-rag
-      binding: Critic / Output Evaluator
-```
+- integration_target: mage integration:rig
+- actor: chatbot-turn-critic
+- scenarios:
+  1. - path: agents/chatbot/tests/single-turn
+     - binding: Critic / Output Evaluator / Sandbox Validator
+     - isolation: undeclared URL-shaped sources cannot escape the controlled mock topology
+  1. - path: agents/chatbot/tests/degraded-rag
+     - binding: Critic / Output Evaluator
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-embeds_query_once: true
-compose_reads_via_from: true
-degraded_turn_returns_200_not_500: true
-stateless_history_from_browser: true
-preflight_recognizes_shipped_model_defaults: true
-preflight_honors_model_environment_overrides: true
-preflight_preserves_literal_model_names: true
-```
+- embeds_query_once: true
+- compose_reads_via_from: true
+- degraded_turn_returns_200_not_500: true
+- stateless_history_from_browser: true
+- preflight_recognizes_shipped_model_defaults: true
+- preflight_honors_model_environment_overrides: true
+- preflight_preserves_literal_model_names: true
 
 <!-- field: traces -->
 #### Traces

@@ -383,31 +383,29 @@ done:
 planned: []
 ```
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Durable Dolt backend for the srd035 checkpoint port"] --> Goals["Goals: Dolt State Persistence"]
-      Goals --> R1["R1: Adapter and database seam"]
-      Goals --> R2["R2: Generic five-table schema"]
-      Goals --> R3["R3: Forward-plane outputs and reverse-plane receipts"]
-      Goals --> R4["R4: Commit-per-step and branch-per-run"]
-      Goals --> R5["R5: Load reconstruction"]
-      Goals --> R6["R6: Git-style revert"]
-      AC1["AC1: Port impl behind database/sql seam"]
-      R1 --> AC1
-      AC2["AC2: Generic five-table schema (forward/reverse planes)"]
-      R2 --> AC2
-      AC3["AC3: tool_outputs forward plane, receipts reverse plane, no forward receipt access"]
-      R3 --> AC3
-      AC4["AC4: Commit-per-step, branch-per-run, merge on terminal"]
-      R4 --> AC4
-      AC5["AC5: Load reconstructs Position and Execution"]
-      R5 --> AC5
-      AC6["AC6: DB-only git-style Revert"]
-      R6 --> AC6
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Durable Dolt backend for the srd035 checkpoint port"] --> Goals["Goals: Dolt State Persistence"]
+    Goals --> R1["R1: Adapter and database seam"]
+    Goals --> R2["R2: Generic five-table schema"]
+    Goals --> R3["R3: Forward-plane outputs and reverse-plane receipts"]
+    Goals --> R4["R4: Commit-per-step and branch-per-run"]
+    Goals --> R5["R5: Load reconstruction"]
+    Goals --> R6["R6: Git-style revert"]
+    AC1["AC1: Port impl behind database/sql seam"]
+    R1 --> AC1
+    AC2["AC2: Generic five-table schema (forward/reverse planes)"]
+    R2 --> AC2
+    AC3["AC3: tool_outputs forward plane, receipts reverse plane, no forward receipt access"]
+    R3 --> AC3
+    AC4["AC4: Commit-per-step, branch-per-run, merge on terminal"]
+    R4 --> AC4
+    AC5["AC5: Load reconstructs Position and Execution"]
+    R5 --> AC5
+    AC6["AC6: DB-only git-style Revert"]
+    R6 --> AC6
+  ```

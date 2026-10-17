@@ -289,37 +289,35 @@ Checkpoint foundation types model resumable position, ordered execution history,
 - R8.5
 - R8.6
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Every agentic loop needs a common vocabulary: executa..."] --> Goals["Goals: Core Types"]
-      Goals --> R1["R1: State and Signal types"]
-      Goals --> R2["R2: Command interface"]
-      Goals --> R3["R3: Cost struct"]
-      Goals --> R4["R4: Result struct"]
-      Goals --> R7["R7: ToolMetrics struct"]
-      Goals --> R5["R5: Builder and CommandResolver interfaces"]
-      Goals --> R6["R6: SpanOverride interface"]
-      Goals --> R8["R8: Rollback foundation types"]
-      AC1["AC1: State and Signal are named string types. Generic signals..."]
-      R1 --> AC1
-      AC2["AC2: Command interface has Name(), Execute(), and Undo() metho..."]
-      R2 --> AC2
-      AC3["AC3: Cost struct has Duration, TokensIn, TokensOut, and Dollar..."]
-      R3 --> AC3
-      AC4["AC4: Result struct has Output, Signal, Cost, Err, CommandName,..."]
-      R4 --> AC4
-      AC7["AC7: ToolMetrics struct has Total, Passed, Failed (int) and De..."]
-      R7 --> AC7
-      AC5["AC5: Builder has Build(Result) Command. CommandResolver has Re..."]
-      R5 --> AC5
-      AC6["AC6: SpanOverride interface has SpanName() and SpanCreationAtt..."]
-      R6 --> AC6
-      AC8["AC8: Checkpoint foundation types, checkpoint structs, and G..."]
-      R8 --> AC8
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Every agentic loop needs a common vocabulary: executa..."] --> Goals["Goals: Core Types"]
+    Goals --> R1["R1: State and Signal types"]
+    Goals --> R2["R2: Command interface"]
+    Goals --> R3["R3: Cost struct"]
+    Goals --> R4["R4: Result struct"]
+    Goals --> R7["R7: ToolMetrics struct"]
+    Goals --> R5["R5: Builder and CommandResolver interfaces"]
+    Goals --> R6["R6: SpanOverride interface"]
+    Goals --> R8["R8: Rollback foundation types"]
+    AC1["AC1: State and Signal are named string types. Generic signals..."]
+    R1 --> AC1
+    AC2["AC2: Command interface has Name(), Execute(), and Undo() metho..."]
+    R2 --> AC2
+    AC3["AC3: Cost struct has Duration, TokensIn, TokensOut, and Dollar..."]
+    R3 --> AC3
+    AC4["AC4: Result struct has Output, Signal, Cost, Err, CommandName,..."]
+    R4 --> AC4
+    AC7["AC7: ToolMetrics struct has Total, Passed, Failed (int) and De..."]
+    R7 --> AC7
+    AC5["AC5: Builder has Build(Result) Command. CommandResolver has Re..."]
+    R5 --> AC5
+    AC6["AC6: SpanOverride interface has SpanName() and SpanCreationAtt..."]
+    R6 --> AC6
+    AC8["AC8: Checkpoint foundation types, checkpoint structs, and G..."]
+    R8 --> AC8
+  ```

@@ -72,37 +72,38 @@ mage integration:helmLLMTier
 
 go test ./magefiles -run '^TestKindLLMDependenciesIncludeExactOllamaImage$|^TestHelmLLMTierInstallExposesTransition$|^TestHelmLLMTierInstallReturnsCapturedOutput$|^TestLLMStartupFailureIncludesCommandOutput$'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-chart: applications/chatbot-mesh/helm/
-values: defaults (ollama.enabled=true)
-models: small CPU-only embedding, chat, and tier-selector models
-```
+- chart: applications/chatbot-mesh/helm/
+- values: defaults (ollama.enabled=true)
+- models: small CPU-only embedding, chat, and tier-selector models
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-ollama_subchart_deployed_with_pvc: true
-preload_job_pulls_all_declared_models: true
-turn_answered_no_external_llm: true
-helm_install_wait: false
-projected_release_secret_max_bytes: 917504
-actual_release_secret_max_bytes: 917504
-external_ui_archives_out_of_release: [collector, observer]
-runtime_ui_inventory_verified: true
-canonical_package_closure_complete: true
-exact_ollama_image: declarative-agents/ollama:0.32.5-kind-trusted
-exact_ollama_source_digest: sha256:4dea9fb511947e24a84237bb636b0203abcb2ff0d3fbc7b4ff865deb91362131
-model_registry_tls_verification_enabled: true
-model_registry_uses_host_trust_bundle: true
-required_images_host_pulled_and_kind_loaded: true
-node_registry_pull_required: false
-phased_readiness_bounds: [ollama_startup, model_preload, agent_workloads]
-bounded_failure_evidence_before_cleanup: true
-```
+- ollama_subchart_deployed_with_pvc: true
+- preload_job_pulls_all_declared_models: true
+- turn_answered_no_external_llm: true
+- helm_install_wait: false
+- projected_release_secret_max_bytes: 917504
+- actual_release_secret_max_bytes: 917504
+- external_ui_archives_out_of_release:
+  1. collector
+  1. observer
+- runtime_ui_inventory_verified: true
+- canonical_package_closure_complete: true
+- exact_ollama_image: declarative-agents/ollama:0.32.5-kind-trusted
+- exact_ollama_source_digest: sha256:4dea9fb511947e24a84237bb636b0203abcb2ff0d3fbc7b4ff865deb91362131
+- model_registry_tls_verification_enabled: true
+- model_registry_uses_host_trust_bundle: true
+- required_images_host_pulled_and_kind_loaded: true
+- node_registry_pull_required: false
+- phased_readiness_bounds:
+  1. ollama_startup
+  1. model_preload
+  1. agent_workloads
+- bounded_failure_evidence_before_cleanup: true
 
 <!-- field: traces -->
 #### Traces
@@ -133,22 +134,20 @@ rel04.0-uc001-in-cluster-llm-tier
 
 go test ./magefiles -run 'TestOllama(TierRendersWithDefaults|DisabledReproducesExternalEndpoint)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-chart: applications/chatbot-mesh/helm/
-tiers: [in_cluster, external]
-```
+- chart: applications/chatbot-mesh/helm/
+- tiers:
+  1. in_cluster
+  1. external
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-every_declared_agent_workload_waits_for_models: true
-no_other_workload_carries_the_gate: true
-external_tier_omits_only_tier_owned_resources: true
-```
+- every_declared_agent_workload_waits_for_models: true
+- no_other_workload_carries_the_gate: true
+- external_tier_omits_only_tier_owned_resources: true
 
 <!-- field: traces -->
 #### Traces
@@ -180,16 +179,16 @@ mage integration:helmLLMTier
 
 go test ./magefiles -run 'Test(LLMPreloadReadinessTransition|LLMStartupFailureIncludesCommandOutput|HelmLLMTierInstallExposesTransition)'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-agents_not_ready_before_preload: true
-ollama_ready_before_preload_resume: true
-configured_models_observed: [all-minilm, "qwen2.5:0.5b"]
-agents_ready_after_preload: true
-startup_model_and_workload_timeouts_are_distinct: true
-```
+- agents_not_ready_before_preload: true
+- ollama_ready_before_preload_resume: true
+- configured_models_observed:
+  1. all-minilm
+  1. qwen2.5:0.5b
+- agents_ready_after_preload: true
+- startup_model_and_workload_timeouts_are_distinct: true
 
 <!-- field: traces -->
 #### Traces
@@ -215,20 +214,16 @@ rel04.0-uc001-in-cluster-llm-tier
 
 go test ./magefiles -run TestOllamaDisabledReproducesExternalEndpoint
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-values: ollama.enabled=false, llm.externalURL override
-```
+- values: ollama.enabled=false, llm.externalURL override
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-no_ollama_workload_rendered: true
-client_entries_identical_to_incluster: true
-```
+- no_ollama_workload_rendered: true
+- client_entries_identical_to_incluster: true
 
 <!-- field: traces -->
 #### Traces

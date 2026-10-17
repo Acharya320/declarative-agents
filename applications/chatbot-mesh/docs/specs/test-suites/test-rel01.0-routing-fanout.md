@@ -78,37 +78,35 @@ mage integration:chatbot
 
 go test ./magefiles -run '^(TestChatbotFanOutCoGeneratedForNRags|TestTierDispatch.*|TestResponseCompositionReadsLabelledAnswer|TestAssertChatbotTierSelectionTrace.*)$'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-chatbot_profile: agents/chatbot/profile.yaml
-rag_clients: [rag0, rag1]
-turns: factual, analytical, cross-corpus, then a degraded follow-up
-fault: rag1 stopped before the degraded turn
-```
+- chatbot_profile: agents/chatbot/profile.yaml
+- rag_clients:
+  1. rag0
+  1. rag1
+- turns: factual, analytical, cross-corpus, then a degraded follow-up
+- fault: rag1 stopped before the degraded turn
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-each_live_turn_dispatches_one_declared_answer_word: true
-each_live_turn_parse_tier_signal: ToolDone
-answer_word_command_error_route: fast_fallback_then_failed
-answer_survives_source_projection: true
-fallback_answered_turn_fails_the_target: true
-live_prompt_pair_selects_both_tiers: model-dependent
-deterministic_fixtures_dispatch_both_answer_words: true
-selector_model_spans_count_as_answer_dispatch: false
-scoped_question_queries_only_selected_source: true
-spanning_question_may_query_all_sources: true
-fanout_draws_both_corpora: true
-degraded_turn_omits_stopped_corpus: true
-excluded_source_routes_on_queryrejected: true
-machine_for_each_count: 1
-adding_third_source_changes_word_or_state_count: false
-adding_third_source_is_selectable_from_rendered_catalog: true
-```
+- each_live_turn_dispatches_one_declared_answer_word: true
+- each_live_turn_parse_tier_signal: ToolDone
+- answer_word_command_error_route: fast_fallback_then_failed
+- answer_survives_source_projection: true
+- fallback_answered_turn_fails_the_target: true
+- live_prompt_pair_selects_both_tiers: model-dependent
+- deterministic_fixtures_dispatch_both_answer_words: true
+- selector_model_spans_count_as_answer_dispatch: false
+- scoped_question_queries_only_selected_source: true
+- spanning_question_may_query_all_sources: true
+- fanout_draws_both_corpora: true
+- degraded_turn_omits_stopped_corpus: true
+- excluded_source_routes_on_queryrejected: true
+- machine_for_each_count: 1
+- adding_third_source_changes_word_or_state_count: false
+- adding_third_source_is_selectable_from_rendered_catalog: true
 
 <!-- field: traces -->
 #### Traces
@@ -143,32 +141,28 @@ rel01.0-uc001-routed-fanout
 
 cd ../catalog && go test ./magefiles -run '^TestChatbot(SourceSelectionUsesTrustedTopologyAndFallback|SourceRouterPromptIsInlineAndNamesOnly)$'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-source_responses:
-    scoped: '{"names":["rag0"]}'
-    spanning: '{"names":["rag0","rag1"]}'
-    mixed_undeclared: '{"names":["rag0","https://attacker.invalid"]}'
-    malformed: not-json
-    empty: '{"names":[]}'
-    only_undeclared: '{"names":["evil"]}'
-    classifier_error: connection failure
-```
+- source_responses:
+  - scoped: "{\"names\":[\"rag0\"]}"
+  - spanning: "{\"names\":[\"rag0\",\"rag1\"]}"
+  - mixed_undeclared: "{\"names\":[\"rag0\",\"https://attacker.invalid\"]}"
+  - malformed: not-json
+  - empty: "{\"names\":[]}"
+  - only_undeclared: "{\"names\":[\"evil\"]}"
+  - classifier_error: connection failure
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-undeclared_names_reach_query_target: false
-classifier_error_queries_all_declared: true
-malformed_queries_all_declared: true
-empty_queries_all_declared: true
-only_undeclared_queries_all_declared: true
-not_selected_distinct_from_queried_outcomes: true
-prompt_is_inline_and_names_only: true
-```
+- undeclared_names_reach_query_target: false
+- classifier_error_queries_all_declared: true
+- malformed_queries_all_declared: true
+- empty_queries_all_declared: true
+- only_undeclared_queries_all_declared: true
+- not_selected_distinct_from_queried_outcomes: true
+- prompt_is_inline_and_names_only: true
 
 <!-- field: traces -->
 #### Traces
@@ -215,25 +209,21 @@ mage integration:embeddingExclusion
 
 go test ./magefiles -run '^TestChatbotFanOutCoGeneratedForNRags$'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-chatbot_profile: agents/chatbot/profile.yaml
-query_embedding_model: qwen3-embedding:8b
-rag0_reported_model: nomic-embed-text:v1.5
-rag1_reported_model: qwen3-embedding:8b
-rag_status: both answer 200 with the same vector shape
-```
+- chatbot_profile: agents/chatbot/profile.yaml
+- query_embedding_model: qwen3-embedding:8b
+- rag0_reported_model: nomic-embed-text:v1.5
+- rag1_reported_model: qwen3-embedding:8b
+- rag_status: both answer 200 with the same vector shape
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-mismatched_source_excluded_from_prompt: true
-matching_source_composed_in_same_turn: true
-turn_degrades_rather_than_fails: true
-```
+- mismatched_source_excluded_from_prompt: true
+- matching_source_composed_in_same_turn: true
+- turn_degrades_rather_than_fails: true
 
 <!-- field: traces -->
 #### Traces

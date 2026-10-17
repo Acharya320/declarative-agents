@@ -159,17 +159,15 @@ assert "persistent-application-platform" in pattern_ids
 print("validated Release 19.0 persistent platform trace closure")
 PY
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-yaml_parses: true
-design_constitution_fields_present: true
-requirement_to_acceptance_criterion_closure: true
-reciprocal_srd_use_case_suite_traces: true
-guideline_contract_terms_present: true
-specification_and_roadmap_indexes_present: true
-```
+- yaml_parses: true
+- design_constitution_fields_present: true
+- requirement_to_acceptance_criterion_closure: true
+- reciprocal_srd_use_case_suite_traces: true
+- guideline_contract_terms_present: true
+- specification_and_roadmap_indexes_present: true
 
 <!-- field: traces -->
 #### Traces
@@ -213,16 +211,14 @@ mage app:up coding-agent
 mage app:up chatbot-mesh
 kubectl --context kind-da-platform get ns -l app.kubernetes.io/managed-by=apprig
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-shared_traefik_routes_both_applications: true
-internal_rest_uses_service_dns: true
-otlp_targets_each_application_collector: true
-object_clients_use_distinct_application_buckets: true
-vector_clients_do_not_traverse_traefik: true
-```
+- shared_traefik_routes_both_applications: true
+- internal_rest_uses_service_dns: true
+- otlp_targets_each_application_collector: true
+- object_clients_use_distinct_application_buckets: true
+- vector_clients_do_not_traverse_traefik: true
 
 <!-- field: traces -->
 #### Traces
@@ -263,17 +259,15 @@ mage integration:applicationLifecycle
 mage app:down chatbot-mesh
 mage app:purge chatbot-mesh purge:chatbot-mesh
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-two_applications_run_concurrently: true
-app_down_removes_only_selected_compute: true
-app_purge_deletes_only_selected_bucket_data: true
-platform_down_preserves_local_host_path: true
-platform_reset_deletes_local_host_path: true
-cloud_cluster_recreation_preserves_buckets: true
-```
+- two_applications_run_concurrently: true
+- app_down_removes_only_selected_compute: true
+- app_purge_deletes_only_selected_bucket_data: true
+- platform_down_preserves_local_host_path: true
+- platform_reset_deletes_local_host_path: true
+- cloud_cluster_recreation_preserves_buckets: true
 
 <!-- field: traces -->
 #### Traces
@@ -311,16 +305,14 @@ structural_and_cloud_integration
 cd magefiles && go test ./gcprig -run TestFirstPartyApplicationBucketIAMIsolation
 cd ../applications/chatbot-mesh && go test ./magefiles -run TestGcpDeployOverridesShape
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-application_declarations_are_identical: true
-local_fake_gcs_uses_stable_filesystem_backend: true
-cloud_uses_ambient_workload_identity: true
-cloud_bucket_iam_denies_cross_application_access: true
-local_claims_no_adversarial_tenant_authorization: true
-```
+- application_declarations_are_identical: true
+- local_fake_gcs_uses_stable_filesystem_backend: true
+- cloud_uses_ambient_workload_identity: true
+- cloud_bucket_iam_denies_cross_application_access: true
+- local_claims_no_adversarial_tenant_authorization: true
 
 <!-- field: traces -->
 #### Traces
@@ -358,16 +350,14 @@ go_test_and_integration
 cd agent-core && go test ./internal/tools/otlp -run 'Test(Object|WAL)'
 cd ../applications/agent-architecture && mage integration:collectorWALRestart
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-wal_precedes_first_upload_attempt: true
-retries_reuse_key_and_batch_identity: true
-envelope_contains_every_required_field: true
-identical_duplicate_is_idempotent: true
-conflicting_existing_key_is_not_overwritten: true
-```
+- wal_precedes_first_upload_attempt: true
+- retries_reuse_key_and_batch_identity: true
+- envelope_contains_every_required_field: true
+- identical_duplicate_is_idempotent: true
+- conflicting_existing_key_is_not_overwritten: true
 
 <!-- field: traces -->
 #### Traces
@@ -405,16 +395,14 @@ mage app:down agent-architecture
 mage app:up agent-architecture
 curl -fsS 'http://telemetry.agent-architecture.localhost/query/traces?page_size=1'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-running_collector_queries_only_its_application: true
-retained_objects_survive_app_down: true
-query_api_is_unavailable_after_app_down: true
-redeployed_collector_restores_history: true
-batch_identity_and_checksum_are_unchanged: true
-```
+- running_collector_queries_only_its_application: true
+- retained_objects_survive_app_down: true
+- query_api_is_unavailable_after_app_down: true
+- redeployed_collector_restores_history: true
+- batch_identity_and_checksum_are_unchanged: true
 
 <!-- field: traces -->
 #### Traces
@@ -451,17 +439,15 @@ GH-2479
 cd magefiles && go test ./apprig ./kindrig
 cd .. && mage integration:applicationLifecycle
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-persistent_platform_is_canonical_application_mode: true
-owned_cluster_is_limited_to_cluster_mutation: true
-host_otlp_is_integration_evidence_not_query_authority: true
-two_first_party_applications_use_apprig: true
-downstream_verbs_are_thin: true
-no_second_composition_inventory_exists: true
-```
+- persistent_platform_is_canonical_application_mode: true
+- owned_cluster_is_limited_to_cluster_mutation: true
+- host_otlp_is_integration_evidence_not_query_authority: true
+- two_first_party_applications_use_apprig: true
+- downstream_verbs_are_thin: true
+- no_second_composition_inventory_exists: true
 
 <!-- field: traces -->
 #### Traces
@@ -501,16 +487,14 @@ cd magefiles && go test ./kindrig -run 'TestPlatformHealth|TestDownPlatform'
 cd ../agent-core && go test ./internal/tools/otlp -run 'TestObjectSpool'
 cd ../applications/catalog && go test ./conformance -run TestApplicationPurge
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-application_failure_leaves_peer_running: true
-collector_failure_leaves_peer_queryable: true
-purge_failure_never_selects_peer_bucket: true
-platform_service_failure_is_classified_as_shared: true
-diagnosis_names_owner_and_retained_data_state: true
-```
+- application_failure_leaves_peer_running: true
+- collector_failure_leaves_peer_queryable: true
+- purge_failure_never_selects_peer_bucket: true
+- platform_service_failure_is_classified_as_shared: true
+- diagnosis_names_owner_and_retained_data_state: true
 
 <!-- field: traces -->
 #### Traces

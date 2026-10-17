@@ -119,10 +119,8 @@ A consuming wrapper selects a non-Ollama document-embedding client and operation
 - Server-side embedding or a new embedding builtin word.
 - Ranking or answer generation, which belong to the query use case.
 
-<!-- field: test_evidence -->
+<!-- field: test_evidence | form: "tree" -->
 ## Test evidence
 
-```yaml
-target: applications/chatbot-mesh mage integration:chroma
-conformance: go test ./conformance -run 'TestCorpusIngest(ListsTrustedCorpusBeforeModelControl|SelectsConfiguredEmbeddingProvider)'
-```
+- target: applications/chatbot-mesh mage integration:chroma
+- conformance: go test ./conformance -run 'TestCorpusIngest(ListsTrustedCorpusBeforeModelControl|SelectsConfiguredEmbeddingProvider)'

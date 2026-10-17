@@ -10,18 +10,16 @@ title: Applications Constitution
 
 We bind every application module to the specification (application-dsl-spec/): what its application-profile must declare and what its running composition must uphold. Each obligation cites a statement identifier; this constitution introduces no grammar of its own.
 
-<!-- field: obligations -->
+<!-- field: obligations | form: "tree" -->
 ## Obligations
 
-```yaml
-manifest:
-    - Every application module carries an application-profile with the required keynames, including per-root id, ownership, and source (R-APP-001).
-    - Every capability an application-profile declares carries evidence commands, and the manifest gates run them; a declared capability without passing evidence fails the module's audit.
-    - Every root's source resolves to an agent-profile document that satisfies the agent-profile grammar (R-PROF-001).
-composition:
-    - The module seeds agent-instances only from its declared roots, so the populations it produces satisfy closure (R-POP-001).
-    - Composition-only modules declare no local roots and contribute no duplicate agent-profiles; reuse accounting relies on the ownership keyname R-APP-001 requires.
-```
+- manifest:
+  1. Every application module carries an application-profile with the required keynames, including per-root id, ownership, and source (R-APP-001).
+  1. Every capability an application-profile declares carries evidence commands, and the manifest gates run them; a declared capability without passing evidence fails the module's audit.
+  1. Every root's source resolves to an agent-profile document that satisfies the agent-profile grammar (R-PROF-001).
+- composition:
+  1. The module seeds agent-instances only from its declared roots, so the populations it produces satisfy closure (R-POP-001).
+  1. Composition-only modules declare no local roots and contribute no duplicate agent-profiles; reuse accounting relies on the ownership keyname R-APP-001 requires.
 
 <!-- field: references -->
 ## References

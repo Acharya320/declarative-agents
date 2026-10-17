@@ -42,35 +42,47 @@ root orchestration.
 - agent-core validators are available for referenced profile, machine, tool, ToolDef, and REST documents.
 - The maintainer records current evidence before changing a status claim.
 
-<!-- field: candidate_matrix -->
+<!-- field: candidate_matrix | form: "tree" -->
 ## Candidate matrix
 
-```yaml
-- application: chatbot-mesh
-  current_module_state: runnable
-  current_ownership: agent-owning
-  relevant_surfaces: [managed_service, packaged, helm_managed, kind_demo, ui]
-  normalization_focus: |
-    Add the manifest authority over local actors, the canonical
-    corpus-ingest and collector consumers, deployment entries, and both
-    actor-served UIs; prove canonical design-token consumption.
-- application: coding-agent
-  current_module_state: runnable
-  current_ownership: composition-only
-  relevant_surfaces: [managed_service, packaged, helm_managed, kind_demo]
-  normalization_focus: |
-    Retain canonical planner, executor, critic, collector, and applier
-    implementations while classifying local serving and applier profiles as
-    composition wrappers that contribute no duplicate agents.
-- application: agent-architecture
-  current_module_state: runnable
-  current_ownership: composition-only
-  relevant_surfaces: [managed_service, packaged, helm_managed, kind_demo, ui]
-  normalization_focus: |
-    Derive curator, collector, applier, deployment, UI, and catalog-doc
-    package assets from the manifest and classify the local applier as a
-    composition wrapper over the canonical implementation.
-```
+1. - application: chatbot-mesh
+   - current_module_state: runnable
+   - current_ownership: agent-owning
+   - relevant_surfaces:
+     1. managed_service
+     1. packaged
+     1. helm_managed
+     1. kind_demo
+     1. ui
+   - normalization_focus:
+     Add the manifest authority over local actors, the canonical
+     corpus-ingest and collector consumers, deployment entries, and both
+     actor-served UIs; prove canonical design-token consumption.
+1. - application: coding-agent
+   - current_module_state: runnable
+   - current_ownership: composition-only
+   - relevant_surfaces:
+     1. managed_service
+     1. packaged
+     1. helm_managed
+     1. kind_demo
+   - normalization_focus:
+     Retain canonical planner, executor, critic, collector, and applier
+     implementations while classifying local serving and applier profiles as
+     composition wrappers that contribute no duplicate agents.
+1. - application: agent-architecture
+   - current_module_state: runnable
+   - current_ownership: composition-only
+   - relevant_surfaces:
+     1. managed_service
+     1. packaged
+     1. helm_managed
+     1. kind_demo
+     1. ui
+   - normalization_focus:
+     Derive curator, collector, applier, deployment, UI, and catalog-doc
+     package assets from the manifest and classify the local applier as a
+     composition wrapper over the canonical implementation.
 
 <!-- field: flow -->
 ## Flow

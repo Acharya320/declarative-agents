@@ -107,15 +107,13 @@ shared agent-core runtime image remains profile-free.
 | test-rel07.0-collector-agent-tracing | Canonical Collector Agent Tracing Suite | "07.0" | 5 | [rel07.0-uc001-collector-agent-tracing] | docs/specs/test-suites/test-rel07.0-collector-agent-tracing.md |
 | test-rel08.0-applier | Test Suite for Release 08.0 Declarative Applier Agent | "08.0" | 5 | [rel08.0-uc001-declarative-applier] | docs/specs/test-suites/test-rel08.0-applier.md |
 
-<!-- field: coverage_gaps -->
+<!-- field: coverage_gaps | form: "tree" -->
 ## Coverage gaps
 
-```yaml
-- id: kubernetes-deployment
-  status: partial
-  description: |
-    The one-container-per-agent Helm topology is implemented. Strict values
-    schema, packaged-chart validation, and bounded single-node kind evidence
-    are implemented. Multi-node and production operational evidence remain
-    outside this application.
-```
+1. - id: kubernetes-deployment
+   - status: partial
+   - description:
+     The one-container-per-agent Helm topology is implemented. Strict values
+     schema, packaged-chart validation, and bounded single-node kind evidence
+     are implemented. Multi-node and production operational evidence remain
+     outside this application.

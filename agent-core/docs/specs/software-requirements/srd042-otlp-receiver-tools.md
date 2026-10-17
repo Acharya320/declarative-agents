@@ -628,15 +628,13 @@ A query word with the object backend reads the configured application bucket (ne
 - sm-tool-language
 - srd029-rest-server-tools
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-implemented:
-    - "`internal/tools/otlp` owns receiver state, launch, await, offline batch load, spool, relay, stop, and focused tests for the trace signal."
-    - "`tools/builtin/otlp/all.yaml` declares the six OTLP trace words and registry composition."
-    - "`go test ./internal/tools/otlp` proves bounded receive, await, offline load-to-relay, spool compatibility, relay identity, lifecycle cleanup, and static self-loop rejection."
-    - "R10 durable object-bucket spool storage: `spoolstore.go`, `envelope.go`, and `wal.go` add the storage port, the versioned immutable envelope, content-derived stable batch identity, and the bounded write-ahead log; the trace and metric spool words select the backend through declared `storage` configuration and reuse the srd059 objectstore opener. `go test ./internal/tools/otlp` proves object persistence, WAL-first replay, idempotence, integrity refusal, and WAL bounds on mem:// and file://, and the fake-GCS integration proves the gs:// path (GH-2475)."
-planned:
-    - "R8/R9 metric intake, spool, and query (the MetricsService registration, `spool_metrics`, and metric query words) are specified here and implemented under GH-1204; the receiver is trace-only until that lands."
-```
+- implemented:
+  1. "`internal/tools/otlp` owns receiver state, launch, await, offline batch load, spool, relay, stop, and focused tests for the trace signal."
+  1. "`tools/builtin/otlp/all.yaml` declares the six OTLP trace words and registry composition."
+  1. "`go test ./internal/tools/otlp` proves bounded receive, await, offline load-to-relay, spool compatibility, relay identity, lifecycle cleanup, and static self-loop rejection."
+  1. "R10 durable object-bucket spool storage: `spoolstore.go`, `envelope.go`, and `wal.go` add the storage port, the versioned immutable envelope, content-derived stable batch identity, and the bounded write-ahead log; the trace and metric spool words select the backend through declared `storage` configuration and reuse the srd059 objectstore opener. `go test ./internal/tools/otlp` proves object persistence, WAL-first replay, idempotence, integrity refusal, and WAL bounds on mem:// and file://, and the fake-GCS integration proves the gs:// path (GH-2475)."
+- planned:
+  1. R8/R9 metric intake, spool, and query (the MetricsService registration, `spool_metrics`, and metric query words) are specified here and implemented under GH-1204; the receiver is trace-only until that lands.

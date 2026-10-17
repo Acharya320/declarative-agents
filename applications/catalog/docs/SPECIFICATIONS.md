@@ -87,184 +87,182 @@ reach the two mounted-profile use cases, and land on named commands such as
 mage validate, mage containerSmoke, mage tag, and the agent-core integration
 targets that set catalog_root in demo.yaml.
 
-<!-- field: roadmap_summary -->
+<!-- field: roadmap_summary | form: "tree" -->
 ## Roadmap summary
 
-```yaml
-- version: "00.1"
-  name: Repository bootstrap
-  status: done
-  scope: |
-    Replace the template README, add the foundation docs needed for future
-    structured issues, migrate profile assets, add release tagging, and
-    validate mounted-profile references.
-- version: "06.0"
-  name: External agent profiles and mounted runtime assets
-  status: done
-  scope: |
-    Release 06.0 moved profile-owned agent assets, demos, and integration
-    fixtures into this repository. The catalog still owns the canonical
-    profiles, profile-local UI, and integration fixtures consumed from
-    the demo.yaml catalog_root, /profiles, or release bundles. Presentation-specific
-    assets now live in applications/agent-architecture. Formal use cases
-    and test suites name executable proof for the completed migration path.
-- version: "07.0"
-  name: Profile-owned integration tracer bullets
-  status: done
-  scope: |
-    Implemented profile-owned tracer bullets for documentation-curator,
-    bench-to-critic, and monitor/control boundaries. The retired
-    critic-to-executor and planner-to-executor library tracers point to
-    application-owned replacements under applications/coding-agent and are not
-    counted as implemented Release 07 proof.
-- version: "07.1"
-  name: Per-family SRDs and profile coverage
-  status: in-progress
-  scope: |
-    Per-family SRDs replace the shared functional-block SRD, and per-family
-    boundary use cases plus a test suite cover the specification-critic, lifecycle, and rest
-    families that release 07.0 left to the generic mounted-profile and
-    profile-validation use cases. Profile-owned Mage integration targets for
-    the three families remain a deferred follow-up.
-- version: "08.0"
-  name: Chroma corpus agents
-  status: done
-  scope: |
-    Two profile-owned agents use a local Chroma vector database as a retrieval
-    boundary: an ingest profile and a reader profile, built as pure
-    applications/catalog configuration over existing agent-core words. Embeddings are
-    computed at a local Ollama provider and threaded into Chroma add and query
-    (srd028 R12), because Chroma does not embed server-side over its raw HTTP
-    API. The ingest machine lists trusted corpus paths before the model selects
-    among them, then sequences deterministic embed and add steps. The mesh
-    integration:chroma target consumes that canonical program by reference and
-    proves ingest count; deterministic conformance executes the shipped reader
-    through provider embedding, Chroma query, grounded answer, and failure.
-- version: "09.0"
-  name: RAG server and single-RAG chatbot turn
-  use_cases_done: 2
-  use_cases_total: 2
-  status: done
-- version: "09.1"
-  name: Tier selection and multi-RAG fan-out
-  use_cases_done: 1
-  use_cases_total: 1
-  status: done
-- version: "09.2"
-  name: Observability
-  use_cases_done: 1
-  use_cases_total: 1
-  status: done
-- version: "09.3"
-  name: Mesh deployment and tiered swap
-  use_cases_done: 1
-  use_cases_total: 1
-  status: done
-- version: "09.4"
-  name: Control plane
-  use_cases_done: 0
-  use_cases_total: 1
-  status: planned
-- version: "09.5"
-  name: In-cluster LLM tier
-  use_cases_done: 1
-  use_cases_total: 1
-  status: done
-- version: "10.0"
-  name: Reference-architecture role alignment
-  use_cases_done: 3
-  use_cases_total: 3
-  status: done
-- version: "11.0"
-  name: Scenario Critic test rig
-  status: in-progress
-  scope: |
-    Two test-time role families over the agent-core release 09.0 words. The
-    scenario-critic (srd018) discovers scenarios under configurable roots covering
-    the agent families and the applications tree, and for each starts the
-    scenario's mocks, starts the subject with its REST dependencies
-    redirected through base_url environment expansion, runs the scenario's
-    validators against a fresh subject instance, reduces their terminal
-    states to a verdict naming any failing validator, and tears every child
-    down. The mock (srd019) is one generic mock serving the canned,
-    scripted responses a scenario fixture declares and recording a
-    per-instance request log validators read to verify a subject's outbound
-    calls. Tests are profile-owned data in tests/<scenario>/ beside the agent,
-    so one subject carries several tests, adding one never edits the rig, and
-    no scenario needs a live service or a per-test container image.
+1. - version: "00.1"
+   - name: Repository bootstrap
+   - status: done
+   - scope:
+     Replace the template README, add the foundation docs needed for future
+     structured issues, migrate profile assets, add release tagging, and
+     validate mounted-profile references.
+1. - version: "06.0"
+   - name: External agent profiles and mounted runtime assets
+   - status: done
+   - scope:
+     Release 06.0 moved profile-owned agent assets, demos, and integration
+     fixtures into this repository. The catalog still owns the canonical
+     profiles, profile-local UI, and integration fixtures consumed from
+     the demo.yaml catalog_root, /profiles, or release bundles. Presentation-specific
+     assets now live in applications/agent-architecture. Formal use cases
+     and test suites name executable proof for the completed migration path.
+1. - version: "07.0"
+   - name: Profile-owned integration tracer bullets
+   - status: done
+   - scope:
+     Implemented profile-owned tracer bullets for documentation-curator,
+     bench-to-critic, and monitor/control boundaries. The retired
+     critic-to-executor and planner-to-executor library tracers point to
+     application-owned replacements under applications/coding-agent and are not
+     counted as implemented Release 07 proof.
+1. - version: "07.1"
+   - name: Per-family SRDs and profile coverage
+   - status: in-progress
+   - scope:
+     Per-family SRDs replace the shared functional-block SRD, and per-family
+     boundary use cases plus a test suite cover the specification-critic, lifecycle, and rest
+     families that release 07.0 left to the generic mounted-profile and
+     profile-validation use cases. Profile-owned Mage integration targets for
+     the three families remain a deferred follow-up.
+1. - version: "08.0"
+   - name: Chroma corpus agents
+   - status: done
+   - scope:
+     Two profile-owned agents use a local Chroma vector database as a retrieval
+     boundary: an ingest profile and a reader profile, built as pure
+     applications/catalog configuration over existing agent-core words. Embeddings are
+     computed at a local Ollama provider and threaded into Chroma add and query
+     (srd028 R12), because Chroma does not embed server-side over its raw HTTP
+     API. The ingest machine lists trusted corpus paths before the model selects
+     among them, then sequences deterministic embed and add steps. The mesh
+     integration:chroma target consumes that canonical program by reference and
+     proves ingest count; deterministic conformance executes the shipped reader
+     through provider embedding, Chroma query, grounded answer, and failure.
+1. - version: "09.0"
+   - name: RAG server and single-RAG chatbot turn
+   - use_cases_done: 2
+   - use_cases_total: 2
+   - status: done
+1. - version: "09.1"
+   - name: Tier selection and multi-RAG fan-out
+   - use_cases_done: 1
+   - use_cases_total: 1
+   - status: done
+1. - version: "09.2"
+   - name: Observability
+   - use_cases_done: 1
+   - use_cases_total: 1
+   - status: done
+1. - version: "09.3"
+   - name: Mesh deployment and tiered swap
+   - use_cases_done: 1
+   - use_cases_total: 1
+   - status: done
+1. - version: "09.4"
+   - name: Control plane
+   - use_cases_done: 0
+   - use_cases_total: 1
+   - status: planned
+1. - version: "09.5"
+   - name: In-cluster LLM tier
+   - use_cases_done: 1
+   - use_cases_total: 1
+   - status: done
+1. - version: "10.0"
+   - name: Reference-architecture role alignment
+   - use_cases_done: 3
+   - use_cases_total: 3
+   - status: done
+1. - version: "11.0"
+   - name: Scenario Critic test rig
+   - status: in-progress
+   - scope:
+     Two test-time role families over the agent-core release 09.0 words. The
+     scenario-critic (srd018) discovers scenarios under configurable roots covering
+     the agent families and the applications tree, and for each starts the
+     scenario's mocks, starts the subject with its REST dependencies
+     redirected through base_url environment expansion, runs the scenario's
+     validators against a fresh subject instance, reduces their terminal
+     states to a verdict naming any failing validator, and tears every child
+     down. The mock (srd019) is one generic mock serving the canned,
+     scripted responses a scenario fixture declares and recording a
+     per-instance request log validators read to verify a subject's outbound
+     calls. Tests are profile-owned data in tests/<scenario>/ beside the agent,
+     so one subject carries several tests, adding one never edits the rig, and
+     no scenario needs a live service or a per-test container image.
 
-    The implementation issues are complete and the profiles, fixtures, tests,
-    and mage target exist. Evidence is still partial: current tests inspect
-    request logs directly, validate malformed fixtures only with
-    --validate-config, and infer cleanup from stop spans plus repeatability
-    without checking process survival or mock-start-failure teardown.
-- version: "12.0"
-  name: Agent role-realization naming alignment
-  status: release-ready
-  scope: |
-    Implemented migration aliases, exact consumer pins, package closures,
-    generated Helm inventory checks, release-tag semantics, and scoped
-    zero-hit evidence. Publication of the immutable root, canonical catalog,
-    and legacy compatibility tags is a post-merge action from clean main.
-- version: "13.0"
-  name: Collector family promotion
-  status: implemented
-  scope: |
-    Promoted the chatbot-mesh collector agent to a canonical catalog family
-    with default spool mode and no relay endpoint default. Added srd020,
-    conformance coverage exercising agent-core OTLP builtins, and a
-    bindings.catalog role-realization entry.
-- version: "14.0"
-  name: Served collector trace UI
-  status: implemented
-  scope: |
-    Serve the shipped collector ui/dist SPA from the collector_query server
-    via static_assets, same-origin with /query/*, with SPA deep-link
-    fallback and an explicit error on a missing UI root. The UI root is a
-    literal profile-declared path, not a new environment variable.
-- version: "15.0"
-  name: Collector Explore panel
-  status: implemented
-  scope: |
-    Add a Honeycomb-style Explore panel: /query/spans/stats and
-    /query/spans/breakdown routes bind the agent-core span-analytics tools
-    (release 13.0), and the Explore UI page renders a duration heatmap,
-    drag-selects a region, shows the ranked attribute divergence, and links
-    exemplar spans into the per-trace waterfall.
-- version: "16.0"
-  name: Canonical applier family
-  use_cases_done: 1
-  use_cases_total: 1
-  status: done
-- version: "17.0"
-  name: Rig doctor root-cause analyst
-  status: implemented
-  scope: |
-    Add the rig-doctor family (srd023) on the root-cause-analyst sub-role.
-    Rig capture gains events, rollout counts, a trace spool tail, and a
-    manifest; mage diagnose captures a snapshot and runs the rig-doctor
-    over it. The diagnosis loop reads files only and cites evidence for
-    every claim.
-- version: "18.0"
-  name: Host-side deployer
-  status: implemented
-  scope: |
-    Add deploy and undeploy machines to the applier family (srd022 R6) and
-    run them from the developer's machine. The mage target renders the
-    declarations with this application's chart, release, namespace, and
-    kubeconfig, seeds the machine with the values document, and gates on
-    the terminal state. Day-0 and day-2 differ in the rendered words alone.
-- version: "99.0"
-  name: Observer family promotion
-  status: planned
-  scope: |
-    Promote the chatbot-mesh fleet observer to a catalog-owned
-    monitor/fleet-observer family (srd021), parameterized by namespace and
-    label selector so coding-agent, agent-architecture, and the chatbot-mesh
-    adopt it by reference. Specification only; the profile, UX, and
-    agent-role-realizations rows are the adoption implementation, deferred
-    because the inventory gate requires existing profile paths.
-```
+     The implementation issues are complete and the profiles, fixtures, tests,
+     and mage target exist. Evidence is still partial: current tests inspect
+     request logs directly, validate malformed fixtures only with
+     --validate-config, and infer cleanup from stop spans plus repeatability
+     without checking process survival or mock-start-failure teardown.
+1. - version: "12.0"
+   - name: Agent role-realization naming alignment
+   - status: release-ready
+   - scope:
+     Implemented migration aliases, exact consumer pins, package closures,
+     generated Helm inventory checks, release-tag semantics, and scoped
+     zero-hit evidence. Publication of the immutable root, canonical catalog,
+     and legacy compatibility tags is a post-merge action from clean main.
+1. - version: "13.0"
+   - name: Collector family promotion
+   - status: implemented
+   - scope:
+     Promoted the chatbot-mesh collector agent to a canonical catalog family
+     with default spool mode and no relay endpoint default. Added srd020,
+     conformance coverage exercising agent-core OTLP builtins, and a
+     bindings.catalog role-realization entry.
+1. - version: "14.0"
+   - name: Served collector trace UI
+   - status: implemented
+   - scope:
+     Serve the shipped collector ui/dist SPA from the collector_query server
+     via static_assets, same-origin with /query/*, with SPA deep-link
+     fallback and an explicit error on a missing UI root. The UI root is a
+     literal profile-declared path, not a new environment variable.
+1. - version: "15.0"
+   - name: Collector Explore panel
+   - status: implemented
+   - scope:
+     Add a Honeycomb-style Explore panel: /query/spans/stats and
+     /query/spans/breakdown routes bind the agent-core span-analytics tools
+     (release 13.0), and the Explore UI page renders a duration heatmap,
+     drag-selects a region, shows the ranked attribute divergence, and links
+     exemplar spans into the per-trace waterfall.
+1. - version: "16.0"
+   - name: Canonical applier family
+   - use_cases_done: 1
+   - use_cases_total: 1
+   - status: done
+1. - version: "17.0"
+   - name: Rig doctor root-cause analyst
+   - status: implemented
+   - scope:
+     Add the rig-doctor family (srd023) on the root-cause-analyst sub-role.
+     Rig capture gains events, rollout counts, a trace spool tail, and a
+     manifest; mage diagnose captures a snapshot and runs the rig-doctor
+     over it. The diagnosis loop reads files only and cites evidence for
+     every claim.
+1. - version: "18.0"
+   - name: Host-side deployer
+   - status: implemented
+   - scope:
+     Add deploy and undeploy machines to the applier family (srd022 R6) and
+     run them from the developer's machine. The mage target renders the
+     declarations with this application's chart, release, namespace, and
+     kubeconfig, seeds the machine with the values document, and gates on
+     the terminal state. Day-0 and day-2 differ in the rendered words alone.
+1. - version: "99.0"
+   - name: Observer family promotion
+   - status: planned
+   - scope:
+     Promote the chatbot-mesh fleet observer to a catalog-owned
+     monitor/fleet-observer family (srd021), parameterized by namespace and
+     label selector so coding-agent, agent-architecture, and the chatbot-mesh
+     adopt it by reference. Specification only; the profile, UX, and
+     agent-role-realizations rows are the adoption implementation, deferred
+     because the inventory gate requires existing profile paths.
 
 <!-- field: foundation_document_index -->
 ## Foundation document index
@@ -313,29 +311,27 @@ targets that set catalog_root in demo.yaml.
 []
 ```
 
-<!-- field: semantic_model_index -->
+<!-- field: semantic_model_index | form: "tree" -->
 ## Semantic model index
 
-```yaml
-- id: sm-agent-role-realizations
-  title: Agent Role Realizations and Bindings
-  summary: |
-    Shared authority for canonical role IDs, concrete actor/profile bindings,
-    naming grammar, classifications, inheritance, and migration aliases.
-  status: implemented
-  path: ../docs/specs/semantic-models/agent-role-realizations.md
-  reciprocal_index: ../docs/SPECIFICATIONS.md#semantic_model_index
-- id: sm-multi-agent-profile-system
-  title: Multi-Agent Profile System
-  summary: Role groups, actor boundaries, dependency directions, and validation views for profile-owned agent programs.
-  status: implemented
-  path: docs/specs/semantic-models/multi-agent-profile-system.md
-- id: sm-agent-role-taxonomy
-  title: Agent Role Taxonomy
-  summary: Per-profile role, inputs, outputs, selected tool families, runtime dependencies, outcomes, and checks.
-  status: implemented
-  path: docs/specs/semantic-models/agent-role-taxonomy.md
-```
+1. - id: sm-agent-role-realizations
+   - title: Agent Role Realizations and Bindings
+   - summary:
+     Shared authority for canonical role IDs, concrete actor/profile bindings,
+     naming grammar, classifications, inheritance, and migration aliases.
+   - status: implemented
+   - path: ../docs/specs/semantic-models/agent-role-realizations.md
+   - reciprocal_index: ../docs/SPECIFICATIONS.md#semantic_model_index
+1. - id: sm-multi-agent-profile-system
+   - title: Multi-Agent Profile System
+   - summary: Role groups, actor boundaries, dependency directions, and validation views for profile-owned agent programs.
+   - status: implemented
+   - path: docs/specs/semantic-models/multi-agent-profile-system.md
+1. - id: sm-agent-role-taxonomy
+   - title: Agent Role Taxonomy
+   - summary: Per-profile role, inputs, outputs, selected tool families, runtime dependencies, outcomes, and checks.
+   - status: implemented
+   - path: docs/specs/semantic-models/agent-role-taxonomy.md
 
 <!-- field: use_case_index_notes -->
 ## Use case index notes

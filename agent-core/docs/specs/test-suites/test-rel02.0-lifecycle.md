@@ -48,22 +48,18 @@ rel02.0-uc001-approval-suspend-resume
 
 TestLoop_NoopCheckpointDefaultPersistsNothing, TestNoopCheckpointSaveIsNoopAndLoadReportsNotFound
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-checkpoint: nil
-machine: simple_success
-```
+- checkpoint: nil
+- machine: simple_success
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-status: succeeded
-save: noop
-load_error: ErrNoCheckpoint
-```
+- status: succeeded
+- save: noop
+- load_error: ErrNoCheckpoint
 
 <!-- field: traces -->
 #### Traces
@@ -90,22 +86,18 @@ rel02.0-uc001-approval-suspend-resume
 
 TestLoop_SavesSnapshotAfterDispatchWithConfiguredAdapter
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-checkpoint: InMemoryCheckpoint
-machine: simple_success
-```
+- checkpoint: InMemoryCheckpoint
+- machine: simple_success
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-save_timing: after_each_dispatch
-execution_len: iteration_count
-position_matches_last_dispatch: true
-```
+- save_timing: after_each_dispatch
+- execution_len: iteration_count
+- position_matches_last_dispatch: true
 
 <!-- field: traces -->
 #### Traces
@@ -132,23 +124,21 @@ rel02.0-uc001-approval-suspend-resume
 
 TestLoop_PortSavePersistsConversation, TestInMemoryCheckpointRoundTripsConversationAndReceipts
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-checkpoint: InMemoryCheckpoint
-conversation: user_message
-receipts: [write_receipt, empty]
-```
+- checkpoint: InMemoryCheckpoint
+- conversation: user_message
+- receipts:
+  1. write_receipt
+  1. empty
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-conversation_restored: true
-receipt_round_trip: verbatim
-empty_receipt_restored_empty: true
-```
+- conversation_restored: true
+- receipt_round_trip: verbatim
+- empty_receipt_restored_empty: true
 
 <!-- field: traces -->
 #### Traces
@@ -177,22 +167,24 @@ rel02.0-uc001-approval-suspend-resume
 
 TestCheckpointWireFormat, TestInMemoryCheckpointRoundTripsConversationAndReceipts
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-value: [Position, Execution, Entry]
-```
+- value:
+  1. Position
+  1. Execution
+  1. Entry
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-position_fields: [current_state, last_signal, snapshot]
-empty_execution: "null"
-receipt_omitted_when_empty: true
-receipt_present_as_json_string: true
-```
+- position_fields:
+  1. current_state
+  1. last_signal
+  1. snapshot
+- empty_execution: "null"
+- receipt_omitted_when_empty: true
+- receipt_present_as_json_string: true
 
 <!-- field: traces -->
 #### Traces
@@ -223,25 +215,28 @@ rel02.0-uc001-approval-suspend-resume
 
 TestDoltCheckpointConversationReferencesSurviveFreshAdapter, TestDoltCheckpointConversationReferenceRejectsWrongRunAndStep, TestDoltCheckpointConversationReferenceRejectsLaterRevisionClaimingEarlierStep, TestDoltCheckpointConversationReferencesAgainstRealDolt, TestNoopCheckpointReportsConversationReferencesUnavailable, TestResetHistoryFactoryRestartsFromCheckpointReference, TestInvokeLLMRestartsThroughCompositionCheckpointPorts, TestRequestLocalStateDoesNotExposeHostCheckpointReferences, TestLoopParallelForEachRejectsSerialDispatchBeforeExecution, TestLoopSequentialForEachAllowsSerialDispatch
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-backends: [DoltCheckpoint, InMemoryCheckpoint, NoopCheckpoint]
-restart_boundary: [fresh_adapter, fresh_command]
-request_machine_persistence: omitted
-```
+- backends:
+  1. DoltCheckpoint
+  1. InMemoryCheckpoint
+  1. NoopCheckpoint
+- restart_boundary:
+  1. fresh_adapter
+  1. fresh_command
+- request_machine_persistence: omitted
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-historical_conversation_resolved: true
-run_isolation: strict
-restart_undo: [invoke_llm, reset_history]
-disabled_reference_available: false
-request_machine_reference_available: false
-```
+- historical_conversation_resolved: true
+- run_isolation: strict
+- restart_undo:
+  1. invoke_llm
+  1. reset_history
+- disabled_reference_available: false
+- request_machine_reference_available: false
 
 <!-- field: traces -->
 #### Traces
@@ -271,25 +266,21 @@ rel02.0-uc001-approval-suspend-resume
 
 TestTenTurnDeltaTraceAndReceiptVolumeGrowsLinearly
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-turns: 10
-telemetry_capture: delta
-sleep: zero
-excluded_storage: AgentSnapshot.Conversation
-```
+- turns: 10
+- telemetry_capture: delta
+- sleep: zero
+- excluded_storage: AgentSnapshot.Conversation
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-growth_bound: linear
-below_quadratic_doubling: true
-below_full_history_receipt_baseline: true
-receipts_contain_conversation_text: false
-```
+- growth_bound: linear
+- below_quadratic_doubling: true
+- below_full_history_receipt_baseline: true
+- receipts_contain_conversation_text: false
 
 <!-- field: traces -->
 #### Traces
@@ -317,24 +308,22 @@ rel02.0-uc001-approval-suspend-resume
 
 TestResumeReentersLoopFromTypedPort, TestLoadResumeExposesTypedSnapshotForDomainRestore, TestResumeHonorsExplicitResumeSignal, TestResumeReportsMissingCheckpoint
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-checkpoint: InMemoryCheckpoint
-suspended_state: AwaitingApproval
-resume_signal: [Approved, Rejected]
-```
+- checkpoint: InMemoryCheckpoint
+- suspended_state: AwaitingApproval
+- resume_signal:
+  1. Approved
+  1. Rejected
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-resumed_status: succeeded
-counters_carried_forward: true
-explicit_signal_preserved: true
-missing_checkpoint_error: ErrNoCheckpoint
-```
+- resumed_status: succeeded
+- counters_carried_forward: true
+- explicit_signal_preserved: true
+- missing_checkpoint_error: ErrNoCheckpoint
 
 <!-- field: traces -->
 #### Traces
@@ -362,23 +351,21 @@ rel02.0-uc001-approval-suspend-resume
 
 TestApprovalLifecycleProfileSuspendsThroughCheckpointPort, TestOpenDefaultsToNoop, TestOpenWithDoltDSNOpensDoltBackend, TestResumeWithoutPersistentBackendReportsNoCheckpoint
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profile: lifecycle/approval/profile.yaml
-dolt_dsn: [unset, invalid]
-```
+- profile: lifecycle/approval/profile.yaml
+- dolt_dsn:
+  1. unset
+  1. invalid
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-first_run_terminal_state: suspended
-default_backend: NoopCheckpoint
-dolt_dsn_error: ErrDolt
-resume_without_backend_error: ErrNoCheckpoint
-```
+- first_run_terminal_state: suspended
+- default_backend: NoopCheckpoint
+- dolt_dsn_error: ErrDolt
+- resume_without_backend_error: ErrNoCheckpoint
 
 <!-- field: traces -->
 #### Traces
@@ -413,21 +400,17 @@ TestDoltCheckpointSuspendResumeAcrossProcesses
 
 mage integration:dolt
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-backend: DoltCheckpoint
-dsn: root@tcp(127.0.0.1:3306)/agent_core_test
-```
+- backend: DoltCheckpoint
+- dsn: root@tcp(127.0.0.1:3306)/agent_core_test
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-fresh_process_load: equivalent_state
-skipped_without_dsn: true
-```
+- fresh_process_load: equivalent_state
+- skipped_without_dsn: true
 
 <!-- field: traces -->
 #### Traces
@@ -452,21 +435,17 @@ rel02.0-uc002-history-rollback
 
 TestDoltCheckpointImplementsPort, TestDoltCheckpointLoadNotFound
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-backend: DoltCheckpoint
-seam: fakeDB
-```
+- backend: DoltCheckpoint
+- seam: fakeDB
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-implements_checkpoint_port: true
-missing_run_load_error: ErrNoCheckpoint
-```
+- implements_checkpoint_port: true
+- missing_run_load_error: ErrNoCheckpoint
 
 <!-- field: traces -->
 #### Traces
@@ -492,24 +471,22 @@ rel02.0-uc002-history-rollback
 
 TestDoltCheckpointSaveLoadRoundTrip
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-backend: DoltCheckpoint
-steps: 2
-receipts: [file_receipt, empty]
-```
+- backend: DoltCheckpoint
+- steps: 2
+- receipts:
+  1. file_receipt
+  1. empty
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-position_reconstructed: true
-execution_order_preserved: true
-receipt_round_trip: verbatim
-null_receipt_restored_empty: true
-```
+- position_reconstructed: true
+- execution_order_preserved: true
+- receipt_round_trip: verbatim
+- null_receipt_restored_empty: true
 
 <!-- field: traces -->
 #### Traces
@@ -536,24 +513,20 @@ rel02.0-uc002-history-rollback
 
 TestDoltCheckpointCommitPerStepAndBranchPerRun, TestDoltCheckpointMergeOnTerminalState
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-backend: DoltCheckpoint
-steps: 2
-terminal_state: Done
-```
+- backend: DoltCheckpoint
+- steps: 2
+- terminal_state: Done
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-branch_created: once_per_run
-commits: one_per_step
-terminal_merge_to_main: true
-run_branch_deleted: true
-```
+- branch_created: once_per_run
+- commits: one_per_step
+- terminal_merge_to_main: true
+- run_branch_deleted: true
 
 <!-- field: traces -->
 #### Traces
@@ -577,23 +550,21 @@ rel02.0-uc002-history-rollback
 
 TestDoltCheckpointRevertResetsToStepCommit, TestDoltCheckpointRevertLeavesReferenceUnavailableWithoutTargetConversation, TestDoltCheckpointRevertLeavesReferenceUnavailableForDifferentAdapterRun, TestDoltCheckpointRevertUnresolvedStep
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-backend: DoltCheckpoint
-steps: 2
-revert_to_step: [0, 99]
-```
+- backend: DoltCheckpoint
+- steps: 2
+- revert_to_step:
+  1. 0
+  1. 99
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-branch_reset_to_target: true
-load_after_revert: target_step_state
-unresolved_step_error: ErrRevertUnresolved
-```
+- branch_reset_to_target: true
+- load_after_revert: target_step_state
+- unresolved_step_error: ErrRevertUnresolved
 
 <!-- field: traces -->
 #### Traces
@@ -618,23 +589,22 @@ rel02.0-uc002-history-rollback
 
 TestCheckpointHistoryExecuteFormatsExecutionLog, TestCheckpointHistoryExecuteRequiresCheckpoint, TestCheckpointHistoryExecuteReportsNoCheckpoint, TestCheckpointHistoryUndoIsNoop
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-tool: checkpoint_history
-checkpoint: [InMemoryCheckpoint, nil, empty]
-```
+- tool: checkpoint_history
+- checkpoint:
+  1. InMemoryCheckpoint
+  1. nil
+  1. empty
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-formatted_history: true
-missing_backend_error: CommandError
-no_checkpoint_error: ErrNoCheckpoint
-undo: noop
-```
+- formatted_history: true
+- missing_backend_error: CommandError
+- no_checkpoint_error: ErrNoCheckpoint
+- undo: noop
 
 <!-- field: traces -->
 #### Traces
@@ -663,26 +633,25 @@ rel02.0-uc002-history-rollback
 
 TestCheckpointRollbackReportsMissingUndoAfterDBRevert, TestCheckpointRollbackRequiresRevertibleCheckpoint, TestCheckpointRollbackRequiresTargetIteration, TestCheckpointRollbackReportsMissingTargetIteration, TestCheckpointRollbackUndoRequestsCompensation
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-tool: checkpoint_rollback
-checkpoint: fakeReverter
-to_iteration: [present, missing, unresolved]
-```
+- tool: checkpoint_rollback
+- checkpoint: fakeReverter
+- to_iteration:
+  1. present
+  1. missing
+  1. unresolved
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-revert_delegated_to_adapter: true
-load_after_rollback: target_step_state
-missing_backend_error: requires_revertible_checkpoint
-missing_target_error: requires_to_iteration
-unresolved_target_error: target_not_found
-undo: requests_compensation
-```
+- revert_delegated_to_adapter: true
+- load_after_rollback: target_step_state
+- missing_backend_error: requires_revertible_checkpoint
+- missing_target_error: requires_to_iteration
+- unresolved_target_error: target_not_found
+- undo: requests_compensation
 
 <!-- field: traces -->
 #### Traces
@@ -712,24 +681,20 @@ rel02.0-uc002-history-rollback
 
 TestCheckpointRollbackRestoresFileViaPersistedReceipt
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-tool: checkpoint_rollback
-command: write
-receipt: file_before_content
-registry: resolves_write_to_reverser
-```
+- tool: checkpoint_rollback
+- command: write
+- receipt: file_before_content
+- registry: resolves_write_to_reverser
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-db_state_reverted: true
-file_restored_to_prior_content: true
-external_effect_reversed_via_receipt: true
-```
+- db_state_reverted: true
+- file_restored_to_prior_content: true
+- external_effect_reversed_via_receipt: true
 
 <!-- field: traces -->
 #### Traces
@@ -761,27 +726,31 @@ rel02.0-uc002-history-rollback
 
 TestValidateReceiptFamiliesGuardsSelectedMutatorPlumbing, TestFreshRollbackRegistryTracesRepresentativeFamilies
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-restart_boundary: reconstructed_registry
-families: [llm, validation, child, lifecycle, rest]
-controls: [receiptless_noop, irreversible, malformed_receipt]
-```
+- restart_boundary: reconstructed_registry
+- families:
+  1. llm
+  1. validation
+  1. child
+  1. lifecycle
+  1. rest
+- controls:
+  1. receiptless_noop
+  1. irreversible
+  1. malformed_receipt
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-program_digest_verified: true
-aliases_preserved: true
-receipt_backed_effects_reversed: true
-pending_compensation_named: true
-irreversible_skips_explicit: true
-missing_reverse_plumbing_failures: false
-malformed_receipt_failures_named: true
-```
+- program_digest_verified: true
+- aliases_preserved: true
+- receipt_backed_effects_reversed: true
+- pending_compensation_named: true
+- irreversible_skips_explicit: true
+- missing_reverse_plumbing_failures: false
+- malformed_receipt_failures_named: true
 
 <!-- field: traces -->
 #### Traces
@@ -808,20 +777,18 @@ rel02.0-uc002-history-rollback
 
 cd ../applications/catalog && go test ./conformance -run '^TestLifecycleHistoryRollback$'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profiles: [lifecycle/history, lifecycle/rollback]
-```
+- profiles:
+  1. lifecycle/history
+  1. lifecycle/rollback
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-profile_loaded: true
-selected_as_builtin: true
-```
+- profile_loaded: true
+- selected_as_builtin: true
 
 <!-- field: traces -->
 #### Traces

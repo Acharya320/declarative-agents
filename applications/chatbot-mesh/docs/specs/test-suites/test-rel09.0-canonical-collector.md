@@ -37,13 +37,11 @@ rel09.0-uc001-canonical-collector
 
 go test ./magefiles -run '^TestCollectorDefaultRenderStaysSelfContained$'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-jaeger_in_render: false
-collector_query_port_rendered: true
-```
+- jaeger_in_render: false
+- collector_query_port_rendered: true
 
 <!-- field: traces -->
 #### Traces
@@ -66,14 +64,12 @@ rel09.0-uc001-canonical-collector
 
 mage integration:helmSmoke
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-spool_trace_id_present: true
-service_identity_match: true
-jaeger_endpoint_contacted: false
-```
+- spool_trace_id_present: true
+- service_identity_match: true
+- jaeger_endpoint_contacted: false
 
 <!-- field: traces -->
 #### Traces
@@ -96,14 +92,12 @@ rel09.0-uc001-canonical-collector
 
 go test ./magefiles -run '^TestCollectSharedMetricsEvidenceAgentModeNeedsNoDolt$'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-agent_metrics_present: true
-dolt_metrics_present: false
-trace_evidence_from_jaeger: false
-```
+- agent_metrics_present: true
+- dolt_metrics_present: false
+- trace_evidence_from_jaeger: false
 
 <!-- field: traces -->
 #### Traces
@@ -126,14 +120,12 @@ rel09.0-uc001-canonical-collector
 
 go test ./magefiles -run '^TestCollectSharedMetricsEvidenceRetainsAgentAndDolt$'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-agent_metrics_present: true
-dolt_metrics_present: true
-trace_evidence_from_jaeger: false
-```
+- agent_metrics_present: true
+- dolt_metrics_present: true
+- trace_evidence_from_jaeger: false
 
 <!-- field: traces -->
 #### Traces
@@ -151,13 +143,11 @@ The chart profile source redirects the collector program to the catalog root alo
 
 rel09.0-uc001-canonical-collector
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-local_agents_collector_absent: true
-catalog_source_used: true
-```
+- local_agents_collector_absent: true
+- catalog_source_used: true
 
 <!-- field: traces -->
 #### Traces
@@ -174,14 +164,12 @@ The ui-kit traceApi module the chatbot UI imports converts collector query respo
 
 rel09.0-uc001-canonical-collector
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-iso_to_microsecond_conversion: true
-flat_span_structure_parsed: true
-trace_backend_name: collector
-```
+- iso_to_microsecond_conversion: true
+- flat_span_structure_parsed: true
+- trace_backend_name: collector
 
 <!-- field: traces -->
 #### Traces

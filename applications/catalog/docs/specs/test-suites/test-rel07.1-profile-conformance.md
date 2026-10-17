@@ -159,15 +159,18 @@ by repeating identical input, snapshots the workspace to prove read-only
 execution, runs clean and intentionally failing corpora, and asserts
 finding provenance.
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-asserted_tool_spans: [load_corpus, validate_specs, format_report]
-llm_tool_family_selected: false
-error_status_spans: 0
-terminal_states: [Passed, Failed]
-```
+- asserted_tool_spans:
+  1. load_corpus
+  1. validate_specs
+  1. format_report
+- llm_tool_family_selected: false
+- error_status_spans: 0
+- terminal_states:
+  1. Passed
+  1. Failed
 
 <!-- field: traces -->
 #### Traces
@@ -204,22 +207,21 @@ shipped-behavioral
 
 Runs the shipped agents/critic/profile.yaml directly with a stub generator child on PATH; no field patched.
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-asserted_tool_spans:
-    - parse_suite_config
-    - discover_suite_samples
-    - expand_eval_grid
-    - init_eval_session
-    - report_suite_summary
-    - materialize_eval_points
-    - run_point
-    - report_session
-error_status_spans: 0
-terminal_states: [Done]
-```
+- asserted_tool_spans:
+  1. parse_suite_config
+  1. discover_suite_samples
+  1. expand_eval_grid
+  1. init_eval_session
+  1. report_suite_summary
+  1. materialize_eval_points
+  1. run_point
+  1. report_session
+- error_status_spans: 0
+- terminal_states:
+  1. Done
 
 <!-- field: traces -->
 #### Traces
@@ -261,24 +263,22 @@ only. This assertion previously lived in an agent-core package test that
 read these files across the module boundary, which srd034 assigns to the
 repository owning the profile (GH-512).
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-retired_word_absent: load_suite
-session_sequence:
-    - parse_suite_config
-    - discover_suite_samples
-    - expand_eval_grid
-    - init_eval_session
-    - report_suite_summary
-    - materialize_eval_points
-point_failure_signals_routed:
-    - HarnessFailed
-    - HarnessTimedOut
-    - OracleCheckFailed
-    - AgentVersionMismatch
-```
+- retired_word_absent: load_suite
+- session_sequence:
+  1. parse_suite_config
+  1. discover_suite_samples
+  1. expand_eval_grid
+  1. init_eval_session
+  1. report_suite_summary
+  1. materialize_eval_points
+- point_failure_signals_routed:
+  1. HarnessFailed
+  1. HarnessTimedOut
+  1. OracleCheckFailed
+  1. AgentVersionMismatch
 
 <!-- field: traces -->
 #### Traces
@@ -315,14 +315,16 @@ shipped-behavioral
 
 Copies the shipped testdata/conformance/control/profile.yaml and patches only the harness-controlled loopback address and port.
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-asserted_tool_spans: [launch_agent_control, await_agent_control, exit_agent]
-error_status_spans: 0
-terminal_states: [Succeeded]
-```
+- asserted_tool_spans:
+  1. launch_agent_control
+  1. await_agent_control
+  1. exit_agent
+- error_status_spans: 0
+- terminal_states:
+  1. Succeeded
 
 <!-- field: traces -->
 #### Traces
@@ -360,14 +362,16 @@ shipped-behavioral
 
 Copies the shipped agents/runtime-state-reader/profile.yaml and patches only the harness-controlled loopback listen address.
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-asserted_tool_spans: [launch_monitor_rest, await_monitor_control, stop_monitor_rest]
-error_status_spans: 0
-terminal_states: [Done]
-```
+- asserted_tool_spans:
+  1. launch_monitor_rest
+  1. await_monitor_control
+  1. stop_monitor_rest
+- error_status_spans: 0
+- terminal_states:
+  1. Done
 
 <!-- field: traces -->
 #### Traces
@@ -406,21 +410,20 @@ shipped-behavioral
 
 Copies the shipped documentation-curator profile and patches only the three generic REST listener addresses and ports.
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-asserted_tool_spans:
-    - launch_curator_http
-    - stop_curator_http
-    - launch_curator_control
-    - launch_monitor_rest
-    - await_curator_control
-    - exit_agent
-    - stop_monitor_rest
-error_status_spans: 0
-terminal_states: [Done]
-```
+- asserted_tool_spans:
+  1. launch_curator_http
+  1. stop_curator_http
+  1. launch_curator_control
+  1. launch_monitor_rest
+  1. await_curator_control
+  1. exit_agent
+  1. stop_monitor_rest
+- error_status_spans: 0
+- terminal_states:
+  1. Done
 
 <!-- field: traces -->
 #### Traces
@@ -460,16 +463,27 @@ shipped-behavioral
 
 Copies the shipped agents/bench profile, patches its request, control, and monitor listen addresses and lowers max_running to 2, and uses a fixture critic child that holds until reaped.
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-asserted_tool_spans: [launch_bench_http, launch_bench_control, launch_monitor_rest, await_bench_control, exit_agent, stop_monitor_rest, stop_bench_http, list_evaluation_sessions, list_resource, read_resource, launch_evaluator, list_experiments]
-overlapping_runs: 2
-bound_status: 429
-error_status_spans: 0
-terminal_states: [Done]
-```
+- asserted_tool_spans:
+  1. launch_bench_http
+  1. launch_bench_control
+  1. launch_monitor_rest
+  1. await_bench_control
+  1. exit_agent
+  1. stop_monitor_rest
+  1. stop_bench_http
+  1. list_evaluation_sessions
+  1. list_resource
+  1. read_resource
+  1. launch_evaluator
+  1. list_experiments
+- overlapping_runs: 2
+- bound_status: 429
+- error_status_spans: 0
+- terminal_states:
+  1. Done
 
 <!-- field: traces -->
 #### Traces
@@ -518,15 +532,18 @@ shipped-behavioral
 
 Runs the shipped testdata/conformance/lifecycle/approval/profile.yaml directly across the two suspend/resume CLI invocations; no field patched.
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-asserted_tool_spans: [suspend, done]
-asserted_signals: [run.suspended]
-error_status_spans: 0
-terminal_states: [Succeeded, Rejected]
-```
+- asserted_tool_spans:
+  1. suspend
+  1. done
+- asserted_signals:
+  1. run.suspended
+- error_status_spans: 0
+- terminal_states:
+  1. Succeeded
+  1. Rejected
 
 <!-- field: traces -->
 #### Traces
@@ -577,14 +594,15 @@ shipped-behavioral
 
 Runs the shipped testdata/conformance/lifecycle/{approval,history,rollback}/profile.yaml directly against a persisted checkpoint; no field patched.
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-asserted_tool_spans: [checkpoint_history, checkpoint_rollback]
-error_status_spans: 0
-terminal_states: [Done]
-```
+- asserted_tool_spans:
+  1. checkpoint_history
+  1. checkpoint_rollback
+- error_status_spans: 0
+- terminal_states:
+  1. Done
 
 <!-- field: traces -->
 #### Traces
@@ -646,14 +664,14 @@ individually.
 | agents/executor/profile-qwen35b.yaml | qwen3.6:35b-mlx | shipped-behavioral | conformance/executor_test.go TestExecutorQwen35bConformance |
 | agents/executor/profile-qwen27b.yaml | qwen3.6:27b-mlx | shipped-behavioral | conformance/executor_test.go TestExecutorQwen27bConformance |
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-asserted_span_prefixes: ["chat "]
-error_status_spans: 0
-terminal_states: [BudgetExceeded]
-```
+- asserted_span_prefixes:
+  1. "chat "
+- error_status_spans: 0
+- terminal_states:
+  1. BudgetExceeded
 
 <!-- field: traces -->
 #### Traces
@@ -743,13 +761,14 @@ the full pipeline tail beyond the graph boundary needs a beads project, a
 generator child, and the Go toolchain the harness does not provide, so no
 clean terminal is asserted.
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-asserted_tool_spans: [load_graph, extract_task]
-asserted_events: [pipeline.graph_loaded]
-```
+- asserted_tool_spans:
+  1. load_graph
+  1. extract_task
+- asserted_events:
+  1. pipeline.graph_loaded
 
 <!-- field: traces -->
 #### Traces
@@ -981,13 +1000,15 @@ shipped-behavioral: real shipped server behavior over a synthesized subset
 machine, with the shipped full-machine wiring asserted separately by
 TestRestShippedProfileWiring and the client head by the agent-core package.
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-terminal_states: [Succeeded]
-asserted_tool_spans: [launch_payment_webhooks, await_payment_webhook, stop_payment_webhooks]
-```
+- terminal_states:
+  1. Succeeded
+- asserted_tool_spans:
+  1. launch_payment_webhooks
+  1. await_payment_webhook
+  1. stop_payment_webhooks
 
 <!-- field: traces -->
 #### Traces
@@ -1036,14 +1057,16 @@ Unlike the sample machine's machine-sequenced client head, the model-selected
 REST client word runs in-profile because the model chooses it and its
 upstream is the local Ollama itself.
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-asserted_span_prefixes: ["chat "]
-asserted_tool_spans: [ollama_list_models]
-terminal_states: [Succeeded, BudgetExceeded]
-```
+- asserted_span_prefixes:
+  1. "chat "
+- asserted_tool_spans:
+  1. ollama_list_models
+- terminal_states:
+  1. Succeeded
+  1. BudgetExceeded
 
 <!-- field: traces -->
 #### Traces
@@ -1122,13 +1145,13 @@ live-behavioral
 Runs only with `-live=true` and requires the exact qwen2.5:3b model.
 Installed-model presence alone does not enable it.
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-response_fields: [names]
-selected_names: [rag0]
-```
+- response_fields:
+  1. names
+- selected_names:
+  1. rag0
 
 <!-- field: traces -->
 #### Traces

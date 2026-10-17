@@ -111,15 +111,13 @@ executable_structural
     PY
 ```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-yaml_parses: true
-format_fields_present: true
-indexed_paths_resolve: true
-reciprocal_traces_resolve: true
-```
+- yaml_parses: true
+- format_fields_present: true
+- indexed_paths_resolve: true
+- reciprocal_traces_resolve: true
 
 <!-- field: traces -->
 #### Traces
@@ -159,19 +157,17 @@ go test . -run 'Test(ApplicationModulesParticipateInAudit|ChatbotMeshIsAnApplica
 - magefiles/test.go
 - magefiles/tag.go
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-catalog_is_not_runnable_application: true
-runnable_paths_exist: true
-root_audit_dispatches_applications: true
-root_test_dispatches_applications_with_tests: true
-root_stats_dispatches_applications: true
-applications_excluded_from_platform_build_default: true
-agent_architecture_registered: true
-catalog_is_reusable_submodule: true
-```
+- catalog_is_not_runnable_application: true
+- runnable_paths_exist: true
+- root_audit_dispatches_applications: true
+- root_test_dispatches_applications_with_tests: true
+- root_stats_dispatches_applications: true
+- applications_excluded_from_platform_build_default: true
+- agent_architecture_registered: true
+- catalog_is_reusable_submodule: true
 
 <!-- field: traces -->
 #### Traces
@@ -221,16 +217,14 @@ go_test
 - applications/agent-architecture/magefiles/magefile.go
 - applications/agent-architecture/magefiles/magefile_test.go
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-composition_only_has_no_agents_section: true
-local_agents_counted_by_owner: true
-composition_references_reported_separately: true
-root_total_sums_agents_sections_only: true
-canonical_agent_total: 15
-```
+- composition_only_has_no_agents_section: true
+- local_agents_counted_by_owner: true
+- composition_references_reported_separately: true
+- root_total_sums_agents_sections_only: true
+- canonical_agent_total: 15
 
 <!-- field: traces -->
 #### Traces
@@ -272,16 +266,14 @@ mage audit
 - applications/coding-agent/docs/SPECIFICATIONS.md
 - applications/agent-architecture/docs/SPECIFICATIONS.md
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-root_audit_green: true
-chatbot_mesh_audit_executed: true
-coding_agent_audit_executed: true
-agent_architecture_audit_executed: true
-local_evidence_owned_by_application: true
-```
+- root_audit_green: true
+- chatbot_mesh_audit_executed: true
+- coding_agent_audit_executed: true
+- agent_architecture_audit_executed: true
+- local_evidence_owned_by_application: true
 
 <!-- field: traces -->
 #### Traces
@@ -324,20 +316,18 @@ application_test_suites
 - applications/chatbot-mesh/docs/specs/test-suites/test-rel02.0-observability.md
 - applications/agent-architecture/docs/specs/test-suites/test-rel00.0-guided-agent-architecture.md
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-lifecycle_evidence_exists: true
-health_is_role_owned: true
-authority_is_declared: true
-telemetry_identity_is_tested: true
-graceful_shutdown_is_tested: true
-knowledge_manager_deterministic_evidence: implemented
-knowledge_manager_managed_service_status: partial
-knowledge_manager_live_observations: dependency_gated
-knowledge_manager_srd002_ac1_ac3_satisfied: false
-```
+- lifecycle_evidence_exists: true
+- health_is_role_owned: true
+- authority_is_declared: true
+- telemetry_identity_is_tested: true
+- graceful_shutdown_is_tested: true
+- knowledge_manager_deterministic_evidence: implemented
+- knowledge_manager_managed_service_status: partial
+- knowledge_manager_live_observations: dependency_gated
+- knowledge_manager_srd002_ac1_ac3_satisfied: false
 
 <!-- field: traces -->
 #### Traces
@@ -379,15 +369,13 @@ application_test_suites
 - applications/coding-agent/docs/specs/test-suites/test-rel05.0-helm-package-validation.md
 - applications/chatbot-mesh/docs/specs/test-suites/test-rel03.0-mesh-deployment.md
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-deterministic_package_evidence_exists: true
-unsafe_input_rejection_exists: true
-helm_schema_and_render_evidence_exists: true
-packaged_archive_validation_exists: true
-```
+- deterministic_package_evidence_exists: true
+- unsafe_input_rejection_exists: true
+- helm_schema_and_render_evidence_exists: true
+- packaged_archive_validation_exists: true
 
 <!-- field: traces -->
 #### Traces
@@ -427,15 +415,13 @@ referenced_engineering_contract
 - applications/coding-agent/docs/specs/test-suites/test-rel06.0-live-helm-smoke.md
 - applications/chatbot-mesh/docs/specs/test-suites/test-rel03.0-mesh-deployment.md
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-eng01_is_referenced_not_copied: true
-missing_prerequisite_classification_is_tested: true
-bounded_failure_evidence_is_tested: true
-undeclared_kind_demo_is_not_applicable: true
-```
+- eng01_is_referenced_not_copied: true
+- missing_prerequisite_classification_is_tested: true
+- bounded_failure_evidence_is_tested: true
+- undeclared_kind_demo_is_not_applicable: true
 
 <!-- field: traces -->
 #### Traces
@@ -474,16 +460,14 @@ mage stats
 - applications/coding-agent/magefiles/stats.go
 - applications/agent-architecture/magefiles/magefile.go
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-json_output: true
-application_modules_present: true
-repository_agent_total_present: true
-repository_agent_total: 15
-knowledge_manager_agents_contributed: 0
-```
+- json_output: true
+- application_modules_present: true
+- repository_agent_total_present: true
+- repository_agent_total: 15
+- knowledge_manager_agents_contributed: 0
 
 <!-- field: traces -->
 #### Traces
@@ -526,19 +510,17 @@ go_test
 - applications/catalog/conformance/family_inventory_test.go
 - applications/catalog/conformance/membership_contract_test.go
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-deterministic_profile_discovery: true
-canonical_role_and_sub_role_authority_validated: true
-every_production_profile_classified: true
-repeated_role_bindings_allowed: true
-multi_role_actor_bindings_allowed: true
-inheritance_and_alias_rules_validated: true
-canonical_name_collisions_rejected: true
-root_mage_audit_invokes_validation: true
-```
+- deterministic_profile_discovery: true
+- canonical_role_and_sub_role_authority_validated: true
+- every_production_profile_classified: true
+- repeated_role_bindings_allowed: true
+- multi_role_actor_bindings_allowed: true
+- inheritance_and_alias_rules_validated: true
+- canonical_name_collisions_rejected: true
+- root_mage_audit_invokes_validation: true
 
 <!-- field: traces -->
 #### Traces

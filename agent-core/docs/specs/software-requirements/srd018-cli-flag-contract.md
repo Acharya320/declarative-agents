@@ -311,32 +311,30 @@ The live telemetry flags compose file and OTLP export, set stable service identi
 - R7.3
 - R7.4
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Agent CLIs share a common set of flags for telemetry..."] --> Goals["Goals: CLI Standard Flag Contract"]
-      Goals --> R1["R1: Standard flag name constants"]
-      Goals --> R2["R2: PropagateArgs struct and Build method"]
-      Goals --> R3["R3: RemainingBudget helper"]
-      Goals --> R4["R4: FormatFlag helper"]
-      Goals --> R5["R5: Persistent checkpoint-backend flag"]
-      Goals --> R6["R6: Process exit code contract"]
-      Goals --> R7["R7: Live telemetry flags"]
-      AC1["AC1: Eight standard flag name constants are exported and match..."]
-      R1 --> AC1
-      AC2["AC2: PropagateArgs.Build() produces a correct flag slice, omit..."]
-      R2 --> AC2
-      AC3["AC3: RemainingBudget returns 0 for unlimited or exhausted budg..."]
-      R3 --> AC3
-      AC4["AC4: FormatFlag returns a two-element slice with the prefixed..."]
-      R4 --> AC4
-      AC5["AC5: --dolt-dsn selects the Dolt backend; Noop default; driver at root..."]
-      R5 --> AC5
-      AC7["AC7: Live telemetry flags compose dual export and stable service identity..."]
-      R7 --> AC7
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Agent CLIs share a common set of flags for telemetry..."] --> Goals["Goals: CLI Standard Flag Contract"]
+    Goals --> R1["R1: Standard flag name constants"]
+    Goals --> R2["R2: PropagateArgs struct and Build method"]
+    Goals --> R3["R3: RemainingBudget helper"]
+    Goals --> R4["R4: FormatFlag helper"]
+    Goals --> R5["R5: Persistent checkpoint-backend flag"]
+    Goals --> R6["R6: Process exit code contract"]
+    Goals --> R7["R7: Live telemetry flags"]
+    AC1["AC1: Eight standard flag name constants are exported and match..."]
+    R1 --> AC1
+    AC2["AC2: PropagateArgs.Build() produces a correct flag slice, omit..."]
+    R2 --> AC2
+    AC3["AC3: RemainingBudget returns 0 for unlimited or exhausted budg..."]
+    R3 --> AC3
+    AC4["AC4: FormatFlag returns a two-element slice with the prefixed..."]
+    R4 --> AC4
+    AC5["AC5: --dolt-dsn selects the Dolt backend; Noop default; driver at root..."]
+    R5 --> AC5
+    AC7["AC7: Live telemetry flags compose dual export and stable service identity..."]
+    R7 --> AC7
+  ```

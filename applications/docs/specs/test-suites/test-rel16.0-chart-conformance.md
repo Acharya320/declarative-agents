@@ -139,17 +139,15 @@ assert any(e["id"] == suite["id"] for e in release["test_suites"])
 print("validated Release 16.0 chart conformance trace closure")
 PY
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-yaml_parses: true
-design_constitution_fields_present: true
-requirement_to_acceptance_criterion_closure: true
-reciprocal_srd_use_case_suite_traces: true
-guideline_carries_every_numbered_rule: true
-specification_and_roadmap_indexes_present: true
-```
+- yaml_parses: true
+- design_constitution_fields_present: true
+- requirement_to_acceptance_criterion_closure: true
+- reciprocal_srd_use_case_suite_traces: true
+- guideline_carries_every_numbered_rule: true
+- specification_and_roadmap_indexes_present: true
 
 <!-- field: traces -->
 #### Traces
@@ -185,16 +183,14 @@ GH-2408
 
 cd magefiles && go test . -run TestChartConformance
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-every_application_chart_rendered: true
-library_chart_vendored_before_render: true
-overlays_discovered_not_hardcoded: true
-defaults_render_checked_alongside_overlays: true
-non_values_files_in_ci_not_treated_as_overlays: true
-```
+- every_application_chart_rendered: true
+- library_chart_vendored_before_render: true
+- overlays_discovered_not_hardcoded: true
+- defaults_render_checked_alongside_overlays: true
+- non_values_files_in_ci_not_treated_as_overlays: true
 
 <!-- field: traces -->
 #### Traces
@@ -230,14 +226,12 @@ GH-2408
 
 cd magefiles && go test . -run TestChartConformance
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-latest_tag_reported: true
-absent_tag_reported: true
-floating_tag_in_defaults_reported: true
-```
+- latest_tag_reported: true
+- absent_tag_reported: true
+- floating_tag_in_defaults_reported: true
 
 <!-- field: traces -->
 #### Traces
@@ -273,14 +267,12 @@ GH-2408
 
 cd magefiles && go test . -run TestChartConformance
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-third_party_image_without_digest_reported: true
-repository_image_classified_by_prefix: true
-repository_image_not_required_to_carry_digest: true
-```
+- third_party_image_without_digest_reported: true
+- repository_image_classified_by_prefix: true
+- repository_image_not_required_to_carry_digest: true
 
 <!-- field: traces -->
 #### Traces
@@ -316,14 +308,12 @@ GH-2408
 
 cd magefiles && go test . -run TestChartConformance
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-image_pull_policy_always_reported: true
-load_balancer_service_reported: true
-switched_off_load_balancer_not_reported: true
-```
+- image_pull_policy_always_reported: true
+- load_balancer_service_reported: true
+- switched_off_load_balancer_not_reported: true
 
 <!-- field: traces -->
 #### Traces
@@ -359,14 +349,12 @@ GH-2408
 
 cd magefiles && go test . -run TestChartConformance
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-service_selector_resolved_to_workload: true
-workload_without_readiness_probe_reported: true
-unselected_workload_not_required_to_declare_one: true
-```
+- service_selector_resolved_to_workload: true
+- workload_without_readiness_probe_reported: true
+- unselected_workload_not_required_to_declare_one: true
 
 <!-- field: traces -->
 #### Traces
@@ -402,14 +390,12 @@ GH-2408
 
 cd magefiles && go test . -run TestChartConformance
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-every_checked_in_kind_configuration_read: true
-node_image_without_digest_reported: true
-node_image_without_version_reported: true
-```
+- every_checked_in_kind_configuration_read: true
+- node_image_without_digest_reported: true
+- node_image_without_version_reported: true
 
 <!-- field: traces -->
 #### Traces
@@ -445,16 +431,14 @@ GH-2408
 
 cd magefiles && go test . -run TestChartConformance
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-listed_violation_does_not_fail: true
-unlisted_violation_fails: true
-entry_whose_violation_no_longer_reproduces_fails: true
-gate_writes_no_edit_to_the_baseline: true
-entry_missing_issue_or_reason_rejected: true
-```
+- listed_violation_does_not_fail: true
+- unlisted_violation_fails: true
+- entry_whose_violation_no_longer_reproduces_fails: true
+- gate_writes_no_edit_to_the_baseline: true
+- entry_missing_issue_or_reason_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -490,16 +474,14 @@ GH-2408
 
 cd magefiles && go test . -run TestChartConformance
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-message_names_chart: true
-message_names_overlay: true
-message_names_resource_kind_and_name: true
-message_names_offending_value: true
-message_names_requirement_id: true
-```
+- message_names_chart: true
+- message_names_overlay: true
+- message_names_resource_kind_and_name: true
+- message_names_offending_value: true
+- message_names_requirement_id: true
 
 <!-- field: traces -->
 #### Traces
@@ -535,16 +517,14 @@ GH-2409
 
 mage audit
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-ollama_pinned_in_both_charts: true
-dolt_pinned: true
-remaining_third_party_images_carry_digests: true
-baseline_holds_no_floating_tag_entry: true
-demo_comes_up_on_the_pinned_images: true
-```
+- ollama_pinned_in_both_charts: true
+- dolt_pinned: true
+- remaining_third_party_images_carry_digests: true
+- baseline_holds_no_floating_tag_entry: true
+- demo_comes_up_on_the_pinned_images: true
 
 <!-- field: traces -->
 #### Traces
@@ -582,18 +562,16 @@ GH-2512
 
 cd magefiles && go test ./chartconf -run 'TestImageReferenceGrammar|TestConformingRenderProducesNoFinding'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-canonical_local_roles_accepted: true
-fully_qualified_upstream_accepted: true
-kindrig_alias_reported: true
-local_tag_reported: true
-untyped_hex_local_tag_reported: true
-smoke_repository_reported: true
-short_third_party_name_reported: true
-```
+- canonical_local_roles_accepted: true
+- fully_qualified_upstream_accepted: true
+- kindrig_alias_reported: true
+- local_tag_reported: true
+- untyped_hex_local_tag_reported: true
+- smoke_repository_reported: true
+- short_third_party_name_reported: true
 
 <!-- field: traces -->
 #### Traces
@@ -630,15 +608,13 @@ GH-2533
 
 cd magefiles && go test ./chartconf -run 'TestApplierRole|TestReadOnlyApplier|TestPluralResource' && go test . -run TestChartConformance
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-missing_rendered_kind_reported: true
-write_without_read_reported: true
-read_only_applier_not_checked: true
-shipped_charts_have_no_uncovered_kind: true
-```
+- missing_rendered_kind_reported: true
+- write_without_read_reported: true
+- read_only_applier_not_checked: true
+- shipped_charts_have_no_uncovered_kind: true
 
 <!-- field: traces -->
 #### Traces

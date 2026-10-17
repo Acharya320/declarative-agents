@@ -214,28 +214,26 @@ done:
     - Inbound extraction (R5): the REST server's startMachineRequestSpan extracts an incoming traceparent (and tracestate), parents the machine_request span on the remote SpanContext through the global tracer, and falls back to a new root on absent or malformed headers using the same parser; traceparent/tracestate are allowed undeclared request headers. Delivered by GH-310.
 ```
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Agents that receive a parent trace context from an ex..."] --> Goals["Goals: W3C Traceparent Parse and Format"]
-      Goals --> R1["R1: ParseTraceparent"]
-      Goals --> R2["R2: FormatTraceparent"]
-      Goals --> R3["R3: ParseParentSpan"]
-      Goals --> R4["R4: Outbound REST traceparent injection"]
-      Goals --> R5["R5: Inbound REST traceparent extraction"]
-      AC1["AC1: ParseTraceparent correctly parses valid version-00 tracep..."]
-      R1 --> AC1
-      AC2["AC2: FormatTraceparent round-trips with ParseTraceparent. Inva..."]
-      R2 --> AC2
-      AC3["AC3: ParseParentSpan returns a context with remote span, handl..."]
-      R3 --> AC3
-      AC4["AC4: Outbound REST client injects traceparent from the active span"]
-      R4 --> AC4
-      AC5["AC5: Inbound REST server extracts traceparent to parent the span"]
-      R5 --> AC5
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Agents that receive a parent trace context from an ex..."] --> Goals["Goals: W3C Traceparent Parse and Format"]
+    Goals --> R1["R1: ParseTraceparent"]
+    Goals --> R2["R2: FormatTraceparent"]
+    Goals --> R3["R3: ParseParentSpan"]
+    Goals --> R4["R4: Outbound REST traceparent injection"]
+    Goals --> R5["R5: Inbound REST traceparent extraction"]
+    AC1["AC1: ParseTraceparent correctly parses valid version-00 tracep..."]
+    R1 --> AC1
+    AC2["AC2: FormatTraceparent round-trips with ParseTraceparent. Inva..."]
+    R2 --> AC2
+    AC3["AC3: ParseParentSpan returns a context with remote span, handl..."]
+    R3 --> AC3
+    AC4["AC4: Outbound REST client injects traceparent from the active span"]
+    R4 --> AC4
+    AC5["AC5: Inbound REST server extracts traceparent to parent the span"]
+    R5 --> AC5
+  ```

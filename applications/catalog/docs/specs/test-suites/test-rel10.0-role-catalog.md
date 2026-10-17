@@ -56,25 +56,25 @@ mage validate
 
 cd ../../agent-core && go test ./...
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-renamed_families: [evaluator->critic, generator->executor]
-renamed_tool_dirs: [critic-session->critic-session, critic-point->critic-point]
-```
+- renamed_families:
+  1. evaluator->critic
+  1. generator->executor
+- renamed_tool_dirs:
+  1. critic-session->critic-session
+  1. critic-point->critic-point
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-agents_lists_critic_and_executor: true
-no_evaluator_or_generator_family: true
-grep_agents_evaluator_generator_zero_hits: true
-agent_core_builtin_dirs_renamed: true
-mage_validate_passes: true
-activity_tool_words_unchanged: true
-```
+- agents_lists_critic_and_executor: true
+- no_evaluator_or_generator_family: true
+- grep_agents_evaluator_generator_zero_hits: true
+- agent_core_builtin_dirs_renamed: true
+- mage_validate_passes: true
+- activity_tool_words_unchanged: true
 
 <!-- field: traces -->
 #### Traces
@@ -106,23 +106,21 @@ rel10.0-uc002-knowledge-family-rescope
 
 go test ./conformance -run 'Test(KnowledgeManager|CorpusIngest)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-moved_profiles: [agents/knowledge-manager/corpus-ingest->agents/knowledge-manager/corpus-ingest, agents/knowledge-manager/corpus-reader->agents/knowledge-manager/corpus-reader]
-```
+- moved_profiles:
+  1. agents/knowledge-manager/corpus-ingest->agents/knowledge-manager/corpus-ingest
+  1. agents/knowledge-manager/corpus-reader->agents/knowledge-manager/corpus-reader
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-knowledge_manager_hosts_corpus_profiles: true
-agents_chroma_removed: true
-grep_agents_chroma_zero_hits: true
-mage_validate_passes: true
-documentation_curator_conformance_passes: true
-```
+- knowledge_manager_hosts_corpus_profiles: true
+- agents_chroma_removed: true
+- grep_agents_chroma_zero_hits: true
+- mage_validate_passes: true
+- documentation_curator_conformance_passes: true
 
 <!-- field: traces -->
 #### Traces
@@ -156,22 +154,21 @@ mage conformance
 
 go test ./conformance -run 'Test(RestConformance|RestShippedProfileWiring|ControlConformance|LifecycleApprovalSuspendResume|LifecycleHistoryRollback)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-moved_fixtures: [agents/rest->testdata/conformance/rest, agents/control->testdata/conformance/control, agents/lifecycle->testdata/conformance/lifecycle]
-```
+- moved_fixtures:
+  1. agents/rest->testdata/conformance/rest
+  1. agents/control->testdata/conformance/control
+  1. agents/lifecycle->testdata/conformance/lifecycle
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-fixtures_under_testdata_conformance: true
-agents_lists_only_role_families: true
-grep_agents_rest_control_lifecycle_zero_hits: true
-mage_conformance_and_monitor_control_pass: true
-```
+- fixtures_under_testdata_conformance: true
+- agents_lists_only_role_families: true
+- grep_agents_rest_control_lifecycle_zero_hits: true
+- mage_conformance_and_monitor_control_pass: true
 
 <!-- field: traces -->
 #### Traces

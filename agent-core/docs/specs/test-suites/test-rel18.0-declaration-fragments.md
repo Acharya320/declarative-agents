@@ -36,13 +36,11 @@ rel18.0-uc001-declaration-fragments
 
 go test ./internal/tools/catalog ./internal/tools/rest/definition -run 'TestExpandProducesPrefixedTypedTools|TestExpandRESTFragmentTwiceWithPrefixes|TestFragmentBodyIsDecodedOnlyAfterSubstitution'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-loads: true
-param_types: string, integer, number, boolean
-```
+- loads: true
+- param_types: string, integer, number, boolean
 
 <!-- field: traces -->
 #### Traces
@@ -66,13 +64,11 @@ rel18.0-uc001-declaration-fragments
 
 go test ./internal/tools/catalog -run 'TestFragmentImportsResolveFromTheFragment|TestFragmentCannotNest'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-type_import_accepted: true
-nested_expand_rejected: true
-```
+- type_import_accepted: true
+- nested_expand_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -96,12 +92,10 @@ rel18.0-uc001-declaration-fragments
 
 go test ./internal/tools/catalog -run 'TestHalfDeclaredFragmentFails'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-error_names_file: true
-```
+- error_names_file: true
 
 <!-- field: traces -->
 #### Traces
@@ -125,13 +119,11 @@ rel18.0-uc001-declaration-fragments
 
 go test ./internal/tools/catalog -run 'TestExpandProducesPrefixedTypedTools|TestPlainUnitCannotBeExpanded'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-fragment_resolved_relative_to_importer: true
-as_optional: true
-```
+- fragment_resolved_relative_to_importer: true
+- as_optional: true
 
 <!-- field: traces -->
 #### Traces
@@ -155,13 +147,11 @@ rel18.0-uc001-declaration-fragments
 
 go test ./internal/tools/catalog ./internal/tools/rest/definition -run 'TestExpandArgumentFaultsNameImporterFragmentAndParameter|TestRESTArgumentFaultsNameImporterFragmentAndParameter'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-every_error_names_importer_fragment_parameter: true
-default_fills_omitted: true
-```
+- every_error_names_importer_fragment_parameter: true
+- default_fills_omitted: true
 
 <!-- field: traces -->
 #### Traces
@@ -185,15 +175,13 @@ rel18.0-uc001-declaration-fragments
 
 go test ./internal/fragments ./internal/tools/catalog -run 'TestSubstitute|TestReferenceInMappingNameIsLeftAndReported'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-scalar_substituted: true
-mapping_name_not_substituted_and_rejected: true
-undeclared_reference_names_fragment_and_line: true
-env_and_selector_forms_untouched: true
-```
+- scalar_substituted: true
+- mapping_name_not_substituted_and_rejected: true
+- undeclared_reference_names_fragment_and_line: true
+- env_and_selector_forms_untouched: true
 
 <!-- field: traces -->
 #### Traces
@@ -217,14 +205,12 @@ rel18.0-uc001-declaration-fragments
 
 go test ./internal/tools/catalog -run 'TestExpandedUnitTakesTheHandWrittenPath'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-strict_decode_applies: true
-per_tool_hooks_apply: true
-no_generated_file_written: true
-```
+- strict_decode_applies: true
+- per_tool_hooks_apply: true
+- no_generated_file_written: true
 
 <!-- field: traces -->
 #### Traces
@@ -248,13 +234,11 @@ rel18.0-uc001-declaration-fragments
 
 go test ./internal/tools/catalog ./internal/tools/rest/definition -run 'TestExpandProducesPrefixedTypedTools|TestExpandRESTFragmentTwiceWithPrefixes'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-names_prefixed: "<as>_<name>"
-both_selectable: true
-```
+- names_prefixed: <as>_<name>
+- both_selectable: true
 
 <!-- field: traces -->
 #### Traces
@@ -278,12 +262,10 @@ rel18.0-uc001-declaration-fragments
 
 go test ./internal/tools/catalog ./internal/tools/rest/definition -run 'TestFragmentUnderImportsIsRejected|TestRESTFragmentUnderImportsIsRejected'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-error_names_importer_and_fragment: true
-```
+- error_names_importer_and_fragment: true
 
 <!-- field: traces -->
 #### Traces
@@ -307,12 +289,10 @@ rel18.0-uc001-declaration-fragments
 
 go test ./internal/tools/catalog ./internal/tools/rest/definition -run 'TestRepeatedExpansionWithoutPrefixIsADuplicate|TestRepeatedRESTExpansionWithoutPrefixIsTheConflictError'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-error: srd050 duplicate-name error, not a fragment-specific one
-```
+- error: srd050 duplicate-name error, not a fragment-specific one
 
 <!-- field: traces -->
 #### Traces
@@ -336,14 +316,12 @@ rel18.0-uc001-declaration-fragments
 
 go test ./internal/load -run 'TestLoadClosureReportsAnUnselectedExpansionAsUnused|TestLoadClosureReportsAnUnreferencedRESTExpansionAsUnused'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-unselected_fails_as_unused_import: true
-evidence: importing file, fragment path, arguments
-selected_passes: true
-```
+- unselected_fails_as_unused_import: true
+- evidence: importing file, fragment path, arguments
+- selected_passes: true
 
 <!-- field: traces -->
 #### Traces
@@ -367,14 +345,12 @@ rel18.0-uc001-declaration-fragments
 
 go test ./internal/load ./cmd/agent -run 'TestLoadClosureDumpsEveryExpansion|TestLoadClosureDumpsRESTExpansionsBesideToolOnes|TestDumpGolden'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-section: expansions
-entries_carry: fragment, args, produced names
-two_dumps_identical: true
-```
+- section: expansions
+- entries_carry: fragment, args, produced names
+- two_dumps_identical: true
 
 <!-- field: traces -->
 #### Traces
@@ -398,13 +374,11 @@ rel18.0-uc001-declaration-fragments
 
 go test ./internal/runtime/core -run 'TestLoadMachineClosureSplicesAStageTwice|TestStageArgumentFaultsNameFragmentAndParameter'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-states_prefixed: true
-entry_exit_from_args: true
-```
+- states_prefixed: true
+- entry_exit_from_args: true
 
 <!-- field: traces -->
 #### Traces
@@ -428,14 +402,12 @@ rel18.0-uc001-declaration-fragments
 
 go test ./internal/runtime/core ./internal/load ./cmd/agent -run 'TestSplicedStageIsValidatedAsOneMachine|TestSplicingTheSamePrefixTwiceIsTheDuplicateStateError|TestLoadClosureDumpsMachineStageExpansions|TestDumpGolden'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-label_check_applies: true
-exhaustiveness_applies: true
-correct_splice_loads: true
-```
+- label_check_applies: true
+- exhaustiveness_applies: true
+- correct_splice_loads: true
 
 <!-- field: traces -->
 #### Traces
@@ -459,18 +431,16 @@ rel18.0-uc001-declaration-fragments
 
 go test ./internal/runtime/core ./internal/support/envexpand ./pkg/profilestage -run 'TestStageFragmentVariantIsSelectedByEnvironment|TestSelectedStageVariantIsValidatedAsOneMachine|TestTemplatedStagePathsThatCannotSelectAVariantFail|TestSelectVariant|TestStageCarriesEveryVariantOfAnEnvironmentSelectedStage|TestStageRefusesAVariantPathItCannotStage'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-unset_selects_default: true
-bound_selects_variant: true
-one_variant_spliced: true
-dump_names_resolved_path: true
-broken_variant_fails_naming_resolved_fragment: true
-missing_default_or_no_default_fails_naming_path: true
-staging_and_packaging_carry_every_variant: true
-```
+- unset_selects_default: true
+- bound_selects_variant: true
+- one_variant_spliced: true
+- dump_names_resolved_path: true
+- broken_variant_fails_naming_resolved_fragment: true
+- missing_default_or_no_default_fails_naming_path: true
+- staging_and_packaging_carry_every_variant: true
 
 <!-- field: traces -->
 #### Traces

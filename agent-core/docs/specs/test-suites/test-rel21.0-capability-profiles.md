@@ -36,14 +36,12 @@ rel21.0-uc001-capability-profiles
 
 go test ./internal/load ./internal/tools/catalog -run 'TestCapabilityProfileLoadsAndTerminates|TestCapabilityProfileDeclaresNoServingAssets'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-loads_and_terminates: true
-serving_assets_reported: true
-no_extra_profile_field_required: true
-```
+- loads_and_terminates: true
+- serving_assets_reported: true
+- no_extra_profile_field_required: true
 
 <!-- field: traces -->
 #### Traces
@@ -67,13 +65,11 @@ rel21.0-uc001-capability-profiles
 
 go test ./internal/load -run 'TestCapabilityProfileIsReachedOnlyByPath'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-path_references_resolve: true
-bare_name_rejected: true
-```
+- path_references_resolve: true
+- bare_name_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -97,15 +93,13 @@ rel21.0-uc001-capability-profiles
 
 go test ./internal/tools/rest ./internal/tools/control ./internal/load -run 'TestMachineRequestBindsACapabilityProfile|TestSelfInvokeRunsACapabilityProfile|TestServingWrapperHostsACapabilityProfile'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-terminal_states_map_to_responses: true
-selectors_undo_and_trace_propagate: true
-hosted_without_edit: true
-capability_bytes_identical: true
-```
+- terminal_states_map_to_responses: true
+- selectors_undo_and_trace_propagate: true
+- hosted_without_edit: true
+- capability_bytes_identical: true
 
 <!-- field: traces -->
 #### Traces
@@ -131,12 +125,10 @@ rel21.0-uc001-capability-profiles
 
 go test ./internal/tools/evaluation -run 'TestRunPointRequiresItsPointMachine'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-registration_fails_naming_missing_fields: true
-```
+- registration_fails_naming_missing_fields: true
 
 <!-- field: traces -->
 #### Traces
@@ -160,15 +152,13 @@ rel21.0-uc001-capability-profiles
 
 go test ./pkg/profileaudit -run 'TestAuditReportsAMachineReachedByTwoProfiles|TestAuditReportsAnOverrideWhoseMachineIsShared|TestAuditIsSilentForAPrivateMachine'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-shared_machine_reported_with_every_reaching_profile: true
-shared_override_reported: true
-reported_as_finding_not_load_error: true
-private_machine_silent: true
-```
+- shared_machine_reported_with_every_reaching_profile: true
+- shared_override_reported: true
+- reported_as_finding_not_load_error: true
+- private_machine_silent: true
 
 <!-- field: traces -->
 #### Traces

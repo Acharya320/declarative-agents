@@ -139,17 +139,15 @@ assert any(e["id"] == suite["id"] for e in release["test_suites"])
 print("validated Release 18.0 release annotation trace closure")
 PY
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-yaml_parses: true
-design_constitution_fields_present: true
-requirement_to_acceptance_criterion_closure: true
-reciprocal_srd_use_case_suite_traces: true
-guideline_carries_the_section_and_the_verb: true
-specification_and_roadmap_indexes_present: true
-```
+- yaml_parses: true
+- design_constitution_fields_present: true
+- requirement_to_acceptance_criterion_closure: true
+- reciprocal_srd_use_case_suite_traces: true
+- guideline_carries_the_section_and_the_verb: true
+- specification_and_roadmap_indexes_present: true
 
 <!-- field: traces -->
 #### Traces
@@ -185,15 +183,13 @@ GH-2420
 
 cd magefiles && go test . -run TestTagVerify
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-missing_tag_refused: true
-lightweight_tag_refused: true
-each_refusal_names_its_rule: true
-annotated_tag_passes_this_rule: true
-```
+- missing_tag_refused: true
+- lightweight_tag_refused: true
+- each_refusal_names_its_rule: true
+- annotated_tag_passes_this_rule: true
 
 <!-- field: traces -->
 #### Traces
@@ -229,16 +225,14 @@ GH-2420
 
 cd magefiles && go test . -run TestTagVerify
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-subject_equal_to_tag_name_refused: true
-empty_subject_refused: true
-under_bar_summary_refused: true
-substance_bar_stated_once: true
-real_summary_passes: true
-```
+- subject_equal_to_tag_name_refused: true
+- empty_subject_refused: true
+- under_bar_summary_refused: true
+- substance_bar_stated_once: true
+- real_summary_passes: true
 
 <!-- field: traces -->
 #### Traces
@@ -274,14 +268,12 @@ GH-2420
 
 cd magefiles && go test . -run TestTagVerify
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-side_branch_tag_refused: true
-absent_main_is_a_named_failure: true
-main_tag_passes_this_rule: true
-```
+- side_branch_tag_refused: true
+- absent_main_is_a_named_failure: true
+- main_tag_passes_this_rule: true
 
 <!-- field: traces -->
 #### Traces
@@ -317,14 +309,12 @@ GH-2420
 
 cd magefiles && go test . -run TestTagVerify
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-ref_set_unchanged_across_a_pass: true
-ref_set_unchanged_across_a_refusal: true
-working_tree_unchanged: true
-```
+- ref_set_unchanged_across_a_pass: true
+- ref_set_unchanged_across_a_refusal: true
+- working_tree_unchanged: true
 
 <!-- field: traces -->
 #### Traces
@@ -360,13 +350,11 @@ GH-2420
 
 gh issue view 2198 --json body --jq .body | grep -c "tag:verify"
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-runbook_carries_the_step_between_annotation_and_push: true
-skill_counterpart_filed_and_linked: true
-```
+- runbook_carries_the_step_between_annotation_and_push: true
+- skill_counterpart_filed_and_linked: true
 
 <!-- field: traces -->
 #### Traces

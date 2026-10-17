@@ -250,35 +250,33 @@ runtime contract. Two tool types exist: builtin tools
     guidance, not execution constraints.
 ```
 
-<!-- field: builtin_fields -->
+<!-- field: builtin_fields | form: "tree" -->
 ## Builtin fields
 
-```yaml
-- field: init
-  type: string
-  required: true
-  description: |
-    Factory name in the BuiltinRegistry. Maps to a Go constructor
-    that creates the tool instance at startup (e.g. "file_read",
-    "invoke_llm", "parse_response").
-- field: config
-  type: object
-  required: false
-  description: |
-    Tool-specific configuration passed to the factory function.
-    Decoded into typed Go structs via DecodeToolConfig at registration
-    time. Type mismatches and unknown top-level keys produce errors mentioning
-    the tool name; older runtimes reject config authored for a newer word
-    rather than silently ignoring behavior they do not implement.
-    Structure varies per tool. Boundary tools that spawn child agents use
-    profile-only child_agent_config for self_invoke and profile aliases such as invoke_executor.
-    LLMToolConfig configures invoke_llm. LoadSuiteConfig configures
-    parse_suite_config and evaluator session setup tools. RunPointConfig
-    configures run_point. EvaluationArtifactsConfig configures read-only
-    evaluation artifact query words.
-    Filesystem document resource words use document_resource_config.
-    See cfg-llm-config-format for invoke_llm details.
-```
+1. - field: init
+   - type: string
+   - required: true
+   - description:
+     Factory name in the BuiltinRegistry. Maps to a Go constructor
+     that creates the tool instance at startup (e.g. "file_read",
+     "invoke_llm", "parse_response").
+1. - field: config
+   - type: object
+   - required: false
+   - description:
+     Tool-specific configuration passed to the factory function.
+     Decoded into typed Go structs via DecodeToolConfig at registration
+     time. Type mismatches and unknown top-level keys produce errors mentioning
+     the tool name; older runtimes reject config authored for a newer word
+     rather than silently ignoring behavior they do not implement.
+     Structure varies per tool. Boundary tools that spawn child agents use
+     profile-only child_agent_config for self_invoke and profile aliases such as invoke_executor.
+     LLMToolConfig configures invoke_llm. LoadSuiteConfig configures
+     parse_suite_config and evaluator session setup tools. RunPointConfig
+     configures run_point. EvaluationArtifactsConfig configures read-only
+     evaluation artifact query words.
+     Filesystem document resource words use document_resource_config.
+     See cfg-llm-config-format for invoke_llm details.
 
 <!-- field: document_resource_config -->
 ## Document resource config
@@ -340,151 +338,147 @@ examples:
                 - {pattern: "specs/software-requirements/**", category: srd}
 ```
 
-<!-- field: metric_declaration_fields -->
+<!-- field: metric_declaration_fields | form: "tree" -->
 ## Metric declaration fields
 
-```yaml
-status: planned
-purpose: |
-    Defines the planned shape of ToolDef metrics config. Metric declarations
-    reserve vocabulary for follow-up monitor SRDs and code. They should be
-    written only for values the tool can emit safely through a shared recorder.
-fields:
-    - field: instruments
-      type: "[]object"
-      required: false
-      description: |
-        Metric instruments emitted by the tool. Each item declares name, kind,
-        unit, description, value_source, and allowed attributes.
-    - field: attributes
-      type: "[]object"
-      required: false
-      description: |
-        Shared attribute declarations for this tool. Attribute values must come
-        from trusted config, bounded runtime enums, or redacted low-cardinality
-        values allowed by the metric schema.
-    - field: disabled
-      type: bool
-      required: false
-      description: |
-        Explicit opt-out for a tool that would otherwise receive standard
-        dispatch metrics from profile or runtime policy.
-instrument_fields:
-    - field: name
-      type: string
-      required: true
-      description: Stable metric name scoped by tool family or package.
-    - field: kind
-      type: string
-      required: true
-      description: One of counter, up_down_counter, histogram, or gauge.
-    - field: unit
-      type: string
-      required: false
-      description: Unit string such as ms, By, "{dispatch}", or "{retry}".
-    - field: description
-      type: string
-      required: true
-      description: Human-readable metric meaning.
-    - field: value_source
-      type: string
-      required: true
-      description: |
-        Named source for the metric value. Examples include dispatch_duration,
-        result_output_bytes, exit_code, http_status_code, prompt_tokens, or a
-        tool-specific safe field.
-    - field: attributes
-      type: "[]string"
-      required: false
-      description: Names of attributes allowed on this instrument.
-    - field: buckets
-      type: "[]number"
-      required: false
-      description: Optional histogram buckets for duration, byte, or count data.
-attribute_fields:
-    - field: name
-      type: string
-      required: true
-      description: Stable attribute name.
-    - field: source
-      type: string
-      required: true
-      description: |
-        Trusted source for the value. Allowed source classes are config_literal,
-        tool_name, tool_family, state, signal, status, error_class,
-        workflow_label, and configured_operation.
-    - field: cardinality
-      type: string
-      required: true
-      description: Must be low or bounded.
-    - field: allowed_values
-      type: "[]string"
-      required: false
-      description: Explicit allowed set for bounded string labels.
-    - field: redaction
-      type: string
-      required: false
-      description: Omit, hash, classify, or none. Defaults to omit for unsafe sources.
-safety_rules:
-    - Do not use raw prompts as metric labels.
-    - Do not use full model responses or full command output as metric labels.
-    - Do not use secret values, authorization headers, cookies, passwords, or tokens.
-    - Do not use unbounded absolute paths, arbitrary URLs, request IDs, timestamps, or user free text.
-    - Prefer configured operation names, path classes, status enums, and workflow labels.
-example: |
-    metrics:
-      instruments:
-        - name: rest_client_request_duration
-          kind: histogram
-          unit: ms
-          description: Duration of one configured REST client request.
-          value_source: dispatch_duration
-          attributes: [tool_name, state, signal, status, operation]
-      attributes:
-        - name: operation
-          source: configured_operation
-          cardinality: bounded
-          allowed_values: [documentation_curator.documents]
-          redaction: none
-```
+- status: planned
+- purpose:
+  Defines the planned shape of ToolDef metrics config. Metric declarations
+  reserve vocabulary for follow-up monitor SRDs and code. They should be
+  written only for values the tool can emit safely through a shared recorder.
+- fields:
+  1. - field: instruments
+     - type: "[]object"
+     - required: false
+     - description:
+       Metric instruments emitted by the tool. Each item declares name, kind,
+       unit, description, value_source, and allowed attributes.
+  1. - field: attributes
+     - type: "[]object"
+     - required: false
+     - description:
+       Shared attribute declarations for this tool. Attribute values must come
+       from trusted config, bounded runtime enums, or redacted low-cardinality
+       values allowed by the metric schema.
+  1. - field: disabled
+     - type: bool
+     - required: false
+     - description:
+       Explicit opt-out for a tool that would otherwise receive standard
+       dispatch metrics from profile or runtime policy.
+- instrument_fields:
+  1. - field: name
+     - type: string
+     - required: true
+     - description: Stable metric name scoped by tool family or package.
+  1. - field: kind
+     - type: string
+     - required: true
+     - description: One of counter, up_down_counter, histogram, or gauge.
+  1. - field: unit
+     - type: string
+     - required: false
+     - description: Unit string such as ms, By, "{dispatch}", or "{retry}".
+  1. - field: description
+     - type: string
+     - required: true
+     - description: Human-readable metric meaning.
+  1. - field: value_source
+     - type: string
+     - required: true
+     - description:
+       Named source for the metric value. Examples include dispatch_duration,
+       result_output_bytes, exit_code, http_status_code, prompt_tokens, or a
+       tool-specific safe field.
+  1. - field: attributes
+     - type: "[]string"
+     - required: false
+     - description: Names of attributes allowed on this instrument.
+  1. - field: buckets
+     - type: "[]number"
+     - required: false
+     - description: Optional histogram buckets for duration, byte, or count data.
+- attribute_fields:
+  1. - field: name
+     - type: string
+     - required: true
+     - description: Stable attribute name.
+  1. - field: source
+     - type: string
+     - required: true
+     - description:
+       Trusted source for the value. Allowed source classes are config_literal,
+       tool_name, tool_family, state, signal, status, error_class,
+       workflow_label, and configured_operation.
+  1. - field: cardinality
+     - type: string
+     - required: true
+     - description: Must be low or bounded.
+  1. - field: allowed_values
+     - type: "[]string"
+     - required: false
+     - description: Explicit allowed set for bounded string labels.
+  1. - field: redaction
+     - type: string
+     - required: false
+     - description: Omit, hash, classify, or none. Defaults to omit for unsafe sources.
+- safety_rules:
+  1. Do not use raw prompts as metric labels.
+  1. Do not use full model responses or full command output as metric labels.
+  1. Do not use secret values, authorization headers, cookies, passwords, or tokens.
+  1. Do not use unbounded absolute paths, arbitrary URLs, request IDs, timestamps, or user free text.
+  1. Prefer configured operation names, path classes, status enums, and workflow labels.
+- example:
+  metrics:
+    instruments:
+      - name: rest_client_request_duration
+        kind: histogram
+        unit: ms
+        description: Duration of one configured REST client request.
+        value_source: dispatch_duration
+        attributes: [tool_name, state, signal, status, operation]
+    attributes:
+      - name: operation
+        source: configured_operation
+        cardinality: bounded
+        allowed_values: [documentation_curator.documents]
+        redaction: none
 
-<!-- field: child_agent_config -->
+<!-- field: child_agent_config | form: "tree" -->
 ## Child agent config
 
-```yaml
-purpose: |
-    Defines config for builtin boundary tools that spawn another agent process.
-    This applies to self_invoke and profile aliases such as invoke_executor.
-fields:
-    - field: profile
-      type: string
-      required: true
-      description: |
-        Path to the child agent profile YAML. The child process receives this
-        value as --profile. The profile owns the child's machine, tools.yaml,
-        tool_config_dirs, tool_declarations, and agent-local config.
-legacy_fields:
-    status: planned_removal
-    fields:
-        - machine
-        - tools
-        - tools_declarations
-    rule: |
-        New declarations and examples must not use these fields. Existing Go
-        structs still decode them until the profile-only child invocation code
-        cleanup lands. Documentation should mention them only as implementation
-        drift.
-examples:
-    invoke_executor: |
-        init: self_invoke
-        config:
-          profile: ${AGENT_CATALOG_ROOT}/generator/profile.yaml
-    self_invoke: |
-        config:
-          profile: ${AGENT_CATALOG_ROOT}/generator/profile.yaml
-          request_from: $from(request).path
-          output_from: $from(request).output_dir
-```
+- purpose:
+  Defines config for builtin boundary tools that spawn another agent process.
+  This applies to self_invoke and profile aliases such as invoke_executor.
+- fields:
+  1. - field: profile
+     - type: string
+     - required: true
+     - description:
+       Path to the child agent profile YAML. The child process receives this
+       value as --profile. The profile owns the child's machine, tools.yaml,
+       tool_config_dirs, tool_declarations, and agent-local config.
+- legacy_fields:
+  - status: planned_removal
+  - fields:
+    1. machine
+    1. tools
+    1. tools_declarations
+  - rule:
+    New declarations and examples must not use these fields. Existing Go
+    structs still decode them until the profile-only child invocation code
+    cleanup lands. Documentation should mention them only as implementation
+    drift.
+- examples:
+  - invoke_executor:
+    init: self_invoke
+    config:
+      profile: ${AGENT_CATALOG_ROOT}/generator/profile.yaml
+  - self_invoke:
+    config:
+      profile: ${AGENT_CATALOG_ROOT}/generator/profile.yaml
+      request_from: $from(request).path
+      output_from: $from(request).output_dir
 
 <!-- field: exec_fields -->
 ## Exec fields
@@ -559,163 +553,157 @@ examples:
     tool with the same name.
 ```
 
-<!-- field: parameter_extensions -->
+<!-- field: parameter_extensions | form: "tree" -->
 ## Parameter extensions
 
-```yaml
-description: |
-    Exec tools support custom JSON Schema extensions on individual
-    parameter properties. These extensions control how parameter values
-    are mapped to CLI arguments when invoking the external executable.
-    A source extension can instead select a value from an earlier command-state
-    entry. All extensions are stripped from the schema before it is sent to the
-    LLM, so the model never sees CLI-level or command-state wiring details.
-fields:
-    - field: flag
-      type: string
-      description: |
-        CLI flag mapping. The parameter value is passed as this flag
-        (e.g. "--path" causes the value to be passed as --path <value>).
-    - field: positional
-      type: bool
-      description: |
-        When true, the parameter value is passed as a positional
-        argument rather than a named flag.
-    - field: bool_flag
-      type: bool
-      description: |
-        Boolean flag marker. When true and the parameter value is
-        true, the CLI flag from the "flag" field is included in the
-        command (e.g. flag: "--all", bool_flag: true).
-    - field: default
-      type: string
-      description: |
-        Default value used when the LLM omits the parameter. Applied
-        before CLI argument construction.
-    - field: position
-      type: int
-      description: |
-        Positive ordering key for mapped arguments. Positioned mappings are
-        appended in ascending order after the tool's base args. Unpositioned
-        mappings follow in stable parameter-name order.
-    - field: source
-      type: string
-      description: |
-        Optional canonical $from(<label>).<dotted-path> selector. The exec
-        command resolves it from the injected command-state view before
-        subprocess launch. When omitted, the parameter keeps the existing
-        parameters.<name> lookup against the immediately previous Result.
-        A malformed selector fails declaration validation. An unresolved label
-        or path emits CommandError and prevents subprocess launch; it never
-        substitutes an empty value.
-      example: "$from(seed).parameters.directory"
-```
+- description:
+  Exec tools support custom JSON Schema extensions on individual
+  parameter properties. These extensions control how parameter values
+  are mapped to CLI arguments when invoking the external executable.
+  A source extension can instead select a value from an earlier command-state
+  entry. All extensions are stripped from the schema before it is sent to the
+  LLM, so the model never sees CLI-level or command-state wiring details.
+- fields:
+  1. - field: flag
+     - type: string
+     - description:
+       CLI flag mapping. The parameter value is passed as this flag
+       (e.g. "--path" causes the value to be passed as --path <value>).
+  1. - field: positional
+     - type: bool
+     - description:
+       When true, the parameter value is passed as a positional
+       argument rather than a named flag.
+  1. - field: bool_flag
+     - type: bool
+     - description:
+       Boolean flag marker. When true and the parameter value is
+       true, the CLI flag from the "flag" field is included in the
+       command (e.g. flag: "--all", bool_flag: true).
+  1. - field: default
+     - type: string
+     - description:
+       Default value used when the LLM omits the parameter. Applied
+       before CLI argument construction.
+  1. - field: position
+     - type: int
+     - description:
+       Positive ordering key for mapped arguments. Positioned mappings are
+       appended in ascending order after the tool's base args. Unpositioned
+       mappings follow in stable parameter-name order.
+  1. - field: source
+     - type: string
+     - description:
+       Optional canonical $from(<label>).<dotted-path> selector. The exec
+       command resolves it from the injected command-state view before
+       subprocess launch. When omitted, the parameter keeps the existing
+       parameters.<name> lookup against the immediately previous Result.
+       A malformed selector fails declaration validation. An unresolved label
+       or path emits CommandError and prevents subprocess launch; it never
+       substitutes an empty value.
+     - example: $from(seed).parameters.directory
 
-<!-- field: declaration_files -->
+<!-- field: declaration_files | form: "tree" -->
 ## Declaration files
 
-```yaml
-- file: tools/builtin/
-  description: |
-    Directory of individual shared filesystem and builtin tool declarations
-    loaded by current profiles through tool_config_dirs. The declarations
-    cover file operations (read, write, edit, find, and the exec-bound
-    list_files declaration), the LLM
-    pipeline (parse_response, report_parse_error, reset_history),
-    completion and control (done, suspend, nudge_reread, self_invoke),
-    planner tools, evaluator session and point tools, bench tools, and spec
-    validation tools. Note: invoke_llm is declared per-agent in <profile-root>/*/llm/*.yaml,
-    not in this directory. The tool count evolves with the codebase;
-    consult the directory directly for the current set.
-- file: tools/exec/
-  description: |
-    Directory of individual shared exec tool declarations loaded by
-    current profiles through tool_config_dirs. The declarations cover
-    Go build tools (build, vet, lint, test), filesystem utilities
-    (copy_dir, make_dir), git operations (git_init, stage_all,
-    workspace_status, commit, rev_parse, diff_stat, log_oneline), and
-    issue management (issue_create, issue_close, issue_list). The
-    tool count evolves with the codebase; consult the directory
-    directly for the current set.
-- file: "<profile-root>/*/llm/*.yaml"
-  description: |
-    Per-model invoke_llm declarations with config blocks specifying
-    model name, provider, endpoint URL, and prompts. Each agent
-    directory contains its own llm/ subdirectory with one file per
-    model variant. See cfg-llm-config-format for details.
-```
+1. - file: tools/builtin/
+   - description:
+     Directory of individual shared filesystem and builtin tool declarations
+     loaded by current profiles through tool_config_dirs. The declarations
+     cover file operations (read, write, edit, find, and the exec-bound
+     list_files declaration), the LLM
+     pipeline (parse_response, report_parse_error, reset_history),
+     completion and control (done, suspend, nudge_reread, self_invoke),
+     planner tools, evaluator session and point tools, bench tools, and spec
+     validation tools. Note: invoke_llm is declared per-agent in <profile-root>/*/llm/*.yaml,
+     not in this directory. The tool count evolves with the codebase;
+     consult the directory directly for the current set.
+1. - file: tools/exec/
+   - description:
+     Directory of individual shared exec tool declarations loaded by
+     current profiles through tool_config_dirs. The declarations cover
+     Go build tools (build, vet, lint, test), filesystem utilities
+     (copy_dir, make_dir), git operations (git_init, stage_all,
+     workspace_status, commit, rev_parse, diff_stat, log_oneline), and
+     issue management (issue_create, issue_close, issue_list). The
+     tool count evolves with the codebase; consult the directory
+     directly for the current set.
+1. - file: <profile-root>/*/llm/*.yaml
+   - description:
+     Per-model invoke_llm declarations with config blocks specifying
+     model name, provider, endpoint URL, and prompts. Each agent
+     directory contains its own llm/ subdirectory with one file per
+     model variant. See cfg-llm-config-format for details.
 
-<!-- field: fragment_files -->
+<!-- field: fragment_files | form: "tree" -->
 ## Fragment files
 
-```yaml
-description: |
-    A tool declaration file MAY be a fragment: a unit with declared, typed
-    parameters that another file expands with arguments
-    (srd052-declaration-fragments). The two file-level fields below sit
-    beside `unit` and `imports` (srd050). A fragment is only ever
-    expanded; listing one under `imports` is a load error. Substitution
-    replaces `$param(name)` inside scalar values only, never inside mapping
-    names or list structure, and the expanded document is decoded and
-    validated exactly as a hand-written file would be. Nothing generated is
-    committed. Arriving with GH-2081.
-fields:
-    - field: params
-      type: "[]param"
-      required: false
-      description: |
-        Declares the fragment's parameters. Present together with exactly one
-        body (`tools` here). Each entry carries `name` and `type`, and
-        optionally `enum`, `default`, and `description`. `type` is one of
-        string, integer, number, boolean. A file with `params` and no body,
-        or a body with a `$param(` reference and no `params`, fails to load.
-    - field: expand
-      type: "[]expansion"
-      required: false
-      description: |
-        Expands fragments into this file's closure. Each entry carries
-        `fragment`, a path relative to this file under the import rules;
-        `args`, a mapping from parameter name to value; and optionally `as`,
-        a prefix applied as `<as>_` to every name the expansion produces
-        so one fragment can be expanded more than once. Every parameter
-        without a default must be supplied; an unknown argument, a wrong type,
-        or a value outside an enum fails naming this file, the fragment, and
-        the parameter.
-example: |
-    # units/embed-provider.yaml -- the fragment
-    unit: embed-provider
-    imports:
-    - ./types-core.yaml
-    params:
-    - name: provider
-      type: string
-      enum: [cohere, openai, ollama]
-    - name: model
-      type: string
-    tools:
-    - name: embed_query
-      type: builtin
-      init: rest_client_invoke
-      category: boundary
-      description: Embed the query with $param(provider) model $param(model).
-      config:
-        rest_ref: $param(provider)_api
-        operation: embed
+- description:
+  A tool declaration file MAY be a fragment: a unit with declared, typed
+  parameters that another file expands with arguments
+  (srd052-declaration-fragments). The two file-level fields below sit
+  beside `unit` and `imports` (srd050). A fragment is only ever
+  expanded; listing one under `imports` is a load error. Substitution
+  replaces `$param(name)` inside scalar values only, never inside mapping
+  names or list structure, and the expanded document is decoded and
+  validated exactly as a hand-written file would be. Nothing generated is
+  committed. Arriving with GH-2081.
+- fields:
+  1. - field: params
+     - type: "[]param"
+     - required: false
+     - description:
+       Declares the fragment's parameters. Present together with exactly one
+       body (`tools` here). Each entry carries `name` and `type`, and
+       optionally `enum`, `default`, and `description`. `type` is one of
+       string, integer, number, boolean. A file with `params` and no body,
+       or a body with a `$param(` reference and no `params`, fails to load.
+  1. - field: expand
+     - type: "[]expansion"
+     - required: false
+     - description:
+       Expands fragments into this file's closure. Each entry carries
+       `fragment`, a path relative to this file under the import rules;
+       `args`, a mapping from parameter name to value; and optionally `as`,
+       a prefix applied as `<as>_` to every name the expansion produces
+       so one fragment can be expanded more than once. Every parameter
+       without a default must be supplied; an unknown argument, a wrong type,
+       or a value outside an enum fails naming this file, the fragment, and
+       the parameter.
+- example:
+  # units/embed-provider.yaml -- the fragment
+  unit: embed-provider
+  imports:
+  - ./types-core.yaml
+  params:
+  - name: provider
+    type: string
+    enum: [cohere, openai, ollama]
+  - name: model
+    type: string
+  tools:
+  - name: embed_query
+    type: builtin
+    init: rest_client_invoke
+    category: boundary
+    description: Embed the query with $param(provider) model $param(model).
+    config:
+      rest_ref: $param(provider)_api
+      operation: embed
 
-    # agents/rag/declarations.yaml -- the importer
-    unit: rag
-    imports:
-    - ../units/types-core.yaml
-    expand:
-    - fragment: ../units/embed-provider.yaml
-      as: cohere
-      args: {provider: cohere, model: embed-english-v3.0}
-    - fragment: ../units/embed-provider.yaml
-      as: openai
-      args: {provider: openai, model: text-embedding-3-small}
-    tools: []
-    # produces cohere_embed_query and openai_embed_query
-```
+  # agents/rag/declarations.yaml -- the importer
+  unit: rag
+  imports:
+  - ../units/types-core.yaml
+  expand:
+  - fragment: ../units/embed-provider.yaml
+    as: cohere
+    args: {provider: cohere, model: embed-english-v3.0}
+  - fragment: ../units/embed-provider.yaml
+    as: openai
+    args: {provider: openai, model: text-embedding-3-small}
+  tools: []
+  # produces cohere_embed_query and openai_embed_query
 
 <!-- field: library_imports -->
 ## Library imports
@@ -839,90 +827,155 @@ worktree_list, issue_claim) that are not yet migrated to the canonical exec
 declarations. Retained as a reference for tools that may be promoted to the
 canonical set.
 
-<!-- field: target_grouped_layout -->
+<!-- field: target_grouped_layout | form: "tree" -->
 ## Target grouped layout
 
-```yaml
-status: planned
-rule: |
-    Current profiles load flat declaration directories. The next YAML move
-    groups shared declarations by tool family while keeping compatibility
-    bundle files loadable through profile-owned declaration paths and tests.
-builtin_groups:
-    - path: tools/builtin/filesystem/
-      owns: [read, write, edit, find, list_files]
-      kind: shared
-    - path: tools/builtin/llm/
-      owns: [parse_response, report_parse_error, reset_history, nudge_reread, done]
-      kind: shared
-      note: invoke_llm remains agent-local under <profile-root>/*/llm/*.yaml because its config binds model, provider, prompt, and profile behavior.
-    - path: tools/builtin/lifecycle/
-      owns: [suspend, checkpoint_history, checkpoint_rollback]
-      kind: shared
-    - path: tools/builtin/control/
-      owns: [self_invoke]
-      kind: shared
-    - path: tools/builtin/planner/
-      owns: [extract_task, select_all_ready, seed_passthrough_plan, mark_nodes_planning, project_planner_context, capture_planner_failure, parse_plan, format_issue, write, record_tracker_issue, mark_nodes_executing, format_task_file, mark_task_done, mark_task_failed, remaining_work]
-      kind: shared planner-family declarations
-    - path: tools/builtin/critic-session/
-      owns: [parse_suite_config, discover_suite_samples, expand_eval_grid, init_eval_session, report_suite_summary, materialize_eval_points, run_point, report_session]
-      kind: shared critic-session declarations
-    - path: tools/builtin/critic-point/
-      owns: [create_point_dir, sample_docs, record_agent_commit, dump_config, run_agent, record_oracle_result, collect_trace_tokens, check_agent_version, summarize_point_results, record_point_failure, collect_metrics]
-      kind: shared critic-point declarations
-      note: Workspace copying, git setup, and rev_parse reuse tools/exec declarations; the external critic profile owns its deterministic commit_workspace_baseline and run_oracle_check exec aliases.
-    - path: tools/builtin/spec-validation/
-      owns: [load_corpus, validate_specs, format_report]
-      kind: shared jurist declarations
-exec_groups:
-    - path: tools/exec/go/
-      owns: [build, vet, lint, test]
-      kind: shared
-    - path: tools/exec/workspace/
-      owns: [copy_dir, make_dir]
-      kind: shared
-    - path: tools/exec/git/
-      owns: [git_init, stage_all, workspace_status, commit, rev_parse, diff_stat, log_oneline]
-      kind: shared
-    - path: tools/exec/issues/
-      owns: [issue_create, issue_close, issue_list]
-      kind: shared
-compatibility_bundles:
-    - path: tools/builtin.yaml
-      role: Compatibility bundle that includes every shared builtin group needed by profiles or tests that load the aggregate declaration file.
-    - path: tools/exec.yaml
-      role: Compatibility bundle that includes every shared exec group needed by profiles or tests that load the aggregate declaration file.
-    - path: tools/builtin/all.yaml
-      role: Planned explicit bundle for profiles or tests that need the full builtin declaration set.
-    - path: tools/exec/all.yaml
-      role: Planned explicit bundle for profiles or tests that need the full exec declaration set.
-    - path: tools/builtin/generator.yaml
-      role: Planned optional bundle for generator shared builtins; profiles may instead load the needed groups directly.
-    - path: tools/builtin/planner.yaml
-      role: Planned optional bundle for planner shared builtins; agent-local overrides still live under <profile-root>/planner/.
-    - path: tools/builtin/evaluator.yaml
-      role: Planned optional bundle for evaluator session and point builtins; agent-local config still lives under <profile-root>/evaluator/.
-    - path: tools/builtin/bench.yaml
-      role: Planned optional bundle for bench builtins; agent-local config still lives under <profile-root>/bench/.
-    - path: tools/builtin/jurist.yaml
-      role: Planned optional bundle for spec validation builtins.
-    - path: tools/builtin/lifecycle.yaml
-      role: Planned optional bundle for lifecycle builtins.
-include_rules:
-    - Includes are relative to the file that declares them.
-    - Included files load before local tools.
-    - Later declarations with the same tool name override earlier declarations.
-    - Shared group files define reusable identity, parameters, visibility, emits, and contracts.
-    - Agent-local files define behavior-shaping config for one profile or mode.
-    - Agent-local overrides preserve the same name and init unless they intentionally replace a capability.
-    - tools.yaml selection files remain name-only and do not include declaration paths.
-migration_rules:
-    - Move declarations into grouped files only after this format contract is in place.
-    - Keep tools/builtin.yaml and tools/exec.yaml loadable as compatibility bundles during the move.
-    - Keep active profiles loadable through current tool_config_dirs and tool_declarations until code supports narrower group paths.
-    - Do not move invoke_llm into a shared group; keep model-boundary declarations agent-local.
-```
+- status: planned
+- rule:
+  Current profiles load flat declaration directories. The next YAML move
+  groups shared declarations by tool family while keeping compatibility
+  bundle files loadable through profile-owned declaration paths and tests.
+- builtin_groups:
+  1. - path: tools/builtin/filesystem/
+     - owns:
+       1. read
+       1. write
+       1. edit
+       1. find
+       1. list_files
+     - kind: shared
+  1. - path: tools/builtin/llm/
+     - owns:
+       1. parse_response
+       1. report_parse_error
+       1. reset_history
+       1. nudge_reread
+       1. done
+     - kind: shared
+     - note: invoke_llm remains agent-local under <profile-root>/*/llm/*.yaml because its config binds model, provider, prompt, and profile behavior.
+  1. - path: tools/builtin/lifecycle/
+     - owns:
+       1. suspend
+       1. checkpoint_history
+       1. checkpoint_rollback
+     - kind: shared
+  1. - path: tools/builtin/control/
+     - owns:
+       1. self_invoke
+     - kind: shared
+  1. - path: tools/builtin/planner/
+     - owns:
+       1. extract_task
+       1. select_all_ready
+       1. seed_passthrough_plan
+       1. mark_nodes_planning
+       1. project_planner_context
+       1. capture_planner_failure
+       1. parse_plan
+       1. format_issue
+       1. write
+       1. record_tracker_issue
+       1. mark_nodes_executing
+       1. format_task_file
+       1. mark_task_done
+       1. mark_task_failed
+       1. remaining_work
+     - kind: shared planner-family declarations
+  1. - path: tools/builtin/critic-session/
+     - owns:
+       1. parse_suite_config
+       1. discover_suite_samples
+       1. expand_eval_grid
+       1. init_eval_session
+       1. report_suite_summary
+       1. materialize_eval_points
+       1. run_point
+       1. report_session
+     - kind: shared critic-session declarations
+  1. - path: tools/builtin/critic-point/
+     - owns:
+       1. create_point_dir
+       1. sample_docs
+       1. record_agent_commit
+       1. dump_config
+       1. run_agent
+       1. record_oracle_result
+       1. collect_trace_tokens
+       1. check_agent_version
+       1. summarize_point_results
+       1. record_point_failure
+       1. collect_metrics
+     - kind: shared critic-point declarations
+     - note: Workspace copying, git setup, and rev_parse reuse tools/exec declarations; the external critic profile owns its deterministic commit_workspace_baseline and run_oracle_check exec aliases.
+  1. - path: tools/builtin/spec-validation/
+     - owns:
+       1. load_corpus
+       1. validate_specs
+       1. format_report
+     - kind: shared jurist declarations
+- exec_groups:
+  1. - path: tools/exec/go/
+     - owns:
+       1. build
+       1. vet
+       1. lint
+       1. test
+     - kind: shared
+  1. - path: tools/exec/workspace/
+     - owns:
+       1. copy_dir
+       1. make_dir
+     - kind: shared
+  1. - path: tools/exec/git/
+     - owns:
+       1. git_init
+       1. stage_all
+       1. workspace_status
+       1. commit
+       1. rev_parse
+       1. diff_stat
+       1. log_oneline
+     - kind: shared
+  1. - path: tools/exec/issues/
+     - owns:
+       1. issue_create
+       1. issue_close
+       1. issue_list
+     - kind: shared
+- compatibility_bundles:
+  1. - path: tools/builtin.yaml
+     - role: Compatibility bundle that includes every shared builtin group needed by profiles or tests that load the aggregate declaration file.
+  1. - path: tools/exec.yaml
+     - role: Compatibility bundle that includes every shared exec group needed by profiles or tests that load the aggregate declaration file.
+  1. - path: tools/builtin/all.yaml
+     - role: Planned explicit bundle for profiles or tests that need the full builtin declaration set.
+  1. - path: tools/exec/all.yaml
+     - role: Planned explicit bundle for profiles or tests that need the full exec declaration set.
+  1. - path: tools/builtin/generator.yaml
+     - role: Planned optional bundle for generator shared builtins; profiles may instead load the needed groups directly.
+  1. - path: tools/builtin/planner.yaml
+     - role: Planned optional bundle for planner shared builtins; agent-local overrides still live under <profile-root>/planner/.
+  1. - path: tools/builtin/evaluator.yaml
+     - role: Planned optional bundle for evaluator session and point builtins; agent-local config still lives under <profile-root>/evaluator/.
+  1. - path: tools/builtin/bench.yaml
+     - role: Planned optional bundle for bench builtins; agent-local config still lives under <profile-root>/bench/.
+  1. - path: tools/builtin/jurist.yaml
+     - role: Planned optional bundle for spec validation builtins.
+  1. - path: tools/builtin/lifecycle.yaml
+     - role: Planned optional bundle for lifecycle builtins.
+- include_rules:
+  1. Includes are relative to the file that declares them.
+  1. Included files load before local tools.
+  1. Later declarations with the same tool name override earlier declarations.
+  1. Shared group files define reusable identity, parameters, visibility, emits, and contracts.
+  1. Agent-local files define behavior-shaping config for one profile or mode.
+  1. Agent-local overrides preserve the same name and init unless they intentionally replace a capability.
+  1. tools.yaml selection files remain name-only and do not include declaration paths.
+- migration_rules:
+  1. Move declarations into grouped files only after this format contract is in place.
+  1. Keep tools/builtin.yaml and tools/exec.yaml loadable as compatibility bundles during the move.
+  1. Keep active profiles loadable through current tool_config_dirs and tool_declarations until code supports narrower group paths.
+  1. Do not move invoke_llm into a shared group; keep model-boundary declarations agent-local.
 
 <!-- field: related_documents -->
 ## Related documents

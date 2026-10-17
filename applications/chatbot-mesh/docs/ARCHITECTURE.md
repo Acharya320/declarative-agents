@@ -5,57 +5,55 @@ title: "Chatbot Mesh Architecture"
 <!-- Copyright (c) 2026 Nokia -->
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
 
-<!-- field: capability_classification -->
+<!-- field: capability_classification | form: "tree" -->
 ## Capability classification
 
-```yaml
-ownership: agent-owning
-module_status: implemented
-agents_contributed: 5
-composition_wrappers: [corpus-ingest, applier]
-```
+- ownership: agent-owning
+- module_status: implemented
+- agents_contributed: 5
+- composition_wrappers:
+  1. corpus-ingest
+  1. applier
 
-<!-- field: overview -->
+<!-- field: overview | form: "tree" -->
 ## Overview
 
-````yaml
-summary: |
-    The chatbot mesh is a program of declarative agents that run on the agent-core
-    runtime. A browser-facing chatbot agent runs a request-scoped turn: it embeds
-    the message once, routes the question to a chat model, fans the embedding out
-    to one or more RAG server agents, composes the answer prompt from the surviving
-    sources through command-state selectors, and answers. Each RAG server agent
-    serves a vector-in query against a Chroma collection. A corpus-ingest agent
-    seeds those collections from a document directory under model control.
+- summary:
+  The chatbot mesh is a program of declarative agents that run on the agent-core
+  runtime. A browser-facing chatbot agent runs a request-scoped turn: it embeds
+  the message once, routes the question to a chat model, fans the embedding out
+  to one or more RAG server agents, composes the answer prompt from the surviving
+  sources through command-state selectors, and answers. Each RAG server agent
+  serves a vector-in query against a Chroma collection. A corpus-ingest agent
+  seeds those collections from a document directory under model control.
 
-    Runtime ownership stays with agent-core. That project provides the agent
-    binary, the state-machine engine, the REST client and server tools, the
-    machine_request binding, the monitor, the checkpoint store, and the container
-    image. The application provides the YAML programs, the user interface, the Helm
-    chart, and the documents. Operators run each agent as the agent-core image with
-    a mounted profile: `agent --profile /profiles/agents/<name>/profile.yaml`.
+  Runtime ownership stays with agent-core. That project provides the agent
+  binary, the state-machine engine, the REST client and server tools, the
+  machine_request binding, the monitor, the checkpoint store, and the container
+  image. The application provides the YAML programs, the user interface, the Helm
+  chart, and the documents. Operators run each agent as the agent-core image with
+  a mounted profile: `agent --profile /profiles/agents/<name>/profile.yaml`.
 
-    This architecture covers the data plane and the control plane. The control plane
-    -- the `provisioning-workflow-orchestrator` actor assuming Executor / Workflow Orchestrator, the
-    `creator` actor assuming Creator / Instance Manager and Agent Owner / Agent
-    Lifecycle Manager, and the provisioning surface -- is release rel05.0. Release
-    rel06.0 realizes the provisioning surface through the `applier` actor, which
-    assumes Executor / Actuation Agent (srd006).
-turn_flow_diagram: |
-    ```mermaid
-    flowchart LR
-      U[Browser SPA] -->|chat request| CB[Chatbot agent]
-      CB -->|embed once| OLL[Ollama embed]
-      CB -->|select model tier| TS[$tool tier selector -> chat-LLM word]
-      CB -->|fan out one embedding| R0[RAG server 0]
-      CB -->|fan out one embedding| R1[RAG server 1]
-      R0 -->|query_embeddings| CH0[(Chroma collection 0)]
-      R1 -->|query_embeddings| CH1[(Chroma collection 1)]
-      CB -->|compose surviving chunks| ANS[Answer from chunks]
-      ING[Corpus-ingest agent] -->|seed collections| CH0
-      CB -.->|monitor SSE / traceparent| OBS[Observability + collector query]
-    ```
-````
+  This architecture covers the data plane and the control plane. The control plane
+  -- the `provisioning-workflow-orchestrator` actor assuming Executor / Workflow Orchestrator, the
+  `creator` actor assuming Creator / Instance Manager and Agent Owner / Agent
+  Lifecycle Manager, and the provisioning surface -- is release rel05.0. Release
+  rel06.0 realizes the provisioning surface through the `applier` actor, which
+  assumes Executor / Actuation Agent (srd006).
+- turn_flow_diagram:
+  ```mermaid
+  flowchart LR
+    U[Browser SPA] -->|chat request| CB[Chatbot agent]
+    CB -->|embed once| OLL[Ollama embed]
+    CB -->|select model tier| TS[$tool tier selector -> chat-LLM word]
+    CB -->|fan out one embedding| R0[RAG server 0]
+    CB -->|fan out one embedding| R1[RAG server 1]
+    R0 -->|query_embeddings| CH0[(Chroma collection 0)]
+    R1 -->|query_embeddings| CH1[(Chroma collection 1)]
+    CB -->|compose surviving chunks| ANS[Answer from chunks]
+    ING[Corpus-ingest agent] -->|seed collections| CH0
+    CB -.->|monitor SSE / traceparent| OBS[Observability + collector query]
+  ```
 
 <!-- field: interfaces -->
 ## Interfaces
@@ -87,73 +85,89 @@ the chatbot proxies them same-origin. Request-scoped spans propagate
 W3C traceparent (agent-core srd016) and export to an OTel collector and
 the collector query surface for the cross-agent waterfall.
 
-<!-- field: role_realization_alignment -->
+<!-- field: role_realization_alignment | form: "tree" -->
 ## Role realization alignment
 
-```yaml
-authority: applications/docs/specs/semantic-models/agent-role-realizations.md
-language_rule: |
-    Actors and profiles assume or realize canonical roles; they are not role
-    definitions. Helm names identify workloads and deployment instances and
-    inherit the mounted profile's bindings.
-decisions:
-    - current_actor: chatbot
-      implemented_responsibility: Route, retrieve, compose, answer, and host the browser request boundary.
-      canonical_role_sub_role: Planner / Intent Handler; Executor / Workflow Orchestrator; Knowledge Manager / Recommendation Generator.
-      retained_or_proposed_name: Retain descriptive multi-role actor `chatbot`.
-      authority_boundary: Selects declared words and trusted topology only; no lifecycle or deployment authority.
-      evidence: [agents/chatbot/request-machine.yaml, docs/specs/software-requirements/srd002-chatbot-agent.md]
-      migration_impact: None.
-    - current_actor: rag-server
-      implemented_responsibility: Serve ranked chunks from one configured corpus through a vector-in query boundary.
-      canonical_role_sub_role: Knowledge Manager / Recommendation Generator.
-      retained_or_proposed_name: Retain descriptive serving actor `rag-server`.
-      authority_boundary: Read-only retrieval; no ingest, answer, lifecycle, or transport-authority decision.
-      evidence: [agents/rag-server/request-machine.yaml, docs/specs/software-requirements/srd001-rag-server-agent.md]
-      migration_impact: None; values-named RAG units are deployment instances.
-    - current_actor: corpus-ingest
-      implemented_responsibility: Parameterize and package the catalog corpus-ingest closure for the mesh.
-      canonical_role_sub_role: Inherited Knowledge Manager / Ontology Manager.
-      retained_or_proposed_name: Retain descriptive wrapper `corpus-ingest`.
-      authority_boundary: Mesh owns parameters and packaging; catalog owns the canonical implementation.
-      evidence: [agents/corpus-ingest/profile.yaml, agents/creator/request-declarations.yaml]
-      migration_impact: None; it runs as a creator-launched child and has no Helm workload.
-    - current_actor: provisioning-workflow-orchestrator
-      implemented_responsibility: Sequence optional ingestion and rollout requests and aggregate their terminal result.
-      canonical_role_sub_role: Executor / Workflow Orchestrator; not Coordinator.
-      retained_or_proposed_name: Use `provisioning-workflow-orchestrator`; implemented in GH-1077.
-      authority_boundary: No deployment, child-process, synchronization, conflict-resolution, negotiation, or consensus authority.
-      evidence: [agents/provisioning-workflow-orchestrator/request-machine.yaml, helm/templates/provisioning-workflow-orchestrator.yaml]
-      migration_impact: GH-1077 migrated profile, Helm, SRD, integration, packaging, release, and compatibility paths together.
-    - current_actor: creator
-      implemented_responsibility: Launch an ingest child, drive decided rollout operations, and verify health and state.
-      canonical_role_sub_role: Creator / Instance Manager and Agent Owner / Agent Lifecycle Manager.
-      retained_or_proposed_name: Retain `creator`; instance realization is an implemented primary responsibility.
-      authority_boundary: Sole deployment-API client; acts on decided values and does not orchestrate the end-to-end intent.
-      evidence: [agents/creator/request-machine.yaml, helm/templates/creator.yaml]
-      migration_impact: None.
-    - current_actor: applier
-      implemented_responsibility: Validate, actuate, verify, and roll back a decided deployment values document.
-      canonical_role_sub_role: Executor / Actuation Agent and Change Manager.
-      retained_or_proposed_name: Retain descriptive actor/workload `applier`; Applier is not a canonical role.
-      authority_boundary: Creator-only caller; authors no desired state and receives no runtime transport authority.
-      evidence: [../catalog/agents/applier/apply-machine.yaml, agents/applier/exec-declarations.yaml, helm/templates/applier.yaml]
-      migration_impact: Documentation alignment only.
-    - current_actor: collector
-      implemented_responsibility: Receive, inspect, spool, and optionally relay bounded OTLP trace batches.
-      canonical_role_sub_role: Monitor / Telemetry Collector.
-      retained_or_proposed_name: Retain compatible descriptive actor `collector`.
-      authority_boundary: Trace intake only; contrib retains metrics and Dolt scraping during migration.
-      evidence: [agents/collector/machine.yaml, helm/templates/collector.yaml]
-      migration_impact: None; distinguish profile-backed, contrib, and metrics workloads.
-    - current_actor: observer
-      implemented_responsibility: Discover mesh agents from the Kubernetes API and poll each agent's monitor surface to serve a fleet-level view.
-      canonical_role_sub_role: Monitor / Fleet Observer.
-      retained_or_proposed_name: Retain descriptive actor `observer`.
-      authority_boundary: Read-only over kube pod listing and agent monitor surfaces; no lifecycle, deployment, configuration, or trace-intake authority.
-      evidence: [agents/observer/machine.yaml, agents/observer/declarations.yaml, helm/templates/observer.yaml]
-      migration_impact: None.
-```
+- authority: applications/docs/specs/semantic-models/agent-role-realizations.md
+- language_rule:
+  Actors and profiles assume or realize canonical roles; they are not role
+  definitions. Helm names identify workloads and deployment instances and
+  inherit the mounted profile's bindings.
+- decisions:
+  1. - current_actor: chatbot
+     - implemented_responsibility: Route, retrieve, compose, answer, and host the browser request boundary.
+     - canonical_role_sub_role: Planner / Intent Handler; Executor / Workflow Orchestrator; Knowledge Manager / Recommendation Generator.
+     - retained_or_proposed_name: Retain descriptive multi-role actor `chatbot`.
+     - authority_boundary: Selects declared words and trusted topology only; no lifecycle or deployment authority.
+     - evidence:
+       1. agents/chatbot/request-machine.yaml
+       1. docs/specs/software-requirements/srd002-chatbot-agent.md
+     - migration_impact: None.
+  1. - current_actor: rag-server
+     - implemented_responsibility: Serve ranked chunks from one configured corpus through a vector-in query boundary.
+     - canonical_role_sub_role: Knowledge Manager / Recommendation Generator.
+     - retained_or_proposed_name: Retain descriptive serving actor `rag-server`.
+     - authority_boundary: Read-only retrieval; no ingest, answer, lifecycle, or transport-authority decision.
+     - evidence:
+       1. agents/rag-server/request-machine.yaml
+       1. docs/specs/software-requirements/srd001-rag-server-agent.md
+     - migration_impact: None; values-named RAG units are deployment instances.
+  1. - current_actor: corpus-ingest
+     - implemented_responsibility: Parameterize and package the catalog corpus-ingest closure for the mesh.
+     - canonical_role_sub_role: Inherited Knowledge Manager / Ontology Manager.
+     - retained_or_proposed_name: Retain descriptive wrapper `corpus-ingest`.
+     - authority_boundary: Mesh owns parameters and packaging; catalog owns the canonical implementation.
+     - evidence:
+       1. agents/corpus-ingest/profile.yaml
+       1. agents/creator/request-declarations.yaml
+     - migration_impact: None; it runs as a creator-launched child and has no Helm workload.
+  1. - current_actor: provisioning-workflow-orchestrator
+     - implemented_responsibility: Sequence optional ingestion and rollout requests and aggregate their terminal result.
+     - canonical_role_sub_role: Executor / Workflow Orchestrator; not Coordinator.
+     - retained_or_proposed_name: Use `provisioning-workflow-orchestrator`; implemented in GH-1077.
+     - authority_boundary: No deployment, child-process, synchronization, conflict-resolution, negotiation, or consensus authority.
+     - evidence:
+       1. agents/provisioning-workflow-orchestrator/request-machine.yaml
+       1. helm/templates/provisioning-workflow-orchestrator.yaml
+     - migration_impact: GH-1077 migrated profile, Helm, SRD, integration, packaging, release, and compatibility paths together.
+  1. - current_actor: creator
+     - implemented_responsibility: Launch an ingest child, drive decided rollout operations, and verify health and state.
+     - canonical_role_sub_role: Creator / Instance Manager and Agent Owner / Agent Lifecycle Manager.
+     - retained_or_proposed_name: Retain `creator`; instance realization is an implemented primary responsibility.
+     - authority_boundary: Sole deployment-API client; acts on decided values and does not orchestrate the end-to-end intent.
+     - evidence:
+       1. agents/creator/request-machine.yaml
+       1. helm/templates/creator.yaml
+     - migration_impact: None.
+  1. - current_actor: applier
+     - implemented_responsibility: Validate, actuate, verify, and roll back a decided deployment values document.
+     - canonical_role_sub_role: Executor / Actuation Agent and Change Manager.
+     - retained_or_proposed_name: Retain descriptive actor/workload `applier`; Applier is not a canonical role.
+     - authority_boundary: Creator-only caller; authors no desired state and receives no runtime transport authority.
+     - evidence:
+       1. ../catalog/agents/applier/apply-machine.yaml
+       1. agents/applier/exec-declarations.yaml
+       1. helm/templates/applier.yaml
+     - migration_impact: Documentation alignment only.
+  1. - current_actor: collector
+     - implemented_responsibility: Receive, inspect, spool, and optionally relay bounded OTLP trace batches.
+     - canonical_role_sub_role: Monitor / Telemetry Collector.
+     - retained_or_proposed_name: Retain compatible descriptive actor `collector`.
+     - authority_boundary: Trace intake only; contrib retains metrics and Dolt scraping during migration.
+     - evidence:
+       1. agents/collector/machine.yaml
+       1. helm/templates/collector.yaml
+     - migration_impact: None; distinguish profile-backed, contrib, and metrics workloads.
+  1. - current_actor: observer
+     - implemented_responsibility: Discover mesh agents from the Kubernetes API and poll each agent's monitor surface to serve a fleet-level view.
+     - canonical_role_sub_role: Monitor / Fleet Observer.
+     - retained_or_proposed_name: Retain descriptive actor `observer`.
+     - authority_boundary: Read-only over kube pod listing and agent monitor surfaces; no lifecycle, deployment, configuration, or trace-intake authority.
+     - evidence:
+       1. agents/observer/machine.yaml
+       1. agents/observer/declarations.yaml
+       1. helm/templates/observer.yaml
+     - migration_impact: None.
 
 <!-- field: components -->
 ## Components
@@ -403,51 +417,47 @@ so the profile is the source is a separate follow-up.
 | Observability | Canonical collector agent with spool query surface | Per-agent monitor streams and the cross-agent trace waterfall. |
 | Deployment | Helm | One chart deploys the mesh with values-driven RAG pairs and an in-cluster model tier. |
 
-<!-- field: project_structure -->
+<!-- field: project_structure | form: "tree" -->
 ## Project structure
 
-```yaml
-configuration:
-    - path: agents/
-      role: The chatbot, RAG server, and corpus-ingest agent programs.
-    - path: agents/chatbot/ui/
-      role: The single-page application and UX config.
-    - path: helm/
-      role: The deployment chart.
-documentation:
-    - path: docs/VISION.md
-      role: Goals, boundaries, and success criteria.
-    - path: docs/ARCHITECTURE.md
-      role: Components, interfaces, and decisions.
-    - path: docs/road-map.md
-      role: The application's own release plan.
-    - path: docs/specs/software-requirements/
-      role: srd001 rag-server, srd002 chatbot, srd003 deployment.
-    - path: docs/specs/use-cases/
-      role: The data-plane use cases the releases deliver.
-    - path: docs/specs/test-suites/
-      role: The test suites that validate the use cases.
-    - path: README.md
-      role: The decisions record and the standalone-program framing.
-```
+- configuration:
+  1. - path: agents/
+     - role: The chatbot, RAG server, and corpus-ingest agent programs.
+  1. - path: agents/chatbot/ui/
+     - role: The single-page application and UX config.
+  1. - path: helm/
+     - role: The deployment chart.
+- documentation:
+  1. - path: docs/VISION.md
+     - role: Goals, boundaries, and success criteria.
+  1. - path: docs/ARCHITECTURE.md
+     - role: Components, interfaces, and decisions.
+  1. - path: docs/road-map.md
+     - role: The application's own release plan.
+  1. - path: docs/specs/software-requirements/
+     - role: srd001 rag-server, srd002 chatbot, srd003 deployment.
+  1. - path: docs/specs/use-cases/
+     - role: The data-plane use cases the releases deliver.
+  1. - path: docs/specs/test-suites/
+     - role: The test suites that validate the use cases.
+  1. - path: README.md
+     - role: The decisions record and the standalone-program framing.
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-current_focus: The application is a self-governing program whose canonical deployed mode is app-chatbot-mesh on shared da-platform. The data plane, application-owned Chroma/RAG behavior, shared ingress, and durable application collector are implemented here, while the control plane remains partial pending one live ingest-to-grounded-turn lifecycle proof.
-progress:
-    - done: The data-plane mesh (RAG server, chat turn, routing, fan-out, observability, Helm deployment, in-cluster model tier) is implemented, with the agents, UX, chart, and specs in this directory.
-    - done: The application's own magefile audit and integration entries (chroma, rag-server, chatbot, helm smoke/swap/llm-tier, control plane).
-    - done: The scenario-critic rig discovers application-local chatbot-turn-critic and rag-query-critic realizations, retains scenario scope in their paths/configuration, and records those identities in runtime verdicts.
-    - done: The control-plane provisioning-workflow-orchestrator (srd004) and creator (srd005), realized as mage integration:controlPlane (rel05.0, deterministic, driving a fake deployment API).
-    - done: The creator corpus-ingest child endpoint and count-delta checks (srd005 R3.1), covered independently from integration:controlPlane.
-    - planned: One live integration that joins an ingest-carrying provisioning intent, rollout, and a grounded turn from the newly added source.
-    - done: The rel07.0 collector profile, bounded intake and spool rig, unchanged relay identity, self-loop exclusion, staged Helm trace switch, and retained contrib metrics evidence.
-    - planned: Collector lifecycle proof that exits a blocked await, releases and rebinds receiver, control, and monitor listeners, and records final monitor state.
-    - done: The applier deployment surface (srd006) that replaces the Go provisioner. mage integration:applier drives every declared apply and rollout terminal against recording helm and kubectl, while mage integration:applierLive proves real on-cluster apply and rollback.
-    - done: apprig app:up|status|seed|verify|diagnose|down in app-chatbot-mesh, with unique chatbot/observer/telemetry hosts, application-owned Chroma, an application bucket, persistent collector WAL, concurrent operation with Coding Agent and Agent Architecture, and retained query history across down/redeploy (GH-2482).
-```
+- current_focus: The application is a self-governing program whose canonical deployed mode is app-chatbot-mesh on shared da-platform. The data plane, application-owned Chroma/RAG behavior, shared ingress, and durable application collector are implemented here, while the control plane remains partial pending one live ingest-to-grounded-turn lifecycle proof.
+- progress:
+  1. - done: The data-plane mesh (RAG server, chat turn, routing, fan-out, observability, Helm deployment, in-cluster model tier) is implemented, with the agents, UX, chart, and specs in this directory.
+  1. - done: The application's own magefile audit and integration entries (chroma, rag-server, chatbot, helm smoke/swap/llm-tier, control plane).
+  1. - done: The scenario-critic rig discovers application-local chatbot-turn-critic and rag-query-critic realizations, retains scenario scope in their paths/configuration, and records those identities in runtime verdicts.
+  1. - done: The control-plane provisioning-workflow-orchestrator (srd004) and creator (srd005), realized as mage integration:controlPlane (rel05.0, deterministic, driving a fake deployment API).
+  1. - done: The creator corpus-ingest child endpoint and count-delta checks (srd005 R3.1), covered independently from integration:controlPlane.
+  1. - planned: One live integration that joins an ingest-carrying provisioning intent, rollout, and a grounded turn from the newly added source.
+  1. - done: The rel07.0 collector profile, bounded intake and spool rig, unchanged relay identity, self-loop exclusion, staged Helm trace switch, and retained contrib metrics evidence.
+  1. - planned: Collector lifecycle proof that exits a blocked await, releases and rebinds receiver, control, and monitor listeners, and records final monitor state.
+  1. - done: The applier deployment surface (srd006) that replaces the Go provisioner. mage integration:applier drives every declared apply and rollout terminal against recording helm and kubectl, while mage integration:applierLive proves real on-cluster apply and rollback.
+  1. - done: apprig app:up|status|seed|verify|diagnose|down in app-chatbot-mesh, with unique chatbot/observer/telemetry hosts, application-owned Chroma, an application bucket, persistent collector WAL, concurrent operation with Coding Agent and Agent Architecture, and retained query history across down/redeploy (GH-2482).
 
 <!-- field: related_documents -->
 ## Related documents

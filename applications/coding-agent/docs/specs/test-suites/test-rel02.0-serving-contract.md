@@ -48,15 +48,13 @@ mage integration:servingHealth
 
 go test ./magefiles -run '^Test(ServingProfilesUseRealLifecycleAndCanonicalRoleProfiles|StageServingProfileTreeCombinesClosureAndApplicationProfiles)$'
 
-<!-- field: expected_outputs -->
+<!-- field: expected_outputs | form: "tree" -->
 #### Expected outputs
 
-```yaml
-planner_health: HTTP 200
-executor_health: HTTP 200
-critic_health: HTTP 200
-critic_verdict: accepted
-```
+- planner_health: HTTP 200
+- executor_health: HTTP 200
+- critic_health: HTTP 200
+- critic_verdict: accepted
 
 <!-- field: traces -->
 #### Traces
@@ -81,15 +79,13 @@ mage integration:servingRemote
 
 go test ./magefiles -run '^TestPlannerServingFlowUsesDeclaredRemoteBoundaries$'
 
-<!-- field: expected_outputs -->
+<!-- field: expected_outputs | form: "tree" -->
 #### Expected outputs
 
-```yaml
-planner_response: accepted
-workspace_validation: go test ./... passes
-remote_order: planner then executor then critic
-trace_connection: caller trace id appears in all three role trace files
-```
+- planner_response: accepted
+- workspace_validation: go test ./... passes
+- remote_order: planner then executor then critic
+- trace_connection: caller trace id appears in all three role trace files
 
 <!-- field: traces -->
 #### Traces
@@ -115,12 +111,10 @@ mage integration:codingLoop
 
 go test ./magefiles -run '^TestCodingLoopStagesGenerateOnceAndPreserveExactWorkspace$'
 
-<!-- field: expected_outputs -->
+<!-- field: expected_outputs | form: "tree" -->
 #### Expected outputs
 
-```yaml
-loop_outcome: the batch planner, executor, and critic stages pass unchanged alongside the serving profiles
-```
+- loop_outcome: the batch planner, executor, and critic stages pass unchanged alongside the serving profiles
 
 <!-- field: traces -->
 #### Traces

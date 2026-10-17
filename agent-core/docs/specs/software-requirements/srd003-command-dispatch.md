@@ -155,22 +155,20 @@ FillDuration and ForceErrorSignal are exported and operate on Result pointers.
 
 - docs/specs/semantic-models/tool-metrics-monitoring.md
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Every command execution needs the same cross-cutting..."] --> Goals["Goals: Command Dispatch"]
-      Goals --> R1["R1: Dispatch function"]
-      Goals --> R2["R2: SafeExecute function"]
-      Goals --> R3["R3: Helper functions"]
-      AC1["AC1: Dispatch creates a child span, calls SafeExecute, sets Co..."]
-      R1 --> AC1
-      AC2["AC2: SafeExecute recovers panics, enforces timeout, fills dura..."]
-      R2 --> AC2
-      AC3["AC3: FillDuration and ForceErrorSignal are exported and operat..."]
-      R3 --> AC3
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Every command execution needs the same cross-cutting..."] --> Goals["Goals: Command Dispatch"]
+    Goals --> R1["R1: Dispatch function"]
+    Goals --> R2["R2: SafeExecute function"]
+    Goals --> R3["R3: Helper functions"]
+    AC1["AC1: Dispatch creates a child span, calls SafeExecute, sets Co..."]
+    R1 --> AC1
+    AC2["AC2: SafeExecute recovers panics, enforces timeout, fills dura..."]
+    R2 --> AC2
+    AC3["AC3: FillDuration and ForceErrorSignal are exported and operat..."]
+    R3 --> AC3
+  ```

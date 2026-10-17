@@ -10,16 +10,12 @@ title: Coding Loop Greet Fixture
 
 One portable requirement used by the coding application integration stages.
 
-<!-- field: roadmap_summary -->
+<!-- field: roadmap_summary | form: "typed table" -->
 ## Roadmap summary
 
-```yaml
-- version: "01.0"
-  name: Greeting
-  use_cases_done: 0
-  use_cases_total: 0
-  status: open
-```
+| version | name | use_cases_done | use_cases_total | status |
+| --- | --- | --- | --- | --- |
+| "01.0" | Greeting | 0 | 0 | open |
 
 <!-- field: srd_index -->
 ## Srd index

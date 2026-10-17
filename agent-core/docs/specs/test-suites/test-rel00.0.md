@@ -45,22 +45,18 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoop_RunsToCompletion
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-table: "Start->Working->Finished (two commands)"
-budget: "MaxIterations=100"
-```
+- table: Start->Working->Finished (two commands)
+- budget: MaxIterations=100
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-status: succeeded
-final_state: Finished
-iterations: 2
-```
+- status: succeeded
+- final_state: Finished
+- iterations: 2
 
 <!-- field: traces -->
 #### Traces
@@ -80,20 +76,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoop_BudgetExhausted
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-budget: "MaxIterations=1"
-```
+- budget: MaxIterations=1
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-status: budget_exceeded
-final_state: OverBudget
-```
+- status: budget_exceeded
+- final_state: OverBudget
 
 <!-- field: traces -->
 #### Traces
@@ -114,20 +106,18 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoop_ContextCancellation, TestLoop_ActiveDispatchCancellation
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-contexts: [pre_cancelled, cancelled_during_active_dispatch]
-```
+- contexts:
+  1. pre_cancelled
+  1. cancelled_during_active_dispatch
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-status: cancelled
-active_context_command_joined: true
-```
+- status: cancelled
+- active_context_command_joined: true
 
 <!-- field: traces -->
 #### Traces
@@ -147,19 +137,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoop_OnResultHook
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-hooks: "OnResult increments a counter"
-```
+- hooks: OnResult increments a counter
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-call_count: 2
-```
+- call_count: 2
 
 <!-- field: traces -->
 #### Traces
@@ -179,19 +165,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoop_CustomBudgetHook
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-hooks: "BudgetExceeded returns true at iteration >= 1"
-```
+- hooks: BudgetExceeded returns true at iteration >= 1
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-status: budget_exceeded
-```
+- status: budget_exceeded
 
 <!-- field: traces -->
 #### Traces
@@ -212,20 +194,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestCoreSourceDoesNotEmbedModeOrToolPolicyNames
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-source: "internal/runtime/core/*.go excluding tests"
-forbidden_literals: "agent mode names and workflow tool init names"
-```
+- source: internal/runtime/core/*.go excluding tests
+- forbidden_literals: agent mode names and workflow tool init names
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-policy_boundary: "workflow behavior stays in MachineSpec and tool config"
-```
+- policy_boundary: workflow behavior stays in MachineSpec and tool config
 
 <!-- field: traces -->
 #### Traces
@@ -245,20 +223,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestMainRuntimeDoesNotBranchOnAgentModeNames
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-source: "cmd/agent/main.go"
-forbidden_branches: "if/switch comparisons against executor, planner, critic, bench, jurist"
-```
+- source: cmd/agent/main.go
+- forbidden_branches: if/switch comparisons against executor, planner, critic, bench, jurist
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-bootstrap_boundary: "selected tool init gates are allowed; mode branches are not"
-```
+- bootstrap_boundary: selected tool init gates are allowed; mode branches are not
 
 <!-- field: traces -->
 #### Traces
@@ -278,20 +252,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoop_AccumulatesTokens
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-command_cost: "50 tokens in, 50 tokens out"
-```
+- command_cost: 50 tokens in, 50 tokens out
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-tokens_in: 50
-tokens_out: 50
-```
+- tokens_in: 50
+- tokens_out: 50
 
 <!-- field: traces -->
 #### Traces
@@ -312,19 +282,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoop_EmitsRegistryFrozenEvent
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-trace: "loopRecorder"
-```
+- trace: loopRecorder
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-event: "init.registry_frozen"
-```
+- event: init.registry_frozen
 
 <!-- field: traces -->
 #### Traces
@@ -345,19 +311,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoop_DurationTracked
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-table: "two-step state machine"
-```
+- table: two-step state machine
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-duration: "> 0"
-```
+- duration: "\u003e 0"
 
 <!-- field: traces -->
 #### Traces
@@ -377,21 +339,17 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoop_OmittedTerminalStatusFailsClosed
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-states: "[Succeeded, BudgetExceeded, Anything]"
-```
+- states: "[Succeeded, BudgetExceeded, Anything]"
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-succeeded_status: failed
-budget_status: failed
-other_status: failed
-```
+- succeeded_status: failed
+- budget_status: failed
+- other_status: failed
 
 <!-- field: traces -->
 #### Traces
@@ -411,21 +369,17 @@ rel00.0-uc001-domain-agent-integration
 
 TestCoreBudgetExceeded
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-budget_scenarios: "zero limits, iteration limits, token limits"
-```
+- budget_scenarios: zero limits, iteration limits, token limits
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-zero_unlimited: false
-at_limit: true
-below_limit: false
-```
+- zero_unlimited: false
+- at_limit: true
+- below_limit: false
 
 <!-- field: traces -->
 #### Traces
@@ -445,20 +399,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoop_TokenBudgetExhausted
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-budget: "MaxTokens=1"
-command_cost: "50 tokens"
-```
+- budget: MaxTokens=1
+- command_cost: 50 tokens
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-status: budget_exceeded
-```
+- status: budget_exceeded
 
 <!-- field: traces -->
 #### Traces
@@ -479,25 +429,28 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./cmd/agent ./internal/tools/llm -run 'Test(LoopParamsRunBudgetIgnoresRegisteredInvokeLimits|InvokeCallTimeoutUsesMaxTimeOnlyAsLegacyCallAlias)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-machine_budget: {max_tokens: 321, max_duration: 2h}
-invoke_orders: [fast_then_deep, deep_then_fast]
-invoke_limits: [max_time, max_tokens, llm_timeout]
-```
+- machine_budget:
+  - max_tokens: 321
+  - max_duration: 2h
+- invoke_orders:
+  1. fast_then_deep
+  1. deep_then_fast
+- invoke_limits:
+  1. max_time
+  1. max_tokens
+  1. llm_timeout
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-machine_budget_authoritative: true
-declaration_order_independent: true
-unbounded_machine_has_no_inherited_deadline: true
-max_time_is_per_call_compatibility_alias: true
-llm_timeout_takes_precedence: true
-```
+- machine_budget_authoritative: true
+- declaration_order_independent: true
+- unbounded_machine_has_no_inherited_deadline: true
+- max_time_is_per_call_compatibility_alias: true
+- llm_timeout_takes_precedence: true
 
 <!-- field: traces -->
 #### Traces
@@ -518,22 +471,18 @@ rel00.0-uc001-domain-agent-integration
 
 TestParseMachineSpec_Valid
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-yaml: "4 states, 2 terminals, 3 transitions"
-```
+- yaml: 4 states, 2 terminals, 3 transitions
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-name: test-machine
-states: 4
-terminals: 2
-transitions: 3
-```
+- name: test-machine
+- states: 4
+- terminals: 2
+- transitions: 3
 
 <!-- field: traces -->
 #### Traces
@@ -553,19 +502,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestParseMachineSpecValidationErrors
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-yaml: "no initial_state field"
-```
+- yaml: no initial_state field
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-error: "initial_state is required"
-```
+- error: initial_state is required
 
 <!-- field: traces -->
 #### Traces
@@ -585,19 +530,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestParseMachineSpecValidationErrors
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-yaml: "transition references state 'C' not in states list"
-```
+- yaml: transition references state 'C' not in states list
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-error: "state \"C\" not in states list"
-```
+- error: state "C" not in states list
 
 <!-- field: traces -->
 #### Traces
@@ -617,19 +558,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestParseMachineSpecValidationErrors
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-yaml: "transition references signal 'Unknown' not in signals list"
-```
+- yaml: transition references signal 'Unknown' not in signals list
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-error: "signal \"Unknown\" not in signals list"
-```
+- error: signal "Unknown" not in signals list
 
 <!-- field: traces -->
 #### Traces
@@ -649,19 +586,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestParseMachineSpecValidationErrors
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-yaml: "terminal_states: [Z] but Z not in states"
-```
+- yaml: "terminal_states: [Z] but Z not in states"
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-error: "terminal_state \"Z\" not in states list"
-```
+- error: terminal_state "Z" not in states list
 
 <!-- field: traces -->
 #### Traces
@@ -681,22 +614,18 @@ rel00.0-uc001-domain-agent-integration
 
 TestBuildTransitionTable
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-spec: "valid YAML with do_work action"
-registry: "do_work builder registered"
-```
+- spec: valid YAML with do_work action
+- registry: do_work builder registered
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-table_size: 3
-done_terminal: true
-error_terminal: true
-```
+- table_size: 3
+- done_terminal: true
+- error_terminal: true
 
 <!-- field: traces -->
 #### Traces
@@ -716,20 +645,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestBuildTransitionTable_ToolActionSentinel
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-spec: "transition with action: $tool"
-tool_action: "sets called=true"
-```
+- spec: "transition with action: $tool"
+- tool_action: sets called=true
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-called: true
-```
+- called: true
 
 <!-- field: traces -->
 #### Traces
@@ -749,20 +674,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestBuildTransitionTable_ToolActionNil
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-spec: "transition with action: $tool"
-tool_action: nil
-```
+- spec: "transition with action: $tool"
+- tool_action: nil
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-error: "not nil"
-```
+- error: not nil
 
 <!-- field: traces -->
 #### Traces
@@ -782,20 +703,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestBuildTransitionTable_UnknownAction
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-spec: "transition with action: nonexistent"
-registry: empty
-```
+- spec: "transition with action: nonexistent"
+- registry: empty
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-error: "\"nonexistent\" not found in registry"
-```
+- error: "\"nonexistent\" not found in registry"
 
 <!-- field: traces -->
 #### Traces
@@ -815,19 +732,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoadMachineSpec_FileNotFound
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-path: "/nonexistent/path/machine.yaml"
-```
+- path: /nonexistent/path/machine.yaml
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-error: "not nil"
-```
+- error: not nil
 
 <!-- field: traces -->
 #### Traces
@@ -847,29 +760,27 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./internal/runtime/core -run 'TestLoopForEach(DispatchesItemsInOrderAndJoins|EmptyCollectionJoinsDirectlyToTerminal|ResumeContinuesAfterLastPersistedItem|CollectAllJoinsPartialInInputOrder|AbortSignalStopsCollectAll)|TestMachineSpecForEach(Validation|RoundTrips)|TestIteratorJoinStructuredOutput'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-items: $from(items).items
-mode: sequential
-policies: [fail_fast, collect_all]
-```
+- items: $from(items).items
+- mode: sequential
+- policies:
+  1. fail_fast
+  1. collect_all
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-deterministic_input_order: true
-one_dispatch_and_receipt_per_item: true
-join_recorded: true
-resume_does_not_replay_completed_items: true
-structured_projection_uses_redacted_digest_only: true
-structured_projection_preserves_json_shapes: true
-plain_text_and_omitted_output_have_no_projection: true
-persisted_iterator_outcomes_unchanged: true
-unsupported_parallel_rejected: true
-```
+- deterministic_input_order: true
+- one_dispatch_and_receipt_per_item: true
+- join_recorded: true
+- resume_does_not_replay_completed_items: true
+- structured_projection_uses_redacted_digest_only: true
+- structured_projection_preserves_json_shapes: true
+- plain_text_and_omitted_output_have_no_projection: true
+- persisted_iterator_outcomes_unchanged: true
+- unsupported_parallel_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -889,33 +800,47 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./internal/tools/catalog ./internal/tools/control ./internal/tools/compose ./internal/tools/llm -run 'Test(Partition|SelectSubset|ValidatePartition|ValidateSelectSubset|RenderEach|ValidateRenderEach|FlatMap|ReorderByIndex|ValidateArrayTransformConfig|ValidateParseStructuredConfig|ParseStructured|CompileStructured)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-words: [partition, select_subset, render_each, flat_map, reorder_by_index, parse_structured]
-outcomes: [full, partial, empty, nested_arrays, mismatched_lengths, ranked_subset, invalid_index, adjacent_valid, adjacent_invalid, malformed, schema_invalid, unresolved_selector]
-```
+- words:
+  1. partition
+  1. select_subset
+  1. render_each
+  1. flat_map
+  1. reorder_by_index
+  1. parse_structured
+- outcomes:
+  1. full
+  1. partial
+  1. empty
+  1. nested_arrays
+  1. mismatched_lengths
+  1. ranked_subset
+  1. invalid_index
+  1. adjacent_valid
+  1. adjacent_invalid
+  1. malformed
+  1. schema_invalid
+  1. unresolved_selector
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-input_order_preserved: true
-undeclared_candidates_excluded: true
-trusted_vocabulary_values_selected_in_candidate_order: true
-duplicate_name_policy_deterministic: true
-iterator_structured_output_traversable: true
-parallel_nested_arrays_flattened: true
-parent_fields_carried: true
-candidates_joined_in_result_order: true
-invalid_and_duplicate_indexes_rejected: true
-empty_array_renders_empty: true
-parse_structured_accepts_adjacent_output: true
-other_current_result_paths_rejected: true
-content_failure_uses_declared_signal: true
-malformed_config_rejected_before_dispatch: true
-```
+- input_order_preserved: true
+- undeclared_candidates_excluded: true
+- trusted_vocabulary_values_selected_in_candidate_order: true
+- duplicate_name_policy_deterministic: true
+- iterator_structured_output_traversable: true
+- parallel_nested_arrays_flattened: true
+- parent_fields_carried: true
+- candidates_joined_in_result_order: true
+- invalid_and_duplicate_indexes_rejected: true
+- empty_array_renders_empty: true
+- parse_structured_accepts_adjacent_output: true
+- other_current_result_paths_rejected: true
+- content_failure_uses_declared_signal: true
+- malformed_config_rejected_before_dispatch: true
 
 <!-- field: traces -->
 #### Traces
@@ -935,28 +860,34 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./internal/tools/catalog ./internal/tools/control ./internal/tools/compose -run 'Test(Project|ValidateProject|ProjectedStringsFeedSelectSubset|RegisterFactories)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-word: project
-selector: $from(rows).items
-item_paths: [id, metadata.source.id, embeddings.0]
-outcomes: [ordered_projection, duplicate_values, non_string_projection, empty, missing_field, invalid_item_path, unresolved_selector]
-```
+- word: project
+- selector: $from(rows).items
+- item_paths:
+  1. id
+  1. metadata.source.id
+  1. embeddings.0
+- outcomes:
+  1. ordered_projection
+  1. duplicate_values
+  1. non_string_projection
+  1. empty
+  1. missing_field
+  1. invalid_item_path
+  1. unresolved_selector
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-one_field_projected_from_each_row: true
-projected_duplicates_and_json_shapes_preserved: true
-projected_string_values_feed_select_subset: true
-empty_array_returns_empty_items_and_zero_count: true
-missing_and_invalid_paths_rejected: true
-selector_failures_preserve_typed_cause: true
-canonical_selector_grammar_unchanged: true
-```
+- one_field_projected_from_each_row: true
+- projected_duplicates_and_json_shapes_preserved: true
+- projected_string_values_feed_select_subset: true
+- empty_array_returns_empty_items_and_zero_count: true
+- missing_and_invalid_paths_rejected: true
+- selector_failures_preserve_typed_cause: true
+- canonical_selector_grammar_unchanged: true
 
 <!-- field: traces -->
 #### Traces
@@ -977,27 +908,32 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./internal/tools/compose -run 'Test(NormalizeVector|ValidateNormalizeVector|RegisterFactories)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-word: normalize_vector
-path: mapped.embedding
-accepted_shapes: [flat_numeric_vector, single_numeric_row]
-rejected_shapes: [empty_vector, empty_row, multiple_rows, mixed_nesting, non_numeric_member, missing_path, non_object]
-```
+- word: normalize_vector
+- path: mapped.embedding
+- accepted_shapes:
+  1. flat_numeric_vector
+  1. single_numeric_row
+- rejected_shapes:
+  1. empty_vector
+  1. empty_row
+  1. multiple_rows
+  1. mixed_nesting
+  1. non_numeric_member
+  1. missing_path
+  1. non_object
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-flat_vector_preserved: true
-single_row_unwrapped: true
-surrounding_fields_preserved: true
-output_redaction_preserved: true
-invalid_shapes_emit_command_error: true
-canonical_selector_grammar_unchanged: true
-```
+- flat_vector_preserved: true
+- single_row_unwrapped: true
+- surrounding_fields_preserved: true
+- output_redaction_preserved: true
+- invalid_shapes_emit_command_error: true
+- canonical_selector_grammar_unchanged: true
 
 <!-- field: traces -->
 #### Traces
@@ -1017,28 +953,37 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./pkg/profileaudit ./cmd/agent -run 'TestInspect|TestStartupEnforcesProfileTimeoutClosure'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-missing_command_timeout: true
-valid_command_timeout: 1m
-closure_edges: [declaration_include_override, dynamic_selection, rest_machine_request, child_profile, evaluator_point_machine, compatibility_wrapper]
-authorities: [tooldef_timeout, rest_limits, machine_request, model, child_service, evaluator_point, blocking_await]
-```
+- missing_command_timeout: true
+- valid_command_timeout: 1m
+- closure_edges:
+  1. declaration_include_override
+  1. dynamic_selection
+  1. rest_machine_request
+  1. child_profile
+  1. evaluator_point_machine
+  1. compatibility_wrapper
+- authorities:
+  1. tooldef_timeout
+  1. rest_limits
+  1. machine_request
+  1. model
+  1. child_service
+  1. evaluator_point
+  1. blocking_await
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-missing_value_rejected: true
-positive_finite_value_accepted: true
-environment_expanded_before_comparison: true
-malformed_non_positive_equal_and_larger_rejected: true
-diagnostics_are_deterministic: true
-normal_startup_and_validate_config_enforce_before_dispatch: true
-core_fixtures_do_not_discover_application_catalog: true
-```
+- missing_value_rejected: true
+- positive_finite_value_accepted: true
+- environment_expanded_before_comparison: true
+- malformed_non_positive_equal_and_larger_rejected: true
+- diagnostics_are_deterministic: true
+- normal_startup_and_validate_config_enforce_before_dispatch: true
+- core_fixtures_do_not_discover_application_catalog: true
 
 <!-- field: traces -->
 #### Traces
@@ -1058,19 +1003,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoop_RunsToCompletion
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-signals: "Seed, BudgetExhausted, CommandError used in loop setup"
-```
+- signals: Seed, BudgetExhausted, CommandError used in loop setup
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-compiles: true
-```
+- compiles: true
 
 <!-- field: traces -->
 #### Traces
@@ -1090,19 +1031,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoop_RunsToCompletion
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-commands: "fakeCmd implements Command with Name(), Execute(), and Undo()"
-```
+- commands: fakeCmd implements Command with Name(), Execute(), and Undo()
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-dispatched: true
-```
+- dispatched: true
 
 <!-- field: traces -->
 #### Traces
@@ -1122,19 +1059,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoop_AccumulatesTokens
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-cost: "tokenFakeCmd returns Cost{TokensIn: 50, TokensOut: 50}"
-```
+- cost: "tokenFakeCmd returns Cost{TokensIn: 50, TokensOut: 50}"
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-accumulated: true
-```
+- accumulated: true
 
 <!-- field: traces -->
 #### Traces
@@ -1154,19 +1087,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoop_RunsToCompletion
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-result: "fakeCmd returns Result{Signal, CommandName}"
-```
+- result: fakeCmd returns Result{Signal, CommandName}
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-fields_used: true
-```
+- fields_used: true
 
 <!-- field: traces -->
 #### Traces
@@ -1186,19 +1115,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestBuildTransitionTable
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-registry: "registers fakeBuilder, resolves by name"
-```
+- registry: registers fakeBuilder, resolves by name
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-builder_resolved: true
-```
+- builder_resolved: true
 
 <!-- field: traces -->
 #### Traces
@@ -1218,19 +1143,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestBuildTransitionTable
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-table: "3 transitions built from YAML"
-```
+- table: 3 transitions built from YAML
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-table_size: 3
-```
+- table_size: 3
 
 <!-- field: traces -->
 #### Traces
@@ -1250,20 +1171,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestBuildTransitionTable
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-terminals: "[Done, Error]"
-```
+- terminals: "[Done, Error]"
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-done_terminal: true
-idle_not_terminal: true
-```
+- done_terminal: true
+- idle_not_terminal: true
 
 <!-- field: traces -->
 #### Traces
@@ -1283,19 +1200,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoop_RunsToCompletion
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-state_machine: "Start->Working->Finished via Step calls"
-```
+- state_machine: Start->Working->Finished via Step calls
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-transitions: 3
-```
+- transitions: 3
 
 <!-- field: traces -->
 #### Traces
@@ -1315,19 +1228,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoop_RunsToCompletion
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-terminal: "Finished, OverBudget, Broken"
-```
+- terminal: Finished, OverBudget, Broken
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-loop_stops: true
-```
+- loop_stops: true
 
 <!-- field: traces -->
 #### Traces
@@ -1347,24 +1256,20 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./internal/runtime/core -run 'TestDispatch_(StampsSpanAttributesAndCommandName|RecordsCommandErrorsOnSpan)|TestDispatchWithMonitor_EmitsDispatchMetrics'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-command: "dispatchResultCmd"
-tracer: "dispatchTestTracer"
-monitor: "dispatchRuntimeRecorder"
-```
+- command: dispatchResultCmd
+- tracer: dispatchTestTracer
+- monitor: dispatchRuntimeRecorder
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-child_span_recorded: true
-command_attributes_stamped: true
-error_recorded: true
-dispatch_metrics_emitted: true
-```
+- child_span_recorded: true
+- command_attributes_stamped: true
+- error_recorded: true
+- dispatch_metrics_emitted: true
 
 <!-- field: traces -->
 #### Traces
@@ -1384,21 +1289,17 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./internal/runtime/core -run 'TestSafeExecute_(RecoversPanicAndForcesCommandError|TimeoutAndIndefiniteWait)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-commands: "panic command, timeout command, zero-timeout wait command"
-```
+- commands: panic command, timeout command, zero-timeout wait command
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-panic_signal: CommandError
-timeout_signal: CommandError
-zero_timeout_waits: true
-```
+- panic_signal: CommandError
+- timeout_signal: CommandError
+- zero_timeout_waits: true
 
 <!-- field: traces -->
 #### Traces
@@ -1418,21 +1319,17 @@ rel00.0-uc001-domain-agent-integration
 
 TestFillDurationAndForceErrorSignal
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-result: "Result pointer with zero duration and non-nil error"
-```
+- result: Result pointer with zero duration and non-nil error
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-duration_positive: true
-existing_duration_preserved: true
-signal: CommandError
-```
+- duration_positive: true
+- existing_duration_preserved: true
+- signal: CommandError
 
 <!-- field: traces -->
 #### Traces
@@ -1452,19 +1349,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestBuildTransitionTable
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-registry: "do_work registered with Phases: [Running]"
-```
+- registry: "do_work registered with Phases: [Running]"
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-phase_match: true
-```
+- phase_match: true
 
 <!-- field: traces -->
 #### Traces
@@ -1484,19 +1377,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoop_EmitsRegistryFrozenEvent
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-registry: "multiple tools registered"
-```
+- registry: multiple tools registered
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-tool_count: "> 0"
-```
+- tool_count: "\u003e 0"
 
 <!-- field: traces -->
 #### Traces
@@ -1516,19 +1405,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestBuildTransitionTable
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-registry: "resolves builders by name"
-```
+- registry: resolves builders by name
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-resolves: true
-```
+- resolves: true
 
 <!-- field: traces -->
 #### Traces
@@ -1548,19 +1433,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoop_RunsToCompletion
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-registry: "tools with Internal visibility registered"
-```
+- registry: tools with Internal visibility registered
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-visibility_set: true
-```
+- visibility_set: true
 
 <!-- field: traces -->
 #### Traces
@@ -1580,19 +1461,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoop_RunsToCompletion
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-params: "InitialState, Prompt, Registry, Table, IsTerminal, Trace, Budget, Hooks"
-```
+- params: InitialState, Prompt, Registry, Table, IsTerminal, Trace, Budget, Hooks
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-loop_runs: true
-```
+- loop_runs: true
 
 <!-- field: traces -->
 #### Traces
@@ -1612,19 +1489,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoop_EmitsRegistryFrozenEvent
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-tracer: "loopRecorder implements Tracer with Push, Event, SetAttributes"
-```
+- tracer: loopRecorder implements Tracer with Push, Event, SetAttributes
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-interface_satisfied: true
-```
+- interface_satisfied: true
 
 <!-- field: traces -->
 #### Traces
@@ -1644,19 +1517,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestLoop_RunsToCompletion
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-imports: "internal/observability/tracing imports only go.opentelemetry.io/otel/attribute"
-```
+- imports: internal/observability/tracing imports only go.opentelemetry.io/otel/attribute
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-no_sdk_import: true
-```
+- no_sdk_import: true
 
 <!-- field: traces -->
 #### Traces
@@ -1676,19 +1545,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestNewRoot_EmptyConfigError
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-config: "ExporterConfig{} (both fields empty)"
-```
+- config: ExporterConfig{} (both fields empty)
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-error: "at least one exporter required"
-```
+- error: at least one exporter required
 
 <!-- field: traces -->
 #### Traces
@@ -1708,21 +1573,17 @@ rel00.0-uc001-domain-agent-integration
 
 TestNewRoot_PushAndEvent
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-trace: "Trace from NewRoot with file exporter"
-```
+- trace: Trace from NewRoot with file exporter
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-child_created: true
-event_recorded: true
-attributes_set: true
-```
+- child_created: true
+- event_recorded: true
+- attributes_set: true
 
 <!-- field: traces -->
 #### Traces
@@ -1742,20 +1603,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestNewRoot_PushAndEvent
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-trace: "Trace from NewRoot"
-```
+- trace: Trace from NewRoot
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-context_not_nil: true
-meter_not_nil: true
-```
+- context_not_nil: true
+- meter_not_nil: true
 
 <!-- field: traces -->
 #### Traces
@@ -1775,20 +1632,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestNewRoot_FileExporter
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-config: "ExporterConfig{FilePath: tempfile}"
-```
+- config: "ExporterConfig{FilePath: tempfile}"
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-trace_not_zero: true
-shutdown_not_nil: true
-```
+- trace_not_zero: true
+- shutdown_not_nil: true
 
 <!-- field: traces -->
 #### Traces
@@ -1808,19 +1661,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestNewRoot_ShutdownIdempotent
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-shutdown: "called twice"
-```
+- shutdown: called twice
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-no_panic: true
-```
+- no_panic: true
 
 <!-- field: traces -->
 #### Traces
@@ -1840,20 +1689,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestNewRoot_TempFileUsesServiceName, TestNewRoot_FileExporter
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-config: "ExporterConfig{FilePath: target}"
-```
+- config: "ExporterConfig{FilePath: target}"
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-temp_file_during: true
-final_file_after: true
-```
+- temp_file_during: true
+- final_file_after: true
 
 <!-- field: traces -->
 #### Traces
@@ -1878,19 +1723,15 @@ TestNewRoot_OTLPExporter
 
 #601
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-config: "ExporterConfig{OTLPEndpoint: localhost:4317}"
-```
+- config: "ExporterConfig{OTLPEndpoint: localhost:4317}"
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-trace_not_zero: true
-```
+- trace_not_zero: true
 
 <!-- field: traces -->
 #### Traces
@@ -1915,20 +1756,16 @@ TestTraceAdapter_SatisfiesInterface
 
 #601
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-adapter: "TraceAdapter{T: trace}"
-```
+- adapter: "TraceAdapter{T: trace}"
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-interface_check: "compile-time var _ tracing.Tracer = TraceAdapter{}"
-push_returns_adapter: true
-```
+- interface_check: compile-time var _ tracing.Tracer = TraceAdapter{}
+- push_returns_adapter: true
 
 <!-- field: traces -->
 #### Traces
@@ -1948,20 +1785,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestOTLPReplayMachineLoadsThenRelaysUnchangedBatch
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-machine: testdata/integration/profiles/otlp-replay/machine.yaml
-```
+- machine: testdata/integration/profiles/otlp-replay/machine.yaml
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-status: succeeded
-batch_identity: unchanged
-```
+- status: succeeded
+- batch_identity: unchanged
 
 <!-- field: traces -->
 #### Traces
@@ -1981,20 +1814,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestInMemoryCheckpointRoundTripsConversationAndReceipts
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-checkpoint: "conversation and opaque persisted receipts (Execution entries), position snapshot"
-```
+- checkpoint: conversation and opaque persisted receipts (Execution entries), position snapshot
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-state_layers_separate: true
-json_round_trip: true
-```
+- state_layers_separate: true
+- json_round_trip: true
 
 <!-- field: traces -->
 #### Traces
@@ -2015,20 +1844,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestConversationHistoryLifecycle
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-message: "manual user message"
-```
+- message: manual user message
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-chat_called: false
-history_contains_message: true
-```
+- chat_called: false
+- history_contains_message: true
 
 <!-- field: traces -->
 #### Traces
@@ -2048,20 +1873,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestConversationHistoryLifecycle
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-operations: "append, snapshot, truncate"
-```
+- operations: append, snapshot, truncate
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-history_order_preserved: true
-snapshot_restored: true
-```
+- history_order_preserved: true
+- snapshot_restored: true
 
 <!-- field: traces -->
 #### Traces
@@ -2081,19 +1902,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestConversationHistoryReturnsCopies
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-mutation: "modify returned history"
-```
+- mutation: modify returned history
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-internal_history_unchanged: true
-```
+- internal_history_unchanged: true
 
 <!-- field: traces -->
 #### Traces
@@ -2113,21 +1930,17 @@ rel00.0-uc001-domain-agent-integration
 
 TestDefaultAssembler_AppendsConversationMessages
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-system_prompt: "non-empty"
-history: "user and assistant messages"
-```
+- system_prompt: non-empty
+- history: user and assistant messages
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-system_first: true
-history_included: true
-```
+- system_first: true
+- history_included: true
 
 <!-- field: traces -->
 #### Traces
@@ -2147,20 +1960,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestConversationHistoryLifecycle
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-methods: "Append, Messages, Reset"
-```
+- methods: Append, Messages, Reset
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-messages_alias_history: true
-reset_clears_history: true
-```
+- messages_alias_history: true
+- reset_clears_history: true
 
 <!-- field: traces -->
 #### Traces
@@ -2180,20 +1989,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestConversationHistoryLifecycle
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-operations: "append, reset, append"
-```
+- operations: append, reset, append
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-history_cleared: true
-second_append_succeeds: true
-```
+- history_cleared: true
+- second_append_succeeds: true
 
 <!-- field: traces -->
 #### Traces
@@ -2213,20 +2018,16 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./internal/model/prompt ./internal/model/llm -run 'Test(Render|DefaultAssembler)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-prompt: "role, task, constraints, output_format"
-```
+- prompt: role, task, constraints, output_format
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-sections_counted: true
-assemble_deterministic: true
-```
+- sections_counted: true
+- assemble_deterministic: true
 
 <!-- field: traces -->
 #### Traces
@@ -2246,20 +2047,16 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./internal/tools/llm ./internal/model/prompt
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-yaml_modes: "structured task and simple prompt"
-```
+- yaml_modes: structured task and simple prompt
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-defaults_applied: true
-simple_maps_to_task: true
-```
+- defaults_applied: true
+- simple_maps_to_task: true
 
 <!-- field: traces -->
 #### Traces
@@ -2279,19 +2076,15 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./internal/tools/llm ./internal/tools/catalog
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-yaml: "task and prompt both set"
-```
+- yaml: task and prompt both set
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-error_reported: true
-```
+- error_reported: true
 
 <!-- field: traces -->
 #### Traces
@@ -2311,20 +2104,16 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./internal/tools/llm ./internal/model/prompt
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-prompt_string: "inline task"
-```
+- prompt_string: inline task
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-mode: string
-task_length_recorded: true
-```
+- mode: string
+- task_length_recorded: true
 
 <!-- field: traces -->
 #### Traces
@@ -2344,20 +2133,16 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./internal/tools/llm ./internal/model/prompt
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-yaml: "task plus role override"
-```
+- yaml: task plus role override
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-compiled_defaults_used: true
-override_applied: true
-```
+- compiled_defaults_used: true
+- override_applied: true
 
 <!-- field: traces -->
 #### Traces
@@ -2377,19 +2162,15 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./internal/tools/llm
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-task: ""
-```
+- task: ""
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-error_reported: true
-```
+- error_reported: true
 
 <!-- field: traces -->
 #### Traces
@@ -2409,20 +2190,16 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./internal/model/prompt
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-prompt_data: "role, task, tool manifest"
-```
+- prompt_data: role, task, tool manifest
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-role_and_task_rendered: true
-tool_manifest_rendered: true
-```
+- role_and_task_rendered: true
+- tool_manifest_rendered: true
 
 <!-- field: traces -->
 #### Traces
@@ -2442,21 +2219,17 @@ rel00.0-uc001-domain-agent-integration
 
 TestRender_WithEnvelope
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-envelope: "<tool> tags"
-strict_format: true
-```
+- envelope: <tool> tags
+- strict_format: true
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-envelope_instructions_rendered: true
-strict_format_instructions_rendered: true
-```
+- envelope_instructions_rendered: true
+- strict_format_instructions_rendered: true
 
 <!-- field: traces -->
 #### Traces
@@ -2476,19 +2249,15 @@ rel00.0-uc001-domain-agent-integration
 
 TestRender_NoTrailingNewlines
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-prompt_data: "role, task, tool manifest"
-```
+- prompt_data: role, task, tool manifest
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-trailing_newline: false
-```
+- trailing_newline: false
 
 <!-- field: traces -->
 #### Traces
@@ -2508,20 +2277,16 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./internal/model/prompt -run TestRender
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-template: embedded
-```
+- template: embedded
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-rendered: true
-runtime_template_compilation_absent: true
-```
+- rendered: true
+- runtime_template_compilation_absent: true
 
 <!-- field: traces -->
 #### Traces
@@ -2541,20 +2306,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestSerializeManifest_SingleToolWithSchema
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-tools: "one ToolSpec with JSON schema"
-```
+- tools: one ToolSpec with JSON schema
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-heading_present: true
-json_fence_present: true
-```
+- heading_present: true
+- json_fence_present: true
 
 <!-- field: traces -->
 #### Traces
@@ -2574,20 +2335,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestNormalizeSchema
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-schema: "compact JSON object"
-```
+- schema: compact JSON object
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-schema_indented_two_spaces: true
-invalid_json_preserved: true
-```
+- schema_indented_two_spaces: true
+- invalid_json_preserved: true
 
 <!-- field: traces -->
 #### Traces
@@ -2607,19 +2364,15 @@ rel00.0-uc002-spec-corpus-validation
 
 TestParseSpecIndex
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-artifacts: "SRD, use case, test suite, roadmap, spec index"
-```
+- artifacts: SRD, use case, test suite, roadmap, spec index
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-typed_structs_loaded: true
-```
+- typed_structs_loaded: true
 
 <!-- field: traces -->
 #### Traces
@@ -2639,20 +2392,16 @@ rel00.0-uc002-spec-corpus-validation
 
 TestBuildGraph_NodeCounts
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-corpus: "valid fixture corpus"
-```
+- corpus: valid fixture corpus
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-node_kinds_present: true
-edges_present: true
-```
+- node_kinds_present: true
+- edges_present: true
 
 <!-- field: traces -->
 #### Traces
@@ -2672,19 +2421,15 @@ rel00.0-uc002-spec-corpus-validation
 
 TestValidate_ReturnsFindings
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-corpus: "fixture with validation findings"
-```
+- corpus: fixture with validation findings
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-findings_have_check_and_message: true
-```
+- findings_have_check_and_message: true
 
 <!-- field: traces -->
 #### Traces
@@ -2704,21 +2449,17 @@ rel00.0-uc002-spec-corpus-validation
 
 TestLoadCorpus_Valid
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-root: "pkg/spec/testdata/valid"
-```
+- root: pkg/spec/testdata/valid
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-srds_loaded: true
-use_cases_loaded: true
-test_suites_loaded: true
-```
+- srds_loaded: true
+- use_cases_loaded: true
+- test_suites_loaded: true
 
 <!-- field: traces -->
 #### Traces
@@ -2743,23 +2484,19 @@ go test ./pkg/spec -run TestExecuteChartersSpecCorpusAddsProvenance
 
 mage audit
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profile: testdata/integration/profiles/audit/profile.yaml
-suite: tools/builtin/spec-validation/spec-corpus-charter.yaml
-```
+- profile: testdata/integration/profiles/audit/profile.yaml
+- suite: tools/builtin/spec-validation/spec-corpus-charter.yaml
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-default_suite_loaded_from_yaml: true
-spec_corpus_findings_have_provenance: true
-existing_audit_warnings_preserved: true
-terminal_state: succeeded
-```
+- default_suite_loaded_from_yaml: true
+- spec_corpus_findings_have_provenance: true
+- existing_audit_warnings_preserved: true
+- terminal_state: succeeded
 
 <!-- field: traces -->
 #### Traces
@@ -2780,21 +2517,17 @@ rel00.0-uc001-domain-agent-integration
 
 TestInferenceAttrs
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-provider: ollama
-model: qwen
-```
+- provider: ollama
+- model: qwen
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-genai_attributes_present: true
-provider_and_output_constants_present: true
-```
+- genai_attributes_present: true
+- provider_and_output_constants_present: true
 
 <!-- field: traces -->
 #### Traces
@@ -2815,20 +2548,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestAgentSpanName
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-names: "agent, tool, workflow, inference"
-```
+- names: agent, tool, workflow, inference
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-operation_target_format: true
-empty_name_falls_back: true
-```
+- operation_target_format: true
+- empty_name_falls_back: true
 
 <!-- field: traces -->
 #### Traces
@@ -2848,20 +2577,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestToolAttrs
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-attrs: "inference, agent, tool, workflow, usage, error"
-```
+- attrs: inference, agent, tool, workflow, usage, error
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-operation_attrs_present: true
-optional_empty_values_omitted: true
-```
+- operation_attrs_present: true
+- optional_empty_values_omitted: true
 
 <!-- field: traces -->
 #### Traces
@@ -2881,22 +2606,18 @@ rel00.0-uc001-domain-agent-integration
 
 TestInvokeLLMDeltaCaptureIsolatesTwoTurns
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-turns: 2
-capture_level: delta
-```
+- turns: 2
+- capture_level: delta
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-current_user_and_assistant_only: true
-full_message_attributes_absent: true
-rendered_system_prompt_hash_stable: true
-```
+- current_user_and_assistant_only: true
+- full_message_attributes_absent: true
+- rendered_system_prompt_hash_stable: true
 
 <!-- field: traces -->
 #### Traces
@@ -2917,21 +2638,17 @@ rel00.0-uc001-domain-agent-integration
 
 TestInvokeLLMDispatchTracerIsolatesTwoTurns
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-turns: 2
-capture_level: full
-```
+- turns: 2
+- capture_level: full
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-input_message_array_valid: true
-output_message_array_valid: true
-```
+- input_message_array_valid: true
+- output_message_array_valid: true
 
 <!-- field: traces -->
 #### Traces
@@ -2951,20 +2668,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestCaptureOffRecordsNoContent
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-capture_level: off
-```
+- capture_level: off
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-model_content_absent: true
-parser_raw_output_absent: true
-```
+- model_content_absent: true
+- parser_raw_output_absent: true
 
 <!-- field: traces -->
 #### Traces
@@ -2984,20 +2697,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestInvokeLLMConversationReferenceIsOptional
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-providers: "missing, unavailable, empty, available"
-```
+- providers: missing, unavailable, empty, available
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-missing_reference_omitted: true
-available_reference_emitted: true
-```
+- missing_reference_omitted: true
+- available_reference_emitted: true
 
 <!-- field: traces -->
 #### Traces
@@ -3017,20 +2726,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestParseTraceparentProtocolBoundaries
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-span_context: valid
-```
+- span_context: valid
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-traceparent_round_trips: true
-invalid_context_returns_empty: true
-```
+- traceparent_round_trips: true
+- invalid_context_returns_empty: true
 
 <!-- field: traces -->
 #### Traces
@@ -3050,21 +2755,17 @@ rel00.0-uc001-domain-agent-integration
 
 TestParseParentSpan_Valid
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-traceparent: "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01"
-```
+- traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-remote_context_created: true
-empty_input_background: true
-invalid_input_errors: true
-```
+- remote_context_created: true
+- empty_input_background: true
+- invalid_input_errors: true
 
 <!-- field: traces -->
 #### Traces
@@ -3084,28 +2785,32 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./cmd/agent -run 'Test(SeedRequest|ResumeLoad|CLIResultReporter|RunPreparedPrints|ExitCodeForStatus)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-request_cases: [finite_bytes, absent, unreadable]
-resume_case: checkpoint_load_with_request_seed_present
-summary_limit_bytes: 1048576
-run_statuses: [succeeded, suspended, failed, budget_exceeded, cancelled]
-```
+- request_cases:
+  1. finite_bytes
+  1. absent
+  1. unreadable
+- resume_case: checkpoint_load_with_request_seed_present
+- summary_limit_bytes: 1048576
+- run_statuses:
+  1. succeeded
+  1. suspended
+  1. failed
+  1. budget_exceeded
+  1. cancelled
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-non_resume_request_becomes_seed_output: true
-no_request_bootstrap_unchanged: true
-unreadable_request_is_error: true
-loaded_checkpoint_overrides_request_seed: true
-stdout_summary_bounded: true
-stderr_has_run_and_machine_state: true
-exit_code_uses_run_status: true
-```
+- non_resume_request_becomes_seed_output: true
+- no_request_bootstrap_unchanged: true
+- unreadable_request_is_error: true
+- loaded_checkpoint_overrides_request_seed: true
+- stdout_summary_bounded: true
+- stderr_has_run_and_machine_state: true
+- exit_code_uses_run_status: true
 
 <!-- field: traces -->
 #### Traces
@@ -3126,22 +2831,23 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./internal/tools/control -run TestSelfInvokeTraceRecordsBoundedChildResult
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-child_result: [profile, run_id, exit_code, stdout, stderr]
-content_prefix_limit_bytes: 500
-```
+- child_result:
+  1. profile
+  1. run_id
+  1. exit_code
+  1. stdout
+  1. stderr
+- content_prefix_limit_bytes: 500
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-current_span_attributes_recorded: true
-result_event_recorded: true
-stdout_and_stderr_bounded: true
-```
+- current_span_attributes_recorded: true
+- result_event_recorded: true
+- stdout_and_stderr_bounded: true
 
 <!-- field: traces -->
 #### Traces
@@ -3161,25 +2867,31 @@ rel00.0-uc001-domain-agent-integration
 
 cd ../applications/chatbot-mesh && mage integration:rig
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-exporters: [file, otlp]
-identity: [repository, module, target, git_commit, run_id, service_name]
-backends: [collector-agent-traces, collector-agent-metrics]
-```
+- exporters:
+  1. file
+  1. otlp
+- identity:
+  1. repository
+  1. module
+  1. target
+  1. git_commit
+  1. run_id
+  1. service_name
+- backends:
+  1. collector-agent-traces
+  1. collector-agent-metrics
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-child_endpoint_propagated: true
-child_service_identity_explicit: true
-file_evidence_preserved: true
-backend_evidence_retained_after_run: true
-ingress_self_loop_absent: true
-```
+- child_endpoint_propagated: true
+- child_service_identity_explicit: true
+- file_evidence_preserved: true
+- backend_evidence_retained_after_run: true
+- ingress_self_loop_absent: true
 
 <!-- field: traces -->
 #### Traces
@@ -3202,22 +2914,18 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./internal/tools/llm -run 'Test(InvokeLLM|ParseResponse|ReportParseError|ResetHistory)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-llm_tools: "invoke_llm, parse_response, report_parse_error, reset_history"
-```
+- llm_tools: invoke_llm, parse_response, report_parse_error, reset_history
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-conversation_updated: true
-parser_validates_tools: true
-retry_counter_managed: true
-timeout_and_context_limits_enforced: true
-```
+- conversation_updated: true
+- parser_validates_tools: true
+- retry_counter_managed: true
+- timeout_and_context_limits_enforced: true
 
 <!-- field: traces -->
 #### Traces
@@ -3237,22 +2945,18 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./internal/tools/exec -run 'Test(SubprocessResult|CapOutput|ExtractStringParam|ProcGroupCmd|RunProcGroup)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-subprocesses: "success, non-zero exit, timeout, missing binary"
-```
+- subprocesses: success, non-zero exit, timeout, missing binary
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-result_signals_mapped: true
-output_capped: true
-params_extracted: true
-process_group_timeout_handled: true
-```
+- result_signals_mapped: true
+- output_capped: true
+- params_extracted: true
+- process_group_timeout_handled: true
 
 <!-- field: traces -->
 #### Traces
@@ -3272,23 +2976,19 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./internal/tools/catalog ./internal/tools/exec -run 'Test(LoadToolDeclarations|SelectTools|RegisterToolDefs|ParseToolDefs)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-declarations: "builtin and exec tool YAML"
-selection: "selected tool names"
-```
+- declarations: builtin and exec tool YAML
+- selection: selected tool names
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-declarations_loaded: true
-selection_validated: true
-registry_populated: true
-legacy_paths_available: true
-```
+- declarations_loaded: true
+- selection_validated: true
+- registry_populated: true
+- legacy_paths_available: true
 
 <!-- field: traces -->
 #### Traces
@@ -3308,21 +3008,17 @@ rel00.0-uc001-domain-agent-integration
 
 go test ./internal/tools/exec -run '^TestExecCmdRecordsMonitorMetrics$'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-command: "echo hello"
-```
+- command: echo hello
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-process_output_bytes_recorded: true
-process_exit_code_recorded: true
-command_output_not_used_as_metric_attribute: true
-```
+- process_output_bytes_recorded: true
+- process_exit_code_recorded: true
+- command_output_not_used_as_metric_attribute: true
 
 <!-- field: traces -->
 #### Traces
@@ -3342,24 +3038,20 @@ rel00.0-uc001-domain-agent-integration
 
 TestSpanOverrideCustomizesDispatchSpan
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-command: spanOverrideCmd
-span_name: custom-span
-span_attr: custom.attr
-```
+- command: spanOverrideCmd
+- span_name: custom-span
+- span_attr: custom.attr
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-command_signal: ToolDone
-command_name_stamped: true
-custom_span_name_used: true
-custom_attrs_used: true
-```
+- command_signal: ToolDone
+- command_name_stamped: true
+- custom_span_name_used: true
+- custom_attrs_used: true
 
 <!-- field: traces -->
 #### Traces
@@ -3379,20 +3071,16 @@ rel00.0-uc001-domain-agent-integration
 
 TestToolMetricsJSONTagsAndOmitEmptyDetails
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-metrics: "total, passed, failed, details"
-```
+- metrics: total, passed, failed, details
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-json_tags_match_contract: true
-details_omitted_when_empty: true
-```
+- json_tags_match_contract: true
+- details_omitted_when_empty: true
 
 <!-- field: traces -->
 #### Traces
@@ -3412,22 +3100,18 @@ rel00.0-uc001-domain-agent-integration
 
 TestNoopTracerSatisfiesInterfaceAndDiscardsOperations
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-operations: "Push, Event, SetAttributes, RecordError, Context"
-```
+- operations: Push, Event, SetAttributes, RecordError, Context
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-compile_time_interface: true
-child_tracer_noop: true
-context_background: true
-operations_do_not_panic: true
-```
+- compile_time_interface: true
+- child_tracer_noop: true
+- context_background: true
+- operations_do_not_panic: true
 
 <!-- field: traces -->
 #### Traces

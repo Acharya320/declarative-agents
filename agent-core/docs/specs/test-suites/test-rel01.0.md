@@ -38,24 +38,26 @@ rel01.0-uc001-generator-coding
 
 TestListFilesDeclarationUsesBoundedFindExec, TestListFilesExecPreservesTreeContract, TestListFilesExecHonorsDepthAndSubpath, TestListFilesExecRejectsMissingAndEscapingPaths, TestListFilesExecCapsOutput
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-declaration: tools/builtin/list-files.yaml
-executable_dependency: GNU find (findutils)
-cases: [hidden_entries, symlinks, deterministic_order, depth_and_subpath, missing_and_escaping_paths, output_cap]
-```
+- declaration: tools/builtin/list-files.yaml
+- executable_dependency: GNU find (findutils)
+- cases:
+  1. hidden_entries
+  1. symlinks
+  1. deterministic_order
+  1. depth_and_subpath
+  1. missing_and_escaping_paths
+  1. output_cap
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-production_go_walk: absent
-workspace_escape: rejected
-symlinks_followed: false
-output_line_cap: 200
-```
+- production_go_walk: absent
+- workspace_escape: rejected
+- symlinks_followed: false
+- output_line_cap: 200
 
 <!-- field: traces -->
 #### Traces
@@ -77,23 +79,19 @@ rel01.0-uc001-generator-coding
 
 applications/coding-agent mage integration:executorLive
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profile: ${AGENT_CATALOG_ROOT}/agents/executor/profile.yaml
-sample: testdata/integration/uc001-generator-coding
-model: qwen3.6:35b-mlx
-```
+- profile: ${AGENT_CATALOG_ROOT}/agents/executor/profile.yaml
+- sample: testdata/integration/uc001-generator-coding
+- model: qwen3.6:35b-mlx
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-qwen_profile_selected: true
-thinking_blocks_stripped: true
-tool_call_envelope_extracted: true
-```
+- qwen_profile_selected: true
+- thinking_blocks_stripped: true
+- tool_call_envelope_extracted: true
 
 <!-- field: traces -->
 #### Traces
@@ -116,20 +114,16 @@ rel01.0-uc001-generator-coding
 
 TestInvokeLLMBuildsWithoutNetworkIO
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-provider_url: "unserved loopback endpoint"
-```
+- provider_url: unserved loopback endpoint
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-construction_succeeds: true
-startup_network_requests: 0
-```
+- construction_succeeds: true
+- startup_network_requests: 0
 
 <!-- field: traces -->
 #### Traces
@@ -149,21 +143,17 @@ rel01.0-uc001-generator-coding
 
 TestInvokeLLMRunsTheDialectPipeline
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-tracer: "recording tracer"
-chat_request: "non-streaming /api/chat"
-```
+- tracer: recording tracer
+- chat_request: non-streaming /api/chat
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-inference_span_attrs: true
-nil_tracer_safe: true
-```
+- inference_span_attrs: true
+- nil_tracer_safe: true
 
 <!-- field: traces -->
 #### Traces
@@ -183,24 +173,20 @@ rel01.0-uc001-generator-coding
 
 TestProviderDialectFailureKeepsCommandError
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-failures:
-    - connection_refused
-    - bad_http_status
-    - malformed_json
-    - cancelled_context
-```
+- failures:
+  1. connection_refused
+  1. bad_http_status
+  1. malformed_json
+  1. cancelled_context
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-distinct_errors: true
-no_retry: true
-```
+- distinct_errors: true
+- no_retry: true
 
 <!-- field: traces -->
 #### Traces
@@ -220,23 +206,19 @@ rel01.0-uc001-generator-coding
 
 applications/coding-agent mage integration:executorLive
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profile: ${AGENT_CATALOG_ROOT}/agents/executor/profile.yaml
-workspace: testdata/integration/uc001-generator-coding
-validation: build_lint_test
-```
+- profile: ${AGENT_CATALOG_ROOT}/agents/executor/profile.yaml
+- workspace: testdata/integration/uc001-generator-coding
+- validation: build_lint_test
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-run_status: succeeded
-oracle_tests_pass: true
-workspace_changes_validated: true
-```
+- run_status: succeeded
+- oracle_tests_pass: true
+- workspace_changes_validated: true
 
 <!-- field: traces -->
 #### Traces
@@ -257,24 +239,20 @@ rel01.0-uc002-evaluator-benchmark
 
 TestEvaluatorSessionSetupToolSequence
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-suite: synthetic_profile_suite
-grid: effort_low_high
-repetitions: 2
-```
+- suite: synthetic_profile_suite
+- grid: effort_low_high
+- repetitions: 2
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-suite_parsed: true
-samples_discovered: true
-grid_points: 2
-reported_points: 4
-```
+- suite_parsed: true
+- samples_discovered: true
+- grid_points: 2
+- reported_points: 4
 
 <!-- field: traces -->
 #### Traces
@@ -295,22 +273,21 @@ rel01.0-uc002-evaluator-benchmark
 
 go test ./internal/evaluation -run 'Test(InitEvalSessionRequiresExpandedGrid|InitEvalSessionDefaultsComeFromDeclaration)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-init_eval_session_config: {output_dir: eval-results, reps: 1, timeout: 600}
-grid_points: 0
-```
+- init_eval_session_config:
+  - output_dir: eval-results
+  - reps: 1
+  - timeout: 600
+- grid_points: 0
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-defaults_loaded_from_tooldef: true
-missing_grid_signal: CommandError
-session_directory_created_on_failure: false
-```
+- defaults_loaded_from_tooldef: true
+- missing_grid_signal: CommandError
+- session_directory_created_on_failure: false
 
 <!-- field: traces -->
 #### Traces
@@ -331,26 +308,29 @@ rel01.0-uc002-evaluator-benchmark
 
 go test ./internal/evaluation -run 'TestInitEvalSessionRejects(InvalidPointTimeout|ExcessiveAggregateDuration|AggregateDurationOverflow)$'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-point_timeout_authority: 15m
-aggregate_session_authority: 24h
-point_timeout_cases: [malformed, zero, negative, above_authority]
-aggregate_cases: [at_authority, above_authority, multiplication_overflow]
-```
+- point_timeout_authority: 15m
+- aggregate_session_authority: 24h
+- point_timeout_cases:
+  1. malformed
+  1. zero
+  1. negative
+  1. above_authority
+- aggregate_cases:
+  1. at_authority
+  1. above_authority
+  1. multiplication_overflow
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-malformed_and_non_positive_rejected: true
-point_timeout_above_15m_rejected: true
-aggregate_duration_above_24h_rejected: true
-overflow_rejected: true
-session_directory_created_on_failure: false
-```
+- malformed_and_non_positive_rejected: true
+- point_timeout_above_15m_rejected: true
+- aggregate_duration_above_24h_rejected: true
+- overflow_rejected: true
+- session_directory_created_on_failure: false
 
 <!-- field: traces -->
 #### Traces
@@ -370,22 +350,18 @@ rel01.0-uc002-evaluator-benchmark
 
 go test ./internal/evaluation -run TestRunPointPropagatesMachineCommandTimeout$
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-point_machine: synthetic machine with a finite command_timeout
-point_command: context-aware blocking command
-```
+- point_machine: synthetic machine with a finite command_timeout
+- point_command: context-aware blocking command
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-nested_loop_uses_declared_command_timeout: true
-deadline_observed_without_wall_clock_sleep: true
-omitted_or_copied_fallback_timeout: false
-```
+- nested_loop_uses_declared_command_timeout: true
+- deadline_observed_without_wall_clock_sleep: true
+- omitted_or_copied_fallback_timeout: false
 
 <!-- field: traces -->
 #### Traces
@@ -405,25 +381,23 @@ rel01.0-uc002-evaluator-benchmark
 
 applications/catalog go test ./magefiles -run TestCatalogEvaluatorTimeoutEnvelopes$
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-point_runtime_authority: 15m
-aggregate_session_authority: 24h
-critic_profiles: [agents/critic/point.yaml, agents/critic/machine.yaml]
-bench_profile: agents/bench/machine.yaml
-```
+- point_runtime_authority: 15m
+- aggregate_session_authority: 24h
+- critic_profiles:
+  1. agents/critic/point.yaml
+  1. agents/critic/machine.yaml
+- bench_profile: agents/bench/machine.yaml
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-critic_point_command_margin_at_least: 1m
-critic_run_point_dispatch_margin_at_least: 1m
-bench_child_session_margin_at_least: 1h
-all_bounds_finite_and_profile_owned: true
-```
+- critic_point_command_margin_at_least: 1m
+- critic_run_point_dispatch_margin_at_least: 1m
+- bench_child_session_margin_at_least: 1h
+- all_bounds_finite_and_profile_owned: true
 
 <!-- field: traces -->
 #### Traces
@@ -443,22 +417,18 @@ rel01.0-uc002-evaluator-benchmark
 
 go test ./internal/evaluation -run 'Test(EvaluatorReceiptRejectsArtifactOutsideOwnedRoot|CollectMetricsRejectsMissingPointDirectory)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-point_dir: ""
-tampered_remove_path: outside owned root
-```
+- point_dir: ""
+- tampered_remove_path: outside owned root
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-empty_point_dir_rejected: true
-outside_artifact_retained: true
-undo_signal: CommandError
-```
+- empty_point_dir_rejected: true
+- outside_artifact_retained: true
+- undo_signal: CommandError
 
 <!-- field: traces -->
 #### Traces
@@ -478,24 +448,20 @@ rel01.0-uc002-evaluator-benchmark
 
 TestMaterializeEvalPointsPreservesProfileOrder
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profiles:
-    - agents/executor/profile-qwen35b.yaml
-    - agents/executor/profile-qwen27b.yaml
-samples: discovered_samples
-```
+- profiles:
+  1. agents/executor/profile-qwen35b.yaml
+  1. agents/executor/profile-qwen27b.yaml
+- samples: discovered_samples
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-first_profile_selected: true
-second_profile_selected: true
-all_points_done_signal: true
-```
+- first_profile_selected: true
+- second_profile_selected: true
+- all_points_done_signal: true
 
 <!-- field: traces -->
 #### Traces
@@ -516,22 +482,18 @@ rel01.0-uc002-evaluator-benchmark
 
 TestDiscoverSamplesUsesDeclaredLayout
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-workspace_dir: project
-doc_dir: guidance
-prompt_file: task.txt
-```
+- workspace_dir: project
+- doc_dir: guidance
+- prompt_file: task.txt
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-custom_layout_discovered: true
-shared_prompt_resolved: true
-```
+- custom_layout_discovered: true
+- shared_prompt_resolved: true
 
 <!-- field: traces -->
 #### Traces
@@ -551,21 +513,20 @@ rel01.0-uc002-evaluator-benchmark
 
 TestExtractToolSnapshots_WithMetrics
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-tool_name: run_checks
-metrics: {total: 4, passed: 3, failed: 1}
-```
+- tool_name: run_checks
+- metrics:
+  - total: 4
+  - passed: 3
+  - failed: 1
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-snapshot_preserved: true
-go_output_regex_required: false
-```
+- snapshot_preserved: true
+- go_output_regex_required: false
 
 <!-- field: traces -->
 #### Traces
@@ -585,23 +546,19 @@ rel01.0-uc002-evaluator-benchmark
 
 applications/coding-agent mage integration:criticGate
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profile: ${AGENT_CATALOG_ROOT}/agents/critic/profile.yaml
-suite: testdata/integration/uc002-evaluator-benchmark/suite.yaml
-output: eval-results
-```
+- profile: ${AGENT_CATALOG_ROOT}/agents/critic/profile.yaml
+- suite: testdata/integration/uc002-evaluator-benchmark/suite.yaml
+- output: eval-results
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-generator_profiles_run: true
-result_entries_created: true
-meta_and_experiment_files_available: true
-```
+- generator_profiles_run: true
+- result_entries_created: true
+- meta_and_experiment_files_available: true
 
 <!-- field: traces -->
 #### Traces
@@ -623,22 +580,18 @@ rel01.0-uc002-evaluator-benchmark
 
 TestSummarizePointResultsUsesCollectedState
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-point_context: collected_trace_and_oracle_state
-metrics: duration_and_outcome
-```
+- point_context: collected_trace_and_oracle_state
+- metrics: duration_and_outcome
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-summary_uses_collected_state: true
-outcome_classified: true
-metrics_available_on_failure: true
-```
+- summary_uses_collected_state: true
+- outcome_classified: true
+- metrics_available_on_failure: true
 
 <!-- field: traces -->
 #### Traces
@@ -659,23 +612,19 @@ rel01.0-uc002-evaluator-benchmark
 
 TestPointMachineRoutesFailureThroughMetricsBeforeRunPointReturns
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-point_machine: deterministic failure before collect_metrics
-release_results: mixed passing and failed points
-```
+- point_machine: deterministic failure before collect_metrics
+- release_results: mixed passing and failed points
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-failure_metadata_preserved: true
-point_stage_and_cause_reported: true
-failed_point_rejects_gate: true
-nested_dispatch_span_present: true
-```
+- failure_metadata_preserved: true
+- point_stage_and_cause_reported: true
+- failed_point_rejects_gate: true
+- nested_dispatch_span_present: true
 
 <!-- field: traces -->
 #### Traces
@@ -696,21 +645,21 @@ rel01.0-uc003-bench-visualization
 
 TestEvaluationArtifactQueriesPreserveBenchData
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-tools: [list_evaluation_sessions, analyze_evaluation_session, list_evaluation_points, read_evaluation_trace]
-data: eval-results
-```
+- tools:
+  1. list_evaluation_sessions
+  1. analyze_evaluation_session
+  1. list_evaluation_points
+  1. read_evaluation_trace
+- data: eval-results
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-http_independent_statistics: true
-traversal_rejected: true
-```
+- http_independent_statistics: true
+- traversal_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -732,23 +681,19 @@ rel01.0-uc003-bench-visualization
 
 applications/catalog mage integration:benchEvaluator
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-eval_results_dir: required
-free_port: required
-```
+- eval_results_dir: required
+- free_port: required
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-current_target_status: skipped
-skip_reason_documents_manual_preconditions: false
-skip_reason_documents_browser_preconditions: true
-no_automated_ui_success_claim: true
-```
+- current_target_status: skipped
+- skip_reason_documents_manual_preconditions: false
+- skip_reason_documents_browser_preconditions: true
+- no_automated_ui_success_claim: true
 
 <!-- field: traces -->
 #### Traces
@@ -769,21 +714,17 @@ rel01.0-uc002-evaluator-benchmark
 
 TestComputeModelStatsAggregatesRuns
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-grouped_runs: "passed and failed runs for one model"
-```
+- grouped_runs: passed and failed runs for one model
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-success_rate_computed: true
-convergence_rates_computed: true
-mean_tokens_and_duration_computed: true
-```
+- success_rate_computed: true
+- convergence_rates_computed: true
+- mean_tokens_and_duration_computed: true
 
 <!-- field: traces -->
 #### Traces
@@ -803,21 +744,17 @@ rel01.0-uc002-evaluator-benchmark
 
 TestComputeDetailedAggregatesSampleModelRows
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-grouped_runs: "one sample and model result group"
-```
+- grouped_runs: one sample and model result group
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-sample_model_row_created: true
-convergence_counts_computed: true
-means_computed: true
-```
+- sample_model_row_created: true
+- convergence_counts_computed: true
+- means_computed: true
 
 <!-- field: traces -->
 #### Traces
@@ -837,22 +774,18 @@ rel01.0-uc003-bench-visualization
 
 TestEvaluationArtifactQueriesPreserveBenchData
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-eval_results: "meta.json, trace.ndjson, experiment.yaml"
-```
+- eval_results: meta.json, trace.ndjson, experiment.yaml
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-sessions_returned: true
-points_returned: true
-trace_returned: true
-experiment_returned: true
-```
+- sessions_returned: true
+- points_returned: true
+- trace_returned: true
+- experiment_returned: true
 
 <!-- field: traces -->
 #### Traces
@@ -872,20 +805,16 @@ rel01.0-uc002-evaluator-benchmark
 
 TestBuildArgs_ProfileOnly
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profile: ${AGENT_CATALOG_ROOT}/agents/executor/profile.yaml
-```
+- profile: ${AGENT_CATALOG_ROOT}/agents/executor/profile.yaml
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-profile_flag_present: true
-machine_and_model_flags_absent: true
-```
+- profile_flag_present: true
+- machine_and_model_flags_absent: true
 
 <!-- field: traces -->
 #### Traces
@@ -905,22 +834,18 @@ rel01.0-uc002-evaluator-benchmark
 
 go test ./internal/tools/control -run 'TestSelfInvokeBuilder_Execute_(Success|Failure)$'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-child_binary: echo
-failure_binary: false
-```
+- child_binary: echo
+- failure_binary: false
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-success_maps_to_tool_done: true
-failure_maps_to_tool_failed: true
-duration_recorded: true
-```
+- success_maps_to_tool_done: true
+- failure_maps_to_tool_failed: true
+- duration_recorded: true
 
 <!-- field: traces -->
 #### Traces
@@ -940,22 +865,18 @@ rel01.0-uc001-generator-coding
 
 TestInvokeLLM_CallTimeout
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-client: "waits for context cancellation"
-call_timeout: 1ms
-```
+- client: waits for context cancellation
+- call_timeout: 1ms
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-deadline_error_returned: true
-command_error_signal: true
-duration_recorded: true
-```
+- deadline_error_returned: true
+- command_error_signal: true
+- duration_recorded: true
 
 <!-- field: traces -->
 #### Traces
@@ -975,20 +896,16 @@ rel01.0-uc003-bench-visualization
 
 TestRESTServer_QueueOverflowPolicies
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-action_queue_capacity: 1
-```
+- action_queue_capacity: 1
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-first_action_accepted: true
-second_action_rejected: true
-```
+- first_action_accepted: true
+- second_action_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -1008,21 +925,17 @@ rel01.0-uc001-generator-coding
 
 TestInvokeLLM_Success
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-chat_response: "content plus token counts"
-```
+- chat_response: content plus token counts
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-duration_recorded: true
-token_usage_recorded: true
-result_signal_returned: true
-```
+- duration_recorded: true
+- token_usage_recorded: true
+- result_signal_returned: true
 
 <!-- field: traces -->
 #### Traces
@@ -1042,21 +955,17 @@ rel01.0-uc001-generator-coding
 
 go test ./internal/tools/registry -run 'Test(BuiltinRegistryRegisterResolveOverride|RegisterUnifiedToolsUnknownInit|RegisterSingleBuiltinOverrides)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-builtin_defs: "registered and missing init names"
-```
+- builtin_defs: registered and missing init names
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-init_resolved: true
-unknown_init_rejected: true
-registration_overrides_existing_tool: true
-```
+- init_resolved: true
+- unknown_init_rejected: true
+- registration_overrides_existing_tool: true
 
 <!-- field: traces -->
 #### Traces
@@ -1076,21 +985,17 @@ rel01.0-uc001-generator-coding
 
 go test ./internal/tools/catalog -run 'TestDecodeToolConfig'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-configs: "child agent, LLM, load suite, run point, evaluation artifacts"
-```
+- configs: child agent, LLM, load suite, run point, evaluation artifacts
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-typed_configs_decoded: true
-type_mismatch_mentions_tool: true
-extra_fields_ignored: true
-```
+- typed_configs_decoded: true
+- type_mismatch_mentions_tool: true
+- extra_fields_ignored: true
 
 <!-- field: traces -->
 #### Traces
@@ -1110,22 +1015,18 @@ rel01.0-uc001-generator-coding
 
 TestParseToolDefs
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-declaration: "exec tool with args, dir, emits, output cap, precondition, parameters, and side effects"
-```
+- declaration: exec tool with args, dir, emits, output cap, precondition, parameters, and side effects
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-schema_fields_loaded: true
-emits_loaded: true
-side_effects_loaded: true
-visibility_loaded: true
-```
+- schema_fields_loaded: true
+- emits_loaded: true
+- side_effects_loaded: true
+- visibility_loaded: true
 
 <!-- field: traces -->
 #### Traces
@@ -1145,22 +1046,18 @@ rel01.0-uc001-generator-coding
 
 go test ./internal/tools/exec -run 'Test(ExecCmd_(BuildArgs|Execute)|ExecBuilder_|RunProcGroup)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-exec_defs: "argv mapping, working dir, output cap, precondition, process group timeout"
-```
+- exec_defs: argv mapping, working dir, output cap, precondition, process group timeout
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-args_mapped: true
-output_and_exit_mapped: true
-output_cap_applied: true
-timeout_handled: true
-```
+- args_mapped: true
+- output_and_exit_mapped: true
+- output_cap_applied: true
+- timeout_handled: true
 
 <!-- field: traces -->
 #### Traces
@@ -1180,21 +1077,17 @@ rel01.0-uc001-generator-coding
 
 TestInvokeLLMBuildsWithoutNetworkIO
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-http_client_timeout: 37s
-model_check: absent
-```
+- http_client_timeout: 37s
+- model_check: absent
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-custom_client_used: true
-startup_network_requests: 0
-```
+- custom_client_used: true
+- startup_network_requests: 0
 
 <!-- field: traces -->
 #### Traces
@@ -1214,24 +1107,22 @@ rel01.0-uc001-generator-coding
 
 TestOllamaMigrationRemovesLegacyAdapterPaths
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-legacy_paths:
-    - internal/llm/adapter.go
-    - cmd/planner/ollama.go
-retired_packages: [internal/model/llm/ollama, internal/model/llm/cohere]
-```
+- legacy_paths:
+  1. internal/llm/adapter.go
+  1. cmd/planner/ollama.go
+- retired_packages:
+  1. internal/model/llm/ollama
+  1. internal/model/llm/cohere
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-legacy_generator_adapter_absent: true
-legacy_planner_adapter_absent: true
-current_invoke_imports_adapter: true
-```
+- legacy_generator_adapter_absent: true
+- legacy_planner_adapter_absent: true
+- current_invoke_imports_adapter: true
 
 <!-- field: traces -->
 #### Traces
@@ -1251,23 +1142,19 @@ rel01.0-uc001-generator-coding
 
 go test ./internal/model/llm -run 'Test(StripCodeFences|ExtractWithEnvelope|StripThinkingBlocks|ExtractBraces|MakeNativeTokenExtractor)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-extraction_inputs: "code fences, envelopes, thinking blocks, braces, native tokens"
-```
+- extraction_inputs: code fences, envelopes, thinking blocks, braces, native tokens
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-code_fences_removed: true
-envelope_extracted: true
-thinking_blocks_stripped: true
-braces_extracted: true
-native_token_extracted: true
-```
+- code_fences_removed: true
+- envelope_extracted: true
+- thinking_blocks_stripped: true
+- braces_extracted: true
+- native_token_extracted: true
 
 <!-- field: traces -->
 #### Traces

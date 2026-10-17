@@ -315,13 +315,11 @@ start_service returns before its child exits, list_services shows the child runn
 - R7.4
 - R7.5
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-implemented:
-    - GH-2197 adds start_service and list_services and shares the host service state with machine_request runs (R7); the bound is reserved under the state lock, so concurrent request runs cannot overshoot it.
-    - GH-2188 gives the snake_case start_service fields and address_env their json tags, so a declaration decoded by the strict JSON config decoder loads.
-planned:
-    - GH-2188 is the first consumer, launching bench experiments as detached critic children behind a request capability.
-```
+- implemented:
+  1. GH-2197 adds start_service and list_services and shares the host service state with machine_request runs (R7); the bound is reserved under the state lock, so concurrent request runs cannot overshoot it.
+  1. GH-2188 gives the snake_case start_service fields and address_env their json tags, so a declaration decoded by the strict JSON config decoder loads.
+- planned:
+  1. GH-2188 is the first consumer, launching bench experiments as detached critic children behind a request capability.

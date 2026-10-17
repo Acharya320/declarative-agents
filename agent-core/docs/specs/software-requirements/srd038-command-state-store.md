@@ -445,28 +445,26 @@ done:
 planned: []
 ```
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Lift declared-param selection from REST-private adjacent threading to a core-level labeled store"] --> Goals["Goals: Command-State Store"]
-      Goals --> R1["R1: Store contract and rehydration"]
-      Goals --> R2["R2: Label addressing"]
-      Goals --> R3["R3: Authority boundary"]
-      Goals --> R4["R4: Entry lifetime"]
-      Goals --> R5["R5: Redaction before persistence"]
-      AC1["AC1: Read-only forward view, rehydrated from tool_outputs"]
-      R1 --> AC1
-      AC2["AC2: $from label addressing, most-recent-wins, run-scoped"]
-      R2 --> AC2
-      AC3["AC3: Declared-param-only, no transport authority, no receipts"]
-      R3 --> AC3
-      AC4["AC4: Branch-scoped lifetime via Revert and terminal reap"]
-      R4 --> AC4
-      AC5["AC5: Redaction before persistence invariant"]
-      R5 --> AC5
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Lift declared-param selection from REST-private adjacent threading to a core-level labeled store"] --> Goals["Goals: Command-State Store"]
+    Goals --> R1["R1: Store contract and rehydration"]
+    Goals --> R2["R2: Label addressing"]
+    Goals --> R3["R3: Authority boundary"]
+    Goals --> R4["R4: Entry lifetime"]
+    Goals --> R5["R5: Redaction before persistence"]
+    AC1["AC1: Read-only forward view, rehydrated from tool_outputs"]
+    R1 --> AC1
+    AC2["AC2: $from label addressing, most-recent-wins, run-scoped"]
+    R2 --> AC2
+    AC3["AC3: Declared-param-only, no transport authority, no receipts"]
+    R3 --> AC3
+    AC4["AC4: Branch-scoped lifetime via Revert and terminal reap"]
+    R4 --> AC4
+    AC5["AC5: Redaction before persistence invariant"]
+    R5 --> AC5
+  ```

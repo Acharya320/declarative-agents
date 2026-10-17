@@ -294,20 +294,18 @@ root tag v0.YYYYMMDD.N. New manifests use the root form. Package
 provenance always records what was actually checked out; a compatible tag
 never turns a dirty or different checkout into a release.
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-current: |
-    This SRD, rel99.0-uc002-application-catalog-migration, and
-    test-rel99.0-application-catalog-migration govern the migration contract.
-    The source, resolver, core-isolation, root-orchestration, application, and
-    chatbot checkpoint cutovers, final taxonomy, active-path sweep, and complete
-    owner-root gate evidence are implemented.
-planned: |
-    No migration work remains. Future removal of the v0 compatibility aliases
-    requires a separately specified major-version transition.
-```
+- current:
+  This SRD, rel99.0-uc002-application-catalog-migration, and
+  test-rel99.0-application-catalog-migration govern the migration contract.
+  The source, resolver, core-isolation, root-orchestration, application, and
+  chatbot checkpoint cutovers, final taxonomy, active-path sweep, and complete
+  owner-root gate evidence are implemented.
+- planned:
+  No migration work remains. Future removal of the v0 compatibility aliases
+  requires a separately specified major-version transition.
 
 <!-- field: implementation_plan | form: "typed table" -->
 ## Implementation plan

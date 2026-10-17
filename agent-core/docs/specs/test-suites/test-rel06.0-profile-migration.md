@@ -70,25 +70,21 @@ rel06.0-uc001-mounted-profile-container-runtime
 
 mage audit
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-srd: docs/specs/software-requirements/srd034-external-agent-profiles.md
-use_case: docs/specs/use-cases/rel06.0-uc001-mounted-profile-container-runtime.md
-test_suite: docs/specs/test-suites/test-rel06.0-profile-migration.md
-```
+- srd: docs/specs/software-requirements/srd034-external-agent-profiles.md
+- use_case: docs/specs/use-cases/rel06.0-uc001-mounted-profile-container-runtime.md
+- test_suite: docs/specs/test-suites/test-rel06.0-profile-migration.md
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-yaml_parses: true
-specifications_indexed: true
-roadmap_indexed: true
-architecture_contract_updated: true
-release_status_current: true
-```
+- yaml_parses: true
+- specifications_indexed: true
+- roadmap_indexed: true
+- architecture_contract_updated: true
+- release_status_current: true
 
 <!-- field: traces -->
 #### Traces
@@ -123,27 +119,23 @@ TestResolveProfilePathMapsInstalledCoreHome
 
 applications/coding-agent mage integration:executorLive
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profile_root: external_agent_profiles_root
-profiles:
-    - ${AGENT_CATALOG_ROOT}/generator/profile.yaml
-    - ${AGENT_CATALOG_ROOT}/evaluator/profile.yaml
-workspace: isolated_temp_workspace
-```
+- profile_root: external_agent_profiles_root
+- profiles:
+  1. ${AGENT_CATALOG_ROOT}/generator/profile.yaml
+  1. ${AGENT_CATALOG_ROOT}/evaluator/profile.yaml
+- workspace: isolated_temp_workspace
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-external_profile_loaded: true
-profile_relative_paths_resolved: true
-core_tool_declarations_resolved: true
-installed_core_tool_root_mapped: true
-profile_owned_fixtures_consumed: true
-```
+- external_profile_loaded: true
+- profile_relative_paths_resolved: true
+- core_tool_declarations_resolved: true
+- installed_core_tool_root_mapped: true
+- profile_owned_fixtures_consumed: true
 
 <!-- field: traces -->
 #### Traces
@@ -178,30 +170,26 @@ cd magefiles && go test ./... -run 'TestDockerfileRuntimeExcludesAgentProfiles'
 
 mage docker
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-image: agent-core:latest
-expected_core_paths:
-    - /usr/local/bin/agent
-    - /opt/agent-core/tools
-forbidden_profile_paths:
-    - migrated_generator_profile_dir
-    - migrated_evaluator_profile_dir
-    - migrated_knowledge_manager_profile_dir
-```
+- image: agent-core:latest
+- expected_core_paths:
+  1. /usr/local/bin/agent
+  1. /opt/agent-core/tools
+- forbidden_profile_paths:
+  1. migrated_generator_profile_dir
+  1. migrated_evaluator_profile_dir
+  1. migrated_knowledge_manager_profile_dir
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-agent_binary_present: true
-core_tool_assets_present: true
-profile_directories_absent: true
-profile_required_entrypoint_present: true
-integration_stage_defined: TestDockerfileDefinesIntegrationTarget
-```
+- agent_binary_present: true
+- core_tool_assets_present: true
+- profile_directories_absent: true
+- profile_required_entrypoint_present: true
+- integration_stage_defined: TestDockerfileDefinesIntegrationTarget
 
 <!-- field: traces -->
 #### Traces
@@ -234,30 +222,26 @@ cd magefiles && go test ./... -run 'TestContainerBuildSummaryForDocker'
 
 mage docker; Dockerfile target integration; applications/catalog mage containerSmoke
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profile_mount: /profiles
-workspace_mount: /work
-command:
-    - agent
-    - --profile
-    - /profiles/agents/<agent>/profile.yaml
-    - --directory
-    - /work
-```
+- profile_mount: /profiles
+- workspace_mount: /work
+- command:
+  1. agent
+  1. --profile
+  1. /profiles/agents/<agent>/profile.yaml
+  1. --directory
+  1. /work
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-mounted_profile_used: true
-workspace_used: true
-image_profile_copy_required: false
-command_documents_profile_path: true
-integration_target_mounts_profiles: true
-```
+- mounted_profile_used: true
+- workspace_used: true
+- image_profile_copy_required: false
+- command_documents_profile_path: true
+- integration_target_mounts_profiles: true
 
 <!-- field: traces -->
 #### Traces

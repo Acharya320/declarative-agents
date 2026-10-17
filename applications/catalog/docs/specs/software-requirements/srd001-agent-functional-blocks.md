@@ -195,19 +195,17 @@ Each profile family has a dedicated SRD that depends on this document for the sh
 - R3.2
 - R3.3
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Per-family requirements churned a shared file..."] --> Goals["Goals: Agent Functional Blocks"]
-      Goals --> R1["R1: Profile ownership boundary"]
-      Goals --> R2["R2: Cross-profile dependency direction"]
-      Goals --> R3["R3: Per-family requirement ownership"]
-      R1 --> AC1["AC1: Ownership boundary defined"]
-      R2 --> AC2["AC2: Dependency directions recorded"]
-      R3 --> AC3["AC3: Per-family SRDs depend on this document"]
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Per-family requirements churned a shared file..."] --> Goals["Goals: Agent Functional Blocks"]
+    Goals --> R1["R1: Profile ownership boundary"]
+    Goals --> R2["R2: Cross-profile dependency direction"]
+    Goals --> R3["R3: Per-family requirement ownership"]
+    R1 --> AC1["AC1: Ownership boundary defined"]
+    R2 --> AC2["AC2: Dependency directions recorded"]
+    R3 --> AC3["AC3: Per-family SRDs depend on this document"]
+  ```

@@ -68,21 +68,25 @@ mage rig
 
 go test ./conformance -run TestMockServesFixtureSequence
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-fixture_route: "POST /deploy with responses [200, 500]"
-requests: [POST /deploy, POST /deploy, POST /deploy, GET /nope]
-```
+- fixture_route: POST /deploy with responses [200, 500]
+- requests:
+  1. POST /deploy
+  1. POST /deploy
+  1. POST /deploy
+  1. GET /nope
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-statuses: [200, 500, 500, 404]
-profile_unchanged_between_dependencies: true
-```
+- statuses:
+  1. 200
+  1. 500
+  1. 500
+  1. 404
+- profile_unchanged_between_dependencies: true
 
 <!-- field: traces -->
 #### Traces
@@ -107,21 +111,19 @@ rel11.0-uc002-mock-serves-fixtures
 
 go test ./conformance -run TestMockTwoInstancesDifferentFixtures
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-mocks: 2
-fixtures: [dep_a.yaml, dep_b.yaml]
-```
+- mocks: 2
+- fixtures:
+  1. dep_a.yaml
+  1. dep_b.yaml
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-one_profile_two_dependencies: true
-logs_are_per_instance: true
-```
+- one_profile_two_dependencies: true
+- logs_are_per_instance: true
 
 <!-- field: traces -->
 #### Traces
@@ -149,20 +151,17 @@ rel11.0-uc002-mock-serves-fixtures
 
 go test ./conformance -run TestMockRequestLogRecordsCalls
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-subject_calls: [POST /deploy body A]
-```
+- subject_calls:
+  1. POST /deploy body A
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-order_method_path_and_body_visible: true
-miss_visible_in_log: true
-```
+- order_method_path_and_body_visible: true
+- miss_visible_in_log: true
 
 <!-- field: traces -->
 #### Traces
@@ -187,19 +186,18 @@ rel11.0-uc002-mock-serves-fixtures
 
 go test ./conformance -run TestMockMalformedFixtureFailsStartup
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-fixtures: [unknown_method, empty_responses, duplicate_route]
-```
+- fixtures:
+  1. unknown_method
+  1. empty_responses
+  1. duplicate_route
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-validate_config_fails: true
-```
+- validate_config_fails: true
 
 <!-- field: traces -->
 #### Traces
@@ -225,24 +223,25 @@ rel11.0-uc002-mock-serves-fixtures
 
 go test ./conformance -run 'TestMockAuthorizedPublicListenerServesOllamaFixture|TestMockPublicListenerRequiresExplicitAuthority'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-address: 0.0.0.0 with an ephemeral port
-fixture_routes: [GET /api/tags, POST /api/chat x3]
-authority_cases: [true, absent, malformed]
-```
+- address: 0.0.0.0 with an ephemeral port
+- fixture_routes:
+  1. GET /api/tags
+  1. POST /api/chat x3
+- authority_cases:
+  1. true
+  1. absent
+  1. malformed
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-authorized_listener_serves: true
-absent_authority_rejected: true
-malformed_authority_rejected: true
-request_log_entries: 4
-```
+- authorized_listener_serves: true
+- absent_authority_rejected: true
+- malformed_authority_rejected: true
+- request_log_entries: 4
 
 <!-- field: traces -->
 #### Traces
@@ -269,21 +268,17 @@ rel11.0-uc001-scenario-critic-scenario-run
 
 mage rig
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-scenario: reference subject with one REST dependency, one mock, one validator
-```
+- scenario: reference subject with one REST dependency, one mock, one validator
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-verdict: Passed
-no_live_services_used: true
-subject_behavior_unpatched: true
-```
+- verdict: Passed
+- no_live_services_used: true
+- subject_behavior_unpatched: true
 
 <!-- field: traces -->
 #### Traces
@@ -311,24 +306,24 @@ rel11.0-uc001-scenario-critic-scenario-run
 
 cd ../../agent-core && go test ./internal/runtime/core ./internal/tools/service -run '^(TestLoopForEach.*|TestScenarioSteps_ThreadsMockURLIntoSubject)$'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-fixtures: [dep_a.yaml, dep_b.yaml]
-mode: sequential
-```
+- fixtures:
+  1. dep_a.yaml
+  1. dep_b.yaml
+- mode: sequential
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-dispatch_order: [dep_a.yaml, dep_b.yaml]
-entry_per_mock: true
-receipt_per_mock: true
-join_is_labeled: true
-resume_skips_completed_items: true
-```
+- dispatch_order:
+  1. dep_a.yaml
+  1. dep_b.yaml
+- entry_per_mock: true
+- receipt_per_mock: true
+- join_is_labeled: true
+- resume_skips_completed_items: true
 
 <!-- field: traces -->
 #### Traces
@@ -354,21 +349,19 @@ rel11.0-uc001-scenario-critic-scenario-run
 
 mage rig
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-scenarios: [happy-path, dep-failure]
-```
+- scenarios:
+  1. happy-path
+  1. dep-failure
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-scenario_critic_profile_unchanged: true
-fresh_subject_per_scenario: true
-both_scenarios_pass: true
-```
+- scenario_critic_profile_unchanged: true
+- fresh_subject_per_scenario: true
+- both_scenarios_pass: true
 
 <!-- field: traces -->
 #### Traces
@@ -400,26 +393,26 @@ cd ../../agent-core && go test ./internal/tools/service -run '^(TestRunOneValida
 
 mage rig
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-validators: [first, second]
-teardown_order: [subject, mocks_in_start_order]
-mode: sequential
-validator_otlp_endpoint: declared run_scenario_validator tool configuration
-```
+- validators:
+  1. first
+  1. second
+- teardown_order:
+  1. subject
+  1. mocks_in_start_order
+- mode: sequential
+- validator_otlp_endpoint: declared run_scenario_validator tool configuration
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-entry_per_validator: true
-entry_per_child_stop: true
-joins_are_labeled_and_ordered: true
-no_hidden_collection_loop: true
-validator_spans_exported_to_declared_otlp_endpoint: true
-```
+- entry_per_validator: true
+- entry_per_child_stop: true
+- joins_are_labeled_and_ordered: true
+- no_hidden_collection_loop: true
+- validator_spans_exported_to_declared_otlp_endpoint: true
 
 <!-- field: traces -->
 #### Traces
@@ -452,26 +445,24 @@ cd ../../agent-core && go test ./internal/tools/lifecycle ./internal/tools/rest/
 
 mage rig
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-target_source: command_state subject label
-health_paths: [relative child route, absolute alternate listener]
-retry_interval: 100ms
-startup_deadline: 30s
-```
+- target_source: command_state subject label
+- health_paths:
+  1. relative child route
+  1. absolute alternate listener
+- retry_interval: 100ms
+- startup_deadline: 30s
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-requests_per_probe_dispatch: 1
-retry_states_visible: true
-healthy_timeout_and_error_signals_distinct: true
-cancellation_bounded: true
-teardown_on_exhaustion: true
-```
+- requests_per_probe_dispatch: 1
+- retry_states_visible: true
+- healthy_timeout_and_error_signals_distinct: true
+- cancellation_bounded: true
+- teardown_on_exhaustion: true
 
 <!-- field: traces -->
 #### Traces
@@ -497,19 +488,16 @@ rel11.0-uc001-scenario-critic-scenario-run
 
 mage rig
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-fixture_sequence: [500]
-```
+- fixture_sequence:
+  1. 500
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-scenario_verdict: Passed
-```
+- scenario_verdict: Passed
 
 <!-- field: traces -->
 #### Traces
@@ -533,20 +521,16 @@ rel11.0-uc001-scenario-critic-scenario-run
 
 mage rig
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-scenario: broken, with an expectation the subject does not satisfy
-```
+- scenario: broken, with an expectation the subject does not satisfy
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-scenario_critic_terminal: Failed
-broken_scenario_verdict: Failed
-```
+- scenario_critic_terminal: Failed
+- broken_scenario_verdict: Failed
 
 <!-- field: traces -->
 #### Traces
@@ -570,20 +554,16 @@ rel11.0-uc001-scenario-critic-scenario-run
 
 go test ./conformance -run TestRigSelfProof
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-runs: 2
-```
+- runs: 2
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-child_stop_dispatches_visible: true
-second_run_passes: true
-```
+- child_stop_dispatches_visible: true
+- second_run_passes: true
 
 <!-- field: traces -->
 #### Traces
@@ -607,21 +587,19 @@ rel11.0-uc001-scenario-critic-scenario-run
 
 mage integration:rig (run from applications/chatbot-mesh)
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-roots: [agents, examples agents]
-```
+- roots:
+  1. agents
+  1. examples agents
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-scenarios_found_in_both_roots: true
-deterministic_sorted: true
-no_absolute_paths: true
-```
+- scenarios_found_in_both_roots: true
+- deterministic_sorted: true
+- no_absolute_paths: true
 
 <!-- field: traces -->
 #### Traces
@@ -646,20 +624,18 @@ rel11.0-uc001-scenario-critic-scenario-run
 
 mage validate
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profiles: [agents/scenario-critic, agents/mock]
-```
+- profiles:
+  1. agents/scenario-critic
+  1. agents/mock
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-mage_validate_passes: true
-boot_smoke_covers_new_profiles: true
-```
+- mage_validate_passes: true
+- boot_smoke_covers_new_profiles: true
 
 <!-- field: traces -->
 #### Traces

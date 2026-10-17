@@ -52,20 +52,22 @@ tracing_enabled
 
 go test ./magefiles -run '^TestTracingEnabled'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-env_values: ["", "true", "1", "false", "FALSE", "False"]
-```
+- env_values:
+  1. ""
+  1. "true"
+  1. "1"
+  1. "false"
+  1. "FALSE"
+  1. "False"
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-default_enabled: true
-disabled_by: "false"
-```
+- default_enabled: true
+- disabled_by: "false"
 
 <!-- field: traces -->
 #### Traces
@@ -97,24 +99,20 @@ collector_command
 
 go test ./magefiles -run '^TestCollector(Command|Endpoint)|^TestConcurrentCollector'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-collector_profile: agents/collector/profile.yaml
-mode: spool
-ports: four distinct ephemeral loopback reservations
-```
+- collector_profile: agents/collector/profile.yaml
+- mode: spool
+- ports: four distinct ephemeral loopback reservations
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-profile_from_catalog: true
-working_directory_is_catalog: true
-mode_is_spool: true
-bind_host: "127.0.0.1"
-```
+- profile_from_catalog: true
+- working_directory_is_catalog: true
+- mode_is_spool: true
+- bind_host: 127.0.0.1
 
 <!-- field: traces -->
 #### Traces
@@ -144,21 +142,17 @@ traced_curator_command
 
 go test ./magefiles -run '^TestTracedCurator'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-otlp_endpoint: the reserved collector receiver address
-service_name: knowledge-manager-curator
-```
+- otlp_endpoint: the reserved collector receiver address
+- service_name: knowledge-manager-curator
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-otel_flags_present: true
-endpoint_matches_collector_receiver: true
-```
+- otel_flags_present: true
+- endpoint_matches_collector_receiver: true
 
 <!-- field: traces -->
 #### Traces

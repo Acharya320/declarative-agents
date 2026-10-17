@@ -32,31 +32,61 @@ alongside its requirement groups, and every acceptance criterion is covered by a
 test case. Every SRD is indexed and placed in ARCHITECTURE, every use case targets
 its SRDs through touchpoints, and every test suite traces its use case.
 
-<!-- field: role_alignment_index -->
+<!-- field: role_alignment_index | form: "tree" -->
 ## Role alignment index
 
-```yaml
-authority: ../../docs/specs/semantic-models/agent-role-realizations.md#bindings.chatbot_mesh
-architecture: docs/ARCHITECTURE.md#role_realization_alignment
-rule: Actors assume roles; profile, wrapper, Helm workload, and values-selected instance names are realization identities, not canonical role definitions.
-decisions:
-    - {current_actor: chatbot, canonical_role_sub_role: "Planner / Intent Handler; Executor / Workflow Orchestrator; Knowledge Manager / Recommendation Generator", retained_or_proposed_name: chatbot, evidence: srd002, migration_impact: none}
-    - {current_actor: rag-server, canonical_role_sub_role: "Knowledge Manager / Recommendation Generator", retained_or_proposed_name: rag-server, evidence: srd001, migration_impact: none}
-    - {current_actor: corpus-ingest, canonical_role_sub_role: "inherited Knowledge Manager / Ontology Manager", retained_or_proposed_name: corpus-ingest, evidence: "srd001 ingest boundary and wrapper profile", migration_impact: none}
-    - {current_actor: provisioning-workflow-orchestrator, canonical_role_sub_role: "Executor / Workflow Orchestrator; not Coordinator", retained_or_proposed_name: provisioning-workflow-orchestrator, evidence: srd004, migration_impact: GH-1077}
-    - {current_actor: creator, canonical_role_sub_role: "Creator / Instance Manager; Agent Owner / Agent Lifecycle Manager", retained_or_proposed_name: creator, evidence: srd005, migration_impact: none}
-    - {current_actor: applier, canonical_role_sub_role: "Executor / Actuation Agent and Change Manager", retained_or_proposed_name: applier, evidence: srd006, migration_impact: documentation-only}
-    - {current_actor: collector, canonical_role_sub_role: "Monitor / Telemetry Collector", retained_or_proposed_name: collector, evidence: srd007, migration_impact: none}
-    - {current_actor: observer, canonical_role_sub_role: "Monitor / Fleet Observer", retained_or_proposed_name: observer, evidence: srd008, migration_impact: none}
-deployment_evidence:
-    - helm/templates/chatbot.yaml
-    - helm/templates/rag-units.yaml
-    - helm/templates/provisioning-workflow-orchestrator.yaml
-    - helm/templates/creator.yaml
-    - helm/templates/applier.yaml
-    - helm/templates/collector.yaml
-    - helm/templates/observer.yaml
-```
+- authority: ../../docs/specs/semantic-models/agent-role-realizations.md#bindings.chatbot_mesh
+- architecture: docs/ARCHITECTURE.md#role_realization_alignment
+- rule: Actors assume roles; profile, wrapper, Helm workload, and values-selected instance names are realization identities, not canonical role definitions.
+- decisions:
+  1. - current_actor: chatbot
+     - canonical_role_sub_role: Planner / Intent Handler; Executor / Workflow Orchestrator; Knowledge Manager / Recommendation Generator
+     - retained_or_proposed_name: chatbot
+     - evidence: srd002
+     - migration_impact: none
+  1. - current_actor: rag-server
+     - canonical_role_sub_role: Knowledge Manager / Recommendation Generator
+     - retained_or_proposed_name: rag-server
+     - evidence: srd001
+     - migration_impact: none
+  1. - current_actor: corpus-ingest
+     - canonical_role_sub_role: inherited Knowledge Manager / Ontology Manager
+     - retained_or_proposed_name: corpus-ingest
+     - evidence: srd001 ingest boundary and wrapper profile
+     - migration_impact: none
+  1. - current_actor: provisioning-workflow-orchestrator
+     - canonical_role_sub_role: Executor / Workflow Orchestrator; not Coordinator
+     - retained_or_proposed_name: provisioning-workflow-orchestrator
+     - evidence: srd004
+     - migration_impact: GH-1077
+  1. - current_actor: creator
+     - canonical_role_sub_role: Creator / Instance Manager; Agent Owner / Agent Lifecycle Manager
+     - retained_or_proposed_name: creator
+     - evidence: srd005
+     - migration_impact: none
+  1. - current_actor: applier
+     - canonical_role_sub_role: Executor / Actuation Agent and Change Manager
+     - retained_or_proposed_name: applier
+     - evidence: srd006
+     - migration_impact: documentation-only
+  1. - current_actor: collector
+     - canonical_role_sub_role: Monitor / Telemetry Collector
+     - retained_or_proposed_name: collector
+     - evidence: srd007
+     - migration_impact: none
+  1. - current_actor: observer
+     - canonical_role_sub_role: Monitor / Fleet Observer
+     - retained_or_proposed_name: observer
+     - evidence: srd008
+     - migration_impact: none
+- deployment_evidence:
+  1. helm/templates/chatbot.yaml
+  1. helm/templates/rag-units.yaml
+  1. helm/templates/provisioning-workflow-orchestrator.yaml
+  1. helm/templates/creator.yaml
+  1. helm/templates/applier.yaml
+  1. helm/templates/collector.yaml
+  1. helm/templates/observer.yaml
 
 <!-- field: roadmap_summary | form: "typed table" -->
 ## Roadmap summary

@@ -126,16 +126,14 @@ assert any(e["id"] == suite["id"] for e in release["test_suites"])
 print("validated Release 15.0 declarative UX trace closure")
 PY
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-yaml_parses: true
-design_constitution_fields_present: true
-requirement_to_acceptance_criterion_closure: true
-reciprocal_srd_use_case_suite_traces: true
-specification_and_roadmap_indexes_present: true
-```
+- yaml_parses: true
+- design_constitution_fields_present: true
+- requirement_to_acceptance_criterion_closure: true
+- reciprocal_srd_use_case_suite_traces: true
+- specification_and_roadmap_indexes_present: true
 
 <!-- field: traces -->
 #### Traces
@@ -171,16 +169,14 @@ GH-2261
 
 mage uikit:test
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-remote_base_url_yields_absolute_urls: true
-proxy_urls_built_by_one_function: true
-proxy_404_returns_not_deployed: true
-trace_backend_taken_from_configuration: true
-no_fetch_or_eventsource_outside_client: true
-```
+- remote_base_url_yields_absolute_urls: true
+- proxy_urls_built_by_one_function: true
+- proxy_404_returns_not_deployed: true
+- trace_backend_taken_from_configuration: true
+- no_fetch_or_eventsource_outside_client: true
 
 <!-- field: traces -->
 #### Traces
@@ -217,14 +213,12 @@ GH-2261
 
 mage uikit:test
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-one_fixture_per_contract_endpoint: true
-every_client_parses_its_fixture: true
-contract_version_exported: true
-```
+- one_fixture_per_contract_endpoint: true
+- every_client_parses_its_fixture: true
+- contract_version_exported: true
 
 <!-- field: traces -->
 #### Traces
@@ -261,15 +255,13 @@ GH-2263, GH-2264, GH-2265, GH-2266
 
 mage uikit:test
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-panel_set_matches_r4_4: true
-required_endpoints_subset_of_contract: true
-no_application_imports: true
-every_panel_renders_from_fixtures: true
-```
+- panel_set_matches_r4_4: true
+- required_endpoints_subset_of_contract: true
+- no_application_imports: true
+- every_panel_renders_from_fixtures: true
 
 <!-- field: traces -->
 #### Traces
@@ -306,15 +298,13 @@ GH-2270
 (cd magefiles && go test ./uiyaml/)
 (cd applications/chatbot-mesh && go test ./magefiles/ -run TestChatbotUIRendersAsValidUIYAML)
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-every_current_ui_yaml_valid_unchanged: true
-version_2_fixture_valid: true
-duplicate_panel_route_collision_and_unknown_group_rejected: true
-helm_rendered_version_2_valid: true
-```
+- every_current_ui_yaml_valid_unchanged: true
+- version_2_fixture_valid: true
+- duplicate_panel_route_collision_and_unknown_group_rejected: true
+- helm_rendered_version_2_valid: true
 
 <!-- field: traces -->
 #### Traces
@@ -351,16 +341,14 @@ GH-2271, GH-2272
 mage uikit:test
 (cd applications/chatbot-mesh && go test ./magefiles/...)
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-routes_and_sidebar_from_ui_yaml: true
-unregistered_panel_fails_build: true
-deep_link_cases_preserved: true
-chatbot_mesh_has_no_routes_ts: true
-registry_covers_every_panel_id: true
-```
+- routes_and_sidebar_from_ui_yaml: true
+- unregistered_panel_fails_build: true
+- deep_link_cases_preserved: true
+- chatbot_mesh_has_no_routes_ts: true
+- registry_covers_every_panel_id: true
 
 <!-- field: traces -->
 #### Traces
@@ -398,14 +386,12 @@ GH-2259, GH-2260
 mage uikit:build uikit:test uikit:pack
 (cd applications/catalog && go test ./conformance -run DesignTokens)
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-tarball_produced: true
-every_token_claiming_ui_imports_kit_tokens: true
-no_other_root_token_block: true
-```
+- tarball_produced: true
+- every_token_claiming_ui_imports_kit_tokens: true
+- no_other_root_token_block: true
 
 <!-- field: traces -->
 #### Traces
@@ -443,17 +429,15 @@ GH-2267, GH-2268, GH-2269
 (cd magefiles && go test ./appmanifest/...)
 (cd applications/chatbot-mesh && go test ./magefiles/...)
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-bundle_served_with_spa_fallback: true
-ui_config_json_matches_declaration: true
-root_and_bundle_together_rejected: true
-unknown_bundle_rejected: true
-observer_directory_holds_declarations_only: true
-embedded_source_accepted_by_manifest: true
-```
+- bundle_served_with_spa_fallback: true
+- ui_config_json_matches_declaration: true
+- root_and_bundle_together_rejected: true
+- unknown_bundle_rejected: true
+- observer_directory_holds_declarations_only: true
+- embedded_source_accepted_by_manifest: true
 
 <!-- field: traces -->
 #### Traces
@@ -489,14 +473,12 @@ GH-2275
 
 (cd magefiles && go test -run 'TestNoUIKitDuplicationInApplications|TestSweepUIDuplicationReportsEachShape' ./)
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-no_splitpanelpath_copy_outside_kit: true
-no_monitor_or_trace_client_copy_outside_kit: true
-no_trace_proxy_route_under_applications: true
-```
+- no_splitpanelpath_copy_outside_kit: true
+- no_monitor_or_trace_client_copy_outside_kit: true
+- no_trace_proxy_route_under_applications: true
 
 <!-- field: traces -->
 #### Traces
