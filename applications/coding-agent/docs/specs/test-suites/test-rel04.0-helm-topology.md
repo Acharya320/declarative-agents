@@ -18,7 +18,7 @@ follow-up suites.
 <!-- field: traces -->
 ## Traces
 
-- rel04.0-uc001-render-helm-topology
+- [rel04.0-uc001-render-helm-topology](../use-cases/rel04.0-uc001-render-helm-topology.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -35,7 +35,7 @@ follow-up suites.
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc001-render-helm-topology
+[rel04.0-uc001-render-helm-topology](../use-cases/rel04.0-uc001-render-helm-topology.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -45,8 +45,8 @@ go test ./magefiles -run '^TestHelmPrepare'
 <!-- field: traces -->
 #### Traces
 
-- srd003-helm-topology R1.3
-- srd003-helm-topology R4.1
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [R1.3](../software-requirements/srd003-helm-topology.md#r13)
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [R4.1](../software-requirements/srd003-helm-topology.md#r41)
 
 <!-- case: Core role topology | status: implemented -->
 ### Core role topology
@@ -54,7 +54,7 @@ go test ./magefiles -run '^TestHelmPrepare'
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc001-render-helm-topology
+[rel04.0-uc001-render-helm-topology](../use-cases/rel04.0-uc001-render-helm-topology.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -64,7 +64,7 @@ go test ./magefiles -run '^TestHelmCoreTopologyRendersRoleContract$'
 <!-- field: traces -->
 #### Traces
 
-- srd003-helm-topology AC1
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [AC1](../software-requirements/srd003-helm-topology.md#ac1)
 
 <!-- case: Role-scoped profile rollout | status: implemented -->
 ### Role-scoped profile rollout
@@ -72,7 +72,7 @@ go test ./magefiles -run '^TestHelmCoreTopologyRendersRoleContract$'
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc001-render-helm-topology
+[rel04.0-uc001-render-helm-topology](../use-cases/rel04.0-uc001-render-helm-topology.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -82,7 +82,7 @@ go test ./magefiles -run '^TestHelmProfileChangeRollsOnlyAffectedRole$'
 <!-- field: traces -->
 #### Traces
 
-- srd003-helm-topology AC2
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [AC2](../software-requirements/srd003-helm-topology.md#ac2)
 
 <!-- case: Small and in-cluster model renders | status: implemented -->
 ### Small and in-cluster model renders
@@ -90,7 +90,7 @@ go test ./magefiles -run '^TestHelmProfileChangeRollsOnlyAffectedRole$'
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc001-render-helm-topology
+[rel04.0-uc001-render-helm-topology](../use-cases/rel04.0-uc001-render-helm-topology.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -100,5 +100,5 @@ go test ./magefiles -run '^TestHelmSmallAndOllamaValuesRender$'
 <!-- field: traces -->
 #### Traces
 
-- srd003-helm-topology AC3
-- srd003-helm-topology AC4
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [AC3](../software-requirements/srd003-helm-topology.md#ac3)
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [AC4](../software-requirements/srd003-helm-topology.md#ac4)

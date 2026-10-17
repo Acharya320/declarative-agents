@@ -22,7 +22,7 @@ container or resolver proof itself.
 <!-- field: traces -->
 ## Traces
 
-- rel06.0-uc001-mounted-profile-container-runtime
+- [rel06.0-uc001-mounted-profile-container-runtime](../use-cases/rel06.0-uc001-mounted-profile-container-runtime.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -63,7 +63,7 @@ and suite.
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc001-mounted-profile-container-runtime
+[rel06.0-uc001-mounted-profile-container-runtime](../use-cases/rel06.0-uc001-mounted-profile-container-runtime.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -89,8 +89,8 @@ mage audit
 <!-- field: traces -->
 #### Traces
 
-- rel06.0-uc001-mounted-profile-container-runtime S1
-- srd034-external-agent-profiles AC1
+- [rel06.0-uc001-mounted-profile-container-runtime](../use-cases/rel06.0-uc001-mounted-profile-container-runtime.md) [S1](../use-cases/rel06.0-uc001-mounted-profile-container-runtime.md#s1)
+- [srd034-external-agent-profiles](../software-requirements/srd034-external-agent-profiles.md) [AC1](../software-requirements/srd034-external-agent-profiles.md#ac1)
 
 <!-- case: Runtime resolves profiles from external roots | status: implemented -->
 ### Runtime resolves profiles from external roots
@@ -107,7 +107,7 @@ belong to applications/catalog suites.
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc001-mounted-profile-container-runtime
+[rel06.0-uc001-mounted-profile-container-runtime](../use-cases/rel06.0-uc001-mounted-profile-container-runtime.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -140,10 +140,10 @@ TestResolveProfilePathMapsInstalledCoreHome
 <!-- field: traces -->
 #### Traces
 
-- rel06.0-uc001-mounted-profile-container-runtime S2
-- rel06.0-uc001-mounted-profile-container-runtime S3
-- rel06.0-uc001-mounted-profile-container-runtime S4
-- srd034-external-agent-profiles AC2
+- [rel06.0-uc001-mounted-profile-container-runtime](../use-cases/rel06.0-uc001-mounted-profile-container-runtime.md) [S2](../use-cases/rel06.0-uc001-mounted-profile-container-runtime.md#s2)
+- [rel06.0-uc001-mounted-profile-container-runtime](../use-cases/rel06.0-uc001-mounted-profile-container-runtime.md) [S3](../use-cases/rel06.0-uc001-mounted-profile-container-runtime.md#s3)
+- [rel06.0-uc001-mounted-profile-container-runtime](../use-cases/rel06.0-uc001-mounted-profile-container-runtime.md) [S4](../use-cases/rel06.0-uc001-mounted-profile-container-runtime.md#s4)
+- [srd034-external-agent-profiles](../software-requirements/srd034-external-agent-profiles.md) [AC2](../software-requirements/srd034-external-agent-profiles.md#ac2)
 
 <!-- case: Runtime image excludes migrated profile assets | status: implemented -->
 ### Runtime image excludes migrated profile assets
@@ -158,7 +158,7 @@ release-image build wrapper for the same Dockerfile.
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc001-mounted-profile-container-runtime
+[rel06.0-uc001-mounted-profile-container-runtime](../use-cases/rel06.0-uc001-mounted-profile-container-runtime.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -194,8 +194,8 @@ cd magefiles && go test ./... -run 'TestDockerfileRuntimeExcludesAgentProfiles'
 <!-- field: traces -->
 #### Traces
 
-- rel06.0-uc001-mounted-profile-container-runtime S1
-- srd034-external-agent-profiles AC3
+- [rel06.0-uc001-mounted-profile-container-runtime](../use-cases/rel06.0-uc001-mounted-profile-container-runtime.md) [S1](../use-cases/rel06.0-uc001-mounted-profile-container-runtime.md#s1)
+- [srd034-external-agent-profiles](../software-requirements/srd034-external-agent-profiles.md) [AC3](../software-requirements/srd034-external-agent-profiles.md#ac3)
 
 <!-- case: Container runs with mounted profile and workspace | status: implemented -->
 ### Container runs with mounted profile and workspace
@@ -210,7 +210,7 @@ smoke command runs an installed image against /profiles.
 <!-- field: use_case -->
 #### Use case
 
-rel06.0-uc001-mounted-profile-container-runtime
+[rel06.0-uc001-mounted-profile-container-runtime](../use-cases/rel06.0-uc001-mounted-profile-container-runtime.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -246,5 +246,5 @@ cd magefiles && go test ./... -run 'TestContainerBuildSummaryForDocker'
 <!-- field: traces -->
 #### Traces
 
-- rel06.0-uc001-mounted-profile-container-runtime S2
-- srd034-external-agent-profiles AC4
+- [rel06.0-uc001-mounted-profile-container-runtime](../use-cases/rel06.0-uc001-mounted-profile-container-runtime.md) [S2](../use-cases/rel06.0-uc001-mounted-profile-container-runtime.md#s2)
+- [srd034-external-agent-profiles](../software-requirements/srd034-external-agent-profiles.md) [AC4](../software-requirements/srd034-external-agent-profiles.md#ac4)

@@ -44,10 +44,10 @@ cannot all finish inside the configured shutdown budget.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd033-monitor-rest-api R6.4 | the stop step releases the owned monitor listener |
-| T2 | srd033-monitor-rest-api R6.5 | a released listener routes to the success terminal, and other faults stay failures |
-| T3 | srd033-monitor-rest-api R6.10 | the drain outcome is a structured field a machine can branch on |
-| T4 | srd038-command-state-store R3.3 | the reported field travels as declared output, never as a receipt |
+| T1 | [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [R6.4](../software-requirements/srd033-monitor-rest-api.md#r64) | the stop step releases the owned monitor listener |
+| T2 | [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [R6.5](../software-requirements/srd033-monitor-rest-api.md#r65) | a released listener routes to the success terminal, and other faults stay failures |
+| T3 | [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [R6.10](../software-requirements/srd033-monitor-rest-api.md#r610) | the drain outcome is a structured field a machine can branch on |
+| T4 | [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [R3.3](../software-requirements/srd038-command-state-store.md#r33) | the reported field travels as declared output, never as a receipt |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -60,7 +60,7 @@ A stop whose drain exceeds its budget returns success, and the run reaches the s
 <!-- field: traces -->
 #### Traces
 
-- srd033-monitor-rest-api AC6
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC6](../software-requirements/srd033-monitor-rest-api.md#ac6)
 
 <!-- sc: S2 -->
 ### S2
@@ -70,7 +70,7 @@ The stop output carries a structured drain field whose value separates a complet
 <!-- field: traces -->
 #### Traces
 
-- srd033-monitor-rest-api AC6
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC6](../software-requirements/srd033-monitor-rest-api.md#ac6)
 
 <!-- sc: S3 -->
 ### S3
@@ -80,7 +80,7 @@ An unlaunched server and a shutdown failing for any reason other than the expire
 <!-- field: traces -->
 #### Traces
 
-- srd033-monitor-rest-api AC6
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC6](../software-requirements/srd033-monitor-rest-api.md#ac6)
 
 <!-- sc: S4 -->
 ### S4
@@ -90,7 +90,7 @@ The runtime-state-reader proof keeps its shipped shutdown budget and reports suc
 <!-- field: traces -->
 #### Traces
 
-- srd033-monitor-rest-api AC6
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC6](../software-requirements/srd033-monitor-rest-api.md#ac6)
 
 <!-- field: out_of_scope -->
 ## Out of scope

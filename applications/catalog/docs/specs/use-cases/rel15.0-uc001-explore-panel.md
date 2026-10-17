@@ -43,10 +43,10 @@ Explore page at the collector query origin.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd020-collector R8 | /query/spans/stats and /query/spans/breakdown routes |
-| T2 | srd020-collector R9 | the Explore page, drag-select, ranked divergence, and waterfall links |
-| T3 | srd020-collector R9 | the span-analytics words the routes bind, declared as a platform dependency on agent-core srd045-span-analytics-tools |
-| T4 | srd020-collector R6 | the per-trace waterfall the exemplars link into |
+| T1 | [srd020-collector](../software-requirements/srd020-collector.md) [R8](../software-requirements/srd020-collector.md#r8---explore-query-surface) | /query/spans/stats and /query/spans/breakdown routes |
+| T2 | [srd020-collector](../software-requirements/srd020-collector.md) [R9](../software-requirements/srd020-collector.md#r9---explore-ui) | the Explore page, drag-select, ranked divergence, and waterfall links |
+| T3 | [srd020-collector](../software-requirements/srd020-collector.md) [R9](../software-requirements/srd020-collector.md#r9---explore-ui) | the span-analytics words the routes bind, declared as a platform dependency on agent-core srd045-span-analytics-tools |
+| T4 | [srd020-collector](../software-requirements/srd020-collector.md) [R6](../software-requirements/srd020-collector.md#r6---trace-query-ui) | the per-trace waterfall the exemplars link into |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -59,8 +59,8 @@ GET /query/spans/stats returns the pinned heatmap and group-by contract; the Exp
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector AC6
-- srd020-collector AC8
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC6](../software-requirements/srd020-collector.md#ac6)
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC8](../software-requirements/srd020-collector.md#ac8)
 
 <!-- sc: S2 -->
 ### S2
@@ -70,8 +70,8 @@ A drag-selected region drives GET /query/spans/breakdown and the page shows the 
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector AC6
-- srd020-collector AC8
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC6](../software-requirements/srd020-collector.md#ac6)
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC8](../software-requirements/srd020-collector.md#ac8)
 
 <!-- sc: S3 -->
 ### S3
@@ -81,7 +81,7 @@ An exemplar span links into the existing per-trace waterfall.
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector AC8
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC8](../software-requirements/srd020-collector.md#ac8)
 
 <!-- sc: S4 -->
 ### S4
@@ -91,7 +91,7 @@ An empty or absent spool yields a well-formed empty stats and breakdown response
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector AC7
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC7](../software-requirements/srd020-collector.md#ac7)
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios
@@ -110,4 +110,4 @@ An empty or absent spool yields a well-formed empty stats and breakdown response
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel15.0-explore
+[test-rel15.0-explore](../test-suites/test-rel15.0-explore.md)

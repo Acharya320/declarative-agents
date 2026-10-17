@@ -917,22 +917,22 @@ not encode a domain state name.
 <!-- field: related_documents -->
 ## Related documents
 
-- cfg-machine-format
-- cfg-tool-declaration-format
-- cfg-tool-selection-format
-- cfg-llm-config-format
-- cfg-tool-authoring-standard
+- [cfg-machine-format](machine-format.md)
+- [cfg-tool-declaration-format](tool-declaration-format.md)
+- [cfg-tool-selection-format](tool-selection-format.md)
+- [cfg-llm-config-format](llm-config-format.md)
+- [cfg-tool-authoring-standard](tool-authoring-standard.md)
 - srd006
 - srd021
 - srd022
 - srd023
 - srd024
-- srd025-rollback-lifecycle
-- srd026-lifecycle-tools
-- srd035-checkpoint-port
-- srd036-dolt-state-persistence
-- srd008-telemetry
-- srd018-cli-flag-contract
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md)
+- [srd026-lifecycle-tools](../software-requirements/srd026-lifecycle-tools.md)
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md)
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md)
+- [srd008-telemetry](../software-requirements/srd008-telemetry.md)
+- [srd018-cli-flag-contract](../software-requirements/srd018-cli-flag-contract.md)
 
 <!-- field: implementation -->
 ## Implementation

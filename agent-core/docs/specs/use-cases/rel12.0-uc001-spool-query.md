@@ -41,10 +41,10 @@ ingested traces, or spool_get_trace to inspect one trace's spans.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd044-spool-query-tools R1.1, R1.2, R1.3, R1.4, R1.5 | paginated trace listing reads active and rotated files |
-| T2 | srd044-spool-query-tools R2.1, R2.2, R2.3, R2.4, R2.5 | per-trace span detail with waterfall fields |
-| T3 | srd044-spool-query-tools R3.1, R3.2, R3.3 | read-only with malformed-line tolerance |
-| T4 | srd042-otlp-receiver-tools R4.1, R4.2, R4.3, R4.4, R4.5, R4.6, R4.7, R4.8 | the spool NDJSON shape these tools read is written by spool_spans |
+| T1 | [srd044-spool-query-tools](../software-requirements/srd044-spool-query-tools.md) [R1.1](../software-requirements/srd044-spool-query-tools.md#r11), [R1.2](../software-requirements/srd044-spool-query-tools.md#r12), [R1.3](../software-requirements/srd044-spool-query-tools.md#r13), [R1.4](../software-requirements/srd044-spool-query-tools.md#r14), [R1.5](../software-requirements/srd044-spool-query-tools.md#r15) | paginated trace listing reads active and rotated files |
+| T2 | [srd044-spool-query-tools](../software-requirements/srd044-spool-query-tools.md) [R2.1](../software-requirements/srd044-spool-query-tools.md#r21), [R2.2](../software-requirements/srd044-spool-query-tools.md#r22), [R2.3](../software-requirements/srd044-spool-query-tools.md#r23), [R2.4](../software-requirements/srd044-spool-query-tools.md#r24), [R2.5](../software-requirements/srd044-spool-query-tools.md#r25) | per-trace span detail with waterfall fields |
+| T3 | [srd044-spool-query-tools](../software-requirements/srd044-spool-query-tools.md) [R3.1](../software-requirements/srd044-spool-query-tools.md#r31), [R3.2](../software-requirements/srd044-spool-query-tools.md#r32), [R3.3](../software-requirements/srd044-spool-query-tools.md#r33) | read-only with malformed-line tolerance |
+| T4 | [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [R4.1](../software-requirements/srd042-otlp-receiver-tools.md#r41), [R4.2](../software-requirements/srd042-otlp-receiver-tools.md#r42), [R4.3](../software-requirements/srd042-otlp-receiver-tools.md#r43), [R4.4](../software-requirements/srd042-otlp-receiver-tools.md#r44), [R4.5](../software-requirements/srd042-otlp-receiver-tools.md#r45), [R4.6](../software-requirements/srd042-otlp-receiver-tools.md#r46), [R4.7](../software-requirements/srd042-otlp-receiver-tools.md#r47), [R4.8](../software-requirements/srd042-otlp-receiver-tools.md#r48) | the spool NDJSON shape these tools read is written by spool_spans |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -57,7 +57,7 @@ Trace summaries aggregate spans from active and rotated spool files with correct
 <!-- field: traces -->
 #### Traces
 
-- srd044-spool-query-tools AC1
+- [srd044-spool-query-tools](../software-requirements/srd044-spool-query-tools.md) [AC1](../software-requirements/srd044-spool-query-tools.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -67,7 +67,7 @@ Pagination respects offset and page size cap.
 <!-- field: traces -->
 #### Traces
 
-- srd044-spool-query-tools AC2
+- [srd044-spool-query-tools](../software-requirements/srd044-spool-query-tools.md) [AC2](../software-requirements/srd044-spool-query-tools.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -77,7 +77,7 @@ Per-trace detail returns all matching spans with waterfall fields, and an unknow
 <!-- field: traces -->
 #### Traces
 
-- srd044-spool-query-tools AC3
+- [srd044-spool-query-tools](../software-requirements/srd044-spool-query-tools.md) [AC3](../software-requirements/srd044-spool-query-tools.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -87,7 +87,7 @@ Malformed lines are skipped and counted; an empty spool returns an empty result.
 <!-- field: traces -->
 #### Traces
 
-- srd044-spool-query-tools AC4
+- [srd044-spool-query-tools](../software-requirements/srd044-spool-query-tools.md) [AC4](../software-requirements/srd044-spool-query-tools.md#ac4)
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios
@@ -108,4 +108,4 @@ Malformed lines are skipped and counted; an empty spool returns an empty result.
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel12.0-spool-query
+[test-rel12.0-spool-query](../test-suites/test-rel12.0-spool-query.md)

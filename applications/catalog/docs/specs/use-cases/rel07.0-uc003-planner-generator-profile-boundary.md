@@ -100,4 +100,4 @@ The tracer records explicit graph terminal state and child run outcome.
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel07.0-profile-integrations
+[test-rel07.0-profile-integrations](../test-suites/test-rel07.0-profile-integrations.md)

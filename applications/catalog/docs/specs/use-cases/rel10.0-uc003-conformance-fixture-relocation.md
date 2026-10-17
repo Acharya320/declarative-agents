@@ -48,7 +48,7 @@ fixtures, not reference roles, sitting in the role directory.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | sm-agent-role-taxonomy | The taxonomy's role families no longer include the conformance fixtures rest, control, and lifecycle. |
+| T1 | [sm-agent-role-taxonomy](../semantic-models/agent-role-taxonomy.md) | The taxonomy's role families no longer include the conformance fixtures rest, control, and lifecycle. |
 | T2 | test-rel10.0-role-catalog fixture_relocation | The suite validates the relocation with mage conformance, Integration.MonitorControl, and a zero-hit grep and an agents/ directory listing. |
 
 <!-- field: success_criteria -->
@@ -62,7 +62,7 @@ The rest, control, and lifecycle fixtures live under testdata/conformance, agent
 <!-- field: traces -->
 #### Traces
 
-- sm-agent-role-taxonomy
+- [sm-agent-role-taxonomy](../semantic-models/agent-role-taxonomy.md)
 
 <!-- sc: S2 -->
 ### S2
@@ -72,7 +72,7 @@ mage conformance and Integration.MonitorControl pass from the new paths, and mag
 <!-- field: traces -->
 #### Traces
 
-- sm-agent-role-taxonomy
+- [sm-agent-role-taxonomy](../semantic-models/agent-role-taxonomy.md)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -83,4 +83,4 @@ mage conformance and Integration.MonitorControl pass from the new paths, and mag
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel10.0-role-catalog
+[test-rel10.0-role-catalog](../test-suites/test-rel10.0-role-catalog.md)

@@ -460,29 +460,29 @@ A declared launch word accepts an OTLP/gRPC trace export into a bounded queue an
 <!-- field: traces -->
 #### Traces
 
-- R0.1
-- R0.2
-- R0.3
-- R0.4
-- R0.5
-- R1.1
-- R1.2
-- R1.3
-- R1.4
-- R1.5
-- R1.6
-- R2.1
-- R2.2
-- R2.3
-- R2.4
-- R2.5
-- R2.6
-- R3.1
-- R3.2
-- R3.3
-- R3.4
-- R3.5
-- R3.6
+- [R0.1](#r01)
+- [R0.2](#r02)
+- [R0.3](#r03)
+- [R0.4](#r04)
+- [R0.5](#r05)
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R1.5](#r15)
+- [R1.6](#r16)
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
+- [R2.5](#r25)
+- [R2.6](#r26)
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R3.4](#r34)
+- [R3.5](#r35)
+- [R3.6](#r36)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -492,14 +492,14 @@ A received batch is appended as complete stdouttrace-compatible NDJSON lines wit
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
-- R4.4
-- R4.5
-- R4.6
-- R4.7
-- R4.8
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R4.4](#r44)
+- [R4.5](#r45)
+- [R4.6](#r46)
+- [R4.7](#r47)
+- [R4.8](#r48)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -509,13 +509,13 @@ A declared relay exports the selected batch to an upstream OTLP endpoint without
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
-- R5.4
-- R5.5
-- R5.6
-- R5.7
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
+- [R5.5](#r55)
+- [R5.6](#r56)
+- [R5.7](#r57)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -525,12 +525,12 @@ Stop rejects new exports, unblocks awaiters, obeys the drain policy, and leaves 
 <!-- field: traces -->
 #### Traces
 
-- R1.7
-- R6.1
-- R6.2
-- R6.3
-- R6.4
-- R6.5
+- [R1.7](#r17)
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
+- [R6.4](#r64)
+- [R6.5](#r65)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -540,10 +540,10 @@ The ingress agent exports its own telemetry to file only, rejects a static relay
 <!-- field: traces -->
 #### Traces
 
-- R7.1
-- R7.2
-- R7.3
-- R7.4
+- [R7.1](#r71)
+- [R7.2](#r72)
+- [R7.3](#r73)
+- [R7.4](#r74)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -553,9 +553,9 @@ The receiver accepts OTLP trace and metric exports on one gRPC listener, makes n
 <!-- field: traces -->
 #### Traces
 
-- R8.1
-- R8.2
-- R8.3
+- [R8.1](#r81)
+- [R8.2](#r82)
+- [R8.3](#r83)
 
 <!-- ac: AC7 -->
 ### AC7
@@ -565,17 +565,17 @@ An offline replay machine validates and loads one trusted OTLP protobuf-JSON bat
 <!-- field: traces -->
 #### Traces
 
-- R0.2
-- R0.3
-- R0.4
-- R3.7
-- R3.8
-- R3.9
-- R3.10
-- R5.1
-- R5.2
-- R5.4
-- R5.5
+- [R0.2](#r02)
+- [R0.3](#r03)
+- [R0.4](#r04)
+- [R3.7](#r37)
+- [R3.8](#r38)
+- [R3.9](#r39)
+- [R3.10](#r310)
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.4](#r54)
+- [R5.5](#r55)
 
 <!-- ac: AC8 -->
 ### AC8
@@ -585,11 +585,11 @@ The receiver accepts an OTLP/gRPC metric export into the same bounded queue, spo
 <!-- field: traces -->
 #### Traces
 
-- R9.1
-- R9.2
-- R9.3
-- R9.4
-- R9.5
+- [R9.1](#r91)
+- [R9.2](#r92)
+- [R9.3](#r93)
+- [R9.4](#r94)
+- [R9.5](#r95)
 
 <!-- ac: AC9 -->
 ### AC9
@@ -599,13 +599,13 @@ A spool word with the default filesystem backend behaves exactly as before, whil
 <!-- field: traces -->
 #### Traces
 
-- R10.1
-- R10.2
-- R10.3
-- R10.4
-- R10.5
-- R10.6
-- R10.7
+- [R10.1](#r101)
+- [R10.2](#r102)
+- [R10.3](#r103)
+- [R10.4](#r104)
+- [R10.5](#r105)
+- [R10.6](#r106)
+- [R10.7](#r107)
 
 <!-- ac: AC10 -->
 ### AC10
@@ -615,11 +615,11 @@ A query word with the object backend reads the configured application bucket (ne
 <!-- field: traces -->
 #### Traces
 
-- R11.1
-- R11.2
-- R11.3
-- R11.4
-- R11.5
+- [R11.1](#r111)
+- [R11.2](#r112)
+- [R11.3](#r113)
+- [R11.4](#r114)
+- [R11.5](#r115)
 
 <!-- field: related_documents -->
 ## Related documents

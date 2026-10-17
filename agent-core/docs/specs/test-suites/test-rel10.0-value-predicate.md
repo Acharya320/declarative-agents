@@ -9,7 +9,7 @@ release: "10.0"
 <!-- field: traces -->
 ## Traces
 
-- rel10.0-uc001-value-predicate-branch
+- [rel10.0-uc001-value-predicate-branch](../use-cases/rel10.0-uc001-value-predicate-branch.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -33,7 +33,7 @@ boundary rather than only well clear of it.
 <!-- field: use_case -->
 #### Use case
 
-rel10.0-uc001-value-predicate-branch
+[rel10.0-uc001-value-predicate-branch](../use-cases/rel10.0-uc001-value-predicate-branch.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -89,8 +89,8 @@ go test ./internal/tools/control -run TestValuePredicateOperators
 <!-- field: traces -->
 #### Traces
 
-- rel10.0-uc001-value-predicate-branch S2
-- srd041-value-predicate-tool AC2
+- [rel10.0-uc001-value-predicate-branch](../use-cases/rel10.0-uc001-value-predicate-branch.md) [S2](../use-cases/rel10.0-uc001-value-predicate-branch.md#s2)
+- [srd041-value-predicate-tool](../software-requirements/srd041-value-predicate-tool.md) [AC2](../software-requirements/srd041-value-predicate-tool.md#ac2)
 
 <!-- case: Emptiness operators test the left operand alone | status: implemented -->
 ### Emptiness operators test the left operand alone
@@ -103,7 +103,7 @@ other resolved value is not.
 <!-- field: use_case -->
 #### Use case
 
-rel10.0-uc001-value-predicate-branch
+[rel10.0-uc001-value-predicate-branch](../use-cases/rel10.0-uc001-value-predicate-branch.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -135,8 +135,8 @@ go test ./internal/tools/control -run TestValuePredicateEmptiness
 <!-- field: traces -->
 #### Traces
 
-- rel10.0-uc001-value-predicate-branch S2
-- srd041-value-predicate-tool AC2
+- [rel10.0-uc001-value-predicate-branch](../use-cases/rel10.0-uc001-value-predicate-branch.md) [S2](../use-cases/rel10.0-uc001-value-predicate-branch.md#s2)
+- [srd041-value-predicate-tool](../software-requirements/srd041-value-predicate-tool.md) [AC2](../software-requirements/srd041-value-predicate-tool.md#ac2)
 
 <!-- case: A string-typed count compares numerically under the default operand type | status: implemented -->
 ### A string-typed count compares numerically under the default operand type
@@ -150,7 +150,7 @@ orders lexicographically on purpose.
 <!-- field: use_case -->
 #### Use case
 
-rel10.0-uc001-value-predicate-branch
+[rel10.0-uc001-value-predicate-branch](../use-cases/rel10.0-uc001-value-predicate-branch.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -174,8 +174,8 @@ go test ./internal/tools/control -run TestValuePredicateNumericCoercion
 <!-- field: traces -->
 #### Traces
 
-- rel10.0-uc001-value-predicate-branch S3
-- srd041-value-predicate-tool AC3
+- [rel10.0-uc001-value-predicate-branch](../use-cases/rel10.0-uc001-value-predicate-branch.md) [S3](../use-cases/rel10.0-uc001-value-predicate-branch.md#s3)
+- [srd041-value-predicate-tool](../software-requirements/srd041-value-predicate-tool.md) [AC3](../software-requirements/srd041-value-predicate-tool.md#ac3)
 
 <!-- case: An unresolvable operand emits CommandError and never the unsatisfied signal | status: implemented -->
 ### An unresolvable operand emits CommandError and never the unsatisfied signal
@@ -189,7 +189,7 @@ applies to a coercion that fails.
 <!-- field: use_case -->
 #### Use case
 
-rel10.0-uc001-value-predicate-branch
+[rel10.0-uc001-value-predicate-branch](../use-cases/rel10.0-uc001-value-predicate-branch.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -216,8 +216,8 @@ go test ./internal/tools/control -run TestValuePredicateUnresolvedOperandIsAFaul
 <!-- field: traces -->
 #### Traces
 
-- rel10.0-uc001-value-predicate-branch S4
-- srd041-value-predicate-tool AC4
+- [rel10.0-uc001-value-predicate-branch](../use-cases/rel10.0-uc001-value-predicate-branch.md) [S4](../use-cases/rel10.0-uc001-value-predicate-branch.md#s4)
+- [srd041-value-predicate-tool](../software-requirements/srd041-value-predicate-tool.md) [AC4](../software-requirements/srd041-value-predicate-tool.md#ac4)
 
 <!-- case: Malformed config fails registration with the tool name | status: implemented -->
 ### Malformed config fails registration with the tool name
@@ -229,7 +229,7 @@ never reaches a machine. The error names the tool, per srd022 R3.3.
 <!-- field: use_case -->
 #### Use case
 
-rel10.0-uc001-value-predicate-branch
+[rel10.0-uc001-value-predicate-branch](../use-cases/rel10.0-uc001-value-predicate-branch.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -254,8 +254,8 @@ go test ./internal/tools/control -run TestValuePredicateRegistrationRejectsMalfo
 <!-- field: traces -->
 #### Traces
 
-- rel10.0-uc001-value-predicate-branch S5
-- srd041-value-predicate-tool AC5
+- [rel10.0-uc001-value-predicate-branch](../use-cases/rel10.0-uc001-value-predicate-branch.md) [S5](../use-cases/rel10.0-uc001-value-predicate-branch.md#s5)
+- [srd041-value-predicate-tool](../software-requirements/srd041-value-predicate-tool.md) [AC5](../software-requirements/srd041-value-predicate-tool.md#ac5)
 
 <!-- case: A machine branches on a value through the declared word | status: implemented -->
 ### A machine branches on a value through the declared word
@@ -268,7 +268,7 @@ the grammar rather than a decision hidden in Go.
 <!-- field: use_case -->
 #### Use case
 
-rel10.0-uc001-value-predicate-branch
+[rel10.0-uc001-value-predicate-branch](../use-cases/rel10.0-uc001-value-predicate-branch.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -292,9 +292,9 @@ go test ./internal/tools/control -run TestValuePredicateDrivesTwoTransitions
 <!-- field: traces -->
 #### Traces
 
-- rel10.0-uc001-value-predicate-branch S1
-- srd041-value-predicate-tool AC1
-- srd041-value-predicate-tool AC6
+- [rel10.0-uc001-value-predicate-branch](../use-cases/rel10.0-uc001-value-predicate-branch.md) [S1](../use-cases/rel10.0-uc001-value-predicate-branch.md#s1)
+- [srd041-value-predicate-tool](../software-requirements/srd041-value-predicate-tool.md) [AC1](../software-requirements/srd041-value-predicate-tool.md#ac1)
+- [srd041-value-predicate-tool](../software-requirements/srd041-value-predicate-tool.md) [AC6](../software-requirements/srd041-value-predicate-tool.md#ac6)
 
 <!-- case: A predicate compares across an intervening word | status: implemented -->
 ### A predicate compares across an intervening word
@@ -309,7 +309,7 @@ forward, so the earlier value is reachable only through command state
 <!-- field: use_case -->
 #### Use case
 
-rel10.0-uc001-value-predicate-branch
+[rel10.0-uc001-value-predicate-branch](../use-cases/rel10.0-uc001-value-predicate-branch.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -333,8 +333,8 @@ go test ./internal/tools/control -run TestValuePredicateComparesAcrossAnInterven
 <!-- field: traces -->
 #### Traces
 
-- rel10.0-uc001-value-predicate-branch S1
-- srd041-value-predicate-tool AC1
+- [rel10.0-uc001-value-predicate-branch](../use-cases/rel10.0-uc001-value-predicate-branch.md) [S1](../use-cases/rel10.0-uc001-value-predicate-branch.md#s1)
+- [srd041-value-predicate-tool](../software-requirements/srd041-value-predicate-tool.md) [AC1](../software-requirements/srd041-value-predicate-tool.md#ac1)
 
 <!-- case: An unreachable label is a fault, not a shortfall | status: implemented -->
 ### An unreachable label is a fault, not a shortfall
@@ -347,7 +347,7 @@ machine never reads an unreachable operand as a legitimate negative.
 <!-- field: use_case -->
 #### Use case
 
-rel10.0-uc001-value-predicate-branch
+[rel10.0-uc001-value-predicate-branch](../use-cases/rel10.0-uc001-value-predicate-branch.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -371,5 +371,5 @@ go test ./internal/tools/control -run TestValuePredicateUnreachableLabelIsAFault
 <!-- field: traces -->
 #### Traces
 
-- rel10.0-uc001-value-predicate-branch S4
-- srd041-value-predicate-tool AC4
+- [rel10.0-uc001-value-predicate-branch](../use-cases/rel10.0-uc001-value-predicate-branch.md) [S4](../use-cases/rel10.0-uc001-value-predicate-branch.md#s4)
+- [srd041-value-predicate-tool](../software-requirements/srd041-value-predicate-tool.md) [AC4](../software-requirements/srd041-value-predicate-tool.md#ac4)

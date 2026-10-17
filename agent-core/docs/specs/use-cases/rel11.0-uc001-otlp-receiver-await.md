@@ -56,17 +56,17 @@ The operator starts the ingress profile and a client agent exports an
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd042-otlp-receiver-tools R0.1, R0.2, R0.3, R0.4, R0.5 | transport words stay separate and MachineSpec owns their sentence |
-| T2 | srd042-otlp-receiver-tools R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R1.7 | declared launch binds OTLP/gRPC and returns without waiting |
-| T3 | srd042-otlp-receiver-tools R2.1, R2.2, R2.3, R2.4, R2.5, R2.6 | complete requests enter a bounded concurrent FIFO queue |
-| T4 | srd042-otlp-receiver-tools R3.1, R3.2, R3.3, R3.4, R3.5, R3.6, R3.7, R3.8, R3.9, R3.10 | await returns one batch or a distinct timeout, stop, or fault signal |
-| T5 | srd042-otlp-receiver-tools R4.1, R4.2, R4.3, R4.4, R4.5, R4.6, R4.7, R4.8 | deterministic spool matches existing stdouttrace NDJSON readers |
-| T6 | srd042-otlp-receiver-tools R5.1, R5.2, R5.3, R5.4, R5.5, R5.6, R5.7 | declared relay preserves protobuf identity |
-| T7 | srd042-otlp-receiver-tools R6.1, R6.2, R6.3, R6.4, R6.5 | stop owns listener and waiter cleanup |
-| T8 | srd042-otlp-receiver-tools R7.1, R7.2, R7.3, R7.4 | file-only process telemetry prevents ingress self-export |
-| T9 | srd042-otlp-receiver-tools R8.1, R8.2, R8.3 | the receiver accepts trace and metric exports on one gRPC listener |
-| T10 | srd008-telemetry R9.1, R9.2, R9.3, R9.4, R9.5, R9.6, R9.7 | integration evidence keeps stable service and run identity |
-| T11 | srd042-otlp-receiver-tools R9.1, R9.2, R9.3, R9.4, R9.5 | metric intake, spool, and query mirror the trace words without a separate backend |
+| T1 | [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [R0.1](../software-requirements/srd042-otlp-receiver-tools.md#r01), [R0.2](../software-requirements/srd042-otlp-receiver-tools.md#r02), [R0.3](../software-requirements/srd042-otlp-receiver-tools.md#r03), [R0.4](../software-requirements/srd042-otlp-receiver-tools.md#r04), [R0.5](../software-requirements/srd042-otlp-receiver-tools.md#r05) | transport words stay separate and MachineSpec owns their sentence |
+| T2 | [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [R1.1](../software-requirements/srd042-otlp-receiver-tools.md#r11), [R1.2](../software-requirements/srd042-otlp-receiver-tools.md#r12), [R1.3](../software-requirements/srd042-otlp-receiver-tools.md#r13), [R1.4](../software-requirements/srd042-otlp-receiver-tools.md#r14), [R1.5](../software-requirements/srd042-otlp-receiver-tools.md#r15), [R1.6](../software-requirements/srd042-otlp-receiver-tools.md#r16), [R1.7](../software-requirements/srd042-otlp-receiver-tools.md#r17) | declared launch binds OTLP/gRPC and returns without waiting |
+| T3 | [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [R2.1](../software-requirements/srd042-otlp-receiver-tools.md#r21), [R2.2](../software-requirements/srd042-otlp-receiver-tools.md#r22), [R2.3](../software-requirements/srd042-otlp-receiver-tools.md#r23), [R2.4](../software-requirements/srd042-otlp-receiver-tools.md#r24), [R2.5](../software-requirements/srd042-otlp-receiver-tools.md#r25), [R2.6](../software-requirements/srd042-otlp-receiver-tools.md#r26) | complete requests enter a bounded concurrent FIFO queue |
+| T4 | [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [R3.1](../software-requirements/srd042-otlp-receiver-tools.md#r31), [R3.2](../software-requirements/srd042-otlp-receiver-tools.md#r32), [R3.3](../software-requirements/srd042-otlp-receiver-tools.md#r33), [R3.4](../software-requirements/srd042-otlp-receiver-tools.md#r34), [R3.5](../software-requirements/srd042-otlp-receiver-tools.md#r35), [R3.6](../software-requirements/srd042-otlp-receiver-tools.md#r36), [R3.7](../software-requirements/srd042-otlp-receiver-tools.md#r37), [R3.8](../software-requirements/srd042-otlp-receiver-tools.md#r38), [R3.9](../software-requirements/srd042-otlp-receiver-tools.md#r39), [R3.10](../software-requirements/srd042-otlp-receiver-tools.md#r310) | await returns one batch or a distinct timeout, stop, or fault signal |
+| T5 | [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [R4.1](../software-requirements/srd042-otlp-receiver-tools.md#r41), [R4.2](../software-requirements/srd042-otlp-receiver-tools.md#r42), [R4.3](../software-requirements/srd042-otlp-receiver-tools.md#r43), [R4.4](../software-requirements/srd042-otlp-receiver-tools.md#r44), [R4.5](../software-requirements/srd042-otlp-receiver-tools.md#r45), [R4.6](../software-requirements/srd042-otlp-receiver-tools.md#r46), [R4.7](../software-requirements/srd042-otlp-receiver-tools.md#r47), [R4.8](../software-requirements/srd042-otlp-receiver-tools.md#r48) | deterministic spool matches existing stdouttrace NDJSON readers |
+| T6 | [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [R5.1](../software-requirements/srd042-otlp-receiver-tools.md#r51), [R5.2](../software-requirements/srd042-otlp-receiver-tools.md#r52), [R5.3](../software-requirements/srd042-otlp-receiver-tools.md#r53), [R5.4](../software-requirements/srd042-otlp-receiver-tools.md#r54), [R5.5](../software-requirements/srd042-otlp-receiver-tools.md#r55), [R5.6](../software-requirements/srd042-otlp-receiver-tools.md#r56), [R5.7](../software-requirements/srd042-otlp-receiver-tools.md#r57) | declared relay preserves protobuf identity |
+| T7 | [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [R6.1](../software-requirements/srd042-otlp-receiver-tools.md#r61), [R6.2](../software-requirements/srd042-otlp-receiver-tools.md#r62), [R6.3](../software-requirements/srd042-otlp-receiver-tools.md#r63), [R6.4](../software-requirements/srd042-otlp-receiver-tools.md#r64), [R6.5](../software-requirements/srd042-otlp-receiver-tools.md#r65) | stop owns listener and waiter cleanup |
+| T8 | [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [R7.1](../software-requirements/srd042-otlp-receiver-tools.md#r71), [R7.2](../software-requirements/srd042-otlp-receiver-tools.md#r72), [R7.3](../software-requirements/srd042-otlp-receiver-tools.md#r73), [R7.4](../software-requirements/srd042-otlp-receiver-tools.md#r74) | file-only process telemetry prevents ingress self-export |
+| T9 | [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [R8.1](../software-requirements/srd042-otlp-receiver-tools.md#r81), [R8.2](../software-requirements/srd042-otlp-receiver-tools.md#r82), [R8.3](../software-requirements/srd042-otlp-receiver-tools.md#r83) | the receiver accepts trace and metric exports on one gRPC listener |
+| T10 | [srd008-telemetry](../software-requirements/srd008-telemetry.md) [R9.1](../software-requirements/srd008-telemetry.md#r91), [R9.2](../software-requirements/srd008-telemetry.md#r92), [R9.3](../software-requirements/srd008-telemetry.md#r93), [R9.4](../software-requirements/srd008-telemetry.md#r94), [R9.5](../software-requirements/srd008-telemetry.md#r95), [R9.6](../software-requirements/srd008-telemetry.md#r96), [R9.7](../software-requirements/srd008-telemetry.md#r97) | integration evidence keeps stable service and run identity |
+| T11 | [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [R9.1](../software-requirements/srd042-otlp-receiver-tools.md#r91), [R9.2](../software-requirements/srd042-otlp-receiver-tools.md#r92), [R9.3](../software-requirements/srd042-otlp-receiver-tools.md#r93), [R9.4](../software-requirements/srd042-otlp-receiver-tools.md#r94), [R9.5](../software-requirements/srd042-otlp-receiver-tools.md#r95) | metric intake, spool, and query mirror the trace words without a separate backend |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -79,7 +79,7 @@ A real OTLP/gRPC client exports a complete trace batch that the declared await w
 <!-- field: traces -->
 #### Traces
 
-- srd042-otlp-receiver-tools AC1
+- [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [AC1](../software-requirements/srd042-otlp-receiver-tools.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -89,7 +89,7 @@ The batch is appended in the existing stdouttrace-compatible NDJSON shape with t
 <!-- field: traces -->
 #### Traces
 
-- srd042-otlp-receiver-tools AC2
+- [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [AC2](../software-requirements/srd042-otlp-receiver-tools.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -99,7 +99,7 @@ Relay delivers the unchanged batch to an upstream OTLP server, and an upstream r
 <!-- field: traces -->
 #### Traces
 
-- srd042-otlp-receiver-tools AC3
+- [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [AC3](../software-requirements/srd042-otlp-receiver-tools.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -109,7 +109,7 @@ Lifecycle stop releases the listener, unblocks waits, and leaves no background g
 <!-- field: traces -->
 #### Traces
 
-- srd042-otlp-receiver-tools AC4
+- [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [AC4](../software-requirements/srd042-otlp-receiver-tools.md#ac4)
 
 <!-- sc: S5 -->
 ### S5
@@ -119,7 +119,7 @@ Client spans arrive while the receiver process's own spans remain only in its de
 <!-- field: traces -->
 #### Traces
 
-- srd042-otlp-receiver-tools AC5
+- [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [AC5](../software-requirements/srd042-otlp-receiver-tools.md#ac5)
 
 <!-- sc: S6 -->
 ### S6
@@ -129,7 +129,7 @@ The receiver accepts trace and metric exports on one gRPC listener and makes no 
 <!-- field: traces -->
 #### Traces
 
-- srd042-otlp-receiver-tools AC6
+- [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [AC6](../software-requirements/srd042-otlp-receiver-tools.md#ac6)
 
 <!-- sc: S7 -->
 ### S7
@@ -139,7 +139,7 @@ A real OTLP/gRPC client exports a metric batch that await returns, spool records
 <!-- field: traces -->
 #### Traces
 
-- srd042-otlp-receiver-tools AC8
+- [srd042-otlp-receiver-tools](../software-requirements/srd042-otlp-receiver-tools.md) [AC8](../software-requirements/srd042-otlp-receiver-tools.md#ac8)
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios
@@ -163,4 +163,4 @@ A real OTLP/gRPC client exports a metric batch that await returns, spool records
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel11.0-otlp-receiver
+[test-rel11.0-otlp-receiver](../test-suites/test-rel11.0-otlp-receiver.md)

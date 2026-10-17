@@ -9,7 +9,7 @@ release: "15.0"
 <!-- field: traces -->
 ## Traces
 
-- rel15.0-uc001-explore-panel
+- [rel15.0-uc001-explore-panel](../use-cases/rel15.0-uc001-explore-panel.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -32,7 +32,7 @@ boundaries, heatmap cells, matched total, skipped lines, and groups.
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-explore-panel
+[rel15.0-uc001-explore-panel](../use-cases/rel15.0-uc001-explore-panel.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -54,8 +54,8 @@ go test ./conformance -run TestCollectorSpanStatsContract
 <!-- field: traces -->
 #### Traces
 
-- rel15.0-uc001-explore-panel S1
-- srd020-collector AC6
+- [rel15.0-uc001-explore-panel](../use-cases/rel15.0-uc001-explore-panel.md) [S1](../use-cases/rel15.0-uc001-explore-panel.md#s1)
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC6](../software-requirements/srd020-collector.md#ac6)
 
 <!-- case: Breakdown route returns the pinned divergence contract | status: implemented -->
 ### Breakdown route returns the pinned divergence contract
@@ -68,7 +68,7 @@ proportions, score, and the dropped count.
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-explore-panel
+[rel15.0-uc001-explore-panel](../use-cases/rel15.0-uc001-explore-panel.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -90,8 +90,8 @@ go test ./conformance -run TestCollectorSpanBreakdownContract
 <!-- field: traces -->
 #### Traces
 
-- rel15.0-uc001-explore-panel S2
-- srd020-collector AC6
+- [rel15.0-uc001-explore-panel](../use-cases/rel15.0-uc001-explore-panel.md) [S2](../use-cases/rel15.0-uc001-explore-panel.md#s2)
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC6](../software-requirements/srd020-collector.md#ac6)
 
 <!-- case: Result caps come from tool config, not the request | status: implemented -->
 ### Result caps come from tool config, not the request
@@ -103,7 +103,7 @@ configured cap beats the request value.
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-explore-panel
+[rel15.0-uc001-explore-panel](../use-cases/rel15.0-uc001-explore-panel.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -126,7 +126,7 @@ go test ./conformance -run TestCollectorExploreCapsFromConfig
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector AC6
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC6](../software-requirements/srd020-collector.md#ac6)
 
 <!-- case: Empty spool yields well-formed empty Explore responses | status: implemented -->
 ### Empty spool yields well-formed empty Explore responses
@@ -138,7 +138,7 @@ ranking, both 200, not an error.
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-explore-panel
+[rel15.0-uc001-explore-panel](../use-cases/rel15.0-uc001-explore-panel.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -160,8 +160,8 @@ go test ./conformance -run TestCollectorExploreEmptySpool
 <!-- field: traces -->
 #### Traces
 
-- rel15.0-uc001-explore-panel S4
-- srd020-collector AC7
+- [rel15.0-uc001-explore-panel](../use-cases/rel15.0-uc001-explore-panel.md) [S4](../use-cases/rel15.0-uc001-explore-panel.md#s4)
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC7](../software-requirements/srd020-collector.md#ac7)
 
 <!-- case: Explore page is wired into the UI descriptor | status: implemented -->
 ### Explore page is wired into the UI descriptor
@@ -173,7 +173,7 @@ the Explore page.
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-explore-panel
+[rel15.0-uc001-explore-panel](../use-cases/rel15.0-uc001-explore-panel.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -193,8 +193,8 @@ go test ./conformance -run TestCollectorExploreRouteDeclared
 <!-- field: traces -->
 #### Traces
 
-- rel15.0-uc001-explore-panel S1
-- srd020-collector AC8
+- [rel15.0-uc001-explore-panel](../use-cases/rel15.0-uc001-explore-panel.md) [S1](../use-cases/rel15.0-uc001-explore-panel.md#s1)
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC8](../software-requirements/srd020-collector.md#ac8)
 
 <!-- case: Explore UI reproduces from a clean source build | status: implemented -->
 ### Explore UI reproduces from a clean source build
@@ -205,7 +205,7 @@ output of a clean npm ci + build from the lockfile-pinned source.
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-explore-panel
+[rel15.0-uc001-explore-panel](../use-cases/rel15.0-uc001-explore-panel.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -225,4 +225,4 @@ mage uiDist
 <!-- field: traces -->
 #### Traces
 
-- srd020-collector AC8
+- [srd020-collector](../software-requirements/srd020-collector.md) [AC8](../software-requirements/srd020-collector.md#ac8)

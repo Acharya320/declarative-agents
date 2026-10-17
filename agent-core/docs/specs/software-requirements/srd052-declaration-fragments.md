@@ -153,9 +153,9 @@ A fragment declaring params and one body loads, a fragment with params and no bo
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -165,13 +165,13 @@ An expansion supplying every required argument produces definitions under the sa
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
-- R2.5
-- R2.6
-- R2.7
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
+- [R2.5](#r25)
+- [R2.6](#r26)
+- [R2.7](#r27)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -181,8 +181,8 @@ An expansion none of whose definitions is selected fails as an unused import wit
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
+- [R3.1](#r31)
+- [R3.2](#r32)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -192,7 +192,7 @@ The canonical dump names the section `expansions`, and the reuse-statistics JSON
 <!-- field: traces -->
 #### Traces
 
-- R3.3
+- [R3.3](#r33)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -202,8 +202,8 @@ A stage fragment splices into a machine under a prefix with parameterized entry 
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
+- [R4.1](#r41)
+- [R4.2](#r42)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -213,7 +213,7 @@ A machine expanding stages/s-${X:-a}.yaml beside s-a.yaml and s-b.yaml loads sta
 <!-- field: traces -->
 #### Traces
 
-- R4.3
+- [R4.3](#r43)
 
 <!-- field: related_documents -->
 ## Related documents

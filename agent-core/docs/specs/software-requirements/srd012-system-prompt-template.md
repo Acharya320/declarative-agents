@@ -185,12 +185,12 @@ system.tmpl is embedded and parsed at init. RenderSystemPrompt renders the templ
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R4.1
-- R4.2
-- R4.3
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -200,12 +200,12 @@ PromptData has all seven fields. Envelope controls tag display. StrictFormat con
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
-- R3.1
-- R4.4
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
+- [R3.1](#r31)
+- [R4.4](#r44)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -215,8 +215,8 @@ Template error falls back to Role + Task. No trailing newlines.
 <!-- field: traces -->
 #### Traces
 
-- R4.5
-- R4.6
+- [R4.5](#r45)
+- [R4.6](#r46)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -226,8 +226,8 @@ System prompt rendering uses the embedded reviewed template and accepts agent-sp
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
+- [R5.1](#r51)
+- [R5.2](#r52)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -237,12 +237,12 @@ SerializeManifest produces ### headings, verbatim descriptions, fenced JSON sche
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
-- R6.3
-- R6.4
-- R6.5
-- R6.6
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
+- [R6.4](#r64)
+- [R6.5](#r65)
+- [R6.6](#r66)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -252,8 +252,8 @@ Schema JSON is re-indented to 2 spaces. Invalid JSON included as raw bytes.
 <!-- field: traces -->
 #### Traces
 
-- R6.3
-- R6.7
+- [R6.3](#r63)
+- [R6.7](#r67)
 
 <!-- field: diagrams -->
 ## Diagrams

@@ -19,7 +19,7 @@ in-cluster trace evidence through the collector query surface.
 <!-- field: traces -->
 ## Traces
 
-- rel07.0-uc001-collector-agent-tracing
+- [rel07.0-uc001-collector-agent-tracing](../use-cases/rel07.0-uc001-collector-agent-tracing.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -36,7 +36,7 @@ in-cluster trace evidence through the collector query surface.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-collector-agent-tracing
+[rel07.0-uc001-collector-agent-tracing](../use-cases/rel07.0-uc001-collector-agent-tracing.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -46,8 +46,8 @@ go test ./magefiles -run '^TestHelm(CoreTopologyRendersRoleContract|ProfileChang
 <!-- field: traces -->
 #### Traces
 
-- srd003-helm-topology R3.3
-- srd003-helm-topology R3.4
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [R3.3](../software-requirements/srd003-helm-topology.md#r33)
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [R3.4](../software-requirements/srd003-helm-topology.md#r34)
 
 <!-- case: Schema and semantic validation without Jaeger keys | status: implemented -->
 ### Schema and semantic validation without Jaeger keys
@@ -55,7 +55,7 @@ go test ./magefiles -run '^TestHelm(CoreTopologyRendersRoleContract|ProfileChang
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-collector-agent-tracing
+[rel07.0-uc001-collector-agent-tracing](../use-cases/rel07.0-uc001-collector-agent-tracing.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -65,7 +65,7 @@ go test ./magefiles -run '^TestHelm(SchemaFixtureMatrix|SemanticValidationSurviv
 <!-- field: traces -->
 #### Traces
 
-- srd004-helm-package-validation R1
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R1](../software-requirements/srd004-helm-package-validation.md#r1---strict-values)
 
 <!-- case: Catalog-root discovery from any startup directory | status: implemented -->
 ### Catalog-root discovery from any startup directory
@@ -73,7 +73,7 @@ go test ./magefiles -run '^TestHelm(SchemaFixtureMatrix|SemanticValidationSurviv
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-collector-agent-tracing
+[rel07.0-uc001-collector-agent-tracing](../use-cases/rel07.0-uc001-collector-agent-tracing.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -83,7 +83,7 @@ go test ./magefiles -run '^TestCodingAgentCatalogRoot(FromDemoConfig|DiscoversSi
 <!-- field: traces -->
 #### Traces
 
-- srd004-helm-package-validation R1
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R1](../software-requirements/srd004-helm-package-validation.md#r1---strict-values)
 
 <!-- case: Install command without the removed utilityImage knob | status: implemented -->
 ### Install command without the removed utilityImage knob
@@ -91,7 +91,7 @@ go test ./magefiles -run '^TestCodingAgentCatalogRoot(FromDemoConfig|DiscoversSi
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-collector-agent-tracing
+[rel07.0-uc001-collector-agent-tracing](../use-cases/rel07.0-uc001-collector-agent-tracing.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -101,7 +101,7 @@ go test ./magefiles -run '^TestCodingHelmCommitImagePropagatesToBuildManifestAnd
 <!-- field: traces -->
 #### Traces
 
-- srd005-live-helm-smoke R2
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R2](../software-requirements/srd005-live-helm-smoke.md#r2---real-packaged-topology)
 
 <!-- case: Live packaged topology with collector query trace proof | status: implemented -->
 ### Live packaged topology with collector query trace proof
@@ -109,7 +109,7 @@ go test ./magefiles -run '^TestCodingHelmCommitImagePropagatesToBuildManifestAnd
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-collector-agent-tracing
+[rel07.0-uc001-collector-agent-tracing](../use-cases/rel07.0-uc001-collector-agent-tracing.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -119,4 +119,4 @@ mage integration:helmSmoke
 <!-- field: traces -->
 #### Traces
 
-- srd005-live-helm-smoke R3.3
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R3.3](../software-requirements/srd005-live-helm-smoke.md#r33)

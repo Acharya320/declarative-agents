@@ -23,12 +23,12 @@ under the ui-kit mage targets; REST and manifest cases run under go test.
 <!-- field: traces -->
 ## Traces
 
-- rel15.0-uc001-declarative-ux
+- [rel15.0-uc001-declarative-ux](../use-cases/rel15.0-uc001-declarative-ux.md)
 
 <!-- field: srds -->
 ## SRDs
 
-- srd004-declarative-ux
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -51,7 +51,7 @@ TC1
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-declarative-ux
+[rel15.0-uc001-declarative-ux](../use-cases/rel15.0-uc001-declarative-ux.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -140,8 +140,8 @@ PY
 <!-- field: traces -->
 #### Traces
 
-- rel15.0-uc001-declarative-ux S1
-- srd004-declarative-ux AC1
+- [rel15.0-uc001-declarative-ux](../use-cases/rel15.0-uc001-declarative-ux.md) [S1](../use-cases/rel15.0-uc001-declarative-ux.md#s1)
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC1](../software-requirements/srd004-declarative-ux.md#ac1)
 
 <!-- case: Kit client honours the base URL, proxy convention, and not-deployed result | status: implemented -->
 ### Kit client honours the base URL, proxy convention, and not-deployed result
@@ -154,7 +154,7 @@ TC2
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-declarative-ux
+[rel15.0-uc001-declarative-ux](../use-cases/rel15.0-uc001-declarative-ux.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -185,9 +185,9 @@ mage uikit:test
 <!-- field: traces -->
 #### Traces
 
-- rel15.0-uc001-declarative-ux S5
-- srd004-declarative-ux AC2
-- srd004-declarative-ux AC6
+- [rel15.0-uc001-declarative-ux](../use-cases/rel15.0-uc001-declarative-ux.md) [S5](../use-cases/rel15.0-uc001-declarative-ux.md#s5)
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC2](../software-requirements/srd004-declarative-ux.md#ac2)
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC6](../software-requirements/srd004-declarative-ux.md#ac6)
 
 <!-- case: Contract fixtures parse through every client | status: implemented -->
 ### Contract fixtures parse through every client
@@ -200,7 +200,7 @@ TC3
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-declarative-ux
+[rel15.0-uc001-declarative-ux](../use-cases/rel15.0-uc001-declarative-ux.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -229,9 +229,9 @@ mage uikit:test
 <!-- field: traces -->
 #### Traces
 
-- rel15.0-uc001-declarative-ux S5
-- srd004-declarative-ux AC1
-- srd004-declarative-ux AC3
+- [rel15.0-uc001-declarative-ux](../use-cases/rel15.0-uc001-declarative-ux.md) [S5](../use-cases/rel15.0-uc001-declarative-ux.md#s5)
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC1](../software-requirements/srd004-declarative-ux.md#ac1)
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC3](../software-requirements/srd004-declarative-ux.md#ac3)
 
 <!-- case: Kit panels export manifests within the contract and render from fixtures | status: implemented -->
 ### Kit panels export manifests within the contract and render from fixtures
@@ -244,7 +244,7 @@ TC4
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-declarative-ux
+[rel15.0-uc001-declarative-ux](../use-cases/rel15.0-uc001-declarative-ux.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -274,8 +274,8 @@ mage uikit:test
 <!-- field: traces -->
 #### Traces
 
-- rel15.0-uc001-declarative-ux S1
-- srd004-declarative-ux AC4
+- [rel15.0-uc001-declarative-ux](../use-cases/rel15.0-uc001-declarative-ux.md) [S1](../use-cases/rel15.0-uc001-declarative-ux.md#s1)
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC4](../software-requirements/srd004-declarative-ux.md#ac4)
 
 <!-- case: ui.yaml version 2 validates, rejects, and renders from Helm values | status: implemented -->
 ### ui.yaml version 2 validates, rejects, and renders from Helm values
@@ -288,7 +288,7 @@ TC5
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-declarative-ux
+[rel15.0-uc001-declarative-ux](../use-cases/rel15.0-uc001-declarative-ux.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -319,8 +319,8 @@ GH-2270
 <!-- field: traces -->
 #### Traces
 
-- rel15.0-uc001-declarative-ux S2
-- srd004-declarative-ux AC7
+- [rel15.0-uc001-declarative-ux](../use-cases/rel15.0-uc001-declarative-ux.md) [S2](../use-cases/rel15.0-uc001-declarative-ux.md#s2)
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC7](../software-requirements/srd004-declarative-ux.md#ac7)
 
 <!-- case: Generic shell composes routes and sidebar from ui.yaml | status: implemented -->
 ### Generic shell composes routes and sidebar from ui.yaml
@@ -333,7 +333,7 @@ TC6
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-declarative-ux
+[rel15.0-uc001-declarative-ux](../use-cases/rel15.0-uc001-declarative-ux.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -365,9 +365,9 @@ mage uikit:test
 <!-- field: traces -->
 #### Traces
 
-- rel15.0-uc001-declarative-ux S2
-- srd004-declarative-ux AC5
-- srd004-declarative-ux AC7
+- [rel15.0-uc001-declarative-ux](../use-cases/rel15.0-uc001-declarative-ux.md) [S2](../use-cases/rel15.0-uc001-declarative-ux.md#s2)
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC5](../software-requirements/srd004-declarative-ux.md#ac5)
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC7](../software-requirements/srd004-declarative-ux.md#ac7)
 
 <!-- case: Kit owns tokens and ships as a file dependency and release tarball | status: implemented -->
 ### Kit owns tokens and ships as a file dependency and release tarball
@@ -380,7 +380,7 @@ TC7
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-declarative-ux
+[rel15.0-uc001-declarative-ux](../use-cases/rel15.0-uc001-declarative-ux.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -410,8 +410,8 @@ mage uikit:build uikit:test uikit:pack
 <!-- field: traces -->
 #### Traces
 
-- rel15.0-uc001-declarative-ux S4
-- srd004-declarative-ux AC8
+- [rel15.0-uc001-declarative-ux](../use-cases/rel15.0-uc001-declarative-ux.md) [S4](../use-cases/rel15.0-uc001-declarative-ux.md#s4)
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC8](../software-requirements/srd004-declarative-ux.md#ac8)
 
 <!-- case: REST tool serves an embedded bundle and its declared config | status: implemented -->
 ### REST tool serves an embedded bundle and its declared config
@@ -424,7 +424,7 @@ TC8
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-declarative-ux
+[rel15.0-uc001-declarative-ux](../use-cases/rel15.0-uc001-declarative-ux.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -458,8 +458,8 @@ GH-2267, GH-2268, GH-2269
 <!-- field: traces -->
 #### Traces
 
-- rel15.0-uc001-declarative-ux S3
-- srd004-declarative-ux AC9
+- [rel15.0-uc001-declarative-ux](../use-cases/rel15.0-uc001-declarative-ux.md) [S3](../use-cases/rel15.0-uc001-declarative-ux.md#s3)
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC9](../software-requirements/srd004-declarative-ux.md#ac9)
 
 <!-- case: No shared UI code is duplicated under applications/ | status: implemented -->
 ### No shared UI code is duplicated under applications/
@@ -472,7 +472,7 @@ TC9
 <!-- field: use_case -->
 #### Use case
 
-rel15.0-uc001-declarative-ux
+[rel15.0-uc001-declarative-ux](../use-cases/rel15.0-uc001-declarative-ux.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -501,6 +501,6 @@ GH-2275
 <!-- field: traces -->
 #### Traces
 
-- rel15.0-uc001-declarative-ux S4
-- srd004-declarative-ux AC2
-- srd004-declarative-ux AC8
+- [rel15.0-uc001-declarative-ux](../use-cases/rel15.0-uc001-declarative-ux.md) [S4](../use-cases/rel15.0-uc001-declarative-ux.md#s4)
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC2](../software-requirements/srd004-declarative-ux.md#ac2)
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC8](../software-requirements/srd004-declarative-ux.md#ac8)

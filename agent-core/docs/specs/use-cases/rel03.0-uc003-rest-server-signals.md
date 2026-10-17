@@ -47,15 +47,15 @@ a domain event from another system.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd027-rest-tool-runtime R5.4, R5.5, R5.6, R5.7 | launch and await split server activation from inbound event receipt |
-| T2 | srd029-rest-server-tools R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R2.7 | rest_server_launch starts configured routes and declares effects |
-| T3 | srd029-rest-server-tools R3.1, R3.2, R3.3, R3.4, R3.5, R3.6, R3.7 | rest_server_await consumes queued inbound events |
-| T4 | srd029-rest-server-tools R4.1, R4.2, R4.3, R4.4, R4.5, R4.6, R4.7 | rest_server_stop shuts down shared server state |
-| T5 | srd029-rest-server-tools R5.1, R5.2, R5.3, R5.4, R5.5, R5.6, R5.7 | endpoint binding kinds cover signals, state reads, handlers, streams, health, and metadata |
-| T6 | srd029-rest-server-tools R6.1, R6.2, R6.3, R6.6 | validation precedes event enqueue and handlers do not choose MachineSpec actions |
+| T1 | [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [R5.4](../software-requirements/srd027-rest-tool-runtime.md#r54), [R5.5](../software-requirements/srd027-rest-tool-runtime.md#r55), [R5.6](../software-requirements/srd027-rest-tool-runtime.md#r56), [R5.7](../software-requirements/srd027-rest-tool-runtime.md#r57) | launch and await split server activation from inbound event receipt |
+| T2 | [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [R2.1](../software-requirements/srd029-rest-server-tools.md#r21), [R2.2](../software-requirements/srd029-rest-server-tools.md#r22), [R2.3](../software-requirements/srd029-rest-server-tools.md#r23), [R2.4](../software-requirements/srd029-rest-server-tools.md#r24), [R2.5](../software-requirements/srd029-rest-server-tools.md#r25), [R2.6](../software-requirements/srd029-rest-server-tools.md#r26), [R2.7](../software-requirements/srd029-rest-server-tools.md#r27) | rest_server_launch starts configured routes and declares effects |
+| T3 | [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [R3.1](../software-requirements/srd029-rest-server-tools.md#r31), [R3.2](../software-requirements/srd029-rest-server-tools.md#r32), [R3.3](../software-requirements/srd029-rest-server-tools.md#r33), [R3.4](../software-requirements/srd029-rest-server-tools.md#r34), [R3.5](../software-requirements/srd029-rest-server-tools.md#r35), [R3.6](../software-requirements/srd029-rest-server-tools.md#r36), [R3.7](../software-requirements/srd029-rest-server-tools.md#r37) | rest_server_await consumes queued inbound events |
+| T4 | [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [R4.1](../software-requirements/srd029-rest-server-tools.md#r41), [R4.2](../software-requirements/srd029-rest-server-tools.md#r42), [R4.3](../software-requirements/srd029-rest-server-tools.md#r43), [R4.4](../software-requirements/srd029-rest-server-tools.md#r44), [R4.5](../software-requirements/srd029-rest-server-tools.md#r45), [R4.6](../software-requirements/srd029-rest-server-tools.md#r46), [R4.7](../software-requirements/srd029-rest-server-tools.md#r47) | rest_server_stop shuts down shared server state |
+| T5 | [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [R5.1](../software-requirements/srd029-rest-server-tools.md#r51), [R5.2](../software-requirements/srd029-rest-server-tools.md#r52), [R5.3](../software-requirements/srd029-rest-server-tools.md#r53), [R5.4](../software-requirements/srd029-rest-server-tools.md#r54), [R5.5](../software-requirements/srd029-rest-server-tools.md#r55), [R5.6](../software-requirements/srd029-rest-server-tools.md#r56), [R5.7](../software-requirements/srd029-rest-server-tools.md#r57) | endpoint binding kinds cover signals, state reads, handlers, streams, health, and metadata |
+| T6 | [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [R6.1](../software-requirements/srd029-rest-server-tools.md#r61), [R6.2](../software-requirements/srd029-rest-server-tools.md#r62), [R6.3](../software-requirements/srd029-rest-server-tools.md#r63), [R6.6](../software-requirements/srd029-rest-server-tools.md#r66) | validation precedes event enqueue and handlers do not choose MachineSpec actions |
 | T7 | cfg-rest-tool-format queue_config and endpoint fields | queue limits, payload shape, timeout, binding, signal, and allowed_signals are configured |
-| T8 | srd027-rest-tool-runtime R10.1, R10.2, R10.3, R10.4, R10.5, R10.6, R10.7, R10.8 | rest_await_event fans in across configured server queues |
-| T9 | srd029-rest-server-tools R11.1, R11.2, R11.3, R11.4, R11.5, R11.6, R11.7, R11.8 | lifecycle routes stay visible through configured server event sources |
+| T8 | [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [R10.1](../software-requirements/srd027-rest-tool-runtime.md#r101), [R10.2](../software-requirements/srd027-rest-tool-runtime.md#r102), [R10.3](../software-requirements/srd027-rest-tool-runtime.md#r103), [R10.4](../software-requirements/srd027-rest-tool-runtime.md#r104), [R10.5](../software-requirements/srd027-rest-tool-runtime.md#r105), [R10.6](../software-requirements/srd027-rest-tool-runtime.md#r106), [R10.7](../software-requirements/srd027-rest-tool-runtime.md#r107), [R10.8](../software-requirements/srd027-rest-tool-runtime.md#r108) | rest_await_event fans in across configured server queues |
+| T9 | [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [R11.1](../software-requirements/srd029-rest-server-tools.md#r111), [R11.2](../software-requirements/srd029-rest-server-tools.md#r112), [R11.3](../software-requirements/srd029-rest-server-tools.md#r113), [R11.4](../software-requirements/srd029-rest-server-tools.md#r114), [R11.5](../software-requirements/srd029-rest-server-tools.md#r115), [R11.6](../software-requirements/srd029-rest-server-tools.md#r116), [R11.7](../software-requirements/srd029-rest-server-tools.md#r117), [R11.8](../software-requirements/srd029-rest-server-tools.md#r118) | lifecycle routes stay visible through configured server event sources |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -68,7 +68,7 @@ Server launch is a non-blocking MachineSpec action that emits ServerLaunched or 
 <!-- field: traces -->
 #### Traces
 
-- srd029-rest-server-tools AC2
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC2](../software-requirements/srd029-rest-server-tools.md#ac2)
 
 <!-- sc: S2 -->
 ### S2
@@ -78,8 +78,8 @@ Inbound HTTP requests become grammar-visible signals only through rest_server_aw
 <!-- field: traces -->
 #### Traces
 
-- srd029-rest-server-tools AC3
-- srd029-rest-server-tools AC6
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC3](../software-requirements/srd029-rest-server-tools.md#ac3)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC6](../software-requirements/srd029-rest-server-tools.md#ac6)
 
 <!-- sc: S3 -->
 ### S3
@@ -89,8 +89,8 @@ Approved, Rejected, PauseRequested, and DomainEventReceived each have visible ma
 <!-- field: traces -->
 #### Traces
 
-- srd027-rest-tool-runtime AC5
-- srd029-rest-server-tools AC5
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC5](../software-requirements/srd027-rest-tool-runtime.md#ac5)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC5](../software-requirements/srd029-rest-server-tools.md#ac5)
 
 <!-- sc: S4 -->
 ### S4
@@ -100,8 +100,8 @@ Server shutdown drains or fails queued events according to configured policy.
 <!-- field: traces -->
 #### Traces
 
-- srd029-rest-server-tools AC4
-- srd029-rest-server-tools AC7
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC4](../software-requirements/srd029-rest-server-tools.md#ac4)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC7](../software-requirements/srd029-rest-server-tools.md#ac7)
 
 <!-- sc: S5 -->
 ### S5
@@ -111,8 +111,8 @@ rest_await_event selects one matching event across configured sources and report
 <!-- field: traces -->
 #### Traces
 
-- srd027-rest-tool-runtime AC10
-- srd029-rest-server-tools AC10
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC10](../software-requirements/srd027-rest-tool-runtime.md#ac10)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC10](../software-requirements/srd029-rest-server-tools.md#ac10)
 
 <!-- sc: S6 -->
 ### S6
@@ -122,8 +122,8 @@ Lifecycle exit requests enqueue ExitRequested and route through exit_agent inste
 <!-- field: traces -->
 #### Traces
 
-- srd027-rest-tool-runtime AC10
-- srd029-rest-server-tools AC10
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC10](../software-requirements/srd027-rest-tool-runtime.md#ac10)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC10](../software-requirements/srd029-rest-server-tools.md#ac10)
 
 <!-- field: out_of_scope -->
 ## Out of scope

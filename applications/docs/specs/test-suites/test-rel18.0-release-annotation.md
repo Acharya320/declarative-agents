@@ -24,12 +24,12 @@ the skill counterpart is coding-skills issue 395.
 <!-- field: traces -->
 ## Traces
 
-- rel18.0-uc001-release-annotation
+- [rel18.0-uc001-release-annotation](../use-cases/rel18.0-uc001-release-annotation.md)
 
 <!-- field: srds -->
 ## SRDs
 
-- srd007-release-annotation
+- [srd007-release-annotation](../software-requirements/srd007-release-annotation.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -52,7 +52,7 @@ TC1
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-release-annotation
+[rel18.0-uc001-release-annotation](../use-cases/rel18.0-uc001-release-annotation.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -154,8 +154,8 @@ PY
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-release-annotation S1
-- srd007-release-annotation AC1
+- [rel18.0-uc001-release-annotation](../use-cases/rel18.0-uc001-release-annotation.md) [S1](../use-cases/rel18.0-uc001-release-annotation.md#s1)
+- [srd007-release-annotation](../software-requirements/srd007-release-annotation.md) [AC1](../software-requirements/srd007-release-annotation.md#ac1)
 
 <!-- case: A missing or lightweight tag is refused by name | status: implemented -->
 ### A missing or lightweight tag is refused by name
@@ -168,7 +168,7 @@ TC2
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-release-annotation
+[rel18.0-uc001-release-annotation](../use-cases/rel18.0-uc001-release-annotation.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -198,8 +198,8 @@ cd magefiles && go test . -run TestTagVerify
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-release-annotation S1
-- srd007-release-annotation AC1
+- [rel18.0-uc001-release-annotation](../use-cases/rel18.0-uc001-release-annotation.md) [S1](../use-cases/rel18.0-uc001-release-annotation.md#s1)
+- [srd007-release-annotation](../software-requirements/srd007-release-annotation.md) [AC1](../software-requirements/srd007-release-annotation.md#ac1)
 
 <!-- case: A degenerate annotation is refused | status: implemented -->
 ### A degenerate annotation is refused
@@ -212,7 +212,7 @@ TC3
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-release-annotation
+[rel18.0-uc001-release-annotation](../use-cases/rel18.0-uc001-release-annotation.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -243,8 +243,8 @@ cd magefiles && go test . -run TestTagVerify
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-release-annotation S1
-- srd007-release-annotation AC1
+- [rel18.0-uc001-release-annotation](../use-cases/rel18.0-uc001-release-annotation.md) [S1](../use-cases/rel18.0-uc001-release-annotation.md#s1)
+- [srd007-release-annotation](../software-requirements/srd007-release-annotation.md) [AC1](../software-requirements/srd007-release-annotation.md#ac1)
 
 <!-- case: A tag off main is refused and an absent main fails by name | status: implemented -->
 ### A tag off main is refused and an absent main fails by name
@@ -257,7 +257,7 @@ TC4
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-release-annotation
+[rel18.0-uc001-release-annotation](../use-cases/rel18.0-uc001-release-annotation.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -286,8 +286,8 @@ cd magefiles && go test . -run TestTagVerify
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-release-annotation S2
-- srd007-release-annotation AC2
+- [rel18.0-uc001-release-annotation](../use-cases/rel18.0-uc001-release-annotation.md) [S2](../use-cases/rel18.0-uc001-release-annotation.md#s2)
+- [srd007-release-annotation](../software-requirements/srd007-release-annotation.md) [AC2](../software-requirements/srd007-release-annotation.md#ac2)
 
 <!-- case: A run mutates nothing, passing or refusing | status: implemented -->
 ### A run mutates nothing, passing or refusing
@@ -300,7 +300,7 @@ TC5
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-release-annotation
+[rel18.0-uc001-release-annotation](../use-cases/rel18.0-uc001-release-annotation.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -329,8 +329,8 @@ cd magefiles && go test . -run TestTagVerify
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-release-annotation S3
-- srd007-release-annotation AC3
+- [rel18.0-uc001-release-annotation](../use-cases/rel18.0-uc001-release-annotation.md) [S3](../use-cases/rel18.0-uc001-release-annotation.md#s3)
+- [srd007-release-annotation](../software-requirements/srd007-release-annotation.md) [AC3](../software-requirements/srd007-release-annotation.md#ac3)
 
 <!-- case: The runbook and the skill place the check before the push | status: implemented -->
 ### The runbook and the skill place the check before the push
@@ -343,7 +343,7 @@ TC6
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-release-annotation
+[rel18.0-uc001-release-annotation](../use-cases/rel18.0-uc001-release-annotation.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -371,5 +371,5 @@ gh issue view 2198 --json body --jq .body | grep -c "tag:verify"
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-release-annotation S4
-- srd007-release-annotation AC4
+- [rel18.0-uc001-release-annotation](../use-cases/rel18.0-uc001-release-annotation.md) [S4](../use-cases/rel18.0-uc001-release-annotation.md#s4)
+- [srd007-release-annotation](../software-requirements/srd007-release-annotation.md) [AC4](../software-requirements/srd007-release-annotation.md#ac4)

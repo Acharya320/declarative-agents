@@ -64,12 +64,12 @@ parameter) and the creator submits it to the applier's apply endpoint.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd006-applier AC1 | The applier exposes the state, apply, and rollout surface on the provisioner's Service name and port with a request-scoped apply endpoint. |
-| T2 | srd006-applier AC2 | The applier validates the patch against the chart schema by a dry-run and applies it as a values-file rollout, values-plane only. |
-| T3 | srd006-applier AC3 | The applier verifies the rollout and rolls back on an apply or verify failure. |
-| T4 | srd006-applier AC4 | The actuation surface is authenticated apart from chat, reached only by the creator, and authority stays set by declared validated config. |
-| T5 | srd006-applier AC5 | Deciding the values and owning lifecycle are non-goals; the applier receives helm and kubectl from the pinned CLI donor, so no image diverges. |
-| T6 | srd003-chatbot-deployment AC4 | The applier realizes the separately-authenticated deployment API that never submits an endpoint to a running agent. |
+| T1 | [srd006-applier](../software-requirements/srd006-applier.md) [AC1](../software-requirements/srd006-applier.md#ac1) | The applier exposes the state, apply, and rollout surface on the provisioner's Service name and port with a request-scoped apply endpoint. |
+| T2 | [srd006-applier](../software-requirements/srd006-applier.md) [AC2](../software-requirements/srd006-applier.md#ac2) | The applier validates the patch against the chart schema by a dry-run and applies it as a values-file rollout, values-plane only. |
+| T3 | [srd006-applier](../software-requirements/srd006-applier.md) [AC3](../software-requirements/srd006-applier.md#ac3) | The applier verifies the rollout and rolls back on an apply or verify failure. |
+| T4 | [srd006-applier](../software-requirements/srd006-applier.md) [AC4](../software-requirements/srd006-applier.md#ac4) | The actuation surface is authenticated apart from chat, reached only by the creator, and authority stays set by declared validated config. |
+| T5 | [srd006-applier](../software-requirements/srd006-applier.md) [AC5](../software-requirements/srd006-applier.md#ac5) | Deciding the values and owning lifecycle are non-goals; the applier receives helm and kubectl from the pinned CLI donor, so no image diverges. |
+| T6 | [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC4](../software-requirements/srd003-chatbot-deployment.md#ac4) | The applier realizes the separately-authenticated deployment API that never submits an endpoint to a running agent. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -82,9 +82,9 @@ The applier exposes the state, apply, and rollout surface on the provisioner's S
 <!-- field: traces -->
 #### Traces
 
-- srd006-applier R1.1
-- srd006-applier R1.3
-- srd006-applier AC1
+- [srd006-applier](../software-requirements/srd006-applier.md) [R1.1](../software-requirements/srd006-applier.md#r11)
+- [srd006-applier](../software-requirements/srd006-applier.md) [R1.3](../software-requirements/srd006-applier.md#r13)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC1](../software-requirements/srd006-applier.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -94,8 +94,8 @@ A non-conforming values patch is rejected by the chart-schema dry-run with a cli
 <!-- field: traces -->
 #### Traces
 
-- srd006-applier R2.1
-- srd006-applier AC2
+- [srd006-applier](../software-requirements/srd006-applier.md) [R2.1](../software-requirements/srd006-applier.md#r21)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC2](../software-requirements/srd006-applier.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -105,9 +105,9 @@ A valid patch is materialized as a values file and applied with helm upgrade --r
 <!-- field: traces -->
 #### Traces
 
-- srd006-applier R2.2
-- srd003-chatbot-deployment R2.1
-- srd006-applier AC2
+- [srd006-applier](../software-requirements/srd006-applier.md) [R2.2](../software-requirements/srd006-applier.md#r22)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R2.1](../software-requirements/srd003-chatbot-deployment.md#r21)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC2](../software-requirements/srd006-applier.md#ac2)
 
 <!-- sc: S4 -->
 ### S4
@@ -117,9 +117,9 @@ The rollout is verified via kubectl rollout status and its phase reported, and a
 <!-- field: traces -->
 #### Traces
 
-- srd006-applier R3.1
-- srd006-applier R3.2
-- srd006-applier AC3
+- [srd006-applier](../software-requirements/srd006-applier.md) [R3.1](../software-requirements/srd006-applier.md#r31)
+- [srd006-applier](../software-requirements/srd006-applier.md) [R3.2](../software-requirements/srd006-applier.md#r32)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC3](../software-requirements/srd006-applier.md#ac3)
 
 <!-- sc: S5 -->
 ### S5
@@ -129,11 +129,11 @@ The patch submits no endpoint or credential to a running agent, the apply path i
 <!-- field: traces -->
 #### Traces
 
-- srd006-applier R4.1
-- srd006-applier R4.2
-- srd003-chatbot-deployment R4.2
-- srd006-applier AC4
-- srd003-chatbot-deployment AC4
+- [srd006-applier](../software-requirements/srd006-applier.md) [R4.1](../software-requirements/srd006-applier.md#r41)
+- [srd006-applier](../software-requirements/srd006-applier.md) [R4.2](../software-requirements/srd006-applier.md#r42)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R4.2](../software-requirements/srd003-chatbot-deployment.md#r42)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC4](../software-requirements/srd006-applier.md#ac4)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC4](../software-requirements/srd003-chatbot-deployment.md#ac4)
 
 <!-- sc: S6 -->
 ### S6
@@ -143,11 +143,11 @@ The rendered chart routes browser provisioning traffic to the provisioning-workf
 <!-- field: traces -->
 #### Traces
 
-- srd006-applier R4.4
-- srd003-chatbot-deployment R4.4
-- srd004-provisioning-workflow-orchestrator R1.5
-- srd006-applier AC6
-- srd003-chatbot-deployment AC7
+- [srd006-applier](../software-requirements/srd006-applier.md) [R4.4](../software-requirements/srd006-applier.md#r44)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R4.4](../software-requirements/srd003-chatbot-deployment.md#r44)
+- [srd004-provisioning-workflow-orchestrator](../software-requirements/srd004-provisioning-workflow-orchestrator.md) [R1.5](../software-requirements/srd004-provisioning-workflow-orchestrator.md#r15)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC6](../software-requirements/srd006-applier.md#ac6)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC7](../software-requirements/srd003-chatbot-deployment.md#ac7)
 
 <!-- sc: S7 -->
 ### S7
@@ -157,8 +157,8 @@ The rollout read reports the phase with the Deployment's ready and desired repli
 <!-- field: traces -->
 #### Traces
 
-- srd006-applier R3.3
-- srd006-applier AC3
+- [srd006-applier](../software-requirements/srd006-applier.md) [R3.3](../software-requirements/srd006-applier.md#r33)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC3](../software-requirements/srd006-applier.md#ac3)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -170,4 +170,4 @@ The rollout read reports the phase with the Deployment's ready and desired repli
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel06.0-applier
+[test-rel06.0-applier](../test-suites/test-rel06.0-applier.md)

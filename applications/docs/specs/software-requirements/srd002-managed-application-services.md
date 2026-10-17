@@ -361,10 +361,10 @@ and bounded graceful shutdown with resource release.
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.4
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
 
 <!-- field: applicability -->
 #### Applicability
@@ -380,9 +380,9 @@ effects, and expose no optional capability surface by implication.
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
 
 <!-- field: applicability -->
 #### Applicability
@@ -398,9 +398,9 @@ diagnostics, and one validated configuration authority exists per value.
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
 
 <!-- field: applicability -->
 #### Applicability
@@ -416,9 +416,9 @@ validated artifact and rejects unsafe or partial publication.
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
 
 <!-- field: applicability -->
 #### Applicability
@@ -435,9 +435,9 @@ independently.
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
 
 <!-- field: applicability -->
 #### Applicability
@@ -454,10 +454,10 @@ applications without kind_demo have no such obligation.
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
-- R6.3
-- R6.4
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
+- [R6.4](#r64)
 
 <!-- field: applicability -->
 #### Applicability

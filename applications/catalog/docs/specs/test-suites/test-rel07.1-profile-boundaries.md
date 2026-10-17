@@ -29,9 +29,9 @@ deferred follow-up tracked in the road-map rel07.1 entry.
 <!-- field: traces -->
 ## Traces
 
-- rel07.1-uc001-specification-critic-profile-boundary
-- rel07.1-uc002-lifecycle-profile-boundary
-- rel07.1-uc003-rest-profile-boundary
+- [rel07.1-uc001-specification-critic-profile-boundary](../use-cases/rel07.1-uc001-specification-critic-profile-boundary.md)
+- [rel07.1-uc002-lifecycle-profile-boundary](../use-cases/rel07.1-uc002-lifecycle-profile-boundary.md)
+- [rel07.1-uc003-rest-profile-boundary](../use-cases/rel07.1-uc003-rest-profile-boundary.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -55,7 +55,7 @@ provenance-rich report for both pass and fail outcomes.
 <!-- field: use_case -->
 #### Use case
 
-rel07.1-uc001-specification-critic-profile-boundary
+[rel07.1-uc001-specification-critic-profile-boundary](../use-cases/rel07.1-uc001-specification-critic-profile-boundary.md)
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -96,11 +96,11 @@ rel07.1-uc001-specification-critic-profile-boundary
 <!-- field: traces -->
 #### Traces
 
-- rel07.1-uc001-specification-critic-profile-boundary S1
-- rel07.1-uc001-specification-critic-profile-boundary S2
-- rel07.1-uc001-specification-critic-profile-boundary S3
-- srd005-specification-critic AC1
-- srd005-specification-critic AC3
+- [rel07.1-uc001-specification-critic-profile-boundary](../use-cases/rel07.1-uc001-specification-critic-profile-boundary.md) [S1](../use-cases/rel07.1-uc001-specification-critic-profile-boundary.md#s1)
+- [rel07.1-uc001-specification-critic-profile-boundary](../use-cases/rel07.1-uc001-specification-critic-profile-boundary.md) [S2](../use-cases/rel07.1-uc001-specification-critic-profile-boundary.md#s2)
+- [rel07.1-uc001-specification-critic-profile-boundary](../use-cases/rel07.1-uc001-specification-critic-profile-boundary.md) [S3](../use-cases/rel07.1-uc001-specification-critic-profile-boundary.md#s3)
+- [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [AC1](../software-requirements/srd005-specification-critic.md#ac1)
+- [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [AC3](../software-requirements/srd005-specification-critic.md#ac3)
 - sm-agent-role-taxonomy specification-critic
 
 <!-- case: Specification-critic declarative test-evidence audit boundary | status: implemented -->
@@ -114,7 +114,7 @@ test-evidence CLI mode.
 <!-- field: use_case -->
 #### Use case
 
-rel07.1-uc001-specification-critic-profile-boundary
+[rel07.1-uc001-specification-critic-profile-boundary](../use-cases/rel07.1-uc001-specification-critic-profile-boundary.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -152,9 +152,9 @@ TestSpecificationCriticAuditProfileDeclaresEvidencePipeline
 <!-- field: traces -->
 #### Traces
 
-- rel07.1-uc001-specification-critic-profile-boundary S4
-- srd005-specification-critic R2.5
-- srd005-specification-critic AC2
+- [rel07.1-uc001-specification-critic-profile-boundary](../use-cases/rel07.1-uc001-specification-critic-profile-boundary.md) [S4](../use-cases/rel07.1-uc001-specification-critic-profile-boundary.md#s4)
+- [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [R2.5](../software-requirements/srd005-specification-critic.md#r25)
+- [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [AC2](../software-requirements/srd005-specification-critic.md#ac2)
 
 <!-- case: Lifecycle history, rollback, and approval boundary | status: specified -->
 ### Lifecycle history, rollback, and approval boundary
@@ -167,7 +167,7 @@ signals rather than hidden CLI branches.
 <!-- field: use_case -->
 #### Use case
 
-rel07.1-uc002-lifecycle-profile-boundary
+[rel07.1-uc002-lifecycle-profile-boundary](../use-cases/rel07.1-uc002-lifecycle-profile-boundary.md)
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -202,11 +202,11 @@ rel07.1-uc002-lifecycle-profile-boundary
 <!-- field: traces -->
 #### Traces
 
-- rel07.1-uc002-lifecycle-profile-boundary S1
-- rel07.1-uc002-lifecycle-profile-boundary S2
-- rel07.1-uc002-lifecycle-profile-boundary S3
-- srd009-lifecycle AC1
-- srd009-lifecycle AC3
+- [rel07.1-uc002-lifecycle-profile-boundary](../use-cases/rel07.1-uc002-lifecycle-profile-boundary.md) [S1](../use-cases/rel07.1-uc002-lifecycle-profile-boundary.md#s1)
+- [rel07.1-uc002-lifecycle-profile-boundary](../use-cases/rel07.1-uc002-lifecycle-profile-boundary.md) [S2](../use-cases/rel07.1-uc002-lifecycle-profile-boundary.md#s2)
+- [rel07.1-uc002-lifecycle-profile-boundary](../use-cases/rel07.1-uc002-lifecycle-profile-boundary.md) [S3](../use-cases/rel07.1-uc002-lifecycle-profile-boundary.md#s3)
+- [srd009-lifecycle](../software-requirements/srd009-lifecycle.md) [AC1](../software-requirements/srd009-lifecycle.md#ac1)
+- [srd009-lifecycle](../software-requirements/srd009-lifecycle.md) [AC3](../software-requirements/srd009-lifecycle.md#ac3)
 - sm-agent-role-taxonomy lifecycle
 
 <!-- case: REST client and server boundary words | status: specified -->
@@ -220,7 +220,7 @@ and OpenAPI imports that do not generate Go code.
 <!-- field: use_case -->
 #### Use case
 
-rel07.1-uc003-rest-profile-boundary
+[rel07.1-uc003-rest-profile-boundary](../use-cases/rel07.1-uc003-rest-profile-boundary.md)
 
 <!-- field: inputs | form: "tree" -->
 #### Inputs
@@ -259,9 +259,9 @@ rel07.1-uc003-rest-profile-boundary
 <!-- field: traces -->
 #### Traces
 
-- rel07.1-uc003-rest-profile-boundary S1
-- rel07.1-uc003-rest-profile-boundary S2
-- rel07.1-uc003-rest-profile-boundary S3
-- srd007-rest AC1
-- srd007-rest AC3
+- [rel07.1-uc003-rest-profile-boundary](../use-cases/rel07.1-uc003-rest-profile-boundary.md) [S1](../use-cases/rel07.1-uc003-rest-profile-boundary.md#s1)
+- [rel07.1-uc003-rest-profile-boundary](../use-cases/rel07.1-uc003-rest-profile-boundary.md) [S2](../use-cases/rel07.1-uc003-rest-profile-boundary.md#s2)
+- [rel07.1-uc003-rest-profile-boundary](../use-cases/rel07.1-uc003-rest-profile-boundary.md) [S3](../use-cases/rel07.1-uc003-rest-profile-boundary.md#s3)
+- [srd007-rest](../software-requirements/srd007-rest.md) [AC1](../software-requirements/srd007-rest.md#ac1)
+- [srd007-rest](../software-requirements/srd007-rest.md) [AC3](../software-requirements/srd007-rest.md#ac3)
 - sm-agent-role-taxonomy rest

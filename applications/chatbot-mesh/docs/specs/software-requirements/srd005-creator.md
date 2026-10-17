@@ -210,9 +210,9 @@ The creator is described as a persistent LCM agent with a machine_request instan
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -222,8 +222,8 @@ Template selection resolves a role to a profile path and rendered ConfigMap unde
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
+- [R2.1](#r21)
+- [R2.2](#r22)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -233,9 +233,9 @@ The instance operations -- child ingest runs measured by their document-count de
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -245,8 +245,8 @@ Post-operation health verification via monitor reads is reported to the provisio
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
+- [R4.1](#r41)
+- [R4.2](#r42)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -256,11 +256,11 @@ The creator alone holds the deployment-API credentials, authenticates apart from
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
-- R6.1
-- R6.2
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R6.1](#r61)
+- [R6.2](#r62)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -270,8 +270,8 @@ The creator exposes no browser-facing surface and stays the sole caller of the a
 <!-- field: traces -->
 #### Traces
 
-- R5.4
-- R6.1
+- [R5.4](#r54)
+- [R6.1](#r61)
 
 <!-- field: tests -->
 #### Tests

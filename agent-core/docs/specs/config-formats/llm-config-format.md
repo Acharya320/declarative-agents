@@ -347,10 +347,10 @@ injects tool-use instructions into the LLM context.
 <!-- field: related_documents -->
 ## Related documents
 
-- cfg-tool-declaration-format
+- [cfg-tool-declaration-format](tool-declaration-format.md)
 - srd017
-- srd048-cohere-adapter
-- srd058-provider-libraries
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md)
 
 <!-- field: implementation -->
 ## Implementation

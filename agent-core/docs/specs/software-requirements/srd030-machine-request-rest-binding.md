@@ -303,11 +303,11 @@ The SRD defines machine_request as a REST server binding that turns one inbound 
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.5
-- R1.6
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.5](#r15)
+- [R1.6](#r16)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -317,7 +317,7 @@ The SRD states that direct Go handlers are not the composition mechanism for dem
 <!-- field: traces -->
 #### Traces
 
-- R1.4
+- [R1.4](#r14)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -327,14 +327,14 @@ Configuration owns profile, machine, selected tools, initial state, terminal sta
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
-- R2.5
-- R2.6
-- R2.7
-- R2.8
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
+- [R2.5](#r25)
+- [R2.6](#r26)
+- [R2.7](#r27)
+- [R2.8](#r28)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -344,17 +344,17 @@ Request input mapping validates HTTP fields, builds structured machine input, ca
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
-- R3.4
-- R3.5
-- R3.6
-- R3.7
-- R3.8
-- R3.9
-- R3.10
-- R3.11
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R3.4](#r34)
+- [R3.5](#r35)
+- [R3.6](#r36)
+- [R3.7](#r37)
+- [R3.8](#r38)
+- [R3.9](#r39)
+- [R3.10](#r310)
+- [R3.11](#r311)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -364,11 +364,11 @@ Response extraction uses configured response words or terminal output to shape H
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
-- R4.4
-- R4.5
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R4.4](#r44)
+- [R4.5](#r45)
 
 <!-- ac: AC8 -->
 ### AC8
@@ -378,10 +378,10 @@ Terminal-state response mapping lets an exec-driven request machine return a dis
 <!-- field: traces -->
 #### Traces
 
-- R4.6
-- R4.7
-- R4.8
-- R4.9
+- [R4.6](#r46)
+- [R4.7](#r47)
+- [R4.8](#r48)
+- [R4.9](#r49)
 
 <!-- field: tests -->
 #### Tests
@@ -396,12 +396,12 @@ Error and timeout mapping cover validation, config, run, timeout, cancellation, 
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
-- R5.4
-- R5.5
-- R5.6
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
+- [R5.5](#r55)
+- [R5.6](#r56)
 
 <!-- ac: AC7 -->
 ### AC7
@@ -411,12 +411,12 @@ Generic trace and lifecycle requirements record request-scoped machine execution
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
-- R6.3
-- R6.4
-- R6.5
-- R6.6
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
+- [R6.4](#r64)
+- [R6.5](#r65)
+- [R6.6](#r66)
 
 <!-- field: related_documents -->
 ## Related documents

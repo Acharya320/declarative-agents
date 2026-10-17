@@ -202,15 +202,15 @@ An agent exec tool declaration can represent profile plus runtime data and telem
 <!-- field: traces -->
 #### Traces
 
-- R0.1
-- R0.2
-- R1.1
-- R1.2
-- R1.3
-- R1.4
-- R1.5
-- R1.6
-- R1.7
+- [R0.1](#r01)
+- [R0.2](#r02)
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R1.5](#r15)
+- [R1.6](#r16)
+- [R1.7](#r17)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -220,11 +220,11 @@ Child program selection is driven by profile YAML, allowing the child machine/to
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
-- R2.5
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
+- [R2.5](#r25)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -234,10 +234,10 @@ Child agent execution propagates trace context, observes parent cancellation, an
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
-- R3.4
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R3.4](#r34)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -247,15 +247,15 @@ Child process outcomes are mapped to parent machine signals without duplicating 
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
-- R4.4
-- R5.1
-- R5.2
-- R5.3
-- R5.4
-- R5.5
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R4.4](#r44)
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
+- [R5.5](#r55)
 
 <!-- field: implementation_follow_up | form: "typed table" -->
 ## Implementation follow up

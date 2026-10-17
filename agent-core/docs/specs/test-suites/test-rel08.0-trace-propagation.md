@@ -9,7 +9,7 @@ release: "08.0"
 <!-- field: traces -->
 ## Traces
 
-- rel08.0-uc001-http-trace-propagation
+- [rel08.0-uc001-http-trace-propagation](../use-cases/rel08.0-uc001-http-trace-propagation.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -31,7 +31,7 @@ SpanContext, with tracestate injected when the span carries it.
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-http-trace-propagation
+[rel08.0-uc001-http-trace-propagation](../use-cases/rel08.0-uc001-http-trace-propagation.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -54,8 +54,8 @@ go test ./internal/tools/rest/client -run TestRESTClient_InjectsTraceparentFromA
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-http-trace-propagation S1
-- srd016-traceparent AC4
+- [rel08.0-uc001-http-trace-propagation](../use-cases/rel08.0-uc001-http-trace-propagation.md) [S1](../use-cases/rel08.0-uc001-http-trace-propagation.md#s1)
+- [srd016-traceparent](../software-requirements/srd016-traceparent.md) [AC4](../software-requirements/srd016-traceparent.md#ac4)
 
 <!-- case: Outbound injection is uniform and omitted without a span | status: implemented -->
 ### Outbound injection is uniform and omitted without a span
@@ -67,7 +67,7 @@ is active.
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-http-trace-propagation
+[rel08.0-uc001-http-trace-propagation](../use-cases/rel08.0-uc001-http-trace-propagation.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -93,8 +93,8 @@ go test ./internal/tools/rest/client -run TestRESTClient_TraceparentUniformAndOm
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-http-trace-propagation S4
-- srd016-traceparent AC4
+- [rel08.0-uc001-http-trace-propagation](../use-cases/rel08.0-uc001-http-trace-propagation.md) [S4](../use-cases/rel08.0-uc001-http-trace-propagation.md#s4)
+- [srd016-traceparent](../software-requirements/srd016-traceparent.md) [AC4](../software-requirements/srd016-traceparent.md#ac4)
 
 <!-- case: Inbound extraction parents the request and machine_request span | status: implemented -->
 ### Inbound extraction parents the request and machine_request span
@@ -106,7 +106,7 @@ the caller's client span and the callee's server span share one trace id.
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-http-trace-propagation
+[rel08.0-uc001-http-trace-propagation](../use-cases/rel08.0-uc001-http-trace-propagation.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -128,8 +128,8 @@ go test ./internal/tools/rest -run TestRESTServer_ExtractsTraceparentParentsMach
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-http-trace-propagation S2
-- srd016-traceparent AC5
+- [rel08.0-uc001-http-trace-propagation](../use-cases/rel08.0-uc001-http-trace-propagation.md) [S2](../use-cases/rel08.0-uc001-http-trace-propagation.md#s2)
+- [srd016-traceparent](../software-requirements/srd016-traceparent.md) [AC5](../software-requirements/srd016-traceparent.md#ac5)
 
 <!-- case: Absent or malformed header falls back to a new root | status: implemented -->
 ### Absent or malformed header falls back to a new root
@@ -141,7 +141,7 @@ than failing the request.
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-http-trace-propagation
+[rel08.0-uc001-http-trace-propagation](../use-cases/rel08.0-uc001-http-trace-propagation.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -165,8 +165,8 @@ go test ./internal/tools/rest -run TestRESTServer_TraceparentFallbackToNewRoot
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-http-trace-propagation S3
-- srd016-traceparent AC5
+- [rel08.0-uc001-http-trace-propagation](../use-cases/rel08.0-uc001-http-trace-propagation.md) [S3](../use-cases/rel08.0-uc001-http-trace-propagation.md#s3)
+- [srd016-traceparent](../software-requirements/srd016-traceparent.md) [AC5](../software-requirements/srd016-traceparent.md#ac5)
 
 <!-- case: ParseParentSpan restores a formatted remote parent | status: implemented -->
 ### ParseParentSpan restores a formatted remote parent
@@ -178,7 +178,7 @@ context. This is parser evidence, not subprocess transport evidence.
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-http-trace-propagation
+[rel08.0-uc001-http-trace-propagation](../use-cases/rel08.0-uc001-http-trace-propagation.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -200,7 +200,7 @@ go test ./internal/tools/rest -run '^TestParseParentSpanRoundTripAndEmptyInput$'
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-http-trace-propagation S1
+- [rel08.0-uc001-http-trace-propagation](../use-cases/rel08.0-uc001-http-trace-propagation.md) [S1](../use-cases/rel08.0-uc001-http-trace-propagation.md#s1)
 
 <!-- case: Spawned child consumes otel-parent-span | status: implemented -->
 ### Spawned child consumes otel-parent-span
@@ -211,7 +211,7 @@ exported span keeps the caller trace ID and parent span ID.
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-http-trace-propagation
+[rel08.0-uc001-http-trace-propagation](../use-cases/rel08.0-uc001-http-trace-propagation.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -235,5 +235,5 @@ go test ./internal/support/execute -run '^TestRunAgent.*OTelParent'
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-http-trace-propagation S1
-- srd016-traceparent AC4
+- [rel08.0-uc001-http-trace-propagation](../use-cases/rel08.0-uc001-http-trace-propagation.md) [S1](../use-cases/rel08.0-uc001-http-trace-propagation.md#s1)
+- [srd016-traceparent](../software-requirements/srd016-traceparent.md) [AC4](../software-requirements/srd016-traceparent.md#ac4)

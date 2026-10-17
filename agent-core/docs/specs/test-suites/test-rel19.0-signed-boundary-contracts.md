@@ -9,7 +9,7 @@ release: "19.0"
 <!-- field: traces -->
 ## Traces
 
-- rel19.0-uc001-signed-boundary-contracts
+- [rel19.0-uc001-signed-boundary-contracts](../use-cases/rel19.0-uc001-signed-boundary-contracts.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -28,7 +28,7 @@ Check a boundary tool with a signature naming only its signals, an output schema
 <!-- field: use_case -->
 #### Use case
 
-rel19.0-uc001-signed-boundary-contracts
+[rel19.0-uc001-signed-boundary-contracts](../use-cases/rel19.0-uc001-signed-boundary-contracts.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -44,9 +44,9 @@ go test ./pkg/spec -run 'TestEmitsOnlySignatureCompletesABoundaryToolWithItsEffe
 <!-- field: traces -->
 #### Traces
 
-- rel19.0-uc001-signed-boundary-contracts S1
-- srd051-declaration-types AC8
-- srd051-declaration-types R6.14
+- [rel19.0-uc001-signed-boundary-contracts](../use-cases/rel19.0-uc001-signed-boundary-contracts.md) [S1](../use-cases/rel19.0-uc001-signed-boundary-contracts.md#s1)
+- [srd051-declaration-types](../software-requirements/srd051-declaration-types.md) [AC8](../software-requirements/srd051-declaration-types.md#ac8)
+- [srd051-declaration-types](../software-requirements/srd051-declaration-types.md) [R6.14](../software-requirements/srd051-declaration-types.md#r614)
 
 <!-- case: The legacy gate lists unsigned boundary and stateful tools and uncategorized tools | status: implemented -->
 ### The legacy gate lists unsigned boundary and stateful tools and uncategorized tools
@@ -56,7 +56,7 @@ Classify a declaration holding an unsigned boundary tool, an unsigned stateful_i
 <!-- field: use_case -->
 #### Use case
 
-rel19.0-uc001-signed-boundary-contracts
+[rel19.0-uc001-signed-boundary-contracts](../use-cases/rel19.0-uc001-signed-boundary-contracts.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -73,7 +73,7 @@ go test ./internal/declstyle -run 'TestUntypedAndUncategorizedToolClassification
 <!-- field: traces -->
 #### Traces
 
-- rel19.0-uc001-signed-boundary-contracts S2
-- srd051-declaration-types AC8
-- srd051-declaration-types R6.14
-- srd051-declaration-types R6.15
+- [rel19.0-uc001-signed-boundary-contracts](../use-cases/rel19.0-uc001-signed-boundary-contracts.md) [S2](../use-cases/rel19.0-uc001-signed-boundary-contracts.md#s2)
+- [srd051-declaration-types](../software-requirements/srd051-declaration-types.md) [AC8](../software-requirements/srd051-declaration-types.md#ac8)
+- [srd051-declaration-types](../software-requirements/srd051-declaration-types.md) [R6.14](../software-requirements/srd051-declaration-types.md#r614)
+- [srd051-declaration-types](../software-requirements/srd051-declaration-types.md) [R6.15](../software-requirements/srd051-declaration-types.md#r615)

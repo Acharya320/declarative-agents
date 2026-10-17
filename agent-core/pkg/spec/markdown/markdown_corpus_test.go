@@ -40,13 +40,15 @@ func trackedMarkdownDocuments(t *testing.T, declarations markdown.Declarations) 
 // form, and converting the YAML tree it parses into reproduces it, so mage
 // convert and the readers agree on every document.
 func TestEveryMarkdownCorpusDocumentIsCanonical(t *testing.T) {
-	for path, d := range trackedMarkdownDocuments(t, repositoryDeclarations(t)) {
+	documents := trackedMarkdownDocuments(t, repositoryDeclarations(t))
+	indexes := corpusLinkIndexes(t, documents)
+	for path, d := range documents {
 		t.Run(path, func(t *testing.T) {
 			data, err := os.ReadFile(filepath.Join(repositoryRoot, path))
 			if err != nil {
 				t.Fatal(err)
 			}
-			formatted, findings, err := d.Format(data, path)
+			formatted, findings, err := d.FormatLinked(data, path, indexes.For(path))
 			if err != nil || formatted == nil {
 				t.Fatalf("does not parse: %v %v", err, findings)
 			}
@@ -61,7 +63,12 @@ func TestEveryMarkdownCorpusDocumentIsCanonical(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			again, _, err := d.ConvertYAML(back, formerYAMLPath(path))
+			var reread yaml.Node
+			if err := yaml.Unmarshal(back, &reread); err != nil {
+				t.Fatal(err)
+			}
+			canonical, _ := d.Canonicalize(&reread)
+			again, err := d.PrintLinked(canonical, path, indexes.For(path))
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -72,8 +79,16 @@ func TestEveryMarkdownCorpusDocumentIsCanonical(t *testing.T) {
 	}
 }
 
-// formerYAMLPath names the YAML file a Markdown corpus document converted
-// from, which an audit register names without its -register suffix.
-func formerYAMLPath(path string) string {
-	return strings.TrimSuffix(strings.TrimSuffix(path, ".md"), "-register") + ".yaml"
+// corpusLinkIndexes indexes the tracked corpus documents as mage fmt does.
+func corpusLinkIndexes(t *testing.T, documents map[string]*markdown.Declaration) markdown.LinkIndexes {
+	t.Helper()
+	indexes := markdown.LinkIndexes{}
+	for path := range documents {
+		data, err := os.ReadFile(filepath.Join(repositoryRoot, path))
+		if err != nil {
+			t.Fatal(err)
+		}
+		indexes.Add(path, data)
+	}
+	return indexes
 }

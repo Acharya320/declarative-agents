@@ -91,18 +91,18 @@ client head proven at the agent-core package level).
 <!-- field: traces -->
 ## Traces
 
-- srd002-executor
-- srd003-critic
-- srd004-planner
-- srd005-specification-critic
-- srd006-bench
-- srd007-rest
-- srd008-runtime-state-reader
-- srd009-lifecycle
-- srd010-control
-- srd011-knowledge-manager
-- srd014-chatbot-agent
-- sm-agent-role-taxonomy
+- [srd002-executor](../software-requirements/srd002-executor.md)
+- [srd003-critic](../software-requirements/srd003-critic.md)
+- [srd004-planner](../software-requirements/srd004-planner.md)
+- [srd005-specification-critic](../software-requirements/srd005-specification-critic.md)
+- [srd006-bench](../software-requirements/srd006-bench.md)
+- [srd007-rest](../software-requirements/srd007-rest.md)
+- [srd008-runtime-state-reader](../software-requirements/srd008-runtime-state-reader.md)
+- [srd009-lifecycle](../software-requirements/srd009-lifecycle.md)
+- [srd010-control](../software-requirements/srd010-control.md)
+- [srd011-knowledge-manager](../software-requirements/srd011-knowledge-manager.md)
+- [srd014-chatbot-agent](../software-requirements/srd014-chatbot-agent.md)
+- [sm-agent-role-taxonomy](../semantic-models/agent-role-taxonomy.md)
 
 <!-- field: integration_target -->
 ## Integration target
@@ -175,9 +175,9 @@ finding provenance.
 <!-- field: traces -->
 #### Traces
 
-- srd005-specification-critic AC1
-- srd005-specification-critic AC2
-- srd005-specification-critic AC3
+- [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [AC1](../software-requirements/srd005-specification-critic.md#ac1)
+- [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [AC2](../software-requirements/srd005-specification-critic.md#ac2)
+- [srd005-specification-critic](../software-requirements/srd005-specification-critic.md) [AC3](../software-requirements/srd005-specification-critic.md#ac3)
 - sm-agent-role-taxonomy specification-critic
 
 <!-- case: Critic session pipeline conformance | status: implemented -->
@@ -226,9 +226,9 @@ Runs the shipped agents/critic/profile.yaml directly with a stub generator child
 <!-- field: traces -->
 #### Traces
 
-- srd003-critic AC1
-- srd003-critic AC2
-- srd003-critic AC3
+- [srd003-critic](../software-requirements/srd003-critic.md) [AC1](../software-requirements/srd003-critic.md#ac1)
+- [srd003-critic](../software-requirements/srd003-critic.md) [AC2](../software-requirements/srd003-critic.md#ac2)
+- [srd003-critic](../software-requirements/srd003-critic.md) [AC3](../software-requirements/srd003-critic.md#ac3)
 - sm-agent-role-taxonomy evaluator
 
 <!-- case: Critic shipped-profile sentence-word selection and machine wiring | status: implemented -->
@@ -283,8 +283,8 @@ repository owning the profile (GH-512).
 <!-- field: traces -->
 #### Traces
 
-- srd003-critic AC1
-- srd003-critic AC3
+- [srd003-critic](../software-requirements/srd003-critic.md) [AC1](../software-requirements/srd003-critic.md#ac1)
+- [srd003-critic](../software-requirements/srd003-critic.md) [AC3](../software-requirements/srd003-critic.md#ac3)
 - sm-agent-role-taxonomy evaluator
 
 <!-- case: Control signal-intake conformance | status: implemented -->
@@ -329,9 +329,9 @@ Copies the shipped testdata/conformance/control/profile.yaml and patches only th
 <!-- field: traces -->
 #### Traces
 
-- srd010-control AC1
-- srd010-control AC2
-- srd010-control AC3
+- [srd010-control](../software-requirements/srd010-control.md) [AC1](../software-requirements/srd010-control.md#ac1)
+- [srd010-control](../software-requirements/srd010-control.md) [AC2](../software-requirements/srd010-control.md#ac2)
+- [srd010-control](../software-requirements/srd010-control.md) [AC3](../software-requirements/srd010-control.md#ac3)
 - sm-agent-role-taxonomy control
 
 <!-- case: Runtime state reader conformance | status: implemented -->
@@ -376,9 +376,9 @@ Copies the shipped agents/runtime-state-reader/profile.yaml and patches only the
 <!-- field: traces -->
 #### Traces
 
-- srd008-runtime-state-reader AC1
-- srd008-runtime-state-reader AC2
-- srd008-runtime-state-reader AC3
+- [srd008-runtime-state-reader](../software-requirements/srd008-runtime-state-reader.md) [AC1](../software-requirements/srd008-runtime-state-reader.md#ac1)
+- [srd008-runtime-state-reader](../software-requirements/srd008-runtime-state-reader.md) [AC2](../software-requirements/srd008-runtime-state-reader.md#ac2)
+- [srd008-runtime-state-reader](../software-requirements/srd008-runtime-state-reader.md) [AC3](../software-requirements/srd008-runtime-state-reader.md#ac3)
 - sm-agent-role-taxonomy runtime-state-reader
 
 <!-- case: Documentation-curator UX and REST workflow conformance | status: implemented -->
@@ -428,9 +428,9 @@ Copies the shipped documentation-curator profile and patches only the three gene
 <!-- field: traces -->
 #### Traces
 
-- srd011-knowledge-manager AC1
-- srd011-knowledge-manager AC2
-- srd011-knowledge-manager AC3
+- [srd011-knowledge-manager](../software-requirements/srd011-knowledge-manager.md) [AC1](../software-requirements/srd011-knowledge-manager.md#ac1)
+- [srd011-knowledge-manager](../software-requirements/srd011-knowledge-manager.md) [AC2](../software-requirements/srd011-knowledge-manager.md#ac2)
+- [srd011-knowledge-manager](../software-requirements/srd011-knowledge-manager.md) [AC3](../software-requirements/srd011-knowledge-manager.md#ac3)
 - sm-agent-role-taxonomy knowledge-manager
 
 <!-- case: Bench declarative REST launcher conformance | status: implemented -->
@@ -488,10 +488,10 @@ Copies the shipped agents/bench profile, patches its request, control, and monit
 <!-- field: traces -->
 #### Traces
 
-- srd006-bench AC1
-- srd006-bench AC2
-- srd006-bench AC3
-- srd006-bench AC4
+- [srd006-bench](../software-requirements/srd006-bench.md) [AC1](../software-requirements/srd006-bench.md#ac1)
+- [srd006-bench](../software-requirements/srd006-bench.md) [AC2](../software-requirements/srd006-bench.md#ac2)
+- [srd006-bench](../software-requirements/srd006-bench.md) [AC3](../software-requirements/srd006-bench.md#ac3)
+- [srd006-bench](../software-requirements/srd006-bench.md) [AC4](../software-requirements/srd006-bench.md#ac4)
 - sm-agent-role-taxonomy bench
 
 <!-- case: Lifecycle approval suspend and resume conformance | status: implemented -->
@@ -548,9 +548,9 @@ Runs the shipped testdata/conformance/lifecycle/approval/profile.yaml directly a
 <!-- field: traces -->
 #### Traces
 
-- srd009-lifecycle AC1
-- srd009-lifecycle AC2
-- srd009-lifecycle AC3
+- [srd009-lifecycle](../software-requirements/srd009-lifecycle.md) [AC1](../software-requirements/srd009-lifecycle.md#ac1)
+- [srd009-lifecycle](../software-requirements/srd009-lifecycle.md) [AC2](../software-requirements/srd009-lifecycle.md#ac2)
+- [srd009-lifecycle](../software-requirements/srd009-lifecycle.md) [AC3](../software-requirements/srd009-lifecycle.md#ac3)
 - sm-agent-role-taxonomy lifecycle
 
 <!-- case: Lifecycle history and rollback conformance | status: implemented -->
@@ -607,9 +607,9 @@ Runs the shipped testdata/conformance/lifecycle/{approval,history,rollback}/prof
 <!-- field: traces -->
 #### Traces
 
-- srd009-lifecycle AC1
-- srd009-lifecycle AC2
-- srd009-lifecycle AC3
+- [srd009-lifecycle](../software-requirements/srd009-lifecycle.md) [AC1](../software-requirements/srd009-lifecycle.md#ac1)
+- [srd009-lifecycle](../software-requirements/srd009-lifecycle.md) [AC2](../software-requirements/srd009-lifecycle.md#ac2)
+- [srd009-lifecycle](../software-requirements/srd009-lifecycle.md) [AC3](../software-requirements/srd009-lifecycle.md#ac3)
 - sm-agent-role-taxonomy lifecycle
 
 <!-- case: Executor model-boundary conformance | status: implemented -->
@@ -676,9 +676,9 @@ individually.
 <!-- field: traces -->
 #### Traces
 
-- srd002-executor AC1
-- srd002-executor AC2
-- srd002-executor AC3
+- [srd002-executor](../software-requirements/srd002-executor.md) [AC1](../software-requirements/srd002-executor.md#ac1)
+- [srd002-executor](../software-requirements/srd002-executor.md) [AC2](../software-requirements/srd002-executor.md#ac2)
+- [srd002-executor](../software-requirements/srd002-executor.md) [AC3](../software-requirements/srd002-executor.md#ac3)
 - sm-agent-role-taxonomy generator
 
 <!-- case: Generator shipped-profile load and machine wiring | status: implemented -->
@@ -713,8 +713,8 @@ Ungated, model-free; parses the three shipped generator profiles and the shared 
 <!-- field: traces -->
 #### Traces
 
-- srd002-executor AC1
-- srd002-executor AC3
+- [srd002-executor](../software-requirements/srd002-executor.md) [AC1](../software-requirements/srd002-executor.md#ac1)
+- [srd002-executor](../software-requirements/srd002-executor.md) [AC3](../software-requirements/srd002-executor.md#ac3)
 - sm-agent-role-taxonomy generator
 
 <!-- case: Planner requirement-graph conformance | status: implemented -->
@@ -773,8 +773,8 @@ clean terminal is asserted.
 <!-- field: traces -->
 #### Traces
 
-- srd004-planner AC1
-- srd004-planner AC2
+- [srd004-planner](../software-requirements/srd004-planner.md) [AC1](../software-requirements/srd004-planner.md#ac1)
+- [srd004-planner](../software-requirements/srd004-planner.md) [AC2](../software-requirements/srd004-planner.md#ac2)
 - sm-agent-role-taxonomy planner
 
 <!-- case: Planner shipped-profile load and machine wiring | status: implemented -->
@@ -809,7 +809,7 @@ Ungated, model-free; parses the shipped planner profile and machine.
 <!-- field: traces -->
 #### Traces
 
-- srd004-planner AC1
+- [srd004-planner](../software-requirements/srd004-planner.md) [AC1](../software-requirements/srd004-planner.md#ac1)
 - sm-agent-role-taxonomy planner
 
 <!-- case: Planner declarative retry policy wiring | status: implemented -->
@@ -842,7 +842,7 @@ Ungated, model-free; parses both shipped machines and planner declarations.
 <!-- field: traces -->
 #### Traces
 
-- srd004-planner AC4
+- [srd004-planner](../software-requirements/srd004-planner.md) [AC4](../software-requirements/srd004-planner.md#ac4)
 
 <!-- case: Planner canonical output contract and first response | status: implemented -->
 ### Planner canonical output contract and first response
@@ -881,7 +881,7 @@ checks the composed user, system, and tool prompt layers.
 <!-- field: traces -->
 #### Traces
 
-- srd004-planner AC5
+- [srd004-planner](../software-requirements/srd004-planner.md) [AC5](../software-requirements/srd004-planner.md#ac5)
 
 <!-- case: Planner shipped-profile terminal task execution | status: implemented -->
 ### Planner shipped-profile terminal task execution
@@ -915,9 +915,9 @@ replaced.
 <!-- field: traces -->
 #### Traces
 
-- srd004-planner AC1
-- srd004-planner AC3
-- srd004-planner AC4
+- [srd004-planner](../software-requirements/srd004-planner.md) [AC1](../software-requirements/srd004-planner.md#ac1)
+- [srd004-planner](../software-requirements/srd004-planner.md) [AC3](../software-requirements/srd004-planner.md#ac3)
+- [srd004-planner](../software-requirements/srd004-planner.md) [AC4](../software-requirements/srd004-planner.md#ac4)
 - sm-agent-role-taxonomy planner
 
 <!-- case: Planner visible retry and exhaustion routing | status: implemented -->
@@ -951,8 +951,8 @@ the first declared comparison retries and the second exhausts the limit.
 <!-- field: traces -->
 #### Traces
 
-- srd004-planner AC3
-- srd004-planner AC4
+- [srd004-planner](../software-requirements/srd004-planner.md) [AC3](../software-requirements/srd004-planner.md#ac3)
+- [srd004-planner](../software-requirements/srd004-planner.md) [AC4](../software-requirements/srd004-planner.md#ac4)
 - sm-agent-role-taxonomy planner
 
 <!-- case: REST inbound webhook server boundary conformance | status: implemented -->
@@ -1013,9 +1013,9 @@ TestRestShippedProfileWiring and the client head by the agent-core package.
 <!-- field: traces -->
 #### Traces
 
-- srd007-rest AC1
-- srd007-rest AC2
-- srd007-rest AC3
+- [srd007-rest](../software-requirements/srd007-rest.md) [AC1](../software-requirements/srd007-rest.md#ac1)
+- [srd007-rest](../software-requirements/srd007-rest.md) [AC2](../software-requirements/srd007-rest.md#ac2)
+- [srd007-rest](../software-requirements/srd007-rest.md) [AC3](../software-requirements/srd007-rest.md#ac3)
 - sm-agent-role-taxonomy rest
 
 <!-- case: REST ollama-profile variant conformance | status: implemented -->
@@ -1071,8 +1071,8 @@ upstream is the local Ollama itself.
 <!-- field: traces -->
 #### Traces
 
-- srd007-rest AC1
-- srd007-rest AC2
+- [srd007-rest](../software-requirements/srd007-rest.md) [AC1](../software-requirements/srd007-rest.md#ac1)
+- [srd007-rest](../software-requirements/srd007-rest.md) [AC2](../software-requirements/srd007-rest.md#ac2)
 - sm-agent-role-taxonomy rest
 
 <!-- case: REST shipped-profile load and machine wiring | status: implemented -->
@@ -1107,7 +1107,7 @@ Ungated, model-free; parses the shipped rest sample machine and the ollama-profi
 <!-- field: traces -->
 #### Traces
 
-- srd007-rest AC1
+- [srd007-rest](../software-requirements/srd007-rest.md) [AC1](../software-requirements/srd007-rest.md#ac1)
 - sm-agent-role-taxonomy rest
 
 <!-- case: Chatbot source-router live-model contract | status: implemented -->
@@ -1156,6 +1156,6 @@ Installed-model presence alone does not enable it.
 <!-- field: traces -->
 #### Traces
 
-- srd014-chatbot-agent R2.4
-- srd014-chatbot-agent R2.5
-- rel09.1-uc001-routed-fanout F1
+- [srd014-chatbot-agent](../software-requirements/srd014-chatbot-agent.md) R2.4
+- [srd014-chatbot-agent](../software-requirements/srd014-chatbot-agent.md) R2.5
+- [rel09.1-uc001-routed-fanout](../use-cases/rel09.1-uc001-routed-fanout.md) F1

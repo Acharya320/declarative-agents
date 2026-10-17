@@ -45,11 +45,11 @@ signal and an ordered stage list.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd049-pipeline-word R1.1, R1.2, R1.3, R1.4, R1.5, R1.6 | declaration, stage config, eager registration |
-| T2 | srd049-pipeline-word R2.1, R2.2, R2.3, R2.4 | closed stage vocabulary and family co-selection |
-| T3 | srd049-pipeline-word R3.1, R3.2, R3.3, R3.4 | chaining, selectors, and injected dependencies |
-| T4 | srd049-pipeline-word R4.1, R4.2, R4.3 | failure separation |
-| T5 | srd038-command-state-store R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R1.7, R1.8, R1.9, R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R2.7, R2.8, R2.9, R2.10, R2.11, R2.12, R2.13, R2.14, R2.15, R2.16, R2.17, R2.18, R2.19, R2.20 | selector semantics inside stages |
+| T1 | [srd049-pipeline-word](../software-requirements/srd049-pipeline-word.md) [R1.1](../software-requirements/srd049-pipeline-word.md#r11), [R1.2](../software-requirements/srd049-pipeline-word.md#r12), [R1.3](../software-requirements/srd049-pipeline-word.md#r13), [R1.4](../software-requirements/srd049-pipeline-word.md#r14), [R1.5](../software-requirements/srd049-pipeline-word.md#r15), [R1.6](../software-requirements/srd049-pipeline-word.md#r16) | declaration, stage config, eager registration |
+| T2 | [srd049-pipeline-word](../software-requirements/srd049-pipeline-word.md) [R2.1](../software-requirements/srd049-pipeline-word.md#r21), [R2.2](../software-requirements/srd049-pipeline-word.md#r22), [R2.3](../software-requirements/srd049-pipeline-word.md#r23), [R2.4](../software-requirements/srd049-pipeline-word.md#r24) | closed stage vocabulary and family co-selection |
+| T3 | [srd049-pipeline-word](../software-requirements/srd049-pipeline-word.md) [R3.1](../software-requirements/srd049-pipeline-word.md#r31), [R3.2](../software-requirements/srd049-pipeline-word.md#r32), [R3.3](../software-requirements/srd049-pipeline-word.md#r33), [R3.4](../software-requirements/srd049-pipeline-word.md#r34) | chaining, selectors, and injected dependencies |
+| T4 | [srd049-pipeline-word](../software-requirements/srd049-pipeline-word.md) [R4.1](../software-requirements/srd049-pipeline-word.md#r41), [R4.2](../software-requirements/srd049-pipeline-word.md#r42), [R4.3](../software-requirements/srd049-pipeline-word.md#r43) | failure separation |
+| T5 | [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [R1.1](../software-requirements/srd038-command-state-store.md#r11), [R1.2](../software-requirements/srd038-command-state-store.md#r12), [R1.3](../software-requirements/srd038-command-state-store.md#r13), [R1.4](../software-requirements/srd038-command-state-store.md#r14), [R1.5](../software-requirements/srd038-command-state-store.md#r15), [R1.6](../software-requirements/srd038-command-state-store.md#r16), [R1.7](../software-requirements/srd038-command-state-store.md#r17), [R1.8](../software-requirements/srd038-command-state-store.md#r18), [R1.9](../software-requirements/srd038-command-state-store.md#r19), [R2.1](../software-requirements/srd038-command-state-store.md#r21), [R2.2](../software-requirements/srd038-command-state-store.md#r22), [R2.3](../software-requirements/srd038-command-state-store.md#r23), [R2.4](../software-requirements/srd038-command-state-store.md#r24), [R2.5](../software-requirements/srd038-command-state-store.md#r25), [R2.6](../software-requirements/srd038-command-state-store.md#r26), [R2.7](../software-requirements/srd038-command-state-store.md#r27), [R2.8](../software-requirements/srd038-command-state-store.md#r28), [R2.9](../software-requirements/srd038-command-state-store.md#r29), [R2.10](../software-requirements/srd038-command-state-store.md#r210), [R2.11](../software-requirements/srd038-command-state-store.md#r211), [R2.12](../software-requirements/srd038-command-state-store.md#r212), [R2.13](../software-requirements/srd038-command-state-store.md#r213), [R2.14](../software-requirements/srd038-command-state-store.md#r214), [R2.15](../software-requirements/srd038-command-state-store.md#r215), [R2.16](../software-requirements/srd038-command-state-store.md#r216), [R2.17](../software-requirements/srd038-command-state-store.md#r217), [R2.18](../software-requirements/srd038-command-state-store.md#r218), [R2.19](../software-requirements/srd038-command-state-store.md#r219), [R2.20](../software-requirements/srd038-command-state-store.md#r220) | selector semantics inside stages |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -62,7 +62,7 @@ A two-stage render/compose pipeline emits its configured signal with the final s
 <!-- field: traces -->
 #### Traces
 
-- srd049-pipeline-word AC1
+- [srd049-pipeline-word](../software-requirements/srd049-pipeline-word.md) [AC1](../software-requirements/srd049-pipeline-word.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -72,7 +72,7 @@ A stage resolves a $from selector against the same view the standalone word woul
 <!-- field: traces -->
 #### Traces
 
-- srd049-pipeline-word AC2
+- [srd049-pipeline-word](../software-requirements/srd049-pipeline-word.md) [AC2](../software-requirements/srd049-pipeline-word.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -82,7 +82,7 @@ A stage init outside the closed set, a refused stage config, an empty stage list
 <!-- field: traces -->
 #### Traces
 
-- srd049-pipeline-word AC3
+- [srd049-pipeline-word](../software-requirements/srd049-pipeline-word.md) [AC3](../software-requirements/srd049-pipeline-word.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -92,7 +92,7 @@ A failing stage yields CommandError naming the stage while a degraded compose fl
 <!-- field: traces -->
 #### Traces
 
-- srd049-pipeline-word AC4
+- [srd049-pipeline-word](../software-requirements/srd049-pipeline-word.md) [AC4](../software-requirements/srd049-pipeline-word.md#ac4)
 
 <!-- sc: S5 -->
 ### S5
@@ -102,7 +102,7 @@ A pipeline declaration alone selects its stage families.
 <!-- field: traces -->
 #### Traces
 
-- srd049-pipeline-word AC5
+- [srd049-pipeline-word](../software-requirements/srd049-pipeline-word.md) [AC5](../software-requirements/srd049-pipeline-word.md#ac5)
 
 <!-- field: out_of_scope -->
 ## Out of scope

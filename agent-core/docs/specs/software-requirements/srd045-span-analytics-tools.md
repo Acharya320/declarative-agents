@@ -187,10 +187,10 @@ A conjunctive filter (time range, service, span name, attribute equality) select
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.4
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -200,10 +200,10 @@ spool_span_heatmap returns a time-by-duration heatmap grid whose cell counts sum
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -213,9 +213,9 @@ spool_span_group_by returns per-value counts ordered by count then value, capped
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -225,10 +225,10 @@ spool_span_breakdown ranks attribute values by a deterministic divergence betwee
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
-- R4.4
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R4.4](#r44)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -238,12 +238,12 @@ All three analytics words skip and count malformed lines, treat an absent spool 
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
-- R5.4
-- R5.5
-- R5.6
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
+- [R5.5](#r55)
+- [R5.6](#r56)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -253,8 +253,8 @@ All three analytics words return a deduplicated, deterministically ordered, exem
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
+- [R6.1](#r61)
+- [R6.2](#r62)
 
 <!-- field: related_documents -->
 ## Related documents

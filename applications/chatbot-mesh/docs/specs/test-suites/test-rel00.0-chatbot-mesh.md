@@ -22,8 +22,8 @@ single-turn, and degraded-RAG scope in scenario paths and configuration.
 <!-- field: traces -->
 ## Traces
 
-- rel00.0-uc001-rag-server-query
-- rel00.0-uc002-chatbot-turn
+- [rel00.0-uc001-rag-server-query](../use-cases/rel00.0-uc001-rag-server-query.md)
+- [rel00.0-uc002-chatbot-turn](../use-cases/rel00.0-uc002-chatbot-turn.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -47,7 +47,7 @@ this ingest proof.
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-rag-server-query
+[rel00.0-uc001-rag-server-query](../use-cases/rel00.0-uc001-rag-server-query.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -82,7 +82,7 @@ them. No query embedding or LLM answering happens in the RAG server.
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-rag-server-query
+[rel00.0-uc001-rag-server-query](../use-cases/rel00.0-uc001-rag-server-query.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -138,14 +138,14 @@ Critic / Output Evaluator
 <!-- field: traces -->
 #### Traces
 
-- rel00.0-uc001-rag-server-query S1
-- rel00.0-uc001-rag-server-query S2
-- rel00.0-uc001-rag-server-query S3
-- srd001-rag-server-agent AC1
-- srd001-rag-server-agent AC2
-- srd001-rag-server-agent AC3
-- srd001-rag-server-agent AC4
-- srd001-rag-server-agent AC5
+- [rel00.0-uc001-rag-server-query](../use-cases/rel00.0-uc001-rag-server-query.md) [S1](../use-cases/rel00.0-uc001-rag-server-query.md#s1)
+- [rel00.0-uc001-rag-server-query](../use-cases/rel00.0-uc001-rag-server-query.md) [S2](../use-cases/rel00.0-uc001-rag-server-query.md#s2)
+- [rel00.0-uc001-rag-server-query](../use-cases/rel00.0-uc001-rag-server-query.md) [S3](../use-cases/rel00.0-uc001-rag-server-query.md#s3)
+- [srd001-rag-server-agent](../software-requirements/srd001-rag-server-agent.md) [AC1](../software-requirements/srd001-rag-server-agent.md#ac1)
+- [srd001-rag-server-agent](../software-requirements/srd001-rag-server-agent.md) [AC2](../software-requirements/srd001-rag-server-agent.md#ac2)
+- [srd001-rag-server-agent](../software-requirements/srd001-rag-server-agent.md) [AC3](../software-requirements/srd001-rag-server-agent.md#ac3)
+- [srd001-rag-server-agent](../software-requirements/srd001-rag-server-agent.md) [AC4](../software-requirements/srd001-rag-server-agent.md#ac4)
+- [srd001-rag-server-agent](../software-requirements/srd001-rag-server-agent.md) [AC5](../software-requirements/srd001-rag-server-agent.md#ac5)
 
 <!-- case: Single-RAG chatbot turn tracer with a degraded RAG | status: implemented -->
 ### Single-RAG chatbot turn tracer with a degraded RAG
@@ -167,7 +167,7 @@ model names.
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc002-chatbot-turn
+[rel00.0-uc002-chatbot-turn](../use-cases/rel00.0-uc002-chatbot-turn.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -221,8 +221,8 @@ chatbot-turn-critic
 <!-- field: traces -->
 #### Traces
 
-- rel00.0-uc002-chatbot-turn S1
-- rel00.0-uc002-chatbot-turn S2
-- rel00.0-uc002-chatbot-turn S3
-- srd002-chatbot-agent AC1
-- srd002-chatbot-agent AC4
+- [rel00.0-uc002-chatbot-turn](../use-cases/rel00.0-uc002-chatbot-turn.md) [S1](../use-cases/rel00.0-uc002-chatbot-turn.md#s1)
+- [rel00.0-uc002-chatbot-turn](../use-cases/rel00.0-uc002-chatbot-turn.md) [S2](../use-cases/rel00.0-uc002-chatbot-turn.md#s2)
+- [rel00.0-uc002-chatbot-turn](../use-cases/rel00.0-uc002-chatbot-turn.md) [S3](../use-cases/rel00.0-uc002-chatbot-turn.md#s3)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC1](../software-requirements/srd002-chatbot-agent.md#ac1)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC4](../software-requirements/srd002-chatbot-agent.md#ac4)

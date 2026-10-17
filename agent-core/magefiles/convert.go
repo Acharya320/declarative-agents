@@ -47,8 +47,12 @@ func convertScope(scope string) error {
 	if len(documents) == 0 {
 		return fmt.Errorf("convert: no corpus document matches %q", scope)
 	}
+	indexes, err := linkIndexes(root, declarations)
+	if err != nil {
+		return err
+	}
 	for _, document := range documents {
-		if err := convertDocument(root, document); err != nil {
+		if err := convertDocument(root, document, indexes); err != nil {
 			return err
 		}
 	}
@@ -104,7 +108,7 @@ func classify(declarations markdown.Declarations, path string) (conversion, bool
 
 // convertDocument converts one YAML document to Markdown, or puts a Markdown
 // document in canonical form.
-func convertDocument(root string, document conversion) error {
+func convertDocument(root string, document conversion, indexes markdown.LinkIndexes) error {
 	source := filepath.Join(root, document.path)
 	data, err := os.ReadFile(source)
 	if err != nil {
@@ -115,7 +119,7 @@ func convertDocument(root string, document conversion) error {
 	var report markdown.Report
 	if document.markdown {
 		var findings []markdown.Finding
-		out, findings, err = d.Format(data, document.path)
+		out, findings, err = d.FormatLinked(data, document.path, indexes.For(document.path))
 		report = markdown.Report{Source: document.path, Target: document.path, Findings: findings}
 		if err == nil && out == nil {
 			err = fmt.Errorf("%s: %d finding(s) before it can be formatted", document.path, len(findings))

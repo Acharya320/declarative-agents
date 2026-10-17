@@ -53,8 +53,8 @@ servers over disjoint corpora declared.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd002-chatbot-agent AC2 | Separate source and tier classifiers retain atomic prompts, trusted subset selection, and normative fallbacks. |
-| T2 | srd002-chatbot-agent AC3 | One sequential iterator plus generic partitions degrades query failures and excludes embedding-model mismatches without indexed words or states. |
+| T1 | [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC2](../software-requirements/srd002-chatbot-agent.md#ac2) | Separate source and tier classifiers retain atomic prompts, trusted subset selection, and normative fallbacks. |
+| T2 | [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC3](../software-requirements/srd002-chatbot-agent.md#ac3) | One sequential iterator plus generic partitions degrades query failures and excludes embedding-model mismatches without indexed words or states. |
 | T3 | test-rel01.0-routing-fanout routed_fanout | The suite records tier selection, the two-RAG fan-out over disjoint corpora, and the degraded and excluded paths. |
 
 <!-- field: success_criteria -->
@@ -68,9 +68,9 @@ The source classifier selects a scoped declared subset, spanning questions may s
 <!-- field: traces -->
 #### Traces
 
-- srd002-chatbot-agent R2.4
-- srd002-chatbot-agent R2.6
-- srd002-chatbot-agent AC2
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [R2.4](../software-requirements/srd002-chatbot-agent.md#r24)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [R2.6](../software-requirements/srd002-chatbot-agent.md#r26)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC2](../software-requirements/srd002-chatbot-agent.md#ac2)
 
 <!-- sc: S2 -->
 ### S2
@@ -80,10 +80,10 @@ One query embedding fans out sequentially over trusted selected entries through 
 <!-- field: traces -->
 #### Traces
 
-- srd002-chatbot-agent R3.1
-- srd002-chatbot-agent R3.4
-- srd002-chatbot-agent R6.2
-- srd002-chatbot-agent AC3
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [R3.1](../software-requirements/srd002-chatbot-agent.md#r31)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [R3.4](../software-requirements/srd002-chatbot-agent.md#r34)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [R6.2](../software-requirements/srd002-chatbot-agent.md#r62)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC3](../software-requirements/srd002-chatbot-agent.md#ac3)
 
 <!-- sc: S3 -->
 ### S3
@@ -93,8 +93,8 @@ A per-RAG failure is retained in the join's query_failed metadata set and the tu
 <!-- field: traces -->
 #### Traces
 
-- srd002-chatbot-agent R3.2
-- srd002-chatbot-agent AC3
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [R3.2](../software-requirements/srd002-chatbot-agent.md#r32)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC3](../software-requirements/srd002-chatbot-agent.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -104,8 +104,8 @@ A 200 response whose reported embedding model differs is excluded from render_ea
 <!-- field: traces -->
 #### Traces
 
-- srd002-chatbot-agent R3.3
-- srd002-chatbot-agent AC3
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [R3.3](../software-requirements/srd002-chatbot-agent.md#r33)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC3](../software-requirements/srd002-chatbot-agent.md#ac3)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -117,4 +117,4 @@ A 200 response whose reported embedding model differs is excluded from render_ea
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel01.0-routing-fanout
+[test-rel01.0-routing-fanout](../test-suites/test-rel01.0-routing-fanout.md)

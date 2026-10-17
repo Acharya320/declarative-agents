@@ -22,7 +22,7 @@ substitutes a shell-script child or fake agent binary.
 <!-- field: traces -->
 ## Traces
 
-- rel01.0-uc001-coding-loop
+- [rel01.0-uc001-coding-loop](../use-cases/rel01.0-uc001-coding-loop.md)
 
 <!-- field: deadline_hierarchy -->
 ## Deadline hierarchy
@@ -91,7 +91,7 @@ critic.
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-coding-loop
+[rel01.0-uc001-coding-loop](../use-cases/rel01.0-uc001-coding-loop.md)
 
 <!-- field: stage -->
 #### Stage
@@ -129,7 +129,7 @@ mage integration:executorLive
 <!-- field: traces -->
 #### Traces
 
-- rel01.0-uc001-coding-loop S1
+- [rel01.0-uc001-coding-loop](../use-cases/rel01.0-uc001-coding-loop.md) [S1](../use-cases/rel01.0-uc001-coding-loop.md#s1)
 - srd002-executor AC1
 - srd002-executor AC2
 - srd002-executor AC3
@@ -147,7 +147,7 @@ permitted. Planner generation occurs exactly once.
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-coding-loop
+[rel01.0-uc001-coding-loop](../use-cases/rel01.0-uc001-coding-loop.md)
 
 <!-- field: stage -->
 #### Stage
@@ -188,8 +188,8 @@ mage integration:plannerDelegation
 <!-- field: traces -->
 #### Traces
 
-- rel01.0-uc001-coding-loop S1
-- rel01.0-uc001-coding-loop S2
+- [rel01.0-uc001-coding-loop](../use-cases/rel01.0-uc001-coding-loop.md) [S1](../use-cases/rel01.0-uc001-coding-loop.md#s1)
+- [rel01.0-uc001-coding-loop](../use-cases/rel01.0-uc001-coding-loop.md) [S2](../use-cases/rel01.0-uc001-coding-loop.md#s2)
 - srd004-planner AC1
 - srd004-planner AC2
 - srd004-planner AC3
@@ -210,7 +210,7 @@ rejected branch and maps to Failed.
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-coding-loop
+[rel01.0-uc001-coding-loop](../use-cases/rel01.0-uc001-coding-loop.md)
 
 <!-- field: stage -->
 #### Stage
@@ -253,8 +253,8 @@ go test ./magefiles -run '^Test(ApplicationOutcomeMapsOnlyCanonicalVerdicts|Crit
 <!-- field: traces -->
 #### Traces
 
-- rel01.0-uc001-coding-loop S3
-- rel01.0-uc001-coding-loop S4
+- [rel01.0-uc001-coding-loop](../use-cases/rel01.0-uc001-coding-loop.md) [S3](../use-cases/rel01.0-uc001-coding-loop.md#s3)
+- [rel01.0-uc001-coding-loop](../use-cases/rel01.0-uc001-coding-loop.md) [S4](../use-cases/rel01.0-uc001-coding-loop.md#s4)
 - srd003-critic AC1
 - srd003-critic AC2
 - srd003-critic AC3

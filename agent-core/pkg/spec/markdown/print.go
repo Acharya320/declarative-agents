@@ -49,6 +49,7 @@ type printer struct {
 	d      *Declaration
 	lines  []string
 	fences []Fence
+	links  *linkContext
 }
 
 // Fence names a value the printer still wrote as a fenced yaml block, the
@@ -63,8 +64,28 @@ func (f Fence) String() string { return f.Field + ": " + f.Reason }
 // PrintReport prints a document like Print and also returns every value it
 // wrote as a fenced yaml block (GH-2643).
 func (d *Declaration) PrintReport(doc *yaml.Node) ([]byte, []Fence, error) {
+	return d.printLinked(doc, "", nil)
+}
+
+// PrintLinked prints a document like Print, linking the references its
+// declared fields hold: same-page items always, and other documents of
+// index, a corpus's documents keyed by id, from docPath (GH-2665).
+func (d *Declaration) PrintLinked(doc *yaml.Node, docPath string, index LinkIndex) ([]byte, error) {
+	out, _, err := d.printLinked(doc, docPath, index)
+	return out, err
+}
+
+// printLinked prints twice when the type declares links: the first pass
+// gives the page's headings, so the second can link items to their anchors.
+func (d *Declaration) printLinked(doc *yaml.Node, docPath string, index LinkIndex) ([]byte, []Fence, error) {
 	p := &printer{d: d}
 	out, err := p.document(doc)
+	if err != nil || !d.declaresLinks() {
+		return out, p.fences, err
+	}
+	p = &printer{d: d, links: &linkContext{path: docPath, index: index,
+		anchors: pageAnchors(strings.Split(string(out), "\n"))}}
+	out, err = p.document(doc)
 	return out, p.fences, err
 }
 
@@ -134,6 +155,9 @@ func (p *printer) member(level int, parent, key string, value *yaml.Node) error 
 	lines, form, err := p.d.renderField(slot, key, value)
 	if err != nil {
 		return fmt.Errorf("field %s: %w", key, err)
+	}
+	if field, typed := p.d.ruleFor(slot, key); typed {
+		lines = p.links.linkLines(field, lines)
 	}
 	if form == "" && classifyContent(strings.Join(lines, "\n")) == shapeYAML {
 		p.fences = append(p.fences, Fence{Field: key, Reason: fenceReason(value)})

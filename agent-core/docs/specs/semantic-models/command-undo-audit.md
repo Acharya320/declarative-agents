@@ -200,11 +200,11 @@ None
 <!-- field: related_documents -->
 ## Related documents
 
-- srd035-checkpoint-port
-- srd036-dolt-state-persistence
-- srd025-rollback-lifecycle
-- sm-rollback-lifecycle
-- cfg-tool-authoring-standard
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md)
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md)
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md)
+- [sm-rollback-lifecycle](rollback-lifecycle.md)
+- [cfg-tool-authoring-standard](../config-formats/tool-authoring-standard.md)
 
 <!-- field: related_issues -->
 ## Related issues

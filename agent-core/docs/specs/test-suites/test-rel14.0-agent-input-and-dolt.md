@@ -9,8 +9,8 @@ release: "14.0"
 <!-- field: traces -->
 ## Traces
 
-- rel14.0-uc001-request-driven-signal
-- rel14.0-uc002-dolt-boundary-word
+- [rel14.0-uc001-request-driven-signal](../use-cases/rel14.0-uc001-request-driven-signal.md)
+- [rel14.0-uc002-dolt-boundary-word](../use-cases/rel14.0-uc002-dolt-boundary-word.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -34,7 +34,7 @@ unchanged model path.
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc001-request-driven-signal
+[rel14.0-uc001-request-driven-signal](../use-cases/rel14.0-uc001-request-driven-signal.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -58,10 +58,10 @@ go test ./cmd/agent -run 'TestRequestSignalSource_(ModelFreeProfile|ModelRunOrRe
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc001-request-driven-signal S1
-- rel14.0-uc001-request-driven-signal S5
-- srd046-request-driven-signal-source AC1
-- srd046-request-driven-signal-source AC6
+- [rel14.0-uc001-request-driven-signal](../use-cases/rel14.0-uc001-request-driven-signal.md) [S1](../use-cases/rel14.0-uc001-request-driven-signal.md#s1)
+- [rel14.0-uc001-request-driven-signal](../use-cases/rel14.0-uc001-request-driven-signal.md) [S5](../use-cases/rel14.0-uc001-request-driven-signal.md#s5)
+- [srd046-request-driven-signal-source](../software-requirements/srd046-request-driven-signal-source.md) [AC1](../software-requirements/srd046-request-driven-signal-source.md#ac1)
+- [srd046-request-driven-signal-source](../software-requirements/srd046-request-driven-signal-source.md) [AC6](../software-requirements/srd046-request-driven-signal-source.md#ac6)
 
 <!-- case: Trusted mapping validates signal payload and redaction | status: implemented -->
 ### Trusted mapping validates signal payload and redaction
@@ -75,7 +75,7 @@ output.
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc001-request-driven-signal
+[rel14.0-uc001-request-driven-signal](../use-cases/rel14.0-uc001-request-driven-signal.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -102,8 +102,8 @@ go test ./internal/tools/rest -run TestRequestSignalSource_TrustedMapping
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc001-request-driven-signal S1
-- srd046-request-driven-signal-source AC2
+- [rel14.0-uc001-request-driven-signal](../use-cases/rel14.0-uc001-request-driven-signal.md) [S1](../use-cases/rel14.0-uc001-request-driven-signal.md#s1)
+- [srd046-request-driven-signal-source](../software-requirements/srd046-request-driven-signal-source.md) [AC2](../software-requirements/srd046-request-driven-signal-source.md#ac2)
 
 <!-- case: Admission distinguishes accepted undeclared and conflict | status: implemented -->
 ### Admission distinguishes accepted undeclared and conflict
@@ -116,7 +116,7 @@ leave Position, Execution, and checkpoint bytes unchanged.
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc001-request-driven-signal
+[rel14.0-uc001-request-driven-signal](../use-cases/rel14.0-uc001-request-driven-signal.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -147,9 +147,9 @@ go test ./internal/runtime/core -run TestSignalAdmission_Outcomes
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc001-request-driven-signal S2
-- rel14.0-uc001-request-driven-signal S3
-- srd046-request-driven-signal-source AC3
+- [rel14.0-uc001-request-driven-signal](../use-cases/rel14.0-uc001-request-driven-signal.md) [S2](../use-cases/rel14.0-uc001-request-driven-signal.md#s2)
+- [rel14.0-uc001-request-driven-signal](../use-cases/rel14.0-uc001-request-driven-signal.md) [S3](../use-cases/rel14.0-uc001-request-driven-signal.md#s3)
+- [srd046-request-driven-signal-source](../software-requirements/srd046-request-driven-signal-source.md) [AC3](../software-requirements/srd046-request-driven-signal-source.md#ac3)
 
 <!-- case: Accepted signal uses the ordinary machine execution path | status: implemented -->
 ### Accepted signal uses the ordinary machine execution path
@@ -162,7 +162,7 @@ terminal outcome, including the configured HTTP 409 conflict mapping.
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc001-request-driven-signal
+[rel14.0-uc001-request-driven-signal](../use-cases/rel14.0-uc001-request-driven-signal.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -189,8 +189,8 @@ go test ./cmd/agent -run TestRequestSignalSource_OrdinaryLoopPath
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc001-request-driven-signal S2
-- srd046-request-driven-signal-source AC4
+- [rel14.0-uc001-request-driven-signal](../use-cases/rel14.0-uc001-request-driven-signal.md) [S2](../use-cases/rel14.0-uc001-request-driven-signal.md#s2)
+- [srd046-request-driven-signal-source](../software-requirements/srd046-request-driven-signal-source.md) [AC4](../software-requirements/srd046-request-driven-signal-source.md#ac4)
 
 <!-- case: Suspended request-driven run resumes exactly once | status: implemented -->
 ### Suspended request-driven run resumes exactly once
@@ -204,7 +204,7 @@ NoopCheckpoint refuses the same suspended-run claim.
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc001-request-driven-signal
+[rel14.0-uc001-request-driven-signal](../use-cases/rel14.0-uc001-request-driven-signal.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -232,8 +232,8 @@ go test ./cmd/agent -run TestRequestSignalSource_SuspendResume
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc001-request-driven-signal S4
-- srd046-request-driven-signal-source AC5
+- [rel14.0-uc001-request-driven-signal](../use-cases/rel14.0-uc001-request-driven-signal.md) [S4](../use-cases/rel14.0-uc001-request-driven-signal.md#s4)
+- [srd046-request-driven-signal-source](../software-requirements/srd046-request-driven-signal-source.md) [AC5](../software-requirements/srd046-request-driven-signal-source.md#ac5)
 
 <!-- case: Cancellation and failures release request ownership | status: implemented -->
 ### Cancellation and failures release request ownership
@@ -246,7 +246,7 @@ payload content.
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc001-request-driven-signal
+[rel14.0-uc001-request-driven-signal](../use-cases/rel14.0-uc001-request-driven-signal.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -273,8 +273,8 @@ go test ./internal/runtime/core ./internal/tools/rest -run TestSignalSource_Rele
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc001-request-driven-signal S5
-- srd046-request-driven-signal-source AC6
+- [rel14.0-uc001-request-driven-signal](../use-cases/rel14.0-uc001-request-driven-signal.md) [S5](../use-cases/rel14.0-uc001-request-driven-signal.md#s5)
+- [srd046-request-driven-signal-source](../software-requirements/srd046-request-driven-signal-source.md) [AC6](../software-requirements/srd046-request-driven-signal-source.md#ac6)
 
 <!-- case: Dolt declarations keep word kinds and authority separate | status: implemented -->
 ### Dolt declarations keep word kinds and authority separate
@@ -287,7 +287,7 @@ caller-authority input fields.
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc002-dolt-boundary-word
+[rel14.0-uc002-dolt-boundary-word](../use-cases/rel14.0-uc002-dolt-boundary-word.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -317,10 +317,10 @@ go test ./internal/tools/dolt ./internal/tools/catalog -run 'TestDoltDeclaration
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc002-dolt-boundary-word S1
-- rel14.0-uc002-dolt-boundary-word S2
-- srd047-dolt-boundary-word AC1
-- srd047-dolt-boundary-word AC2
+- [rel14.0-uc002-dolt-boundary-word](../use-cases/rel14.0-uc002-dolt-boundary-word.md) [S1](../use-cases/rel14.0-uc002-dolt-boundary-word.md#s1)
+- [rel14.0-uc002-dolt-boundary-word](../use-cases/rel14.0-uc002-dolt-boundary-word.md) [S2](../use-cases/rel14.0-uc002-dolt-boundary-word.md#s2)
+- [srd047-dolt-boundary-word](../software-requirements/srd047-dolt-boundary-word.md) [AC1](../software-requirements/srd047-dolt-boundary-word.md#ac1)
+- [srd047-dolt-boundary-word](../software-requirements/srd047-dolt-boundary-word.md) [AC2](../software-requirements/srd047-dolt-boundary-word.md#ac2)
 
 <!-- case: Real Dolt provisioning creates database and schema idempotently | status: implemented -->
 ### Real Dolt provisioning creates database and schema idempotently
@@ -333,7 +333,7 @@ commit. An incompatible schema fails without a commit.
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc002-dolt-boundary-word
+[rel14.0-uc002-dolt-boundary-word](../use-cases/rel14.0-uc002-dolt-boundary-word.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -357,9 +357,9 @@ mage integration:doltWord
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc002-dolt-boundary-word S3
-- srd047-dolt-boundary-word AC3
-- srd047-dolt-boundary-word AC7
+- [rel14.0-uc002-dolt-boundary-word](../use-cases/rel14.0-uc002-dolt-boundary-word.md) [S3](../use-cases/rel14.0-uc002-dolt-boundary-word.md#s3)
+- [srd047-dolt-boundary-word](../software-requirements/srd047-dolt-boundary-word.md) [AC3](../software-requirements/srd047-dolt-boundary-word.md#ac3)
+- [srd047-dolt-boundary-word](../software-requirements/srd047-dolt-boundary-word.md) [AC7](../software-requirements/srd047-dolt-boundary-word.md#ac7)
 
 <!-- case: Real Dolt query binds params and never commits | status: implemented -->
 ### Real Dolt query binds params and never commits
@@ -371,7 +371,7 @@ Mutation-shaped query config is rejected, and query adds no Dolt commit.
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc002-dolt-boundary-word
+[rel14.0-uc002-dolt-boundary-word](../use-cases/rel14.0-uc002-dolt-boundary-word.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -398,9 +398,9 @@ mage integration:doltWord
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc002-dolt-boundary-word S4
-- srd047-dolt-boundary-word AC4
-- srd047-dolt-boundary-word AC7
+- [rel14.0-uc002-dolt-boundary-word](../use-cases/rel14.0-uc002-dolt-boundary-word.md) [S4](../use-cases/rel14.0-uc002-dolt-boundary-word.md#s4)
+- [srd047-dolt-boundary-word](../software-requirements/srd047-dolt-boundary-word.md) [AC4](../software-requirements/srd047-dolt-boundary-word.md#ac4)
+- [srd047-dolt-boundary-word](../software-requirements/srd047-dolt-boundary-word.md) [AC7](../software-requirements/srd047-dolt-boundary-word.md#ac7)
 
 <!-- case: Real Dolt write creates one declared-message commit | status: implemented -->
 ### Real Dolt write creates one declared-message commit
@@ -413,7 +413,7 @@ update follows commit_on_no_change false and adds no commit.
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc002-dolt-boundary-word
+[rel14.0-uc002-dolt-boundary-word](../use-cases/rel14.0-uc002-dolt-boundary-word.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -439,9 +439,9 @@ mage integration:doltWord
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc002-dolt-boundary-word S4
-- srd047-dolt-boundary-word AC5
-- srd047-dolt-boundary-word AC7
+- [rel14.0-uc002-dolt-boundary-word](../use-cases/rel14.0-uc002-dolt-boundary-word.md) [S4](../use-cases/rel14.0-uc002-dolt-boundary-word.md#s4)
+- [srd047-dolt-boundary-word](../software-requirements/srd047-dolt-boundary-word.md) [AC5](../software-requirements/srd047-dolt-boundary-word.md#ac5)
+- [srd047-dolt-boundary-word](../software-requirements/srd047-dolt-boundary-word.md) [AC7](../software-requirements/srd047-dolt-boundary-word.md#ac7)
 
 <!-- case: Caller authority and failed writes create no commit | status: implemented -->
 ### Caller authority and failed writes create no commit
@@ -454,7 +454,7 @@ history unchanged.
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc002-dolt-boundary-word
+[rel14.0-uc002-dolt-boundary-word](../use-cases/rel14.0-uc002-dolt-boundary-word.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -481,10 +481,10 @@ mage integration:doltWord
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc002-dolt-boundary-word S2
-- rel14.0-uc002-dolt-boundary-word S6
-- srd047-dolt-boundary-word AC2
-- srd047-dolt-boundary-word AC7
+- [rel14.0-uc002-dolt-boundary-word](../use-cases/rel14.0-uc002-dolt-boundary-word.md) [S2](../use-cases/rel14.0-uc002-dolt-boundary-word.md#s2)
+- [rel14.0-uc002-dolt-boundary-word](../use-cases/rel14.0-uc002-dolt-boundary-word.md) [S6](../use-cases/rel14.0-uc002-dolt-boundary-word.md#s6)
+- [srd047-dolt-boundary-word](../software-requirements/srd047-dolt-boundary-word.md) [AC2](../software-requirements/srd047-dolt-boundary-word.md#ac2)
+- [srd047-dolt-boundary-word](../software-requirements/srd047-dolt-boundary-word.md) [AC7](../software-requirements/srd047-dolt-boundary-word.md#ac7)
 
 <!-- case: Word and checkpoint databases remain separate | status: implemented -->
 ### Word and checkpoint databases remain separate
@@ -496,7 +496,7 @@ normalizes to the same server and database is rejected at startup.
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc002-dolt-boundary-word
+[rel14.0-uc002-dolt-boundary-word](../use-cases/rel14.0-uc002-dolt-boundary-word.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -522,8 +522,8 @@ mage integration:doltWord
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc002-dolt-boundary-word S6
-- srd047-dolt-boundary-word AC7
+- [rel14.0-uc002-dolt-boundary-word](../use-cases/rel14.0-uc002-dolt-boundary-word.md) [S6](../use-cases/rel14.0-uc002-dolt-boundary-word.md#s6)
+- [srd047-dolt-boundary-word](../software-requirements/srd047-dolt-boundary-word.md) [AC7](../software-requirements/srd047-dolt-boundary-word.md#ac7)
 
 <!-- case: Dolt signals traces errors and receipts follow boundary contracts | status: implemented -->
 ### Dolt signals traces errors and receipts follow boundary contracts
@@ -537,7 +537,7 @@ credentials, and sensitive params.
 <!-- field: use_case -->
 #### Use case
 
-rel14.0-uc002-dolt-boundary-word
+[rel14.0-uc002-dolt-boundary-word](../use-cases/rel14.0-uc002-dolt-boundary-word.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -568,5 +568,5 @@ go test ./internal/tools/dolt -run 'TestWriteStagesAndCommitsExactlyOnceWithTrus
 <!-- field: traces -->
 #### Traces
 
-- rel14.0-uc002-dolt-boundary-word S5
-- srd047-dolt-boundary-word AC6
+- [rel14.0-uc002-dolt-boundary-word](../use-cases/rel14.0-uc002-dolt-boundary-word.md) [S5](../use-cases/rel14.0-uc002-dolt-boundary-word.md#s5)
+- [srd047-dolt-boundary-word](../software-requirements/srd047-dolt-boundary-word.md) [AC6](../software-requirements/srd047-dolt-boundary-word.md#ac6)

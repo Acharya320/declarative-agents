@@ -9,7 +9,7 @@ release: "20.0"
 <!-- field: traces -->
 ## Traces
 
-- rel20.0-uc003-unit-libraries
+- [rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -28,7 +28,7 @@ Import a unit by a relative path, by an /opt/agent-core path, and by /home/user/
 <!-- field: use_case -->
 #### Use case
 
-rel20.0-uc003-unit-libraries
+[rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -45,9 +45,9 @@ go test ./internal/load ./internal/tools/catalog ./internal/support/corepath -ru
 <!-- field: traces -->
 #### Traces
 
-- rel20.0-uc003-unit-libraries S1
-- srd056-unit-libraries AC1
-- srd056-unit-libraries R1.1
+- [rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md) [S1](../use-cases/rel20.0-uc003-unit-libraries.md#s1)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [AC1](../software-requirements/srd056-unit-libraries.md#ac1)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [R1.1](../software-requirements/srd056-unit-libraries.md#r11)
 
 <!-- case: Rooted paths work in every form srd050 governs | status: implemented -->
 ### Rooted paths work in every form srd050 governs
@@ -57,7 +57,7 @@ Name a rooted path in an expand fragment, a machine template instance, a bluepri
 <!-- field: use_case -->
 #### Use case
 
-rel20.0-uc003-unit-libraries
+[rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -74,9 +74,9 @@ go test ./internal/tools/catalog ./internal/tools/rest/definition ./internal/run
 <!-- field: traces -->
 #### Traces
 
-- rel20.0-uc003-unit-libraries S1
-- srd056-unit-libraries AC1
-- srd056-unit-libraries R1.2
+- [rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md) [S1](../use-cases/rel20.0-uc003-unit-libraries.md#s1)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [AC1](../software-requirements/srd056-unit-libraries.md#ac1)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [R1.2](../software-requirements/srd056-unit-libraries.md#r12)
 
 <!-- case: The agent-core root maps through --core-root or is used as written | status: implemented -->
 ### The agent-core root maps through --core-root or is used as written
@@ -86,7 +86,7 @@ Import /opt/agent-core/tools/units/types-core.yaml from an application unit with
 <!-- field: use_case -->
 #### Use case
 
-rel20.0-uc003-unit-libraries
+[rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -102,9 +102,9 @@ go test ./internal/support/corepath ./internal/load ./internal/tools/catalog ./i
 <!-- field: traces -->
 #### Traces
 
-- rel20.0-uc003-unit-libraries S1
-- srd056-unit-libraries AC1
-- srd056-unit-libraries R1.3
+- [rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md) [S1](../use-cases/rel20.0-uc003-unit-libraries.md#s1)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [AC1](../software-requirements/srd056-unit-libraries.md#ac1)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [R1.3](../software-requirements/srd056-unit-libraries.md#r13)
 
 <!-- case: A profile declares a named root for a directory | status: implemented -->
 ### A profile declares a named root for a directory
@@ -114,7 +114,7 @@ Declare libraries: {mesh-lib: ../lib} and import /opt/mesh-lib/units/types.yaml;
 <!-- field: use_case -->
 #### Use case
 
-rel20.0-uc003-unit-libraries
+[rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -131,9 +131,9 @@ go test ./internal/tools/catalog ./internal/load -run 'TestProfileDeclaresLibrar
 <!-- field: traces -->
 #### Traces
 
-- rel20.0-uc003-unit-libraries S2
-- srd056-unit-libraries AC2
-- srd056-unit-libraries R2.1
+- [rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md) [S2](../use-cases/rel20.0-uc003-unit-libraries.md#s2)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [AC2](../software-requirements/srd056-unit-libraries.md#ac2)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [R2.1](../software-requirements/srd056-unit-libraries.md#r21)
 
 <!-- case: --library overrides a declared root for one run | status: implemented -->
 ### --library overrides a declared root for one run
@@ -143,7 +143,7 @@ Run with --library mesh-lib=<other dir>, then with --library absent-lib=<dir>.
 <!-- field: use_case -->
 #### Use case
 
-rel20.0-uc003-unit-libraries
+[rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -159,9 +159,9 @@ go test ./cmd/agent ./internal/load -run 'TestLibraryFlagOverridesADeclaredRootO
 <!-- field: traces -->
 #### Traces
 
-- rel20.0-uc003-unit-libraries S2
-- srd056-unit-libraries AC2
-- srd056-unit-libraries R2.2
+- [rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md) [S2](../use-cases/rel20.0-uc003-unit-libraries.md#s2)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [AC2](../software-requirements/srd056-unit-libraries.md#ac2)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [R2.2](../software-requirements/srd056-unit-libraries.md#r22)
 
 <!-- case: Roots are closure-scoped and must agree | status: implemented -->
 ### Roots are closure-scoped and must agree
@@ -171,7 +171,7 @@ Import under /opt/unknown; declare one root name with two directories on a profi
 <!-- field: use_case -->
 #### Use case
 
-rel20.0-uc003-unit-libraries
+[rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -188,9 +188,9 @@ go test ./internal/load ./internal/support/corepath -run 'TestLoadClosureReports
 <!-- field: traces -->
 #### Traces
 
-- rel20.0-uc003-unit-libraries S2
-- srd056-unit-libraries AC2
-- srd056-unit-libraries R2.3
+- [rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md) [S2](../use-cases/rel20.0-uc003-unit-libraries.md#s2)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [AC2](../software-requirements/srd056-unit-libraries.md#ac2)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [R2.3](../software-requirements/srd056-unit-libraries.md#r23)
 
 <!-- case: A library is read-only to its importers | status: implemented -->
 ### A library is read-only to its importers
@@ -200,7 +200,7 @@ Put override: true on a tool in a rooted file; give a rooted file a ../ import t
 <!-- field: use_case -->
 #### Use case
 
-rel20.0-uc003-unit-libraries
+[rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -217,9 +217,9 @@ go test ./internal/tools/catalog ./internal/support/corepath -run 'TestLibraryFi
 <!-- field: traces -->
 #### Traces
 
-- rel20.0-uc003-unit-libraries S2
-- srd056-unit-libraries AC2
-- srd056-unit-libraries R2.4
+- [rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md) [S2](../use-cases/rel20.0-uc003-unit-libraries.md#s2)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [AC2](../software-requirements/srd056-unit-libraries.md#ac2)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [R2.4](../software-requirements/srd056-unit-libraries.md#r24)
 
 <!-- case: Rooted files are closure files and digest assets | status: implemented -->
 ### Rooted files are closure files and digest assets
@@ -229,7 +229,7 @@ Load a profile importing through both roots, read Files, change one byte of a ro
 <!-- field: use_case -->
 #### Use case
 
-rel20.0-uc003-unit-libraries
+[rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -245,9 +245,9 @@ go test ./internal/load -run 'TestLoadClosureImportsAUnitFromTheAgentCoreLibrary
 <!-- field: traces -->
 #### Traces
 
-- rel20.0-uc003-unit-libraries S3
-- srd056-unit-libraries AC3
-- srd056-unit-libraries R3.1
+- [rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md) [S3](../use-cases/rel20.0-uc003-unit-libraries.md#s3)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [AC3](../software-requirements/srd056-unit-libraries.md#ac3)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [R3.1](../software-requirements/srd056-unit-libraries.md#r31)
 
 <!-- case: The dump marks rooted files with their root | status: implemented -->
 ### The dump marks rooted files with their root
@@ -257,7 +257,7 @@ Dump a profile importing through both roots.
 <!-- field: use_case -->
 #### Use case
 
-rel20.0-uc003-unit-libraries
+[rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -273,9 +273,9 @@ go test ./internal/load ./cmd/agent -run 'TestLoadClosureImportsAUnitFromTheAgen
 <!-- field: traces -->
 #### Traces
 
-- rel20.0-uc003-unit-libraries S3
-- srd056-unit-libraries AC3
-- srd056-unit-libraries R3.2
+- [rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md) [S3](../use-cases/rel20.0-uc003-unit-libraries.md#s3)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [AC3](../software-requirements/srd056-unit-libraries.md#ac3)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [R3.2](../software-requirements/srd056-unit-libraries.md#r32)
 
 <!-- case: Staging copies declared-root files and leaves agent-core to the image | status: implemented -->
 ### Staging copies declared-root files and leaves agent-core to the image
@@ -285,7 +285,7 @@ Stage a profile importing under a declared root and under /opt/agent-core, remov
 <!-- field: use_case -->
 #### Use case
 
-rel20.0-uc003-unit-libraries
+[rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -302,9 +302,9 @@ go test ./pkg/profilestage -run 'TestStageCopiesADeclaredLibraryRootToItsStagedP
 <!-- field: traces -->
 #### Traces
 
-- rel20.0-uc003-unit-libraries S3
-- srd056-unit-libraries AC3
-- srd056-unit-libraries R3.3
+- [rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md) [S3](../use-cases/rel20.0-uc003-unit-libraries.md#s3)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [AC3](../software-requirements/srd056-unit-libraries.md#ac3)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [R3.3](../software-requirements/srd056-unit-libraries.md#r33)
 
 <!-- case: The service-library convention is documented | status: implemented -->
 ### The service-library convention is documented
@@ -314,7 +314,7 @@ Read the service library section of cfg-rest-tool-format.
 <!-- field: use_case -->
 #### Use case
 
-rel20.0-uc003-unit-libraries
+[rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -330,9 +330,9 @@ mage audit
 <!-- field: traces -->
 #### Traces
 
-- rel20.0-uc003-unit-libraries S4
-- srd056-unit-libraries AC4
-- srd056-unit-libraries R4.1
+- [rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md) [S4](../use-cases/rel20.0-uc003-unit-libraries.md#s4)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [AC4](../software-requirements/srd056-unit-libraries.md#ac4)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [R4.1](../software-requirements/srd056-unit-libraries.md#r41)
 
 <!-- case: No service library has fewer than two importing profiles | status: implemented -->
 ### No service library has fewer than two importing profiles
@@ -342,7 +342,7 @@ Count importing profiles for every service-library unit, an instantiation counti
 <!-- field: use_case -->
 #### Use case
 
-rel20.0-uc003-unit-libraries
+[rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -357,6 +357,6 @@ mage stats:reuse
 <!-- field: traces -->
 #### Traces
 
-- rel20.0-uc003-unit-libraries S4
-- srd056-unit-libraries AC4
-- srd056-unit-libraries R4.2
+- [rel20.0-uc003-unit-libraries](../use-cases/rel20.0-uc003-unit-libraries.md) [S4](../use-cases/rel20.0-uc003-unit-libraries.md#s4)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [AC4](../software-requirements/srd056-unit-libraries.md#ac4)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [R4.2](../software-requirements/srd056-unit-libraries.md#r42)

@@ -9,7 +9,7 @@ release: "09.0"
 <!-- field: traces -->
 ## Traces
 
-- rel09.0-uc001-scenario-rig-run
+- [rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -32,7 +32,7 @@ exhausted, and returns 404 for an unmatched route.
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-scenario-rig-run
+[rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -61,9 +61,9 @@ go test ./internal/tools/rest -run TestRESTServer_MockBindingServesScriptedRespo
 <!-- field: traces -->
 #### Traces
 
-- rel09.0-uc001-scenario-rig-run S1
-- srd039-mock-endpoint-binding AC1
-- srd039-mock-endpoint-binding AC2
+- [rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md) [S1](../use-cases/rel09.0-uc001-scenario-rig-run.md#s1)
+- [srd039-mock-endpoint-binding](../software-requirements/srd039-mock-endpoint-binding.md) [AC1](../software-requirements/srd039-mock-endpoint-binding.md#ac1)
+- [srd039-mock-endpoint-binding](../software-requirements/srd039-mock-endpoint-binding.md) [AC2](../software-requirements/srd039-mock-endpoint-binding.md#ac2)
 
 <!-- case: Request log returns received requests in order | status: implemented -->
 ### Request log returns received requests in order
@@ -75,7 +75,7 @@ flags the unmatched request as a miss.
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-scenario-rig-run
+[rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -106,8 +106,8 @@ go test ./internal/tools/rest -run TestRESTServer_MockBindingRequestLog
 <!-- field: traces -->
 #### Traces
 
-- rel09.0-uc001-scenario-rig-run S2
-- srd039-mock-endpoint-binding AC3
+- [rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md) [S2](../use-cases/rel09.0-uc001-scenario-rig-run.md#s2)
+- [srd039-mock-endpoint-binding](../software-requirements/srd039-mock-endpoint-binding.md) [AC3](../software-requirements/srd039-mock-endpoint-binding.md#ac3)
 
 <!-- case: Malformed fixture fails validate-config and startup | status: implemented -->
 ### Malformed fixture fails validate-config and startup
@@ -119,7 +119,7 @@ and at server startup, before any request is served.
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-scenario-rig-run
+[rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -144,7 +144,7 @@ go test ./internal/tools/rest -run TestRESTServer_MockBindingFixtureValidation
 <!-- field: traces -->
 #### Traces
 
-- srd039-mock-endpoint-binding AC4
+- [srd039-mock-endpoint-binding](../software-requirements/srd039-mock-endpoint-binding.md) [AC4](../software-requirements/srd039-mock-endpoint-binding.md#ac4)
 
 <!-- case: Concurrent requests neither skip nor duplicate script positions | status: implemented -->
 ### Concurrent requests neither skip nor duplicate script positions
@@ -155,7 +155,7 @@ once each, and a serial sequence is deterministic.
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-scenario-rig-run
+[rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -176,7 +176,7 @@ go test ./internal/tools/rest -run TestRESTServer_MockBindingConcurrentSequencin
 <!-- field: traces -->
 #### Traces
 
-- srd039-mock-endpoint-binding AC5
+- [srd039-mock-endpoint-binding](../software-requirements/srd039-mock-endpoint-binding.md) [AC5](../software-requirements/srd039-mock-endpoint-binding.md#ac5)
 
 <!-- case: Serve-mode child lifecycle leaves no orphans | status: implemented -->
 ### Serve-mode child lifecycle leaves no orphans
@@ -190,7 +190,7 @@ child and its grandchild through the shared subprocess transport.
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-scenario-rig-run
+[rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -214,8 +214,8 @@ go test ./internal/tools/service -run 'TestServiceChild_(StartStopNoOrphans|Pare
 <!-- field: traces -->
 #### Traces
 
-- rel09.0-uc001-scenario-rig-run S3
-- srd040-service-child-tools AC1
+- [rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md) [S3](../use-cases/rel09.0-uc001-scenario-rig-run.md#s3)
+- [srd040-service-child-tools](../software-requirements/srd040-service-child-tools.md) [AC1](../software-requirements/srd040-service-child-tools.md#ac1)
 
 <!-- case: Declarative REST health retry times out within its bound | status: implemented -->
 ### Declarative REST health retry times out within its bound
@@ -227,7 +227,7 @@ HealthTimeout, so MachineSpec owns the visible bounded loop.
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-scenario-rig-run
+[rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -249,7 +249,7 @@ go test ./internal/tools/lifecycle ./internal/tools/rest/client -run 'TestDelay_
 <!-- field: traces -->
 #### Traces
 
-- srd040-service-child-tools AC2
+- [srd040-service-child-tools](../software-requirements/srd040-service-child-tools.md) [AC2](../software-requirements/srd040-service-child-tools.md#ac2)
 
 <!-- case: Validator item reports terminal state and timeout | status: implemented -->
 ### Validator item reports terminal state and timeout
@@ -261,7 +261,7 @@ as timed out; MachineSpec iteration and join own collection behavior.
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-scenario-rig-run
+[rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -285,9 +285,9 @@ go test ./internal/tools/service -run TestRunOneValidator_TerminalStateAndTimeou
 <!-- field: traces -->
 #### Traces
 
-- rel09.0-uc001-scenario-rig-run S4
-- srd040-service-child-tools AC3
-- srd018-cli-flag-contract AC6
+- [rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md) [S4](../use-cases/rel09.0-uc001-scenario-rig-run.md#s4)
+- [srd040-service-child-tools](../software-requirements/srd040-service-child-tools.md) [AC3](../software-requirements/srd040-service-child-tools.md#ac3)
+- [srd018-cli-flag-contract](../software-requirements/srd018-cli-flag-contract.md) [AC6](../software-requirements/srd018-cli-flag-contract.md#ac6)
 
 <!-- case: Scenario session discovery is deterministic over a fixture tree | status: implemented -->
 ### Scenario session discovery is deterministic over a fixture tree
@@ -299,7 +299,7 @@ order with subject, scenario, validator profiles, and fixture files.
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-scenario-rig-run
+[rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -321,8 +321,8 @@ go test ./internal/tools/service -run 'TestListScenarios_DeterministicDiscovery|
 <!-- field: traces -->
 #### Traces
 
-- rel09.0-uc001-scenario-rig-run S5
-- srd040-service-child-tools AC4
+- [rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md) [S5](../use-cases/rel09.0-uc001-scenario-rig-run.md#s5)
+- [srd040-service-child-tools](../software-requirements/srd040-service-child-tools.md) [AC4](../software-requirements/srd040-service-child-tools.md#ac4)
 
 <!-- case: Service tool declarations state reversibility and undo honestly | status: implemented -->
 ### Service tool declarations state reversibility and undo honestly
@@ -335,7 +335,7 @@ panic, and no word invokes a model.
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-scenario-rig-run
+[rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -366,7 +366,7 @@ go test ./internal/tools/service -run 'TestServiceDeclarationsMatchStandardInits
 <!-- field: traces -->
 #### Traces
 
-- srd040-service-child-tools AC5
+- [srd040-service-child-tools](../software-requirements/srd040-service-child-tools.md) [AC5](../software-requirements/srd040-service-child-tools.md#ac5)
 
 <!-- case: Generic detached start returns a handle and lists the outcome | status: implemented -->
 ### Generic detached start returns a handle and lists the outcome
@@ -381,7 +381,7 @@ is proved in cmd/agent by TestRequestLocalStateSharesHostServiceState.
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-scenario-rig-run
+[rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -411,8 +411,8 @@ go test ./internal/tools/service -run 'TestStartService_DetachedReturnsAndListsE
 <!-- field: traces -->
 #### Traces
 
-- rel09.0-uc001-scenario-rig-run S6
-- srd040-service-child-tools AC6
+- [rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md) [S6](../use-cases/rel09.0-uc001-scenario-rig-run.md#s6)
+- [srd040-service-child-tools](../software-requirements/srd040-service-child-tools.md) [AC6](../software-requirements/srd040-service-child-tools.md#ac6)
 
 <!-- case: One scenario runs end-to-end to a verdict | status: planned -->
 ### One scenario runs end-to-end to a verdict
@@ -426,7 +426,7 @@ passes via the validator's expectation.
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-scenario-rig-run
+[rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -448,9 +448,9 @@ go test ./internal/tools/service -run TestScenarioRig_EndToEndVerdict
 <!-- field: traces -->
 #### Traces
 
-- rel09.0-uc001-scenario-rig-run S1
-- rel09.0-uc001-scenario-rig-run S2
-- rel09.0-uc001-scenario-rig-run S3
+- [rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md) [S1](../use-cases/rel09.0-uc001-scenario-rig-run.md#s1)
+- [rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md) [S2](../use-cases/rel09.0-uc001-scenario-rig-run.md#s2)
+- [rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md) [S3](../use-cases/rel09.0-uc001-scenario-rig-run.md#s3)
 
 <!-- case: Scenario session iterates each scenario exactly once | status: implemented -->
 ### Scenario session iterates each scenario exactly once
@@ -462,7 +462,7 @@ cursor the assembler machine loops on (srd018 R1.1).
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-scenario-rig-run
+[rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -484,8 +484,8 @@ go test ./internal/tools/service -run TestScenarioSession_IteratesEachScenarioOn
 <!-- field: traces -->
 #### Traces
 
-- rel09.0-uc001-scenario-rig-run S5
-- srd040-service-child-tools AC4
+- [rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md) [S5](../use-cases/rel09.0-uc001-scenario-rig-run.md#s5)
+- [srd040-service-child-tools](../software-requirements/srd040-service-child-tools.md) [AC4](../software-requirements/srd040-service-child-tools.md#ac4)
 
 <!-- case: A mock's runtime address reaches the subject's environment | status: implemented -->
 ### A mock's runtime address reaches the subject's environment
@@ -499,7 +499,7 @@ per-scenario steps cannot be expressed as machine transitions.
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-scenario-rig-run
+[rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -521,8 +521,8 @@ go test ./internal/tools/service -run TestScenarioSteps_ThreadsMockURLIntoSubjec
 <!-- field: traces -->
 #### Traces
 
-- rel09.0-uc001-scenario-rig-run S1
-- srd040-service-child-tools AC1
+- [rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md) [S1](../use-cases/rel09.0-uc001-scenario-rig-run.md#s1)
+- [srd040-service-child-tools](../software-requirements/srd040-service-child-tools.md) [AC1](../software-requirements/srd040-service-child-tools.md#ac1)
 
 <!-- case: A failed scenario tears its children down and names its cause | status: implemented -->
 ### A failed scenario tears its children down and names its cause
@@ -534,7 +534,7 @@ running, and the session report names the cause (srd018 R1.5, R6.2).
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-scenario-rig-run
+[rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -557,8 +557,8 @@ go test ./internal/tools/service -run TestScenarioSteps_TeardownRunsOnFailurePat
 <!-- field: traces -->
 #### Traces
 
-- rel09.0-uc001-scenario-rig-run S3
-- srd040-service-child-tools AC1
+- [rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md) [S3](../use-cases/rel09.0-uc001-scenario-rig-run.md#s3)
+- [srd040-service-child-tools](../software-requirements/srd040-service-child-tools.md) [AC1](../software-requirements/srd040-service-child-tools.md#ac1)
 
 <!-- case: Verdict passes only when every validator passed | status: implemented -->
 ### Verdict passes only when every validator passed
@@ -570,7 +570,7 @@ scenario. An empty run does not pass (srd018 R6.1, R6.2).
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-scenario-rig-run
+[rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -595,9 +595,9 @@ go test ./internal/tools/service -run TestScenarioSession_VerdictNamesItsCause
 <!-- field: traces -->
 #### Traces
 
-- rel09.0-uc001-scenario-rig-run S4
-- srd040-service-child-tools AC3
-- srd018-cli-flag-contract AC6
+- [rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md) [S4](../use-cases/rel09.0-uc001-scenario-rig-run.md#s4)
+- [srd040-service-child-tools](../software-requirements/srd040-service-child-tools.md) [AC3](../software-requirements/srd040-service-child-tools.md#ac3)
+- [srd018-cli-flag-contract](../software-requirements/srd018-cli-flag-contract.md) [AC6](../software-requirements/srd018-cli-flag-contract.md#ac6)
 
 <!-- case: A failed terminal state exits non-zero and distinctly | status: implemented -->
 ### A failed terminal state exits non-zero and distinctly
@@ -611,7 +611,7 @@ on its exit code rather than parsed log output (srd018 R6).
 <!-- field: use_case -->
 #### Use case
 
-rel09.0-uc001-scenario-rig-run
+[rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -638,6 +638,6 @@ go test ./cmd/agent -run TestExitCode
 <!-- field: traces -->
 #### Traces
 
-- rel09.0-uc001-scenario-rig-run S4
-- srd040-service-child-tools AC3
-- srd018-cli-flag-contract AC6
+- [rel09.0-uc001-scenario-rig-run](../use-cases/rel09.0-uc001-scenario-rig-run.md) [S4](../use-cases/rel09.0-uc001-scenario-rig-run.md#s4)
+- [srd040-service-child-tools](../software-requirements/srd040-service-child-tools.md) [AC3](../software-requirements/srd040-service-child-tools.md#ac3)
+- [srd018-cli-flag-contract](../software-requirements/srd018-cli-flag-contract.md) [AC6](../software-requirements/srd018-cli-flag-contract.md#ac6)

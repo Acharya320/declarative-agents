@@ -9,7 +9,7 @@ release: "18.0"
 <!-- field: traces -->
 ## Traces
 
-- rel18.0-uc001-declaration-fragments
+- [rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -29,7 +29,7 @@ Load a fragment carrying unit, params of every allowed type, and a tools body; t
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-declaration-fragments
+[rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -45,9 +45,9 @@ go test ./internal/tools/catalog ./internal/tools/rest/definition -run 'TestExpa
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-declaration-fragments S1
-- srd052-declaration-fragments AC1
-- srd052-declaration-fragments R1.1
+- [rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md) [S1](../use-cases/rel18.0-uc001-declaration-fragments.md#s1)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [AC1](../software-requirements/srd052-declaration-fragments.md#ac1)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [R1.1](../software-requirements/srd052-declaration-fragments.md#r11)
 
 <!-- case: A fragment may import units but may not expand a fragment | status: implemented -->
 ### A fragment may import units but may not expand a fragment
@@ -57,7 +57,7 @@ Load a fragment importing a type unit, then one whose expand list names another 
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-declaration-fragments
+[rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -73,9 +73,9 @@ go test ./internal/tools/catalog -run 'TestFragmentImportsResolveFromTheFragment
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-declaration-fragments S1
-- srd052-declaration-fragments AC1
-- srd052-declaration-fragments R1.2
+- [rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md) [S1](../use-cases/rel18.0-uc001-declaration-fragments.md#s1)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [AC1](../software-requirements/srd052-declaration-fragments.md#ac1)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [R1.2](../software-requirements/srd052-declaration-fragments.md#r12)
 
 <!-- case: Half a fragment is a load error naming the file | status: implemented -->
 ### Half a fragment is a load error naming the file
@@ -85,7 +85,7 @@ Load a file with params and no body, then a file with a body and no params but a
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-declaration-fragments
+[rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -100,9 +100,9 @@ go test ./internal/tools/catalog -run 'TestHalfDeclaredFragmentFails'
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-declaration-fragments S1
-- srd052-declaration-fragments AC1
-- srd052-declaration-fragments R1.3
+- [rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md) [S1](../use-cases/rel18.0-uc001-declaration-fragments.md#s1)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [AC1](../software-requirements/srd052-declaration-fragments.md#ac1)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [R1.3](../software-requirements/srd052-declaration-fragments.md#r13)
 
 <!-- case: An expand entry names fragment, args, and an optional prefix | status: implemented -->
 ### An expand entry names fragment, args, and an optional prefix
@@ -112,7 +112,7 @@ Expand with and without as; resolve fragment relative to the importing file, inc
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-declaration-fragments
+[rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -128,9 +128,9 @@ go test ./internal/tools/catalog -run 'TestExpandProducesPrefixedTypedTools|Test
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-declaration-fragments S2
-- srd052-declaration-fragments AC2
-- srd052-declaration-fragments R2.1
+- [rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md) [S2](../use-cases/rel18.0-uc001-declaration-fragments.md#s2)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [AC2](../software-requirements/srd052-declaration-fragments.md#ac2)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [R2.1](../software-requirements/srd052-declaration-fragments.md#r21)
 
 <!-- case: Argument faults name importer, fragment, and parameter | status: implemented -->
 ### Argument faults name importer, fragment, and parameter
@@ -140,7 +140,7 @@ Omit a required argument, supply an unknown one, pass a string for an integer, a
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-declaration-fragments
+[rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -156,9 +156,9 @@ go test ./internal/tools/catalog ./internal/tools/rest/definition -run 'TestExpa
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-declaration-fragments S2
-- srd052-declaration-fragments AC2
-- srd052-declaration-fragments R2.2
+- [rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md) [S2](../use-cases/rel18.0-uc001-declaration-fragments.md#s2)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [AC2](../software-requirements/srd052-declaration-fragments.md#ac2)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [R2.2](../software-requirements/srd052-declaration-fragments.md#r22)
 
 <!-- case: Substitution is hygienic and leaves no reference behind | status: implemented -->
 ### Substitution is hygienic and leaves no reference behind
@@ -168,7 +168,7 @@ Reference a parameter inside a scalar, inside a mapping name, and inside a list;
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-declaration-fragments
+[rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -186,9 +186,9 @@ go test ./internal/fragments ./internal/tools/catalog -run 'TestSubstitute|TestR
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-declaration-fragments S2
-- srd052-declaration-fragments AC2
-- srd052-declaration-fragments R2.3
+- [rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md) [S2](../use-cases/rel18.0-uc001-declaration-fragments.md#s2)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [AC2](../software-requirements/srd052-declaration-fragments.md#ac2)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [R2.3](../software-requirements/srd052-declaration-fragments.md#r23)
 
 <!-- case: The expanded document takes the hand-written validation path | status: implemented -->
 ### The expanded document takes the hand-written validation path
@@ -198,7 +198,7 @@ Expand a fragment producing a tool with a misspelled field, then one whose per-t
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-declaration-fragments
+[rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -215,9 +215,9 @@ go test ./internal/tools/catalog -run 'TestExpandedUnitTakesTheHandWrittenPath'
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-declaration-fragments S2
-- srd052-declaration-fragments AC2
-- srd052-declaration-fragments R2.4
+- [rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md) [S2](../use-cases/rel18.0-uc001-declaration-fragments.md#s2)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [AC2](../software-requirements/srd052-declaration-fragments.md#ac2)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [R2.4](../software-requirements/srd052-declaration-fragments.md#r24)
 
 <!-- case: A prefix makes repeated expansion possible | status: implemented -->
 ### A prefix makes repeated expansion possible
@@ -227,7 +227,7 @@ Expand one fragment twice with as: cohere and as: openai, then read both produce
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-declaration-fragments
+[rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -243,9 +243,9 @@ go test ./internal/tools/catalog ./internal/tools/rest/definition -run 'TestExpa
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-declaration-fragments S3
-- srd052-declaration-fragments AC2
-- srd052-declaration-fragments R2.5
+- [rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md) [S3](../use-cases/rel18.0-uc001-declaration-fragments.md#s3)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [AC2](../software-requirements/srd052-declaration-fragments.md#ac2)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [R2.5](../software-requirements/srd052-declaration-fragments.md#r25)
 
 <!-- case: A fragment under imports is rejected | status: implemented -->
 ### A fragment under imports is rejected
@@ -255,7 +255,7 @@ List a fragment file under imports rather than expand.
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-declaration-fragments
+[rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -270,9 +270,9 @@ go test ./internal/tools/catalog ./internal/tools/rest/definition -run 'TestFrag
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-declaration-fragments S3
-- srd052-declaration-fragments AC2
-- srd052-declaration-fragments R2.6
+- [rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md) [S3](../use-cases/rel18.0-uc001-declaration-fragments.md#s3)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [AC2](../software-requirements/srd052-declaration-fragments.md#ac2)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [R2.6](../software-requirements/srd052-declaration-fragments.md#r26)
 
 <!-- case: Repeated expansion without a prefix is the existing duplicate error | status: implemented -->
 ### Repeated expansion without a prefix is the existing duplicate error
@@ -282,7 +282,7 @@ Expand one fragment twice with identical args and no as.
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-declaration-fragments
+[rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -297,9 +297,9 @@ go test ./internal/tools/catalog ./internal/tools/rest/definition -run 'TestRepe
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-declaration-fragments S3
-- srd052-declaration-fragments AC2
-- srd052-declaration-fragments R2.7
+- [rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md) [S3](../use-cases/rel18.0-uc001-declaration-fragments.md#s3)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [AC2](../software-requirements/srd052-declaration-fragments.md#ac2)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [R2.7](../software-requirements/srd052-declaration-fragments.md#r27)
 
 <!-- case: An unselected expansion is an unused import | status: implemented -->
 ### An unselected expansion is an unused import
@@ -309,7 +309,7 @@ Expand a fragment whose produced tools tools.yaml never selects; then select one
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-declaration-fragments
+[rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -326,9 +326,9 @@ go test ./internal/load -run 'TestLoadClosureReportsAnUnselectedExpansionAsUnuse
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-declaration-fragments S4
-- srd052-declaration-fragments AC3
-- srd052-declaration-fragments R3.1
+- [rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md) [S4](../use-cases/rel18.0-uc001-declaration-fragments.md#s4)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [AC3](../software-requirements/srd052-declaration-fragments.md#ac3)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [R3.1](../software-requirements/srd052-declaration-fragments.md#r31)
 
 <!-- case: The dump lists every expansion | status: implemented -->
 ### The dump lists every expansion
@@ -338,7 +338,7 @@ Dump a profile with two expansions and compare the expansions section across two
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-declaration-fragments
+[rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -355,9 +355,9 @@ go test ./internal/load ./cmd/agent -run 'TestLoadClosureDumpsEveryExpansion|Tes
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-declaration-fragments S4
-- srd052-declaration-fragments AC3
-- srd052-declaration-fragments R3.2
+- [rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md) [S4](../use-cases/rel18.0-uc001-declaration-fragments.md#s4)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [AC3](../software-requirements/srd052-declaration-fragments.md#ac3)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [R3.2](../software-requirements/srd052-declaration-fragments.md#r32)
 
 <!-- case: A stage fragment splices under a prefix with parameterized entry and exit | status: implemented -->
 ### A stage fragment splices under a prefix with parameterized entry and exit
@@ -367,7 +367,7 @@ Expand a stage fragment into a machine with entry and exit signals passed as arg
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-declaration-fragments
+[rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -383,9 +383,9 @@ go test ./internal/runtime/core -run 'TestLoadMachineClosureSplicesAStageTwice|T
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-declaration-fragments S5
-- srd052-declaration-fragments AC4
-- srd052-declaration-fragments R4.1
+- [rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md) [S5](../use-cases/rel18.0-uc001-declaration-fragments.md#s5)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [AC4](../software-requirements/srd052-declaration-fragments.md#ac4)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [R4.1](../software-requirements/srd052-declaration-fragments.md#r41)
 
 <!-- case: A spliced machine is checked as one machine | status: implemented -->
 ### A spliced machine is checked as one machine
@@ -395,7 +395,7 @@ Splice a stage whose transition reads a label the importing machine never publis
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-declaration-fragments
+[rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -412,9 +412,9 @@ go test ./internal/runtime/core ./internal/load ./cmd/agent -run 'TestSplicedSta
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-declaration-fragments S5
-- srd052-declaration-fragments AC4
-- srd052-declaration-fragments R4.2
+- [rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md) [S5](../use-cases/rel18.0-uc001-declaration-fragments.md#s5)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [AC4](../software-requirements/srd052-declaration-fragments.md#ac4)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [R4.2](../software-requirements/srd052-declaration-fragments.md#r42)
 
 <!-- case: A stage fragment path selects its variant by environment | status: implemented -->
 ### A stage fragment path selects its variant by environment
@@ -424,7 +424,7 @@ Expand stages/s-${X:-a}.yaml beside s-a.yaml and s-b.yaml, load with X unset and
 <!-- field: use_case -->
 #### Use case
 
-rel18.0-uc001-declaration-fragments
+[rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -445,6 +445,6 @@ go test ./internal/runtime/core ./internal/support/envexpand ./pkg/profilestage 
 <!-- field: traces -->
 #### Traces
 
-- rel18.0-uc001-declaration-fragments S5
-- srd052-declaration-fragments AC5
-- srd052-declaration-fragments R4.3
+- [rel18.0-uc001-declaration-fragments](../use-cases/rel18.0-uc001-declaration-fragments.md) [S5](../use-cases/rel18.0-uc001-declaration-fragments.md#s5)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [AC5](../software-requirements/srd052-declaration-fragments.md#ac5)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md) [R4.3](../software-requirements/srd052-declaration-fragments.md#r43)

@@ -44,13 +44,13 @@ The demo cluster is running (`mage demo:up`) and the presenter opens the observe
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd008-observer-agent R1.1, R1.2, R1.3, R1.4, R1.5, R1.6 | Kubernetes API discovery of pods, Deployments, and Services with label selector and service-account auth |
-| T2 | srd008-observer-agent R2.1, R2.2, R2.3, R2.4 | monitor endpoint polling and fan-in aggregation |
-| T3 | srd008-observer-agent R3.1, R3.2, R3.3, R3.4, R3.5, R3.6 | fleet UX with auto-refresh, per-agent cards, and topology layout |
-| T4 | srd008-observer-agent R4.1, R4.2, R4.3 | self-monitoring and lifecycle exit |
-| T5 | srd008-observer-agent R5.1, R5.2, R5.3 | namespace-scoped RBAC over pods, Deployments, Services, and pod metrics |
-| T6 | srd008-observer-agent R6.1, R6.2, R6.3 | metrics.k8s.io resource-usage polling with explicit unavailable state |
-| T7 | srd003-chatbot-deployment R5.1, R5.2, R5.3, R5.4, R5.5, R5.6, R5.7, R5.8, R5.9, R5.10, R5.11 | observer deployed as part of the mesh chart |
+| T1 | [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [R1.1](../software-requirements/srd008-observer-agent.md#r11), [R1.2](../software-requirements/srd008-observer-agent.md#r12), [R1.3](../software-requirements/srd008-observer-agent.md#r13), [R1.4](../software-requirements/srd008-observer-agent.md#r14), [R1.5](../software-requirements/srd008-observer-agent.md#r15), [R1.6](../software-requirements/srd008-observer-agent.md#r16) | Kubernetes API discovery of pods, Deployments, and Services with label selector and service-account auth |
+| T2 | [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [R2.1](../software-requirements/srd008-observer-agent.md#r21), [R2.2](../software-requirements/srd008-observer-agent.md#r22), [R2.3](../software-requirements/srd008-observer-agent.md#r23), [R2.4](../software-requirements/srd008-observer-agent.md#r24) | monitor endpoint polling and fan-in aggregation |
+| T3 | [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [R3.1](../software-requirements/srd008-observer-agent.md#r31), [R3.2](../software-requirements/srd008-observer-agent.md#r32), [R3.3](../software-requirements/srd008-observer-agent.md#r33), [R3.4](../software-requirements/srd008-observer-agent.md#r34), [R3.5](../software-requirements/srd008-observer-agent.md#r35), [R3.6](../software-requirements/srd008-observer-agent.md#r36) | fleet UX with auto-refresh, per-agent cards, and topology layout |
+| T4 | [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [R4.1](../software-requirements/srd008-observer-agent.md#r41), [R4.2](../software-requirements/srd008-observer-agent.md#r42), [R4.3](../software-requirements/srd008-observer-agent.md#r43) | self-monitoring and lifecycle exit |
+| T5 | [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [R5.1](../software-requirements/srd008-observer-agent.md#r51), [R5.2](../software-requirements/srd008-observer-agent.md#r52), [R5.3](../software-requirements/srd008-observer-agent.md#r53) | namespace-scoped RBAC over pods, Deployments, Services, and pod metrics |
+| T6 | [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [R6.1](../software-requirements/srd008-observer-agent.md#r61), [R6.2](../software-requirements/srd008-observer-agent.md#r62), [R6.3](../software-requirements/srd008-observer-agent.md#r63) | metrics.k8s.io resource-usage polling with explicit unavailable state |
+| T7 | [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R5.1](../software-requirements/srd003-chatbot-deployment.md#r51), [R5.2](../software-requirements/srd003-chatbot-deployment.md#r52), [R5.3](../software-requirements/srd003-chatbot-deployment.md#r53), [R5.4](../software-requirements/srd003-chatbot-deployment.md#r54), [R5.5](../software-requirements/srd003-chatbot-deployment.md#r55), [R5.6](../software-requirements/srd003-chatbot-deployment.md#r56), [R5.7](../software-requirements/srd003-chatbot-deployment.md#r57), [R5.8](../software-requirements/srd003-chatbot-deployment.md#r58), [R5.9](../software-requirements/srd003-chatbot-deployment.md#r59), [R5.10](../software-requirements/srd003-chatbot-deployment.md#r510), [R5.11](../software-requirements/srd003-chatbot-deployment.md#r511) | observer deployed as part of the mesh chart |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -63,7 +63,7 @@ The observer discovers every mesh agent pod in the release namespace by label se
 <!-- field: traces -->
 #### Traces
 
-- srd008-observer-agent AC1
+- [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [AC1](../software-requirements/srd008-observer-agent.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -73,8 +73,8 @@ The fleet view shows each agent's declared machine, tools, current state, and re
 <!-- field: traces -->
 #### Traces
 
-- srd008-observer-agent AC2
-- srd008-observer-agent AC3
+- [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [AC2](../software-requirements/srd008-observer-agent.md#ac2)
+- [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [AC3](../software-requirements/srd008-observer-agent.md#ac3)
 
 <!-- sc: S3 -->
 ### S3
@@ -84,8 +84,8 @@ During a live chat turn, the fleet view updates to reflect chatbot and RAG serve
 <!-- field: traces -->
 #### Traces
 
-- srd008-observer-agent AC2
-- srd008-observer-agent AC3
+- [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [AC2](../software-requirements/srd008-observer-agent.md#ac2)
+- [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [AC3](../software-requirements/srd008-observer-agent.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -95,7 +95,7 @@ The observer's own monitor surfaces report fleet-level metrics and lifecycle exi
 <!-- field: traces -->
 #### Traces
 
-- srd008-observer-agent AC4
+- [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [AC4](../software-requirements/srd008-observer-agent.md#ac4)
 
 <!-- sc: S5 -->
 ### S5
@@ -105,7 +105,7 @@ The observer's RBAC is namespace-scoped and read-only; it holds no write authori
 <!-- field: traces -->
 #### Traces
 
-- srd008-observer-agent AC5
+- [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [AC5](../software-requirements/srd008-observer-agent.md#ac5)
 
 <!-- sc: S6 -->
 ### S6
@@ -115,7 +115,7 @@ The fleet view's topology matches the running Deployments, Services, and pods wi
 <!-- field: traces -->
 #### Traces
 
-- srd008-observer-agent AC6
+- [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [AC6](../software-requirements/srd008-observer-agent.md#ac6)
 
 <!-- sc: S7 -->
 ### S7
@@ -125,7 +125,7 @@ Each pod card shows CPU and memory from metrics.k8s.io, or an explicit "metrics 
 <!-- field: traces -->
 #### Traces
 
-- srd008-observer-agent AC7
+- [srd008-observer-agent](../software-requirements/srd008-observer-agent.md) [AC7](../software-requirements/srd008-observer-agent.md#ac7)
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios
@@ -147,4 +147,4 @@ Each pod card shows CPU and memory from metrics.k8s.io, or an explicit "metrics 
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel08.0-observer
+[test-rel08.0-observer](../test-suites/test-rel08.0-observer.md)

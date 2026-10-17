@@ -44,12 +44,12 @@ missing parser, checker, artifact collector, or external CLI verb.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd006-yaml-machine-config R3.1, R3.2, R3.3, R3.4, R3.5, R4.1, R4.2, R4.3, R4.4 | MachineSpec composes declared action names and signals |
-| T2 | srd022-builtin-tools R0.1, R0.2, R0.3, R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R1.7, R1.8, R4.1, R4.2, R4.3, R4.4, R4.5, R4.6, R4.7 | builtin declarations follow the authoring standard and integrate with machines |
-| T3 | srd023-cli-exec-tools R0.1, R0.2, R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R1.7, R1.8, R3.1, R3.2, R3.3, R3.4, R3.5, R3.6, R3.7, R3.8, R3.9, R5.1, R5.2, R5.3, R5.4 | exec declarations model one CLI verb with declared side effects |
-| T4 | srd024-blocking-input-tools R0.1, R0.2, R0.3, R2.1, R2.2, R2.3, R2.4, R3.1, R3.2, R3.3, R3.4, R3.5 | boundary/blocking tools declare external input and signals |
-| T5 | srd025-rollback-lifecycle R3.1, R3.2, R3.3, R3.4, R3.5, R7.1, R7.2, R7.3, R8.1, R8.2, R8.3, R8.4 | receipts, opt-in lifecycle behavior, reversibility, and safety behavior |
-| T6 | sm-tool-language | ToolDef, ToolSpec, Command, and MachineSpec relationships |
+| T1 | [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [R3.1](../software-requirements/srd006-yaml-machine-config.md#r31), [R3.2](../software-requirements/srd006-yaml-machine-config.md#r32), [R3.3](../software-requirements/srd006-yaml-machine-config.md#r33), [R3.4](../software-requirements/srd006-yaml-machine-config.md#r34), [R3.5](../software-requirements/srd006-yaml-machine-config.md#r35), [R4.1](../software-requirements/srd006-yaml-machine-config.md#r41), [R4.2](../software-requirements/srd006-yaml-machine-config.md#r42), [R4.3](../software-requirements/srd006-yaml-machine-config.md#r43), [R4.4](../software-requirements/srd006-yaml-machine-config.md#r44) | MachineSpec composes declared action names and signals |
+| T2 | [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md) [R0.1](../software-requirements/srd022-builtin-tools.md#r01), [R0.2](../software-requirements/srd022-builtin-tools.md#r02), [R0.3](../software-requirements/srd022-builtin-tools.md#r03), [R1.1](../software-requirements/srd022-builtin-tools.md#r11), [R1.2](../software-requirements/srd022-builtin-tools.md#r12), [R1.3](../software-requirements/srd022-builtin-tools.md#r13), [R1.4](../software-requirements/srd022-builtin-tools.md#r14), [R1.5](../software-requirements/srd022-builtin-tools.md#r15), [R1.6](../software-requirements/srd022-builtin-tools.md#r16), [R1.7](../software-requirements/srd022-builtin-tools.md#r17), [R1.8](../software-requirements/srd022-builtin-tools.md#r18), [R4.1](../software-requirements/srd022-builtin-tools.md#r41), [R4.2](../software-requirements/srd022-builtin-tools.md#r42), [R4.3](../software-requirements/srd022-builtin-tools.md#r43), [R4.4](../software-requirements/srd022-builtin-tools.md#r44), [R4.5](../software-requirements/srd022-builtin-tools.md#r45), [R4.6](../software-requirements/srd022-builtin-tools.md#r46), [R4.7](../software-requirements/srd022-builtin-tools.md#r47) | builtin declarations follow the authoring standard and integrate with machines |
+| T3 | [srd023-cli-exec-tools](../software-requirements/srd023-cli-exec-tools.md) [R0.1](../software-requirements/srd023-cli-exec-tools.md#r01), [R0.2](../software-requirements/srd023-cli-exec-tools.md#r02), [R1.1](../software-requirements/srd023-cli-exec-tools.md#r11), [R1.2](../software-requirements/srd023-cli-exec-tools.md#r12), [R1.3](../software-requirements/srd023-cli-exec-tools.md#r13), [R1.4](../software-requirements/srd023-cli-exec-tools.md#r14), [R1.5](../software-requirements/srd023-cli-exec-tools.md#r15), [R1.6](../software-requirements/srd023-cli-exec-tools.md#r16), [R1.7](../software-requirements/srd023-cli-exec-tools.md#r17), [R1.8](../software-requirements/srd023-cli-exec-tools.md#r18), [R3.1](../software-requirements/srd023-cli-exec-tools.md#r31), [R3.2](../software-requirements/srd023-cli-exec-tools.md#r32), [R3.3](../software-requirements/srd023-cli-exec-tools.md#r33), [R3.4](../software-requirements/srd023-cli-exec-tools.md#r34), [R3.5](../software-requirements/srd023-cli-exec-tools.md#r35), [R3.6](../software-requirements/srd023-cli-exec-tools.md#r36), [R3.7](../software-requirements/srd023-cli-exec-tools.md#r37), [R3.8](../software-requirements/srd023-cli-exec-tools.md#r38), [R3.9](../software-requirements/srd023-cli-exec-tools.md#r39), [R5.1](../software-requirements/srd023-cli-exec-tools.md#r51), [R5.2](../software-requirements/srd023-cli-exec-tools.md#r52), [R5.3](../software-requirements/srd023-cli-exec-tools.md#r53), [R5.4](../software-requirements/srd023-cli-exec-tools.md#r54) | exec declarations model one CLI verb with declared side effects |
+| T4 | [srd024-blocking-input-tools](../software-requirements/srd024-blocking-input-tools.md) [R0.1](../software-requirements/srd024-blocking-input-tools.md#r01), [R0.2](../software-requirements/srd024-blocking-input-tools.md#r02), [R0.3](../software-requirements/srd024-blocking-input-tools.md#r03), [R2.1](../software-requirements/srd024-blocking-input-tools.md#r21), [R2.2](../software-requirements/srd024-blocking-input-tools.md#r22), [R2.3](../software-requirements/srd024-blocking-input-tools.md#r23), [R2.4](../software-requirements/srd024-blocking-input-tools.md#r24), [R3.1](../software-requirements/srd024-blocking-input-tools.md#r31), [R3.2](../software-requirements/srd024-blocking-input-tools.md#r32), [R3.3](../software-requirements/srd024-blocking-input-tools.md#r33), [R3.4](../software-requirements/srd024-blocking-input-tools.md#r34), [R3.5](../software-requirements/srd024-blocking-input-tools.md#r35) | boundary/blocking tools declare external input and signals |
+| T5 | [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) [R3.1](../software-requirements/srd025-rollback-lifecycle.md#r31), [R3.2](../software-requirements/srd025-rollback-lifecycle.md#r32), [R3.3](../software-requirements/srd025-rollback-lifecycle.md#r33), [R3.4](../software-requirements/srd025-rollback-lifecycle.md#r34), [R3.5](../software-requirements/srd025-rollback-lifecycle.md#r35), [R7.1](../software-requirements/srd025-rollback-lifecycle.md#r71), [R7.2](../software-requirements/srd025-rollback-lifecycle.md#r72), [R7.3](../software-requirements/srd025-rollback-lifecycle.md#r73), [R8.1](../software-requirements/srd025-rollback-lifecycle.md#r81), [R8.2](../software-requirements/srd025-rollback-lifecycle.md#r82), [R8.3](../software-requirements/srd025-rollback-lifecycle.md#r83), [R8.4](../software-requirements/srd025-rollback-lifecycle.md#r84) | receipts, opt-in lifecycle behavior, reversibility, and safety behavior |
+| T6 | [sm-tool-language](../semantic-models/tool-language.md) | ToolDef, ToolSpec, Command, and MachineSpec relationships |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -62,7 +62,7 @@ The tool declaration includes problem, goals, requirements, non_goals, output, s
 <!-- field: traces -->
 #### Traces
 
-- srd022-builtin-tools AC1
+- [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md) [AC1](../software-requirements/srd022-builtin-tools.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -72,7 +72,7 @@ The tool is classified correctly as a word, stateful_internal, boundary, or lega
 <!-- field: traces -->
 #### Traces
 
-- srd023-cli-exec-tools AC5
+- [srd023-cli-exec-tools](../software-requirements/srd023-cli-exec-tools.md) [AC5](../software-requirements/srd023-cli-exec-tools.md#ac5)
 
 <!-- sc: S3 -->
 ### S3
@@ -82,7 +82,7 @@ Irreversible or compensatable side effects are documented and require confirmati
 <!-- field: traces -->
 #### Traces
 
-- srd025-rollback-lifecycle AC6
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) AC6
 
 <!-- sc: S4 -->
 ### S4
@@ -92,7 +92,7 @@ MachineSpec owns sequencing; the new tool implementation does not hide a multi-s
 <!-- field: traces -->
 #### Traces
 
-- srd006-yaml-machine-config AC3
+- [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [AC3](../software-requirements/srd006-yaml-machine-config.md#ac3)
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios
@@ -118,4 +118,4 @@ sm-tool-language
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel02.0-tool-contracts
+[test-rel02.0-tool-contracts](../test-suites/test-rel02.0-tool-contracts.md)

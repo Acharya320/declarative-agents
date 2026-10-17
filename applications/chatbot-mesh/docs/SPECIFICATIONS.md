@@ -96,9 +96,9 @@ Actors assume roles; profile, wrapper, Helm workload, and values-selected instan
 
 | id | title | summary | path |
 | --- | --- | --- | --- |
-| chatbot-mesh-example | Chatbot Mesh: A Copyable Declarative Agent Application | Goals, boundaries, and success criteria for the chatbot mesh. | docs/VISION.md |
-| architecture-chatbot-mesh-example | Chatbot Mesh Architecture | Components, ownership boundaries, deployment, and runtime flows. | docs/ARCHITECTURE.md |
-| chatbot-mesh-example-roadmap | Chatbot Mesh Example Road Map | Release plan and implementation status for the application. | docs/road-map.md |
+| [chatbot-mesh-example](VISION.md) | Chatbot Mesh: A Copyable Declarative Agent Application | Goals, boundaries, and success criteria for the chatbot mesh. | docs/VISION.md |
+| [architecture-chatbot-mesh-example](ARCHITECTURE.md) | Chatbot Mesh Architecture | Components, ownership boundaries, deployment, and runtime flows. | docs/ARCHITECTURE.md |
+| [chatbot-mesh-example-roadmap](road-map.md) | Chatbot Mesh Example Road Map | Release plan and implementation status for the application. | docs/road-map.md |
 | chatbot-mesh-how-it-works | How the Chatbot Mesh Works | Operator and developer guide to the application flow. | docs/guides/how-it-works.md |
 
 <!-- field: srd_index -->
@@ -106,14 +106,14 @@ Actors assume roles; profile, wrapper, Helm workload, and values-selected instan
 
 | id | title | summary | path |
 | --- | --- | --- | --- |
-| srd001-rag-server-agent | RAG Server Agent Functional Block | Persistent vector-in retrieval service behind a machine_request query endpoint. | docs/specs/software-requirements/srd001-rag-server-agent.md |
-| srd002-chatbot-agent | Chatbot Agent Functional Block | Browser-facing agent whose request-scoped turn selects a model tier, fans out to RAG servers, composes, and answers. | docs/specs/software-requirements/srd002-chatbot-agent.md |
-| srd003-chatbot-deployment | Chatbot Mesh Deployment Model | One Helm chart with values-driven RAG pairs, co-generated client config, tiered hot swap, and an in-cluster LLM tier. | docs/specs/software-requirements/srd003-chatbot-deployment.md |
-| srd004-provisioning-workflow-orchestrator | Provisioning Workflow Orchestrator Agent Functional Block | The current provisioning-workflow-orchestrator actor assumes Executor / Workflow Orchestrator, binds a provisioning intent, and sequences ingestion and reconfiguration through the creator; GH-1077 completed its semantic rename. | docs/specs/software-requirements/srd004-provisioning-workflow-orchestrator.md |
-| srd005-creator | Creator Agent Functional Block | Actor assuming Creator / Instance Manager and Agent Owner / Agent Lifecycle Manager that realizes decided operations and alone holds deployment-API authority. | docs/specs/software-requirements/srd005-creator.md |
-| srd006-applier | Applier Agent Functional Block | Executor / Actuation Agent realization that validates a values patch, applies and verifies a rollout, and rolls back, binding helm and kubectl as exec tools. | docs/specs/software-requirements/srd006-applier.md |
-| srd007-collector-agent | Collector Agent Functional Block | Monitor / Telemetry Collector realization composing bounded OTLP receive, deterministic spool, unchanged relay, lifecycle surfaces, and self-loop prevention while contrib retains metrics. | docs/specs/software-requirements/srd007-collector-agent.md |
-| srd008-observer-agent | Observer Agent Functional Block | Monitor / Fleet Observer realization that discovers mesh agents and the deployment topology from the Kubernetes API, polls each agent's monitor surface and per-pod resource usage (metrics.k8s.io), and serves a fleet-level view. | docs/specs/software-requirements/srd008-observer-agent.md |
+| [srd001-rag-server-agent](specs/software-requirements/srd001-rag-server-agent.md) | RAG Server Agent Functional Block | Persistent vector-in retrieval service behind a machine_request query endpoint. | docs/specs/software-requirements/srd001-rag-server-agent.md |
+| [srd002-chatbot-agent](specs/software-requirements/srd002-chatbot-agent.md) | Chatbot Agent Functional Block | Browser-facing agent whose request-scoped turn selects a model tier, fans out to RAG servers, composes, and answers. | docs/specs/software-requirements/srd002-chatbot-agent.md |
+| [srd003-chatbot-deployment](specs/software-requirements/srd003-chatbot-deployment.md) | Chatbot Mesh Deployment Model | One Helm chart with values-driven RAG pairs, co-generated client config, tiered hot swap, and an in-cluster LLM tier. | docs/specs/software-requirements/srd003-chatbot-deployment.md |
+| [srd004-provisioning-workflow-orchestrator](specs/software-requirements/srd004-provisioning-workflow-orchestrator.md) | Provisioning Workflow Orchestrator Agent Functional Block | The current provisioning-workflow-orchestrator actor assumes Executor / Workflow Orchestrator, binds a provisioning intent, and sequences ingestion and reconfiguration through the creator; GH-1077 completed its semantic rename. | docs/specs/software-requirements/srd004-provisioning-workflow-orchestrator.md |
+| [srd005-creator](specs/software-requirements/srd005-creator.md) | Creator Agent Functional Block | Actor assuming Creator / Instance Manager and Agent Owner / Agent Lifecycle Manager that realizes decided operations and alone holds deployment-API authority. | docs/specs/software-requirements/srd005-creator.md |
+| [srd006-applier](specs/software-requirements/srd006-applier.md) | Applier Agent Functional Block | Executor / Actuation Agent realization that validates a values patch, applies and verifies a rollout, and rolls back, binding helm and kubectl as exec tools. | docs/specs/software-requirements/srd006-applier.md |
+| [srd007-collector-agent](specs/software-requirements/srd007-collector-agent.md) | Collector Agent Functional Block | Monitor / Telemetry Collector realization composing bounded OTLP receive, deterministic spool, unchanged relay, lifecycle surfaces, and self-loop prevention while contrib retains metrics. | docs/specs/software-requirements/srd007-collector-agent.md |
+| [srd008-observer-agent](specs/software-requirements/srd008-observer-agent.md) | Observer Agent Functional Block | Monitor / Fleet Observer realization that discovers mesh agents and the deployment topology from the Kubernetes API, polls each agent's monitor surface and per-pod resource usage (metrics.k8s.io), and serves a fleet-level view. | docs/specs/software-requirements/srd008-observer-agent.md |
 
 <!-- field: config_format_index | form: "empty list" -->
 ## Config format index
@@ -132,31 +132,31 @@ None
 
 | id | title | release | status | test_suite | path |
 | --- | --- | --- | --- | --- | --- |
-| rel00.0-uc001-rag-server-query | Persistent RAG Server Answers a Vector-In Query | 00.0 | implemented | test-rel00.0-chatbot-mesh | docs/specs/use-cases/rel00.0-uc001-rag-server-query.md |
-| rel00.0-uc002-chatbot-turn | Chatbot Turn Embeds, Retrieves From One RAG, and Answers | 00.0 | implemented | test-rel00.0-chatbot-mesh | docs/specs/use-cases/rel00.0-uc002-chatbot-turn.md |
-| rel01.0-uc001-routed-fanout | Chatbot Turn Selects Sources and a Model Tier Before Trusted RAG Fan-Out | 01.0 | implemented | test-rel01.0-routing-fanout | docs/specs/use-cases/rel01.0-uc001-routed-fanout.md |
-| rel02.0-uc001-observability | Observability Panel Shows Per-Agent State and a Cross-Agent Trace Waterfall | 02.0 | implemented | test-rel02.0-observability | docs/specs/use-cases/rel02.0-uc001-observability.md |
-| rel03.0-uc001-mesh-deployment | Helm Chart Deploys the Mesh and Hot-Swaps a RAG Source | 03.0 | implemented | test-rel03.0-mesh-deployment | docs/specs/use-cases/rel03.0-uc001-mesh-deployment.md |
-| rel04.0-uc001-in-cluster-llm-tier | A Fresh-Cluster Install Answers a Turn With No External LLM Dependency | 04.0 | implemented | test-rel04.0-llm-tier | docs/specs/use-cases/rel04.0-uc001-in-cluster-llm-tier.md |
-| rel05.0-uc001-control-plane-provisioning | A Provisioning Intent Flows Chatbot to Provisioning Workflow Orchestrator to Creator and Serves | 05.0 | partial | test-rel05.0-control-plane | docs/specs/use-cases/rel05.0-uc001-control-plane-provisioning.md |
-| rel06.0-uc001-declarative-applier | The Applier Agent Realizes the Deployment API and Rolls Out a Values Change | 06.0 | implemented | test-rel06.0-applier | docs/specs/use-cases/rel06.0-uc001-declarative-applier.md |
-| rel07.0-uc001-collector-ingress | The collector agent retains and relays an attributable trace batch | 07.0 | partial | test-rel07.0-collector | docs/specs/use-cases/rel07.0-uc001-collector-ingress.md |
-| rel08.0-uc001-mesh-observer | The observer agent discovers the mesh and shows a fleet view | 08.0 | implemented | test-rel08.0-observer | docs/specs/use-cases/rel08.0-uc001-mesh-observer.md |
+| [rel00.0-uc001-rag-server-query](specs/use-cases/rel00.0-uc001-rag-server-query.md) | Persistent RAG Server Answers a Vector-In Query | 00.0 | implemented | [test-rel00.0-chatbot-mesh](specs/test-suites/test-rel00.0-chatbot-mesh.md) | docs/specs/use-cases/rel00.0-uc001-rag-server-query.md |
+| [rel00.0-uc002-chatbot-turn](specs/use-cases/rel00.0-uc002-chatbot-turn.md) | Chatbot Turn Embeds, Retrieves From One RAG, and Answers | 00.0 | implemented | [test-rel00.0-chatbot-mesh](specs/test-suites/test-rel00.0-chatbot-mesh.md) | docs/specs/use-cases/rel00.0-uc002-chatbot-turn.md |
+| [rel01.0-uc001-routed-fanout](specs/use-cases/rel01.0-uc001-routed-fanout.md) | Chatbot Turn Selects Sources and a Model Tier Before Trusted RAG Fan-Out | 01.0 | implemented | [test-rel01.0-routing-fanout](specs/test-suites/test-rel01.0-routing-fanout.md) | docs/specs/use-cases/rel01.0-uc001-routed-fanout.md |
+| [rel02.0-uc001-observability](specs/use-cases/rel02.0-uc001-observability.md) | Observability Panel Shows Per-Agent State and a Cross-Agent Trace Waterfall | 02.0 | implemented | [test-rel02.0-observability](specs/test-suites/test-rel02.0-observability.md) | docs/specs/use-cases/rel02.0-uc001-observability.md |
+| [rel03.0-uc001-mesh-deployment](specs/use-cases/rel03.0-uc001-mesh-deployment.md) | Helm Chart Deploys the Mesh and Hot-Swaps a RAG Source | 03.0 | implemented | [test-rel03.0-mesh-deployment](specs/test-suites/test-rel03.0-mesh-deployment.md) | docs/specs/use-cases/rel03.0-uc001-mesh-deployment.md |
+| [rel04.0-uc001-in-cluster-llm-tier](specs/use-cases/rel04.0-uc001-in-cluster-llm-tier.md) | A Fresh-Cluster Install Answers a Turn With No External LLM Dependency | 04.0 | implemented | [test-rel04.0-llm-tier](specs/test-suites/test-rel04.0-llm-tier.md) | docs/specs/use-cases/rel04.0-uc001-in-cluster-llm-tier.md |
+| [rel05.0-uc001-control-plane-provisioning](specs/use-cases/rel05.0-uc001-control-plane-provisioning.md) | A Provisioning Intent Flows Chatbot to Provisioning Workflow Orchestrator to Creator and Serves | 05.0 | partial | [test-rel05.0-control-plane](specs/test-suites/test-rel05.0-control-plane.md) | docs/specs/use-cases/rel05.0-uc001-control-plane-provisioning.md |
+| [rel06.0-uc001-declarative-applier](specs/use-cases/rel06.0-uc001-declarative-applier.md) | The Applier Agent Realizes the Deployment API and Rolls Out a Values Change | 06.0 | implemented | [test-rel06.0-applier](specs/test-suites/test-rel06.0-applier.md) | docs/specs/use-cases/rel06.0-uc001-declarative-applier.md |
+| [rel07.0-uc001-collector-ingress](specs/use-cases/rel07.0-uc001-collector-ingress.md) | The collector agent retains and relays an attributable trace batch | 07.0 | partial | [test-rel07.0-collector](specs/test-suites/test-rel07.0-collector.md) | docs/specs/use-cases/rel07.0-uc001-collector-ingress.md |
+| [rel08.0-uc001-mesh-observer](specs/use-cases/rel08.0-uc001-mesh-observer.md) | The observer agent discovers the mesh and shows a fleet view | 08.0 | implemented | [test-rel08.0-observer](specs/test-suites/test-rel08.0-observer.md) | docs/specs/use-cases/rel08.0-uc001-mesh-observer.md |
 
 <!-- field: test_suite_index | form: "typed table" -->
 ## Test suite index
 
 | id | title | release | traces | path |
 | --- | --- | --- | --- | --- |
-| test-rel00.0-chatbot-mesh | Test Suite for Release 00.0 RAG Server and Single-RAG Chatbot Turn | "00.0" | [rel00.0-uc001-rag-server-query, rel00.0-uc002-chatbot-turn] | docs/specs/test-suites/test-rel00.0-chatbot-mesh.md |
-| test-rel01.0-routing-fanout | Test Suite for Release 01.0 Source Routing, Tier Selection, and Multi-RAG Fan-Out | "01.0" | [rel01.0-uc001-routed-fanout] | docs/specs/test-suites/test-rel01.0-routing-fanout.md |
-| test-rel02.0-observability | Test Suite for Release 02.0 Observability | "02.0" | [rel02.0-uc001-observability] | docs/specs/test-suites/test-rel02.0-observability.md |
-| test-rel03.0-mesh-deployment | Test Suite for Release 03.0 Mesh Deployment and Tiered Swap | "03.0" | [rel03.0-uc001-mesh-deployment] | docs/specs/test-suites/test-rel03.0-mesh-deployment.md |
-| test-rel04.0-llm-tier | Test Suite for Release 04.0 In-Cluster LLM Tier | "04.0" | [rel04.0-uc001-in-cluster-llm-tier] | docs/specs/test-suites/test-rel04.0-llm-tier.md |
-| test-rel05.0-control-plane | Test Suite for Release 05.0 Control Plane | "05.0" | [rel05.0-uc001-control-plane-provisioning] | docs/specs/test-suites/test-rel05.0-control-plane.md |
-| test-rel06.0-applier | Test Suite for Release 06.0 Declarative Applier Agent | "06.0" | [rel06.0-uc001-declarative-applier] | docs/specs/test-suites/test-rel06.0-applier.md |
-| test-rel07.0-collector | Test Suite for Release 07.0 Collector Agent | "07.0" | [rel07.0-uc001-collector-ingress] | docs/specs/test-suites/test-rel07.0-collector.md |
-| test-rel08.0-observer | Test Suite for Release 08.0 Observer Agent | "08.0" | [rel08.0-uc001-mesh-observer] | docs/specs/test-suites/test-rel08.0-observer.md |
+| [test-rel00.0-chatbot-mesh](specs/test-suites/test-rel00.0-chatbot-mesh.md) | Test Suite for Release 00.0 RAG Server and Single-RAG Chatbot Turn | "00.0" | [[rel00.0-uc001-rag-server-query](specs/use-cases/rel00.0-uc001-rag-server-query.md), [rel00.0-uc002-chatbot-turn](specs/use-cases/rel00.0-uc002-chatbot-turn.md)] | docs/specs/test-suites/test-rel00.0-chatbot-mesh.md |
+| [test-rel01.0-routing-fanout](specs/test-suites/test-rel01.0-routing-fanout.md) | Test Suite for Release 01.0 Source Routing, Tier Selection, and Multi-RAG Fan-Out | "01.0" | [[rel01.0-uc001-routed-fanout](specs/use-cases/rel01.0-uc001-routed-fanout.md)] | docs/specs/test-suites/test-rel01.0-routing-fanout.md |
+| [test-rel02.0-observability](specs/test-suites/test-rel02.0-observability.md) | Test Suite for Release 02.0 Observability | "02.0" | [[rel02.0-uc001-observability](specs/use-cases/rel02.0-uc001-observability.md)] | docs/specs/test-suites/test-rel02.0-observability.md |
+| [test-rel03.0-mesh-deployment](specs/test-suites/test-rel03.0-mesh-deployment.md) | Test Suite for Release 03.0 Mesh Deployment and Tiered Swap | "03.0" | [[rel03.0-uc001-mesh-deployment](specs/use-cases/rel03.0-uc001-mesh-deployment.md)] | docs/specs/test-suites/test-rel03.0-mesh-deployment.md |
+| [test-rel04.0-llm-tier](specs/test-suites/test-rel04.0-llm-tier.md) | Test Suite for Release 04.0 In-Cluster LLM Tier | "04.0" | [[rel04.0-uc001-in-cluster-llm-tier](specs/use-cases/rel04.0-uc001-in-cluster-llm-tier.md)] | docs/specs/test-suites/test-rel04.0-llm-tier.md |
+| [test-rel05.0-control-plane](specs/test-suites/test-rel05.0-control-plane.md) | Test Suite for Release 05.0 Control Plane | "05.0" | [[rel05.0-uc001-control-plane-provisioning](specs/use-cases/rel05.0-uc001-control-plane-provisioning.md)] | docs/specs/test-suites/test-rel05.0-control-plane.md |
+| [test-rel06.0-applier](specs/test-suites/test-rel06.0-applier.md) | Test Suite for Release 06.0 Declarative Applier Agent | "06.0" | [[rel06.0-uc001-declarative-applier](specs/use-cases/rel06.0-uc001-declarative-applier.md)] | docs/specs/test-suites/test-rel06.0-applier.md |
+| [test-rel07.0-collector](specs/test-suites/test-rel07.0-collector.md) | Test Suite for Release 07.0 Collector Agent | "07.0" | [[rel07.0-uc001-collector-ingress](specs/use-cases/rel07.0-uc001-collector-ingress.md)] | docs/specs/test-suites/test-rel07.0-collector.md |
+| [test-rel08.0-observer](specs/test-suites/test-rel08.0-observer.md) | Test Suite for Release 08.0 Observer Agent | "08.0" | [[rel08.0-uc001-mesh-observer](specs/use-cases/rel08.0-uc001-mesh-observer.md)] | docs/specs/test-suites/test-rel08.0-observer.md |
 
 <!-- field: coverage_gaps -->
 ## Coverage gaps

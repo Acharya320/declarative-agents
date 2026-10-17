@@ -46,12 +46,12 @@ after a run whose persistence used the default Dolt checkpoint backend.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd035-checkpoint-port R1.1, R1.2, R1.3, R1.4, R1.5, R3.1, R3.2, R3.3, R3.4, R3.5, R3.6, R3.7, R3.8, R3.9, R3.10 | checkpoint port Save/Load and the opaque receipt on each entry |
-| T2 | srd036-dolt-state-persistence R4.1, R4.2, R4.3, R4.4, R4.5, R4.6, R6.1, R6.2, R6.3, R6.4, R6.5, R6.6 | commit-per-step, branch-per-run, and git-style Revert |
-| T3 | srd025-rollback-lifecycle R2.1, R2.2, R2.3, R2.4, R3.1, R3.2, R3.3, R3.4, R3.5, R4.1, R4.2, R4.3, R4.4, R4.5, R4.6 | execution history, receipt-driven reversibility, and two-part rollback |
-| T4 | sm-rollback-lifecycle | Dolt commit history plus receipts as the reverse edges for external effects |
-| T5 | sm-command-undo-audit | receipt-consuming Undo inventory across commands |
-| T6 | srd026-lifecycle-tools R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R2.7, R2.8, R2.9, R3.1, R3.2, R3.3, R3.4, R3.5, R3.6, R3.7, R3.8, R3.9, R3.10, R3.11, R3.12 | checkpoint_history and checkpoint_rollback adapters |
+| T1 | [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [R1.1](../software-requirements/srd035-checkpoint-port.md#r11), [R1.2](../software-requirements/srd035-checkpoint-port.md#r12), [R1.3](../software-requirements/srd035-checkpoint-port.md#r13), [R1.4](../software-requirements/srd035-checkpoint-port.md#r14), [R1.5](../software-requirements/srd035-checkpoint-port.md#r15), [R3.1](../software-requirements/srd035-checkpoint-port.md#r31), [R3.2](../software-requirements/srd035-checkpoint-port.md#r32), [R3.3](../software-requirements/srd035-checkpoint-port.md#r33), [R3.4](../software-requirements/srd035-checkpoint-port.md#r34), [R3.5](../software-requirements/srd035-checkpoint-port.md#r35), [R3.6](../software-requirements/srd035-checkpoint-port.md#r36), [R3.7](../software-requirements/srd035-checkpoint-port.md#r37), [R3.8](../software-requirements/srd035-checkpoint-port.md#r38), [R3.9](../software-requirements/srd035-checkpoint-port.md#r39), [R3.10](../software-requirements/srd035-checkpoint-port.md#r310) | checkpoint port Save/Load and the opaque receipt on each entry |
+| T2 | [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [R4.1](../software-requirements/srd036-dolt-state-persistence.md#r41), [R4.2](../software-requirements/srd036-dolt-state-persistence.md#r42), [R4.3](../software-requirements/srd036-dolt-state-persistence.md#r43), [R4.4](../software-requirements/srd036-dolt-state-persistence.md#r44), [R4.5](../software-requirements/srd036-dolt-state-persistence.md#r45), [R4.6](../software-requirements/srd036-dolt-state-persistence.md#r46), [R6.1](../software-requirements/srd036-dolt-state-persistence.md#r61), [R6.2](../software-requirements/srd036-dolt-state-persistence.md#r62), [R6.3](../software-requirements/srd036-dolt-state-persistence.md#r63), [R6.4](../software-requirements/srd036-dolt-state-persistence.md#r64), [R6.5](../software-requirements/srd036-dolt-state-persistence.md#r65), [R6.6](../software-requirements/srd036-dolt-state-persistence.md#r66) | commit-per-step, branch-per-run, and git-style Revert |
+| T3 | [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) [R2.1](../software-requirements/srd025-rollback-lifecycle.md#r21), [R2.2](../software-requirements/srd025-rollback-lifecycle.md#r22), [R2.3](../software-requirements/srd025-rollback-lifecycle.md#r23), [R2.4](../software-requirements/srd025-rollback-lifecycle.md#r24), [R3.1](../software-requirements/srd025-rollback-lifecycle.md#r31), [R3.2](../software-requirements/srd025-rollback-lifecycle.md#r32), [R3.3](../software-requirements/srd025-rollback-lifecycle.md#r33), [R3.4](../software-requirements/srd025-rollback-lifecycle.md#r34), [R3.5](../software-requirements/srd025-rollback-lifecycle.md#r35), [R4.1](../software-requirements/srd025-rollback-lifecycle.md#r41), [R4.2](../software-requirements/srd025-rollback-lifecycle.md#r42), [R4.3](../software-requirements/srd025-rollback-lifecycle.md#r43), [R4.4](../software-requirements/srd025-rollback-lifecycle.md#r44), [R4.5](../software-requirements/srd025-rollback-lifecycle.md#r45), [R4.6](../software-requirements/srd025-rollback-lifecycle.md#r46) | execution history, receipt-driven reversibility, and two-part rollback |
+| T4 | [sm-rollback-lifecycle](../semantic-models/rollback-lifecycle.md) | Dolt commit history plus receipts as the reverse edges for external effects |
+| T5 | [sm-command-undo-audit](../semantic-models/command-undo-audit.md) | receipt-consuming Undo inventory across commands |
+| T6 | [srd026-lifecycle-tools](../software-requirements/srd026-lifecycle-tools.md) [R2.1](../software-requirements/srd026-lifecycle-tools.md#r21), [R2.2](../software-requirements/srd026-lifecycle-tools.md#r22), [R2.3](../software-requirements/srd026-lifecycle-tools.md#r23), [R2.4](../software-requirements/srd026-lifecycle-tools.md#r24), [R2.5](../software-requirements/srd026-lifecycle-tools.md#r25), [R2.6](../software-requirements/srd026-lifecycle-tools.md#r26), [R2.7](../software-requirements/srd026-lifecycle-tools.md#r27), [R2.8](../software-requirements/srd026-lifecycle-tools.md#r28), [R2.9](../software-requirements/srd026-lifecycle-tools.md#r29), [R3.1](../software-requirements/srd026-lifecycle-tools.md#r31), [R3.2](../software-requirements/srd026-lifecycle-tools.md#r32), [R3.3](../software-requirements/srd026-lifecycle-tools.md#r33), [R3.4](../software-requirements/srd026-lifecycle-tools.md#r34), [R3.5](../software-requirements/srd026-lifecycle-tools.md#r35), [R3.6](../software-requirements/srd026-lifecycle-tools.md#r36), [R3.7](../software-requirements/srd026-lifecycle-tools.md#r37), [R3.8](../software-requirements/srd026-lifecycle-tools.md#r38), [R3.9](../software-requirements/srd026-lifecycle-tools.md#r39), [R3.10](../software-requirements/srd026-lifecycle-tools.md#r310), [R3.11](../software-requirements/srd026-lifecycle-tools.md#r311), [R3.12](../software-requirements/srd026-lifecycle-tools.md#r312) | checkpoint_history and checkpoint_rollback adapters |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -64,8 +64,8 @@ Dolt commit history exposes enough per step (step index, command, signal, receip
 <!-- field: traces -->
 #### Traces
 
-- srd025-rollback-lifecycle AC2
-- srd026-lifecycle-tools AC2
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) [AC2](../software-requirements/srd025-rollback-lifecycle.md#ac2)
+- [srd026-lifecycle-tools](../software-requirements/srd026-lifecycle-tools.md) [AC2](../software-requirements/srd026-lifecycle-tools.md#ac2)
 
 <!-- sc: S2 -->
 ### S2
@@ -75,8 +75,8 @@ Rollback rewinds DB-persisted state (Position, Execution, conversation) with the
 <!-- field: traces -->
 #### Traces
 
-- srd036-dolt-state-persistence AC6
-- srd025-rollback-lifecycle AC4
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC6](../software-requirements/srd036-dolt-state-persistence.md#ac6)
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) [AC4](../software-requirements/srd025-rollback-lifecycle.md#ac4)
 
 <!-- sc: S3 -->
 ### S3
@@ -86,8 +86,8 @@ A rolled-back file write leaves the file at its prior content, restored by a fre
 <!-- field: traces -->
 #### Traces
 
-- srd025-rollback-lifecycle AC4
-- srd035-checkpoint-port AC3
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) [AC4](../software-requirements/srd025-rollback-lifecycle.md#ac4)
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md) [AC3](../software-requirements/srd035-checkpoint-port.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -97,8 +97,8 @@ Irreversible entries are skipped and named, and partial failures identify which 
 <!-- field: traces -->
 #### Traces
 
-- srd025-rollback-lifecycle AC4
-- srd026-lifecycle-tools AC3
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) [AC4](../software-requirements/srd025-rollback-lifecycle.md#ac4)
+- [srd026-lifecycle-tools](../software-requirements/srd026-lifecycle-tools.md) [AC3](../software-requirements/srd026-lifecycle-tools.md#ac3)
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios
@@ -125,4 +125,4 @@ sm-rollback-lifecycle
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel02.0-lifecycle
+[test-rel02.0-lifecycle](../test-suites/test-rel02.0-lifecycle.md)

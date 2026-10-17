@@ -310,15 +310,15 @@ MachineSpec has name, initial_state, states, terminal_states, signals, transitio
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.4
-- R1.5
-- R1.6
-- R1.7
-- R1.8
-- R1.9
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R1.5](#r15)
+- [R1.6](#r16)
+- [R1.7](#r17)
+- [R1.8](#r18)
+- [R1.9](#r19)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -328,17 +328,17 @@ Validation checks referential integrity for initial_state, terminal_states, tran
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
-- R2.5
-- R2.6
-- R2.7
-- R2.8
-- R2.9
-- R2.10
-- R2.11
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
+- [R2.5](#r25)
+- [R2.6](#r26)
+- [R2.7](#r27)
+- [R2.8](#r28)
+- [R2.9](#r29)
+- [R2.10](#r210)
+- [R2.11](#r211)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -348,11 +348,11 @@ BuildTransitionTable resolves named actions from Registry, uses toolAction for "
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
-- R3.4
-- R3.5
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R3.4](#r34)
+- [R3.5](#r35)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -362,10 +362,10 @@ LoadMachineSpec reads and parses YAML files, splicing any stage fragments the ma
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
-- R4.4
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R4.4](#r44)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -375,15 +375,15 @@ A trusted command-state array drives sequential or positively bounded parallel n
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
-- R5.4
-- R5.5
-- R5.6
-- R5.7
-- R5.8
-- R5.9
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
+- [R5.5](#r55)
+- [R5.6](#r56)
+- [R5.7](#r57)
+- [R5.8](#r58)
+- [R5.9](#r59)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -393,16 +393,16 @@ Every shipped machine declares a finite command timeout strictly above each clos
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
-- R6.3
-- R6.4
-- R6.5
-- R6.6
-- R6.7
-- R6.8
-- R6.9
-- R6.10
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
+- [R6.4](#r64)
+- [R6.5](#r65)
+- [R6.6](#r66)
+- [R6.7](#r67)
+- [R6.8](#r68)
+- [R6.9](#r69)
+- [R6.10](#r610)
 
 <!-- field: diagrams -->
 ## Diagrams

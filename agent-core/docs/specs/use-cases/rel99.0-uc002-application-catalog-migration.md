@@ -50,11 +50,11 @@ is indexed.
 | id | target | reason |
 | --- | --- | --- |
 | T1 | srd043-application-catalog-layout R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R1.7 and R2.1, R2.2, R2.3, R2.4, R2.5, R2.6 | source layout, ownership, and tool/agent block boundaries |
-| T2 | srd043-application-catalog-layout R3.1, R3.2, R3.3, R3.4, R3.5, R3.6 | owner-root execution and CWD-independent resolution |
-| T3 | srd043-application-catalog-layout R4.1, R4.2, R4.3, R4.4, R4.5, R4.6, R4.7 | AGENT_CATALOG_ROOT and temporary AGENT_PROFILES_ROOT alias |
-| T4 | srd043-application-catalog-layout R5.1, R5.2, R5.3, R5.4, R5.5, R5.6 | source, module, package, and mount path distinctions |
-| T5 | srd043-application-catalog-layout R6.1, R6.2, R6.3, R6.4, R6.5, R6.6 | applications/catalog/v0.* and agent-profiles/v0.* compatibility |
-| T6 | srd043-application-catalog-layout R7.1, R7.2, R7.3, R7.4, R7.5, R7.6 | approved migration order and owner-root release gates |
+| T2 | [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [R3.1](../software-requirements/srd043-application-catalog-layout.md#r31), [R3.2](../software-requirements/srd043-application-catalog-layout.md#r32), [R3.3](../software-requirements/srd043-application-catalog-layout.md#r33), [R3.4](../software-requirements/srd043-application-catalog-layout.md#r34), [R3.5](../software-requirements/srd043-application-catalog-layout.md#r35), [R3.6](../software-requirements/srd043-application-catalog-layout.md#r36) | owner-root execution and CWD-independent resolution |
+| T3 | [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [R4.1](../software-requirements/srd043-application-catalog-layout.md#r41), [R4.2](../software-requirements/srd043-application-catalog-layout.md#r42), [R4.3](../software-requirements/srd043-application-catalog-layout.md#r43), [R4.4](../software-requirements/srd043-application-catalog-layout.md#r44), [R4.5](../software-requirements/srd043-application-catalog-layout.md#r45), [R4.6](../software-requirements/srd043-application-catalog-layout.md#r46), [R4.7](../software-requirements/srd043-application-catalog-layout.md#r47) | AGENT_CATALOG_ROOT and temporary AGENT_PROFILES_ROOT alias |
+| T4 | [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [R5.1](../software-requirements/srd043-application-catalog-layout.md#r51), [R5.2](../software-requirements/srd043-application-catalog-layout.md#r52), [R5.3](../software-requirements/srd043-application-catalog-layout.md#r53), [R5.4](../software-requirements/srd043-application-catalog-layout.md#r54), [R5.5](../software-requirements/srd043-application-catalog-layout.md#r55), [R5.6](../software-requirements/srd043-application-catalog-layout.md#r56) | source, module, package, and mount path distinctions |
+| T5 | [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [R6.1](../software-requirements/srd043-application-catalog-layout.md#r61), [R6.2](../software-requirements/srd043-application-catalog-layout.md#r62), [R6.3](../software-requirements/srd043-application-catalog-layout.md#r63), [R6.4](../software-requirements/srd043-application-catalog-layout.md#r64), [R6.5](../software-requirements/srd043-application-catalog-layout.md#r65), [R6.6](../software-requirements/srd043-application-catalog-layout.md#r66) | applications/catalog/v0.* and agent-profiles/v0.* compatibility |
+| T6 | [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [R7.1](../software-requirements/srd043-application-catalog-layout.md#r71), [R7.2](../software-requirements/srd043-application-catalog-layout.md#r72), [R7.3](../software-requirements/srd043-application-catalog-layout.md#r73), [R7.4](../software-requirements/srd043-application-catalog-layout.md#r74), [R7.5](../software-requirements/srd043-application-catalog-layout.md#r75), [R7.6](../software-requirements/srd043-application-catalog-layout.md#r76) | approved migration order and owner-root release gates |
 | T7 | agent-core/testdata/integration | sole source of core integration profiles |
 | T8 | applications/catalog | reusable repository-specific tool and agent blocks |
 | T9 | applications/coding-agent and applications/chatbot-mesh | application-owned composition and end-to-end proof |
@@ -75,7 +75,7 @@ Active source ownership is visible under agent-core and applications/{catalog,co
 <!-- field: traces -->
 #### Traces
 
-- srd043-application-catalog-layout AC1
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC1](../software-requirements/srd043-application-catalog-layout.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -85,7 +85,7 @@ Core tests and integrations use agent-core/testdata/integration and pass without
 <!-- field: traces -->
 #### Traces
 
-- srd043-application-catalog-layout AC3
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC3](../software-requirements/srd043-application-catalog-layout.md#ac3)
 
 <!-- sc: S3 -->
 ### S3
@@ -95,7 +95,7 @@ Root, core, catalog, and application commands execute from their owner roots wit
 <!-- field: traces -->
 #### Traces
 
-- srd043-application-catalog-layout AC2
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC2](../software-requirements/srd043-application-catalog-layout.md#ac2)
 
 <!-- sc: S4 -->
 ### S4
@@ -105,7 +105,7 @@ AGENT_CATALOG_ROOT is canonical and legacy alias, conflict, discovery, missing-r
 <!-- field: traces -->
 #### Traces
 
-- srd043-application-catalog-layout AC4
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC4](../software-requirements/srd043-application-catalog-layout.md#ac4)
 
 <!-- sc: S5 -->
 ### S5
@@ -115,7 +115,7 @@ Source and Go module paths use applications/ while packaged closures still mount
 <!-- field: traces -->
 #### Traces
 
-- srd043-application-catalog-layout AC5
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC5](../software-requirements/srd043-application-catalog-layout.md#ac5)
 
 <!-- sc: S6 -->
 ### S6
@@ -125,7 +125,7 @@ Canonical and compatibility v0 tags resolve the same release commit and package 
 <!-- field: traces -->
 #### Traces
 
-- srd043-application-catalog-layout AC6
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC6](../software-requirements/srd043-application-catalog-layout.md#ac6)
 
 <!-- sc: S7 -->
 ### S7
@@ -135,8 +135,8 @@ All fourteen GH-1036 child issues have one formal test case and execute in the a
 <!-- field: traces -->
 #### Traces
 
-- srd043-application-catalog-layout AC7
-- srd043-application-catalog-layout AC8
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC7](../software-requirements/srd043-application-catalog-layout.md#ac7)
+- [srd043-application-catalog-layout](../software-requirements/srd043-application-catalog-layout.md) [AC8](../software-requirements/srd043-application-catalog-layout.md#ac8)
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios

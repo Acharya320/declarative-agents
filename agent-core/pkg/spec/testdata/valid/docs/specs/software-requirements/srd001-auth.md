@@ -57,9 +57,9 @@ Login returns a token for valid credentials.
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -69,4 +69,4 @@ Logout invalidates the session.
 <!-- field: traces -->
 #### Traces
 
-- R2.1
+- [R2.1](#r21)

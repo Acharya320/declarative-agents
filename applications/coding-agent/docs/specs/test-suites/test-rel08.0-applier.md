@@ -24,7 +24,7 @@ creator, orchestrator, or panel hop appears in this suite.
 <!-- field: traces -->
 ## Traces
 
-- rel08.0-uc001-declarative-applier
+- [rel08.0-uc001-declarative-applier](../use-cases/rel08.0-uc001-declarative-applier.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -59,7 +59,7 @@ against real helm, and the live kind target supplies the on-cluster evidence.
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-declarative-applier
+[rel08.0-uc001-declarative-applier](../use-cases/rel08.0-uc001-declarative-applier.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -87,15 +87,15 @@ mage integration:applier
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-declarative-applier S1
-- rel08.0-uc001-declarative-applier S2
-- rel08.0-uc001-declarative-applier S3
-- rel08.0-uc001-declarative-applier S4
-- rel08.0-uc001-declarative-applier S5
-- srd006-applier AC1
-- srd006-applier AC2
-- srd006-applier AC3
-- srd006-applier AC4
+- [rel08.0-uc001-declarative-applier](../use-cases/rel08.0-uc001-declarative-applier.md) [S1](../use-cases/rel08.0-uc001-declarative-applier.md#s1)
+- [rel08.0-uc001-declarative-applier](../use-cases/rel08.0-uc001-declarative-applier.md) [S2](../use-cases/rel08.0-uc001-declarative-applier.md#s2)
+- [rel08.0-uc001-declarative-applier](../use-cases/rel08.0-uc001-declarative-applier.md) [S3](../use-cases/rel08.0-uc001-declarative-applier.md#s3)
+- [rel08.0-uc001-declarative-applier](../use-cases/rel08.0-uc001-declarative-applier.md) [S4](../use-cases/rel08.0-uc001-declarative-applier.md#s4)
+- [rel08.0-uc001-declarative-applier](../use-cases/rel08.0-uc001-declarative-applier.md) [S5](../use-cases/rel08.0-uc001-declarative-applier.md#s5)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC1](../software-requirements/srd006-applier.md#ac1)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC2](../software-requirements/srd006-applier.md#ac2)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC3](../software-requirements/srd006-applier.md#ac3)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC4](../software-requirements/srd006-applier.md#ac4)
 
 <!-- case: The coding chart schema rejects a non-conforming values patch | status: implemented -->
 ### The coding chart schema rejects a non-conforming values patch
@@ -114,7 +114,7 @@ the schema reads as the guard being removed rather than as a broken fixture.
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-declarative-applier
+[rel08.0-uc001-declarative-applier](../use-cases/rel08.0-uc001-declarative-applier.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -137,9 +137,9 @@ mage test (coding chart values.schema.json against real helm)
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-declarative-applier S2
-- srd004-helm-package-validation R1
-- srd006-applier AC2
+- [rel08.0-uc001-declarative-applier](../use-cases/rel08.0-uc001-declarative-applier.md) [S2](../use-cases/rel08.0-uc001-declarative-applier.md#s2)
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R1](../software-requirements/srd004-helm-package-validation.md#r1---strict-values)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC2](../software-requirements/srd006-applier.md#ac2)
 
 <!-- case: The applier holds the deployment CLIs and the serving roles do not | status: implemented -->
 ### The applier holds the deployment CLIs and the serving roles do not
@@ -154,7 +154,7 @@ collector pods, so route and NetworkPolicy agree on one authority path.
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-declarative-applier
+[rel08.0-uc001-declarative-applier](../use-cases/rel08.0-uc001-declarative-applier.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -177,9 +177,9 @@ mage test (rendered chart and role profiles)
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-declarative-applier S6
-- srd006-applier AC4
-- srd006-applier AC5
+- [rel08.0-uc001-declarative-applier](../use-cases/rel08.0-uc001-declarative-applier.md) [S6](../use-cases/rel08.0-uc001-declarative-applier.md#s6)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC4](../software-requirements/srd006-applier.md#ac4)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC5](../software-requirements/srd006-applier.md#ac5)
 
 <!-- case: A broken rollout read is distinguishable from a progressing one | status: implemented -->
 ### A broken rollout read is distinguishable from a progressing one
@@ -195,7 +195,7 @@ error rather than a phase.
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-declarative-applier
+[rel08.0-uc001-declarative-applier](../use-cases/rel08.0-uc001-declarative-applier.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -216,8 +216,8 @@ mage test (applier rollout machine)
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-declarative-applier S7
-- srd006-applier AC3
+- [rel08.0-uc001-declarative-applier](../use-cases/rel08.0-uc001-declarative-applier.md) [S7](../use-cases/rel08.0-uc001-declarative-applier.md#s7)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC3](../software-requirements/srd006-applier.md#ac3)
 
 <!-- case: A live on-cluster rollout and rollback through the applier | status: implemented -->
 ### A live on-cluster rollout and rollback through the applier
@@ -241,7 +241,7 @@ Kubernetes API or pod-network loss apart from the semantic proof.
 <!-- field: use_case -->
 #### Use case
 
-rel08.0-uc001-declarative-applier
+[rel08.0-uc001-declarative-applier](../use-cases/rel08.0-uc001-declarative-applier.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -268,7 +268,7 @@ mage integration:applierLive
 <!-- field: traces -->
 #### Traces
 
-- rel08.0-uc001-declarative-applier S3
-- rel08.0-uc001-declarative-applier S4
-- srd005-live-helm-smoke R3
-- srd006-applier AC3
+- [rel08.0-uc001-declarative-applier](../use-cases/rel08.0-uc001-declarative-applier.md) [S3](../use-cases/rel08.0-uc001-declarative-applier.md#s3)
+- [rel08.0-uc001-declarative-applier](../use-cases/rel08.0-uc001-declarative-applier.md) [S4](../use-cases/rel08.0-uc001-declarative-applier.md#s4)
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R3](../software-requirements/srd005-live-helm-smoke.md#r3---end-to-end-evidence)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC3](../software-requirements/srd006-applier.md#ac3)

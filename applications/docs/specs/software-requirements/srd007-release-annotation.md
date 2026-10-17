@@ -170,9 +170,9 @@ refused with their own named reason.
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R2.1
-- R2.2
+- [R1.1](#r11)
+- [R2.1](#r21)
+- [R2.2](#r22)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -183,7 +183,7 @@ named failure rather than a pass.
 <!-- field: traces -->
 #### Traces
 
-- R3.1
+- [R3.1](#r31)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -193,7 +193,7 @@ A run changes no ref and no file, whether it passes or refuses.
 <!-- field: traces -->
 #### Traces
 
-- R4.1
+- [R4.1](#r41)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -204,7 +204,7 @@ push.
 <!-- field: traces -->
 #### Traces
 
-- R4.2
+- [R4.2](#r42)
 
 <!-- field: use_case_traces -->
 ## Use case traces

@@ -29,7 +29,7 @@ dependency_gated
 <!-- field: traces -->
 ## Traces
 
-- rel00.0-uc001-guided-agent-architecture
+- [rel00.0-uc001-guided-agent-architecture](../use-cases/rel00.0-uc001-guided-agent-architecture.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -60,7 +60,7 @@ presentation_command
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-guided-agent-architecture
+[rel00.0-uc001-guided-agent-architecture](../use-cases/rel00.0-uc001-guided-agent-architecture.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -94,7 +94,7 @@ dependency_gated
 <!-- field: traces -->
 #### Traces
 
-- rel00.0-uc001-guided-agent-architecture S1
+- [rel00.0-uc001-guided-agent-architecture](../use-cases/rel00.0-uc001-guided-agent-architecture.md) [S1](../use-cases/rel00.0-uc001-guided-agent-architecture.md#s1)
 
 <!-- case: Canonical curator launch command | status: implemented -->
 ### Canonical curator launch command
@@ -114,7 +114,7 @@ canonical_curator_command
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-guided-agent-architecture
+[rel00.0-uc001-guided-agent-architecture](../use-cases/rel00.0-uc001-guided-agent-architecture.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -152,8 +152,8 @@ dependency_gated
 <!-- field: traces -->
 #### Traces
 
-- rel00.0-uc001-guided-agent-architecture S2
-- rel00.0-uc001-guided-agent-architecture S3
+- [rel00.0-uc001-guided-agent-architecture](../use-cases/rel00.0-uc001-guided-agent-architecture.md) [S2](../use-cases/rel00.0-uc001-guided-agent-architecture.md#s2)
+- [rel00.0-uc001-guided-agent-architecture](../use-cases/rel00.0-uc001-guided-agent-architecture.md) [S3](../use-cases/rel00.0-uc001-guided-agent-architecture.md#s3)
 - srd011-knowledge-manager AC1
 - srd011-knowledge-manager AC2
 - srd001-application-module-contract AC2
@@ -176,7 +176,7 @@ lifecycle_exit_contract
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-guided-agent-architecture
+[rel00.0-uc001-guided-agent-architecture](../use-cases/rel00.0-uc001-guided-agent-architecture.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -215,7 +215,7 @@ dependency_gated
 <!-- field: traces -->
 #### Traces
 
-- rel00.0-uc001-guided-agent-architecture S4
+- [rel00.0-uc001-guided-agent-architecture](../use-cases/rel00.0-uc001-guided-agent-architecture.md) [S4](../use-cases/rel00.0-uc001-guided-agent-architecture.md#s4)
 - srd011-knowledge-manager AC3
 - rel07.0-uc001-documentation-curator-profile-ux S4
 
@@ -242,7 +242,7 @@ managed_service_contract
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-guided-agent-architecture
+[rel00.0-uc001-guided-agent-architecture](../use-cases/rel00.0-uc001-guided-agent-architecture.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -288,7 +288,7 @@ dependency_gated
 <!-- field: traces -->
 #### Traces
 
-- rel00.0-uc001-guided-agent-architecture S6
+- [rel00.0-uc001-guided-agent-architecture](../use-cases/rel00.0-uc001-guided-agent-architecture.md) [S6](../use-cases/rel00.0-uc001-guided-agent-architecture.md#s6)
 - srd002-managed-application-services AC1
 - srd002-managed-application-services AC2
 - srd002-managed-application-services AC3
@@ -312,7 +312,7 @@ application_contract
 <!-- field: use_case -->
 #### Use case
 
-rel00.0-uc001-guided-agent-architecture
+[rel00.0-uc001-guided-agent-architecture](../use-cases/rel00.0-uc001-guided-agent-architecture.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -351,7 +351,7 @@ mage stats
 <!-- field: traces -->
 #### Traces
 
-- rel00.0-uc001-guided-agent-architecture S5
+- [rel00.0-uc001-guided-agent-architecture](../use-cases/rel00.0-uc001-guided-agent-architecture.md) [S5](../use-cases/rel00.0-uc001-guided-agent-architecture.md#s5)
 - srd001-application-module-contract AC3
 - srd001-application-module-contract AC4
 - srd001-application-module-contract AC5

@@ -19,7 +19,7 @@ a chatbot span); the panel rendering is browser-verified against the live mesh.
 <!-- field: traces -->
 ## Traces
 
-- rel02.0-uc001-observability
+- [rel02.0-uc001-observability](../use-cases/rel02.0-uc001-observability.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -50,7 +50,7 @@ trace decoding only; the Mage target owns live cross-agent parenting evidence.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc001-observability
+[rel02.0-uc001-observability](../use-cases/rel02.0-uc001-observability.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -86,10 +86,10 @@ go test ./magefiles -run '^TestChatResponseDecodesTrace$'
 <!-- field: traces -->
 #### Traces
 
-- rel02.0-uc001-observability S1
-- rel02.0-uc001-observability S2
-- rel02.0-uc001-observability S3
-- srd002-chatbot-agent AC5
+- [rel02.0-uc001-observability](../use-cases/rel02.0-uc001-observability.md) [S1](../use-cases/rel02.0-uc001-observability.md#s1)
+- [rel02.0-uc001-observability](../use-cases/rel02.0-uc001-observability.md) [S2](../use-cases/rel02.0-uc001-observability.md#s2)
+- [rel02.0-uc001-observability](../use-cases/rel02.0-uc001-observability.md) [S3](../use-cases/rel02.0-uc001-observability.md#s3)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC5](../software-requirements/srd002-chatbot-agent.md#ac5)
 
 <!-- case: Retained integration trace and metric evidence | status: implemented -->
 ### Retained integration trace and metric evidence
@@ -107,7 +107,7 @@ self-contained Collector and Jaeger defaults.
 <!-- field: use_case -->
 #### Use case
 
-rel02.0-uc001-observability
+[rel02.0-uc001-observability](../use-cases/rel02.0-uc001-observability.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -142,5 +142,5 @@ mage integration:helmSmoke
 <!-- field: traces -->
 #### Traces
 
-- rel02.0-uc001-observability S4
-- srd003-chatbot-deployment AC5
+- [rel02.0-uc001-observability](../use-cases/rel02.0-uc001-observability.md) [S4](../use-cases/rel02.0-uc001-observability.md#s4)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC5](../software-requirements/srd003-chatbot-deployment.md#ac5)

@@ -24,12 +24,12 @@ suite fail on somebody else's release day.
 <!-- field: traces -->
 ## Traces
 
-- rel17.0-uc001-pin-currency
+- [rel17.0-uc001-pin-currency](../use-cases/rel17.0-uc001-pin-currency.md)
 
 <!-- field: srds -->
 ## SRDs
 
-- srd006-pin-currency
+- [srd006-pin-currency](../software-requirements/srd006-pin-currency.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -52,7 +52,7 @@ TC1
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-pin-currency
+[rel17.0-uc001-pin-currency](../use-cases/rel17.0-uc001-pin-currency.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -154,8 +154,8 @@ PY
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-pin-currency S1
-- srd006-pin-currency AC1
+- [rel17.0-uc001-pin-currency](../use-cases/rel17.0-uc001-pin-currency.md) [S1](../use-cases/rel17.0-uc001-pin-currency.md#s1)
+- [srd006-pin-currency](../software-requirements/srd006-pin-currency.md) [AC1](../software-requirements/srd006-pin-currency.md#ac1)
 
 <!-- case: The inventory derives chart pins and declares the rest | status: implemented -->
 ### The inventory derives chart pins and declares the rest
@@ -168,7 +168,7 @@ TC2
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-pin-currency
+[rel17.0-uc001-pin-currency](../use-cases/rel17.0-uc001-pin-currency.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -198,8 +198,8 @@ cd magefiles && go test ./pinsurvey/... .
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-pin-currency S1
-- srd006-pin-currency AC1
+- [rel17.0-uc001-pin-currency](../use-cases/rel17.0-uc001-pin-currency.md) [S1](../use-cases/rel17.0-uc001-pin-currency.md#s1)
+- [srd006-pin-currency](../software-requirements/srd006-pin-currency.md) [AC1](../software-requirements/srd006-pin-currency.md#ac1)
 
 <!-- case: A declared entry that no longer describes its location fails | status: implemented -->
 ### A declared entry that no longer describes its location fails
@@ -212,7 +212,7 @@ TC3
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-pin-currency
+[rel17.0-uc001-pin-currency](../use-cases/rel17.0-uc001-pin-currency.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -240,8 +240,8 @@ cd magefiles && go test . -run TestDeclaredPins
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-pin-currency S1
-- srd006-pin-currency AC1
+- [rel17.0-uc001-pin-currency](../use-cases/rel17.0-uc001-pin-currency.md) [S1](../use-cases/rel17.0-uc001-pin-currency.md#s1)
+- [srd006-pin-currency](../software-requirements/srd006-pin-currency.md) [AC1](../software-requirements/srd006-pin-currency.md#ac1)
 
 <!-- case: A re-pushed tag is reported as moved, ahead of staleness | status: implemented -->
 ### A re-pushed tag is reported as moved, ahead of staleness
@@ -254,7 +254,7 @@ TC4
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-pin-currency
+[rel17.0-uc001-pin-currency](../use-cases/rel17.0-uc001-pin-currency.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -283,8 +283,8 @@ cd magefiles && go test ./pinsurvey/...
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-pin-currency S2
-- srd006-pin-currency AC2
+- [rel17.0-uc001-pin-currency](../use-cases/rel17.0-uc001-pin-currency.md) [S2](../use-cases/rel17.0-uc001-pin-currency.md#s2)
+- [srd006-pin-currency](../software-requirements/srd006-pin-currency.md) [AC2](../software-requirements/srd006-pin-currency.md#ac2)
 
 <!-- case: A newer release is reported with both versions | status: implemented -->
 ### A newer release is reported with both versions
@@ -297,7 +297,7 @@ TC5
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-pin-currency
+[rel17.0-uc001-pin-currency](../use-cases/rel17.0-uc001-pin-currency.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -326,8 +326,8 @@ cd magefiles && go test ./pinsurvey/...
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-pin-currency S3
-- srd006-pin-currency AC3
+- [rel17.0-uc001-pin-currency](../use-cases/rel17.0-uc001-pin-currency.md) [S3](../use-cases/rel17.0-uc001-pin-currency.md#s3)
+- [srd006-pin-currency](../software-requirements/srd006-pin-currency.md) [AC3](../software-requirements/srd006-pin-currency.md#ac3)
 
 <!-- case: Version comparison applies to semantic versions only | status: implemented -->
 ### Version comparison applies to semantic versions only
@@ -340,7 +340,7 @@ TC6
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-pin-currency
+[rel17.0-uc001-pin-currency](../use-cases/rel17.0-uc001-pin-currency.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -369,8 +369,8 @@ cd magefiles && go test ./pinsurvey/...
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-pin-currency S3
-- srd006-pin-currency AC3
+- [rel17.0-uc001-pin-currency](../use-cases/rel17.0-uc001-pin-currency.md) [S3](../use-cases/rel17.0-uc001-pin-currency.md#s3)
+- [srd006-pin-currency](../software-requirements/srd006-pin-currency.md) [AC3](../software-requirements/srd006-pin-currency.md#ac3)
 
 <!-- case: An unreachable registry reports unknown, never current | status: implemented -->
 ### An unreachable registry reports unknown, never current
@@ -383,7 +383,7 @@ TC7
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-pin-currency
+[rel17.0-uc001-pin-currency](../use-cases/rel17.0-uc001-pin-currency.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -413,8 +413,8 @@ cd magefiles && go test ./pinsurvey/...
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-pin-currency S5
-- srd006-pin-currency AC5
+- [rel17.0-uc001-pin-currency](../use-cases/rel17.0-uc001-pin-currency.md) [S5](../use-cases/rel17.0-uc001-pin-currency.md#s5)
+- [srd006-pin-currency](../software-requirements/srd006-pin-currency.md) [AC5](../software-requirements/srd006-pin-currency.md#ac5)
 
 <!-- case: The target reports and writes nothing | status: implemented -->
 ### The target reports and writes nothing
@@ -427,7 +427,7 @@ TC8
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-pin-currency
+[rel17.0-uc001-pin-currency](../use-cases/rel17.0-uc001-pin-currency.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -457,8 +457,8 @@ cd magefiles && go test . -run TestBump
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-pin-currency S4
-- srd006-pin-currency AC4
+- [rel17.0-uc001-pin-currency](../use-cases/rel17.0-uc001-pin-currency.md) [S4](../use-cases/rel17.0-uc001-pin-currency.md#s4)
+- [srd006-pin-currency](../software-requirements/srd006-pin-currency.md) [AC4](../software-requirements/srd006-pin-currency.md#ac4)
 
 <!-- case: Authentication and reference parsing reach the real registries | status: implemented -->
 ### Authentication and reference parsing reach the real registries
@@ -471,7 +471,7 @@ TC9
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-pin-currency
+[rel17.0-uc001-pin-currency](../use-cases/rel17.0-uc001-pin-currency.md)
 
 <!-- field: evidence_type -->
 #### Evidence type
@@ -501,5 +501,5 @@ cd magefiles && go test ./pinsurvey/...
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-pin-currency S5
-- srd006-pin-currency AC6
+- [rel17.0-uc001-pin-currency](../use-cases/rel17.0-uc001-pin-currency.md) [S5](../use-cases/rel17.0-uc001-pin-currency.md#s5)
+- [srd006-pin-currency](../software-requirements/srd006-pin-currency.md) [AC6](../software-requirements/srd006-pin-currency.md#ac6)

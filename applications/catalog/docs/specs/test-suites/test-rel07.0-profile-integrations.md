@@ -26,11 +26,11 @@ fixture rather than accepting a fake pass.
 <!-- field: traces -->
 ## Traces
 
-- rel07.0-uc001-documentation-curator-profile-ux
-- rel07.0-uc002-evaluator-generator-profile-boundary
-- rel07.0-uc003-planner-generator-profile-boundary
-- rel07.0-uc004-bench-evaluator-profile-boundary
-- rel07.0-uc005-monitor-control-profile-boundary
+- [rel07.0-uc001-documentation-curator-profile-ux](../use-cases/rel07.0-uc001-documentation-curator-profile-ux.md)
+- [rel07.0-uc002-evaluator-generator-profile-boundary](../use-cases/rel07.0-uc002-evaluator-generator-profile-boundary.md)
+- [rel07.0-uc003-planner-generator-profile-boundary](../use-cases/rel07.0-uc003-planner-generator-profile-boundary.md)
+- [rel07.0-uc004-bench-evaluator-profile-boundary](../use-cases/rel07.0-uc004-bench-evaluator-profile-boundary.md)
+- [rel07.0-uc005-monitor-control-profile-boundary](../use-cases/rel07.0-uc005-monitor-control-profile-boundary.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -55,7 +55,7 @@ through lifecycle control.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc001-documentation-curator-profile-ux
+[rel07.0-uc001-documentation-curator-profile-ux](../use-cases/rel07.0-uc001-documentation-curator-profile-ux.md)
 
 <!-- field: follow_up_issue -->
 #### Follow up issue
@@ -103,11 +103,11 @@ go test ./magefiles -run 'TestPrepareDocumentationCuratorIntegration(WritesEphem
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc001-documentation-curator-profile-ux S1
-- rel07.0-uc001-documentation-curator-profile-ux S2
-- rel07.0-uc001-documentation-curator-profile-ux S3
-- rel07.0-uc001-documentation-curator-profile-ux S4
-- rel07.0-uc001-documentation-curator-profile-ux S5
+- [rel07.0-uc001-documentation-curator-profile-ux](../use-cases/rel07.0-uc001-documentation-curator-profile-ux.md) [S1](../use-cases/rel07.0-uc001-documentation-curator-profile-ux.md#s1)
+- [rel07.0-uc001-documentation-curator-profile-ux](../use-cases/rel07.0-uc001-documentation-curator-profile-ux.md) [S2](../use-cases/rel07.0-uc001-documentation-curator-profile-ux.md#s2)
+- [rel07.0-uc001-documentation-curator-profile-ux](../use-cases/rel07.0-uc001-documentation-curator-profile-ux.md) [S3](../use-cases/rel07.0-uc001-documentation-curator-profile-ux.md#s3)
+- [rel07.0-uc001-documentation-curator-profile-ux](../use-cases/rel07.0-uc001-documentation-curator-profile-ux.md) [S4](../use-cases/rel07.0-uc001-documentation-curator-profile-ux.md#s4)
+- [rel07.0-uc001-documentation-curator-profile-ux](../use-cases/rel07.0-uc001-documentation-curator-profile-ux.md) [S5](../use-cases/rel07.0-uc001-documentation-curator-profile-ux.md#s5)
 - sm-agent-role-taxonomy documentation-curator
 
 <!-- case: Evaluator-to-generator boundary retired from library integration | status: planned -->
@@ -123,7 +123,7 @@ profile-contract limitation remains planned rather than passed evidence.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc002-evaluator-generator-profile-boundary
+[rel07.0-uc002-evaluator-generator-profile-boundary](../use-cases/rel07.0-uc002-evaluator-generator-profile-boundary.md)
 
 <!-- field: follow_up_issue -->
 #### Follow up issue
@@ -156,9 +156,9 @@ applications/coding-agent mage integration:criticGate
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc002-evaluator-generator-profile-boundary S1
-- rel07.0-uc002-evaluator-generator-profile-boundary S2
-- rel07.0-uc002-evaluator-generator-profile-boundary S3
+- [rel07.0-uc002-evaluator-generator-profile-boundary](../use-cases/rel07.0-uc002-evaluator-generator-profile-boundary.md) [S1](../use-cases/rel07.0-uc002-evaluator-generator-profile-boundary.md#s1)
+- [rel07.0-uc002-evaluator-generator-profile-boundary](../use-cases/rel07.0-uc002-evaluator-generator-profile-boundary.md) [S2](../use-cases/rel07.0-uc002-evaluator-generator-profile-boundary.md#s2)
+- [rel07.0-uc002-evaluator-generator-profile-boundary](../use-cases/rel07.0-uc002-evaluator-generator-profile-boundary.md) [S3](../use-cases/rel07.0-uc002-evaluator-generator-profile-boundary.md#s3)
 - sm-multi-agent-profile-system dependency_directions evaluator->generator
 
 <!-- case: Planner-to-generator boundary retired from library integration | status: planned -->
@@ -173,7 +173,7 @@ the canonical executor through the real built agent binary.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc003-planner-generator-profile-boundary
+[rel07.0-uc003-planner-generator-profile-boundary](../use-cases/rel07.0-uc003-planner-generator-profile-boundary.md)
 
 <!-- field: follow_up_issue -->
 #### Follow up issue
@@ -211,9 +211,9 @@ application-live
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc003-planner-generator-profile-boundary S1
-- rel07.0-uc003-planner-generator-profile-boundary S2
-- rel07.0-uc003-planner-generator-profile-boundary S3
+- [rel07.0-uc003-planner-generator-profile-boundary](../use-cases/rel07.0-uc003-planner-generator-profile-boundary.md) [S1](../use-cases/rel07.0-uc003-planner-generator-profile-boundary.md#s1)
+- [rel07.0-uc003-planner-generator-profile-boundary](../use-cases/rel07.0-uc003-planner-generator-profile-boundary.md) [S2](../use-cases/rel07.0-uc003-planner-generator-profile-boundary.md#s2)
+- [rel07.0-uc003-planner-generator-profile-boundary](../use-cases/rel07.0-uc003-planner-generator-profile-boundary.md) [S3](../use-cases/rel07.0-uc003-planner-generator-profile-boundary.md#s3)
 - sm-multi-agent-profile-system dependency_directions planner->generator
 
 <!-- case: Bench launches critic from a human action | status: implemented -->
@@ -227,7 +227,7 @@ the arguments the profile supplied; it does not fabricate bench evidence.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc004-bench-evaluator-profile-boundary
+[rel07.0-uc004-bench-evaluator-profile-boundary](../use-cases/rel07.0-uc004-bench-evaluator-profile-boundary.md)
 
 <!-- field: follow_up_issue -->
 #### Follow up issue
@@ -266,10 +266,10 @@ go test ./conformance -run TestBenchConformance
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc004-bench-evaluator-profile-boundary S1
-- rel07.0-uc004-bench-evaluator-profile-boundary S2
-- rel07.0-uc004-bench-evaluator-profile-boundary S3
-- rel07.0-uc004-bench-evaluator-profile-boundary S4
+- [rel07.0-uc004-bench-evaluator-profile-boundary](../use-cases/rel07.0-uc004-bench-evaluator-profile-boundary.md) [S1](../use-cases/rel07.0-uc004-bench-evaluator-profile-boundary.md#s1)
+- [rel07.0-uc004-bench-evaluator-profile-boundary](../use-cases/rel07.0-uc004-bench-evaluator-profile-boundary.md) [S2](../use-cases/rel07.0-uc004-bench-evaluator-profile-boundary.md#s2)
+- [rel07.0-uc004-bench-evaluator-profile-boundary](../use-cases/rel07.0-uc004-bench-evaluator-profile-boundary.md) [S3](../use-cases/rel07.0-uc004-bench-evaluator-profile-boundary.md#s3)
+- [rel07.0-uc004-bench-evaluator-profile-boundary](../use-cases/rel07.0-uc004-bench-evaluator-profile-boundary.md) [S4](../use-cases/rel07.0-uc004-bench-evaluator-profile-boundary.md#s4)
 - sm-multi-agent-profile-system dependency_directions bench->critic
 
 <!-- case: Runtime state reader and control profile boundary | status: implemented -->
@@ -285,7 +285,7 @@ shutdown is exercised by the separate monitor conformance test.
 <!-- field: use_case -->
 #### Use case
 
-rel07.0-uc005-monitor-control-profile-boundary
+[rel07.0-uc005-monitor-control-profile-boundary](../use-cases/rel07.0-uc005-monitor-control-profile-boundary.md)
 
 <!-- field: follow_up_issue -->
 #### Follow up issue
@@ -321,8 +321,8 @@ go test ./magefiles -run TestCollectMonitorControlEvidenceRecordsRoutesAndLifecy
 <!-- field: traces -->
 #### Traces
 
-- rel07.0-uc005-monitor-control-profile-boundary S1
-- rel07.0-uc005-monitor-control-profile-boundary S2
-- rel07.0-uc005-monitor-control-profile-boundary S3
+- [rel07.0-uc005-monitor-control-profile-boundary](../use-cases/rel07.0-uc005-monitor-control-profile-boundary.md) [S1](../use-cases/rel07.0-uc005-monitor-control-profile-boundary.md#s1)
+- [rel07.0-uc005-monitor-control-profile-boundary](../use-cases/rel07.0-uc005-monitor-control-profile-boundary.md) [S2](../use-cases/rel07.0-uc005-monitor-control-profile-boundary.md#s2)
+- [rel07.0-uc005-monitor-control-profile-boundary](../use-cases/rel07.0-uc005-monitor-control-profile-boundary.md) [S3](../use-cases/rel07.0-uc005-monitor-control-profile-boundary.md#s3)
 - sm-agent-role-taxonomy runtime-state-reader
 - sm-agent-role-taxonomy control

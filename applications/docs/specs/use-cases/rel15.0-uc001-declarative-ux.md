@@ -121,16 +121,16 @@ contract owner changes a response field a kit panel reads.
 | T3 | applications/<application>/agents/<actor>/rest.yaml | Declares the /monitor-proxy route and the static_assets binding or embedded bundle. |
 | T4 | agent-core/internal/tools/rest/ | Serves embedded bundles and their declared config. |
 | T5 | applications/<application>/agents/application.yaml | Declares each UI asset, including embedded sources, and its shared-token policy. |
-| T6 | srd004-declarative-ux AC1 | Closed contract and endpoint classification. |
-| T7 | srd004-declarative-ux AC2 | One proxy convention and not-deployed handling. |
-| T8 | srd004-declarative-ux AC3 | Fixture-based consumer contract tests. |
-| T9 | srd004-declarative-ux AC4 | Panel manifest and kit isolation. |
-| T10 | srd004-declarative-ux AC5 | Build-time composition from ui.yaml. |
-| T11 | srd004-declarative-ux AC6 | Injectable client. |
-| T12 | srd004-declarative-ux AC7 | ui.yaml version 2 and retirement of the cross-check. |
-| T13 | srd004-declarative-ux AC8 | Kit ownership, tokens, and distribution. |
-| T14 | srd004-declarative-ux AC9 | Embedded observer bundle. |
-| T15 | test-rel15.0-declarative-ux | Structural and executable evidence for this flow. |
+| T6 | [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC1](../software-requirements/srd004-declarative-ux.md#ac1) | Closed contract and endpoint classification. |
+| T7 | [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC2](../software-requirements/srd004-declarative-ux.md#ac2) | One proxy convention and not-deployed handling. |
+| T8 | [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC3](../software-requirements/srd004-declarative-ux.md#ac3) | Fixture-based consumer contract tests. |
+| T9 | [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC4](../software-requirements/srd004-declarative-ux.md#ac4) | Panel manifest and kit isolation. |
+| T10 | [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC5](../software-requirements/srd004-declarative-ux.md#ac5) | Build-time composition from ui.yaml. |
+| T11 | [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC6](../software-requirements/srd004-declarative-ux.md#ac6) | Injectable client. |
+| T12 | [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC7](../software-requirements/srd004-declarative-ux.md#ac7) | ui.yaml version 2 and retirement of the cross-check. |
+| T13 | [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC8](../software-requirements/srd004-declarative-ux.md#ac8) | Kit ownership, tokens, and distribution. |
+| T14 | [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC9](../software-requirements/srd004-declarative-ux.md#ac9) | Embedded observer bundle. |
+| T15 | [test-rel15.0-declarative-ux](../test-suites/test-rel15.0-declarative-ux.md) | Structural and executable evidence for this flow. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -145,8 +145,8 @@ classification.
 <!-- field: traces -->
 #### Traces
 
-- srd004-declarative-ux AC1
-- srd004-declarative-ux AC4
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC1](../software-requirements/srd004-declarative-ux.md#ac1)
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC4](../software-requirements/srd004-declarative-ux.md#ac4)
 
 <!-- sc: S2 -->
 ### S2
@@ -157,8 +157,8 @@ and adding a panel takes one ui.yaml entry and one registry line.
 <!-- field: traces -->
 #### Traces
 
-- srd004-declarative-ux AC5
-- srd004-declarative-ux AC7
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC5](../software-requirements/srd004-declarative-ux.md#ac5)
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC7](../software-requirements/srd004-declarative-ux.md#ac7)
 
 <!-- sc: S3 -->
 ### S3
@@ -169,7 +169,7 @@ files.
 <!-- field: traces -->
 #### Traces
 
-- srd004-declarative-ux AC9
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC9](../software-requirements/srd004-declarative-ux.md#ac9)
 
 <!-- sc: S4 -->
 ### S4
@@ -180,8 +180,8 @@ applications/, and all of it is imported from the kit.
 <!-- field: traces -->
 #### Traces
 
-- srd004-declarative-ux AC6
-- srd004-declarative-ux AC8
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC6](../software-requirements/srd004-declarative-ux.md#ac6)
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC8](../software-requirements/srd004-declarative-ux.md#ac8)
 
 <!-- sc: S5 -->
 ### S5
@@ -191,8 +191,8 @@ Cross-agent reads use one proxy name, and fixtures gate contract changes.
 <!-- field: traces -->
 #### Traces
 
-- srd004-declarative-ux AC2
-- srd004-declarative-ux AC3
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC2](../software-requirements/srd004-declarative-ux.md#ac2)
+- [srd004-declarative-ux](../software-requirements/srd004-declarative-ux.md) [AC3](../software-requirements/srd004-declarative-ux.md#ac3)
 
 <!-- field: out_of_scope -->
 ## Out of scope

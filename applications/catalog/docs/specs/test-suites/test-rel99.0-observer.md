@@ -9,7 +9,7 @@ release: "99.0"
 <!-- field: traces -->
 ## Traces
 
-- rel99.0-uc001-observer-family
+- [rel99.0-uc001-observer-family](../use-cases/rel99.0-uc001-observer-family.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -31,7 +31,7 @@ spec graph validates and the SRD is not orphaned.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc001-observer-family
+[rel99.0-uc001-observer-family](../use-cases/rel99.0-uc001-observer-family.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -52,8 +52,8 @@ cd ../.. && mage audit
 <!-- field: traces -->
 #### Traces
 
-- rel99.0-uc001-observer-family S1
-- srd021-observer AC1
+- [rel99.0-uc001-observer-family](../use-cases/rel99.0-uc001-observer-family.md) [S1](../use-cases/rel99.0-uc001-observer-family.md#s1)
+- [srd021-observer](../software-requirements/srd021-observer.md) [AC1](../software-requirements/srd021-observer.md#ac1)
 
 <!-- case: Carried capabilities from the mesh observer | status: planned -->
 ### Carried capabilities from the mesh observer
@@ -65,7 +65,7 @@ requirements, with related_documents pointing at srd008.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc001-observer-family
+[rel99.0-uc001-observer-family](../use-cases/rel99.0-uc001-observer-family.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -88,8 +88,8 @@ cd ../.. && mage audit
 <!-- field: traces -->
 #### Traces
 
-- rel99.0-uc001-observer-family S2
-- srd021-observer AC2
+- [rel99.0-uc001-observer-family](../use-cases/rel99.0-uc001-observer-family.md) [S2](../use-cases/rel99.0-uc001-observer-family.md#s2)
+- [srd021-observer](../software-requirements/srd021-observer.md) [AC2](../software-requirements/srd021-observer.md#ac2)
 
 <!-- case: Adopters named and realization rows deferred | status: planned -->
 ### Adopters named and realization rows deferred
@@ -103,7 +103,7 @@ whose profile path does not yet exist.
 <!-- field: use_case -->
 #### Use case
 
-rel99.0-uc001-observer-family
+[rel99.0-uc001-observer-family](../use-cases/rel99.0-uc001-observer-family.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -128,5 +128,5 @@ cd ../.. && mage audit
 <!-- field: traces -->
 #### Traces
 
-- rel99.0-uc001-observer-family S3
-- srd021-observer AC3
+- [rel99.0-uc001-observer-family](../use-cases/rel99.0-uc001-observer-family.md) [S3](../use-cases/rel99.0-uc001-observer-family.md#s3)
+- [srd021-observer](../software-requirements/srd021-observer.md) [AC3](../software-requirements/srd021-observer.md#ac3)

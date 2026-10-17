@@ -251,11 +251,11 @@ Profiles without selected model words require no model configuration or client, 
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.4
-- R1.5
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R1.5](#r15)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -265,11 +265,11 @@ Trusted source configuration maps validated input to a closed signal and redacte
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
-- R2.5
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
+- [R2.5](#r25)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -279,12 +279,12 @@ Atomic admission distinguishes accepted, refused_undeclared, and refused_conflic
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
-- R3.4
-- R3.5
-- R3.6
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R3.4](#r34)
+- [R3.5](#r35)
+- [R3.6](#r36)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -294,11 +294,11 @@ An accepted envelope enters the ordinary StateMachine.Step, Registry, Dispatch, 
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
-- R4.4
-- R4.5
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R4.4](#r44)
+- [R4.5](#r45)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -308,12 +308,12 @@ Fresh and persisted request-driven runs use one resume path, preserve normal che
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
-- R5.4
-- R5.5
-- R5.6
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
+- [R5.5](#r55)
+- [R5.6](#r56)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -323,11 +323,11 @@ Structured traces and errors cover every source outcome, ownership is always rel
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
-- R6.3
-- R6.4
-- R6.5
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
+- [R6.4](#r64)
+- [R6.5](#r65)
 
 <!-- field: related_documents -->
 ## Related documents

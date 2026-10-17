@@ -65,11 +65,11 @@ to the applier's apply endpoint.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd006-applier AC1 | The applier exposes the request-scoped apply endpoint with control and monitor servers and no panel state view. |
-| T2 | srd006-applier AC2 | The applier validates the patch against the chart schema by a dry-run and applies it as a values-file rollout, values-plane only. |
-| T3 | srd006-applier AC3 | The applier verifies the role Deployments' rollout, rolls back on a verify stall, and reports an apply-command failure as failed. |
-| T4 | srd006-applier AC4 | The applier alone holds helm and kubectl, the apply surface is network-gated off the serving pods, and authority stays set by declared validated config. |
-| T5 | srd006-applier AC5 | Deciding the values and owning lifecycle are non-goals; the applier receives helm and kubectl from the pinned CLI donor, so no image diverges. |
+| T1 | [srd006-applier](../software-requirements/srd006-applier.md) [AC1](../software-requirements/srd006-applier.md#ac1) | The applier exposes the request-scoped apply endpoint with control and monitor servers and no panel state view. |
+| T2 | [srd006-applier](../software-requirements/srd006-applier.md) [AC2](../software-requirements/srd006-applier.md#ac2) | The applier validates the patch against the chart schema by a dry-run and applies it as a values-file rollout, values-plane only. |
+| T3 | [srd006-applier](../software-requirements/srd006-applier.md) [AC3](../software-requirements/srd006-applier.md#ac3) | The applier verifies the role Deployments' rollout, rolls back on a verify stall, and reports an apply-command failure as failed. |
+| T4 | [srd006-applier](../software-requirements/srd006-applier.md) [AC4](../software-requirements/srd006-applier.md#ac4) | The applier alone holds helm and kubectl, the apply surface is network-gated off the serving pods, and authority stays set by declared validated config. |
+| T5 | [srd006-applier](../software-requirements/srd006-applier.md) [AC5](../software-requirements/srd006-applier.md#ac5) | Deciding the values and owning lifecycle are non-goals; the applier receives helm and kubectl from the pinned CLI donor, so no image diverges. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -82,9 +82,9 @@ The applier exposes the apply surface bound as a request-scoped machine_request 
 <!-- field: traces -->
 #### Traces
 
-- srd006-applier R1.1
-- srd006-applier R1.4
-- srd006-applier AC1
+- [srd006-applier](../software-requirements/srd006-applier.md) [R1.1](../software-requirements/srd006-applier.md#r11)
+- [srd006-applier](../software-requirements/srd006-applier.md) [R1.4](../software-requirements/srd006-applier.md#r14)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC1](../software-requirements/srd006-applier.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -94,11 +94,11 @@ A non-conforming values patch is rejected by the chart-schema dry-run with a cli
 <!-- field: traces -->
 #### Traces
 
-- srd006-applier R2.1
-- srd004-helm-package-validation R1.1
-- srd004-helm-package-validation R1.2
-- srd004-helm-package-validation R1.3
-- srd006-applier AC2
+- [srd006-applier](../software-requirements/srd006-applier.md) [R2.1](../software-requirements/srd006-applier.md#r21)
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R1.1](../software-requirements/srd004-helm-package-validation.md#r11)
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R1.2](../software-requirements/srd004-helm-package-validation.md#r12)
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R1.3](../software-requirements/srd004-helm-package-validation.md#r13)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC2](../software-requirements/srd006-applier.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -108,13 +108,13 @@ A valid patch is materialized as an overrides file and applied with helm upgrade
 <!-- field: traces -->
 #### Traces
 
-- srd006-applier R2.2
-- srd003-helm-topology R1.1
-- srd003-helm-topology R1.2
-- srd003-helm-topology R1.3
-- srd003-helm-topology R1.4
-- srd003-helm-topology R1.5
-- srd006-applier AC2
+- [srd006-applier](../software-requirements/srd006-applier.md) [R2.2](../software-requirements/srd006-applier.md#r22)
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [R1.1](../software-requirements/srd003-helm-topology.md#r11)
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [R1.2](../software-requirements/srd003-helm-topology.md#r12)
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [R1.3](../software-requirements/srd003-helm-topology.md#r13)
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [R1.4](../software-requirements/srd003-helm-topology.md#r14)
+- [srd003-helm-topology](../software-requirements/srd003-helm-topology.md) [R1.5](../software-requirements/srd003-helm-topology.md#r15)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC2](../software-requirements/srd006-applier.md#ac2)
 
 <!-- sc: S4 -->
 ### S4
@@ -124,12 +124,12 @@ The planner, executor, and critic Deployments' rollout is verified via kubectl r
 <!-- field: traces -->
 #### Traces
 
-- srd006-applier R3.1
-- srd006-applier R3.2
-- srd005-live-helm-smoke R3.1
-- srd005-live-helm-smoke R3.2
-- srd005-live-helm-smoke R3.3
-- srd006-applier AC3
+- [srd006-applier](../software-requirements/srd006-applier.md) [R3.1](../software-requirements/srd006-applier.md#r31)
+- [srd006-applier](../software-requirements/srd006-applier.md) [R3.2](../software-requirements/srd006-applier.md#r32)
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R3.1](../software-requirements/srd005-live-helm-smoke.md#r31)
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R3.2](../software-requirements/srd005-live-helm-smoke.md#r32)
+- [srd005-live-helm-smoke](../software-requirements/srd005-live-helm-smoke.md) [R3.3](../software-requirements/srd005-live-helm-smoke.md#r33)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC3](../software-requirements/srd006-applier.md#ac3)
 
 <!-- sc: S5 -->
 ### S5
@@ -139,10 +139,10 @@ The patch submits no endpoint or credential to a running agent, the apply surfac
 <!-- field: traces -->
 #### Traces
 
-- srd006-applier R2.3
-- srd006-applier R4.2
-- srd006-applier R4.3
-- srd006-applier AC4
+- [srd006-applier](../software-requirements/srd006-applier.md) [R2.3](../software-requirements/srd006-applier.md#r23)
+- [srd006-applier](../software-requirements/srd006-applier.md) [R4.2](../software-requirements/srd006-applier.md#r42)
+- [srd006-applier](../software-requirements/srd006-applier.md) [R4.3](../software-requirements/srd006-applier.md#r43)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC4](../software-requirements/srd006-applier.md#ac4)
 
 <!-- sc: S6 -->
 ### S6
@@ -152,10 +152,10 @@ The applier alone holds helm and kubectl bound as exec tools, the serving roles 
 <!-- field: traces -->
 #### Traces
 
-- srd006-applier R4.1
-- srd006-applier R5.3
-- srd006-applier AC4
-- srd006-applier AC5
+- [srd006-applier](../software-requirements/srd006-applier.md) [R4.1](../software-requirements/srd006-applier.md#r41)
+- [srd006-applier](../software-requirements/srd006-applier.md) [R5.3](../software-requirements/srd006-applier.md#r53)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC4](../software-requirements/srd006-applier.md#ac4)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC5](../software-requirements/srd006-applier.md#ac5)
 
 <!-- sc: S7 -->
 ### S7
@@ -165,8 +165,8 @@ A rollout status the cluster cannot serve -- an absent Deployment, a wrong kubec
 <!-- field: traces -->
 #### Traces
 
-- srd006-applier R3.3
-- srd006-applier AC3
+- [srd006-applier](../software-requirements/srd006-applier.md) [R3.3](../software-requirements/srd006-applier.md#r33)
+- [srd006-applier](../software-requirements/srd006-applier.md) [AC3](../software-requirements/srd006-applier.md#ac3)
 
 <!-- field: out_of_scope -->
 ## Out of scope

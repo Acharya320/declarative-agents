@@ -18,7 +18,7 @@ partitions reported embedding-model mismatches, and renders compatible chunks.
 <!-- field: traces -->
 ## Traces
 
-- rel01.0-uc001-routed-fanout
+- [rel01.0-uc001-routed-fanout](../use-cases/rel01.0-uc001-routed-fanout.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -66,7 +66,7 @@ Module-local unit evidence for the co-generated fan-out chain. The named behavio
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-routed-fanout
+[rel01.0-uc001-routed-fanout](../use-cases/rel01.0-uc001-routed-fanout.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -111,13 +111,13 @@ go test ./magefiles -run '^(TestChatbotFanOutCoGeneratedForNRags|TestTierDispatc
 <!-- field: traces -->
 #### Traces
 
-- rel01.0-uc001-routed-fanout S1
-- rel01.0-uc001-routed-fanout S2
-- rel01.0-uc001-routed-fanout S3
-- rel01.0-uc001-routed-fanout S4
-- srd002-chatbot-agent AC2
-- srd002-chatbot-agent AC3
-- srd002-chatbot-agent AC6
+- [rel01.0-uc001-routed-fanout](../use-cases/rel01.0-uc001-routed-fanout.md) [S1](../use-cases/rel01.0-uc001-routed-fanout.md#s1)
+- [rel01.0-uc001-routed-fanout](../use-cases/rel01.0-uc001-routed-fanout.md) [S2](../use-cases/rel01.0-uc001-routed-fanout.md#s2)
+- [rel01.0-uc001-routed-fanout](../use-cases/rel01.0-uc001-routed-fanout.md) [S3](../use-cases/rel01.0-uc001-routed-fanout.md#s3)
+- [rel01.0-uc001-routed-fanout](../use-cases/rel01.0-uc001-routed-fanout.md) [S4](../use-cases/rel01.0-uc001-routed-fanout.md#s4)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC2](../software-requirements/srd002-chatbot-agent.md#ac2)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC3](../software-requirements/srd002-chatbot-agent.md#ac3)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC6](../software-requirements/srd002-chatbot-agent.md#ac6)
 
 <!-- case: Source-selection trust boundary and full-set fallback matrix | status: implemented -->
 ### Source-selection trust boundary and full-set fallback matrix
@@ -134,7 +134,7 @@ separately and the classifier catalog contains no target/configuration data.
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-routed-fanout
+[rel01.0-uc001-routed-fanout](../use-cases/rel01.0-uc001-routed-fanout.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -167,11 +167,11 @@ cd ../catalog && go test ./magefiles -run '^TestChatbot(SourceSelectionUsesTrust
 <!-- field: traces -->
 #### Traces
 
-- rel01.0-uc001-routed-fanout S1
-- rel01.0-uc001-routed-fanout S2
-- srd002-chatbot-agent AC2
-- srd002-chatbot-agent AC3
-- srd002-chatbot-agent AC6
+- [rel01.0-uc001-routed-fanout](../use-cases/rel01.0-uc001-routed-fanout.md) [S1](../use-cases/rel01.0-uc001-routed-fanout.md#s1)
+- [rel01.0-uc001-routed-fanout](../use-cases/rel01.0-uc001-routed-fanout.md) [S2](../use-cases/rel01.0-uc001-routed-fanout.md#s2)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC2](../software-requirements/srd002-chatbot-agent.md#ac2)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC3](../software-requirements/srd002-chatbot-agent.md#ac3)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC6](../software-requirements/srd002-chatbot-agent.md#ac6)
 
 <!-- case: Embedding-model exclusion where dimensions match but identities differ | status: implemented -->
 ### Embedding-model exclusion where dimensions match but identities differ
@@ -197,7 +197,7 @@ reports as matched, the target fails naming the mismatched chunk in the prompt.
 <!-- field: use_case -->
 #### Use case
 
-rel01.0-uc001-routed-fanout
+[rel01.0-uc001-routed-fanout](../use-cases/rel01.0-uc001-routed-fanout.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -228,5 +228,5 @@ go test ./magefiles -run '^TestChatbotFanOutCoGeneratedForNRags$'
 <!-- field: traces -->
 #### Traces
 
-- rel01.0-uc001-routed-fanout S3
-- srd002-chatbot-agent AC3
+- [rel01.0-uc001-routed-fanout](../use-cases/rel01.0-uc001-routed-fanout.md) [S3](../use-cases/rel01.0-uc001-routed-fanout.md#s3)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC3](../software-requirements/srd002-chatbot-agent.md#ac3)

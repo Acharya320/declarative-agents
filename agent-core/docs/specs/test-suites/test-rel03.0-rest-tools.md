@@ -9,14 +9,14 @@ release: "03.0"
 <!-- field: traces -->
 ## Traces
 
-- rel03.0-uc001-rest-client-sync
-- rel03.0-uc002-rest-client-async
-- rel03.0-uc003-rest-server-signals
-- rel03.0-uc004-openapi-import
-- rel03.0-uc005-ollama-openapi-model-listing
-- rel03.0-uc006-documentation-curator
-- rel03.0-uc007-machine-request-documentation-ux
-- rel03.0-uc008-rest-await-any-fan-in
+- [rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md)
+- [rel03.0-uc002-rest-client-async](../use-cases/rel03.0-uc002-rest-client-async.md)
+- [rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md)
+- [rel03.0-uc004-openapi-import](../use-cases/rel03.0-uc004-openapi-import.md)
+- [rel03.0-uc005-ollama-openapi-model-listing](../use-cases/rel03.0-uc005-ollama-openapi-model-listing.md)
+- [rel03.0-uc006-documentation-curator](../use-cases/rel03.0-uc006-documentation-curator.md)
+- [rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md)
+- [rel03.0-uc008-rest-await-any-fan-in](../use-cases/rel03.0-uc008-rest-await-any-fan-in.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -46,7 +46,7 @@ authority fields.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-rest-client-sync
+[rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -74,14 +74,14 @@ TestRESTConfig_LoadsToolDefinitions
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc001-rest-client-sync S1
-- srd027-rest-tool-runtime AC1
-- srd027-rest-tool-runtime AC2
-- srd027-rest-tool-runtime AC9
-- srd028-rest-client-tools AC1
-- srd028-rest-client-tools AC2
-- srd028-rest-client-tools AC10
-- srd029-rest-server-tools AC1
+- [rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md) [S1](../use-cases/rel03.0-uc001-rest-client-sync.md#s1)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC1](../software-requirements/srd027-rest-tool-runtime.md#ac1)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC2](../software-requirements/srd027-rest-tool-runtime.md#ac2)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC9](../software-requirements/srd027-rest-tool-runtime.md#ac9)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC1](../software-requirements/srd028-rest-client-tools.md#ac1)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC2](../software-requirements/srd028-rest-client-tools.md#ac2)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC10](../software-requirements/srd028-rest-client-tools.md#ac10)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC1](../software-requirements/srd029-rest-server-tools.md#ac1)
 
 <!-- case: Synchronous resource words build configured requests | status: done -->
 ### Synchronous resource words build configured requests
@@ -100,7 +100,7 @@ schema, auth, timeout, and mapping failures.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-rest-client-sync
+[rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -133,13 +133,13 @@ TestRESTClient_SyncResourceWords
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc001-rest-client-sync S2
-- rel03.0-uc001-rest-client-sync S3
-- rel03.0-uc001-rest-client-sync S4
-- srd027-rest-tool-runtime AC4
-- srd028-rest-client-tools AC3
-- srd028-rest-client-tools AC6
-- srd028-rest-client-tools AC7
+- [rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md) [S2](../use-cases/rel03.0-uc001-rest-client-sync.md#s2)
+- [rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md) [S3](../use-cases/rel03.0-uc001-rest-client-sync.md#s3)
+- [rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md) [S4](../use-cases/rel03.0-uc001-rest-client-sync.md#s4)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC4](../software-requirements/srd027-rest-tool-runtime.md#ac4)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC3](../software-requirements/srd028-rest-client-tools.md#ac3)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC6](../software-requirements/srd028-rest-client-tools.md#ac6)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC7](../software-requirements/srd028-rest-client-tools.md#ac7)
 
 <!-- case: Runtime input cannot override configured authority | status: done -->
 ### Runtime input cannot override configured authority
@@ -150,7 +150,7 @@ client rejects it before any HTTP request leaves the process.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-rest-client-sync
+[rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -179,11 +179,11 @@ TestRESTClient_RejectsAuthorityOverride
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc001-rest-client-sync S1
-- srd027-rest-tool-runtime AC2
-- srd027-rest-tool-runtime AC6
-- srd028-rest-client-tools AC2
-- srd028-rest-client-tools AC9
+- [rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md) [S1](../use-cases/rel03.0-uc001-rest-client-sync.md#s1)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC2](../software-requirements/srd027-rest-tool-runtime.md#ac2)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC6](../software-requirements/srd027-rest-tool-runtime.md#ac6)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC2](../software-requirements/srd028-rest-client-tools.md#ac2)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC9](../software-requirements/srd028-rest-client-tools.md#ac9)
 
 <!-- case: Trusted operation selects a child service target | status: done -->
 ### Trusted operation selects a child service target
@@ -197,7 +197,7 @@ fail before network I/O; runtime input still cannot set authority.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-rest-client-sync
+[rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -224,9 +224,9 @@ TestRESTClient_CommandStateSelectsTrustedBaseURL
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc001-rest-client-sync S1
-- srd027-rest-tool-runtime AC2
-- srd028-rest-client-tools AC13
+- [rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md) [S1](../use-cases/rel03.0-uc001-rest-client-sync.md#s1)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC2](../software-requirements/srd027-rest-tool-runtime.md#ac2)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC13](../software-requirements/srd028-rest-client-tools.md#ac13)
 
 <!-- case: Trusted operation composes a target from a discovered host | status: done -->
 ### Trusted operation composes a target from a discovered host
@@ -244,7 +244,7 @@ out-of-range port is rejected at load.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-rest-client-sync
+[rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -272,9 +272,9 @@ TestRESTClient_HostSelectorComposesSelectedAuthority
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc001-rest-client-sync S1
-- srd027-rest-tool-runtime AC2
-- srd028-rest-client-tools AC14
+- [rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md) [S1](../use-cases/rel03.0-uc001-rest-client-sync.md#s1)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC2](../software-requirements/srd027-rest-tool-runtime.md#ac2)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC14](../software-requirements/srd028-rest-client-tools.md#ac14)
 
 <!-- case: Trusted operation resolves a composed target port per item | status: done -->
 ### Trusted operation resolves a composed target port per item
@@ -292,7 +292,7 @@ at load.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-rest-client-sync
+[rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -319,9 +319,9 @@ TestRESTClient_PortSelectorResolvesPerItemPort
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc001-rest-client-sync S1
-- srd027-rest-tool-runtime AC2
-- srd028-rest-client-tools AC15
+- [rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md) [S1](../use-cases/rel03.0-uc001-rest-client-sync.md#s1)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC2](../software-requirements/srd027-rest-tool-runtime.md#ac2)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC15](../software-requirements/srd028-rest-client-tools.md#ac15)
 
 <!-- case: REST client threads declared params from the previous Result | status: done -->
 ### REST client threads declared params from the previous Result
@@ -340,7 +340,7 @@ any input_mapping or carry-forward entry that names transport authority.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-rest-client-sync
+[rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -376,8 +376,8 @@ TestRESTClient_ThreadsPreviousResultParams
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc001-rest-client-sync S1
-- srd028-rest-client-tools AC11
+- [rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md) [S1](../use-cases/rel03.0-uc001-rest-client-sync.md#s1)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC11](../software-requirements/srd028-rest-client-tools.md#ac11)
 
 <!-- case: REST client chain threads an embedding vector into a query body | status: done -->
 ### REST client chain threads an embedding vector into a query body
@@ -391,7 +391,7 @@ than a stringified scalar.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-rest-client-sync
+[rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -416,8 +416,8 @@ TestRESTClient_ChainThreadsVectorIntoQueryBody
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc001-rest-client-sync S1
-- srd028-rest-client-tools AC11
+- [rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md) [S1](../use-cases/rel03.0-uc001-rest-client-sync.md#s1)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC11](../software-requirements/srd028-rest-client-tools.md#ac11)
 
 <!-- case: REST auth references resolve through trusted runtime credentials | status: done -->
 ### REST auth references resolve through trusted runtime credentials
@@ -430,7 +430,7 @@ not treat reference names as secret values.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-rest-client-sync
+[rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -462,11 +462,11 @@ TestRESTClient_ResolvesAuthCredentialRefs
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc001-rest-client-sync S1
-- srd027-rest-tool-runtime AC6
-- srd027-rest-tool-runtime AC7
-- srd028-rest-client-tools AC2
-- srd028-rest-client-tools AC9
+- [rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md) [S1](../use-cases/rel03.0-uc001-rest-client-sync.md#s1)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC6](../software-requirements/srd027-rest-tool-runtime.md#ac6)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC7](../software-requirements/srd027-rest-tool-runtime.md#ac7)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC2](../software-requirements/srd028-rest-client-tools.md#ac2)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC9](../software-requirements/srd028-rest-client-tools.md#ac9)
 
 <!-- case: REST redirect and body size policies fail closed | status: done -->
 ### REST redirect and body size policies fail closed
@@ -479,7 +479,7 @@ a size_limit CommandError without returning response content.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-rest-client-sync
+[rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -506,13 +506,13 @@ TestRESTClient_RedirectAllowlistPolicy
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc001-rest-client-sync S1
-- rel03.0-uc001-rest-client-sync S2
-- srd027-rest-tool-runtime AC6
-- srd027-rest-tool-runtime AC7
-- srd028-rest-client-tools AC2
-- srd028-rest-client-tools AC8
-- srd028-rest-client-tools AC9
+- [rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md) [S1](../use-cases/rel03.0-uc001-rest-client-sync.md#s1)
+- [rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md) [S2](../use-cases/rel03.0-uc001-rest-client-sync.md#s2)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC6](../software-requirements/srd027-rest-tool-runtime.md#ac6)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC7](../software-requirements/srd027-rest-tool-runtime.md#ac7)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC2](../software-requirements/srd028-rest-client-tools.md#ac2)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC8](../software-requirements/srd028-rest-client-tools.md#ac8)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC9](../software-requirements/srd028-rest-client-tools.md#ac9)
 
 <!-- case: Mutating REST operations declare effects and compensation | status: done -->
 ### Mutating REST operations declare effects and compensation
@@ -525,7 +525,7 @@ completes the contract.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-rest-client-sync
+[rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -553,12 +553,12 @@ TestRESTClient_MutatingOperationsRequireEffects
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc001-rest-client-sync S3
-- srd027-rest-tool-runtime AC8
-- srd028-rest-client-tools AC3
-- srd028-rest-client-tools AC4
-- srd028-rest-client-tools AC8
-- srd028-rest-client-tools AC10
+- [rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md) [S3](../use-cases/rel03.0-uc001-rest-client-sync.md#s3)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC8](../software-requirements/srd027-rest-tool-runtime.md#ac8)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC3](../software-requirements/srd028-rest-client-tools.md#ac3)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC4](../software-requirements/srd028-rest-client-tools.md#ac4)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC8](../software-requirements/srd028-rest-client-tools.md#ac8)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC10](../software-requirements/srd028-rest-client-tools.md#ac10)
 
 <!-- case: Async send records request state and returns RESTAccepted | status: done -->
 ### Async send records request state and returns RESTAccepted
@@ -571,7 +571,7 @@ correlation metadata plus the remote compensation receipt back to the grammar.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc002-rest-client-async
+[rel03.0-uc002-rest-client-async](../use-cases/rel03.0-uc002-rest-client-async.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -600,11 +600,11 @@ TestRESTClient_SendRecordsAsyncRequest
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc002-rest-client-async S1
-- rel03.0-uc002-rest-client-async S2
-- srd027-rest-tool-runtime AC5
-- srd028-rest-client-tools AC5
-- srd028-rest-client-tools AC8
+- [rel03.0-uc002-rest-client-async](../use-cases/rel03.0-uc002-rest-client-async.md) [S1](../use-cases/rel03.0-uc002-rest-client-async.md#s1)
+- [rel03.0-uc002-rest-client-async](../use-cases/rel03.0-uc002-rest-client-async.md) [S2](../use-cases/rel03.0-uc002-rest-client-async.md#s2)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC5](../software-requirements/srd027-rest-tool-runtime.md#ac5)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC5](../software-requirements/srd028-rest-client-tools.md#ac5)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC8](../software-requirements/srd028-rest-client-tools.md#ac8)
 
 <!-- case: Async await maps completion and timeout signals | status: done -->
 ### Async await maps completion and timeout signals
@@ -619,7 +619,7 @@ to policy after the final signal is chosen.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc002-rest-client-async
+[rel03.0-uc002-rest-client-async](../use-cases/rel03.0-uc002-rest-client-async.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -650,12 +650,12 @@ TestRESTClient_AwaitAsyncRequest
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc002-rest-client-async S1
-- rel03.0-uc002-rest-client-async S3
-- srd027-rest-tool-runtime AC5
-- srd028-rest-client-tools AC5
-- srd028-rest-client-tools AC6
-- srd028-rest-client-tools AC9
+- [rel03.0-uc002-rest-client-async](../use-cases/rel03.0-uc002-rest-client-async.md) [S1](../use-cases/rel03.0-uc002-rest-client-async.md#s1)
+- [rel03.0-uc002-rest-client-async](../use-cases/rel03.0-uc002-rest-client-async.md) [S3](../use-cases/rel03.0-uc002-rest-client-async.md#s3)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC5](../software-requirements/srd027-rest-tool-runtime.md#ac5)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC5](../software-requirements/srd028-rest-client-tools.md#ac5)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC6](../software-requirements/srd028-rest-client-tools.md#ac6)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC9](../software-requirements/srd028-rest-client-tools.md#ac9)
 
 <!-- case: Async retry policy requires idempotency metadata | status: done -->
 ### Async retry policy requires idempotency metadata
@@ -667,7 +667,7 @@ safe duplicate suppression.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc002-rest-client-async
+[rel03.0-uc002-rest-client-async](../use-cases/rel03.0-uc002-rest-client-async.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -692,10 +692,10 @@ TestRESTClient_AsyncRetryPolicyValidation
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc002-rest-client-async S4
-- srd027-rest-tool-runtime AC6
-- srd028-rest-client-tools AC8
-- srd028-rest-client-tools AC9
+- [rel03.0-uc002-rest-client-async](../use-cases/rel03.0-uc002-rest-client-async.md) [S4](../use-cases/rel03.0-uc002-rest-client-async.md#s4)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC6](../software-requirements/srd027-rest-tool-runtime.md#ac6)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC8](../software-requirements/srd028-rest-client-tools.md#ac8)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC9](../software-requirements/srd028-rest-client-tools.md#ac9)
 
 <!-- case: REST retry aggregate stays within the machine command envelope | status: done -->
 ### REST retry aggregate stays within the machine command envelope
@@ -711,7 +711,7 @@ separate async timeout.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-rest-client-sync
+[rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -745,10 +745,10 @@ go test ./pkg/profileaudit -run TestInspectRESTRetryAggregate
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc001-rest-client-sync S1
-- srd027-rest-tool-runtime AC6
-- srd028-rest-client-tools AC2
-- srd028-rest-client-tools AC8
+- [rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md) [S1](../use-cases/rel03.0-uc001-rest-client-sync.md#s1)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC6](../software-requirements/srd027-rest-tool-runtime.md#ac6)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC2](../software-requirements/srd028-rest-client-tools.md#ac2)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC8](../software-requirements/srd028-rest-client-tools.md#ac8)
 
 <!-- case: REST dispatch cancellation reaches request and retry transport | status: done -->
 ### REST dispatch cancellation reaches request and retry transport
@@ -761,7 +761,7 @@ indeterminate remote outcome.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc002-rest-client-async
+[rel03.0-uc002-rest-client-async](../use-cases/rel03.0-uc002-rest-client-async.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -780,9 +780,9 @@ go test ./internal/tools/rest/client -run 'TestRESTClient(DispatchCancellation|C
 <!-- field: traces -->
 #### Traces
 
-- srd027-rest-tool-runtime AC6
-- srd028-rest-client-tools AC8
-- srd028-rest-client-tools AC9
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC6](../software-requirements/srd027-rest-tool-runtime.md#ac6)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC8](../software-requirements/srd028-rest-client-tools.md#ac8)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC9](../software-requirements/srd028-rest-client-tools.md#ac9)
 
 <!-- case: Server launch registers routes without blocking | status: done -->
 ### Server launch registers routes without blocking
@@ -794,7 +794,7 @@ returns ServerLaunched without waiting for inbound requests.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc003-rest-server-signals
+[rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -823,10 +823,10 @@ TestRESTServer_LaunchRegistersRoutes
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc003-rest-server-signals S1
-- srd027-rest-tool-runtime AC5
-- srd029-rest-server-tools AC2
-- srd029-rest-server-tools AC7
+- [rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md) [S1](../use-cases/rel03.0-uc003-rest-server-signals.md#s1)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC5](../software-requirements/srd027-rest-tool-runtime.md#ac5)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC2](../software-requirements/srd029-rest-server-tools.md#ac2)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC7](../software-requirements/srd029-rest-server-tools.md#ac7)
 
 <!-- case: Server await emits queued inbound signals | status: done -->
 ### Server await emits queued inbound signals
@@ -838,7 +838,7 @@ signal to MachineSpec.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc003-rest-server-signals
+[rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -870,11 +870,11 @@ TestRESTServer_AwaitInboundSignals
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc003-rest-server-signals S2
-- rel03.0-uc003-rest-server-signals S3
-- srd029-rest-server-tools AC3
-- srd029-rest-server-tools AC5
-- srd029-rest-server-tools AC6
+- [rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md) [S2](../use-cases/rel03.0-uc003-rest-server-signals.md#s2)
+- [rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md) [S3](../use-cases/rel03.0-uc003-rest-server-signals.md#s3)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC3](../software-requirements/srd029-rest-server-tools.md#ac3)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC5](../software-requirements/srd029-rest-server-tools.md#ac5)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC6](../software-requirements/srd029-rest-server-tools.md#ac6)
 
 <!-- case: Generic REST await fan-in selects one event across servers | status: done -->
 ### Generic REST await fan-in selects one event across servers
@@ -887,7 +887,7 @@ route after that signal.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc003-rest-server-signals
+[rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -916,10 +916,10 @@ TestRESTAwaitEvent_MultiSourceFanIn
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc003-rest-server-signals S2
-- rel03.0-uc003-rest-server-signals S3
-- srd027-rest-tool-runtime AC10
-- srd029-rest-server-tools AC10
+- [rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md) [S2](../use-cases/rel03.0-uc003-rest-server-signals.md#s2)
+- [rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md) [S3](../use-cases/rel03.0-uc003-rest-server-signals.md#s3)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC10](../software-requirements/srd027-rest-tool-runtime.md#ac10)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC10](../software-requirements/srd029-rest-server-tools.md#ac10)
 
 <!-- case: Staged REST await-any fan-in adds a later source | status: done -->
 ### Staged REST await-any fan-in adds a later source
@@ -935,7 +935,7 @@ machine.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc008-rest-await-any-fan-in
+[rel03.0-uc008-rest-await-any-fan-in](../use-cases/rel03.0-uc008-rest-await-any-fan-in.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -970,13 +970,13 @@ TestRESTAwaitEvent_FactoryBuildsStagedFanIn
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc008-rest-await-any-fan-in S1
-- rel03.0-uc008-rest-await-any-fan-in S2
-- rel03.0-uc008-rest-await-any-fan-in S3
-- rel03.0-uc008-rest-await-any-fan-in S4
-- rel03.0-uc008-rest-await-any-fan-in S5
-- srd027-rest-tool-runtime AC10
-- srd029-rest-server-tools AC10
+- [rel03.0-uc008-rest-await-any-fan-in](../use-cases/rel03.0-uc008-rest-await-any-fan-in.md) [S1](../use-cases/rel03.0-uc008-rest-await-any-fan-in.md#s1)
+- [rel03.0-uc008-rest-await-any-fan-in](../use-cases/rel03.0-uc008-rest-await-any-fan-in.md) [S2](../use-cases/rel03.0-uc008-rest-await-any-fan-in.md#s2)
+- [rel03.0-uc008-rest-await-any-fan-in](../use-cases/rel03.0-uc008-rest-await-any-fan-in.md) [S3](../use-cases/rel03.0-uc008-rest-await-any-fan-in.md#s3)
+- [rel03.0-uc008-rest-await-any-fan-in](../use-cases/rel03.0-uc008-rest-await-any-fan-in.md) [S4](../use-cases/rel03.0-uc008-rest-await-any-fan-in.md#s4)
+- [rel03.0-uc008-rest-await-any-fan-in](../use-cases/rel03.0-uc008-rest-await-any-fan-in.md) [S5](../use-cases/rel03.0-uc008-rest-await-any-fan-in.md#s5)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC10](../software-requirements/srd027-rest-tool-runtime.md#ac10)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC10](../software-requirements/srd029-rest-server-tools.md#ac10)
 
 <!-- case: Generic REST await applies route and signal filters | status: done -->
 ### Generic REST await applies route and signal filters
@@ -988,7 +988,7 @@ according to policy. Matching input drives the emitted signal.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc003-rest-server-signals
+[rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1022,9 +1022,9 @@ TestRESTAwaitEvent_SourceFiltersPreserveUnrelatedEvents
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc003-rest-server-signals S3
-- srd027-rest-tool-runtime AC10
-- srd029-rest-server-tools AC10
+- [rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md) [S3](../use-cases/rel03.0-uc003-rest-server-signals.md#s3)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC10](../software-requirements/srd027-rest-tool-runtime.md#ac10)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC10](../software-requirements/srd029-rest-server-tools.md#ac10)
 
 <!-- case: Generic REST await reports timeout without consuming events | status: done -->
 ### Generic REST await reports timeout without consuming events
@@ -1036,7 +1036,7 @@ without inventing a lifecycle or domain signal.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc003-rest-server-signals
+[rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1064,8 +1064,8 @@ TestRESTAwaitEvent_Timeout
 <!-- field: traces -->
 #### Traces
 
-- srd027-rest-tool-runtime AC10
-- srd029-rest-server-tools AC10
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC10](../software-requirements/srd027-rest-tool-runtime.md#ac10)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC10](../software-requirements/srd029-rest-server-tools.md#ac10)
 
 <!-- case: Generic REST await handles stopped sources by policy | status: done -->
 ### Generic REST await handles stopped sources by policy
@@ -1077,7 +1077,7 @@ policy returns the declared signal or continues waiting as configured.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc003-rest-server-signals
+[rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1103,8 +1103,8 @@ TestRESTAwaitEvent_ServerStopped
 <!-- field: traces -->
 #### Traces
 
-- srd027-rest-tool-runtime AC10
-- srd029-rest-server-tools AC10
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC10](../software-requirements/srd027-rest-tool-runtime.md#ac10)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC10](../software-requirements/srd029-rest-server-tools.md#ac10)
 
 <!-- case: Lifecycle exit through REST routes to exit_agent | status: done -->
 ### Lifecycle exit through REST routes to exit_agent
@@ -1120,7 +1120,7 @@ AgentExited and resolves the terminal MachineSpec state.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc003-rest-server-signals
+[rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1158,11 +1158,11 @@ TestRESTLifecycleControl_ExitAgentSignal
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc003-rest-server-signals S3
-- srd026-lifecycle-tools AC7
-- srd027-rest-tool-runtime AC10
-- srd029-rest-server-tools AC5
-- srd029-rest-server-tools AC10
+- [rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md) [S3](../use-cases/rel03.0-uc003-rest-server-signals.md#s3)
+- [srd026-lifecycle-tools](../software-requirements/srd026-lifecycle-tools.md) [AC7](../software-requirements/srd026-lifecycle-tools.md#ac7)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC10](../software-requirements/srd027-rest-tool-runtime.md#ac10)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC5](../software-requirements/srd029-rest-server-tools.md#ac5)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC10](../software-requirements/srd029-rest-server-tools.md#ac10)
 
 <!-- case: Server stop drains queues and unblocks await | status: done -->
 ### Server stop drains queues and unblocks await
@@ -1174,7 +1174,7 @@ closes listeners, and unblocks await and stream_events with ServerStopped.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc003-rest-server-signals
+[rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1210,10 +1210,10 @@ TestRESTServer_StopDrainsAndUnblocks, TestRESTServer_ShutdownConfigValidation, T
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc003-rest-server-signals S4
-- srd029-rest-server-tools AC4
-- srd029-rest-server-tools AC7
-- srd029-rest-server-tools AC9
+- [rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md) [S4](../use-cases/rel03.0-uc003-rest-server-signals.md#s4)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC4](../software-requirements/srd029-rest-server-tools.md#ac4)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC7](../software-requirements/srd029-rest-server-tools.md#ac7)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC9](../software-requirements/srd029-rest-server-tools.md#ac9)
 
 <!-- case: Terminal state mapping separates client and server errors | status: done -->
 ### Terminal state mapping separates client and server errors
@@ -1228,7 +1228,7 @@ configured, and a config with only terminal_signals behaves as before.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc003-rest-server-signals
+[rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1258,8 +1258,8 @@ TestMachineRequestTerminalStateSeparatesClientAndServerErrors, TestMachineReques
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc003-rest-server-signals S2
-- srd030-machine-request-rest-binding AC8
+- [rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md) [S2](../use-cases/rel03.0-uc003-rest-server-signals.md#s2)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC8](../software-requirements/srd030-machine-request-rest-binding.md#ac8)
 
 <!-- case: Terminal response configuration fails closed | status: done -->
 ### Terminal response configuration fails closed
@@ -1272,7 +1272,7 @@ unmapped terminal names both the state and the signal that were looked up.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc003-rest-server-signals
+[rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1297,8 +1297,8 @@ TestValidateMachineResponsesRejectsNonTerminalState, TestMachineRequestEndpointA
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc003-rest-server-signals S2
-- srd030-machine-request-rest-binding AC8
+- [rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md) [S2](../use-cases/rel03.0-uc003-rest-server-signals.md#s2)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC8](../software-requirements/srd030-machine-request-rest-binding.md#ac8)
 
 <!-- case: Server validation rejects unsafe inbound traffic | status: done -->
 ### Server validation rejects unsafe inbound traffic
@@ -1309,7 +1309,7 @@ configured HTTP errors and avoids hidden MachineSpec actions.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc003-rest-server-signals
+[rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1338,10 +1338,10 @@ TestRESTServer_RequestValidationFailures
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc003-rest-server-signals S2
-- srd027-rest-tool-runtime AC6
-- srd029-rest-server-tools AC6
-- srd029-rest-server-tools AC9
+- [rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md) [S2](../use-cases/rel03.0-uc003-rest-server-signals.md#s2)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC6](../software-requirements/srd027-rest-tool-runtime.md#ac6)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC6](../software-requirements/srd029-rest-server-tools.md#ac6)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC9](../software-requirements/srd029-rest-server-tools.md#ac9)
 
 <!-- case: Endpoints sharing a path are selected by method | status: done -->
 ### Endpoints sharing a path are selected by method
@@ -1356,7 +1356,7 @@ definition validation, and a parameter beside a catch-all does not.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc003-rest-server-signals
+[rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1395,8 +1395,8 @@ go test ./internal/tools/rest -run 'TestRESTServer_SelectsSamePathEndpointByMeth
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc003-rest-server-signals S2
-- srd029-rest-server-tools AC11
+- [rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md) [S2](../use-cases/rel03.0-uc003-rest-server-signals.md#s2)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC11](../software-requirements/srd029-rest-server-tools.md#ac11)
 
 <!-- case: Server query header and output redaction policies fail closed | status: done -->
 ### Server query header and output redaction policies fail closed
@@ -1410,7 +1410,7 @@ body secrets.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc003-rest-server-signals
+[rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1441,12 +1441,12 @@ TestRESTServer_RejectsUndeclaredQueryAndHeader
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc003-rest-server-signals S2
-- rel03.0-uc003-rest-server-signals S3
-- srd027-rest-tool-runtime AC6
-- srd027-rest-tool-runtime AC7
-- srd029-rest-server-tools AC6
-- srd029-rest-server-tools AC9
+- [rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md) [S2](../use-cases/rel03.0-uc003-rest-server-signals.md#s2)
+- [rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md) [S3](../use-cases/rel03.0-uc003-rest-server-signals.md#s3)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC6](../software-requirements/srd027-rest-tool-runtime.md#ac6)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC7](../software-requirements/srd027-rest-tool-runtime.md#ac7)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC6](../software-requirements/srd029-rest-server-tools.md#ac6)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC9](../software-requirements/srd029-rest-server-tools.md#ac9)
 
 <!-- case: Server invoke handler returns configured responses | status: done -->
 ### Server invoke handler returns configured responses
@@ -1458,7 +1458,7 @@ the endpoint configuration names one.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc003-rest-server-signals
+[rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1485,10 +1485,10 @@ TestRESTServer_InvokeHandlerBindings
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc003-rest-server-signals S2
-- srd029-rest-server-tools AC5
-- srd029-rest-server-tools AC6
-- srd029-rest-server-tools AC9
+- [rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md) [S2](../use-cases/rel03.0-uc003-rest-server-signals.md#s2)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC5](../software-requirements/srd029-rest-server-tools.md#ac5)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC6](../software-requirements/srd029-rest-server-tools.md#ac6)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC9](../software-requirements/srd029-rest-server-tools.md#ac9)
 
 <!-- case: Server streams queued events as SSE | status: done -->
 ### Server streams queued events as SSE
@@ -1500,7 +1500,7 @@ route metadata without choosing the next MachineSpec action.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc003-rest-server-signals
+[rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1526,10 +1526,10 @@ TestRESTServer_StreamEvents
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc003-rest-server-signals S2
-- srd029-rest-server-tools AC5
-- srd029-rest-server-tools AC7
-- srd029-rest-server-tools AC9
+- [rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md) [S2](../use-cases/rel03.0-uc003-rest-server-signals.md#s2)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC5](../software-requirements/srd029-rest-server-tools.md#ac5)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC7](../software-requirements/srd029-rest-server-tools.md#ac7)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC9](../software-requirements/srd029-rest-server-tools.md#ac9)
 
 <!-- case: OpenAPI import exposes allowlisted operations | status: done -->
 ### OpenAPI import exposes allowlisted operations
@@ -1541,7 +1541,7 @@ while ToolDef declarations stay explicit.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc004-openapi-import
+[rel03.0-uc004-openapi-import](../use-cases/rel03.0-uc004-openapi-import.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1572,12 +1572,12 @@ TestRESTOpenAPI_ImportAllowlist
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc004-openapi-import S1
-- rel03.0-uc004-openapi-import S3
-- rel03.0-uc004-openapi-import S4
-- srd027-rest-tool-runtime AC3
-- srd027-rest-tool-runtime AC9
-- srd028-rest-client-tools AC1
+- [rel03.0-uc004-openapi-import](../use-cases/rel03.0-uc004-openapi-import.md) [S1](../use-cases/rel03.0-uc004-openapi-import.md#s1)
+- [rel03.0-uc004-openapi-import](../use-cases/rel03.0-uc004-openapi-import.md) [S3](../use-cases/rel03.0-uc004-openapi-import.md#s3)
+- [rel03.0-uc004-openapi-import](../use-cases/rel03.0-uc004-openapi-import.md) [S4](../use-cases/rel03.0-uc004-openapi-import.md#s4)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC3](../software-requirements/srd027-rest-tool-runtime.md#ac3)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC9](../software-requirements/srd027-rest-tool-runtime.md#ac9)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC1](../software-requirements/srd028-rest-client-tools.md#ac1)
 
 <!-- case: OpenAPI server bind maps operation IDs to endpoints | status: done -->
 ### OpenAPI server bind maps operation IDs to endpoints
@@ -1589,7 +1589,7 @@ ToolDefs remain explicit vocabulary words.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc004-openapi-import
+[rel03.0-uc004-openapi-import](../use-cases/rel03.0-uc004-openapi-import.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1616,10 +1616,10 @@ TestRESTOpenAPI_ServerBindMap
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc004-openapi-import S2
-- rel03.0-uc004-openapi-import S3
-- rel03.0-uc004-openapi-import S4
-- srd029-rest-server-tools AC8
+- [rel03.0-uc004-openapi-import](../use-cases/rel03.0-uc004-openapi-import.md) [S2](../use-cases/rel03.0-uc004-openapi-import.md#s2)
+- [rel03.0-uc004-openapi-import](../use-cases/rel03.0-uc004-openapi-import.md) [S3](../use-cases/rel03.0-uc004-openapi-import.md#s3)
+- [rel03.0-uc004-openapi-import](../use-cases/rel03.0-uc004-openapi-import.md) [S4](../use-cases/rel03.0-uc004-openapi-import.md#s4)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC8](../software-requirements/srd029-rest-server-tools.md#ac8)
 
 <!-- case: OpenAPI import reports invalid operation IDs | status: done -->
 ### OpenAPI import reports invalid operation IDs
@@ -1631,7 +1631,7 @@ same way, with document and operation context in the error.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc004-openapi-import
+[rel03.0-uc004-openapi-import](../use-cases/rel03.0-uc004-openapi-import.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1658,12 +1658,12 @@ TestRESTOpenAPI_InvalidOperationIDs
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc004-openapi-import S1
-- rel03.0-uc004-openapi-import S2
-- srd027-rest-tool-runtime AC3
-- srd027-rest-tool-runtime AC7
-- srd029-rest-server-tools AC8
-- srd029-rest-server-tools AC9
+- [rel03.0-uc004-openapi-import](../use-cases/rel03.0-uc004-openapi-import.md) [S1](../use-cases/rel03.0-uc004-openapi-import.md#s1)
+- [rel03.0-uc004-openapi-import](../use-cases/rel03.0-uc004-openapi-import.md) [S2](../use-cases/rel03.0-uc004-openapi-import.md#s2)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC3](../software-requirements/srd027-rest-tool-runtime.md#ac3)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC7](../software-requirements/srd027-rest-tool-runtime.md#ac7)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC8](../software-requirements/srd029-rest-server-tools.md#ac8)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC9](../software-requirements/srd029-rest-server-tools.md#ac9)
 
 <!-- case: Qwen agent lists Ollama models through OpenAPI REST tool | status: done -->
 ### Qwen agent lists Ollama models through OpenAPI REST tool
@@ -1678,7 +1678,7 @@ names returned by /api/tags.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc005-ollama-openapi-model-listing
+[rel03.0-uc005-ollama-openapi-model-listing](../use-cases/rel03.0-uc005-ollama-openapi-model-listing.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1710,17 +1710,17 @@ mage integration:ollamaRest
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc005-ollama-openapi-model-listing S1
-- rel03.0-uc005-ollama-openapi-model-listing S2
-- rel03.0-uc005-ollama-openapi-model-listing S3
-- rel03.0-uc005-ollama-openapi-model-listing S4
-- srd009-ollama-adapter AC1
-- srd024-blocking-input-tools AC1
-- srd024-blocking-input-tools AC2
-- srd027-rest-tool-runtime AC2
-- srd027-rest-tool-runtime AC3
-- srd028-rest-client-tools AC4
-- srd028-rest-client-tools AC7
+- [rel03.0-uc005-ollama-openapi-model-listing](../use-cases/rel03.0-uc005-ollama-openapi-model-listing.md) [S1](../use-cases/rel03.0-uc005-ollama-openapi-model-listing.md#s1)
+- [rel03.0-uc005-ollama-openapi-model-listing](../use-cases/rel03.0-uc005-ollama-openapi-model-listing.md) [S2](../use-cases/rel03.0-uc005-ollama-openapi-model-listing.md#s2)
+- [rel03.0-uc005-ollama-openapi-model-listing](../use-cases/rel03.0-uc005-ollama-openapi-model-listing.md) [S3](../use-cases/rel03.0-uc005-ollama-openapi-model-listing.md#s3)
+- [rel03.0-uc005-ollama-openapi-model-listing](../use-cases/rel03.0-uc005-ollama-openapi-model-listing.md) [S4](../use-cases/rel03.0-uc005-ollama-openapi-model-listing.md#s4)
+- [srd009-ollama-adapter](../software-requirements/srd009-ollama-adapter.md) [AC1](../software-requirements/srd009-ollama-adapter.md#ac1)
+- [srd024-blocking-input-tools](../software-requirements/srd024-blocking-input-tools.md) [AC1](../software-requirements/srd024-blocking-input-tools.md#ac1)
+- [srd024-blocking-input-tools](../software-requirements/srd024-blocking-input-tools.md) [AC2](../software-requirements/srd024-blocking-input-tools.md#ac2)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC2](../software-requirements/srd027-rest-tool-runtime.md#ac2)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC3](../software-requirements/srd027-rest-tool-runtime.md#ac3)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC4](../software-requirements/srd028-rest-client-tools.md#ac4)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC7](../software-requirements/srd028-rest-client-tools.md#ac7)
 
 <!-- case: Profile-owned documentation curator loads generic REST tooling | status: done -->
 ### Profile-owned documentation curator loads generic REST tooling
@@ -1733,7 +1733,7 @@ profile path, selected doc_* REST tools, and REST definitions.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc006-documentation-curator
+[rel03.0-uc006-documentation-curator](../use-cases/rel03.0-uc006-documentation-curator.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1766,11 +1766,11 @@ mage integration:documentationCurator
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc006-documentation-curator S1
-- rel03.0-uc006-documentation-curator S4
-- srd022-builtin-tools AC1
-- srd027-rest-tool-runtime AC2
-- srd028-rest-client-tools AC1
+- [rel03.0-uc006-documentation-curator](../use-cases/rel03.0-uc006-documentation-curator.md) [S1](../use-cases/rel03.0-uc006-documentation-curator.md#s1)
+- [rel03.0-uc006-documentation-curator](../use-cases/rel03.0-uc006-documentation-curator.md) [S4](../use-cases/rel03.0-uc006-documentation-curator.md#s4)
+- [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md) [AC1](../software-requirements/srd022-builtin-tools.md#ac1)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC2](../software-requirements/srd027-rest-tool-runtime.md#ac2)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC1](../software-requirements/srd028-rest-client-tools.md#ac1)
 
 <!-- case: Generic profile server serves docs API and SPA | status: done -->
 ### Generic profile server serves docs API and SPA
@@ -1782,7 +1782,7 @@ transitions. Detailed route behavior is covered by the profile integration.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc006-documentation-curator
+[rel03.0-uc006-documentation-curator](../use-cases/rel03.0-uc006-documentation-curator.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1808,11 +1808,11 @@ mage integration:documentationCurator
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc006-documentation-curator S2
-- rel03.0-uc006-documentation-curator S3
-- srd020-bench-web-ui AC4
-- srd024-blocking-input-tools AC1
-- srd027-rest-tool-runtime AC2
+- [rel03.0-uc006-documentation-curator](../use-cases/rel03.0-uc006-documentation-curator.md) [S2](../use-cases/rel03.0-uc006-documentation-curator.md#s2)
+- [rel03.0-uc006-documentation-curator](../use-cases/rel03.0-uc006-documentation-curator.md) [S3](../use-cases/rel03.0-uc006-documentation-curator.md#s3)
+- [srd020-bench-web-ui](../software-requirements/srd020-bench-web-ui.md) [AC4](../software-requirements/srd020-bench-web-ui.md#ac4)
+- [srd024-blocking-input-tools](../software-requirements/srd024-blocking-input-tools.md) [AC1](../software-requirements/srd024-blocking-input-tools.md#ac1)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC2](../software-requirements/srd027-rest-tool-runtime.md#ac2)
 
 <!-- case: Documentation curator exposes validation and patch proposal workflow | status: done -->
 ### Documentation curator exposes validation and patch proposal workflow
@@ -1825,7 +1825,7 @@ decision but does not write documentation files.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc006-documentation-curator
+[rel03.0-uc006-documentation-curator](../use-cases/rel03.0-uc006-documentation-curator.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1856,10 +1856,10 @@ mage integration:documentationCurator
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc006-documentation-curator S4
-- srd027-rest-tool-runtime AC2
-- srd028-rest-client-tools AC4
-- srd028-rest-client-tools AC7
+- [rel03.0-uc006-documentation-curator](../use-cases/rel03.0-uc006-documentation-curator.md) [S4](../use-cases/rel03.0-uc006-documentation-curator.md#s4)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC2](../software-requirements/srd027-rest-tool-runtime.md#ac2)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC4](../software-requirements/srd028-rest-client-tools.md#ac4)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC7](../software-requirements/srd028-rest-client-tools.md#ac7)
 
 <!-- case: Profile-owned documentation curator lifecycle exit smoke test | status: done -->
 ### Profile-owned documentation curator lifecycle exit smoke test
@@ -1874,7 +1874,7 @@ shutdown behavior; applications/catalog owns this concrete tracer bullet.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc006-documentation-curator
+[rel03.0-uc006-documentation-curator](../use-cases/rel03.0-uc006-documentation-curator.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1916,14 +1916,14 @@ mage integration:documentationCurator
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc006-documentation-curator S1
-- rel03.0-uc006-documentation-curator S2
-- rel03.0-uc006-documentation-curator S3
-- rel03.0-uc006-documentation-curator S4
-- srd020-bench-web-ui AC4
-- srd024-blocking-input-tools AC1
-- srd027-rest-tool-runtime AC10
-- srd029-rest-server-tools AC10
+- [rel03.0-uc006-documentation-curator](../use-cases/rel03.0-uc006-documentation-curator.md) [S1](../use-cases/rel03.0-uc006-documentation-curator.md#s1)
+- [rel03.0-uc006-documentation-curator](../use-cases/rel03.0-uc006-documentation-curator.md) [S2](../use-cases/rel03.0-uc006-documentation-curator.md#s2)
+- [rel03.0-uc006-documentation-curator](../use-cases/rel03.0-uc006-documentation-curator.md) [S3](../use-cases/rel03.0-uc006-documentation-curator.md#s3)
+- [rel03.0-uc006-documentation-curator](../use-cases/rel03.0-uc006-documentation-curator.md) [S4](../use-cases/rel03.0-uc006-documentation-curator.md#s4)
+- [srd020-bench-web-ui](../software-requirements/srd020-bench-web-ui.md) [AC4](../software-requirements/srd020-bench-web-ui.md#ac4)
+- [srd024-blocking-input-tools](../software-requirements/srd024-blocking-input-tools.md) [AC1](../software-requirements/srd024-blocking-input-tools.md#ac1)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC10](../software-requirements/srd027-rest-tool-runtime.md#ac10)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC10](../software-requirements/srd029-rest-server-tools.md#ac10)
 
 <!-- case: Profile-owned browser loads machine-request documentation UX | status: done -->
 ### Profile-owned browser loads machine-request documentation UX
@@ -1938,7 +1938,7 @@ asset behavior without naming the concrete profile.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc007-machine-request-documentation-ux
+[rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -1968,8 +1968,8 @@ mage integration:documentationCurator
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc007-machine-request-documentation-ux S1
-- srd031-declarative-document-resources AC6
+- [rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md) [S1](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md#s1)
+- [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md) [AC6](../software-requirements/srd031-declarative-document-resources.md#ac6)
 
 <!-- case: Browser verifies document index machine_request sentence | status: done -->
 ### Browser verifies document index machine_request sentence
@@ -1981,7 +1981,7 @@ return a document list, and render sidebar categories in the page.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc007-machine-request-documentation-ux
+[rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2010,11 +2010,11 @@ mage integration:documentationCurator
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc007-machine-request-documentation-ux S2
-- srd030-machine-request-rest-binding AC1
-- srd030-machine-request-rest-binding AC4
-- srd031-declarative-document-resources AC1
-- srd031-declarative-document-resources AC7
+- [rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md) [S2](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md#s2)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC1](../software-requirements/srd030-machine-request-rest-binding.md#ac1)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC4](../software-requirements/srd030-machine-request-rest-binding.md#ac4)
+- [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md) [AC1](../software-requirements/srd031-declarative-document-resources.md#ac1)
+- [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md) [AC7](../software-requirements/srd031-declarative-document-resources.md#ac7)
 
 <!-- case: Browser opens raw YAML document through document resource | status: done -->
 ### Browser opens raw YAML document through document resource
@@ -2026,7 +2026,7 @@ and return raw YAML plus configured parsed content.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc007-machine-request-documentation-ux
+[rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2060,12 +2060,12 @@ mage integration:documentationCurator
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc007-machine-request-documentation-ux S3
-- rel03.0-uc007-machine-request-documentation-ux S4
-- srd030-machine-request-rest-binding AC5
-- srd031-declarative-document-resources AC3
-- srd031-declarative-document-resources AC4
-- srd031-declarative-document-resources AC5
+- [rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md) [S3](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md#s3)
+- [rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md) [S4](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md#s4)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC5](../software-requirements/srd030-machine-request-rest-binding.md#ac5)
+- [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md) [AC3](../software-requirements/srd031-declarative-document-resources.md#ac3)
+- [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md) [AC4](../software-requirements/srd031-declarative-document-resources.md#ac4)
+- [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md) [AC5](../software-requirements/srd031-declarative-document-resources.md#ac5)
 
 <!-- case: Browser verifies rendered HTML and raw YAML view | status: done -->
 ### Browser verifies rendered HTML and raw YAML view
@@ -2077,7 +2077,7 @@ the exact YAML text returned by the document resource response.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc007-machine-request-documentation-ux
+[rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2105,10 +2105,10 @@ mage integration:documentationCurator
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc007-machine-request-documentation-ux S3
-- rel03.0-uc007-machine-request-documentation-ux S5
-- srd031-declarative-document-resources AC5
-- srd031-declarative-document-resources AC6
+- [rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md) [S3](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md#s3)
+- [rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md) [S5](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md#s5)
+- [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md) [AC5](../software-requirements/srd031-declarative-document-resources.md#ac5)
+- [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md) [AC6](../software-requirements/srd031-declarative-document-resources.md#ac6)
 
 <!-- case: Browser captures auditable machine_request trace evidence | status: done -->
 ### Browser captures auditable machine_request trace evidence
@@ -2121,7 +2121,7 @@ terminal signal, and RunResult summary for each machine_request run.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc007-machine-request-documentation-ux
+[rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2151,10 +2151,10 @@ mage integration:documentationCurator
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc007-machine-request-documentation-ux S5
-- rel03.0-uc007-machine-request-documentation-ux S6
-- srd030-machine-request-rest-binding AC6
-- srd030-machine-request-rest-binding AC7
+- [rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md) [S5](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md#s5)
+- [rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md) [S6](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md#s6)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC6](../software-requirements/srd030-machine-request-rest-binding.md#ac6)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC7](../software-requirements/srd030-machine-request-rest-binding.md#ac7)
 
 <!-- case: Machine_request conformance loads configured request machine | status: done -->
 ### Machine_request conformance loads configured request machine
@@ -2168,7 +2168,7 @@ identity.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc007-machine-request-documentation-ux
+[rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2201,13 +2201,13 @@ go test ./internal/tools/rest -run 'TestRESTServerMachineRequestConformanceLoads
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc007-machine-request-documentation-ux S2
-- rel03.0-uc007-machine-request-documentation-ux S3
-- srd030-machine-request-rest-binding AC1
-- srd030-machine-request-rest-binding AC3
-- srd030-machine-request-rest-binding AC5
-- srd030-machine-request-rest-binding AC6
-- srd030-machine-request-rest-binding AC7
+- [rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md) [S2](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md#s2)
+- [rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md) [S3](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md#s3)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC1](../software-requirements/srd030-machine-request-rest-binding.md#ac1)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC3](../software-requirements/srd030-machine-request-rest-binding.md#ac3)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC5](../software-requirements/srd030-machine-request-rest-binding.md#ac5)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC6](../software-requirements/srd030-machine-request-rest-binding.md#ac6)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC7](../software-requirements/srd030-machine-request-rest-binding.md#ac7)
 
 <!-- case: Documentation profile routes docs API through generic machine_request | status: done -->
 ### Documentation profile routes docs API through generic machine_request
@@ -2220,7 +2220,7 @@ Browser evidence for a concrete profile belongs to applications/catalog.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc007-machine-request-documentation-ux
+[rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2252,14 +2252,14 @@ mage integration:documentationCurator
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc007-machine-request-documentation-ux S2
-- rel03.0-uc007-machine-request-documentation-ux S5
-- srd030-machine-request-rest-binding AC1
-- srd030-machine-request-rest-binding AC2
-- srd030-machine-request-rest-binding AC3
-- srd030-machine-request-rest-binding AC5
-- srd030-machine-request-rest-binding AC7
-- srd031-declarative-document-resources AC2
+- [rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md) [S2](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md#s2)
+- [rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md) [S5](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md#s5)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC1](../software-requirements/srd030-machine-request-rest-binding.md#ac1)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC2](../software-requirements/srd030-machine-request-rest-binding.md#ac2)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC3](../software-requirements/srd030-machine-request-rest-binding.md#ac3)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC5](../software-requirements/srd030-machine-request-rest-binding.md#ac5)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC7](../software-requirements/srd030-machine-request-rest-binding.md#ac7)
+- [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md) [AC2](../software-requirements/srd031-declarative-document-resources.md#ac2)
 
 <!-- case: Documentation browser actions use configured request-machine routes | status: done -->
 ### Documentation browser actions use configured request-machine routes
@@ -2274,7 +2274,7 @@ transitions return a domain rejection.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc007-machine-request-documentation-ux
+[rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2314,11 +2314,11 @@ mage integration:documentationCurator
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc007-machine-request-documentation-ux S7
-- srd030-machine-request-rest-binding AC1
-- srd030-machine-request-rest-binding AC2
-- srd030-machine-request-rest-binding AC3
-- srd030-machine-request-rest-binding AC7
+- [rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md) [S7](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md#s7)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC1](../software-requirements/srd030-machine-request-rest-binding.md#ac1)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC2](../software-requirements/srd030-machine-request-rest-binding.md#ac2)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC3](../software-requirements/srd030-machine-request-rest-binding.md#ac3)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC7](../software-requirements/srd030-machine-request-rest-binding.md#ac7)
 
 <!-- case: REST observability redacts secrets and reports failure stages | status: done -->
 ### REST observability redacts secrets and reports failure stages
@@ -2330,7 +2330,7 @@ counts, failure stage, and resulting signal. Configured secrets stay out.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-rest-client-sync
+[rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2364,11 +2364,11 @@ TestRESTTools_TracingRedactionAndErrors
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc001-rest-client-sync S2
-- srd027-rest-tool-runtime AC7
-- srd028-rest-client-tools AC8
-- srd028-rest-client-tools AC9
-- srd029-rest-server-tools AC9
+- [rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md) [S2](../use-cases/rel03.0-uc001-rest-client-sync.md#s2)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC7](../software-requirements/srd027-rest-tool-runtime.md#ac7)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC8](../software-requirements/srd028-rest-client-tools.md#ac8)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC9](../software-requirements/srd028-rest-client-tools.md#ac9)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC9](../software-requirements/srd029-rest-server-tools.md#ac9)
 
 <!-- case: REST server control and queue policies are enforced; unsupported read policies rejected | status: done -->
 ### REST server control and queue policies are enforced; unsupported read policies rejected
@@ -2381,7 +2381,7 @@ validation, not honored.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc003-rest-server-signals
+[rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2415,10 +2415,10 @@ TestRESTServer_ControlQueueAndReadPolicyConformance
 <!-- field: traces -->
 #### Traces
 
-- srd027-rest-tool-runtime AC10
-- srd029-rest-server-tools AC5
-- srd029-rest-server-tools AC7
-- srd029-rest-server-tools AC10
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC10](../software-requirements/srd027-rest-tool-runtime.md#ac10)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC5](../software-requirements/srd029-rest-server-tools.md#ac5)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC7](../software-requirements/srd029-rest-server-tools.md#ac7)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC10](../software-requirements/srd029-rest-server-tools.md#ac10)
 
 <!-- case: REST client safety and async selectors are enforced | status: done -->
 ### REST client safety and async selectors are enforced
@@ -2431,7 +2431,7 @@ declare REST probe and lifecycle delay states in MachineSpec.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-rest-client-sync
+[rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2459,11 +2459,11 @@ TestRESTClient_CIDRAllowlistPolicy, TestRESTClient_ResponseSchemaAndDomainErrorO
 <!-- field: traces -->
 #### Traces
 
-- srd027-rest-tool-runtime AC6
-- srd028-rest-client-tools AC5
-- srd028-rest-client-tools AC7
-- srd028-rest-client-tools AC8
-- srd028-rest-client-tools AC9
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC6](../software-requirements/srd027-rest-tool-runtime.md#ac6)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC5](../software-requirements/srd028-rest-client-tools.md#ac5)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC7](../software-requirements/srd028-rest-client-tools.md#ac7)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC8](../software-requirements/srd028-rest-client-tools.md#ac8)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC9](../software-requirements/srd028-rest-client-tools.md#ac9)
 
 <!-- case: OpenAPI server binding preserves configured endpoint behavior | status: done -->
 ### OpenAPI server binding preserves configured endpoint behavior
@@ -2476,7 +2476,7 @@ dropping configured endpoint behavior.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc004-openapi-import
+[rel03.0-uc004-openapi-import](../use-cases/rel03.0-uc004-openapi-import.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2505,9 +2505,9 @@ TestRESTOpenAPI_ServerBindPreservesEndpointConfig
 <!-- field: traces -->
 #### Traces
 
-- srd027-rest-tool-runtime AC3
-- srd029-rest-server-tools AC8
-- srd030-machine-request-rest-binding AC3
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC3](../software-requirements/srd027-rest-tool-runtime.md#ac3)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC8](../software-requirements/srd029-rest-server-tools.md#ac8)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC3](../software-requirements/srd030-machine-request-rest-binding.md#ac3)
 
 <!-- case: REST client compensation creates and executes rollback mementos | status: done -->
 ### REST client compensation creates and executes rollback mementos
@@ -2520,7 +2520,7 @@ executes from the captured receipt.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-rest-client-sync
+[rel03.0-uc001-rest-client-sync](../use-cases/rel03.0-uc001-rest-client-sync.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2550,10 +2550,10 @@ TestRESTClient_CompensationUndoMemento, TestRESTClient_CompensationExecutorRunsF
 <!-- field: traces -->
 #### Traces
 
-- srd025-rollback-lifecycle AC5
-- srd027-rest-tool-runtime AC8
-- srd028-rest-client-tools AC3
-- srd028-rest-client-tools AC10
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) [AC5](../software-requirements/srd025-rollback-lifecycle.md#ac5)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC8](../software-requirements/srd027-rest-tool-runtime.md#ac8)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC3](../software-requirements/srd028-rest-client-tools.md#ac3)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC10](../software-requirements/srd028-rest-client-tools.md#ac10)
 
 <!-- case: Machine_request validates terminal response schemas | status: done -->
 ### Machine_request validates terminal response schemas
@@ -2565,7 +2565,7 @@ config schema field should be removed.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc007-machine-request-documentation-ux
+[rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2589,8 +2589,8 @@ TestRESTServerMachineRequestTerminalResponseSchema
 <!-- field: traces -->
 #### Traces
 
-- srd030-machine-request-rest-binding AC5
-- srd030-machine-request-rest-binding AC6
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC5](../software-requirements/srd030-machine-request-rest-binding.md#ac5)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC6](../software-requirements/srd030-machine-request-rest-binding.md#ac6)
 
 <!-- case: REST document_resources config is loaded or rejected | status: done -->
 ### REST document_resources config is loaded or rejected
@@ -2603,7 +2603,7 @@ with a clear validation error.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc007-machine-request-documentation-ux
+[rel03.0-uc007-machine-request-documentation-ux](../use-cases/rel03.0-uc007-machine-request-documentation-ux.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2627,9 +2627,9 @@ TestRESTDocumentResourcesConfigConformance
 <!-- field: traces -->
 #### Traces
 
-- srd031-declarative-document-resources AC1
-- srd031-declarative-document-resources AC3
-- srd031-declarative-document-resources AC7
+- [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md) [AC1](../software-requirements/srd031-declarative-document-resources.md#ac1)
+- [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md) [AC3](../software-requirements/srd031-declarative-document-resources.md#ac3)
+- [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md) [AC7](../software-requirements/srd031-declarative-document-resources.md#ac7)
 
 <!-- case: static_assets serves an embedded bundle and its declared config | status: done -->
 ### static_assets serves an embedded bundle and its declared config
@@ -2643,7 +2643,7 @@ with both root and bundle, with neither, or with an unknown bundle name.
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc003-rest-server-signals
+[rel03.0-uc003-rest-server-signals](../use-cases/rel03.0-uc003-rest-server-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -2670,4 +2670,4 @@ TestStaticAssets_BundleServesEmbeddedIndexWithSPAFallback, TestStaticAssets_Serv
 <!-- field: traces -->
 #### Traces
 
-- srd029-rest-server-tools AC5
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC5](../software-requirements/srd029-rest-server-tools.md#ac5)

@@ -111,7 +111,7 @@ Validation, suggestion, approval, and rejection browser calls use the configured
 <!-- field: traces -->
 #### Traces
 
-- srd011-knowledge-manager AC1
+- [srd011-knowledge-manager](../software-requirements/srd011-knowledge-manager.md) [AC1](../software-requirements/srd011-knowledge-manager.md#ac1)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -123,4 +123,4 @@ Validation, suggestion, approval, and rejection browser calls use the configured
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel07.0-profile-integrations
+[test-rel07.0-profile-integrations](../test-suites/test-rel07.0-profile-integrations.md)

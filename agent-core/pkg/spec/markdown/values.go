@@ -19,7 +19,7 @@ import (
 // nested list after it.
 var nestedKey = regexp.MustCompile(`^- ([a-z_][a-z0-9_]*):(?: (.*))?$`)
 
-// renderField converts a field's value under its declaration (eng10 Table 6):
+// renderField converts a field's value under its declaration (eng10 Table 7):
 // a keyed or outline field by its declared conversion, an empty list or table
 // as nothing, and every other value by its own shape. A declared field whose
 // value does not print in its declared shape is an error, not a fallback.

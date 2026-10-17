@@ -9,7 +9,7 @@ release: "17.0"
 <!-- field: traces -->
 ## Traces
 
-- rel17.0-uc001-declaration-imports
+- [rel17.0-uc001-declaration-imports](../use-cases/rel17.0-uc001-declaration-imports.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -28,7 +28,7 @@ Resolve two-level and diamond imports from their declaring files and compare two
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-declaration-imports
+[rel17.0-uc001-declaration-imports](../use-cases/rel17.0-uc001-declaration-imports.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -44,8 +44,8 @@ go test ./internal/tools/catalog ./internal/tools/rest/definition -run TestDecla
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-declaration-imports S1
-- srd050-declaration-imports AC1
+- [rel17.0-uc001-declaration-imports](../use-cases/rel17.0-uc001-declaration-imports.md) [S1](../use-cases/rel17.0-uc001-declaration-imports.md#s1)
+- [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) [AC1](../software-requirements/srd050-declaration-imports.md#ac1)
 
 <!-- case: Tool unit collisions cycles and invalid overrides fail with provenance | status: planned -->
 ### Tool unit collisions cycles and invalid overrides fail with provenance
@@ -55,7 +55,7 @@ Exercise duplicate unit names, duplicate imported and local tools, cycles, unmar
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-declaration-imports
+[rel17.0-uc001-declaration-imports](../use-cases/rel17.0-uc001-declaration-imports.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -71,8 +71,8 @@ go test ./internal/tools/catalog -run TestToolDeclarationImportFailures
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-declaration-imports S2
-- srd050-declaration-imports AC2
+- [rel17.0-uc001-declaration-imports](../use-cases/rel17.0-uc001-declaration-imports.md) [S2](../use-cases/rel17.0-uc001-declaration-imports.md#s2)
+- [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) [AC2](../software-requirements/srd050-declaration-imports.md#ac2)
 
 <!-- case: One local tool override replaces one imported target in place | status: planned -->
 ### One local tool override replaces one imported target in place
@@ -82,7 +82,7 @@ Apply one marked local override and verify value, provenance, and deterministic 
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-declaration-imports
+[rel17.0-uc001-declaration-imports](../use-cases/rel17.0-uc001-declaration-imports.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -98,8 +98,8 @@ go test ./internal/tools/catalog -run TestToolDeclarationLocalOverride
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-declaration-imports S2
-- srd050-declaration-imports AC3
+- [rel17.0-uc001-declaration-imports](../use-cases/rel17.0-uc001-declaration-imports.md) [S2](../use-cases/rel17.0-uc001-declaration-imports.md#s2)
+- [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) [AC3](../software-requirements/srd050-declaration-imports.md#ac3)
 
 <!-- case: REST imports merge every family and compile source-relative OpenAPI | status: planned -->
 ### REST imports merge every family and compile source-relative OpenAPI
@@ -109,7 +109,7 @@ Merge every REST family, retain entry provenance, compile imported OpenAPI into 
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-declaration-imports
+[rel17.0-uc001-declaration-imports](../use-cases/rel17.0-uc001-declaration-imports.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -125,8 +125,8 @@ go test ./internal/tools/rest/definition -run TestRESTDeclarationImports
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-declaration-imports S3
-- srd050-declaration-imports AC4
+- [rel17.0-uc001-declaration-imports](../use-cases/rel17.0-uc001-declaration-imports.md) [S3](../use-cases/rel17.0-uc001-declaration-imports.md#s3)
+- [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) [AC4](../software-requirements/srd050-declaration-imports.md#ac4)
 
 <!-- case: Closure usedness accepts contributing edges and rejects unused edges | status: planned -->
 ### Closure usedness accepts contributing edges and rejects unused edges
@@ -136,7 +136,7 @@ Traverse selected-tool and fully qualified REST nodes, including override and Op
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-declaration-imports
+[rel17.0-uc001-declaration-imports](../use-cases/rel17.0-uc001-declaration-imports.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -152,8 +152,8 @@ go test ./internal/load -run TestDeclarationImportUsedness
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-declaration-imports S4
-- srd050-declaration-imports AC5
+- [rel17.0-uc001-declaration-imports](../use-cases/rel17.0-uc001-declaration-imports.md) [S4](../use-cases/rel17.0-uc001-declaration-imports.md#s4)
+- [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) [AC5](../software-requirements/srd050-declaration-imports.md#ac5)
 
 <!-- case: Legacy includes warn once and mixed closures fail | status: planned -->
 ### Legacy includes warn once and mixed closures fail
@@ -163,7 +163,7 @@ Load a legacy-only include diamond and a closure containing both import and incl
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-declaration-imports
+[rel17.0-uc001-declaration-imports](../use-cases/rel17.0-uc001-declaration-imports.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -179,8 +179,8 @@ go test ./internal/tools/catalog ./internal/load -run TestLegacyIncludesCompatib
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-declaration-imports S5
-- srd050-declaration-imports AC6
+- [rel17.0-uc001-declaration-imports](../use-cases/rel17.0-uc001-declaration-imports.md) [S5](../use-cases/rel17.0-uc001-declaration-imports.md#s5)
+- [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) AC6
 
 <!-- case: Every entry path shares one import failure and control proof | status: planned -->
 ### Every entry path shares one import failure and control proof
@@ -190,7 +190,7 @@ Compare validation, dump, startup, and profile-audit diagnostics, then compare c
 <!-- field: use_case -->
 #### Use case
 
-rel17.0-uc001-declaration-imports
+[rel17.0-uc001-declaration-imports](../use-cases/rel17.0-uc001-declaration-imports.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -206,6 +206,6 @@ go test ./cmd/agent ./internal/load -run 'TestDeclarationImportEntryPaths|TestCo
 <!-- field: traces -->
 #### Traces
 
-- rel17.0-uc001-declaration-imports S6
-- srd050-declaration-imports AC7
-- srd050-declaration-imports AC8
+- [rel17.0-uc001-declaration-imports](../use-cases/rel17.0-uc001-declaration-imports.md) [S6](../use-cases/rel17.0-uc001-declaration-imports.md#s6)
+- [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) [AC7](../software-requirements/srd050-declaration-imports.md#ac7)
+- [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) [AC8](../software-requirements/srd050-declaration-imports.md#ac8)

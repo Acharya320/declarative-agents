@@ -17,7 +17,7 @@ release gate. No test installs Kubernetes resources.
 <!-- field: traces -->
 ## Traces
 
-- rel05.0-uc001-package-validated-chart
+- [rel05.0-uc001-package-validated-chart](../use-cases/rel05.0-uc001-package-validated-chart.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -34,7 +34,7 @@ release gate. No test installs Kubernetes resources.
 <!-- field: use_case -->
 #### Use case
 
-rel05.0-uc001-package-validated-chart
+[rel05.0-uc001-package-validated-chart](../use-cases/rel05.0-uc001-package-validated-chart.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -44,7 +44,7 @@ go test ./magefiles -run '^TestHelmSchemaFixtureMatrix$'
 <!-- field: traces -->
 #### Traces
 
-- srd004-helm-package-validation AC1
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [AC1](../software-requirements/srd004-helm-package-validation.md#ac1)
 
 <!-- case: Semantic guards and topology combinations | status: implemented -->
 ### Semantic guards and topology combinations
@@ -52,7 +52,7 @@ go test ./magefiles -run '^TestHelmSchemaFixtureMatrix$'
 <!-- field: use_case -->
 #### Use case
 
-rel05.0-uc001-package-validated-chart
+[rel05.0-uc001-package-validated-chart](../use-cases/rel05.0-uc001-package-validated-chart.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -62,7 +62,7 @@ go test ./magefiles -run '^TestHelm(SemanticValidationSurvivesSchemaBypass|Works
 <!-- field: traces -->
 #### Traces
 
-- srd004-helm-package-validation R1.3
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [R1.3](../software-requirements/srd004-helm-package-validation.md#r13)
 
 <!-- case: Prepared package tamper rejection | status: implemented -->
 ### Prepared package tamper rejection
@@ -70,7 +70,7 @@ go test ./magefiles -run '^TestHelm(SemanticValidationSurvivesSchemaBypass|Works
 <!-- field: use_case -->
 #### Use case
 
-rel05.0-uc001-package-validated-chart
+[rel05.0-uc001-package-validated-chart](../use-cases/rel05.0-uc001-package-validated-chart.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -80,7 +80,7 @@ go test ./magefiles -run '^TestPreparedPackage'
 <!-- field: traces -->
 #### Traces
 
-- srd004-helm-package-validation AC2
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [AC2](../software-requirements/srd004-helm-package-validation.md#ac2)
 
 <!-- case: Self-contained chart archive | status: implemented -->
 ### Self-contained chart archive
@@ -88,7 +88,7 @@ go test ./magefiles -run '^TestPreparedPackage'
 <!-- field: use_case -->
 #### Use case
 
-rel05.0-uc001-package-validated-chart
+[rel05.0-uc001-package-validated-chart](../use-cases/rel05.0-uc001-package-validated-chart.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -103,4 +103,4 @@ go test ./magefiles -run '^Test(HelmPackageArchiveIsSelfContained|ChartArchiveVa
 <!-- field: traces -->
 #### Traces
 
-- srd004-helm-package-validation AC3
+- [srd004-helm-package-validation](../software-requirements/srd004-helm-package-validation.md) [AC3](../software-requirements/srd004-helm-package-validation.md#ac3)

@@ -1897,19 +1897,19 @@ monitor_view declared_machines is valid only on read_state and exposes the root 
 <!-- field: related_documents -->
 ## Related documents
 
-- srd052-declaration-fragments
-- srd056-unit-libraries
-- cfg-tool-declaration-format
-- cfg-tool-authoring-standard
-- sm-rest-tool-language
-- srd027-rest-tool-runtime
-- srd028-rest-client-tools
-- srd029-rest-server-tools
-- srd030-machine-request-rest-binding
-- srd031-declarative-document-resources
-- sm-machine-request-http
-- sm-document-resource-language
-- srd026-lifecycle-tools
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md)
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md)
+- [cfg-tool-declaration-format](tool-declaration-format.md)
+- [cfg-tool-authoring-standard](tool-authoring-standard.md)
+- [sm-rest-tool-language](../semantic-models/rest-tool-language.md)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md)
+- [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md)
+- [sm-machine-request-http](../semantic-models/machine-request-http.md)
+- [sm-document-resource-language](../semantic-models/document-resource-language.md)
+- [srd026-lifecycle-tools](../software-requirements/srd026-lifecycle-tools.md)
 
 <!-- field: implementation_status -->
 ## Implementation status

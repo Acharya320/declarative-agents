@@ -189,11 +189,11 @@ The mock profile is described as one generic configured responder that serves th
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.4
-- R1.5
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R1.5](#r15)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -203,11 +203,11 @@ One mock profile serves any dependency because its fixture is selected by enviro
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
-- R2.5
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
+- [R2.5](#r25)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -217,9 +217,9 @@ The request log is readable on a declared route, is sufficient to verify a subje
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -229,11 +229,11 @@ Mock inputs, selected tool families, and runtime dependencies are named and sepa
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
-- R4.4
-- R4.5
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R4.4](#r44)
+- [R4.5](#r45)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -243,8 +243,8 @@ Mock outputs and terminal outcomes are checkable by mounted execution or conform
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
+- [R5.1](#r51)
+- [R5.2](#r52)
 
 <!-- field: diagrams -->
 ## Diagrams

@@ -11,7 +11,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// nodeYAML maps a node kind to the YAML records it comes from (eng10 Table 5):
+// nodeYAML maps a node kind to the YAML records it comes from (eng10 Table 6):
 // the key holding them, whether they are a list or a map keyed by id, and the
 // record keys holding the id, the heading title, and the prose content. A
 // keyed record may be written as a one-entry map from id to content.
@@ -96,6 +96,16 @@ func (r *Declaration) checkSlots() error {
 		}
 	}
 	return nil
+}
+
+// declaresLinks reports a type with a field whose references render as links.
+func (r *Declaration) declaresLinks() bool {
+	for _, field := range r.Fields {
+		if field.Links || len(field.LinkColumns) > 0 {
+			return true
+		}
+	}
+	return false
 }
 
 // fieldKind finds the field node kind that opens at level under parent.

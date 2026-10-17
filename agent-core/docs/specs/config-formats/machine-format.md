@@ -1135,9 +1135,9 @@ control-template is the reference instance.
 ## Related documents
 
 - srd006
-- srd052-declaration-fragments
-- srd054-machine-templates
-- cfg-agent-profile-format
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md)
+- [srd054-machine-templates](../software-requirements/srd054-machine-templates.md)
+- [cfg-agent-profile-format](agent-profile-format.md)
 
 <!-- field: implementation -->
 ## Implementation

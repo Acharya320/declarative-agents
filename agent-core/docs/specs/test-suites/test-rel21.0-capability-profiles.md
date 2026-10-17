@@ -9,7 +9,7 @@ release: "21.0"
 <!-- field: traces -->
 ## Traces
 
-- rel21.0-uc001-capability-profiles
+- [rel21.0-uc001-capability-profiles](../use-cases/rel21.0-uc001-capability-profiles.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -29,7 +29,7 @@ Load the capability fixture and run it to a terminal state; then add a control s
 <!-- field: use_case -->
 #### Use case
 
-rel21.0-uc001-capability-profiles
+[rel21.0-uc001-capability-profiles](../use-cases/rel21.0-uc001-capability-profiles.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -46,9 +46,9 @@ go test ./internal/load ./internal/tools/catalog -run 'TestCapabilityProfileLoad
 <!-- field: traces -->
 #### Traces
 
-- rel21.0-uc001-capability-profiles S1
-- srd057-capability-profiles AC1
-- srd057-capability-profiles R1.1
+- [rel21.0-uc001-capability-profiles](../use-cases/rel21.0-uc001-capability-profiles.md) [S1](../use-cases/rel21.0-uc001-capability-profiles.md#s1)
+- [srd057-capability-profiles](../software-requirements/srd057-capability-profiles.md) [AC1](../software-requirements/srd057-capability-profiles.md#ac1)
+- [srd057-capability-profiles](../software-requirements/srd057-capability-profiles.md) [R1.1](../software-requirements/srd057-capability-profiles.md#r11)
 
 <!-- case: A capability is reached only by a declared path | status: planned -->
 ### A capability is reached only by a declared path
@@ -58,7 +58,7 @@ Reference the fixture by a machine_request profile path, by a child-agent config
 <!-- field: use_case -->
 #### Use case
 
-rel21.0-uc001-capability-profiles
+[rel21.0-uc001-capability-profiles](../use-cases/rel21.0-uc001-capability-profiles.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -74,9 +74,9 @@ go test ./internal/load -run 'TestCapabilityProfileIsReachedOnlyByPath'
 <!-- field: traces -->
 #### Traces
 
-- rel21.0-uc001-capability-profiles S1
-- srd057-capability-profiles AC1
-- srd057-capability-profiles R1.3
+- [rel21.0-uc001-capability-profiles](../use-cases/rel21.0-uc001-capability-profiles.md) [S1](../use-cases/rel21.0-uc001-capability-profiles.md#s1)
+- [srd057-capability-profiles](../software-requirements/srd057-capability-profiles.md) [AC1](../software-requirements/srd057-capability-profiles.md#ac1)
+- [srd057-capability-profiles](../software-requirements/srd057-capability-profiles.md) [R1.3](../software-requirements/srd057-capability-profiles.md#r13)
 
 <!-- case: One unchanged capability serves the route, the child, and the wrapper | status: planned -->
 ### One unchanged capability serves the route, the child, and the wrapper
@@ -86,7 +86,7 @@ Bind the fixture by machine_request naming profile with its terminal states mapp
 <!-- field: use_case -->
 #### Use case
 
-rel21.0-uc001-capability-profiles
+[rel21.0-uc001-capability-profiles](../use-cases/rel21.0-uc001-capability-profiles.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -104,11 +104,11 @@ go test ./internal/tools/rest ./internal/tools/control ./internal/load -run 'Tes
 <!-- field: traces -->
 #### Traces
 
-- rel21.0-uc001-capability-profiles S2
-- srd057-capability-profiles AC2
-- srd057-capability-profiles R2.1
-- srd057-capability-profiles R2.2
-- srd057-capability-profiles R2.3
+- [rel21.0-uc001-capability-profiles](../use-cases/rel21.0-uc001-capability-profiles.md) [S2](../use-cases/rel21.0-uc001-capability-profiles.md#s2)
+- [srd057-capability-profiles](../software-requirements/srd057-capability-profiles.md) [AC2](../software-requirements/srd057-capability-profiles.md#ac2)
+- [srd057-capability-profiles](../software-requirements/srd057-capability-profiles.md) [R2.1](../software-requirements/srd057-capability-profiles.md#r21)
+- [srd057-capability-profiles](../software-requirements/srd057-capability-profiles.md) [R2.2](../software-requirements/srd057-capability-profiles.md#r22)
+- [srd057-capability-profiles](../software-requirements/srd057-capability-profiles.md) [R2.3](../software-requirements/srd057-capability-profiles.md#r23)
 
 <!-- case: The in-process boundary stays evaluation-scoped | status: planned -->
 ### The in-process boundary stays evaluation-scoped
@@ -118,7 +118,7 @@ Point run_point at the capability fixture, which declares no point_machine, poin
 <!-- field: use_case -->
 #### Use case
 
-rel21.0-uc001-capability-profiles
+[rel21.0-uc001-capability-profiles](../use-cases/rel21.0-uc001-capability-profiles.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -133,9 +133,9 @@ go test ./internal/tools/evaluation -run 'TestRunPointRequiresItsPointMachine'
 <!-- field: traces -->
 #### Traces
 
-- rel21.0-uc001-capability-profiles S2
-- srd057-capability-profiles AC2
-- srd057-capability-profiles R2.4
+- [rel21.0-uc001-capability-profiles](../use-cases/rel21.0-uc001-capability-profiles.md) [S2](../use-cases/rel21.0-uc001-capability-profiles.md#s2)
+- [srd057-capability-profiles](../software-requirements/srd057-capability-profiles.md) [AC2](../software-requirements/srd057-capability-profiles.md#ac2)
+- [srd057-capability-profiles](../software-requirements/srd057-capability-profiles.md) [R2.4](../software-requirements/srd057-capability-profiles.md#r24)
 
 <!-- case: Shared machines are reported and private ones are not | status: planned -->
 ### Shared machines are reported and private ones are not
@@ -145,7 +145,7 @@ Point two profiles at one machine file; add a machine_request override whose mac
 <!-- field: use_case -->
 #### Use case
 
-rel21.0-uc001-capability-profiles
+[rel21.0-uc001-capability-profiles](../use-cases/rel21.0-uc001-capability-profiles.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -163,8 +163,8 @@ go test ./pkg/profileaudit -run 'TestAuditReportsAMachineReachedByTwoProfiles|Te
 <!-- field: traces -->
 #### Traces
 
-- rel21.0-uc001-capability-profiles S3
-- srd057-capability-profiles AC3
-- srd057-capability-profiles R3.1
-- srd057-capability-profiles R3.2
-- srd057-capability-profiles R3.3
+- [rel21.0-uc001-capability-profiles](../use-cases/rel21.0-uc001-capability-profiles.md) [S3](../use-cases/rel21.0-uc001-capability-profiles.md#s3)
+- [srd057-capability-profiles](../software-requirements/srd057-capability-profiles.md) [AC3](../software-requirements/srd057-capability-profiles.md#ac3)
+- [srd057-capability-profiles](../software-requirements/srd057-capability-profiles.md) [R3.1](../software-requirements/srd057-capability-profiles.md#r31)
+- [srd057-capability-profiles](../software-requirements/srd057-capability-profiles.md) [R3.2](../software-requirements/srd057-capability-profiles.md#r32)
+- [srd057-capability-profiles](../software-requirements/srd057-capability-profiles.md) [R3.3](../software-requirements/srd057-capability-profiles.md#r33)

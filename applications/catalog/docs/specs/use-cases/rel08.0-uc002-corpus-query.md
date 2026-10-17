@@ -59,10 +59,10 @@ A maintainer runs the profile-owned reader conformance cases:
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd012-chroma-corpus-agents AC1 | The reader profile is a configured Chroma retrieval boundary machine, not a Go package. |
-| T2 | srd012-chroma-corpus-agents AC2 | chroma_ready, chroma_collection, embed_query, and chroma_query are the named REST vocabulary. |
-| T3 | srd012-chroma-corpus-agents AC3 | The embed-to-query vector step uses srd028 R12 body_source previous_result, input_mapping, and single-token reshape, with no model-authored vector. |
-| T4 | srd012-chroma-corpus-agents AC6 | The retrieved chunk identities and grounded answer are the checkable reader outputs. |
+| T1 | [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [AC1](../software-requirements/srd012-chroma-corpus-agents.md#ac1) | The reader profile is a configured Chroma retrieval boundary machine, not a Go package. |
+| T2 | [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [AC2](../software-requirements/srd012-chroma-corpus-agents.md#ac2) | chroma_ready, chroma_collection, embed_query, and chroma_query are the named REST vocabulary. |
+| T3 | [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [AC3](../software-requirements/srd012-chroma-corpus-agents.md#ac3) | The embed-to-query vector step uses srd028 R12 body_source previous_result, input_mapping, and single-token reshape, with no model-authored vector. |
+| T4 | [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [AC6](../software-requirements/srd012-chroma-corpus-agents.md#ac6) | The retrieved chunk identities and grounded answer are the checkable reader outputs. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -75,8 +75,8 @@ The Chroma query carries an agent-supplied query vector threaded from the embed 
 <!-- field: traces -->
 #### Traces
 
-- srd012-chroma-corpus-agents R3.2
-- srd012-chroma-corpus-agents R3.4
+- [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [R3.2](../software-requirements/srd012-chroma-corpus-agents.md#r32)
+- [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [R3.4](../software-requirements/srd012-chroma-corpus-agents.md#r34)
 
 <!-- sc: S2 -->
 ### S2
@@ -86,7 +86,7 @@ The reader retrieves the configured number of nearest chunks from the resolved c
 <!-- field: traces -->
 #### Traces
 
-- srd012-chroma-corpus-agents R2.4
+- [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [R2.4](../software-requirements/srd012-chroma-corpus-agents.md#r24)
 
 <!-- sc: S3 -->
 ### S3
@@ -96,8 +96,8 @@ invoke_llm produces an answer grounded in the retrieved chunks and records their
 <!-- field: traces -->
 #### Traces
 
-- srd012-chroma-corpus-agents R1.3
-- srd012-chroma-corpus-agents R6.1
+- [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [R1.3](../software-requirements/srd012-chroma-corpus-agents.md#r13)
+- [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [R6.1](../software-requirements/srd012-chroma-corpus-agents.md#r61)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -109,4 +109,4 @@ invoke_llm produces an answer grounded in the retrieved chunks and records their
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel08.0-corpus-agents
+[test-rel08.0-corpus-agents](../test-suites/test-rel08.0-corpus-agents.md)

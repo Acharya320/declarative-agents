@@ -18,7 +18,7 @@ and scoped zero-hit policies. Tag publication remains a post-merge operation.
 <!-- field: traces -->
 ## Traces
 
-- rel12.0-uc001-agent-role-realization-alignment
+- [rel12.0-uc001-agent-role-realization-alignment](../use-cases/rel12.0-uc001-agent-role-realization-alignment.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -48,8 +48,8 @@ go test ./conformance -run 'Test(CatalogMembershipUsesSharedRealizationAndAliasA
 <!-- field: traces -->
 #### Traces
 
-- rel12.0-uc001-agent-role-realization-alignment S1
-- rel12.0-uc001-agent-role-realization-alignment S2
+- [rel12.0-uc001-agent-role-realization-alignment](../use-cases/rel12.0-uc001-agent-role-realization-alignment.md) [S1](../use-cases/rel12.0-uc001-agent-role-realization-alignment.md#s1)
+- [rel12.0-uc001-agent-role-realization-alignment](../use-cases/rel12.0-uc001-agent-role-realization-alignment.md) [S2](../use-cases/rel12.0-uc001-agent-role-realization-alignment.md#s2)
 
 <!-- case: Exact catalog tag pair and immutability | status: implemented -->
 ### Exact catalog tag pair and immutability
@@ -69,7 +69,7 @@ cd ../../magefiles && go test . -run 'Test(AlignmentReleaseCreatesExactCatalogCo
 <!-- field: traces -->
 #### Traces
 
-- rel12.0-uc001-agent-role-realization-alignment S5
+- [rel12.0-uc001-agent-role-realization-alignment](../use-cases/rel12.0-uc001-agent-role-realization-alignment.md) [S5](../use-cases/rel12.0-uc001-agent-role-realization-alignment.md#s5)
 
 <!-- case: Coding-agent closure and provenance | status: implemented -->
 ### Coding-agent closure and provenance
@@ -94,7 +94,7 @@ cd ../coding-agent && go test ./magefiles
 <!-- field: traces -->
 #### Traces
 
-- rel12.0-uc001-agent-role-realization-alignment S3
+- [rel12.0-uc001-agent-role-realization-alignment](../use-cases/rel12.0-uc001-agent-role-realization-alignment.md) [S3](../use-cases/rel12.0-uc001-agent-role-realization-alignment.md#s3)
 
 <!-- case: Chatbot-mesh generated Helm package | status: implemented -->
 ### Chatbot-mesh generated Helm package
@@ -121,7 +121,7 @@ cd ../chatbot-mesh && go test ./magefiles
 <!-- field: traces -->
 #### Traces
 
-- rel12.0-uc001-agent-role-realization-alignment S3
+- [rel12.0-uc001-agent-role-realization-alignment](../use-cases/rel12.0-uc001-agent-role-realization-alignment.md) [S3](../use-cases/rel12.0-uc001-agent-role-realization-alignment.md#s3)
 
 <!-- case: Scoped stale-identity policy | status: implemented -->
 ### Scoped stale-identity policy
@@ -141,7 +141,7 @@ go test ./conformance -run 'Test(NoActiveAssemblerPathConsumers|NoActiveMonitorP
 <!-- field: traces -->
 #### Traces
 
-- rel12.0-uc001-agent-role-realization-alignment S4
+- [rel12.0-uc001-agent-role-realization-alignment](../use-cases/rel12.0-uc001-agent-role-realization-alignment.md) [S4](../use-cases/rel12.0-uc001-agent-role-realization-alignment.md#s4)
 
 <!-- case: Full coordinated gates | status: implemented -->
 ### Full coordinated gates
@@ -159,4 +159,4 @@ go test ./conformance -run 'Test(NoActiveAssemblerPathConsumers|NoActiveMonitorP
 <!-- field: traces -->
 #### Traces
 
-- rel12.0-uc001-agent-role-realization-alignment S6
+- [rel12.0-uc001-agent-role-realization-alignment](../use-cases/rel12.0-uc001-agent-role-realization-alignment.md) [S6](../use-cases/rel12.0-uc001-agent-role-realization-alignment.md#s6)

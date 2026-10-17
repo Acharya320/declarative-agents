@@ -45,10 +45,10 @@ profile author chooses them before any ToolDef can reference the import.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd027-rest-tool-runtime R3.1, R3.2, R3.3, R3.4, R3.5, R3.6 | OpenAPI 3 imports compile into the same internal model without generated Go code |
-| T2 | srd028-rest-client-tools R1.3, R2.3, R7.1, R7.3 | client operations use configured definitions and response schemas |
-| T3 | srd029-rest-server-tools R8.1, R8.2, R8.3, R8.4, R8.5 | OpenAPI operation IDs bind server endpoints |
-| T4 | srd027-rest-tool-runtime R2.3, R2.4, R2.5 | ToolDef remains the vocabulary contract and runtime cannot choose arbitrary authority |
+| T1 | [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [R3.1](../software-requirements/srd027-rest-tool-runtime.md#r31), [R3.2](../software-requirements/srd027-rest-tool-runtime.md#r32), [R3.3](../software-requirements/srd027-rest-tool-runtime.md#r33), [R3.4](../software-requirements/srd027-rest-tool-runtime.md#r34), [R3.5](../software-requirements/srd027-rest-tool-runtime.md#r35), [R3.6](../software-requirements/srd027-rest-tool-runtime.md#r36) | OpenAPI 3 imports compile into the same internal model without generated Go code |
+| T2 | [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [R1.3](../software-requirements/srd028-rest-client-tools.md#r13), [R2.3](../software-requirements/srd028-rest-client-tools.md#r23), [R7.1](../software-requirements/srd028-rest-client-tools.md#r71), [R7.3](../software-requirements/srd028-rest-client-tools.md#r73) | client operations use configured definitions and response schemas |
+| T3 | [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [R8.1](../software-requirements/srd029-rest-server-tools.md#r81), [R8.2](../software-requirements/srd029-rest-server-tools.md#r82), [R8.3](../software-requirements/srd029-rest-server-tools.md#r83), [R8.4](../software-requirements/srd029-rest-server-tools.md#r84), [R8.5](../software-requirements/srd029-rest-server-tools.md#r85) | OpenAPI operation IDs bind server endpoints |
+| T4 | [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [R2.3](../software-requirements/srd027-rest-tool-runtime.md#r23), [R2.4](../software-requirements/srd027-rest-tool-runtime.md#r24), [R2.5](../software-requirements/srd027-rest-tool-runtime.md#r25) | ToolDef remains the vocabulary contract and runtime cannot choose arbitrary authority |
 | T5 | cfg-rest-tool-format openapi_import fields | path, base_url, expose, bind, side_effects, and reversibility are specified |
 | T6 | cfg-rest-tool-format validation rules V2, V3, V7, V12 | duplicate and missing operation IDs, side effects, and endpoint names are checked |
 | T7 | sm-rest-tool-language OpenAPIImport | source documents populate RestDefinition without replacing ToolDef words |
@@ -64,7 +64,7 @@ The OpenAPI import exposes only allowlisted client operation IDs.
 <!-- field: traces -->
 #### Traces
 
-- srd027-rest-tool-runtime AC3
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC3](../software-requirements/srd027-rest-tool-runtime.md#ac3)
 
 <!-- sc: S2 -->
 ### S2
@@ -74,7 +74,7 @@ Server bind mappings connect selected operation IDs to configured endpoint bindi
 <!-- field: traces -->
 #### Traces
 
-- srd029-rest-server-tools AC8
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC8](../software-requirements/srd029-rest-server-tools.md#ac8)
 
 <!-- sc: S3 -->
 ### S3
@@ -84,8 +84,8 @@ Tool declarations stay explicit and reference imported definitions from config.
 <!-- field: traces -->
 #### Traces
 
-- srd027-rest-tool-runtime AC2
-- srd028-rest-client-tools AC1
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC2](../software-requirements/srd027-rest-tool-runtime.md#ac2)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC1](../software-requirements/srd028-rest-client-tools.md#ac1)
 
 <!-- sc: S4 -->
 ### S4
@@ -95,8 +95,8 @@ The import path does not generate Go clients or servers.
 <!-- field: traces -->
 #### Traces
 
-- srd027-rest-tool-runtime AC3
-- srd029-rest-server-tools AC8
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC3](../software-requirements/srd027-rest-tool-runtime.md#ac3)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [AC8](../software-requirements/srd029-rest-server-tools.md#ac8)
 
 <!-- field: out_of_scope -->
 ## Out of scope

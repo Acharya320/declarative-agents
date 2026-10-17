@@ -133,10 +133,10 @@ Trace summaries aggregate spans from the active spool and rotated files, with co
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.5
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.5](#r15)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -146,8 +146,8 @@ Pagination respects offset and page size, and page size never exceeds the config
 <!-- field: traces -->
 #### Traces
 
-- R1.4
-- R1.5
+- [R1.4](#r14)
+- [R1.5](#r15)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -157,10 +157,10 @@ Per-trace detail returns all matching spans with waterfall fields sorted by star
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -170,9 +170,9 @@ Malformed NDJSON lines are skipped and counted, and an empty or absent spool ret
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -182,9 +182,9 @@ A missing trace id emits CommandError before any file read, an unreadable spool 
 <!-- field: traces -->
 #### Traces
 
-- R2.5
-- R4.1
-- R4.2
+- [R2.5](#r25)
+- [R4.1](#r41)
+- [R4.2](#r42)
 
 <!-- field: related_documents -->
 ## Related documents

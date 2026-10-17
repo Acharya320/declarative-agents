@@ -43,11 +43,11 @@ server's response shape changes.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd060-retrieval-client-contract R1.1, R1.2, R1.3 | the request, the QueryResult, and the rejection mapping |
-| T2 | srd060-retrieval-client-contract R2.1, R2.2 | agent-core placement reached through /opt/agent-core |
-| T3 | srd060-retrieval-client-contract R3.1, R3.2, R3.3, R3.4 | the fragment's parameters, operation, and fixed shape |
-| T4 | srd060-retrieval-client-contract R4.1, R4.2 | consumers declare no query operation; two importers |
-| T5 | srd056-unit-libraries R4.1, R4.2 | the service-library convention this contract instantiates |
+| T1 | [srd060-retrieval-client-contract](../software-requirements/srd060-retrieval-client-contract.md) [R1.1](../software-requirements/srd060-retrieval-client-contract.md#r11), [R1.2](../software-requirements/srd060-retrieval-client-contract.md#r12), [R1.3](../software-requirements/srd060-retrieval-client-contract.md#r13) | the request, the QueryResult, and the rejection mapping |
+| T2 | [srd060-retrieval-client-contract](../software-requirements/srd060-retrieval-client-contract.md) [R2.1](../software-requirements/srd060-retrieval-client-contract.md#r21), [R2.2](../software-requirements/srd060-retrieval-client-contract.md#r22) | agent-core placement reached through /opt/agent-core |
+| T3 | [srd060-retrieval-client-contract](../software-requirements/srd060-retrieval-client-contract.md) [R3.1](../software-requirements/srd060-retrieval-client-contract.md#r31), [R3.2](../software-requirements/srd060-retrieval-client-contract.md#r32), [R3.3](../software-requirements/srd060-retrieval-client-contract.md#r33), [R3.4](../software-requirements/srd060-retrieval-client-contract.md#r34) | the fragment's parameters, operation, and fixed shape |
+| T4 | [srd060-retrieval-client-contract](../software-requirements/srd060-retrieval-client-contract.md) [R4.1](../software-requirements/srd060-retrieval-client-contract.md#r41), [R4.2](../software-requirements/srd060-retrieval-client-contract.md#r42) | consumers declare no query operation; two importers |
+| T5 | [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [R4.1](../software-requirements/srd056-unit-libraries.md#r41), [R4.2](../software-requirements/srd056-unit-libraries.md#r42) | the service-library convention this contract instantiates |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -60,7 +60,7 @@ Expanding the fragment yields the expected query operation and output, and a mis
 <!-- field: traces -->
 #### Traces
 
-- srd060-retrieval-client-contract AC1
+- [srd060-retrieval-client-contract](../software-requirements/srd060-retrieval-client-contract.md) [AC1](../software-requirements/srd060-retrieval-client-contract.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -70,7 +70,7 @@ The operation maps 200, 400, and other failures to QueryResponded, QueryRejected
 <!-- field: traces -->
 #### Traces
 
-- srd060-retrieval-client-contract AC2
+- [srd060-retrieval-client-contract](../software-requirements/srd060-retrieval-client-contract.md) [AC2](../software-requirements/srd060-retrieval-client-contract.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -80,7 +80,7 @@ The contract is reached through /opt/agent-core with no declared root and carrie
 <!-- field: traces -->
 #### Traces
 
-- srd060-retrieval-client-contract AC3
+- [srd060-retrieval-client-contract](../software-requirements/srd060-retrieval-client-contract.md) [AC3](../software-requirements/srd060-retrieval-client-contract.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -90,7 +90,7 @@ chatbot-mesh queries through the fragment with unchanged behavior and receives m
 <!-- field: traces -->
 #### Traces
 
-- srd060-retrieval-client-contract AC4
+- [srd060-retrieval-client-contract](../software-requirements/srd060-retrieval-client-contract.md) [AC4](../software-requirements/srd060-retrieval-client-contract.md#ac4)
 
 <!-- field: out_of_scope -->
 ## Out of scope

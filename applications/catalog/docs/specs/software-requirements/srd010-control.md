@@ -97,8 +97,8 @@ The control profile is described as signal intake routed to explicit lifecycle v
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
+- [R1.1](#r11)
+- [R1.2](#r12)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -108,9 +108,9 @@ Control inputs, selected tool families, and runtime dependencies are named and s
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -120,8 +120,8 @@ Control outputs and terminal outcomes are checkable by mounted execution or inte
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
+- [R3.1](#r31)
+- [R3.2](#r32)
 
 <!-- field: diagrams -->
 ## Diagrams

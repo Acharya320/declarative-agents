@@ -42,12 +42,12 @@ running checks and summarizing results.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd006-yaml-machine-config R3.1, R3.2, R3.3, R3.4, R3.5, R4.1, R4.2, R4.3, R4.4 | machine.yaml owns visible sequencing and transition validation |
-| T2 | srd013-standard-tool-library R8.1, R8.2, R8.3, R10.0, R10.0.1, R10.0.2, R10.0.3, R10.0.4, R10.0.5, R10.1, R10.1.1, R10.1.2, R10.1.3, R10.1.4, R10.1.5, R10.1.6, R10.2, R10.3, R10.4, R10.5, R10.6, R10.7, R10.8 | validation and evaluator workflows use machine-declared atomic tools |
-| T3 | srd022-builtin-tools R0.1, R0.2, R0.3, R4.1, R4.2, R4.3, R4.4, R4.5, R4.6, R4.7, R5.1, R5.2, R5.3, R5.4 | builtin words declare emits and reusable metadata |
-| T4 | srd023-cli-exec-tools R0.1, R0.2, R5.1, R5.2, R5.3, R5.4 | exec tools model one CLI verb before bespoke wrappers |
-| T5 | srd025-rollback-lifecycle R3.1, R3.2, R3.3, R3.4, R3.5, R8.1, R8.2, R8.3, R8.4 | split tools declare receipt-aware undo and side effects for rollback |
-| T6 | sm-tool-language | migration states for legacy_sentence and deprecated_compatibility |
+| T1 | [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [R3.1](../software-requirements/srd006-yaml-machine-config.md#r31), [R3.2](../software-requirements/srd006-yaml-machine-config.md#r32), [R3.3](../software-requirements/srd006-yaml-machine-config.md#r33), [R3.4](../software-requirements/srd006-yaml-machine-config.md#r34), [R3.5](../software-requirements/srd006-yaml-machine-config.md#r35), [R4.1](../software-requirements/srd006-yaml-machine-config.md#r41), [R4.2](../software-requirements/srd006-yaml-machine-config.md#r42), [R4.3](../software-requirements/srd006-yaml-machine-config.md#r43), [R4.4](../software-requirements/srd006-yaml-machine-config.md#r44) | machine.yaml owns visible sequencing and transition validation |
+| T2 | [srd013-standard-tool-library](../software-requirements/srd013-standard-tool-library.md) [R8.1](../software-requirements/srd013-standard-tool-library.md#r81), [R8.2](../software-requirements/srd013-standard-tool-library.md#r82), [R8.3](../software-requirements/srd013-standard-tool-library.md#r83), [R10.0](../software-requirements/srd013-standard-tool-library.md#r100), [R10.0.1](../software-requirements/srd013-standard-tool-library.md#r1001), [R10.0.2](../software-requirements/srd013-standard-tool-library.md#r1002), [R10.0.3](../software-requirements/srd013-standard-tool-library.md#r1003), [R10.0.4](../software-requirements/srd013-standard-tool-library.md#r1004), [R10.0.5](../software-requirements/srd013-standard-tool-library.md#r1005), [R10.1](../software-requirements/srd013-standard-tool-library.md#r101), [R10.1.1](../software-requirements/srd013-standard-tool-library.md#r1011), [R10.1.2](../software-requirements/srd013-standard-tool-library.md#r1012), [R10.1.3](../software-requirements/srd013-standard-tool-library.md#r1013), [R10.1.4](../software-requirements/srd013-standard-tool-library.md#r1014), [R10.1.5](../software-requirements/srd013-standard-tool-library.md#r1015), [R10.1.6](../software-requirements/srd013-standard-tool-library.md#r1016), [R10.2](../software-requirements/srd013-standard-tool-library.md#r102), [R10.3](../software-requirements/srd013-standard-tool-library.md#r103), [R10.4](../software-requirements/srd013-standard-tool-library.md#r104), [R10.5](../software-requirements/srd013-standard-tool-library.md#r105), [R10.6](../software-requirements/srd013-standard-tool-library.md#r106), [R10.7](../software-requirements/srd013-standard-tool-library.md#r107), [R10.8](../software-requirements/srd013-standard-tool-library.md#r108) | validation and evaluator workflows use machine-declared atomic tools |
+| T3 | [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md) [R0.1](../software-requirements/srd022-builtin-tools.md#r01), [R0.2](../software-requirements/srd022-builtin-tools.md#r02), [R0.3](../software-requirements/srd022-builtin-tools.md#r03), [R4.1](../software-requirements/srd022-builtin-tools.md#r41), [R4.2](../software-requirements/srd022-builtin-tools.md#r42), [R4.3](../software-requirements/srd022-builtin-tools.md#r43), [R4.4](../software-requirements/srd022-builtin-tools.md#r44), [R4.5](../software-requirements/srd022-builtin-tools.md#r45), [R4.6](../software-requirements/srd022-builtin-tools.md#r46), [R4.7](../software-requirements/srd022-builtin-tools.md#r47), [R5.1](../software-requirements/srd022-builtin-tools.md#r51), [R5.2](../software-requirements/srd022-builtin-tools.md#r52), [R5.3](../software-requirements/srd022-builtin-tools.md#r53), [R5.4](../software-requirements/srd022-builtin-tools.md#r54) | builtin words declare emits and reusable metadata |
+| T4 | [srd023-cli-exec-tools](../software-requirements/srd023-cli-exec-tools.md) [R0.1](../software-requirements/srd023-cli-exec-tools.md#r01), [R0.2](../software-requirements/srd023-cli-exec-tools.md#r02), [R5.1](../software-requirements/srd023-cli-exec-tools.md#r51), [R5.2](../software-requirements/srd023-cli-exec-tools.md#r52), [R5.3](../software-requirements/srd023-cli-exec-tools.md#r53), [R5.4](../software-requirements/srd023-cli-exec-tools.md#r54) | exec tools model one CLI verb before bespoke wrappers |
+| T5 | [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) [R3.1](../software-requirements/srd025-rollback-lifecycle.md#r31), [R3.2](../software-requirements/srd025-rollback-lifecycle.md#r32), [R3.3](../software-requirements/srd025-rollback-lifecycle.md#r33), [R3.4](../software-requirements/srd025-rollback-lifecycle.md#r34), [R3.5](../software-requirements/srd025-rollback-lifecycle.md#r35), [R8.1](../software-requirements/srd025-rollback-lifecycle.md#r81), [R8.2](../software-requirements/srd025-rollback-lifecycle.md#r82), [R8.3](../software-requirements/srd025-rollback-lifecycle.md#r83), [R8.4](../software-requirements/srd025-rollback-lifecycle.md#r84) | split tools declare receipt-aware undo and side effects for rollback |
+| T6 | [sm-tool-language](../semantic-models/tool-language.md) | migration states for legacy_sentence and deprecated_compatibility |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -60,7 +60,7 @@ The old aggregate workflow is represented as multiple declared word tools.
 <!-- field: traces -->
 #### Traces
 
-- srd013-standard-tool-library AC9
+- [srd013-standard-tool-library](../software-requirements/srd013-standard-tool-library.md) [AC9](../software-requirements/srd013-standard-tool-library.md#ac9)
 
 <!-- sc: S2 -->
 ### S2
@@ -70,7 +70,7 @@ machine.yaml expresses the sequence and handles each declared success/failure si
 <!-- field: traces -->
 #### Traces
 
-- srd006-yaml-machine-config AC3
+- [srd006-yaml-machine-config](../software-requirements/srd006-yaml-machine-config.md) [AC3](../software-requirements/srd006-yaml-machine-config.md#ac3)
 
 <!-- sc: S3 -->
 ### S3
@@ -80,7 +80,7 @@ The aggregate tool is removed after all active selections and fixtures migrate, 
 <!-- field: traces -->
 #### Traces
 
-- srd022-builtin-tools AC1
+- [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md) [AC1](../software-requirements/srd022-builtin-tools.md#ac1)
 
 <!-- sc: S4 -->
 ### S4
@@ -90,7 +90,7 @@ Each replacement word declares side effects, reversibility, undo, and relationsh
 <!-- field: traces -->
 #### Traces
 
-- srd025-rollback-lifecycle AC6
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md) AC6
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios
@@ -116,4 +116,4 @@ sm-tool-language
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel02.0-tool-contracts
+[test-rel02.0-tool-contracts](../test-suites/test-rel02.0-tool-contracts.md)

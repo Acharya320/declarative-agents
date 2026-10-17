@@ -753,18 +753,18 @@ Creates a point directory, copies workspace and docs, initializes git, stages fi
 <!-- field: related_documents -->
 ## Related documents
 
-- cfg-tool-declaration-format
-- cfg-tool-selection-format
-- cfg-machine-format
-- srd001-core-types
-- srd005-agentic-loop
-- srd021-agent-cli-exec-tool
-- srd022-builtin-tools
-- srd023-cli-exec-tools
-- srd024-blocking-input-tools
-- srd025-rollback-lifecycle
-- srd035-checkpoint-port
-- srd036-dolt-state-persistence
+- [cfg-tool-declaration-format](tool-declaration-format.md)
+- [cfg-tool-selection-format](tool-selection-format.md)
+- [cfg-machine-format](machine-format.md)
+- [srd001-core-types](../software-requirements/srd001-core-types.md)
+- [srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md)
+- [srd021-agent-cli-exec-tool](../software-requirements/srd021-agent-cli-exec-tool.md)
+- [srd022-builtin-tools](../software-requirements/srd022-builtin-tools.md)
+- [srd023-cli-exec-tools](../software-requirements/srd023-cli-exec-tools.md)
+- [srd024-blocking-input-tools](../software-requirements/srd024-blocking-input-tools.md)
+- [srd025-rollback-lifecycle](../software-requirements/srd025-rollback-lifecycle.md)
+- [srd035-checkpoint-port](../software-requirements/srd035-checkpoint-port.md)
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md)
 
 <!-- field: implementation -->
 ## Implementation

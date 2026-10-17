@@ -65,15 +65,15 @@ fails.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel00.0-uc001-rag-server-query | Persistent RAG server answers a vector-in query_embeddings request and returns chunks with embedding-model metadata. | implemented |
-| rel00.0-uc002-chatbot-turn | Single-RAG chat turn embeds once, queries one RAG, composes via $from(), answers, and degrades to a 200 when the RAG fails. | implemented |
+| [rel00.0-uc001-rag-server-query](specs/use-cases/rel00.0-uc001-rag-server-query.md) | Persistent RAG server answers a vector-in query_embeddings request and returns chunks with embedding-model metadata. | implemented |
+| [rel00.0-uc002-chatbot-turn](specs/use-cases/rel00.0-uc002-chatbot-turn.md) | Single-RAG chat turn embeds once, queries one RAG, composes via $from(), answers, and degrades to a 200 when the RAG fails. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel00.0-chatbot-mesh | Tracers for the RAG server query and the single-RAG chatbot turn with a degraded RAG. | implemented |
+| [test-rel00.0-chatbot-mesh](specs/test-suites/test-rel00.0-chatbot-mesh.md) | Tracers for the RAG server query and the single-RAG chatbot turn with a degraded RAG. | implemented |
 
 <!-- release: 01.0 | status: implemented -->
 ## 01.0 - Tier selection and multi-RAG fan-out
@@ -94,14 +94,14 @@ machine transition, compose assembling the surviving per-source chunks.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel01.0-uc001-routed-fanout | A tier-selected chat turn dispatches one chat-LLM word via $tool and fans the one embedding out to two RAGs, citing both corpora and degrading when one fails. | implemented |
+| [rel01.0-uc001-routed-fanout](specs/use-cases/rel01.0-uc001-routed-fanout.md) | A tier-selected chat turn dispatches one chat-LLM word via $tool and fans the one embedding out to two RAGs, citing both corpora and degrading when one fails. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel01.0-routing-fanout | Tracers for the $tool tier-selector dispatch, the two-RAG fan-out over disjoint corpora, and the degraded and embedding-mismatch paths. | implemented |
+| [test-rel01.0-routing-fanout](specs/test-suites/test-rel01.0-routing-fanout.md) | Tracers for the $tool tier-selector dispatch, the two-RAG fan-out over disjoint corpora, and the degraded and embedding-mismatch paths. | implemented |
 
 <!-- release: 02.0 | status: implemented -->
 ## 02.0 - Observability
@@ -123,14 +123,14 @@ RAG servers (agent-core srd016).
 
 | id | summary | status |
 | --- | --- | --- |
-| rel02.0-uc001-observability | The observability panel shows each agent's run state and event stream and renders a selected turn's connected cross-agent trace as a span waterfall. | implemented |
+| [rel02.0-uc001-observability](specs/use-cases/rel02.0-uc001-observability.md) | The observability panel shows each agent's run state and event stream and renders a selected turn's connected cross-agent trace as a span waterfall. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel02.0-observability | Tracers for the per-agent monitor panels over monitor_proxy and the cross-agent trace waterfall from the trace backend. | implemented |
+| [test-rel02.0-observability](specs/test-suites/test-rel02.0-observability.md) | Tracers for the per-agent monitor panels over monitor_proxy and the cross-agent trace waterfall from the trace backend. | implemented |
 
 <!-- release: 03.0 | status: implemented -->
 ## 03.0 - Mesh deployment and tiered swap
@@ -152,14 +152,14 @@ provisioning deployment API (srd003 R4) is the control-plane release
 
 | id | summary | status |
 | --- | --- | --- |
-| rel03.0-uc001-mesh-deployment | One Helm chart deploys the mesh on a kind cluster with values-to-config co-generation, a Service repoint, and an add-RAG rollout that drains active turns. | implemented |
+| [rel03.0-uc001-mesh-deployment](specs/use-cases/rel03.0-uc001-mesh-deployment.md) | One Helm chart deploys the mesh on a kind cluster with values-to-config co-generation, a Service repoint, and an add-RAG rollout that drains active turns. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel03.0-mesh-deployment | Tracers for the kind deploy smoke, the co-generation drift lock, and the repoint and add-RAG swaps. | implemented |
+| [test-rel03.0-mesh-deployment](specs/test-suites/test-rel03.0-mesh-deployment.md) | Tracers for the kind deploy smoke, the co-generation drift lock, and the repoint and add-RAG swaps. | implemented |
 
 <!-- release: 04.0 | status: implemented -->
 ## 04.0 - In-cluster LLM tier
@@ -182,14 +182,14 @@ contract (R2) is unchanged either way.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel04.0-uc001-in-cluster-llm-tier | A fresh-cluster install with defaults answers a chat turn with zero external LLM dependency; the disabled-tier override reproduces the external endpoint, and agents are not ready until the models are pulled. | implemented |
+| [rel04.0-uc001-in-cluster-llm-tier](specs/use-cases/rel04.0-uc001-in-cluster-llm-tier.md) | A fresh-cluster install with defaults answers a chat turn with zero external LLM dependency; the disabled-tier override reproduces the external endpoint, and agents are not ready until the models are pulled. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel04.0-llm-tier | Tracers for the default-install turn, the disabled-tier endpoint override, the preload-gate ordering, and the CPU-only kind smoke. | implemented |
+| [test-rel04.0-llm-tier](specs/test-suites/test-rel04.0-llm-tier.md) | Tracers for the default-install turn, the disabled-tier endpoint override, the preload-gate ordering, and the CPU-only kind smoke. | implemented |
 
 <!-- release: 05.0 | status: partial -->
 ## 05.0 - Control plane
@@ -220,14 +220,14 @@ canonical Coordinator; GH-1077 completed its coordinated mechanical rename.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel05.0-uc001-control-plane-provisioning | A provisioning intent flows panel -> provisioning-workflow-orchestrator -> creator and reconfigures the mesh; only the creator holds the deployment-API authority. The values-only apply -- the panel's operator intent -- is realized end to end and proven by mage integration:controlPlane. The corpus-ingest child run and count-delta checks are implemented and covered independently, but no live integration drives one ingest-carrying intent through ingest, rollout, and a grounded turn from the newly added source. The complete use case therefore remains partial. | partial |
+| [rel05.0-uc001-control-plane-provisioning](specs/use-cases/rel05.0-uc001-control-plane-provisioning.md) | A provisioning intent flows panel -> provisioning-workflow-orchestrator -> creator and reconfigures the mesh; only the creator holds the deployment-API authority. The values-only apply -- the panel's operator intent -- is realized end to end and proven by mage integration:controlPlane. The corpus-ingest child run and count-delta checks are implemented and covered independently, but no live integration drives one ingest-carrying intent through ingest, rollout, and a grounded turn from the newly added source. The complete use case therefore remains partial. | partial |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel05.0-control-plane | Tracer for the apply -> reconfigure -> verify flow across the provisioning-workflow-orchestrator and creator, asserting the decided values document crosses each hop and the authority boundary holds. Realized as mage integration:controlPlane (deterministic, no cluster), which also reads the panel's mesh view back through both hops (srd006 R1.5). It does not invoke the implemented ingest leg or join it to a live rollout and grounded turn; integration:chatbot and the deploy swap prove those behaviors separately. | implemented |
+| [test-rel05.0-control-plane](specs/test-suites/test-rel05.0-control-plane.md) | Tracer for the apply -> reconfigure -> verify flow across the provisioning-workflow-orchestrator and creator, asserting the decided values document crosses each hop and the authority boundary holds. Realized as mage integration:controlPlane (deterministic, no cluster), which also reads the panel's mesh view back through both hops (srd006 R1.5). It does not invoke the implemented ingest leg or join it to a live rollout and grounded turn; integration:chatbot and the deploy swap prove those behaviors separately. | implemented |
 
 <!-- release: 06.0 | status: implemented -->
 ## 06.0 - Declarative applier agent
@@ -252,14 +252,14 @@ config -- and no agent-core change is required.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel06.0-uc001-declarative-applier | The applier agent validates a values patch against the chart schema, applies it as a values-file rollout, verifies the rollout, and rolls back on failure, replacing the Go provisioner with zero agent-core changes. The live on-cluster rollout shipped with GH-735, proving a patch applied through the applier changes a real release. The provisioning panel's initial mesh-view load (GET /provisioning/api/state, srd006 R1.5) shipped with GH-750/752/753 -- the applier reads the deployed release's computed values, and the creator and provisioning-workflow-orchestrator carry the flat response through to the panel, which reassembles it client-side. | implemented |
+| [rel06.0-uc001-declarative-applier](specs/use-cases/rel06.0-uc001-declarative-applier.md) | The applier agent validates a values patch against the chart schema, applies it as a values-file rollout, verifies the rollout, and rolls back on failure, replacing the Go provisioner with zero agent-core changes. The live on-cluster rollout shipped with GH-735, proving a patch applied through the applier changes a real release. The provisioning panel's initial mesh-view load (GET /provisioning/api/state, srd006 R1.5) shipped with GH-750/752/753 -- the applier reads the deployed release's computed values, and the creator and provisioning-workflow-orchestrator carry the flat response through to the panel, which reassembles it client-side. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel06.0-applier | Tracer for the validate -> apply -> verify -> rollback flow against the applier agent, asserting schema rejection, values-file apply, rollout verification, and the authority boundary. Realized as mage integration:applier, which drives the shipped profile against recording fake helm and kubectl; the chart schema is proven against real helm and the enabled chart against its render. The live on-cluster tier is mage integration:applierLive (GH-735). The state-read chain (GH-750/752/753) is covered by unit tests pinning every hop's field mapping and failure-status behavior, and mage integration:controlPlane automates the creator/provisioning-workflow-orchestrator state round trip after the GH-755 selector fix. | implemented |
+| [test-rel06.0-applier](specs/test-suites/test-rel06.0-applier.md) | Tracer for the validate -> apply -> verify -> rollback flow against the applier agent, asserting schema rejection, values-file apply, rollout verification, and the authority boundary. Realized as mage integration:applier, which drives the shipped profile against recording fake helm and kubectl; the chart schema is proven against real helm and the enabled chart against its render. The live on-cluster tier is mage integration:applierLive (GH-735). The state-read chain (GH-750/752/753) is covered by unit tests pinning every hop's field mapping and failure-status behavior, and mage integration:controlPlane automates the creator/provisioning-workflow-orchestrator state round trip after the GH-755 selector fix. | implemented |
 
 <!-- release: 07.0 | status: implemented -->
 ## 07.0 - Declarative collector agent
@@ -281,14 +281,14 @@ Prometheus scraping until a later metrics-ingress replacement is specified.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel07.0-uc001-collector-ingress | A chatbot trace batch enters the collector agent, remains attributable in spool and Jaeger, while contrib retains metrics evidence. | implemented |
+| [rel07.0-uc001-collector-ingress](specs/use-cases/rel07.0-uc001-collector-ingress.md) | A chatbot trace batch enters the collector agent, remains attributable in spool and Jaeger, while contrib retains metrics evidence. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel07.0-collector | Profile, intake, self-loop, staged Helm, identity, retained-evidence proofs, and lifecycle listener rebind and terminal state for collector ingress. | implemented |
+| [test-rel07.0-collector](specs/test-suites/test-rel07.0-collector.md) | Profile, intake, self-loop, staged Helm, identity, retained-evidence proofs, and lifecycle listener rebind and terminal state for collector ingress. | implemented |
 
 <!-- release: 09.0 | status: implemented -->
 ## 09.0 - Canonical collector and Jaeger retirement
@@ -313,14 +313,14 @@ spool identity and metrics evidence without Jaeger cross-checks.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel09.0-uc001-canonical-collector | The mesh deploys with no Jaeger workload; the UX waterfall reads traces from the collector query surface and integration tests verify spool identity and metrics evidence. | implemented |
+| [rel09.0-uc001-canonical-collector](specs/use-cases/rel09.0-uc001-canonical-collector.md) | The mesh deploys with no Jaeger workload; the UX waterfall reads traces from the collector query surface and integration tests verify spool identity and metrics evidence. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel09.0-canonical-collector | Helm render purity, UX waterfall transform, spool identity, metrics evidence, and catalog consumption proofs for the Jaeger-free collector. | implemented |
+| [test-rel09.0-canonical-collector](specs/test-suites/test-rel09.0-canonical-collector.md) | Helm render purity, UX waterfall transform, spool identity, metrics evidence, and catalog consumption proofs for the Jaeger-free collector. | implemented |
 
 <!-- release: 08.0 | status: done -->
 ## 08.0 - Fleet observer agent
@@ -355,11 +355,11 @@ actor name via the historical_aliases pattern (GH-1247).
 
 | id | summary | status |
 | --- | --- | --- |
-| rel08.0-uc001-mesh-observer | The observer discovers every mesh agent and the deployment topology, polls monitor surfaces and per-pod resource usage, and displays a fleet view that updates during a live chat turn. | implemented |
+| [rel08.0-uc001-mesh-observer](specs/use-cases/rel08.0-uc001-mesh-observer.md) | The observer discovers every mesh agent and the deployment topology, polls monitor surfaces and per-pod resource usage, and displays a fleet view that updates during a live chat turn. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel08.0-observer | Profile validation, kube discovery, monitor fan-in, topology grouping, per-pod resource usage, fleet UX, RBAC proof, and lifecycle exit. | implemented |
+| [test-rel08.0-observer](specs/test-suites/test-rel08.0-observer.md) | Profile validation, kube discovery, monitor fan-in, topology grouping, per-pod resource usage, fleet UX, RBAC proof, and lifecycle exit. | implemented |

@@ -47,15 +47,15 @@ and a trusted Cohere provider URL.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd048-cohere-adapter R1.1, R1.2, R1.3, R1.4, R1.5 | adapter behind the unchanged llm.Client boundary |
-| T2 | srd048-cohere-adapter R2.1, R2.2, R2.3, R2.4, R2.5 | Cohere v2 request and cancellation |
-| T3 | srd048-cohere-adapter R3.1, R3.2, R3.3, R3.4, R3.5 | lazy process credential and secret boundary |
-| T4 | srd048-cohere-adapter R4.1, R4.2, R4.3, R4.4, R4.5, R4.6 | content-block and usage normalization |
-| T5 | srd048-cohere-adapter R5.1, R5.2, R5.3, R5.4, R5.5, R5.6 | declarative provider and response-profile selection |
-| T6 | srd048-cohere-adapter R6.1, R6.2, R6.3, R6.4, R6.5, R6.6, R6.7 | errors and GenAI telemetry |
-| T7 | srd017-llm-extensions R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R2.7, R2.8, R2.9 | supported provider and parser-profile selection |
-| T8 | srd015-genai-semconv R3.1, R3.2, R3.3 | Cohere provider identity |
-| T9 | srd015-genai-semconv R5.1, R5.2, R5.3, R5.4, R5.5, R5.6 | inference and usage attributes |
+| T1 | [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [R1.1](../software-requirements/srd048-cohere-adapter.md#r11), [R1.2](../software-requirements/srd048-cohere-adapter.md#r12), [R1.3](../software-requirements/srd048-cohere-adapter.md#r13), [R1.4](../software-requirements/srd048-cohere-adapter.md#r14), [R1.5](../software-requirements/srd048-cohere-adapter.md#r15) | adapter behind the unchanged llm.Client boundary |
+| T2 | [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [R2.1](../software-requirements/srd048-cohere-adapter.md#r21), [R2.2](../software-requirements/srd048-cohere-adapter.md#r22), [R2.3](../software-requirements/srd048-cohere-adapter.md#r23), [R2.4](../software-requirements/srd048-cohere-adapter.md#r24), [R2.5](../software-requirements/srd048-cohere-adapter.md#r25) | Cohere v2 request and cancellation |
+| T3 | [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [R3.1](../software-requirements/srd048-cohere-adapter.md#r31), [R3.2](../software-requirements/srd048-cohere-adapter.md#r32), [R3.3](../software-requirements/srd048-cohere-adapter.md#r33), [R3.4](../software-requirements/srd048-cohere-adapter.md#r34), [R3.5](../software-requirements/srd048-cohere-adapter.md#r35) | lazy process credential and secret boundary |
+| T4 | [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [R4.1](../software-requirements/srd048-cohere-adapter.md#r41), [R4.2](../software-requirements/srd048-cohere-adapter.md#r42), [R4.3](../software-requirements/srd048-cohere-adapter.md#r43), [R4.4](../software-requirements/srd048-cohere-adapter.md#r44), [R4.5](../software-requirements/srd048-cohere-adapter.md#r45), [R4.6](../software-requirements/srd048-cohere-adapter.md#r46) | content-block and usage normalization |
+| T5 | [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [R5.1](../software-requirements/srd048-cohere-adapter.md#r51), [R5.2](../software-requirements/srd048-cohere-adapter.md#r52), [R5.3](../software-requirements/srd048-cohere-adapter.md#r53), [R5.4](../software-requirements/srd048-cohere-adapter.md#r54), [R5.5](../software-requirements/srd048-cohere-adapter.md#r55), [R5.6](../software-requirements/srd048-cohere-adapter.md#r56) | declarative provider and response-profile selection |
+| T6 | [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [R6.1](../software-requirements/srd048-cohere-adapter.md#r61), [R6.2](../software-requirements/srd048-cohere-adapter.md#r62), [R6.3](../software-requirements/srd048-cohere-adapter.md#r63), [R6.4](../software-requirements/srd048-cohere-adapter.md#r64), [R6.5](../software-requirements/srd048-cohere-adapter.md#r65), [R6.6](../software-requirements/srd048-cohere-adapter.md#r66), [R6.7](../software-requirements/srd048-cohere-adapter.md#r67) | errors and GenAI telemetry |
+| T7 | [srd017-llm-extensions](../software-requirements/srd017-llm-extensions.md) [R2.1](../software-requirements/srd017-llm-extensions.md#r21), [R2.2](../software-requirements/srd017-llm-extensions.md#r22), [R2.3](../software-requirements/srd017-llm-extensions.md#r23), [R2.4](../software-requirements/srd017-llm-extensions.md#r24), [R2.5](../software-requirements/srd017-llm-extensions.md#r25), [R2.6](../software-requirements/srd017-llm-extensions.md#r26), [R2.7](../software-requirements/srd017-llm-extensions.md#r27), [R2.8](../software-requirements/srd017-llm-extensions.md#r28), [R2.9](../software-requirements/srd017-llm-extensions.md#r29) | supported provider and parser-profile selection |
+| T8 | [srd015-genai-semconv](../software-requirements/srd015-genai-semconv.md) [R3.1](../software-requirements/srd015-genai-semconv.md#r31), [R3.2](../software-requirements/srd015-genai-semconv.md#r32), [R3.3](../software-requirements/srd015-genai-semconv.md#r33) | Cohere provider identity |
+| T9 | [srd015-genai-semconv](../software-requirements/srd015-genai-semconv.md) [R5.1](../software-requirements/srd015-genai-semconv.md#r51), [R5.2](../software-requirements/srd015-genai-semconv.md#r52), [R5.3](../software-requirements/srd015-genai-semconv.md#r53), [R5.4](../software-requirements/srd015-genai-semconv.md#r54), [R5.5](../software-requirements/srd015-genai-semconv.md#r55), [R5.6](../software-requirements/srd015-genai-semconv.md#r56) | inference and usage attributes |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -68,8 +68,8 @@ A synthetic provider cohere ToolDef builds without contacting the provider or re
 <!-- field: traces -->
 #### Traces
 
-- srd048-cohere-adapter AC1
-- srd048-cohere-adapter AC4
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC1](../software-requirements/srd048-cohere-adapter.md#ac1)
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC4](../software-requirements/srd048-cohere-adapter.md#ac4)
 
 <!-- sc: S2 -->
 ### S2
@@ -79,8 +79,8 @@ One authenticated v2 request carries chronological messages and supported decodi
 <!-- field: traces -->
 #### Traces
 
-- srd048-cohere-adapter AC1
-- srd048-cohere-adapter AC2
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC1](../software-requirements/srd048-cohere-adapter.md#ac1)
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC2](../software-requirements/srd048-cohere-adapter.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -90,7 +90,7 @@ Ordered text blocks and usage tokens become the same ChatResponse and LLMRespond
 <!-- field: traces -->
 #### Traces
 
-- srd048-cohere-adapter AC3
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC3](../software-requirements/srd048-cohere-adapter.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -100,8 +100,8 @@ The Cohere response profile extracts envelope-wrapped or bare JSON from joined m
 <!-- field: traces -->
 #### Traces
 
-- srd048-cohere-adapter AC3
-- srd048-cohere-adapter AC4
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC3](../software-requirements/srd048-cohere-adapter.md#ac3)
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC4](../software-requirements/srd048-cohere-adapter.md#ac4)
 
 <!-- sc: S5 -->
 ### S5
@@ -111,8 +111,8 @@ Cohere transport and dispatch spans identify Cohere, model, server, usage, respo
 <!-- field: traces -->
 #### Traces
 
-- srd048-cohere-adapter AC2
-- srd048-cohere-adapter AC5
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC2](../software-requirements/srd048-cohere-adapter.md#ac2)
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC5](../software-requirements/srd048-cohere-adapter.md#ac5)
 
 <!-- sc: S6 -->
 ### S6
@@ -122,8 +122,8 @@ Missing credentials and provider failures emit CommandError at dispatch, while u
 <!-- field: traces -->
 #### Traces
 
-- srd048-cohere-adapter AC4
-- srd048-cohere-adapter AC5
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC4](../software-requirements/srd048-cohere-adapter.md#ac4)
+- [srd048-cohere-adapter](../software-requirements/srd048-cohere-adapter.md) [AC5](../software-requirements/srd048-cohere-adapter.md#ac5)
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios
@@ -144,4 +144,4 @@ Missing credentials and provider failures emit CommandError at dispatch, while u
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel15.0-cohere-invoke
+[test-rel15.0-cohere-invoke](../test-suites/test-rel15.0-cohere-invoke.md)

@@ -185,12 +185,12 @@ A three-stage render/compose/parse marshalling block that today occupies three m
 <!-- field: traces -->
 #### Traces
 
-- R0.1
-- R0.2
-- R1.1
-- R1.2
-- R3.1
-- R3.3
+- [R0.1](#r01)
+- [R0.2](#r02)
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R3.1](#r31)
+- [R3.3](#r33)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -200,7 +200,7 @@ A stage reads a non-adjacent prior machine step through $from exactly as the sta
 <!-- field: traces -->
 #### Traces
 
-- R3.2
+- [R3.2](#r32)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -210,13 +210,13 @@ A stage init outside the closed set, a stage config its own factory refuses, an 
 <!-- field: traces -->
 #### Traces
 
-- R1.3
-- R1.4
-- R1.5
-- R1.6
-- R2.1
-- R2.2
-- R2.4
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R1.5](#r15)
+- [R1.6](#r16)
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.4](#r24)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -226,9 +226,9 @@ A failing stage emits CommandError naming the stage, later stages do not run, an
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -238,7 +238,7 @@ A profile whose declarations use pipeline with a parse_structured stage register
 <!-- field: traces -->
 #### Traces
 
-- R2.3
+- [R2.3](#r23)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -248,9 +248,9 @@ The word records no side effect, reverses as a noop, and mutates nothing; inject
 <!-- field: traces -->
 #### Traces
 
-- R3.4
-- R5.1
-- R5.2
+- [R3.4](#r34)
+- [R5.1](#r51)
+- [R5.2](#r52)
 
 <!-- field: related_documents -->
 ## Related documents

@@ -83,12 +83,14 @@ type fieldRule struct {
 	Shape       string   `yaml:"shape"`
 	ItemPattern string   `yaml:"item_pattern"`
 	Columns     []string `yaml:"columns"`
-	Heading     string   `yaml:"heading"` // printed heading; default from the name
-	Value       string   `yaml:"value"`   // keyed or outline; default by value
-	ID          string   `yaml:"id"`      // outline: the record key holding the id
-	ContentKey  string   `yaml:"content"` // outline: the record key holding the text
-	Split       string   `yaml:"split"`   // table: separator of a keyed "<id>: <a><split><b>" row
-	Code        string   `yaml:"code"`    // a string printed in one fence of this language
+	Heading     string   `yaml:"heading"`      // printed heading; default from the name
+	Value       string   `yaml:"value"`        // keyed or outline; default by value
+	ID          string   `yaml:"id"`           // outline: the record key holding the id
+	ContentKey  string   `yaml:"content"`      // outline: the record key holding the text
+	Split       string   `yaml:"split"`        // table: separator of a keyed "<id>: <a><split><b>" row
+	Code        string   `yaml:"code"`         // a string printed in one fence of this language
+	Links       bool     `yaml:"links"`        // its values are references, rendered as links
+	LinkColumns []string `yaml:"link_columns"` // the table columns whose cells are references
 }
 
 // LoadDeclarations reads every document type in design.yaml whose markdown

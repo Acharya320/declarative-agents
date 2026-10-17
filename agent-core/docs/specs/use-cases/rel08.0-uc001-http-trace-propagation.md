@@ -41,11 +41,11 @@ while both export spans to the same trace backend.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd016-traceparent R4.1, R4.2, R4.3, R4.4 | outbound REST client injects traceparent/tracestate from the active span, uniform, no authoring surface |
-| T2 | srd016-traceparent R5.1, R5.2, R5.3, R5.4 | inbound REST server extracts traceparent to parent the request and machine_request spans |
-| T3 | srd016-traceparent R5.3 | absent or malformed header falls back to a new root without failing |
-| T4 | srd028-rest-client-tools R9.1 | client traces carry the injected trace context |
-| T5 | srd029-rest-server-tools R9.1 | server continues the cross-agent trace on extraction |
+| T1 | [srd016-traceparent](../software-requirements/srd016-traceparent.md) [R4.1](../software-requirements/srd016-traceparent.md#r41), [R4.2](../software-requirements/srd016-traceparent.md#r42), [R4.3](../software-requirements/srd016-traceparent.md#r43), [R4.4](../software-requirements/srd016-traceparent.md#r44) | outbound REST client injects traceparent/tracestate from the active span, uniform, no authoring surface |
+| T2 | [srd016-traceparent](../software-requirements/srd016-traceparent.md) [R5.1](../software-requirements/srd016-traceparent.md#r51), [R5.2](../software-requirements/srd016-traceparent.md#r52), [R5.3](../software-requirements/srd016-traceparent.md#r53), [R5.4](../software-requirements/srd016-traceparent.md#r54) | inbound REST server extracts traceparent to parent the request and machine_request spans |
+| T3 | [srd016-traceparent](../software-requirements/srd016-traceparent.md) [R5.3](../software-requirements/srd016-traceparent.md#r53) | absent or malformed header falls back to a new root without failing |
+| T4 | [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [R9.1](../software-requirements/srd028-rest-client-tools.md#r91) | client traces carry the injected trace context |
+| T5 | [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md) [R9.1](../software-requirements/srd029-rest-server-tools.md#r91) | server continues the cross-agent trace on extraction |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -58,7 +58,7 @@ An outbound REST client request carries a traceparent header formatted from the 
 <!-- field: traces -->
 #### Traces
 
-- srd016-traceparent AC4
+- [srd016-traceparent](../software-requirements/srd016-traceparent.md) [AC4](../software-requirements/srd016-traceparent.md#ac4)
 
 <!-- sc: S2 -->
 ### S2
@@ -68,7 +68,7 @@ An inbound REST server endpoint parents its request and machine_request span on 
 <!-- field: traces -->
 #### Traces
 
-- srd016-traceparent AC5
+- [srd016-traceparent](../software-requirements/srd016-traceparent.md) [AC5](../software-requirements/srd016-traceparent.md#ac5)
 
 <!-- sc: S3 -->
 ### S3
@@ -78,7 +78,7 @@ A request with an absent or malformed traceparent starts a new root span and com
 <!-- field: traces -->
 #### Traces
 
-- srd016-traceparent AC5
+- [srd016-traceparent](../software-requirements/srd016-traceparent.md) [AC5](../software-requirements/srd016-traceparent.md#ac5)
 
 <!-- sc: S4 -->
 ### S4
@@ -88,7 +88,7 @@ Injection is uniform across outbound requests with no per-operation authoring su
 <!-- field: traces -->
 #### Traces
 
-- srd016-traceparent AC4
+- [srd016-traceparent](../software-requirements/srd016-traceparent.md) [AC4](../software-requirements/srd016-traceparent.md#ac4)
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios
@@ -109,4 +109,4 @@ Injection is uniform across outbound requests with no per-operation authoring su
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel08.0-trace-propagation
+[test-rel08.0-trace-propagation](../test-suites/test-rel08.0-trace-propagation.md)

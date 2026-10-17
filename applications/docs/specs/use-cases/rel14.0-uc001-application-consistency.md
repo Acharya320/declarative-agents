@@ -218,14 +218,14 @@ composition wrapper over the canonical implementation.
 | T5 | applications/<application>/magefiles/ | Manifest validation, package derivation, local audit, and capability evidence. |
 | T6 | magefiles/build.go | Runnable versus audit-only root membership. |
 | T7 | agent-core | Runtime validation and execution semantics remain external authority. |
-| T8 | srd003-application-consistency AC1 | Manifest authority and capability gating. |
-| T9 | srd003-application-consistency AC2 | Actor, catalog, fixture, and optional-directory grammar. |
-| T10 | srd003-application-consistency AC3 | Program and UI naming consistency. |
-| T11 | srd003-application-consistency AC4 | Manifest-derived package closure and provenance. |
-| T12 | srd003-application-consistency AC5 | Canonical promotion and actual shared-token consumption. |
-| T13 | srd003-application-consistency AC6 | Common README, statuses, and root classification. |
-| T14 | srd003-application-consistency AC7 | Catalog, application, and runtime ownership closure. |
-| T15 | test-rel14.0-application-consistency | Structural and capability-gated executable evidence for this flow. |
+| T8 | [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC1](../software-requirements/srd003-application-consistency.md#ac1) | Manifest authority and capability gating. |
+| T9 | [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC2](../software-requirements/srd003-application-consistency.md#ac2) | Actor, catalog, fixture, and optional-directory grammar. |
+| T10 | [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC3](../software-requirements/srd003-application-consistency.md#ac3) | Program and UI naming consistency. |
+| T11 | [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC4](../software-requirements/srd003-application-consistency.md#ac4) | Manifest-derived package closure and provenance. |
+| T12 | [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC5](../software-requirements/srd003-application-consistency.md#ac5) | Canonical promotion and actual shared-token consumption. |
+| T13 | [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC6](../software-requirements/srd003-application-consistency.md#ac6) | Common README, statuses, and root classification. |
+| T14 | [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC7](../software-requirements/srd003-application-consistency.md#ac7) | Catalog, application, and runtime ownership closure. |
+| T15 | [test-rel14.0-application-consistency](../test-suites/test-rel14.0-application-consistency.md) | Structural and capability-gated executable evidence for this flow. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -240,8 +240,8 @@ internally consistent.
 <!-- field: traces -->
 #### Traces
 
-- srd003-application-consistency R1
-- srd003-application-consistency AC1
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [R1](../software-requirements/srd003-application-consistency.md#r1---composition-manifest-authority)
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC1](../software-requirements/srd003-application-consistency.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -253,10 +253,10 @@ require placeholders.
 <!-- field: traces -->
 #### Traces
 
-- srd003-application-consistency R2
-- srd003-application-consistency R3
-- srd003-application-consistency AC2
-- srd003-application-consistency AC3
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [R2](../software-requirements/srd003-application-consistency.md#r2---actor-ownership-and-directory-grammar)
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [R3](../software-requirements/srd003-application-consistency.md#r3---agent-program-and-ui-naming)
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC2](../software-requirements/srd003-application-consistency.md#ac2)
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC3](../software-requirements/srd003-application-consistency.md#ac3)
 
 <!-- sc: S3 -->
 ### S3
@@ -268,8 +268,8 @@ as not applicable.
 <!-- field: traces -->
 #### Traces
 
-- srd003-application-consistency R4
-- srd003-application-consistency AC4
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [R4](../software-requirements/srd003-application-consistency.md#r4---manifest-derived-package-closure-and-provenance)
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC4](../software-requirements/srd003-application-consistency.md#ac4)
 
 <!-- sc: S4 -->
 ### S4
@@ -280,8 +280,8 @@ shared-token claim proves canonical consumption.
 <!-- field: traces -->
 #### Traces
 
-- srd003-application-consistency R5
-- srd003-application-consistency AC5
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [R5](../software-requirements/srd003-application-consistency.md#r5---canonical-promotion-and-shared-ui-tokens)
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC5](../software-requirements/srd003-application-consistency.md#ac5)
 
 <!-- sc: S5 -->
 ### S5
@@ -292,8 +292,8 @@ orchestration agree on module and per-capability status.
 <!-- field: traces -->
 #### Traces
 
-- srd003-application-consistency R6
-- srd003-application-consistency AC6
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [R6](../software-requirements/srd003-application-consistency.md#r6---readme-and-status-vocabulary)
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC6](../software-requirements/srd003-application-consistency.md#ac6)
 
 <!-- sc: S6 -->
 ### S6
@@ -305,8 +305,8 @@ implementation or redefined format.
 <!-- field: traces -->
 #### Traces
 
-- srd003-application-consistency R7
-- srd003-application-consistency AC7
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [R7](../software-requirements/srd003-application-consistency.md#r7---ownership-boundary-closure)
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [AC7](../software-requirements/srd003-application-consistency.md#ac7)
 
 <!-- sc: S7 -->
 ### S7
@@ -318,8 +318,8 @@ remain composition-only consumers of canonical implementations.
 <!-- field: traces -->
 #### Traces
 
-- srd003-application-consistency R1.2
-- srd003-application-consistency R2.2
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [R1.2](../software-requirements/srd003-application-consistency.md#r12)
+- [srd003-application-consistency](../software-requirements/srd003-application-consistency.md) [R2.2](../software-requirements/srd003-application-consistency.md#r22)
 
 <!-- field: out_of_scope -->
 ## Out of scope

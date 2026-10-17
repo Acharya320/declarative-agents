@@ -125,10 +125,10 @@ A unit expanding the fragment with a route prefix, selectors, a result count, an
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R3.1
-- R3.2
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R3.1](#r31)
+- [R3.2](#r32)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -138,8 +138,8 @@ The produced operation maps 200 to QueryResponded, 400 to QueryRejected, and oth
 <!-- field: traces -->
 #### Traces
 
-- R1.3
-- R3.3
+- [R1.3](#r13)
+- [R3.3](#r33)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -149,9 +149,9 @@ Consumers import the type unit and expand the fragment through /opt/agent-core p
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R3.4
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R3.4](#r34)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -161,8 +161,8 @@ chatbot-mesh's chatbot queries rag-server through the fragment with no local que
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
+- [R4.1](#r41)
+- [R4.2](#r42)
 
 <!-- field: related_documents -->
 ## Related documents

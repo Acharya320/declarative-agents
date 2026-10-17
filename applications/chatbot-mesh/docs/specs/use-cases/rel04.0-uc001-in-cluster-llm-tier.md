@@ -52,8 +52,8 @@ ollama.enabled=false and an endpoint override.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd003-chatbot-deployment AC6 | The in-cluster LLM tier, model preload, readiness gating, and enabled/external switch are specified. |
-| T2 | srd003-chatbot-deployment AC2 | Both the in-cluster and external paths render into the same co-generated client entries (R2 unchanged). |
+| T1 | [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC6](../software-requirements/srd003-chatbot-deployment.md#ac6) | The in-cluster LLM tier, model preload, readiness gating, and enabled/external switch are specified. |
+| T2 | [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC2](../software-requirements/srd003-chatbot-deployment.md#ac2) | Both the in-cluster and external paths render into the same co-generated client entries (R2 unchanged). |
 | T3 | test-rel04.0-llm-tier llm_tier | The suite records the default-install turn, the disabled-tier override, and the preload-gate ordering. |
 
 <!-- field: success_criteria -->
@@ -67,8 +67,8 @@ A default helm install on a fresh cluster answers a chat turn with no external L
 <!-- field: traces -->
 #### Traces
 
-- srd003-chatbot-deployment R6.1
-- srd003-chatbot-deployment AC6
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R6.1](../software-requirements/srd003-chatbot-deployment.md#r61)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC6](../software-requirements/srd003-chatbot-deployment.md#ac6)
 
 <!-- sc: S2 -->
 ### S2
@@ -78,8 +78,8 @@ The model-preload Job pulls the embedding, chat, and tier-selector models -- nam
 <!-- field: traces -->
 #### Traces
 
-- srd003-chatbot-deployment R6.2
-- srd003-chatbot-deployment AC6
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R6.2](../software-requirements/srd003-chatbot-deployment.md#r62)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC6](../software-requirements/srd003-chatbot-deployment.md#ac6)
 
 <!-- sc: S3 -->
 ### S3
@@ -89,8 +89,8 @@ Agent pods are not ready until the required models are present, so a missing mod
 <!-- field: traces -->
 #### Traces
 
-- srd003-chatbot-deployment R6.3
-- srd003-chatbot-deployment AC6
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R6.3](../software-requirements/srd003-chatbot-deployment.md#r63)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC6](../software-requirements/srd003-chatbot-deployment.md#ac6)
 
 <!-- sc: S4 -->
 ### S4
@@ -100,10 +100,10 @@ Setting ollama.enabled=false with an endpoint override reproduces the external-e
 <!-- field: traces -->
 #### Traces
 
-- srd003-chatbot-deployment R6.1
-- srd003-chatbot-deployment R2.1
-- srd003-chatbot-deployment AC6
-- srd003-chatbot-deployment AC2
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R6.1](../software-requirements/srd003-chatbot-deployment.md#r61)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R2.1](../software-requirements/srd003-chatbot-deployment.md#r21)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC6](../software-requirements/srd003-chatbot-deployment.md#ac6)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC2](../software-requirements/srd003-chatbot-deployment.md#ac2)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -114,4 +114,4 @@ Setting ollama.enabled=false with an endpoint override reproduces the external-e
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel04.0-llm-tier
+[test-rel04.0-llm-tier](../test-suites/test-rel04.0-llm-tier.md)

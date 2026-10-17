@@ -27,7 +27,7 @@ None
 
 | id | title | summary | path |
 | --- | --- | --- | --- |
-| srd001-demo | Specification Critic Charter Demo | Minimal corpus for generic charter checks. | docs/specs/software-requirements/srd001-demo.md |
+| [srd001-demo](specs/software-requirements/srd001-demo.md) | Specification Critic Charter Demo | Minimal corpus for generic charter checks. | docs/specs/software-requirements/srd001-demo.md |
 
 <!-- field: config_format_index | form: "empty list" -->
 ## Config format index

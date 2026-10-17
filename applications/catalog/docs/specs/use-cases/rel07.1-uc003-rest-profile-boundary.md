@@ -60,9 +60,9 @@ The ollama variant uses the same contract:
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd007-rest R1 | Configured client and server boundary words, including server launch, await, and stop, are explicit MachineSpec states. |
-| T2 | srd007-rest R2 | REST inputs, the REST client, async client, and server tool families, and profile-owned rest.yaml authority sit over the agent-core HTTP runtime. |
-| T3 | srd007-rest R3 | REST outcomes include response signals, async completion, inbound event signals, listener lifecycle, and Succeeded or Failed terminal outcomes. |
+| T1 | [srd007-rest](../software-requirements/srd007-rest.md) [R1](../software-requirements/srd007-rest.md#r1---behavior-model) | Configured client and server boundary words, including server launch, await, and stop, are explicit MachineSpec states. |
+| T2 | [srd007-rest](../software-requirements/srd007-rest.md) [R2](../software-requirements/srd007-rest.md#r2---inputs-tools-and-runtime-dependencies) | REST inputs, the REST client, async client, and server tool families, and profile-owned rest.yaml authority sit over the agent-core HTTP runtime. |
+| T3 | [srd007-rest](../software-requirements/srd007-rest.md) [R3](../software-requirements/srd007-rest.md#r3---outputs-and-outcomes) | REST outcomes include response signals, async completion, inbound event signals, listener lifecycle, and Succeeded or Failed terminal outcomes. |
 | T4 | sm-agent-role-taxonomy rest | The role entry names the REST actor boundary, inputs, selected tool families, outputs, and checks. |
 | T5 | test-rel07.1-profile-boundaries rest_profile_boundary | The suite records the base and ollama-* profiles, REST definitions, OpenAPI assets, and expected terminal states. |
 
@@ -77,7 +77,7 @@ REST authority lives in testdata/conformance/rest/rest.yaml and the ollama varia
 <!-- field: traces -->
 #### Traces
 
-- srd007-rest R2.3
+- [srd007-rest](../software-requirements/srd007-rest.md) [R2.3](../software-requirements/srd007-rest.md#r23)
 - sm-agent-role-taxonomy rest checks
 
 <!-- sc: S2 -->
@@ -88,9 +88,9 @@ Server launch, await, and stop are explicit machine states with a released liste
 <!-- field: traces -->
 #### Traces
 
-- srd007-rest R1.1
-- srd007-rest R1.2
-- srd007-rest R3.1
+- [srd007-rest](../software-requirements/srd007-rest.md) [R1.1](../software-requirements/srd007-rest.md#r11)
+- [srd007-rest](../software-requirements/srd007-rest.md) [R1.2](../software-requirements/srd007-rest.md#r12)
+- [srd007-rest](../software-requirements/srd007-rest.md) [R3.1](../software-requirements/srd007-rest.md#r31)
 
 <!-- sc: S3 -->
 ### S3
@@ -100,7 +100,7 @@ The sample flow reaches Succeeded on the configured happy path and Failed on any
 <!-- field: traces -->
 #### Traces
 
-- srd007-rest R3.2
+- [srd007-rest](../software-requirements/srd007-rest.md) [R3.2](../software-requirements/srd007-rest.md#r32)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -112,4 +112,4 @@ The sample flow reaches Succeeded on the configured happy path and Failed on any
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel07.1-profile-boundaries
+[test-rel07.1-profile-boundaries](../test-suites/test-rel07.1-profile-boundaries.md)

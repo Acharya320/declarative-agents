@@ -158,13 +158,13 @@ NewAdapter returns a working llm.Client. Chat round-trips messages (including Nu
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.4
-- R2.1
-- R2.2
-- R2.3
-- R2.4
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.4](#r14)
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -174,10 +174,10 @@ NewAdapter performs no model-availability network request; profiles may declare 
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
-- R4.4
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R4.4](#r44)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -187,9 +187,9 @@ WithTracer enables Chat inference spans and error recording. Nil tracer is safe.
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -199,9 +199,9 @@ Connection failures, bad HTTP status, and malformed JSON produce distinct errors
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
-- R6.3
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -211,10 +211,10 @@ WithHTTPClient overrides the default 5-minute-timeout client; invoke_llm registr
 <!-- field: traces -->
 #### Traces
 
-- R1.2
-- R1.3
-- R4.1
-- R4.3
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R4.1](#r41)
+- [R4.3](#r43)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -224,8 +224,8 @@ Generator imports internal/model/llm/ollama and deletes internal/llm/adapter.go.
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
+- [R1.1](#r11)
+- [R1.2](#r12)
 
 <!-- field: implementation_status -->
 ## Implementation status

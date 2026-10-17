@@ -101,14 +101,14 @@ added or edited, or a kind configuration is written.
 | T3 | applications/charts/agent-services/ | Shared library chart vendored into each application chart before rendering. |
 | T4 | magefiles/audit.go | Repository audit that dispatches the conformance check. |
 | T5 | magefiles/chartconf/baseline.yaml | Checked-in exception baseline the gate reads and never writes. |
-| T6 | srd005-chart-conformance AC1 | Rendering coverage across charts and overlays. |
-| T7 | srd005-chart-conformance AC2 | Digest and commit-tag classification. |
-| T8 | srd005-chart-conformance AC3 | Kind node image pinning. |
-| T9 | srd005-chart-conformance AC4 | Baseline suspension, unlisted failure, and stale-entry failure. |
-| T10 | srd005-chart-conformance AC5 | Finding names chart, overlay, resource, value, and rule. |
-| T11 | srd005-chart-conformance AC7 | Image-reference grammar and prohibited aliases. |
-| T13 | srd005-chart-conformance AC8 | Applier Role coverage of every rendered kind. |
-| T12 | test-rel16.0-chart-conformance | Structural and executable evidence for this flow. |
+| T6 | [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC1](../software-requirements/srd005-chart-conformance.md#ac1) | Rendering coverage across charts and overlays. |
+| T7 | [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC2](../software-requirements/srd005-chart-conformance.md#ac2) | Digest and commit-tag classification. |
+| T8 | [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC3](../software-requirements/srd005-chart-conformance.md#ac3) | Kind node image pinning. |
+| T9 | [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC4](../software-requirements/srd005-chart-conformance.md#ac4) | Baseline suspension, unlisted failure, and stale-entry failure. |
+| T10 | [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC5](../software-requirements/srd005-chart-conformance.md#ac5) | Finding names chart, overlay, resource, value, and rule. |
+| T11 | [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC7](../software-requirements/srd005-chart-conformance.md#ac7) | Image-reference grammar and prohibited aliases. |
+| T13 | [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC8](../software-requirements/srd005-chart-conformance.md#ac8) | Applier Role coverage of every rendered kind. |
+| T12 | [test-rel16.0-chart-conformance](../test-suites/test-rel16.0-chart-conformance.md) | Structural and executable evidence for this flow. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -122,7 +122,7 @@ rendered and checked; no chart is covered by its defaults alone.
 <!-- field: traces -->
 #### Traces
 
-- srd005-chart-conformance AC1
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC1](../software-requirements/srd005-chart-conformance.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -134,9 +134,9 @@ non-floating tag, and every image matches the reference grammar.
 <!-- field: traces -->
 #### Traces
 
-- srd005-chart-conformance AC1
-- srd005-chart-conformance AC2
-- srd005-chart-conformance AC7
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC1](../software-requirements/srd005-chart-conformance.md#ac1)
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC2](../software-requirements/srd005-chart-conformance.md#ac2)
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC7](../software-requirements/srd005-chart-conformance.md#ac7)
 
 <!-- sc: S3 -->
 ### S3
@@ -147,7 +147,7 @@ digest.
 <!-- field: traces -->
 #### Traces
 
-- srd005-chart-conformance AC3
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC3](../software-requirements/srd005-chart-conformance.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -158,7 +158,7 @@ listed one that no longer reproduces fails until its entry is removed.
 <!-- field: traces -->
 #### Traces
 
-- srd005-chart-conformance AC4
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC4](../software-requirements/srd005-chart-conformance.md#ac4)
 
 <!-- sc: S5 -->
 ### S5
@@ -169,7 +169,7 @@ the rule, and an engineer acts on it without re-rendering.
 <!-- field: traces -->
 #### Traces
 
-- srd005-chart-conformance AC5
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC5](../software-requirements/srd005-chart-conformance.md#ac5)
 
 <!-- sc: S6 -->
 ### S6
@@ -181,7 +181,7 @@ Role.
 <!-- field: traces -->
 #### Traces
 
-- srd005-chart-conformance AC8
+- [srd005-chart-conformance](../software-requirements/srd005-chart-conformance.md) [AC8](../software-requirements/srd005-chart-conformance.md#ac8)
 
 <!-- field: out_of_scope -->
 ## Out of scope

@@ -59,10 +59,10 @@ server and reachable Ollama; its wrapper selects this canonical profile:
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd012-chroma-corpus-agents AC1 | The ingest profile is a configured Chroma retrieval boundary machine, not a Go package. |
-| T2 | srd012-chroma-corpus-agents AC2 | chroma_ready, chroma_collection, library-bound embed_document, chroma_add, and chroma_count are the named REST vocabulary with create-or-get identity resolution. |
-| T3 | srd012-chroma-corpus-agents AC3 | The embed-to-add vector step uses srd028 R12 body_source previous_result, input_mapping, carry_forward, and single-token reshape, with no model-authored vector. |
-| T4 | srd012-chroma-corpus-agents AC5 | The running Chroma server and persistence directory are external preconditions surfaced through chroma_ready. |
+| T1 | [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [AC1](../software-requirements/srd012-chroma-corpus-agents.md#ac1) | The ingest profile is a configured Chroma retrieval boundary machine, not a Go package. |
+| T2 | [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [AC2](../software-requirements/srd012-chroma-corpus-agents.md#ac2) | chroma_ready, chroma_collection, library-bound embed_document, chroma_add, and chroma_count are the named REST vocabulary with create-or-get identity resolution. |
+| T3 | [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [AC3](../software-requirements/srd012-chroma-corpus-agents.md#ac3) | The embed-to-add vector step uses srd028 R12 body_source previous_result, input_mapping, carry_forward, and single-token reshape, with no model-authored vector. |
+| T4 | [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [AC5](../software-requirements/srd012-chroma-corpus-agents.md#ac5) | The running Chroma server and persistence directory are external preconditions surfaced through chroma_ready. |
 | T5 | applications/chatbot-mesh integration:chroma | The application integration runs the canonical library machine and declarations with mesh REST parameterization and verifies ingest count. |
 
 <!-- field: success_criteria -->
@@ -76,9 +76,9 @@ Every Chroma add carries one flat agent-supplied embedding vector normalized fro
 <!-- field: traces -->
 #### Traces
 
-- srd012-chroma-corpus-agents R3.2
-- srd012-chroma-corpus-agents R3.4
-- srd012-chroma-corpus-agents R3.5
+- [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [R3.2](../software-requirements/srd012-chroma-corpus-agents.md#r32)
+- [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [R3.4](../software-requirements/srd012-chroma-corpus-agents.md#r34)
+- [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [R3.5](../software-requirements/srd012-chroma-corpus-agents.md#r35)
 
 <!-- sc: S2 -->
 ### S2
@@ -88,7 +88,7 @@ The collection is create-or-got without a server-side embedding function and its
 <!-- field: traces -->
 #### Traces
 
-- srd012-chroma-corpus-agents R2.2
+- [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [R2.2](../software-requirements/srd012-chroma-corpus-agents.md#r22)
 
 <!-- sc: S3 -->
 ### S3
@@ -98,8 +98,8 @@ The post-ingest chroma_count matches the number of documents added.
 <!-- field: traces -->
 #### Traces
 
-- srd012-chroma-corpus-agents R2.5
-- srd012-chroma-corpus-agents R6.1
+- [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [R2.5](../software-requirements/srd012-chroma-corpus-agents.md#r25)
+- [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [R6.1](../software-requirements/srd012-chroma-corpus-agents.md#r61)
 
 <!-- sc: S4 -->
 ### S4
@@ -109,8 +109,8 @@ A consuming wrapper selects a non-Ollama document-embedding client and operation
 <!-- field: traces -->
 #### Traces
 
-- srd012-chroma-corpus-agents R2.6
-- srd012-chroma-corpus-agents R4.5
+- [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [R2.6](../software-requirements/srd012-chroma-corpus-agents.md#r26)
+- [srd012-chroma-corpus-agents](../software-requirements/srd012-chroma-corpus-agents.md) [R4.5](../software-requirements/srd012-chroma-corpus-agents.md#r45)
 
 <!-- field: out_of_scope -->
 ## Out of scope

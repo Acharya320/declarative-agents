@@ -44,12 +44,12 @@ blueprint machine mapping, or a profile-level list names a path under
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd056-unit-libraries R1.1, R1.2, R1.3 | import path forms |
-| T2 | srd056-unit-libraries R2.1, R2.2, R2.3, R2.4 | declared library roots |
-| T3 | srd056-unit-libraries R3.1, R3.2, R3.3 | closure, identity, dump, and staging |
-| T4 | srd056-unit-libraries R4.1, R4.2 | service libraries |
-| T5 | srd050-declaration-imports R1.1, R1.2, R1.3, R1.4, R1.6 | import path rule, as amended by srd056 |
-| T6 | srd051-declaration-types R1.1, R1.2, R1.3, R1.4, R1.5 | type unit reachability, as amended by srd056 |
+| T1 | [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [R1.1](../software-requirements/srd056-unit-libraries.md#r11), [R1.2](../software-requirements/srd056-unit-libraries.md#r12), [R1.3](../software-requirements/srd056-unit-libraries.md#r13) | import path forms |
+| T2 | [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [R2.1](../software-requirements/srd056-unit-libraries.md#r21), [R2.2](../software-requirements/srd056-unit-libraries.md#r22), [R2.3](../software-requirements/srd056-unit-libraries.md#r23), [R2.4](../software-requirements/srd056-unit-libraries.md#r24) | declared library roots |
+| T3 | [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [R3.1](../software-requirements/srd056-unit-libraries.md#r31), [R3.2](../software-requirements/srd056-unit-libraries.md#r32), [R3.3](../software-requirements/srd056-unit-libraries.md#r33) | closure, identity, dump, and staging |
+| T4 | [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [R4.1](../software-requirements/srd056-unit-libraries.md#r41), [R4.2](../software-requirements/srd056-unit-libraries.md#r42) | service libraries |
+| T5 | [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) [R1.1](../software-requirements/srd050-declaration-imports.md#r11), [R1.2](../software-requirements/srd050-declaration-imports.md#r12), [R1.3](../software-requirements/srd050-declaration-imports.md#r13), [R1.4](../software-requirements/srd050-declaration-imports.md#r14), [R1.6](../software-requirements/srd050-declaration-imports.md#r16) | import path rule, as amended by srd056 |
+| T6 | [srd051-declaration-types](../software-requirements/srd051-declaration-types.md) [R1.1](../software-requirements/srd051-declaration-types.md#r11), [R1.2](../software-requirements/srd051-declaration-types.md#r12), [R1.3](../software-requirements/srd051-declaration-types.md#r13), [R1.4](../software-requirements/srd051-declaration-types.md#r14), [R1.5](../software-requirements/srd051-declaration-types.md#r15) | type unit reachability, as amended by srd056 |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -62,7 +62,7 @@ An application unit imports an agent-core type unit by its install path and load
 <!-- field: traces -->
 #### Traces
 
-- srd056-unit-libraries AC1
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [AC1](../software-requirements/srd056-unit-libraries.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -72,7 +72,7 @@ A declared root resolves, --library overrides it, and every misdeclaration and r
 <!-- field: traces -->
 #### Traces
 
-- srd056-unit-libraries AC2
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [AC2](../software-requirements/srd056-unit-libraries.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -82,7 +82,7 @@ Rooted files are in the closure, the digest, and the dump, and a staged profile 
 <!-- field: traces -->
 #### Traces
 
-- srd056-unit-libraries AC3
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [AC3](../software-requirements/srd056-unit-libraries.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -92,7 +92,7 @@ The service-library convention is documented and no service library in the corpu
 <!-- field: traces -->
 #### Traces
 
-- srd056-unit-libraries AC4
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [AC4](../software-requirements/srd056-unit-libraries.md#ac4)
 
 <!-- field: out_of_scope -->
 ## Out of scope

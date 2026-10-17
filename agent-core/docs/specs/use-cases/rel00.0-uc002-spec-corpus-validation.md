@@ -39,10 +39,10 @@ documentation task.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd014-spec-graph R1.1, R1.2, R1.3, R1.4, R1.5, R1.6 | typed parsers for SRDs, use cases, test suites, roadmap, and SPECIFICATIONS.md |
-| T2 | srd014-spec-graph R2.1, R2.2, R2.3 | graph node kinds and relationship edges |
-| T3 | srd014-spec-graph R3.1, R3.2, R3.3, R3.4, R3.5, R3.6, R3.7, R3.8, R3.9, R3.10 | validation findings for broken, orphaned, and uncovered documentation links |
-| T4 | srd014-spec-graph R4.1, R4.2, R4.3, R4.4 | standard corpus discovery paths |
+| T1 | [srd014-spec-graph](../software-requirements/srd014-spec-graph.md) [R1.1](../software-requirements/srd014-spec-graph.md#r11), [R1.2](../software-requirements/srd014-spec-graph.md#r12), [R1.3](../software-requirements/srd014-spec-graph.md#r13), [R1.4](../software-requirements/srd014-spec-graph.md#r14), [R1.5](../software-requirements/srd014-spec-graph.md#r15), [R1.6](../software-requirements/srd014-spec-graph.md#r16) | typed parsers for SRDs, use cases, test suites, roadmap, and SPECIFICATIONS.md |
+| T2 | [srd014-spec-graph](../software-requirements/srd014-spec-graph.md) [R2.1](../software-requirements/srd014-spec-graph.md#r21), [R2.2](../software-requirements/srd014-spec-graph.md#r22), [R2.3](../software-requirements/srd014-spec-graph.md#r23) | graph node kinds and relationship edges |
+| T3 | [srd014-spec-graph](../software-requirements/srd014-spec-graph.md) [R3.1](../software-requirements/srd014-spec-graph.md#r31), [R3.2](../software-requirements/srd014-spec-graph.md#r32), [R3.3](../software-requirements/srd014-spec-graph.md#r33), [R3.4](../software-requirements/srd014-spec-graph.md#r34), [R3.5](../software-requirements/srd014-spec-graph.md#r35), [R3.6](../software-requirements/srd014-spec-graph.md#r36), [R3.7](../software-requirements/srd014-spec-graph.md#r37), [R3.8](../software-requirements/srd014-spec-graph.md#r38), [R3.9](../software-requirements/srd014-spec-graph.md#r39), [R3.10](../software-requirements/srd014-spec-graph.md#r310) | validation findings for broken, orphaned, and uncovered documentation links |
+| T4 | [srd014-spec-graph](../software-requirements/srd014-spec-graph.md) [R4.1](../software-requirements/srd014-spec-graph.md#r41), [R4.2](../software-requirements/srd014-spec-graph.md#r42), [R4.3](../software-requirements/srd014-spec-graph.md#r43), [R4.4](../software-requirements/srd014-spec-graph.md#r44) | standard corpus discovery paths |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -55,8 +55,8 @@ The loader parses all standard documentation artifacts into typed structs.
 <!-- field: traces -->
 #### Traces
 
-- srd014-spec-graph AC1
-- srd014-spec-graph AC4
+- [srd014-spec-graph](../software-requirements/srd014-spec-graph.md) [AC1](../software-requirements/srd014-spec-graph.md#ac1)
+- [srd014-spec-graph](../software-requirements/srd014-spec-graph.md) [AC4](../software-requirements/srd014-spec-graph.md#ac4)
 
 <!-- sc: S2 -->
 ### S2
@@ -66,7 +66,7 @@ The graph contains the expected artifact, requirement, acceptance, use-case, sui
 <!-- field: traces -->
 #### Traces
 
-- srd014-spec-graph AC2
+- [srd014-spec-graph](../software-requirements/srd014-spec-graph.md) [AC2](../software-requirements/srd014-spec-graph.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -76,7 +76,7 @@ The validator reports actionable findings with check identifiers and messages.
 <!-- field: traces -->
 #### Traces
 
-- srd014-spec-graph AC3
+- [srd014-spec-graph](../software-requirements/srd014-spec-graph.md) [AC3](../software-requirements/srd014-spec-graph.md#ac3)
 
 <!-- field: out_of_scope -->
 ## Out of scope

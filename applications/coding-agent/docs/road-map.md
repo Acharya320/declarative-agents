@@ -35,14 +35,14 @@ boundaries without a fake agent binary.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel01.0-uc001-coding-loop | A real planner materializes an SRD task, delegates it to a real executor, and submits the validated change to a critic gate. | implemented |
+| [rel01.0-uc001-coding-loop](specs/use-cases/rel01.0-uc001-coding-loop.md) | A real planner materializes an SRD task, delegates it to a real executor, and submits the validated change to a critic gate. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel01.0-coding-loop | Three stages prove a live executor run, real planner delegation, and the critic verdict with explicit inputs and outputs. | implemented |
+| [test-rel01.0-coding-loop](specs/test-suites/test-rel01.0-coding-loop.md) | Three stages prove a live executor run, real planner delegation, and the critic verdict with explicit inputs and outputs. | implemented |
 
 <!-- release: 02.0 | status: implemented -->
 ## 02.0 - Persistent remote coding request
@@ -62,14 +62,14 @@ boundaries over one trusted shared workspace, and retains one W3C trace.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel02.0-uc001-remote-coding-request | A persistent planner delegates one coding request to remote executor and critic services. | implemented |
+| [rel02.0-uc001-remote-coding-request](specs/use-cases/rel02.0-uc001-remote-coding-request.md) | A persistent planner delegates one coding request to remote executor and critic services. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel02.0-serving-contract | Real health, canonical critic, remote coding, and connected trace evidence. | implemented |
+| [test-rel02.0-serving-contract](specs/test-suites/test-rel02.0-serving-contract.md) | Real health, canonical critic, remote coding, and connected trace evidence. | implemented |
 
 <!-- release: 03.0 | status: implemented -->
 ## 03.0 - Role-specific deployment profile package
@@ -88,14 +88,14 @@ retain provenance and partition each role for bounded ConfigMaps.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel03.0-uc001-package-serving-profiles | A release builder emits one exact, mountable profile closure per serving role. | implemented |
+| [rel03.0-uc001-package-serving-profiles](specs/use-cases/rel03.0-uc001-package-serving-profiles.md) | A release builder emits one exact, mountable profile closure per serving role. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel03.0-deployment-profile-package | Exact closures, reproducibility, safety failures, ConfigMap bounds, and real-binary boot validation. | implemented |
+| [test-rel03.0-deployment-profile-package](specs/test-suites/test-rel03.0-deployment-profile-package.md) | Exact closures, reproducibility, safety failures, ConfigMap bounds, and real-binary boot validation. | implemented |
 
 <!-- release: 04.0 | status: implemented -->
 ## 04.0 - Core Helm topology
@@ -116,14 +116,14 @@ with the canonical collector agent.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel04.0-uc001-render-helm-topology | An operator prepares role shards and renders the core Kubernetes topology. | implemented |
+| [rel04.0-uc001-render-helm-topology](specs/use-cases/rel04.0-uc001-render-helm-topology.md) | An operator prepares role shards and renders the core Kubernetes topology. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel04.0-helm-topology | Deterministic topology, checksum, CI, model-tier, and trace-wiring renders. | implemented |
+| [test-rel04.0-helm-topology](specs/test-suites/test-rel04.0-helm-topology.md) | Deterministic topology, checksum, CI, model-tier, and trace-wiring renders. | implemented |
 
 <!-- release: 05.0 | status: implemented -->
 ## 05.0 - Helm values and package validation
@@ -142,14 +142,14 @@ inventory-checked, linted, and rendered independently.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel05.0-uc001-package-validated-chart | A release builder produces one validated chart archive with every role asset. | implemented |
+| [rel05.0-uc001-package-validated-chart](specs/use-cases/rel05.0-uc001-package-validated-chart.md) | A release builder produces one validated chart archive with every role asset. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel05.0-helm-package-validation | Schema matrix, semantic invariants, tamper rejection, and independent archive rendering. | implemented |
+| [test-rel05.0-helm-package-validation](specs/test-suites/test-rel05.0-helm-package-validation.md) | Schema matrix, semantic invariants, tamper rejection, and independent archive rendering. | implemented |
 
 <!-- release: 06.0 | status: implemented -->
 ## 06.0 - Packaged-chart live Helm smoke
@@ -168,14 +168,14 @@ planner/executor/critic trace with classified failures and cleanup.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel06.0-uc001-live-helm-smoke | A developer proves the complete packaged topology on a disposable kind cluster. | implemented |
+| [rel06.0-uc001-live-helm-smoke](specs/use-cases/rel06.0-uc001-live-helm-smoke.md) | A developer proves the complete packaged topology on a disposable kind cluster. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel06.0-live-helm-smoke | Skip, classification, diagnostic, fixture, cleanup, and live topology evidence. | implemented |
+| [test-rel06.0-live-helm-smoke](specs/test-suites/test-rel06.0-live-helm-smoke.md) | Skip, classification, diagnostic, fixture, cleanup, and live topology evidence. | implemented |
 
 <!-- release: 07.0 | status: implemented -->
 ## 07.0 - Canonical collector agent tracing
@@ -199,14 +199,14 @@ applications/catalog/v0.20260730.0.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel07.0-uc001-collector-agent-tracing | An operator renders and proves the packaged topology with the canonical collector agent and no Jaeger workload. | implemented |
+| [rel07.0-uc001-collector-agent-tracing](specs/use-cases/rel07.0-uc001-collector-agent-tracing.md) | An operator renders and proves the packaged topology with the canonical collector agent and no Jaeger workload. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel07.0-collector-agent-tracing | Topology, schema, catalog-root discovery, and live smoke evidence with collector agent rendering and spool query trace proof. | implemented |
+| [test-rel07.0-collector-agent-tracing](specs/test-suites/test-rel07.0-collector-agent-tracing.md) | Topology, schema, catalog-root discovery, and live smoke evidence with collector agent rendering and spool query trace proof. | implemented |
 
 <!-- release: 08.0 | status: implemented -->
 ## 08.0 - Declarative applier agent
@@ -236,14 +236,14 @@ are implemented.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel08.0-uc001-declarative-applier | An operator or CI caller submits a decided values patch that the applier validates, applies, verifies, and rolls back on failure. | implemented |
+| [rel08.0-uc001-declarative-applier](specs/use-cases/rel08.0-uc001-declarative-applier.md) | An operator or CI caller submits a decided values patch that the applier validates, applies, verifies, and rolls back on failure. | implemented |
 
 <!-- field: test_suites -->
 ### Test suites
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel08.0-applier | Recording-fake terminal coverage, real chart-schema rejection, applier-only CLI authority, broken-read classification, and a live on-cluster rollout and rollback. | implemented |
+| [test-rel08.0-applier](specs/test-suites/test-rel08.0-applier.md) | Recording-fake terminal coverage, real chart-schema rejection, applier-only CLI authority, broken-read classification, and a live on-cluster rollout and rollback. | implemented |
 
 <!-- release: 99.0 | status: planned -->
 ## 99.0 - Fleet observer adoption

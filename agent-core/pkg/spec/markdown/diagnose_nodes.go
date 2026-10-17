@@ -259,8 +259,8 @@ const shapeEmpty = "empty"
 // that declares no columns accepts any header.
 func (d *diagnosis) checkShape(node *dnode) {
 	field, typed := d.rules.ruleFor(node.kind, node.id)
-	if !typed {
-		return
+	if !typed || (field.Shape == "" && field.Code == "") {
+		return // passthrough: a rule may declare only links or a heading
 	}
 	content := d.contentText(node)
 	shape := shapeEmpty
@@ -303,7 +303,7 @@ func (d *diagnosis) checkListItems(node *dnode, content string, line int) {
 	if !ok {
 		return
 	}
-	for index, item := range parseList(content).Content {
+	for index, item := range parseList(unlink(content)).Content {
 		if !pattern.MatchString(item.Value) {
 			d.add("list-item-pattern", line, "each item matching "+d.rules.Fields[node.id].ItemPattern,
 				fmt.Sprintf("item %d: %q", index+1, firstLine(item.Value)), "fields."+node.id+".item_pattern",

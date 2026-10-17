@@ -45,13 +45,13 @@ A values overlay selects collector implementation agent and starts a chatbot sce
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd007-collector-agent R1.1, R1.2, R1.3, R1.4 | persistent bounded intake and visible machine sentence |
-| T2 | srd007-collector-agent R2.1, R2.2, R2.3, R2.4 | complete integration identity in spool and relay |
-| T3 | srd007-collector-agent R3.1, R3.2, R3.3, R3.4 | test and relay modes |
-| T4 | srd007-collector-agent R4.1, R4.2, R4.3 | control, monitor, and lifecycle cleanup |
-| T5 | srd007-collector-agent R5.1, R5.2, R5.3, R5.4 | file-only telemetry and self-loop proof |
-| T6 | srd007-collector-agent R6.1, R6.2, R6.3, R6.4, R6.5 | agent owns trace and OTLP metric intake; contrib opt-in trace-only |
-| T7 | srd003-chatbot-deployment R5.1, R5.2, R5.3, R5.4, R5.5, R5.6, R5.7, R5.8, R5.9, R5.10, R5.11 | retained persistent trace and metric evidence |
+| T1 | [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [R1.1](../software-requirements/srd007-collector-agent.md#r11), [R1.2](../software-requirements/srd007-collector-agent.md#r12), [R1.3](../software-requirements/srd007-collector-agent.md#r13), [R1.4](../software-requirements/srd007-collector-agent.md#r14) | persistent bounded intake and visible machine sentence |
+| T2 | [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [R2.1](../software-requirements/srd007-collector-agent.md#r21), [R2.2](../software-requirements/srd007-collector-agent.md#r22), [R2.3](../software-requirements/srd007-collector-agent.md#r23), [R2.4](../software-requirements/srd007-collector-agent.md#r24) | complete integration identity in spool and relay |
+| T3 | [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [R3.1](../software-requirements/srd007-collector-agent.md#r31), [R3.2](../software-requirements/srd007-collector-agent.md#r32), [R3.3](../software-requirements/srd007-collector-agent.md#r33), [R3.4](../software-requirements/srd007-collector-agent.md#r34) | test and relay modes |
+| T4 | [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [R4.1](../software-requirements/srd007-collector-agent.md#r41), [R4.2](../software-requirements/srd007-collector-agent.md#r42), [R4.3](../software-requirements/srd007-collector-agent.md#r43) | control, monitor, and lifecycle cleanup |
+| T5 | [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [R5.1](../software-requirements/srd007-collector-agent.md#r51), [R5.2](../software-requirements/srd007-collector-agent.md#r52), [R5.3](../software-requirements/srd007-collector-agent.md#r53), [R5.4](../software-requirements/srd007-collector-agent.md#r54) | file-only telemetry and self-loop proof |
+| T6 | [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [R6.1](../software-requirements/srd007-collector-agent.md#r61), [R6.2](../software-requirements/srd007-collector-agent.md#r62), [R6.3](../software-requirements/srd007-collector-agent.md#r63), [R6.4](../software-requirements/srd007-collector-agent.md#r64), [R6.5](../software-requirements/srd007-collector-agent.md#r65) | agent owns trace and OTLP metric intake; contrib opt-in trace-only |
+| T7 | [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R5.1](../software-requirements/srd003-chatbot-deployment.md#r51), [R5.2](../software-requirements/srd003-chatbot-deployment.md#r52), [R5.3](../software-requirements/srd003-chatbot-deployment.md#r53), [R5.4](../software-requirements/srd003-chatbot-deployment.md#r54), [R5.5](../software-requirements/srd003-chatbot-deployment.md#r55), [R5.6](../software-requirements/srd003-chatbot-deployment.md#r56), [R5.7](../software-requirements/srd003-chatbot-deployment.md#r57), [R5.8](../software-requirements/srd003-chatbot-deployment.md#r58), [R5.9](../software-requirements/srd003-chatbot-deployment.md#r59), [R5.10](../software-requirements/srd003-chatbot-deployment.md#r510), [R5.11](../software-requirements/srd003-chatbot-deployment.md#r511) | retained persistent trace and metric evidence |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -64,7 +64,7 @@ The collector profile receives a real chatbot OTLP batch through declared bounde
 <!-- field: traces -->
 #### Traces
 
-- srd007-collector-agent AC1
+- [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [AC1](../software-requirements/srd007-collector-agent.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -74,7 +74,7 @@ Spool and Jaeger contain matching trace, span, parent, service, and unique run i
 <!-- field: traces -->
 #### Traces
 
-- srd007-collector-agent AC2
+- [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [AC2](../software-requirements/srd007-collector-agent.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -84,7 +84,7 @@ The same profile passes spool-only test mode and spool-first relay mode.
 <!-- field: traces -->
 #### Traces
 
-- srd007-collector-agent AC3
+- [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [AC3](../software-requirements/srd007-collector-agent.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -94,7 +94,7 @@ Control exit releases listeners and blocked waits while monitor reports bounded 
 <!-- field: traces -->
 #### Traces
 
-- srd007-collector-agent AC4
+- [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [AC4](../software-requirements/srd007-collector-agent.md#ac4)
 
 <!-- sc: S5 -->
 ### S5
@@ -104,7 +104,7 @@ Client spans enter the receiver and collector-process spans remain only in its f
 <!-- field: traces -->
 #### Traces
 
-- srd007-collector-agent AC5
+- [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [AC5](../software-requirements/srd007-collector-agent.md#ac5)
 
 <!-- sc: S6 -->
 ### S6
@@ -114,7 +114,7 @@ Agent OTLP metrics remain available through the collector agent and retained evi
 <!-- field: traces -->
 #### Traces
 
-- srd007-collector-agent AC6
+- [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [AC6](../software-requirements/srd007-collector-agent.md#ac6)
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios
@@ -136,4 +136,4 @@ Agent OTLP metrics remain available through the collector agent and retained evi
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel07.0-collector
+[test-rel07.0-collector](../test-suites/test-rel07.0-collector.md)

@@ -43,9 +43,9 @@ A default Helm install renders the collector agent with no Jaeger workload and t
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd007-collector-agent R1.1, R1.2, R1.3, R1.4 | persistent bounded intake with query surface |
-| T2 | srd007-collector-agent R2.1, R2.2, R2.3, R2.4 | complete integration identity in spool |
-| T3 | srd003-chatbot-deployment R5.1, R5.2, R5.3, R5.4, R5.5, R5.6, R5.7, R5.8, R5.9, R5.10, R5.11 | trace evidence through collector query surface |
+| T1 | [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [R1.1](../software-requirements/srd007-collector-agent.md#r11), [R1.2](../software-requirements/srd007-collector-agent.md#r12), [R1.3](../software-requirements/srd007-collector-agent.md#r13), [R1.4](../software-requirements/srd007-collector-agent.md#r14) | persistent bounded intake with query surface |
+| T2 | [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [R2.1](../software-requirements/srd007-collector-agent.md#r21), [R2.2](../software-requirements/srd007-collector-agent.md#r22), [R2.3](../software-requirements/srd007-collector-agent.md#r23), [R2.4](../software-requirements/srd007-collector-agent.md#r24) | complete integration identity in spool |
+| T3 | [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R5.1](../software-requirements/srd003-chatbot-deployment.md#r51), [R5.2](../software-requirements/srd003-chatbot-deployment.md#r52), [R5.3](../software-requirements/srd003-chatbot-deployment.md#r53), [R5.4](../software-requirements/srd003-chatbot-deployment.md#r54), [R5.5](../software-requirements/srd003-chatbot-deployment.md#r55), [R5.6](../software-requirements/srd003-chatbot-deployment.md#r56), [R5.7](../software-requirements/srd003-chatbot-deployment.md#r57), [R5.8](../software-requirements/srd003-chatbot-deployment.md#r58), [R5.9](../software-requirements/srd003-chatbot-deployment.md#r59), [R5.10](../software-requirements/srd003-chatbot-deployment.md#r510), [R5.11](../software-requirements/srd003-chatbot-deployment.md#r511) | trace evidence through collector query surface |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -58,7 +58,7 @@ Helm render contains no Jaeger template, values reference, or schema entry.
 <!-- field: traces -->
 #### Traces
 
-- srd003-chatbot-deployment AC5
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC5](../software-requirements/srd003-chatbot-deployment.md#ac5)
 
 <!-- sc: S2 -->
 ### S2
@@ -68,7 +68,7 @@ The collector query port 18193 is exposed in the collector Service.
 <!-- field: traces -->
 #### Traces
 
-- srd007-collector-agent AC1
+- [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [AC1](../software-requirements/srd007-collector-agent.md#ac1)
 
 <!-- sc: S3 -->
 ### S3
@@ -78,7 +78,7 @@ The UX waterfall transforms collector query format (ISO timestamps, flat spans) 
 <!-- field: traces -->
 #### Traces
 
-- srd003-chatbot-deployment AC5
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC5](../software-requirements/srd003-chatbot-deployment.md#ac5)
 
 <!-- sc: S4 -->
 ### S4
@@ -88,7 +88,7 @@ Spool identity assertions pass without any Jaeger endpoint.
 <!-- field: traces -->
 #### Traces
 
-- srd007-collector-agent AC2
+- [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [AC2](../software-requirements/srd007-collector-agent.md#ac2)
 
 <!-- sc: S5 -->
 ### S5
@@ -98,7 +98,7 @@ Metrics evidence is collected from Prometheus and retained after teardown.
 <!-- field: traces -->
 #### Traces
 
-- srd003-chatbot-deployment AC5
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC5](../software-requirements/srd003-chatbot-deployment.md#ac5)
 
 <!-- sc: S6 -->
 ### S6
@@ -108,7 +108,7 @@ The collector program is consumed from the catalog, not from a local directory.
 <!-- field: traces -->
 #### Traces
 
-- srd007-collector-agent AC1
+- [srd007-collector-agent](../software-requirements/srd007-collector-agent.md) [AC1](../software-requirements/srd007-collector-agent.md#ac1)
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios
@@ -129,4 +129,4 @@ The collector program is consumed from the catalog, not from a local directory.
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel09.0-canonical-collector
+[test-rel09.0-canonical-collector](../test-suites/test-rel09.0-canonical-collector.md)

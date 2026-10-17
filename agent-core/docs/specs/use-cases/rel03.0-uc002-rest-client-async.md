@@ -42,10 +42,10 @@ moving, and waits only when the grammar reaches the await state.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd027-rest-tool-runtime R5.3, R5.5, R5.6, R5.7 | accepted send and await use request state and declared signals |
-| T2 | srd028-rest-client-tools R5.1, R5.2, R5.3, R5.4, R5.5, R5.6, R5.7 | async client words define send, await, request ID, signals, and state retention |
-| T3 | srd028-rest-client-tools R8.1, R8.2, R8.3, R8.4, R8.5 | idempotency and retry metadata are configured |
-| T4 | srd028-rest-client-tools R10.6, R10.7 | undo expectations for send and await are explicit |
+| T1 | [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [R5.3](../software-requirements/srd027-rest-tool-runtime.md#r53), [R5.5](../software-requirements/srd027-rest-tool-runtime.md#r55), [R5.6](../software-requirements/srd027-rest-tool-runtime.md#r56), [R5.7](../software-requirements/srd027-rest-tool-runtime.md#r57) | accepted send and await use request state and declared signals |
+| T2 | [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [R5.1](../software-requirements/srd028-rest-client-tools.md#r51), [R5.2](../software-requirements/srd028-rest-client-tools.md#r52), [R5.3](../software-requirements/srd028-rest-client-tools.md#r53), [R5.4](../software-requirements/srd028-rest-client-tools.md#r54), [R5.5](../software-requirements/srd028-rest-client-tools.md#r55), [R5.6](../software-requirements/srd028-rest-client-tools.md#r56), [R5.7](../software-requirements/srd028-rest-client-tools.md#r57) | async client words define send, await, request ID, signals, and state retention |
+| T3 | [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [R8.1](../software-requirements/srd028-rest-client-tools.md#r81), [R8.2](../software-requirements/srd028-rest-client-tools.md#r82), [R8.3](../software-requirements/srd028-rest-client-tools.md#r83), [R8.4](../software-requirements/srd028-rest-client-tools.md#r84), [R8.5](../software-requirements/srd028-rest-client-tools.md#r85) | idempotency and retry metadata are configured |
+| T4 | [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [R10.6](../software-requirements/srd028-rest-client-tools.md#r106), [R10.7](../software-requirements/srd028-rest-client-tools.md#r107) | undo expectations for send and await are explicit |
 | T5 | cfg-rest-tool-format async_client_config | async request_id, correlation, idempotency_token, timeout, and state_retention are documented; await_operation is rejected |
 | T6 | sm-rest-tool-language AsyncRequest and rest_client_send_to_AsyncRequest | outbound pending state is command/domain state |
 
@@ -60,8 +60,8 @@ Send and await are separate MachineSpec actions with an intervening local-work s
 <!-- field: traces -->
 #### Traces
 
-- srd027-rest-tool-runtime AC5
-- srd028-rest-client-tools AC5
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC5](../software-requirements/srd027-rest-tool-runtime.md#ac5)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC5](../software-requirements/srd028-rest-client-tools.md#ac5)
 
 <!-- sc: S2 -->
 ### S2
@@ -71,7 +71,7 @@ The send result contains request ID, operation ID, accepted status, idempotency 
 <!-- field: traces -->
 #### Traces
 
-- srd028-rest-client-tools AC5
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC5](../software-requirements/srd028-rest-client-tools.md#ac5)
 
 <!-- sc: S3 -->
 ### S3
@@ -81,8 +81,8 @@ Await routes RESTResponded, RESTDomainFailed, RESTMissing, RESTAwaitTimedOut, an
 <!-- field: traces -->
 #### Traces
 
-- srd028-rest-client-tools AC6
-- srd028-rest-client-tools AC9
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC6](../software-requirements/srd028-rest-client-tools.md#ac6)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC9](../software-requirements/srd028-rest-client-tools.md#ac9)
 
 <!-- sc: S4 -->
 ### S4
@@ -92,7 +92,7 @@ Transport retry and idempotency policy are declared in REST config; readiness pr
 <!-- field: traces -->
 #### Traces
 
-- srd028-rest-client-tools AC8
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC8](../software-requirements/srd028-rest-client-tools.md#ac8)
 
 <!-- field: out_of_scope -->
 ## Out of scope

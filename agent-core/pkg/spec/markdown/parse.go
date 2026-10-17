@@ -44,11 +44,18 @@ func (r *Declaration) Parse(data []byte, source string) (*yaml.Node, []Finding, 
 
 // Format rewrites a Markdown document in canonical form: Parse, then Print.
 func (r *Declaration) Format(data []byte, source string) ([]byte, []Finding, error) {
+	return r.FormatLinked(data, source, nil)
+}
+
+// FormatLinked formats a document whose cross-document links come from
+// index, the documents of its corpus; source is the document's path in the
+// index's coordinates (GH-2665).
+func (r *Declaration) FormatLinked(data []byte, source string, index LinkIndex) ([]byte, []Finding, error) {
 	doc, findings, err := r.Parse(data, source)
 	if err != nil || doc == nil {
 		return nil, findings, err
 	}
-	out, err := r.Print(doc)
+	out, err := r.PrintLinked(doc, source, index)
 	return out, findings, err
 }
 
@@ -257,6 +264,9 @@ func (rd *reader) close(f *frame) error {
 				return fmt.Errorf("field %s: text before its nested fields belongs in a nested field", f.key)
 			}
 			return nil
+		}
+		if field, typed := rd.d.ruleFor(f.kind, f.key); typed && (field.Links || len(field.LinkColumns) > 0) {
+			text = unlink(text)
 		}
 		value, err := rd.d.parseFieldForm(f.kind, f.key, f.form, text)
 		if err != nil {

@@ -45,12 +45,12 @@ whether another attempt is worth anything.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd058-provider-libraries R1.4 | the shared failure taxonomy the dialects already map to |
-| T2 | srd058-provider-libraries R2.4 | the opt-in, the transport rule, and what stays CommandError |
-| T3 | srd058-provider-libraries R2.5 | declared emits remain the authority on what a machine routes |
-| T4 | srd058-provider-libraries R3.3 | an unopted machine runs unmodified |
-| T5 | srd009-ollama-adapter R4.3 | what an unavailable backend surfaces as |
-| T6 | srd009-ollama-adapter R6.3 | the adapter does not retry, so the caller needs to know whether to |
+| T1 | [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R1.4](../software-requirements/srd058-provider-libraries.md#r14) | the shared failure taxonomy the dialects already map to |
+| T2 | [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R2.4](../software-requirements/srd058-provider-libraries.md#r24) | the opt-in, the transport rule, and what stays CommandError |
+| T3 | [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R2.5](../software-requirements/srd058-provider-libraries.md#r25) | declared emits remain the authority on what a machine routes |
+| T4 | [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R3.3](../software-requirements/srd058-provider-libraries.md#r33) | an unopted machine runs unmodified |
+| T5 | [srd009-ollama-adapter](../software-requirements/srd009-ollama-adapter.md) [R4.3](../software-requirements/srd009-ollama-adapter.md#r43) | what an unavailable backend surfaces as |
+| T6 | [srd009-ollama-adapter](../software-requirements/srd009-ollama-adapter.md) [R6.3](../software-requirements/srd009-ollama-adapter.md#r63) | the adapter does not retry, so the caller needs to know whether to |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -63,7 +63,7 @@ With the opt-in, a mapped error status reaches the machine as the signal the dia
 <!-- field: traces -->
 #### Traces
 
-- srd058-provider-libraries AC8
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC8](../software-requirements/srd058-provider-libraries.md#ac8)
 
 <!-- sc: S2 -->
 ### S2
@@ -73,7 +73,7 @@ With the opt-in, a transport failure carrying no status reaches the machine as P
 <!-- field: traces -->
 #### Traces
 
-- srd058-provider-libraries AC8
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC8](../software-requirements/srd058-provider-libraries.md#ac8)
 
 <!-- sc: S3 -->
 ### S3
@@ -83,7 +83,7 @@ An unmapped error status, a pre-exchange fault, and a decode fault each remain C
 <!-- field: traces -->
 #### Traces
 
-- srd058-provider-libraries AC8
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC8](../software-requirements/srd058-provider-libraries.md#ac8)
 
 <!-- sc: S4 -->
 ### S4
@@ -93,7 +93,7 @@ Without the opt-in every path emits what it emitted before, and the shipped prof
 <!-- field: traces -->
 #### Traces
 
-- srd058-provider-libraries AC8
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC8](../software-requirements/srd058-provider-libraries.md#ac8)
 
 <!-- sc: S5 -->
 ### S5
@@ -103,7 +103,7 @@ A ToolDef whose opt-in and declared emits disagree fails at load, naming the wor
 <!-- field: traces -->
 #### Traces
 
-- srd058-provider-libraries AC8
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC8](../software-requirements/srd058-provider-libraries.md#ac8)
 
 <!-- field: out_of_scope -->
 ## Out of scope

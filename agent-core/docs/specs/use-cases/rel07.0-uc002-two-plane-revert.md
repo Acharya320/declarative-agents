@@ -40,10 +40,10 @@ output and receipts.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd036-dolt-state-persistence R2.1, R2.2, R2.3, R2.4 | five-table schema; tool_outputs forward plane and receipts reverse plane |
-| T2 | srd036-dolt-state-persistence R4.1, R4.2, R4.3, R4.4, R4.5, R4.6 | both plane rows written in one per-step transaction; terminal and revert reaping |
-| T3 | srd036-dolt-state-persistence R6.1, R6.2, R6.3, R6.4, R6.5, R6.6 | Revert resets the branch; the receipt walk reverses surviving steps |
-| T4 | srd038-command-state-store R4.1, R4.2, R4.3, R4.4 | branch-scoped entry lifetime; Revert invalidates later entries by construction |
+| T1 | [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [R2.1](../software-requirements/srd036-dolt-state-persistence.md#r21), [R2.2](../software-requirements/srd036-dolt-state-persistence.md#r22), [R2.3](../software-requirements/srd036-dolt-state-persistence.md#r23), [R2.4](../software-requirements/srd036-dolt-state-persistence.md#r24) | five-table schema; tool_outputs forward plane and receipts reverse plane |
+| T2 | [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [R4.1](../software-requirements/srd036-dolt-state-persistence.md#r41), [R4.2](../software-requirements/srd036-dolt-state-persistence.md#r42), [R4.3](../software-requirements/srd036-dolt-state-persistence.md#r43), [R4.4](../software-requirements/srd036-dolt-state-persistence.md#r44), [R4.5](../software-requirements/srd036-dolt-state-persistence.md#r45), [R4.6](../software-requirements/srd036-dolt-state-persistence.md#r46) | both plane rows written in one per-step transaction; terminal and revert reaping |
+| T3 | [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [R6.1](../software-requirements/srd036-dolt-state-persistence.md#r61), [R6.2](../software-requirements/srd036-dolt-state-persistence.md#r62), [R6.3](../software-requirements/srd036-dolt-state-persistence.md#r63), [R6.4](../software-requirements/srd036-dolt-state-persistence.md#r64), [R6.5](../software-requirements/srd036-dolt-state-persistence.md#r65), [R6.6](../software-requirements/srd036-dolt-state-persistence.md#r66) | Revert resets the branch; the receipt walk reverses surviving steps |
+| T4 | [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [R4.1](../software-requirements/srd038-command-state-store.md#r41), [R4.2](../software-requirements/srd038-command-state-store.md#r42), [R4.3](../software-requirements/srd038-command-state-store.md#r43), [R4.4](../software-requirements/srd038-command-state-store.md#r44) | branch-scoped entry lifetime; Revert invalidates later entries by construction |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -56,7 +56,7 @@ A three-step run persists a tool_outputs row and a receipts row per step and rou
 <!-- field: traces -->
 #### Traces
 
-- srd036-dolt-state-persistence AC2
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC2](../software-requirements/srd036-dolt-state-persistence.md#ac2)
 
 <!-- sc: S2 -->
 ### S2
@@ -66,8 +66,8 @@ After Revert to step 1, the tool_outputs and receipts rows for steps 2 and 3 do 
 <!-- field: traces -->
 #### Traces
 
-- srd038-command-state-store AC4
-- srd036-dolt-state-persistence AC4
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC4](../software-requirements/srd038-command-state-store.md#ac4)
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC4](../software-requirements/srd036-dolt-state-persistence.md#ac4)
 
 <!-- sc: S3 -->
 ### S3
@@ -77,8 +77,8 @@ The receipt walk reverses step 1's external effect from the surviving receipts r
 <!-- field: traces -->
 #### Traces
 
-- srd036-dolt-state-persistence AC3
-- srd036-dolt-state-persistence AC6
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC3](../software-requirements/srd036-dolt-state-persistence.md#ac3)
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC6](../software-requirements/srd036-dolt-state-persistence.md#ac6)
 
 <!-- sc: S4 -->
 ### S4
@@ -88,8 +88,8 @@ No forward selector resolves a receipt before or after Revert.
 <!-- field: traces -->
 #### Traces
 
-- srd036-dolt-state-persistence AC3
-- srd038-command-state-store AC3
+- [srd036-dolt-state-persistence](../software-requirements/srd036-dolt-state-persistence.md) [AC3](../software-requirements/srd036-dolt-state-persistence.md#ac3)
+- [srd038-command-state-store](../software-requirements/srd038-command-state-store.md) [AC3](../software-requirements/srd038-command-state-store.md#ac3)
 
 <!-- field: failure_scenarios -->
 ## Failure scenarios
@@ -109,4 +109,4 @@ No forward selector resolves a receipt before or after Revert.
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel07.0-command-state
+[test-rel07.0-command-state](../test-suites/test-rel07.0-command-state.md)

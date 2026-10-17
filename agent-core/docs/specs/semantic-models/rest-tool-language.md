@@ -261,16 +261,16 @@ flowchart LR
 <!-- field: related_documents -->
 ## Related documents
 
-- sm-tool-language
-- sm-rollback-lifecycle
-- srd027-rest-tool-runtime
-- srd028-rest-client-tools
-- srd029-rest-server-tools
-- srd030-machine-request-rest-binding
-- sm-machine-request-http
-- srd026-lifecycle-tools
-- cfg-tool-declaration-format
-- cfg-tool-authoring-standard
+- [sm-tool-language](tool-language.md)
+- [sm-rollback-lifecycle](rollback-lifecycle.md)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md)
+- [srd029-rest-server-tools](../software-requirements/srd029-rest-server-tools.md)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md)
+- [sm-machine-request-http](machine-request-http.md)
+- [srd026-lifecycle-tools](../software-requirements/srd026-lifecycle-tools.md)
+- [cfg-tool-declaration-format](../config-formats/tool-declaration-format.md)
+- [cfg-tool-authoring-standard](../config-formats/tool-authoring-standard.md)
 
 <!-- field: implementation_status -->
 ## Implementation status

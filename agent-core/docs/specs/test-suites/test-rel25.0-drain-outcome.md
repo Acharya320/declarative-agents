@@ -9,7 +9,7 @@ release: "25.0"
 <!-- field: traces -->
 ## Traces
 
-- rel25.0-uc001-drain-outcome
+- [rel25.0-uc001-drain-outcome](../use-cases/rel25.0-uc001-drain-outcome.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -29,7 +29,7 @@ A handler holds a request open past a shutdown budget of a few milliseconds; the
 <!-- field: use_case -->
 #### Use case
 
-rel25.0-uc001-drain-outcome
+[rel25.0-uc001-drain-outcome](../use-cases/rel25.0-uc001-drain-outcome.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -46,9 +46,9 @@ go test ./internal/tools/rest/... -run 'TestServerStopIncompleteDrainSucceeds'
 <!-- field: traces -->
 #### Traces
 
-- rel25.0-uc001-drain-outcome S1
-- srd033-monitor-rest-api AC6
-- srd033-monitor-rest-api R6.5
+- [rel25.0-uc001-drain-outcome](../use-cases/rel25.0-uc001-drain-outcome.md) [S1](../use-cases/rel25.0-uc001-drain-outcome.md#s1)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC6](../software-requirements/srd033-monitor-rest-api.md#ac6)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [R6.5](../software-requirements/srd033-monitor-rest-api.md#r65)
 
 <!-- case: The stop output names the drain outcome in both directions | status: implemented -->
 ### The stop output names the drain outcome in both directions
@@ -58,7 +58,7 @@ An idle server and a server with a held connection stop through the same path; t
 <!-- field: use_case -->
 #### Use case
 
-rel25.0-uc001-drain-outcome
+[rel25.0-uc001-drain-outcome](../use-cases/rel25.0-uc001-drain-outcome.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -75,9 +75,9 @@ go test ./internal/tools/rest/... -run 'TestServerStopReportsDrainOutcome'
 <!-- field: traces -->
 #### Traces
 
-- rel25.0-uc001-drain-outcome S2
-- srd033-monitor-rest-api AC6
-- srd033-monitor-rest-api R6.10
+- [rel25.0-uc001-drain-outcome](../use-cases/rel25.0-uc001-drain-outcome.md) [S2](../use-cases/rel25.0-uc001-drain-outcome.md#s2)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC6](../software-requirements/srd033-monitor-rest-api.md#ac6)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [R6.10](../software-requirements/srd033-monitor-rest-api.md#r610)
 
 <!-- case: Faults other than the expired budget stay command failures | status: implemented -->
 ### Faults other than the expired budget stay command failures
@@ -87,7 +87,7 @@ Stopping a server that was never launched, and a shutdown returning an error unr
 <!-- field: use_case -->
 #### Use case
 
-rel25.0-uc001-drain-outcome
+[rel25.0-uc001-drain-outcome](../use-cases/rel25.0-uc001-drain-outcome.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -104,9 +104,9 @@ go test ./internal/tools/rest/... -run 'TestServerStopNonDrainFaultsFail'
 <!-- field: traces -->
 #### Traces
 
-- rel25.0-uc001-drain-outcome S3
-- srd033-monitor-rest-api AC6
-- srd033-monitor-rest-api R6.5
+- [rel25.0-uc001-drain-outcome](../use-cases/rel25.0-uc001-drain-outcome.md) [S3](../use-cases/rel25.0-uc001-drain-outcome.md#s3)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC6](../software-requirements/srd033-monitor-rest-api.md#ac6)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [R6.5](../software-requirements/srd033-monitor-rest-api.md#r65)
 
 <!-- case: The declared stop output matches the runtime field | status: implemented -->
 ### The declared stop output matches the runtime field
@@ -116,7 +116,7 @@ The drain field is declared in the stop word's output schema, so the existing de
 <!-- field: use_case -->
 #### Use case
 
-rel25.0-uc001-drain-outcome
+[rel25.0-uc001-drain-outcome](../use-cases/rel25.0-uc001-drain-outcome.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -132,9 +132,9 @@ go test ./internal/tools/rest/... -run 'TestRESTDeclaredOutputPropertiesExistAtR
 <!-- field: traces -->
 #### Traces
 
-- rel25.0-uc001-drain-outcome S2
-- srd033-monitor-rest-api AC6
-- srd033-monitor-rest-api R6.10
+- [rel25.0-uc001-drain-outcome](../use-cases/rel25.0-uc001-drain-outcome.md) [S2](../use-cases/rel25.0-uc001-drain-outcome.md#s2)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC6](../software-requirements/srd033-monitor-rest-api.md#ac6)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [R6.10](../software-requirements/srd033-monitor-rest-api.md#r610)
 
 <!-- case: The monitor release proof reports succeeded on its shipped budget | status: implemented -->
 ### The monitor release proof reports succeeded on its shipped budget
@@ -144,7 +144,7 @@ The runtime-state-reader profile runs end to end through cmd/agent with the shut
 <!-- field: use_case -->
 #### Use case
 
-rel25.0-uc001-drain-outcome
+[rel25.0-uc001-drain-outcome](../use-cases/rel25.0-uc001-drain-outcome.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -160,6 +160,6 @@ mage integration:monitor
 <!-- field: traces -->
 #### Traces
 
-- rel25.0-uc001-drain-outcome S4
-- srd033-monitor-rest-api AC6
-- srd033-monitor-rest-api R6.5
+- [rel25.0-uc001-drain-outcome](../use-cases/rel25.0-uc001-drain-outcome.md) [S4](../use-cases/rel25.0-uc001-drain-outcome.md#s4)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC6](../software-requirements/srd033-monitor-rest-api.md#ac6)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [R6.5](../software-requirements/srd033-monitor-rest-api.md#r65)

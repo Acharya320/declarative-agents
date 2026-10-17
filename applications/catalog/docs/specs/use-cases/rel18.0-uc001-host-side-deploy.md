@@ -52,10 +52,10 @@ The operator runs mage deploy, or a demo target that delegates to it, against a 
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd022-applier R1 | The deploy machine reuses the canonical request-machine sequencing this requirement fixes. |
-| T2 | srd022-applier R3 | Chart, release, namespace, and rollout coordinates stay application-owned, now as rendered declarations. |
-| T3 | srd022-applier R4 | Validation precedes mutation and a verification failure reaches compensation. |
-| T4 | srd022-applier R6 | Defines the deploy and undeploy machines, the atomic contract, and the rendering rules this flow exercises. |
+| T1 | [srd022-applier](../software-requirements/srd022-applier.md) [R1](../software-requirements/srd022-applier.md#r1---canonical-lifecycle-and-request-machines) | The deploy machine reuses the canonical request-machine sequencing this requirement fixes. |
+| T2 | [srd022-applier](../software-requirements/srd022-applier.md) [R3](../software-requirements/srd022-applier.md#r3---application-owned-boundary) | Chart, release, namespace, and rollout coordinates stay application-owned, now as rendered declarations. |
+| T3 | [srd022-applier](../software-requirements/srd022-applier.md) [R4](../software-requirements/srd022-applier.md#r4---validation-and-compensation) | Validation precedes mutation and a verification failure reaches compensation. |
+| T4 | [srd022-applier](../software-requirements/srd022-applier.md) [R6](../software-requirements/srd022-applier.md#r6---host-side-deploy-and-undeploy-machines) | Defines the deploy and undeploy machines, the atomic contract, and the rendering rules this flow exercises. |
 
 <!-- field: success_criteria -->
 ## Success criteria

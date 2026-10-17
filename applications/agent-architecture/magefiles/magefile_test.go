@@ -11,6 +11,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"regexp"
 	"strings"
 	"testing"
 
@@ -228,12 +229,10 @@ func TestAuditRejectsBrokenReciprocalTrace(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	changed := strings.Replace(
-		string(data),
-		"\n- rel00.0-uc001-guided-agent-architecture S6\n",
-		"\n- srd002-managed-application-services AC1\n",
-		1,
-	)
+	// The trace may print as links (eng10, Reference links); a plain trace
+	// is still a valid way to write one.
+	s6 := regexp.MustCompile(`\n- \[?rel00\.0-uc001-guided-agent-architecture(?:\]\([^)]*\))? \[?S6(?:\]\([^)]*\))?\n`)
+	changed := s6.ReplaceAllLiteralString(string(data), "\n- srd002-managed-application-services AC1\n")
 	if changed == string(data) {
 		t.Fatal("test fixture did not contain expected S6 trace")
 	}

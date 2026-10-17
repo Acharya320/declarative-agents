@@ -54,12 +54,12 @@ rel03.0-uc006-documentation-curator
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd030-machine-request-rest-binding R1.1, R1.2, R1.3, R1.4, R1.5, R1.6, R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R2.7, R2.8 | one accepted HTTP request runs one configured MachineSpec sentence |
-| T2 | srd030-machine-request-rest-binding R3.1, R3.2, R3.3, R3.4, R3.5, R3.6, R3.7, R3.8, R3.9, R3.10, R3.11, R4.1, R4.2, R4.3, R4.6, R4.7, R4.8, R4.9, R4.4, R4.5, R6.1, R6.2, R6.3, R6.4, R6.5, R6.6 | request input, terminal response extraction, and trace recording |
-| T3 | srd031-declarative-document-resources R1.1, R1.2, R1.3, R1.4, R1.5, R2.1, R2.2, R2.3, R2.4, R2.5 | document resources connect request machines to docs/ |
-| T4 | srd031-declarative-document-resources R3.1, R3.2, R3.3, R3.4, R3.5, R5.1, R5.2, R5.3, R5.4, R5.5, R5.6 | path safety and raw or parsed YAML response modes |
-| T5 | srd031-declarative-document-resources R6.1, R6.2, R6.3, R6.4, R6.5 | Knowledge Manager UI assets and action placement are human actor configuration |
-| T6 | rel03.0-uc006-documentation-curator | direct-host smoke behavior retained beside the machine_request successor proof |
+| T1 | [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [R1.1](../software-requirements/srd030-machine-request-rest-binding.md#r11), [R1.2](../software-requirements/srd030-machine-request-rest-binding.md#r12), [R1.3](../software-requirements/srd030-machine-request-rest-binding.md#r13), [R1.4](../software-requirements/srd030-machine-request-rest-binding.md#r14), [R1.5](../software-requirements/srd030-machine-request-rest-binding.md#r15), [R1.6](../software-requirements/srd030-machine-request-rest-binding.md#r16), [R2.1](../software-requirements/srd030-machine-request-rest-binding.md#r21), [R2.2](../software-requirements/srd030-machine-request-rest-binding.md#r22), [R2.3](../software-requirements/srd030-machine-request-rest-binding.md#r23), [R2.4](../software-requirements/srd030-machine-request-rest-binding.md#r24), [R2.5](../software-requirements/srd030-machine-request-rest-binding.md#r25), [R2.6](../software-requirements/srd030-machine-request-rest-binding.md#r26), [R2.7](../software-requirements/srd030-machine-request-rest-binding.md#r27), [R2.8](../software-requirements/srd030-machine-request-rest-binding.md#r28) | one accepted HTTP request runs one configured MachineSpec sentence |
+| T2 | [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [R3.1](../software-requirements/srd030-machine-request-rest-binding.md#r31), [R3.2](../software-requirements/srd030-machine-request-rest-binding.md#r32), [R3.3](../software-requirements/srd030-machine-request-rest-binding.md#r33), [R3.4](../software-requirements/srd030-machine-request-rest-binding.md#r34), [R3.5](../software-requirements/srd030-machine-request-rest-binding.md#r35), [R3.6](../software-requirements/srd030-machine-request-rest-binding.md#r36), [R3.7](../software-requirements/srd030-machine-request-rest-binding.md#r37), [R3.8](../software-requirements/srd030-machine-request-rest-binding.md#r38), [R3.9](../software-requirements/srd030-machine-request-rest-binding.md#r39), [R3.10](../software-requirements/srd030-machine-request-rest-binding.md#r310), [R3.11](../software-requirements/srd030-machine-request-rest-binding.md#r311), [R4.1](../software-requirements/srd030-machine-request-rest-binding.md#r41), [R4.2](../software-requirements/srd030-machine-request-rest-binding.md#r42), [R4.3](../software-requirements/srd030-machine-request-rest-binding.md#r43), [R4.6](../software-requirements/srd030-machine-request-rest-binding.md#r46), [R4.7](../software-requirements/srd030-machine-request-rest-binding.md#r47), [R4.8](../software-requirements/srd030-machine-request-rest-binding.md#r48), [R4.9](../software-requirements/srd030-machine-request-rest-binding.md#r49), [R4.4](../software-requirements/srd030-machine-request-rest-binding.md#r44), [R4.5](../software-requirements/srd030-machine-request-rest-binding.md#r45), [R6.1](../software-requirements/srd030-machine-request-rest-binding.md#r61), [R6.2](../software-requirements/srd030-machine-request-rest-binding.md#r62), [R6.3](../software-requirements/srd030-machine-request-rest-binding.md#r63), [R6.4](../software-requirements/srd030-machine-request-rest-binding.md#r64), [R6.5](../software-requirements/srd030-machine-request-rest-binding.md#r65), [R6.6](../software-requirements/srd030-machine-request-rest-binding.md#r66) | request input, terminal response extraction, and trace recording |
+| T3 | [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md) [R1.1](../software-requirements/srd031-declarative-document-resources.md#r11), [R1.2](../software-requirements/srd031-declarative-document-resources.md#r12), [R1.3](../software-requirements/srd031-declarative-document-resources.md#r13), [R1.4](../software-requirements/srd031-declarative-document-resources.md#r14), [R1.5](../software-requirements/srd031-declarative-document-resources.md#r15), [R2.1](../software-requirements/srd031-declarative-document-resources.md#r21), [R2.2](../software-requirements/srd031-declarative-document-resources.md#r22), [R2.3](../software-requirements/srd031-declarative-document-resources.md#r23), [R2.4](../software-requirements/srd031-declarative-document-resources.md#r24), [R2.5](../software-requirements/srd031-declarative-document-resources.md#r25) | document resources connect request machines to docs/ |
+| T4 | [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md) [R3.1](../software-requirements/srd031-declarative-document-resources.md#r31), [R3.2](../software-requirements/srd031-declarative-document-resources.md#r32), [R3.3](../software-requirements/srd031-declarative-document-resources.md#r33), [R3.4](../software-requirements/srd031-declarative-document-resources.md#r34), [R3.5](../software-requirements/srd031-declarative-document-resources.md#r35), [R5.1](../software-requirements/srd031-declarative-document-resources.md#r51), [R5.2](../software-requirements/srd031-declarative-document-resources.md#r52), [R5.3](../software-requirements/srd031-declarative-document-resources.md#r53), [R5.4](../software-requirements/srd031-declarative-document-resources.md#r54), [R5.5](../software-requirements/srd031-declarative-document-resources.md#r55), [R5.6](../software-requirements/srd031-declarative-document-resources.md#r56) | path safety and raw or parsed YAML response modes |
+| T5 | [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md) [R6.1](../software-requirements/srd031-declarative-document-resources.md#r61), [R6.2](../software-requirements/srd031-declarative-document-resources.md#r62), [R6.3](../software-requirements/srd031-declarative-document-resources.md#r63), [R6.4](../software-requirements/srd031-declarative-document-resources.md#r64), [R6.5](../software-requirements/srd031-declarative-document-resources.md#r65) | Knowledge Manager UI assets and action placement are human actor configuration |
+| T6 | [rel03.0-uc006-documentation-curator](rel03.0-uc006-documentation-curator.md) | direct-host smoke behavior retained beside the machine_request successor proof |
 | T7 | applications/catalog profile integration suite | concrete browser orchestration for the profile-owned tracer bullet |
 
 <!-- field: proof_owner -->
@@ -78,7 +78,7 @@ The browser loads the Knowledge Manager UX from profile-owned UI assets without 
 <!-- field: traces -->
 #### Traces
 
-- srd031-declarative-document-resources AC6
+- [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md) [AC6](../software-requirements/srd031-declarative-document-resources.md#ac6)
 
 <!-- sc: S2 -->
 ### S2
@@ -88,8 +88,8 @@ The document index request is fulfilled by one generic REST machine_request run 
 <!-- field: traces -->
 #### Traces
 
-- srd030-machine-request-rest-binding AC1
-- srd031-declarative-document-resources AC1
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC1](../software-requirements/srd030-machine-request-rest-binding.md#ac1)
+- [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md) [AC1](../software-requirements/srd031-declarative-document-resources.md#ac1)
 
 <!-- sc: S3 -->
 ### S3
@@ -99,8 +99,8 @@ The raw YAML document request is fulfilled by one generic REST machine_request r
 <!-- field: traces -->
 #### Traces
 
-- srd030-machine-request-rest-binding AC5
-- srd031-declarative-document-resources AC5
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC5](../software-requirements/srd030-machine-request-rest-binding.md#ac5)
+- [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md) [AC5](../software-requirements/srd031-declarative-document-resources.md#ac5)
 
 <!-- sc: S4 -->
 ### S4
@@ -110,7 +110,7 @@ Path traversal and disallowed extension attempts are rejected before a document 
 <!-- field: traces -->
 #### Traces
 
-- srd031-declarative-document-resources AC4
+- [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md) [AC4](../software-requirements/srd031-declarative-document-resources.md#ac4)
 
 <!-- sc: S5 -->
 ### S5
@@ -120,8 +120,8 @@ Puppeteer verifies rendered HTML, raw YAML visibility, and request trace evidenc
 <!-- field: traces -->
 #### Traces
 
-- srd030-machine-request-rest-binding AC7
-- srd031-declarative-document-resources AC6
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC7](../software-requirements/srd030-machine-request-rest-binding.md#ac7)
+- [srd031-declarative-document-resources](../software-requirements/srd031-declarative-document-resources.md) [AC6](../software-requirements/srd031-declarative-document-resources.md#ac6)
 
 <!-- sc: S6 -->
 ### S6
@@ -131,7 +131,7 @@ Failures report the page URL, screenshot path, browser console output, network l
 <!-- field: traces -->
 #### Traces
 
-- srd030-machine-request-rest-binding AC6
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC6](../software-requirements/srd030-machine-request-rest-binding.md#ac6)
 
 <!-- sc: S7 -->
 ### S7
@@ -141,8 +141,8 @@ Browser validation, suggestion, approval, and rejection use profile-owned machin
 <!-- field: traces -->
 #### Traces
 
-- srd030-machine-request-rest-binding AC1
-- srd030-machine-request-rest-binding AC7
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC1](../software-requirements/srd030-machine-request-rest-binding.md#ac1)
+- [srd030-machine-request-rest-binding](../software-requirements/srd030-machine-request-rest-binding.md) [AC7](../software-requirements/srd030-machine-request-rest-binding.md#ac7)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -185,4 +185,4 @@ profile-owned browser integration entry point
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel03.0-rest-tools
+[test-rel03.0-rest-tools](../test-suites/test-rel03.0-rest-tools.md)

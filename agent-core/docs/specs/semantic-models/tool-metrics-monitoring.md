@@ -300,8 +300,8 @@ Recorder, store, export, or schema warnings.
 <!-- field: related_documents -->
 ## Related documents
 
-- sm-tool-language
-- sm-rest-tool-language
-- sm-rollback-lifecycle
-- cfg-tool-declaration-format
-- cfg-machine-format
+- [sm-tool-language](tool-language.md)
+- [sm-rest-tool-language](rest-tool-language.md)
+- [sm-rollback-lifecycle](rollback-lifecycle.md)
+- [cfg-tool-declaration-format](../config-formats/tool-declaration-format.md)
+- [cfg-machine-format](../config-formats/machine-format.md)

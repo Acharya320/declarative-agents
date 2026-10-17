@@ -42,9 +42,9 @@ a `profile` body.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd055-agent-blueprints R1.1, R1.2, R1.3 | blueprint and instance format |
-| T2 | srd055-agent-blueprints R2.1, R2.2, R2.3, R2.4 | resolution |
-| T3 | srd055-agent-blueprints R3.1, R3.2, R3.3, R3.4 | identity, provenance, staging, and audit |
+| T1 | [srd055-agent-blueprints](../software-requirements/srd055-agent-blueprints.md) [R1.1](../software-requirements/srd055-agent-blueprints.md#r11), [R1.2](../software-requirements/srd055-agent-blueprints.md#r12), [R1.3](../software-requirements/srd055-agent-blueprints.md#r13) | blueprint and instance format |
+| T2 | [srd055-agent-blueprints](../software-requirements/srd055-agent-blueprints.md) [R2.1](../software-requirements/srd055-agent-blueprints.md#r21), [R2.2](../software-requirements/srd055-agent-blueprints.md#r22), [R2.3](../software-requirements/srd055-agent-blueprints.md#r23), [R2.4](../software-requirements/srd055-agent-blueprints.md#r24) | resolution |
+| T3 | [srd055-agent-blueprints](../software-requirements/srd055-agent-blueprints.md) [R3.1](../software-requirements/srd055-agent-blueprints.md#r31), [R3.2](../software-requirements/srd055-agent-blueprints.md#r32), [R3.3](../software-requirements/srd055-agent-blueprints.md#r33), [R3.4](../software-requirements/srd055-agent-blueprints.md#r34) | identity, provenance, staging, and audit |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -57,7 +57,7 @@ An instance loads from a blueprint with its fields replacing the blueprint's who
 <!-- field: traces -->
 #### Traces
 
-- srd055-agent-blueprints AC1
+- [srd055-agent-blueprints](../software-requirements/srd055-agent-blueprints.md) [AC1](../software-requirements/srd055-agent-blueprints.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -67,7 +67,7 @@ Blueprint and instance paths resolve against their own files, a machine mapping 
 <!-- field: traces -->
 #### Traces
 
-- srd055-agent-blueprints AC2
+- [srd055-agent-blueprints](../software-requirements/srd055-agent-blueprints.md) [AC2](../software-requirements/srd055-agent-blueprints.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -77,7 +77,7 @@ The instance is the identity and the blueprint moves its digest, the dump lists 
 <!-- field: traces -->
 #### Traces
 
-- srd055-agent-blueprints AC3
+- [srd055-agent-blueprints](../software-requirements/srd055-agent-blueprints.md) [AC3](../software-requirements/srd055-agent-blueprints.md#ac3)
 
 <!-- field: out_of_scope -->
 ## Out of scope

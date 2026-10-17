@@ -44,11 +44,11 @@ checks finish.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd027-rest-tool-runtime R2.1, R2.2, R2.3, R2.4, R2.5 | REST definitions are declarative and MachineSpec owns sequencing |
-| T2 | srd027-rest-tool-runtime R4.1, R4.4 | net/http executes REST work and core.Result drives transitions |
-| T3 | srd028-rest-client-tools R2.1, R2.2, R2.3, R2.4, R2.6 | config fixes operation authority and runtime input supplies declared parameters |
-| T4 | srd028-rest-client-tools R3.1, R3.2, R3.5, R3.6 | resource words cover read and update behavior |
-| T5 | srd028-rest-client-tools R6.1, R6.2, R6.3, R6.6, R6.7 | result signals distinguish reads, writes, missing resources, domain failure, and CommandError |
+| T1 | [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [R2.1](../software-requirements/srd027-rest-tool-runtime.md#r21), [R2.2](../software-requirements/srd027-rest-tool-runtime.md#r22), [R2.3](../software-requirements/srd027-rest-tool-runtime.md#r23), [R2.4](../software-requirements/srd027-rest-tool-runtime.md#r24), [R2.5](../software-requirements/srd027-rest-tool-runtime.md#r25) | REST definitions are declarative and MachineSpec owns sequencing |
+| T2 | [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [R4.1](../software-requirements/srd027-rest-tool-runtime.md#r41), [R4.4](../software-requirements/srd027-rest-tool-runtime.md#r44) | net/http executes REST work and core.Result drives transitions |
+| T3 | [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [R2.1](../software-requirements/srd028-rest-client-tools.md#r21), [R2.2](../software-requirements/srd028-rest-client-tools.md#r22), [R2.3](../software-requirements/srd028-rest-client-tools.md#r23), [R2.4](../software-requirements/srd028-rest-client-tools.md#r24), [R2.6](../software-requirements/srd028-rest-client-tools.md#r26) | config fixes operation authority and runtime input supplies declared parameters |
+| T4 | [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [R3.1](../software-requirements/srd028-rest-client-tools.md#r31), [R3.2](../software-requirements/srd028-rest-client-tools.md#r32), [R3.5](../software-requirements/srd028-rest-client-tools.md#r35), [R3.6](../software-requirements/srd028-rest-client-tools.md#r36) | resource words cover read and update behavior |
+| T5 | [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [R6.1](../software-requirements/srd028-rest-client-tools.md#r61), [R6.2](../software-requirements/srd028-rest-client-tools.md#r62), [R6.3](../software-requirements/srd028-rest-client-tools.md#r63), [R6.6](../software-requirements/srd028-rest-client-tools.md#r66), [R6.7](../software-requirements/srd028-rest-client-tools.md#r67) | result signals distinguish reads, writes, missing resources, domain failure, and CommandError |
 | T6 | cfg-rest-tool-format validation rules V4, V5, V7 | request bindings, resource verbs, and side effects are validated |
 
 <!-- field: success_criteria -->
@@ -62,8 +62,8 @@ The REST client ToolDefs reference named REST definitions instead of embedding f
 <!-- field: traces -->
 #### Traces
 
-- srd028-rest-client-tools AC1
-- srd028-rest-client-tools AC2
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC1](../software-requirements/srd028-rest-client-tools.md#ac1)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC2](../software-requirements/srd028-rest-client-tools.md#ac2)
 
 <!-- sc: S2 -->
 ### S2
@@ -73,8 +73,8 @@ MachineSpec visibly routes RESTResourceRead, RESTResourceWritten, RESTDomainFail
 <!-- field: traces -->
 #### Traces
 
-- srd027-rest-tool-runtime AC2
-- srd028-rest-client-tools AC6
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC2](../software-requirements/srd027-rest-tool-runtime.md#ac2)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC6](../software-requirements/srd028-rest-client-tools.md#ac6)
 
 <!-- sc: S3 -->
 ### S3
@@ -84,7 +84,7 @@ Resource get and set operations declare side effects and undo expectations.
 <!-- field: traces -->
 #### Traces
 
-- srd028-rest-client-tools AC3
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC3](../software-requirements/srd028-rest-client-tools.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -94,7 +94,7 @@ The implementation uses net/http and configured operation definitions.
 <!-- field: traces -->
 #### Traces
 
-- srd027-rest-tool-runtime AC4
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC4](../software-requirements/srd027-rest-tool-runtime.md#ac4)
 
 <!-- field: out_of_scope -->
 ## Out of scope

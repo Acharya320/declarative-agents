@@ -19,9 +19,9 @@ relocation. Each case names its proof commands and expected outputs.
 <!-- field: traces -->
 ## Traces
 
-- rel10.0-uc001-role-catalog-renames
-- rel10.0-uc002-knowledge-family-rescope
-- rel10.0-uc003-conformance-fixture-relocation
+- [rel10.0-uc001-role-catalog-renames](../use-cases/rel10.0-uc001-role-catalog-renames.md)
+- [rel10.0-uc002-knowledge-family-rescope](../use-cases/rel10.0-uc002-knowledge-family-rescope.md)
+- [rel10.0-uc003-conformance-fixture-relocation](../use-cases/rel10.0-uc003-conformance-fixture-relocation.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -44,7 +44,7 @@ agent-core, and zero-hit greps.
 <!-- field: use_case -->
 #### Use case
 
-rel10.0-uc001-role-catalog-renames
+[rel10.0-uc001-role-catalog-renames](../use-cases/rel10.0-uc001-role-catalog-renames.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -79,9 +79,9 @@ cd ../../agent-core && go test ./...
 <!-- field: traces -->
 #### Traces
 
-- rel10.0-uc001-role-catalog-renames S1
-- rel10.0-uc001-role-catalog-renames S2
-- rel10.0-uc001-role-catalog-renames S3
+- [rel10.0-uc001-role-catalog-renames](../use-cases/rel10.0-uc001-role-catalog-renames.md) [S1](../use-cases/rel10.0-uc001-role-catalog-renames.md#s1)
+- [rel10.0-uc001-role-catalog-renames](../use-cases/rel10.0-uc001-role-catalog-renames.md) [S2](../use-cases/rel10.0-uc001-role-catalog-renames.md#s2)
+- [rel10.0-uc001-role-catalog-renames](../use-cases/rel10.0-uc001-role-catalog-renames.md) [S3](../use-cases/rel10.0-uc001-role-catalog-renames.md#s3)
 
 <!-- case: Corpus ingest and reader relocate under knowledge-manager (rescope) | status: implemented -->
 ### Corpus ingest and reader relocate under knowledge-manager (rescope)
@@ -99,7 +99,7 @@ The standalone corpus-reader grounded-answer tracer remains separate.
 <!-- field: use_case -->
 #### Use case
 
-rel10.0-uc002-knowledge-family-rescope
+[rel10.0-uc002-knowledge-family-rescope](../use-cases/rel10.0-uc002-knowledge-family-rescope.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -125,8 +125,8 @@ go test ./conformance -run 'Test(KnowledgeManager|CorpusIngest)'
 <!-- field: traces -->
 #### Traces
 
-- rel10.0-uc002-knowledge-family-rescope S1
-- rel10.0-uc002-knowledge-family-rescope S2
+- [rel10.0-uc002-knowledge-family-rescope](../use-cases/rel10.0-uc002-knowledge-family-rescope.md) [S1](../use-cases/rel10.0-uc002-knowledge-family-rescope.md#s1)
+- [rel10.0-uc002-knowledge-family-rescope](../use-cases/rel10.0-uc002-knowledge-family-rescope.md) [S2](../use-cases/rel10.0-uc002-knowledge-family-rescope.md#s2)
 
 <!-- case: Conformance fixtures relocate and validate from testdata/conformance | status: implemented -->
 ### Conformance fixtures relocate and validate from testdata/conformance
@@ -142,7 +142,7 @@ relocated fixtures, and an agents/ directory listing plus a zero-hit grep.
 <!-- field: use_case -->
 #### Use case
 
-rel10.0-uc003-conformance-fixture-relocation
+[rel10.0-uc003-conformance-fixture-relocation](../use-cases/rel10.0-uc003-conformance-fixture-relocation.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -173,5 +173,5 @@ go test ./conformance -run 'Test(RestConformance|RestShippedProfileWiring|Contro
 <!-- field: traces -->
 #### Traces
 
-- rel10.0-uc003-conformance-fixture-relocation S1
-- rel10.0-uc003-conformance-fixture-relocation S2
+- [rel10.0-uc003-conformance-fixture-relocation](../use-cases/rel10.0-uc003-conformance-fixture-relocation.md) [S1](../use-cases/rel10.0-uc003-conformance-fixture-relocation.md#s1)
+- [rel10.0-uc003-conformance-fixture-relocation](../use-cases/rel10.0-uc003-conformance-fixture-relocation.md) [S2](../use-cases/rel10.0-uc003-conformance-fixture-relocation.md#s2)

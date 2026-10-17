@@ -190,13 +190,13 @@ Append(msg) adds a message without calling Chat. Appended messages appear in His
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.4
-- R4.1
-- R4.2
-- R4.3
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -206,12 +206,12 @@ Snapshot, Restore, and TruncateTo provide deterministic rollback over append-onl
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R3.1
-- R3.2
-- R3.3
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -221,11 +221,11 @@ History and Messages return defensive copies. Mutations do not affect internal s
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
-- R8.1
-- R8.2
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R8.1](#r81)
+- [R8.2](#r82)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -235,11 +235,11 @@ DefaultAssembler combines structured prompt data with Conversation history while
 <!-- field: traces -->
 #### Traces
 
-- R4.4
-- R5.2
-- R6.1
-- R6.2
-- R6.3
+- [R4.4](#r44)
+- [R5.2](#r52)
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -249,9 +249,9 @@ Generator can replace ConversationHistory with Conversation using Append + Histo
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R5.2
-- R7.1
+- [R4.1](#r41)
+- [R5.2](#r52)
+- [R7.1](#r71)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -261,9 +261,9 @@ Reset clears history and Append works after Reset.
 <!-- field: traces -->
 #### Traces
 
-- R7.1
-- R7.2
-- R7.3
+- [R7.1](#r71)
+- [R7.2](#r72)
+- [R7.3](#r73)
 
 <!-- field: diagrams -->
 ## Diagrams

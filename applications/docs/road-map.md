@@ -24,7 +24,7 @@ evidence.
 
 | id | summary | status |
 | --- | --- | --- |
-| rel00.0-uc001-application-contract-conformance | Verify baseline and declared capability conformance through structural and application-owned evidence. | implemented |
+| [rel00.0-uc001-application-contract-conformance](specs/use-cases/rel00.0-uc001-application-contract-conformance.md) | Verify baseline and declared capability conformance through structural and application-owned evidence. | implemented |
 
 <!-- field: applicability -->
 ### Applicability
@@ -59,7 +59,7 @@ Only applications that ship a kind integration or demo; ENG01 applies.
 
 | id | summary | status |
 | --- | --- | --- |
-| test-rel00.0-application-contract-conformance | Parse shared YAML, verify reciprocal traces, run root orchestration/accounting tests, and invoke current application evidence. | implemented |
+| [test-rel00.0-application-contract-conformance](specs/test-suites/test-rel00.0-application-contract-conformance.md) | Parse shared YAML, verify reciprocal traces, run root orchestration/accounting tests, and invoke current application evidence. | implemented |
 
 <!-- field: current_applications | form: "typed table" -->
 ### Current applications

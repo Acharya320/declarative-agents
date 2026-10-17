@@ -1630,17 +1630,17 @@ bundle files loadable through profile-owned declaration paths and tests.
 <!-- field: related_documents -->
 ## Related documents
 
-- srd056-unit-libraries
-- srd052-declaration-fragments
-- cfg-tool-authoring-standard
+- [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md)
+- [srd052-declaration-fragments](../software-requirements/srd052-declaration-fragments.md)
+- [cfg-tool-authoring-standard](tool-authoring-standard.md)
 - srd013
 - srd021
 - srd022
 - srd023
 - srd024
 - srd004
-- cfg-tool-selection-format
-- cfg-llm-config-format
+- [cfg-tool-selection-format](tool-selection-format.md)
+- [cfg-llm-config-format](llm-config-format.md)
 
 <!-- field: implementation -->
 ## Implementation

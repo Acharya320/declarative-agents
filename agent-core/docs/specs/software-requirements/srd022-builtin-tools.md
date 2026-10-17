@@ -406,17 +406,17 @@ Builtin YAML declarations provide name, type: builtin, init, optional visibility
 <!-- field: traces -->
 #### Traces
 
-- R0.1
-- R0.2
-- R0.3
-- R1.1
-- R1.2
-- R1.3
-- R1.4
-- R1.5
-- R1.6
-- R1.7
-- R1.8
+- [R0.1](#r01)
+- [R0.2](#r02)
+- [R0.3](#r03)
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R1.5](#r15)
+- [R1.6](#r16)
+- [R1.7](#r17)
+- [R1.8](#r18)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -426,10 +426,10 @@ BuiltinRegistry resolves init names to factories and registration fails for sele
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -439,12 +439,12 @@ Builtin tool config is decoded into typed structs at registration time, with cle
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
-- R3.4
-- R3.5
-- R3.6
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R3.4](#r34)
+- [R3.5](#r35)
+- [R3.6](#r36)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -454,13 +454,13 @@ Builtin tools can be referenced by machine actions or dynamic $tool dispatch, re
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
-- R4.4
-- R4.5
-- R4.6
-- R4.7
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R4.4](#r44)
+- [R4.5](#r45)
+- [R4.6](#r46)
+- [R4.7](#r47)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -470,10 +470,10 @@ Reusable builtin declarations are separated from mode-local config overrides.
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
-- R5.4
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
 
 <!-- ac: AC6 -->
 ### AC6
@@ -483,14 +483,14 @@ All child agent invocations share execute.Config and execute.BuildArgs/RunAgent 
 <!-- field: traces -->
 #### Traces
 
-- R6.1
-- R6.2
-- R6.3
-- R6.4
-- R6.5
-- R6.6
-- R6.7
-- R6.8
+- [R6.1](#r61)
+- [R6.2](#r62)
+- [R6.3](#r63)
+- [R6.4](#r64)
+- [R6.5](#r65)
+- [R6.6](#r66)
+- [R6.7](#r67)
+- [R6.8](#r68)
 
 <!-- ac: AC7 -->
 ### AC7
@@ -500,18 +500,18 @@ Generic collection words partition arrays, constrain candidate names, render ord
 <!-- field: traces -->
 #### Traces
 
-- R7.1
-- R7.2
-- R7.3
-- R7.4
-- R7.5
-- R7.6
-- R7.7
-- R7.8
-- R7.9
-- R7.10
-- R7.11
-- R7.12
+- [R7.1](#r71)
+- [R7.2](#r72)
+- [R7.3](#r73)
+- [R7.4](#r74)
+- [R7.5](#r75)
+- [R7.6](#r76)
+- [R7.7](#r77)
+- [R7.8](#r78)
+- [R7.9](#r79)
+- [R7.10](#r710)
+- [R7.11](#r711)
+- [R7.12](#r712)
 
 <!-- field: implementation -->
 ## Implementation

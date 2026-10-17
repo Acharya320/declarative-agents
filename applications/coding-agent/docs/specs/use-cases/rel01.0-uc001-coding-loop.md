@@ -60,7 +60,7 @@ an isolated workspace, model configuration, and critic evaluation inputs.
 | T3 | applications/catalog srd003-critic R1, R2, R3, AC1, AC2, AC3 | The critic evaluates the produced change through suite points and oracles and returns the gating session report. |
 | T4 | architecture-coding-agent-example components | The application architecture owns the planner to executor to critic sequence and one-container-per-agent topology. |
 | T5 | architecture-coding-agent-example design_decisions 1, 2, 3 | The flow references canonical library agents, uses package-time profile closure, and keeps the runtime image profile-free. |
-| T6 | test-rel01.0-coding-loop | The suite proves the loop in live-executor, real-planner-delegation, and critic-gate stages. |
+| T6 | [test-rel01.0-coding-loop](../test-suites/test-rel01.0-coding-loop.md) | The suite proves the loop in live-executor, real-planner-delegation, and critic-gate stages. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -78,7 +78,7 @@ The real executor changes the isolated workspace for the supplied task, its decl
 - applications/catalog srd002-executor R3.2
 - applications/catalog srd002-executor AC1
 - applications/catalog srd002-executor AC3
-- srd001-serving-contract AC4
+- [srd001-serving-contract](../software-requirements/srd001-serving-contract.md) [AC4](../software-requirements/srd001-serving-contract.md#ac4)
 
 <!-- sc: S2 -->
 ### S2
@@ -94,7 +94,7 @@ The real planner materializes the task from SRD context and delegates it to the 
 - applications/catalog srd004-planner R3.1
 - applications/catalog srd004-planner AC1
 - applications/catalog srd004-planner AC3
-- srd001-serving-contract AC4
+- [srd001-serving-contract](../software-requirements/srd001-serving-contract.md) [AC4](../software-requirements/srd001-serving-contract.md#ac4)
 
 <!-- sc: S3 -->
 ### S3
@@ -110,7 +110,7 @@ The canonical critic evaluates the produced change in place and emits a machine-
 - applications/catalog srd003-critic R3.2
 - applications/catalog srd003-critic AC1
 - applications/catalog srd003-critic AC3
-- srd001-serving-contract AC4
+- [srd001-serving-contract](../software-requirements/srd001-serving-contract.md) [AC4](../software-requirements/srd001-serving-contract.md#ac4)
 
 <!-- sc: S4 -->
 ### S4
@@ -123,7 +123,7 @@ All three stages use profiles from one checkout-derived package-time closure whi
 - architecture-coding-agent-example design_decisions 1
 - architecture-coding-agent-example design_decisions 2
 - architecture-coding-agent-example design_decisions 3
-- srd002-deployment-profile-package AC1
+- [srd002-deployment-profile-package](../software-requirements/srd002-deployment-profile-package.md) [AC1](../software-requirements/srd002-deployment-profile-package.md#ac1)
 
 <!-- field: out_of_scope -->
 ## Out of scope

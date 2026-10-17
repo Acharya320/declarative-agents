@@ -119,9 +119,9 @@ The catalog carries a generalized observer-family SRD whose namespace and label 
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.3
-- R2.1
+- [R1.1](#r11)
+- [R1.3](#r13)
+- [R2.1](#r21)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -131,10 +131,10 @@ The family carries the mesh observer's topology discovery, monitor fan-in, resou
 <!-- field: traces -->
 #### Traces
 
-- R1.2
-- R3.1
-- R3.2
-- R3.3
+- [R1.2](#r12)
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -144,11 +144,11 @@ The specification names coding-agent, agent-architecture, and the chatbot-mesh a
 <!-- field: traces -->
 #### Traces
 
-- R2.2
-- R2.3
-- R4.1
-- R4.2
-- R4.3
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
 
 <!-- field: platform_dependencies_note -->
 ## Platform dependencies note

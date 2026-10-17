@@ -199,11 +199,11 @@ The RAG server is described as a persistent service hosting the reader retrieval
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.4
-- R1.5
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R1.5](#r15)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -213,10 +213,10 @@ The vector-in query contract is specified with query_embeddings and n_results in
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -226,8 +226,8 @@ The one-agent-one-corpus rule and the multiple-instances model for N RAG sources
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
+- [R3.1](#r31)
+- [R3.2](#r32)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -237,8 +237,8 @@ The corpus-ingest seed agent is named as the unchanged loading path and the serv
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
+- [R4.1](#r41)
+- [R4.2](#r42)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -248,8 +248,8 @@ The optional text-in fallback is specified as declarable for standalone use and 
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
+- [R5.1](#r51)
+- [R5.2](#r52)
 
 <!-- field: platform_dependencies_note -->
 ## Platform dependencies note

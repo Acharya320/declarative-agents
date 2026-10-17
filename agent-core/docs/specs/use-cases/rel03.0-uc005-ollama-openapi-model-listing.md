@@ -47,10 +47,10 @@ the model and REST tool signals.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd009-ollama-adapter R4.1, R4.2, R2.1, R2.3 | invoke_llm owns only the chat boundary; declared REST/OpenAPI words own model discovery |
-| T2 | srd024-blocking-input-tools R0.2, R1.1, R1.3, R2.1, R2.2 | invoke_llm blocks at the model boundary and returns one Result for MachineSpec routing |
-| T3 | srd027-rest-tool-runtime R2.1, R2.4, R2.5, R3.1, R3.3 | REST definitions and OpenAPI imports stay declarative and runtime input cannot choose transport authority |
-| T4 | srd028-rest-client-tools R1.2, R1.3, R2.1, R2.3, R2.6, R4.1, R4.3 | rest_client_invoke calls a configured OpenAPI-backed operation |
+| T1 | [srd009-ollama-adapter](../software-requirements/srd009-ollama-adapter.md) [R4.1](../software-requirements/srd009-ollama-adapter.md#r41), [R4.2](../software-requirements/srd009-ollama-adapter.md#r42), [R2.1](../software-requirements/srd009-ollama-adapter.md#r21), [R2.3](../software-requirements/srd009-ollama-adapter.md#r23) | invoke_llm owns only the chat boundary; declared REST/OpenAPI words own model discovery |
+| T2 | [srd024-blocking-input-tools](../software-requirements/srd024-blocking-input-tools.md) [R0.2](../software-requirements/srd024-blocking-input-tools.md#r02), [R1.1](../software-requirements/srd024-blocking-input-tools.md#r11), [R1.3](../software-requirements/srd024-blocking-input-tools.md#r13), [R2.1](../software-requirements/srd024-blocking-input-tools.md#r21), [R2.2](../software-requirements/srd024-blocking-input-tools.md#r22) | invoke_llm blocks at the model boundary and returns one Result for MachineSpec routing |
+| T3 | [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [R2.1](../software-requirements/srd027-rest-tool-runtime.md#r21), [R2.4](../software-requirements/srd027-rest-tool-runtime.md#r24), [R2.5](../software-requirements/srd027-rest-tool-runtime.md#r25), [R3.1](../software-requirements/srd027-rest-tool-runtime.md#r31), [R3.3](../software-requirements/srd027-rest-tool-runtime.md#r33) | REST definitions and OpenAPI imports stay declarative and runtime input cannot choose transport authority |
+| T4 | [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [R1.2](../software-requirements/srd028-rest-client-tools.md#r12), [R1.3](../software-requirements/srd028-rest-client-tools.md#r13), [R2.1](../software-requirements/srd028-rest-client-tools.md#r21), [R2.3](../software-requirements/srd028-rest-client-tools.md#r23), [R2.6](../software-requirements/srd028-rest-client-tools.md#r26), [R4.1](../software-requirements/srd028-rest-client-tools.md#r41), [R4.3](../software-requirements/srd028-rest-client-tools.md#r43) | rest_client_invoke calls a configured OpenAPI-backed operation |
 | T5 | rest/openapi/ollama.yaml under AGENT_CATALOG_ROOT listOllamaModels | GET /api/tags is the only Ollama OpenAPI operation required for this proof |
 | T6 | test-rel03.0-rest-tools mage integration:ollamaRest | live proof shows tool invocation and final-answer grounding |
 
@@ -65,8 +65,8 @@ The selected tool manifest exposes ollama_list_models and no mutating Ollama RES
 <!-- field: traces -->
 #### Traces
 
-- srd027-rest-tool-runtime AC2
-- srd028-rest-client-tools AC1
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC2](../software-requirements/srd027-rest-tool-runtime.md#ac2)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC1](../software-requirements/srd028-rest-client-tools.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -76,8 +76,8 @@ The live run proves the model invoked ollama_list_models before producing the fi
 <!-- field: traces -->
 #### Traces
 
-- srd024-blocking-input-tools AC1
-- srd024-blocking-input-tools AC2
+- [srd024-blocking-input-tools](../software-requirements/srd024-blocking-input-tools.md) [AC1](../software-requirements/srd024-blocking-input-tools.md#ac1)
+- [srd024-blocking-input-tools](../software-requirements/srd024-blocking-input-tools.md) [AC2](../software-requirements/srd024-blocking-input-tools.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -87,9 +87,9 @@ The REST call reaches GET /api/tags through the configured OpenAPI-backed operat
 <!-- field: traces -->
 #### Traces
 
-- srd009-ollama-adapter AC1
-- srd027-rest-tool-runtime AC3
-- srd028-rest-client-tools AC4
+- [srd009-ollama-adapter](../software-requirements/srd009-ollama-adapter.md) [AC1](../software-requirements/srd009-ollama-adapter.md#ac1)
+- [srd027-rest-tool-runtime](../software-requirements/srd027-rest-tool-runtime.md) [AC3](../software-requirements/srd027-rest-tool-runtime.md#ac3)
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC4](../software-requirements/srd028-rest-client-tools.md#ac4)
 
 <!-- sc: S4 -->
 ### S4
@@ -99,7 +99,7 @@ The final answer includes model names returned by /api/tags and excludes names n
 <!-- field: traces -->
 #### Traces
 
-- srd028-rest-client-tools AC7
+- [srd028-rest-client-tools](../software-requirements/srd028-rest-client-tools.md) [AC7](../software-requirements/srd028-rest-client-tools.md#ac7)
 
 <!-- field: out_of_scope -->
 ## Out of scope

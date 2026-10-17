@@ -42,11 +42,11 @@ or REST declaration files.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd050-declaration-imports R1.1, R1.2, R1.3, R1.4, R1.6, R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R2.7, R2.8, R2.9 | syntax, graph resolution, provenance |
-| T2 | srd050-declaration-imports R3.1, R3.2, R3.3, R3.4, R3.5, R3.6 | tool merge and override |
-| T3 | srd050-declaration-imports R4.1, R4.2, R4.3, R4.4, R4.5, R4.6, R4.7 | REST merge and OpenAPI compilation |
-| T4 | srd050-declaration-imports R5.1, R5.2, R5.3, R5.4, R5.5, R5.6, R5.7, R5.8 | import-edge usedness |
-| T5 | srd050-declaration-imports R6.3, R6.4, R6.5 | compatibility and shared diagnostics |
+| T1 | [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) [R1.1](../software-requirements/srd050-declaration-imports.md#r11), [R1.2](../software-requirements/srd050-declaration-imports.md#r12), [R1.3](../software-requirements/srd050-declaration-imports.md#r13), [R1.4](../software-requirements/srd050-declaration-imports.md#r14), [R1.6](../software-requirements/srd050-declaration-imports.md#r16), [R2.1](../software-requirements/srd050-declaration-imports.md#r21), [R2.2](../software-requirements/srd050-declaration-imports.md#r22), [R2.3](../software-requirements/srd050-declaration-imports.md#r23), [R2.4](../software-requirements/srd050-declaration-imports.md#r24), [R2.5](../software-requirements/srd050-declaration-imports.md#r25), [R2.6](../software-requirements/srd050-declaration-imports.md#r26), [R2.7](../software-requirements/srd050-declaration-imports.md#r27), [R2.8](../software-requirements/srd050-declaration-imports.md#r28), [R2.9](../software-requirements/srd050-declaration-imports.md#r29) | syntax, graph resolution, provenance |
+| T2 | [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) [R3.1](../software-requirements/srd050-declaration-imports.md#r31), [R3.2](../software-requirements/srd050-declaration-imports.md#r32), [R3.3](../software-requirements/srd050-declaration-imports.md#r33), [R3.4](../software-requirements/srd050-declaration-imports.md#r34), [R3.5](../software-requirements/srd050-declaration-imports.md#r35), [R3.6](../software-requirements/srd050-declaration-imports.md#r36) | tool merge and override |
+| T3 | [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) [R4.1](../software-requirements/srd050-declaration-imports.md#r41), [R4.2](../software-requirements/srd050-declaration-imports.md#r42), [R4.3](../software-requirements/srd050-declaration-imports.md#r43), [R4.4](../software-requirements/srd050-declaration-imports.md#r44), [R4.5](../software-requirements/srd050-declaration-imports.md#r45), [R4.6](../software-requirements/srd050-declaration-imports.md#r46), [R4.7](../software-requirements/srd050-declaration-imports.md#r47) | REST merge and OpenAPI compilation |
+| T4 | [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) [R5.1](../software-requirements/srd050-declaration-imports.md#r51), [R5.2](../software-requirements/srd050-declaration-imports.md#r52), [R5.3](../software-requirements/srd050-declaration-imports.md#r53), [R5.4](../software-requirements/srd050-declaration-imports.md#r54), [R5.5](../software-requirements/srd050-declaration-imports.md#r55), [R5.6](../software-requirements/srd050-declaration-imports.md#r56), [R5.7](../software-requirements/srd050-declaration-imports.md#r57), [R5.8](../software-requirements/srd050-declaration-imports.md#r58) | import-edge usedness |
+| T5 | [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) [R6.3](../software-requirements/srd050-declaration-imports.md#r63), [R6.4](../software-requirements/srd050-declaration-imports.md#r64), [R6.5](../software-requirements/srd050-declaration-imports.md#r65) | compatibility and shared diagnostics |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -59,7 +59,7 @@ Two-level tool and REST imports resolve deterministically and every source appea
 <!-- field: traces -->
 #### Traces
 
-- srd050-declaration-imports AC1
+- [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) [AC1](../software-requirements/srd050-declaration-imports.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -69,8 +69,8 @@ Duplicate units, declarations, cycles, and invalid tool overrides fail with comp
 <!-- field: traces -->
 #### Traces
 
-- srd050-declaration-imports AC2
-- srd050-declaration-imports AC3
+- [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) [AC2](../software-requirements/srd050-declaration-imports.md#ac2)
+- [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) [AC3](../software-requirements/srd050-declaration-imports.md#ac3)
 
 <!-- sc: S3 -->
 ### S3
@@ -80,7 +80,7 @@ REST map families and OpenAPI bindings merge with declaring-source path semantic
 <!-- field: traces -->
 #### Traces
 
-- srd050-declaration-imports AC4
+- [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) [AC4](../software-requirements/srd050-declaration-imports.md#ac4)
 
 <!-- sc: S4 -->
 ### S4
@@ -90,7 +90,7 @@ Used transitive and diamond edges pass while unused tool and REST edges fail in 
 <!-- field: traces -->
 #### Traces
 
-- srd050-declaration-imports AC5
+- [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) [AC5](../software-requirements/srd050-declaration-imports.md#ac5)
 
 <!-- sc: S5 -->
 ### S5
@@ -100,7 +100,7 @@ Legacy includes remain compatible but cannot coexist with imports in one closure
 <!-- field: traces -->
 #### Traces
 
-- srd050-declaration-imports AC6
+- [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) AC6
 
 <!-- sc: S6 -->
 ### S6
@@ -110,8 +110,8 @@ Every entry path reports the same import error and the control-imports proof mat
 <!-- field: traces -->
 #### Traces
 
-- srd050-declaration-imports AC7
-- srd050-declaration-imports AC8
+- [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) [AC7](../software-requirements/srd050-declaration-imports.md#ac7)
+- [srd050-declaration-imports](../software-requirements/srd050-declaration-imports.md) [AC8](../software-requirements/srd050-declaration-imports.md#ac8)
 
 <!-- field: out_of_scope -->
 ## Out of scope

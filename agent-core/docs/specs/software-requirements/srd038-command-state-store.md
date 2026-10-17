@@ -321,15 +321,15 @@ The store is a read-only forward view keyed by (run_id, step_index), populated f
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
-- R1.4
-- R1.5
-- R1.6
-- R1.7
-- R1.8
-- R1.9
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
+- [R1.4](#r14)
+- [R1.5](#r15)
+- [R1.6](#r16)
+- [R1.7](#r17)
+- [R1.8](#r18)
+- [R1.9](#r19)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -339,26 +339,26 @@ Authors optionally label a transition and select an earlier step by command name
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
-- R2.5
-- R2.6
-- R2.7
-- R2.8
-- R2.9
-- R2.10
-- R2.11
-- R2.12
-- R2.13
-- R2.14
-- R2.15
-- R2.16
-- R2.17
-- R2.18
-- R2.19
-- R2.20
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
+- [R2.5](#r25)
+- [R2.6](#r26)
+- [R2.7](#r27)
+- [R2.8](#r28)
+- [R2.9](#r29)
+- [R2.10](#r210)
+- [R2.11](#r211)
+- [R2.12](#r212)
+- [R2.13](#r213)
+- [R2.14](#r214)
+- [R2.15](#r215)
+- [R2.16](#r216)
+- [R2.17](#r217)
+- [R2.18](#r218)
+- [R2.19](#r219)
+- [R2.20](#r220)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -368,10 +368,10 @@ A consumer receives only the fields it selects into declared params, selectors c
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
-- R3.4
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
+- [R3.4](#r34)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -381,10 +381,10 @@ Entries are branch-scoped, Revert invalidates later entries by construction, ter
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
-- R4.3
-- R4.4
+- [R4.1](#r41)
+- [R4.2](#r42)
+- [R4.3](#r43)
+- [R4.4](#r44)
 
 <!-- ac: AC5 -->
 ### AC5
@@ -394,16 +394,16 @@ Tool families and synthetic forward-entry producers supply versioned typed sensi
 <!-- field: traces -->
 #### Traces
 
-- R5.1
-- R5.2
-- R5.3
-- R5.4
-- R5.5
-- R5.6
-- R5.7
-- R5.8
-- R5.9
-- R5.10
+- [R5.1](#r51)
+- [R5.2](#r52)
+- [R5.3](#r53)
+- [R5.4](#r54)
+- [R5.5](#r55)
+- [R5.6](#r56)
+- [R5.7](#r57)
+- [R5.8](#r58)
+- [R5.9](#r59)
+- [R5.10](#r510)
 
 <!-- field: neighboring_contracts -->
 ## Neighboring contracts

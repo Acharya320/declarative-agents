@@ -19,7 +19,7 @@ provisioning-panel model controls belong to the control-plane surface (provision
 <!-- field: traces -->
 ## Traces
 
-- rel04.0-uc001-in-cluster-llm-tier
+- [rel04.0-uc001-in-cluster-llm-tier](../use-cases/rel04.0-uc001-in-cluster-llm-tier.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -60,7 +60,7 @@ and model-pull logs before owned-cluster cleanup.
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc001-in-cluster-llm-tier
+[rel04.0-uc001-in-cluster-llm-tier](../use-cases/rel04.0-uc001-in-cluster-llm-tier.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -108,8 +108,8 @@ go test ./magefiles -run '^TestKindLLMDependenciesIncludeExactOllamaImage$|^Test
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc001-in-cluster-llm-tier S1
-- srd003-chatbot-deployment AC6
+- [rel04.0-uc001-in-cluster-llm-tier](../use-cases/rel04.0-uc001-in-cluster-llm-tier.md) [S1](../use-cases/rel04.0-uc001-in-cluster-llm-tier.md#s1)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC6](../software-requirements/srd003-chatbot-deployment.md#ac6)
 
 <!-- case: Rendered workloads carry the preload gate | status: implemented -->
 ### Rendered workloads carry the preload gate
@@ -127,7 +127,7 @@ landing on a workload that should not carry it, which no count can.
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc001-in-cluster-llm-tier
+[rel04.0-uc001-in-cluster-llm-tier](../use-cases/rel04.0-uc001-in-cluster-llm-tier.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -152,8 +152,8 @@ go test ./magefiles -run 'TestOllama(TierRendersWithDefaults|DisabledReproducesE
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc001-in-cluster-llm-tier S2
-- rel04.0-uc001-in-cluster-llm-tier S3
+- [rel04.0-uc001-in-cluster-llm-tier](../use-cases/rel04.0-uc001-in-cluster-llm-tier.md) [S2](../use-cases/rel04.0-uc001-in-cluster-llm-tier.md#s2)
+- [rel04.0-uc001-in-cluster-llm-tier](../use-cases/rel04.0-uc001-in-cluster-llm-tier.md) [S3](../use-cases/rel04.0-uc001-in-cluster-llm-tier.md#s3)
 
 <!-- case: Preload controls the observed agent readiness transition | status: implemented -->
 ### Preload controls the observed agent readiness transition
@@ -167,7 +167,7 @@ each workload become ready under the separate workload bound.
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc001-in-cluster-llm-tier
+[rel04.0-uc001-in-cluster-llm-tier](../use-cases/rel04.0-uc001-in-cluster-llm-tier.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -193,8 +193,8 @@ go test ./magefiles -run 'Test(LLMPreloadReadinessTransition|LLMStartupFailureIn
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc001-in-cluster-llm-tier S2
-- rel04.0-uc001-in-cluster-llm-tier S3
+- [rel04.0-uc001-in-cluster-llm-tier](../use-cases/rel04.0-uc001-in-cluster-llm-tier.md) [S2](../use-cases/rel04.0-uc001-in-cluster-llm-tier.md#s2)
+- [rel04.0-uc001-in-cluster-llm-tier](../use-cases/rel04.0-uc001-in-cluster-llm-tier.md) [S3](../use-cases/rel04.0-uc001-in-cluster-llm-tier.md#s3)
 
 <!-- case: Disabled-tier endpoint override reproduces external behavior | status: implemented -->
 ### Disabled-tier endpoint override reproduces external behavior
@@ -207,7 +207,7 @@ chatbot client entries are identical to the in-cluster path (R2 unchanged).
 <!-- field: use_case -->
 #### Use case
 
-rel04.0-uc001-in-cluster-llm-tier
+[rel04.0-uc001-in-cluster-llm-tier](../use-cases/rel04.0-uc001-in-cluster-llm-tier.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -228,5 +228,5 @@ go test ./magefiles -run TestOllamaDisabledReproducesExternalEndpoint
 <!-- field: traces -->
 #### Traces
 
-- rel04.0-uc001-in-cluster-llm-tier S4
-- srd003-chatbot-deployment AC2
+- [rel04.0-uc001-in-cluster-llm-tier](../use-cases/rel04.0-uc001-in-cluster-llm-tier.md) [S4](../use-cases/rel04.0-uc001-in-cluster-llm-tier.md#s4)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC2](../software-requirements/srd003-chatbot-deployment.md#ac2)

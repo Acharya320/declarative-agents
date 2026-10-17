@@ -9,7 +9,7 @@ release: "23.0"
 <!-- field: traces -->
 ## Traces
 
-- rel23.0-uc001-provider-failure-signals
+- [rel23.0-uc001-provider-failure-signals](../use-cases/rel23.0-uc001-provider-failure-signals.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -29,7 +29,7 @@ With the opt-in, a fake provider answers 503, 429, and 401 in turn.
 <!-- field: use_case -->
 #### Use case
 
-rel23.0-uc001-provider-failure-signals
+[rel23.0-uc001-provider-failure-signals](../use-cases/rel23.0-uc001-provider-failure-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -46,9 +46,9 @@ go test ./internal/tools/llm/... -run 'TestInvokeLLMEmitsMappedProviderFailure'
 <!-- field: traces -->
 #### Traces
 
-- rel23.0-uc001-provider-failure-signals S1
-- srd058-provider-libraries AC8
-- srd058-provider-libraries R2.4
+- [rel23.0-uc001-provider-failure-signals](../use-cases/rel23.0-uc001-provider-failure-signals.md) [S1](../use-cases/rel23.0-uc001-provider-failure-signals.md#s1)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC8](../software-requirements/srd058-provider-libraries.md#ac8)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R2.4](../software-requirements/srd058-provider-libraries.md#r24)
 
 <!-- case: A transport failure with no status is ProviderUnavailable | status: implemented -->
 ### A transport failure with no status is ProviderUnavailable
@@ -58,7 +58,7 @@ With the opt-in, one case refuses the connection and one accepts it and never an
 <!-- field: use_case -->
 #### Use case
 
-rel23.0-uc001-provider-failure-signals
+[rel23.0-uc001-provider-failure-signals](../use-cases/rel23.0-uc001-provider-failure-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -74,9 +74,9 @@ go test ./internal/tools/llm/... -run 'TestInvokeLLMEmitsUnavailableOnTransportF
 <!-- field: traces -->
 #### Traces
 
-- rel23.0-uc001-provider-failure-signals S2
-- srd058-provider-libraries AC8
-- srd058-provider-libraries R2.4
+- [rel23.0-uc001-provider-failure-signals](../use-cases/rel23.0-uc001-provider-failure-signals.md) [S2](../use-cases/rel23.0-uc001-provider-failure-signals.md#s2)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC8](../software-requirements/srd058-provider-libraries.md#ac8)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R2.4](../software-requirements/srd058-provider-libraries.md#r24)
 
 <!-- case: Unmapped, pre-exchange, and decode faults stay CommandError | status: implemented -->
 ### Unmapped, pre-exchange, and decode faults stay CommandError
@@ -86,7 +86,7 @@ With the opt-in, a status the dialect does not map, a credential that cannot be 
 <!-- field: use_case -->
 #### Use case
 
-rel23.0-uc001-provider-failure-signals
+[rel23.0-uc001-provider-failure-signals](../use-cases/rel23.0-uc001-provider-failure-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -103,9 +103,9 @@ go test ./internal/tools/llm/... -run 'TestInvokeLLMKeepsCommandErrorForUnclassi
 <!-- field: traces -->
 #### Traces
 
-- rel23.0-uc001-provider-failure-signals S3
-- srd058-provider-libraries AC8
-- srd058-provider-libraries R2.4
+- [rel23.0-uc001-provider-failure-signals](../use-cases/rel23.0-uc001-provider-failure-signals.md) [S3](../use-cases/rel23.0-uc001-provider-failure-signals.md#s3)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC8](../software-requirements/srd058-provider-libraries.md#ac8)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R2.4](../software-requirements/srd058-provider-libraries.md#r24)
 
 <!-- case: Without the opt-in every failure stays CommandError | status: implemented -->
 ### Without the opt-in every failure stays CommandError
@@ -115,7 +115,7 @@ The same 503, 401, and deadline cases run against a ToolDef that does not opt in
 <!-- field: use_case -->
 #### Use case
 
-rel23.0-uc001-provider-failure-signals
+[rel23.0-uc001-provider-failure-signals](../use-cases/rel23.0-uc001-provider-failure-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -130,9 +130,9 @@ go test ./internal/tools/llm/... -run 'TestInvokeLLMDefaultsToCommandError'
 <!-- field: traces -->
 #### Traces
 
-- rel23.0-uc001-provider-failure-signals S4
-- srd058-provider-libraries AC8
-- srd058-provider-libraries R3.3
+- [rel23.0-uc001-provider-failure-signals](../use-cases/rel23.0-uc001-provider-failure-signals.md) [S4](../use-cases/rel23.0-uc001-provider-failure-signals.md#s4)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC8](../software-requirements/srd058-provider-libraries.md#ac8)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R3.3](../software-requirements/srd058-provider-libraries.md#r33)
 
 <!-- case: Shipped profiles that bind invoke_llm are unaffected | status: implemented -->
 ### Shipped profiles that bind invoke_llm are unaffected
@@ -142,7 +142,7 @@ Every shipped catalog profile validates unchanged, which is the evidence that th
 <!-- field: use_case -->
 #### Use case
 
-rel23.0-uc001-provider-failure-signals
+[rel23.0-uc001-provider-failure-signals](../use-cases/rel23.0-uc001-provider-failure-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -157,8 +157,8 @@ cd ../applications/catalog && mage bootSmoke
 <!-- field: traces -->
 #### Traces
 
-- rel23.0-uc001-provider-failure-signals S4
-- srd058-provider-libraries R3.3
+- [rel23.0-uc001-provider-failure-signals](../use-cases/rel23.0-uc001-provider-failure-signals.md) [S4](../use-cases/rel23.0-uc001-provider-failure-signals.md#s4)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R3.3](../software-requirements/srd058-provider-libraries.md#r33)
 
 <!-- case: An opt-in that does not declare its signals fails at load | status: implemented -->
 ### An opt-in that does not declare its signals fails at load
@@ -168,7 +168,7 @@ A ToolDef opts in while declaring only LLMResponded and CommandError.
 <!-- field: use_case -->
 #### Use case
 
-rel23.0-uc001-provider-failure-signals
+[rel23.0-uc001-provider-failure-signals](../use-cases/rel23.0-uc001-provider-failure-signals.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -185,6 +185,6 @@ go test ./internal/tools/catalog/... -run 'TestProviderFailureOptInRequiresDecla
 <!-- field: traces -->
 #### Traces
 
-- rel23.0-uc001-provider-failure-signals S5
-- srd058-provider-libraries AC8
-- srd058-provider-libraries R2.5
+- [rel23.0-uc001-provider-failure-signals](../use-cases/rel23.0-uc001-provider-failure-signals.md) [S5](../use-cases/rel23.0-uc001-provider-failure-signals.md#s5)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC8](../software-requirements/srd058-provider-libraries.md#ac8)
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R2.5](../software-requirements/srd058-provider-libraries.md#r25)

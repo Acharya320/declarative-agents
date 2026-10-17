@@ -142,9 +142,9 @@ A unit imports an agent-core type unit by its /opt/agent-core path and loads fro
 <!-- field: traces -->
 #### Traces
 
-- R1.1
-- R1.2
-- R1.3
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R1.3](#r13)
 
 <!-- ac: AC2 -->
 ### AC2
@@ -154,10 +154,10 @@ A profile declaring a root resolves imports under /opt/<name> to the declared di
 <!-- field: traces -->
 #### Traces
 
-- R2.1
-- R2.2
-- R2.3
-- R2.4
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.3](#r23)
+- [R2.4](#r24)
 
 <!-- ac: AC3 -->
 ### AC3
@@ -167,9 +167,9 @@ A rooted file is in the closure and the digest, the dump marks it with its root,
 <!-- field: traces -->
 #### Traces
 
-- R3.1
-- R3.2
-- R3.3
+- [R3.1](#r31)
+- [R3.2](#r32)
+- [R3.3](#r33)
 
 <!-- ac: AC4 -->
 ### AC4
@@ -179,8 +179,8 @@ The service-library convention is documented in the REST format, and the corpus 
 <!-- field: traces -->
 #### Traces
 
-- R4.1
-- R4.2
+- [R4.1](#r41)
+- [R4.2](#r42)
 
 <!-- field: related_documents -->
 ## Related documents

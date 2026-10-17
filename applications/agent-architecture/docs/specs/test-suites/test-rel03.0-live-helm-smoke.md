@@ -20,7 +20,7 @@ existing Go test.
 <!-- field: traces -->
 ## Traces
 
-- rel03.0-uc001-live-helm-smoke
+- [rel03.0-uc001-live-helm-smoke](../use-cases/rel03.0-uc001-live-helm-smoke.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -48,7 +48,7 @@ install_packaged_chart
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-live-helm-smoke
+[rel03.0-uc001-live-helm-smoke](../use-cases/rel03.0-uc001-live-helm-smoke.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -71,8 +71,8 @@ mage integration:helmSmoke
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc001-live-helm-smoke S1
-- srd001-helm-deployment AC4
+- [rel03.0-uc001-live-helm-smoke](../use-cases/rel03.0-uc001-live-helm-smoke.md) [S1](../use-cases/rel03.0-uc001-live-helm-smoke.md#s1)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [AC4](../software-requirements/srd001-helm-deployment.md#ac4)
 
 <!-- case: Curator and collector reach readiness and exit cleanly | status: planned -->
 ### Curator and collector reach readiness and exit cleanly
@@ -90,7 +90,7 @@ readiness_and_exit
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-live-helm-smoke
+[rel03.0-uc001-live-helm-smoke](../use-cases/rel03.0-uc001-live-helm-smoke.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -114,8 +114,8 @@ mage integration:helmSmoke
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc001-live-helm-smoke S2
-- srd001-helm-deployment AC4
+- [rel03.0-uc001-live-helm-smoke](../use-cases/rel03.0-uc001-live-helm-smoke.md) [S2](../use-cases/rel03.0-uc001-live-helm-smoke.md#s2)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [AC4](../software-requirements/srd001-helm-deployment.md#ac4)
 
 <!-- case: The collector retains an exported curator trace | status: planned -->
 ### The collector retains an exported curator trace
@@ -133,7 +133,7 @@ trace_retained
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-live-helm-smoke
+[rel03.0-uc001-live-helm-smoke](../use-cases/rel03.0-uc001-live-helm-smoke.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -153,8 +153,8 @@ mage integration:helmSmoke
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc001-live-helm-smoke S3
-- srd001-helm-deployment AC4
+- [rel03.0-uc001-live-helm-smoke](../use-cases/rel03.0-uc001-live-helm-smoke.md) [S3](../use-cases/rel03.0-uc001-live-helm-smoke.md#s3)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [AC4](../software-requirements/srd001-helm-deployment.md#ac4)
 
 <!-- case: Prerequisite skips and terminal cleanup | status: planned -->
 ### Prerequisite skips and terminal cleanup
@@ -173,7 +173,7 @@ skip_and_cleanup
 <!-- field: use_case -->
 #### Use case
 
-rel03.0-uc001-live-helm-smoke
+[rel03.0-uc001-live-helm-smoke](../use-cases/rel03.0-uc001-live-helm-smoke.md)
 
 <!-- field: integration_target -->
 #### Integration target
@@ -203,5 +203,5 @@ mage test (smoke preflight and cleanup)
 <!-- field: traces -->
 #### Traces
 
-- rel03.0-uc001-live-helm-smoke S4
-- srd001-helm-deployment AC4
+- [rel03.0-uc001-live-helm-smoke](../use-cases/rel03.0-uc001-live-helm-smoke.md) [S4](../use-cases/rel03.0-uc001-live-helm-smoke.md#s4)
+- [srd001-helm-deployment](../software-requirements/srd001-helm-deployment.md) [AC4](../software-requirements/srd001-helm-deployment.md#ac4)

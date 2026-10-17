@@ -9,7 +9,7 @@ release: "05.0"
 <!-- field: traces -->
 ## Traces
 
-- rel05.0-uc001-qwen-monitor-token-progress
+- [rel05.0-uc001-qwen-monitor-token-progress](../use-cases/rel05.0-uc001-qwen-monitor-token-progress.md)
 
 <!-- field: preconditions -->
 ## Preconditions
@@ -35,7 +35,7 @@ llm.completion_tokens aggregate to increase from the initial value.
 <!-- field: use_case -->
 #### Use case
 
-rel05.0-uc001-qwen-monitor-token-progress
+[rel05.0-uc001-qwen-monitor-token-progress](../use-cases/rel05.0-uc001-qwen-monitor-token-progress.md)
 
 <!-- field: go_test -->
 #### Go test
@@ -72,10 +72,10 @@ mage integration:ollamaMonitor
 <!-- field: traces -->
 #### Traces
 
-- rel05.0-uc001-qwen-monitor-token-progress S1
-- rel05.0-uc001-qwen-monitor-token-progress S2
-- rel05.0-uc001-qwen-monitor-token-progress S3
-- rel05.0-uc001-qwen-monitor-token-progress S4
-- srd032-tool-metrics-monitor-store AC2
-- srd033-monitor-rest-api AC1
-- srd033-monitor-rest-api AC3
+- [rel05.0-uc001-qwen-monitor-token-progress](../use-cases/rel05.0-uc001-qwen-monitor-token-progress.md) [S1](../use-cases/rel05.0-uc001-qwen-monitor-token-progress.md#s1)
+- [rel05.0-uc001-qwen-monitor-token-progress](../use-cases/rel05.0-uc001-qwen-monitor-token-progress.md) [S2](../use-cases/rel05.0-uc001-qwen-monitor-token-progress.md#s2)
+- [rel05.0-uc001-qwen-monitor-token-progress](../use-cases/rel05.0-uc001-qwen-monitor-token-progress.md) [S3](../use-cases/rel05.0-uc001-qwen-monitor-token-progress.md#s3)
+- [rel05.0-uc001-qwen-monitor-token-progress](../use-cases/rel05.0-uc001-qwen-monitor-token-progress.md) [S4](../use-cases/rel05.0-uc001-qwen-monitor-token-progress.md#s4)
+- [srd032-tool-metrics-monitor-store](../software-requirements/srd032-tool-metrics-monitor-store.md) [AC2](../software-requirements/srd032-tool-metrics-monitor-store.md#ac2)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC1](../software-requirements/srd033-monitor-rest-api.md#ac1)
+- [srd033-monitor-rest-api](../software-requirements/srd033-monitor-rest-api.md) [AC3](../software-requirements/srd033-monitor-rest-api.md#ac3)

@@ -57,9 +57,9 @@ The operator opens the observability route and selects a chat turn.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd002-chatbot-agent AC5 | The observability panel is one of the three declared panels served over static_assets. |
+| T1 | [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC5](../software-requirements/srd002-chatbot-agent.md#ac5) | The observability panel is one of the three declared panels served over static_assets. |
 | T2 | test-rel02.0-observability observability_panels | The suite records the per-agent monitor panels and the cross-agent trace waterfall with expected outcomes. |
-| T3 | srd003-chatbot-deployment AC5 | The deployment contract defines the integration-only shared sink, service identity, backend signals, and retained evidence. |
+| T3 | [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC5](../software-requirements/srd003-chatbot-deployment.md#ac5) | The deployment contract defines the integration-only shared sink, service identity, backend signals, and retained evidence. |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -72,8 +72,8 @@ The panel renders one live sub-panel per monitored agent, each showing run state
 <!-- field: traces -->
 #### Traces
 
-- srd002-chatbot-agent R5.1
-- srd002-chatbot-agent AC5
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [R5.1](../software-requirements/srd002-chatbot-agent.md#r51)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC5](../software-requirements/srd002-chatbot-agent.md#ac5)
 
 <!-- sc: S2 -->
 ### S2
@@ -83,8 +83,8 @@ Selecting a turn renders its connected cross-agent trace as a span waterfall gro
 <!-- field: traces -->
 #### Traces
 
-- srd002-chatbot-agent R5.1
-- srd002-chatbot-agent AC5
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [R5.1](../software-requirements/srd002-chatbot-agent.md#r51)
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC5](../software-requirements/srd002-chatbot-agent.md#ac5)
 
 <!-- sc: S3 -->
 ### S3
@@ -94,8 +94,8 @@ Cross-agent trace continuity relies on traceparent propagation; when the trace b
 <!-- field: traces -->
 #### Traces
 
-- srd002-chatbot-agent R5.3
-- srd002-chatbot-agent AC5
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) R5.3
+- [srd002-chatbot-agent](../software-requirements/srd002-chatbot-agent.md) [AC5](../software-requirements/srd002-chatbot-agent.md#ac5)
 
 <!-- sc: S4 -->
 ### S4
@@ -105,13 +105,13 @@ An integration run retains filterable traces and metrics after scenario teardown
 <!-- field: traces -->
 #### Traces
 
-- srd003-chatbot-deployment R5.5
-- srd003-chatbot-deployment R5.6
-- srd003-chatbot-deployment R5.7
-- srd003-chatbot-deployment R5.8
-- srd003-chatbot-deployment R5.9
-- srd003-chatbot-deployment R5.10
-- srd003-chatbot-deployment AC5
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R5.5](../software-requirements/srd003-chatbot-deployment.md#r55)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R5.6](../software-requirements/srd003-chatbot-deployment.md#r56)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R5.7](../software-requirements/srd003-chatbot-deployment.md#r57)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R5.8](../software-requirements/srd003-chatbot-deployment.md#r58)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R5.9](../software-requirements/srd003-chatbot-deployment.md#r59)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [R5.10](../software-requirements/srd003-chatbot-deployment.md#r510)
+- [srd003-chatbot-deployment](../software-requirements/srd003-chatbot-deployment.md) [AC5](../software-requirements/srd003-chatbot-deployment.md#ac5)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -123,4 +123,4 @@ An integration run retains filterable traces and metrics after scenario teardown
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel02.0-observability
+[test-rel02.0-observability](../test-suites/test-rel02.0-observability.md)

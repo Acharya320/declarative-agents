@@ -42,10 +42,10 @@ uncategorized tool, or an application migration converts its tools.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd051-declaration-types R6.6 | a signature discharges the descriptive prose for every category |
-| T2 | srd051-declaration-types R6.8, R6.9 | stateful_internal and boundary effect blocks stay explicit |
-| T3 | srd051-declaration-types R6.14 | boundary and stateful_internal tools declare a signature |
-| T4 | srd051-declaration-types R6.15 | every tool states a category |
+| T1 | [srd051-declaration-types](../software-requirements/srd051-declaration-types.md) [R6.6](../software-requirements/srd051-declaration-types.md#r66) | a signature discharges the descriptive prose for every category |
+| T2 | [srd051-declaration-types](../software-requirements/srd051-declaration-types.md) [R6.8](../software-requirements/srd051-declaration-types.md#r68), [R6.9](../software-requirements/srd051-declaration-types.md#r69) | stateful_internal and boundary effect blocks stay explicit |
+| T3 | [srd051-declaration-types](../software-requirements/srd051-declaration-types.md) [R6.14](../software-requirements/srd051-declaration-types.md#r614) | boundary and stateful_internal tools declare a signature |
+| T4 | [srd051-declaration-types](../software-requirements/srd051-declaration-types.md) [R6.15](../software-requirements/srd051-declaration-types.md#r615) | every tool states a category |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -58,7 +58,7 @@ A boundary tool with an emits-only signature, an output schema, and its three ef
 <!-- field: traces -->
 #### Traces
 
-- srd051-declaration-types AC8
+- [srd051-declaration-types](../software-requirements/srd051-declaration-types.md) [AC8](../software-requirements/srd051-declaration-types.md#ac8)
 
 <!-- sc: S2 -->
 ### S2
@@ -68,7 +68,7 @@ The legacy gate lists unsigned boundary and stateful_internal tools as untyped a
 <!-- field: traces -->
 #### Traces
 
-- srd051-declaration-types AC8
+- [srd051-declaration-types](../software-requirements/srd051-declaration-types.md) [AC8](../software-requirements/srd051-declaration-types.md#ac8)
 
 <!-- field: out_of_scope -->
 ## Out of scope

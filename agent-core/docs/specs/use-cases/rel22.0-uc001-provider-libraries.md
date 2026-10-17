@@ -45,12 +45,12 @@ or against a provider the runtime has never shipped.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd058-provider-libraries R1.1, R1.2, R1.3, R1.4, R1.5 | the provider library, its root, its vocabulary, and its auth |
-| T2 | srd058-provider-libraries R2.1, R2.4, R2.5, R2.2, R2.3 | the chat dialect declaration |
-| T3 | srd058-provider-libraries R3.1, R3.2, R3.3, R3.4, R3.5 | invoke_llm as a template method |
-| T4 | srd058-provider-libraries R4.1, R4.2 | embed and rerank stage fragments |
-| T5 | srd058-provider-libraries R5.1, R5.2, R5.3 | first conforming libraries and the conformance suite |
-| T6 | srd056-unit-libraries R2.1, R2.2, R2.3, R2.4 | declared roots and the --library override |
+| T1 | [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R1.1](../software-requirements/srd058-provider-libraries.md#r11), [R1.2](../software-requirements/srd058-provider-libraries.md#r12), [R1.3](../software-requirements/srd058-provider-libraries.md#r13), [R1.4](../software-requirements/srd058-provider-libraries.md#r14), [R1.5](../software-requirements/srd058-provider-libraries.md#r15) | the provider library, its root, its vocabulary, and its auth |
+| T2 | [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R2.1](../software-requirements/srd058-provider-libraries.md#r21), [R2.4](../software-requirements/srd058-provider-libraries.md#r24), [R2.5](../software-requirements/srd058-provider-libraries.md#r25), [R2.2](../software-requirements/srd058-provider-libraries.md#r22), [R2.3](../software-requirements/srd058-provider-libraries.md#r23) | the chat dialect declaration |
+| T3 | [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R3.1](../software-requirements/srd058-provider-libraries.md#r31), [R3.2](../software-requirements/srd058-provider-libraries.md#r32), [R3.3](../software-requirements/srd058-provider-libraries.md#r33), [R3.4](../software-requirements/srd058-provider-libraries.md#r34), [R3.5](../software-requirements/srd058-provider-libraries.md#r35) | invoke_llm as a template method |
+| T4 | [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R4.1](../software-requirements/srd058-provider-libraries.md#r41), [R4.2](../software-requirements/srd058-provider-libraries.md#r42) | embed and rerank stage fragments |
+| T5 | [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [R5.1](../software-requirements/srd058-provider-libraries.md#r51), [R5.2](../software-requirements/srd058-provider-libraries.md#r52), [R5.3](../software-requirements/srd058-provider-libraries.md#r53) | first conforming libraries and the conformance suite |
+| T6 | [srd056-unit-libraries](../software-requirements/srd056-unit-libraries.md) [R2.1](../software-requirements/srd056-unit-libraries.md#r21), [R2.2](../software-requirements/srd056-unit-libraries.md#r22), [R2.3](../software-requirements/srd056-unit-libraries.md#r23), [R2.4](../software-requirements/srd056-unit-libraries.md#r24) | declared roots and the --library override |
 
 <!-- field: success_criteria -->
 ## Success criteria
@@ -63,7 +63,7 @@ Rebinding --library providers switches a profile from Ollama to Cohere with no e
 <!-- field: traces -->
 #### Traces
 
-- srd058-provider-libraries AC1
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC1](../software-requirements/srd058-provider-libraries.md#ac1)
 
 <!-- sc: S2 -->
 ### S2
@@ -73,7 +73,7 @@ The dialect path produces the same request JSON documents and equivalent histori
 <!-- field: traces -->
 #### Traces
 
-- srd058-provider-libraries AC2
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC2](../software-requirements/srd058-provider-libraries.md#ac2)
 
 <!-- sc: S3 -->
 ### S3
@@ -83,7 +83,7 @@ The embed stage fragments and library REST fragments replace the hand-written em
 <!-- field: traces -->
 #### Traces
 
-- srd058-provider-libraries AC3
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC3](../software-requirements/srd058-provider-libraries.md#ac3)
 
 <!-- sc: S4 -->
 ### S4
@@ -93,7 +93,7 @@ A synthetic OpenAI-shaped library passes the conformance suite with zero Go and 
 <!-- field: traces -->
 #### Traces
 
-- srd058-provider-libraries AC4
+- [srd058-provider-libraries](../software-requirements/srd058-provider-libraries.md) [AC4](../software-requirements/srd058-provider-libraries.md#ac4)
 
 <!-- field: out_of_scope -->
 ## Out of scope

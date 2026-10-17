@@ -8,6 +8,8 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+
+	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec/markdown"
 )
 
 // Fmt rewrites Markdown corpus documents in canonical form in place (eng10,
@@ -42,6 +44,10 @@ func formatScope(root, scope string) ([]string, []string, error) {
 	if err != nil {
 		return nil, nil, err
 	}
+	indexes, err := linkIndexes(root, declarations)
+	if err != nil {
+		return nil, nil, err
+	}
 	var changed, fences []string
 	var failures []error
 	for _, document := range documents {
@@ -53,7 +59,7 @@ func formatScope(root, scope string) ([]string, []string, error) {
 		if err != nil {
 			return changed, fences, err
 		}
-		formatted, findings, err := document.declaration.Format(data, document.path)
+		formatted, findings, err := document.declaration.FormatLinked(data, document.path, indexes.For(document.path))
 		switch {
 		case err != nil:
 			failures = append(failures, err)
@@ -85,4 +91,25 @@ func documentFences(document conversion, formatted []byte) []string {
 		out[i] = document.path + ": " + fence.String()
 	}
 	return out
+}
+
+// linkIndexes indexes every Markdown corpus document by corpus, so a
+// formatted document links its references whatever the scope (GH-2668).
+func linkIndexes(root string, declarations markdown.Declarations) (markdown.LinkIndexes, error) {
+	documents, err := documentsInScope(root, declarations, "all")
+	if err != nil {
+		return nil, err
+	}
+	indexes := markdown.LinkIndexes{}
+	for _, document := range documents {
+		if !document.markdown {
+			continue
+		}
+		data, err := os.ReadFile(filepath.Join(root, document.path))
+		if err != nil {
+			return nil, err
+		}
+		indexes.Add(document.path, data)
+	}
+	return indexes, nil
 }

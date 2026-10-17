@@ -78,7 +78,7 @@ while the mounted profile owns the program under test.
 | T1 | Dockerfile | runtime image contents |
 | T2 | README.md | mounted-profile container command |
 | T3 | mage docker | release-image build wrapper |
-| T4 | srd034-external-agent-profiles R1.1, R1.2, R1.3, R1.4, R2.1, R2.2, R2.3, R2.4, R3.1, R3.2, R3.3, R3.4, R4.1, R4.2, R4.3, R4.4, R4.5 | ownership and mounted runtime contract |
+| T4 | [srd034-external-agent-profiles](../software-requirements/srd034-external-agent-profiles.md) [R1.1](../software-requirements/srd034-external-agent-profiles.md#r11), [R1.2](../software-requirements/srd034-external-agent-profiles.md#r12), [R1.3](../software-requirements/srd034-external-agent-profiles.md#r13), [R1.4](../software-requirements/srd034-external-agent-profiles.md#r14), [R2.1](../software-requirements/srd034-external-agent-profiles.md#r21), [R2.2](../software-requirements/srd034-external-agent-profiles.md#r22), [R2.3](../software-requirements/srd034-external-agent-profiles.md#r23), [R2.4](../software-requirements/srd034-external-agent-profiles.md#r24), [R3.1](../software-requirements/srd034-external-agent-profiles.md#r31), [R3.2](../software-requirements/srd034-external-agent-profiles.md#r32), [R3.3](../software-requirements/srd034-external-agent-profiles.md#r33), [R3.4](../software-requirements/srd034-external-agent-profiles.md#r34), [R4.1](../software-requirements/srd034-external-agent-profiles.md#r41), [R4.2](../software-requirements/srd034-external-agent-profiles.md#r42), [R4.3](../software-requirements/srd034-external-agent-profiles.md#r43), [R4.4](../software-requirements/srd034-external-agent-profiles.md#r44), [R4.5](../software-requirements/srd034-external-agent-profiles.md#r45) | ownership and mounted runtime contract |
 | T5 | knowledge-manager/documentation-curator/profile.yaml | profile-relative asset example under /profiles/agents |
 | T6 | knowledge-manager/documentation-curator/ui/ux.yaml | profile-local UX config example under /profiles/agents |
 
@@ -98,8 +98,8 @@ The runtime image contains the agent binary and core-owned shared assets, but it
 <!-- field: traces -->
 #### Traces
 
-- srd034-external-agent-profiles AC1
-- srd034-external-agent-profiles AC3
+- [srd034-external-agent-profiles](../software-requirements/srd034-external-agent-profiles.md) [AC1](../software-requirements/srd034-external-agent-profiles.md#ac1)
+- [srd034-external-agent-profiles](../software-requirements/srd034-external-agent-profiles.md) [AC3](../software-requirements/srd034-external-agent-profiles.md#ac3)
 
 <!-- sc: S2 -->
 ### S2
@@ -109,8 +109,8 @@ A container command can mount applications/catalog and run agent with --profile 
 <!-- field: traces -->
 #### Traces
 
-- srd034-external-agent-profiles AC2
-- srd034-external-agent-profiles AC4
+- [srd034-external-agent-profiles](../software-requirements/srd034-external-agent-profiles.md) [AC2](../software-requirements/srd034-external-agent-profiles.md#ac2)
+- [srd034-external-agent-profiles](../software-requirements/srd034-external-agent-profiles.md) [AC4](../software-requirements/srd034-external-agent-profiles.md#ac4)
 
 <!-- sc: S3 -->
 ### S3
@@ -120,7 +120,7 @@ Profile-local paths continue to resolve from the mounted profile directory.
 <!-- field: traces -->
 #### Traces
 
-- srd034-external-agent-profiles AC2
+- [srd034-external-agent-profiles](../software-requirements/srd034-external-agent-profiles.md) [AC2](../software-requirements/srd034-external-agent-profiles.md#ac2)
 
 <!-- sc: S4 -->
 ### S4
@@ -130,7 +130,7 @@ Missing mounted profile paths fail with a clear pre-loop diagnostic.
 <!-- field: traces -->
 #### Traces
 
-- srd034-external-agent-profiles AC2
+- [srd034-external-agent-profiles](../software-requirements/srd034-external-agent-profiles.md) [AC2](../software-requirements/srd034-external-agent-profiles.md#ac2)
 
 <!-- field: out_of_scope -->
 ## Out of scope

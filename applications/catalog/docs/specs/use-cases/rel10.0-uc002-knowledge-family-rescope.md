@@ -48,7 +48,7 @@ instead of its Knowledge Management role.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | sm-agent-role-taxonomy | The knowledge-manager family gains corpus-ingest and corpus-reader, replacing the vendor-named chroma family. |
+| T1 | [sm-agent-role-taxonomy](../semantic-models/agent-role-taxonomy.md) | The knowledge-manager family gains corpus-ingest and corpus-reader, replacing the vendor-named chroma family. |
 | T2 | test-rel10.0-role-catalog knowledge_rescope | The suite validates the moved tree with Integration.Chroma and a zero-hit grep for agents/chroma. |
 
 <!-- field: success_criteria -->
@@ -62,7 +62,7 @@ The corpus-ingest and corpus-reader profiles live under agents/knowledge-manager
 <!-- field: traces -->
 #### Traces
 
-- sm-agent-role-taxonomy
+- [sm-agent-role-taxonomy](../semantic-models/agent-role-taxonomy.md)
 
 <!-- sc: S2 -->
 ### S2
@@ -72,7 +72,7 @@ Integration.Chroma passes from the new paths and mage validate passes over the m
 <!-- field: traces -->
 #### Traces
 
-- sm-agent-role-taxonomy
+- [sm-agent-role-taxonomy](../semantic-models/agent-role-taxonomy.md)
 
 <!-- field: out_of_scope -->
 ## Out of scope
@@ -83,4 +83,4 @@ Integration.Chroma passes from the new paths and mage validate passes over the m
 <!-- field: test_suite_trace -->
 ## Test suite trace
 
-test-rel10.0-role-catalog
+[test-rel10.0-role-catalog](../test-suites/test-rel10.0-role-catalog.md)

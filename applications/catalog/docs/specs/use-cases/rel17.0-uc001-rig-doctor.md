@@ -47,11 +47,11 @@ An integration or demo target fails, or a rollout stays unready.
 
 | id | target | reason |
 | --- | --- | --- |
-| T1 | srd023-rig-doctor R1 | Defines the evidence directory the capture writes and the agent reads. |
-| T2 | srd023-rig-doctor R2 | Keeps the diagnosis loop read-only by declaration. |
-| T3 | srd023-rig-doctor R3 | Defines the cited diagnosis the operator reads. |
-| T4 | srd023-rig-doctor R4 | Guarantees a terminal state on empty or invalid input. |
-| T5 | srd023-rig-doctor R5 | Registers the family and keeps its tests offline. |
+| T1 | [srd023-rig-doctor](../software-requirements/srd023-rig-doctor.md) [R1](../software-requirements/srd023-rig-doctor.md#r1---evidence-directory-contract) | Defines the evidence directory the capture writes and the agent reads. |
+| T2 | [srd023-rig-doctor](../software-requirements/srd023-rig-doctor.md) [R2](../software-requirements/srd023-rig-doctor.md#r2---read-only-diagnosis-loop) | Keeps the diagnosis loop read-only by declaration. |
+| T3 | [srd023-rig-doctor](../software-requirements/srd023-rig-doctor.md) [R3](../software-requirements/srd023-rig-doctor.md#r3---diagnosis-output) | Defines the cited diagnosis the operator reads. |
+| T4 | [srd023-rig-doctor](../software-requirements/srd023-rig-doctor.md) [R4](../software-requirements/srd023-rig-doctor.md#r4---terminal-states) | Guarantees a terminal state on empty or invalid input. |
+| T5 | [srd023-rig-doctor](../software-requirements/srd023-rig-doctor.md) [R5](../software-requirements/srd023-rig-doctor.md#r5---portability-and-registration) | Registers the family and keeps its tests offline. |
 
 <!-- field: success_criteria -->
 ## Success criteria

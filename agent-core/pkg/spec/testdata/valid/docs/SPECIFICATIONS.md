@@ -31,9 +31,9 @@ None
 
 | id | title | summary | path |
 | --- | --- | --- | --- |
-| srd001-auth | Authentication | Secure authentication. | docs/specs/software-requirements/srd001-auth.md |
-| srd002-api | REST API | RESTful endpoints. | docs/specs/software-requirements/srd002-api.md |
-| srd003-storage | Storage Layer | Data persistence. | docs/specs/software-requirements/srd003-storage.md |
+| [srd001-auth](specs/software-requirements/srd001-auth.md) | Authentication | Secure authentication. | docs/specs/software-requirements/srd001-auth.md |
+| [srd002-api](specs/software-requirements/srd002-api.md) | REST API | RESTful endpoints. | docs/specs/software-requirements/srd002-api.md |
+| [srd003-storage](specs/software-requirements/srd003-storage.md) | Storage Layer | Data persistence. | docs/specs/software-requirements/srd003-storage.md |
 
 <!-- field: config_format_index | form: "empty list" -->
 ## Config format index
@@ -50,14 +50,14 @@ None
 
 | id | title | release | status | test_suite | path |
 | --- | --- | --- | --- | --- | --- |
-| rel00.0-uc001-login | Login flow | 00.0 | open | test-rel00.0 | docs/specs/use-cases/rel00.0-uc001-login.md |
+| [rel00.0-uc001-login](specs/use-cases/rel00.0-uc001-login.md) | Login flow | 00.0 | open | [test-rel00.0](specs/test-suites/test-rel00.0.md) | docs/specs/use-cases/rel00.0-uc001-login.md |
 
 <!-- field: test_suite_index | form: "typed table" -->
 ## Test suite index
 
 | id | title | release | test_case_count | traces | path |
 | --- | --- | --- | --- | --- | --- |
-| test-rel00.0 | Release 00.0 Tests | "00.0" | 2 | [rel00.0-uc001-login] | docs/specs/test-suites/test-rel00.0.md |
+| [test-rel00.0](specs/test-suites/test-rel00.0.md) | Release 00.0 Tests | "00.0" | 2 | [[rel00.0-uc001-login](specs/use-cases/rel00.0-uc001-login.md)] | docs/specs/test-suites/test-rel00.0.md |
 
 <!-- field: coverage_gaps -->
 ## Coverage gaps
