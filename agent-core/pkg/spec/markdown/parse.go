@@ -258,7 +258,7 @@ func (rd *reader) close(f *frame) error {
 			}
 			return nil
 		}
-		value, err := rd.d.parseFieldForm(f.key, f.form, text)
+		value, err := rd.d.parseFieldForm(f.kind, f.key, f.form, text)
 		if err != nil {
 			return fmt.Errorf("field %s: %w", f.key, err)
 		}

@@ -86,7 +86,8 @@ func (c *canonicalizer) member(level int, parent, key string, value *yaml.Node, 
 		c.members(level+1, "field:"+key, value, path, func(string) bool { return false })
 		return value
 	}
-	field := c.d.Fields[key]
+	slot, _ := c.d.fieldKind(level, parent)
+	field, _ := c.d.ruleFor(slot, key)
 	switch {
 	case field.Value == valueOutline && value.Kind == yaml.SequenceNode:
 		c.outline(field, value, path)

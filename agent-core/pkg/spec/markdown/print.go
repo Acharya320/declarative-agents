@@ -120,7 +120,8 @@ func (p *printer) member(level int, parent, key string, value *yaml.Node) error 
 	if kind, ok := p.d.directRecords(level, parent, key); ok {
 		return p.records(kind, value)
 	}
-	if _, ok := p.d.fieldKind(level, parent); !ok {
+	slot, ok := p.d.fieldKind(level, parent)
+	if !ok {
 		return fmt.Errorf("%s: no field is declared at level %d under %s", key, level, parent)
 	}
 	if kind, ok := p.d.fieldRecords(level, key); ok && p.d.recordsFit(kind, value) {
@@ -130,7 +131,7 @@ func (p *printer) member(level int, parent, key string, value *yaml.Node) error 
 	if value.Kind == yaml.MappingNode && len(value.Content) > 0 && p.d.nestedSlot(level, key) {
 		return p.nested(level, key, value)
 	}
-	lines, form, err := p.d.renderField(key, value)
+	lines, form, err := p.d.renderField(slot, key, value)
 	if err != nil {
 		return fmt.Errorf("field %s: %w", key, err)
 	}

@@ -142,7 +142,8 @@ func (d *diagnosis) checkField(node *dnode) {
 		}
 		parent.fields[node.id] = true
 	}
-	if field, typed := d.rules.Fields[node.id]; typed && !contains(field.In, node.kind) {
+	if field, typed := d.rules.Fields[node.id]; typed && !contains(field.In, node.kind) &&
+		!contains(d.rules.Nodes[node.kind].Fields, node.id) {
 		d.add("field-disallowed", node.line, node.id+" only as "+strings.Join(field.In, " or "), node.kind,
 			"fields."+node.id+".in", "move the section to where the field belongs")
 	}
@@ -257,7 +258,7 @@ const shapeEmpty = "empty"
 // and table columns. A list or table field may be empty, and a table field
 // that declares no columns accepts any header.
 func (d *diagnosis) checkShape(node *dnode) {
-	field, typed := d.rules.Fields[node.id]
+	field, typed := d.rules.ruleFor(node.kind, node.id)
 	if !typed {
 		return
 	}

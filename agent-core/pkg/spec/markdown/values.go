@@ -23,12 +23,12 @@ var nestedKey = regexp.MustCompile(`^- ([a-z_][a-z0-9_]*):(?: (.*))?$`)
 // a keyed or outline field by its declared conversion, an empty list or table
 // as nothing, and every other value by its own shape. A declared field whose
 // value does not print in its declared shape is an error, not a fallback.
-func (r *Declaration) renderField(key string, value *yaml.Node) ([]string, string, error) {
-	lines, err := r.renderUntypedForm(key, value)
+func (r *Declaration) renderField(slot, key string, value *yaml.Node) ([]string, string, error) {
+	lines, err := r.renderUntypedForm(slot, key, value)
 	if err != nil {
 		return nil, "", err
 	}
-	field, typed := r.Fields[key]
+	field, typed := r.ruleFor(slot, key)
 	if (typed && field.Shape != "") || classifyContent(strings.Join(lines, "\n")) != shapeYAML {
 		return lines, "", nil
 	}
@@ -41,8 +41,8 @@ func (r *Declaration) renderField(key string, value *yaml.Node) ([]string, strin
 // renderUntypedForm converts a field's value without a typed form: by its
 // declared conversion, or by the first simple shape that holds it, else as
 // a fenced yaml block.
-func (r *Declaration) renderUntypedForm(key string, value *yaml.Node) ([]string, error) {
-	field, typed := r.Fields[key]
+func (r *Declaration) renderUntypedForm(slot, key string, value *yaml.Node) ([]string, error) {
+	field, typed := r.ruleFor(slot, key)
 	switch {
 	case typed && field.Code != "":
 		return codeLines(field.Code, value)
@@ -66,11 +66,19 @@ func (r *Declaration) renderUntypedForm(key string, value *yaml.Node) ([]string,
 
 // parseFieldForm reads a field in the typed form its marker names, or as an
 // untyped field when it names none.
-func (r *Declaration) parseFieldForm(key, form, text string) (*yaml.Node, error) {
+func (r *Declaration) parseFieldForm(slot, key, form, text string) (*yaml.Node, error) {
 	if form != "" {
 		return parseTyped(form, text)
 	}
-	return r.parseField(key, text)
+	return r.parseField(slot, key, text)
+}
+
+// ruleFor returns a field's rule where it applies: in the slots its in
+// names, or anywhere when it names none. A nested field may share a name
+// with a typed field elsewhere and is not held to that rule (GH-2657).
+func (r *Declaration) ruleFor(slot, key string) (fieldRule, bool) {
+	field, typed := r.Fields[key]
+	return field, typed && (len(field.In) == 0 || contains(field.In, slot))
 }
 
 // markerForm returns the typed form a field marker names, unquoted.
@@ -88,8 +96,8 @@ func markerForm(m Marker) string {
 }
 
 // parseField reads a field's Markdown back into the value renderField wrote.
-func (r *Declaration) parseField(key, text string) (*yaml.Node, error) {
-	field, typed := r.Fields[key]
+func (r *Declaration) parseField(slot, key, text string) (*yaml.Node, error) {
+	field, typed := r.ruleFor(slot, key)
 	switch {
 	case typed && field.Code != "":
 		return parseCodeField(field.Code, text)
