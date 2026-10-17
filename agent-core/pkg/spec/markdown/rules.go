@@ -73,6 +73,9 @@ type nodeRule struct {
 	Attributes      []string `yaml:"attributes"`
 	RequiredFields  []string `yaml:"required_fields"`
 	YAML            nodeYAML `yaml:"yaml"`
+	// Fields lists, in declared order, every field a field slot holds; a slot
+	// without the list admits any field in any order (GH-2654).
+	Fields []string `yaml:"fields"`
 }
 
 type fieldRule struct {

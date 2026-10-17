@@ -146,6 +146,40 @@ func (d *diagnosis) checkField(node *dnode) {
 		d.add("field-disallowed", node.line, node.id+" only as "+strings.Join(field.In, " or "), node.kind,
 			"fields."+node.id+".in", "move the section to where the field belongs")
 	}
+	if parent != nil {
+		d.checkFieldOrder(parent, node)
+	}
+}
+
+// checkFieldOrder holds a field to its slot's fields list: declared, and
+// after every field the list puts ahead of it (eng10, declared fields and
+// order; GH-2654). A slot without the list is not checked.
+func (d *diagnosis) checkFieldOrder(parent, node *dnode) {
+	slot := d.rules.Nodes[node.kind].Fields
+	if len(slot) == 0 {
+		return
+	}
+	path := "nodes." + node.kind + ".fields"
+	index := indexOf(slot, node.id)
+	switch {
+	case index < 0:
+		d.add("field-undeclared", node.line, "one of "+strings.Join(slot, ", "), node.id, path,
+			"declare "+node.id+" in "+path+" in its place, or move the content into a declared field")
+	case index+1 < parent.orderAt:
+		d.add("field-out-of-order", node.line, node.id+" ahead of "+parent.lastField, node.id+" after "+parent.lastField,
+			path, "move "+node.id+" ahead of "+parent.lastField+", in the order "+path+" lists")
+	default:
+		parent.orderAt, parent.lastField = index+1, node.id
+	}
+}
+
+func indexOf(list []string, value string) int {
+	for i, item := range list {
+		if item == value {
+			return i
+		}
+	}
+	return -1
 }
 
 func (d *diagnosis) checkAttributes(node *dnode, m Marker) {

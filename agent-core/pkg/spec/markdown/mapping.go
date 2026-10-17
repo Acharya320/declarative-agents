@@ -54,6 +54,9 @@ func (r *Declaration) checkMapping() error {
 			return fmt.Errorf("nodes.%s.yaml.derive_id: only slug, from a title", name)
 		}
 	}
+	if err := r.checkSlots(); err != nil {
+		return err
+	}
 	for _, name := range sortedKeys(r.Fields) {
 		field := r.Fields[name]
 		switch {
@@ -64,6 +67,30 @@ func (r *Declaration) checkMapping() error {
 			return fmt.Errorf("fields.%s.value: %q is neither keyed nor outline", name, field.Value)
 		case field.ID == "" || field.ContentKey == "":
 			return fmt.Errorf("fields.%s: an outline names its id and content keys", name)
+		}
+	}
+	return nil
+}
+
+// checkSlots rejects a fields list on a node kind that is not a field slot,
+// a field listed twice, and a field rule naming a slot whose list lacks it.
+func (r *Declaration) checkSlots() error {
+	for _, name := range sortedKeys(r.Nodes) {
+		node := r.Nodes[name]
+		if len(node.Fields) > 0 && node.Tag != tagField {
+			return fmt.Errorf("nodes.%s.fields: only a field slot (tag field) lists fields", name)
+		}
+		for i, field := range node.Fields {
+			if indexOf(node.Fields[:i], field) >= 0 {
+				return fmt.Errorf("nodes.%s.fields: %s is listed twice", name, field)
+			}
+		}
+	}
+	for _, name := range sortedKeys(r.Fields) {
+		for _, slot := range r.Fields[name].In {
+			if listed := r.Nodes[slot].Fields; len(listed) > 0 && indexOf(listed, name) < 0 {
+				return fmt.Errorf("fields.%s.in: names %s, whose fields list lacks it", name, slot)
+			}
 		}
 	}
 	return nil

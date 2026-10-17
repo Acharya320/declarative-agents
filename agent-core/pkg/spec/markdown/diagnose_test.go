@@ -121,16 +121,45 @@ func diagnosticCases() []diagnosticCase {
 	}
 }
 
+// designCase is a fixture diagnosed against its own declarations: the SRD
+// slots list no fields yet, so the order checks run on a type that does
+// (GH-2654).
+type designCase struct {
+	diagnosticCase
+	design string
+}
+
+func designDiagnosticCases() []designCase {
+	return []designCase{
+		{diagnosticCase{"field-undeclared", string(planDoc(overviewOpen, summaryField, strangerField, notesField)),
+			"docs/plans/plan.md", 15, "declare stranger in nodes.document_field.fields"}, orderedDesign},
+		{diagnosticCase{"field-out-of-order", string(planDoc(notesField, overviewOpen, summaryField)),
+			"docs/plans/plan.md", 12, "move overview ahead of notes"}, orderedDesign},
+	}
+}
+
 // TestEveryFindingIsDiagnosedAtItsLineWithAHint provokes each finding name
 // from one fixture and checks its name, file line, and fix hint (GH-2589 AC2).
 func TestEveryFindingIsDiagnosedAtItsLineWithAHint(t *testing.T) {
+	cases := []designCase{}
 	for _, tc := range diagnosticCases() {
+		cases = append(cases, designCase{diagnosticCase: tc})
+	}
+	for _, dc := range append(cases, designDiagnosticCases()...) {
+		tc := dc.diagnosticCase
 		t.Run(tc.name, func(t *testing.T) {
 			file := tc.file
 			if file == "" {
 				file = validName
 			}
 			findings := diagnose(t, []byte(tc.doc), file)
+			if dc.design != "" {
+				declarations, err := LoadDeclarations([]byte(dc.design))
+				if err != nil {
+					t.Fatal(err)
+				}
+				findings = Diagnose(declarations, []byte(tc.doc), file)
+			}
 			line := tc.line
 			if line == lastLine {
 				line = strings.Count(tc.doc, "\n")
@@ -153,6 +182,9 @@ func TestEveryCatalogFindingHasAFixture(t *testing.T) {
 	covered := map[string]bool{}
 	for _, tc := range diagnosticCases() {
 		covered[tc.name] = true
+	}
+	for _, dc := range designDiagnosticCases() {
+		covered[dc.name] = true
 	}
 	for name := range findingCatalog {
 		if !covered[name] {

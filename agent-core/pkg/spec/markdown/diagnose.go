@@ -42,7 +42,7 @@ var findingCatalog = map[string]int{
 	"heading-untagged": 2, "heading-misplaced": 2, "id-malformed": 2, "id-outside-parent": 2,
 	"heading-id-mismatch": 2, "duplicate-id": 2, "field-disallowed": 2, "field-duplicate": 2,
 	"content-untagged": 2, "untagged-structure": 2, "missing-content": 2,
-	"missing-required-field": 2, "missing-required-node": 2,
+	"missing-required-field": 2, "missing-required-node": 2, "field-undeclared": 2, "field-out-of-order": 2,
 	"field-shape-mismatch": 3, "list-item-pattern": 3, "table-columns-mismatch": 3, "attribute-shape": 3,
 	"prose-containment": 4,
 }
@@ -61,6 +61,8 @@ type dnode struct {
 	fields     map[string]bool
 	content    []Block
 	form       string // a field's typed form: its content is data, not prose
+	orderAt    int    // one past the slot index of the last field in order
+	lastField  string // that field
 }
 
 // diagnosis walks one document collecting findings; it never stops early.
