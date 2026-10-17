@@ -48,7 +48,7 @@ None known.
 | "00.0" | Foundation | 0 | 1 | open |
 
 <!-- field: srd_index -->
-## Srd index
+## SRD index
 
 | id | title | summary | path |
 | --- | --- | --- | --- |

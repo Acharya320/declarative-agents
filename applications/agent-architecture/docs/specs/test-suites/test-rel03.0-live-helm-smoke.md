@@ -46,7 +46,7 @@ closures are the mounted profile source.
 rel03.0-uc001-live-helm-smoke
 
 <!-- field: id -->
-#### Id
+#### ID
 
 install_packaged_chart
 
@@ -88,7 +88,7 @@ curator stops cleanly and releases its listeners rather than being killed.
 rel03.0-uc001-live-helm-smoke
 
 <!-- field: id -->
-#### Id
+#### ID
 
 readiness_and_exit
 
@@ -131,7 +131,7 @@ render inspection alone.
 rel03.0-uc001-live-helm-smoke
 
 <!-- field: id -->
-#### Id
+#### ID
 
 trace_retained
 
@@ -171,7 +171,7 @@ Helm status, workloads, events, and targeted curator and collector logs.
 rel03.0-uc001-live-helm-smoke
 
 <!-- field: id -->
-#### Id
+#### ID
 
 skip_and_cleanup
 

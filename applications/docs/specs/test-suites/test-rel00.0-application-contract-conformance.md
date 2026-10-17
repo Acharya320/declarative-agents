@@ -35,7 +35,7 @@ applicable; its absent targets are not treated as passing evidence.
 ### Shared corpus parses and traces reciprocally
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC1
 
@@ -129,7 +129,7 @@ executable_structural
 ### Root module classification and dispatch are pinned
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC2
 
@@ -182,7 +182,7 @@ go test . -run 'Test(ApplicationModulesParticipateInAudit|ChatbotMeshIsAnApplica
 ### Canonical agents are counted once
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC3
 
@@ -237,7 +237,7 @@ go_test
 ### Current runnable applications pass their owned audit gates
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC4
 
@@ -287,7 +287,7 @@ mage audit
 ### Managed-service evidence status is application-owned and truthful
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC5
 
@@ -341,7 +341,7 @@ application_test_suites
 ### Package and Helm claims have executable evidence
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC6
 
@@ -388,7 +388,7 @@ application_test_suites
 ### kind-demo claims defer to ENG01 evidence
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC7
 
@@ -433,7 +433,7 @@ referenced_engineering_contract
 ### Root statistics complete after conformance
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC8
 
@@ -481,7 +481,7 @@ mage stats
 ### Actor classifications and reference-role bindings conform
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC9
 

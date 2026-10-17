@@ -95,7 +95,7 @@ model-boundary config.
     1. Check error messages when the contract promises specific context.
 
 <!-- field: yaml_test_suites | form: "tree" -->
-## Yaml test suites
+## YAML test suites
 
 - required_fields:
   1. id

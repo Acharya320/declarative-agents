@@ -137,7 +137,7 @@ The format keeps each issue small, traceable, and tied to listed files.
     when a decision has lasting design value.
 
 <!-- field: yaml_rules | form: "tree" -->
-## Yaml rules
+## YAML rules
 
 1. - id: Y1
    - rule: Use valid YAML.

@@ -45,6 +45,29 @@ func typedFormFor(value *yaml.Node) (string, []string, bool) {
 	return "", nil, false
 }
 
+// fenceReason says why no rendering but the fenced yaml block holds a value:
+// the error of the typed form closest to its kind.
+func fenceReason(value *yaml.Node) string {
+	var err error
+	switch {
+	case value.Kind == yaml.ScalarNode && isString(value):
+		return "text that would break the document structure"
+	case value.Kind == yaml.ScalarNode:
+		_, err = scalarLines(value)
+	default:
+		_, err = treeLines(value)
+		if err == nil {
+			_, err = parseTree(strings.Join(mustLines(treeLines(value)), "\n"))
+		}
+	}
+	if err == nil {
+		return "no form reads it back exactly"
+	}
+	return err.Error()
+}
+
+func mustLines(lines []string, _ error) []string { return lines }
+
 // parseTyped reads a field's content in the form its marker names.
 func parseTyped(form, text string) (*yaml.Node, error) {
 	switch form {

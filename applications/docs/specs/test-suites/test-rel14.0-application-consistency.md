@@ -47,7 +47,7 @@ only for applications that declare the matching capability.
 ### Release 14.0 shared documents parse and trace reciprocally
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC1
 
@@ -157,7 +157,7 @@ PY
 ### Composition manifests are complete and capability-aware
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC2
 
@@ -196,7 +196,7 @@ go_test
 ### Actor ownership and program names conform
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC3
 
@@ -237,7 +237,7 @@ go_test
 ### Packaged closure and provenance derive from the manifest
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC4
 
@@ -284,7 +284,7 @@ packaged
 ### Promotion and shared UI-token claims have real consumers
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC5
 
@@ -328,7 +328,7 @@ promotion candidates or ui
 ### README, status, capabilities, and root lists agree
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC6
 
@@ -367,7 +367,7 @@ go_test
 ### Three-application ownership and capability matrix is truthful
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC7
 
@@ -405,7 +405,7 @@ go_test
 ### Repository audit preserves ownership and current evidence
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC8
 

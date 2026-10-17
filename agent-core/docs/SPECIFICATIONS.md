@@ -128,7 +128,7 @@ Source-of-truth note.
 | architecture-agent-core | Agent Core Architecture | Runtime, package, configuration, tool-language, lifecycle, telemetry, and specification architecture with Mermaid diagrams. | docs/ARCHITECTURE.md |
 
 <!-- field: srd_index | form: "typed table" -->
-## Srd index
+## SRD index
 
 | id | title | summary | status | path |
 | --- | --- | --- | --- | --- |
@@ -317,7 +317,7 @@ note: >
 ```
 
 <!-- field: srd_to_use_case_mapping -->
-## Srd to use case mapping
+## SRD to use case mapping
 
 | use_case | srd | why_required | coverage |
 | --- | --- | --- | --- |

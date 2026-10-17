@@ -49,7 +49,7 @@ IAM policy fixture is executable without cloud access.
 ### Release 19.0 documents parse and trace reciprocally
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC1
 
@@ -179,7 +179,7 @@ PY
 ### Two applications use distinct external, internal, OTLP, object, and vector paths
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC2
 
@@ -230,7 +230,7 @@ kubectl --context kind-da-platform get ns -l app.kubernetes.io/managed-by=apprig
 ### Application and platform lifecycle preserve data until explicit deletion
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC3
 
@@ -279,7 +279,7 @@ mage app:purge chatbot-mesh purge:chatbot-mesh
 ### Local and cloud overlays preserve one application declaration contract
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC4
 
@@ -324,7 +324,7 @@ cd ../applications/chatbot-mesh && go test ./magefiles -run TestGcpDeployOverrid
 ### Collector WAL fixes immutable object identity before upload
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC5
 
@@ -369,7 +369,7 @@ cd ../applications/agent-architecture && mage integration:collectorWALRestart
 ### Query access disappears with compute and returns after collector redeployment
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC6
 
@@ -414,7 +414,7 @@ curl -fsS 'http://telemetry.agent-architecture.localhost/query/traces?page_size=
 ### Rig modes and the reusable application runner have one owner
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC7
 
@@ -459,7 +459,7 @@ cd .. && mage integration:applicationLifecycle
 ### Application failures remain isolated and shared failures identify the platform
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC8
 

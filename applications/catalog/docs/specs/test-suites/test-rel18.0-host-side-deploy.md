@@ -32,7 +32,7 @@ release: "18.0"
 rel18.0-uc001-host-side-deploy
 
 <!-- field: id -->
-#### Id
+#### ID
 
 deploy-closure
 
@@ -67,7 +67,7 @@ mage validate
 rel18.0-uc001-host-side-deploy
 
 <!-- field: id -->
-#### Id
+#### ID
 
 deploy-reaches-deployed
 
@@ -102,7 +102,7 @@ go test ./conformance -run '^TestApplierDeployReachesDeployed'
 rel18.0-uc001-host-side-deploy
 
 <!-- field: id -->
-#### Id
+#### ID
 
 deploy-rejects-a-failed-dry-run
 
@@ -136,7 +136,7 @@ go test ./conformance -run '^TestApplierDeployRejectsAFailedDryRun'
 rel18.0-uc001-host-side-deploy
 
 <!-- field: id -->
-#### Id
+#### ID
 
 deploy-rolls-back-a-stalled-verify
 
@@ -170,7 +170,7 @@ go test ./conformance -run '^TestApplierDeployRollsBackAStalledVerify'
 rel18.0-uc001-host-side-deploy
 
 <!-- field: id -->
-#### Id
+#### ID
 
 deploy-fails-when-rollback-fails
 
@@ -204,7 +204,7 @@ go test ./conformance -run '^TestApplierDeployFailsWhenRollbackFails'
 rel18.0-uc001-host-side-deploy
 
 <!-- field: id -->
-#### Id
+#### ID
 
 undeploy-removes-and-reports-absent
 
@@ -239,7 +239,7 @@ go test ./conformance -run '^TestApplierUndeployRemovesAndReportsAbsent'
 rel18.0-uc001-host-side-deploy
 
 <!-- field: id -->
-#### Id
+#### ID
 
 deploy-declares-no-model-word
 
@@ -273,7 +273,7 @@ go test ./conformance -run '^TestApplierDeployDeclaresNoModelWord'
 rel18.0-uc001-host-side-deploy
 
 <!-- field: id -->
-#### Id
+#### ID
 
 deploy-rendering-resolves-every-coordinate
 
@@ -307,7 +307,7 @@ cd ../.. && go test ./magefiles/kindrig -run '^TestRenderDeployDeclarations'
 rel18.0-uc001-host-side-deploy
 
 <!-- field: id -->
-#### Id
+#### ID
 
 deploy-rendered-argv-guards
 
@@ -343,7 +343,7 @@ cd ../.. && go test ./magefiles/kindrig -run '^TestRenderedDeployArgv'
 rel18.0-uc001-host-side-deploy
 
 <!-- field: id -->
-#### Id
+#### ID
 
 deploy-gates-on-a-failure-terminal
 
@@ -377,7 +377,7 @@ cd ../.. && go test ./magefiles/kindrig -run '^TestDeployGatesOnAFailureTerminal
 rel18.0-uc001-host-side-deploy
 
 <!-- field: id -->
-#### Id
+#### ID
 
 deploy-atomic-contract-live
 

@@ -105,7 +105,7 @@ its SRDs through touchpoints, and every test suite traces its use case.
 | "09.0" | Canonical collector and Jaeger retirement | 1 | 1 | done |
 
 <!-- field: srd_index -->
-## Srd index
+## SRD index
 
 | id | title | summary | path |
 | --- | --- | --- | --- |

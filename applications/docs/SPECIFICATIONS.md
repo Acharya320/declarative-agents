@@ -162,7 +162,7 @@ dependency-gated where project credentials are unavailable.
    - path: agent-architecture/docs/ARCHITECTURE.md
 
 <!-- field: srd_index | form: "tree" -->
-## Srd index
+## SRD index
 
 1. - id: srd001-application-module-contract
    - title: Runnable Application Module Contract

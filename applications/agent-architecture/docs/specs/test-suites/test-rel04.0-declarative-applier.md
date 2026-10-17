@@ -66,7 +66,7 @@ on-cluster evidence.
 rel04.0-uc001-declarative-applier
 
 <!-- field: id -->
-#### Id
+#### ID
 
 validate_apply_verify
 
@@ -126,7 +126,7 @@ schema reads as the guard being removed rather than as a broken fixture.
 rel04.0-uc001-declarative-applier
 
 <!-- field: id -->
-#### Id
+#### ID
 
 chart_schema_rejects
 
@@ -173,7 +173,7 @@ container on a read-only /opt/tools.
 rel04.0-uc001-declarative-applier
 
 <!-- field: id -->
-#### Id
+#### ID
 
 applier_holds_clis
 
@@ -220,7 +220,7 @@ cannot serve returns a gateway error rather than a phase.
 rel04.0-uc001-declarative-applier
 
 <!-- field: id -->
-#### Id
+#### ID
 
 broken_read_classified
 
@@ -274,7 +274,7 @@ API or pod-network loss apart from the semantic proof.
 rel04.0-uc001-declarative-applier
 
 <!-- field: id -->
-#### Id
+#### ID
 
 live_rollout_rollback
 

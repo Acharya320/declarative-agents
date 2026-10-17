@@ -58,7 +58,7 @@ available.
 rel00.0-uc001-guided-agent-architecture
 
 <!-- field: id -->
-#### Id
+#### ID
 
 presentation_command
 
@@ -112,7 +112,7 @@ runtime checkout and ports are available.
 rel00.0-uc001-guided-agent-architecture
 
 <!-- field: id -->
-#### Id
+#### ID
 
 canonical_curator_command
 
@@ -174,7 +174,7 @@ observes the canonical curator reaching Done and releasing listeners.
 rel00.0-uc001-guided-agent-architecture
 
 <!-- field: id -->
-#### Id
+#### ID
 
 lifecycle_exit_contract
 
@@ -240,7 +240,7 @@ does not satisfy srd002 AC1 through AC3 until those observations run.
 rel00.0-uc001-guided-agent-architecture
 
 <!-- field: id -->
-#### Id
+#### ID
 
 managed_service_contract
 
@@ -310,7 +310,7 @@ the application composition fields and no agents section.
 rel00.0-uc001-guided-agent-architecture
 
 <!-- field: id -->
-#### Id
+#### ID
 
 application_contract
 

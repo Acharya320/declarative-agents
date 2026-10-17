@@ -69,7 +69,7 @@ func TestFmtCanonicalizesAndIsIdempotent(t *testing.T) {
 		"docs/engineering/eng90-sample.md": canonicalGuideline,
 		"docs/engineering/eng91-sample.md": replaceID(canonicalGuideline, "eng91-sample") + "\n\n",
 	})
-	changed, err := formatScope(root, "all")
+	changed, _, err := formatScope(root, "all")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -83,7 +83,7 @@ func TestFmtCanonicalizesAndIsIdempotent(t *testing.T) {
 	if string(data) != replaceID(canonicalGuideline, "eng91-sample") {
 		t.Fatalf("formatted document is not canonical:\n%s", data)
 	}
-	if again, err := formatScope(root, "all"); err != nil || len(again) != 0 {
+	if again, _, err := formatScope(root, "all"); err != nil || len(again) != 0 {
 		t.Fatalf("second run changed %v (err %v)", again, err)
 	}
 }
@@ -92,7 +92,7 @@ func TestFmtReportsADocumentItCannotRead(t *testing.T) {
 	root := newFormatRepository(t, map[string]string{
 		"docs/engineering/eng90-sample.md": "---\nid: eng90-sample\ntitle: Sample\n---\n\n## Untagged\n",
 	})
-	if _, err := formatScope(root, "engineering_guideline"); err == nil {
+	if _, _, err := formatScope(root, "engineering_guideline"); err == nil {
 		t.Fatal("formatted a document with findings")
 	}
 }

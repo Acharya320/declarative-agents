@@ -45,7 +45,7 @@ the skill counterpart is coding-skills issue 395.
 ### Release 18.0 documents parse and trace reciprocally
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC1
 
@@ -159,7 +159,7 @@ PY
 ### A missing or lightweight tag is refused by name
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC2
 
@@ -201,7 +201,7 @@ cd magefiles && go test . -run TestTagVerify
 ### A degenerate annotation is refused
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC3
 
@@ -244,7 +244,7 @@ cd magefiles && go test . -run TestTagVerify
 ### A tag off main is refused and an absent main fails by name
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC4
 
@@ -285,7 +285,7 @@ cd magefiles && go test . -run TestTagVerify
 ### A run mutates nothing, passing or refusing
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC5
 
@@ -326,7 +326,7 @@ cd magefiles && go test . -run TestTagVerify
 ### The runbook and the skill place the check before the push
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC6
 

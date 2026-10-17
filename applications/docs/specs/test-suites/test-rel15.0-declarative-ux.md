@@ -44,7 +44,7 @@ under the ui-kit mage targets; REST and manifest cases run under go test.
 ### Release 15.0 documents parse and trace reciprocally
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC1
 
@@ -145,7 +145,7 @@ PY
 ### Kit client honours the base URL, proxy convention, and not-deployed result
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC2
 
@@ -189,7 +189,7 @@ mage uikit:test
 ### Contract fixtures parse through every client
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC3
 
@@ -231,7 +231,7 @@ mage uikit:test
 ### Kit panels export manifests within the contract and render from fixtures
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC4
 
@@ -273,7 +273,7 @@ mage uikit:test
 ### ui.yaml version 2 validates, rejects, and renders from Helm values
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC5
 
@@ -316,7 +316,7 @@ GH-2270
 ### Generic shell composes routes and sidebar from ui.yaml
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC6
 
@@ -361,7 +361,7 @@ mage uikit:test
 ### Kit owns tokens and ships as a file dependency and release tarball
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC7
 
@@ -403,7 +403,7 @@ mage uikit:build uikit:test uikit:pack
 ### REST tool serves an embedded bundle and its declared config
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC8
 
@@ -449,7 +449,7 @@ GH-2267, GH-2268, GH-2269
 ### No shared UI code is duplicated under applications/
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC9
 

@@ -45,7 +45,7 @@ suite fail on somebody else's release day.
 ### Release 17.0 documents parse and trace reciprocally
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC1
 
@@ -159,7 +159,7 @@ PY
 ### The inventory derives chart pins and declares the rest
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC2
 
@@ -201,7 +201,7 @@ cd magefiles && go test ./pinsurvey/... .
 ### A declared entry that no longer describes its location fails
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC3
 
@@ -241,7 +241,7 @@ cd magefiles && go test . -run TestDeclaredPins
 ### A re-pushed tag is reported as moved, ahead of staleness
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC4
 
@@ -282,7 +282,7 @@ cd magefiles && go test ./pinsurvey/...
 ### A newer release is reported with both versions
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC5
 
@@ -323,7 +323,7 @@ cd magefiles && go test ./pinsurvey/...
 ### Version comparison applies to semantic versions only
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC6
 
@@ -364,7 +364,7 @@ cd magefiles && go test ./pinsurvey/...
 ### An unreachable registry reports unknown, never current
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC7
 
@@ -406,7 +406,7 @@ cd magefiles && go test ./pinsurvey/...
 ### The target reports and writes nothing
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC8
 
@@ -448,7 +448,7 @@ cd magefiles && go test . -run TestBump
 ### Authentication and reference parsing reach the real registries
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC9
 

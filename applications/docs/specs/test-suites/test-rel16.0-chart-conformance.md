@@ -46,7 +46,7 @@ audit.
 ### Release 16.0 documents parse and trace reciprocally
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC1
 
@@ -159,7 +159,7 @@ PY
 ### Every chart renders under its defaults and every checked-in overlay
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC2
 
@@ -202,7 +202,7 @@ cd magefiles && go test . -run TestChartConformance
 ### A floating tag fails the gate
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC3
 
@@ -243,7 +243,7 @@ cd magefiles && go test . -run TestChartConformance
 ### Third-party images need digests and repository images need commit tags
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC4
 
@@ -284,7 +284,7 @@ cd magefiles && go test . -run TestChartConformance
 ### Pull policy and service type stay inside what kind provides
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC5
 
@@ -325,7 +325,7 @@ cd magefiles && go test . -run TestChartConformance
 ### A selected workload declares readiness
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC6
 
@@ -366,7 +366,7 @@ cd magefiles && go test . -run TestChartConformance
 ### Kind configurations pin the node image by version and digest
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC7
 
@@ -407,7 +407,7 @@ cd magefiles && go test . -run TestChartConformance
 ### The exception baseline suspends, refuses, and expires
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC8
 
@@ -450,7 +450,7 @@ cd magefiles && go test . -run TestChartConformance
 ### A finding names chart, overlay, resource, value, and rule
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC9
 
@@ -493,7 +493,7 @@ cd magefiles && go test . -run TestChartConformance
 ### The seeded violations are pinned and the baseline holds no floating tag
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC10
 
@@ -538,7 +538,7 @@ mage audit
 ### Image references match the grammar and prohibited aliases fail
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC11
 
@@ -584,7 +584,7 @@ cd magefiles && go test ./chartconf -run 'TestImageReferenceGrammar|TestConformi
 ### The applier Role covers every kind its chart renders
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC12
 

@@ -276,7 +276,7 @@ targets that set catalog_root in demo.yaml.
 | migration-v0.20260727.0-agent-role-realization-alignment | Agent Role-Realization Naming Migration | Old-to-new names and paths, compatibility durations and mechanisms, exact release pins, consumer provenance, and post-merge tag policy. | docs/migrations/v0.20260727.0-agent-role-realization-alignment.md |
 
 <!-- field: srd_index | form: "typed table" -->
-## Srd index
+## SRD index
 
 | id | title | historical_aliases | summary | status | support | path | canonical_path |
 | --- | --- | --- | --- | --- | --- | --- | --- |

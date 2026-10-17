@@ -18,7 +18,7 @@ Minimal specification index for running generic jurist charter checks.
 | "99.0" | Charter demo | 0 | 0 | open |
 
 <!-- field: srd_index -->
-## Srd index
+## SRD index
 
 | id | title | summary | path |
 | --- | --- | --- | --- |

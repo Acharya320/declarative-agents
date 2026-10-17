@@ -57,7 +57,7 @@ requirements.
 | agent-architecture-roadmap | Agent Architecture Application Road Map | Release 00.0 contract, implemented deterministic evidence, and dependency-gated live observations. | docs/road-map.md |
 
 <!-- field: srd_index -->
-## Srd index
+## SRD index
 
 | id | title | status | path |
 | --- | --- | --- | --- |

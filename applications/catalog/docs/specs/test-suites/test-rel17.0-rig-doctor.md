@@ -32,7 +32,7 @@ release: "17.0"
 rel17.0-uc001-rig-doctor
 
 <!-- field: id -->
-#### Id
+#### ID
 
 rig-doctor-closure
 
@@ -67,7 +67,7 @@ mage validate
 rel17.0-uc001-rig-doctor
 
 <!-- field: id -->
-#### Id
+#### ID
 
 rig-doctor-diagnosed
 
@@ -108,7 +108,7 @@ go test ./conformance -run '^TestRigDoctorDiagnosed'
 rel17.0-uc001-rig-doctor
 
 <!-- field: id -->
-#### Id
+#### ID
 
 rig-doctor-spool-queries
 
@@ -150,7 +150,7 @@ go test ./conformance -run '^TestRigDoctorQueriesTheCapturedSpool'
 rel17.0-uc001-rig-doctor
 
 <!-- field: id -->
-#### Id
+#### ID
 
 rig-doctor-repairs-its-diagnosis
 
@@ -189,7 +189,7 @@ go test ./conformance -run '^TestRigDoctorRepairs'
 rel17.0-uc001-rig-doctor
 
 <!-- field: id -->
-#### Id
+#### ID
 
 rig-doctor-refuses-an-incomplete-diagnosis
 
@@ -223,7 +223,7 @@ go test ./conformance -run '^TestRigDoctorRefusesADiagnosisWithoutFindings'
 rel17.0-uc001-rig-doctor
 
 <!-- field: id -->
-#### Id
+#### ID
 
 rig-doctor-retries-a-failed-model-call
 
@@ -261,7 +261,7 @@ go test ./conformance -run '^TestRigDoctorRetriesAFailedModelCall'
 rel17.0-uc001-rig-doctor
 
 <!-- field: id -->
-#### Id
+#### ID
 
 rig-doctor-does-not-retry-a-rejected-credential
 
@@ -295,7 +295,7 @@ go test ./conformance -run '^TestRigDoctorDoesNotRetryARejectedCredential'
 rel17.0-uc001-rig-doctor
 
 <!-- field: id -->
-#### Id
+#### ID
 
 rig-doctor-gives-up-on-an-unreachable-provider
 
@@ -329,7 +329,7 @@ go test ./conformance -run '^TestRigDoctorGivesUpOnAnUnreachableProvider'
 rel17.0-uc001-rig-doctor
 
 <!-- field: id -->
-#### Id
+#### ID
 
 rig-doctor-no-evidence
 
@@ -368,7 +368,7 @@ go test ./conformance -run '^TestRigDoctorNoEvidence'
 rel17.0-uc001-rig-doctor
 
 <!-- field: id -->
-#### Id
+#### ID
 
 rig-capture-manifest
 
@@ -402,7 +402,7 @@ cd ../.. && go test ./magefiles/kindrig -run '^TestCaptureEvidence'
 rel17.0-uc001-rig-doctor
 
 <!-- field: id -->
-#### Id
+#### ID
 
 rig-doctor-registration
 
@@ -435,7 +435,7 @@ go test ./conformance -run '^TestFamily'
 rel17.0-uc001-rig-doctor
 
 <!-- field: id -->
-#### Id
+#### ID
 
 rig-doctor-live
 

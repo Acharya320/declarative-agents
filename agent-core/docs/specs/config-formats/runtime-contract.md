@@ -344,7 +344,7 @@ Model and provider selection comes from the selected boundary tool
 declaration, not from the agent binary.
 
 <!-- field: llm_parser_ownership -->
-## Llm parser ownership
+## LLM parser ownership
 
 LLM response parsing is boundary-tool configuration. A selected agent
 profile loads an invoke_llm ToolDef from <profile-root>/*/llm/*.yaml. That ToolDef

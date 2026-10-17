@@ -177,7 +177,7 @@ The applier SHALL NOT select templates or own agent lifecycle; those are the cre
 The applier SHALL run the shared agent-core image and receive the helm and kubectl CLIs at pod start from a digest-pinned CLI donor image (applier.cliDonor.image) that an init container copies into a volume mounted read-only at /opt/tools and placed first on the applier's PATH, so the binaries it execs cannot be replaced at runtime; no image diverges from the binary-only image contract (srd003 R1.3, GH-2222). The app's chart SHALL be delivered to the applier pod as a mounted volume at /chart rather than baked into an image (GH-1368).
 
 <!-- field: deployment_api_contract | form: "tree" -->
-## Deployment api contract
+## Deployment API contract
 
 - version: "1"
 - description:

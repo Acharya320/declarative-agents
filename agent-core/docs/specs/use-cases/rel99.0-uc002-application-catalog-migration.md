@@ -160,6 +160,6 @@ All fourteen GH-1036 child issues have one formal test case and execute in the a
 done
 
 <!-- field: srd -->
-## Srd
+## SRD
 
 srd043-application-catalog-layout

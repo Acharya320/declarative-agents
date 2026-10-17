@@ -43,7 +43,7 @@ case-insensitive "false".
 rel01.0-uc001-demo-trace-collection
 
 <!-- field: id -->
-#### Id
+#### ID
 
 tracing_enabled
 
@@ -90,7 +90,7 @@ reservations remain disjoint.
 rel01.0-uc001-demo-trace-collection
 
 <!-- field: id -->
-#### Id
+#### ID
 
 collector_command
 
@@ -133,7 +133,7 @@ appends the OTLP flags, verifying that --otel-otlp-endpoint and
 rel01.0-uc001-demo-trace-collection
 
 <!-- field: id -->
-#### Id
+#### ID
 
 traced_curator_command
 

@@ -18,7 +18,7 @@ One portable requirement used by the coding application integration stages.
 | "01.0" | Greeting | 0 | 0 | open |
 
 <!-- field: srd_index -->
-## Srd index
+## SRD index
 
 | id | title | summary | path |
 | --- | --- | --- | --- |

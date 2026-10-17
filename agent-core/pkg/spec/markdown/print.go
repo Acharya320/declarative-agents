@@ -19,11 +19,16 @@ import (
 // branch depends on the document type: the declaration and its YAML mapping
 // decide everything.
 func (d *Declaration) Print(doc *yaml.Node) ([]byte, error) {
+	out, _, err := d.PrintReport(doc)
+	return out, err
+}
+
+func (p *printer) document(doc *yaml.Node) ([]byte, error) {
+	d := p.d
 	root, license := documentRoot(doc)
 	if root == nil || root.Kind != yaml.MappingNode {
 		return nil, errors.New("print: the document is not a mapping")
 	}
-	p := &printer{d: d}
 	if err := p.frontmatter(root); err != nil {
 		return nil, err
 	}
@@ -41,8 +46,39 @@ func (d *Declaration) Print(doc *yaml.Node) ([]byte, error) {
 }
 
 type printer struct {
-	d     *Declaration
-	lines []string
+	d      *Declaration
+	lines  []string
+	fences []Fence
+}
+
+// Fence names a value the printer still wrote as a fenced yaml block, the
+// reported last resort (eng10), and why no other rendering held it.
+type Fence struct {
+	Field  string
+	Reason string
+}
+
+func (f Fence) String() string { return f.Field + ": " + f.Reason }
+
+// PrintReport prints a document like Print and also returns every value it
+// wrote as a fenced yaml block (GH-2643).
+func (d *Declaration) PrintReport(doc *yaml.Node) ([]byte, []Fence, error) {
+	p := &printer{d: d}
+	out, err := p.document(doc)
+	return out, p.fences, err
+}
+
+// Fences reports the fenced yaml blocks a Markdown document prints with.
+func (d *Declaration) Fences(data []byte, source string) ([]Fence, error) {
+	doc, findings, err := d.Parse(data, source)
+	if err != nil {
+		return nil, err
+	}
+	if doc == nil {
+		return nil, fmt.Errorf("%s: %d finding(s)", source, len(findings))
+	}
+	_, fences, err := d.PrintReport(doc)
+	return fences, err
 }
 
 // block appends lines as one Markdown block, a blank line after the last.
@@ -94,6 +130,9 @@ func (p *printer) member(level int, parent, key string, value *yaml.Node) error 
 	lines, form, err := p.d.renderField(key, value)
 	if err != nil {
 		return fmt.Errorf("field %s: %w", key, err)
+	}
+	if form == "" && classifyContent(strings.Join(lines, "\n")) == shapeYAML {
+		p.fences = append(p.fences, Fence{Field: key, Reason: fenceReason(value)})
 	}
 	marker := Marker{Tag: tagField, Value: key}
 	if form != "" {
@@ -153,6 +192,9 @@ func (p *printer) record(kind, id string, record *yaml.Node) error {
 		lines, err := contentLines(content, rule.Content == "any")
 		if err != nil {
 			return fmt.Errorf("%s %s: %w", kind, id, err)
+		}
+		if classifyContent(strings.Join(lines, "\n")) == shapeYAML {
+			p.fences = append(p.fences, Fence{Field: kind + " " + id, Reason: "node text that would break the document structure"})
 		}
 		p.block(lines...)
 	}

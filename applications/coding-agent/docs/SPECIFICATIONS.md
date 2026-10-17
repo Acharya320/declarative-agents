@@ -45,7 +45,7 @@ shared agent-core runtime image remains profile-free.
 | coding-agent-deployment-guide | Coding-Agent Deployment and Operations | Packaged chart prerequisites, configuration, verification, troubleshooting, security, rollback, and teardown. | docs/guides/deployment.md |
 
 <!-- field: srd_index -->
-## Srd index
+## SRD index
 
 | id | title | status | path |
 | --- | --- | --- | --- |
@@ -57,7 +57,7 @@ shared agent-core runtime image remains profile-free.
 | srd006-applier | Declarative Applier Agent | implemented | docs/specs/software-requirements/srd006-applier.md |
 
 <!-- field: library_srd_references -->
-## Library srd references
+## Library SRD references
 
 | id | owner | title | path | usage |
 | --- | --- | --- | --- | --- |

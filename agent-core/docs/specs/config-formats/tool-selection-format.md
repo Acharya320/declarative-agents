@@ -26,7 +26,7 @@ tool reuse across agents with different toolsets.
      startup error.
 
 <!-- field: cli_mapping | form: "tree" -->
-## Cli mapping
+## CLI mapping
 
 - description:
   Startup uses an agent profile. It points at one or more tools.yaml
