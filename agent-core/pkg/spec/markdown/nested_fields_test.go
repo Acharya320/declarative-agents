@@ -211,3 +211,17 @@ notes: Plain text.
 		}
 	}
 }
+
+// TestRecordFieldKeepsAStringList prints a list of strings under a key whose
+// level declares a record kind as a plain list.
+func TestRecordFieldKeepsAStringList(t *testing.T) {
+	d := nestedDeclaration(t)
+	original := yamlDoc(t, "id: plan\ntitle: Plan\noverview:\n  layout:\n    packages: [internal/a, internal/b]\n")
+	md, back := nestedRoundTrip(t, d, original)
+	if diff := Diff(original, back); diff != "" {
+		t.Fatalf("round trip changed %s\n%s", diff, md)
+	}
+	if !strings.Contains(md, "#### Packages\n\n- internal/a\n- internal/b\n") {
+		t.Errorf("string list did not print as a list\n%s", md)
+	}
+}

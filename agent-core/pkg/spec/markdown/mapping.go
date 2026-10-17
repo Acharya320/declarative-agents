@@ -128,13 +128,24 @@ func (r *Declaration) fieldRecords(level int, key string) (string, bool) {
 	return "", false
 }
 
-// recordsFit reports a value that holds a node kind's records: a list for
-// list records, a map for map records.
+// recordsFit reports a value that holds a node kind's records: a map for
+// map records, and for list records a list of maps, so a list of plain
+// strings under the same key keeps its own form while a malformed record
+// still fails to print.
 func (r *Declaration) recordsFit(kind string, value *yaml.Node) bool {
-	if r.Nodes[kind].YAML.Records == recordsMap {
+	m := r.Nodes[kind].YAML
+	if m.Records == recordsMap {
 		return value.Kind == yaml.MappingNode
 	}
-	return value.Kind == yaml.SequenceNode
+	if value.Kind != yaml.SequenceNode {
+		return false
+	}
+	for _, item := range value.Content {
+		if item.Kind != yaml.MappingNode {
+			return false
+		}
+	}
+	return true
 }
 
 // nestedSlot reports whether a field at level declares a slot for nested
