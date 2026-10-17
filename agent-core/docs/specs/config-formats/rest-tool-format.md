@@ -17,7 +17,7 @@ references named clients, servers, resources, operations, and endpoints.
 Runtime input supplies only declared request values.
 
 <!-- field: release_03_0_support -->
-## Release 03 0 support
+## Release 03.0 support
 
 <!-- field: implemented | form: "tree" -->
 ### Implemented
@@ -1248,62 +1248,69 @@ schema data for validation and for OpenAPI schema interop.
 - additional_properties
 - description
 
-<!-- field: fragment_files | form: "tree" -->
+<!-- field: fragment_files -->
 ## Fragment files
 
-- description:
-  A REST definition file MAY be a fragment (srd052-declaration-fragments):
-  `params` beside the `rest` root declares typed parameters, and an
-  importing REST file's `expand` list applies the fragment with
-  arguments. The two fields sit beside `unit` and `imports` (srd050) and
-  follow the same rules as in cfg-tool-declaration-format: scalar-only
-  substitution of `$param(name)`, and the expanded definition compiled
-  through ValidateDefinition like a hand-written one. When `as` is given,
-  every name the fragment's `rest` body produces -- the clients, servers,
-  openapi, auth, limits, retry_policies, response_mappings, and
-  document_resources entries, and the operation and endpoint names nested
-  under clients and servers, which the closure holds unique -- is renamed
-  `<as>_<name>`, and the fragment's own references to those names
-  (`limits_ref`, `auth_ref`, `retry_ref`, `response_ref`,
-  `require_auth_ref`, `document_resources`, `bind`) follow, so each
-  expansion resolves on its own. A tool that reaches a produced endpoint
-  names the prefixed form, `routes: [alpha_exit]`. A reference to a name the fragment does
-  not declare is left for the importer's closure to supply. Landed with
-  GH-2082.
-- example:
-  # units/http-json-api.yaml -- the fragment
-  unit: http-json-api
-  params:
-  - name: service
-    type: string
-  - name: base_url
-    type: string
-  - name: timeout
-    type: string
-    default: 5s
-  rest:
-    version: v1
-    clients:
-      $param(service)_api:
-        base_url: $param(base_url)
-        limits: default
-    limits:
-      default:
-        connect_timeout: $param(timeout)
+<!-- field: description -->
+### Description
 
-  # agents/observer/rest.yaml -- the importer
-  unit: observer-rest
-  expand:
-  - fragment: ../units/http-json-api.yaml
-    as: metrics
-    args: {service: metrics, base_url: http://metrics:9090}
-  - fragment: ../units/http-json-api.yaml
-    as: traces
-    args: {service: traces, base_url: http://traces:4318, timeout: 2s}
-  rest:
-    version: v1
-  # produces clients metrics_metrics_api and traces_traces_api, each with
-  # its own limits profile metrics_default and traces_default
+A REST definition file can be a fragment (srd052-declaration-fragments):
+`params` beside the `rest` root declares typed parameters, and an
+importing REST file's `expand` list applies the fragment with
+arguments. The two fields sit beside `unit` and `imports` (srd050) and
+follow the same rules as in cfg-tool-declaration-format: scalar-only
+substitution of `$param(name)`, and the expanded definition compiled
+through ValidateDefinition like a hand-written one. When `as` is given,
+every name the fragment's `rest` body produces -- the clients, servers,
+openapi, auth, limits, retry_policies, response_mappings, and
+document_resources entries, and the operation and endpoint names nested
+under clients and servers, which the closure holds unique -- is renamed
+`<as>_<name>`, and the fragment's own references to those names
+(`limits_ref`, `auth_ref`, `retry_ref`, `response_ref`,
+`require_auth_ref`, `document_resources`, `bind`) follow, so each
+expansion resolves on its own. A tool that reaches a produced endpoint
+names the prefixed form, `routes: [alpha_exit]`. A reference to a name the fragment does
+not declare is left for the importer's closure to supply. Landed with
+GH-2082.
+
+<!-- field: example -->
+### Example
+
+```yaml
+# units/http-json-api.yaml -- the fragment
+unit: http-json-api
+params:
+- name: service
+  type: string
+- name: base_url
+  type: string
+- name: timeout
+  type: string
+  default: 5s
+rest:
+  version: v1
+  clients:
+    $param(service)_api:
+      base_url: $param(base_url)
+      limits: default
+  limits:
+    default:
+      connect_timeout: $param(timeout)
+
+# agents/observer/rest.yaml -- the importer
+unit: observer-rest
+expand:
+- fragment: ../units/http-json-api.yaml
+  as: metrics
+  args: {service: metrics, base_url: http://metrics:9090}
+- fragment: ../units/http-json-api.yaml
+  as: traces
+  args: {service: traces, base_url: http://traces:4318, timeout: 2s}
+rest:
+  version: v1
+# produces clients metrics_metrics_api and traces_traces_api, each with
+# its own limits profile metrics_default and traces_default
+```
 
 <!-- field: library_imports -->
 ## Library imports
@@ -1344,485 +1351,519 @@ The first instance is the retrieval query client
 their route prefix and selectors, and import
 `/opt/agent-core/tools/units/types-retrieval.yaml` for QueryResult.
 
-<!-- field: format_examples | form: "tree" -->
+<!-- field: format_examples -->
 ## Format examples
 
-- hand_authored:
-  rest:
-    version: v1
-    auth:
-      github_app:
-        type: bearer
-        token_ref: github_token
-    limits:
-      public_api:
-        timeout: 30s
-        max_request_bytes: 65536
-        max_response_bytes: 1048576
-        redirect:
-          mode: same_host
-    retry_policies:
-      safe_reads:
-        attempts: 3
-        backoff: exponential
-        retry_status: [429, 500, 502, 503]
-    clients:
-      github:
-        base_url: https://api.github.com
-        auth_ref: github_app
-        limits_ref: public_api
-        resources:
-          issue:
-            path: /repos/{owner}/{repo}/issues/{number}
-            operations:
-              get:
-                method: GET
-                params:
-                  path:
-                    owner: {type: string}
-                    repo: {type: string}
-                    number: {type: integer}
-                success: {status: [200], signal: RESTResourceRead}
-                failures:
-                  - status: [404]
-                    signal: RESTMissing
-                response:
-                  output:
-                    title: $.title
-                    state: $.state
-                side_effects:
-                  - kind: external_api
-                    target: github.issue
-                    state: read_only
-                reversibility:
-                  classification: reversible
-                  undo: noop
-              set:
-                method: PATCH
-                params:
-                  path:
-                    owner: {type: string}
-                    repo: {type: string}
-                    number: {type: integer}
-                  body_schema:
-                    type: object
-                    properties:
-                      title: {type: string}
-                      state: {type: string}
-                success: {status: [200], signal: RESTResourceWritten}
-                side_effects:
-                  - kind: external_api
-                    target: github.issue
-                    state: issue_updated
-                reversibility:
-                  classification: compensatable
-                  undo: restore_previous_issue_fields
-        operations:
-          search_issues:
-            method: GET
-            path: /search/issues
-            params:
-              query:
-                q: {type: string}
-            success: {status: [200], signal: RESTResponded}
-            side_effects:
-              - kind: external_api
-                target: github.search
-                state: read_only
-            reversibility:
-              classification: reversible
-              undo: noop
-- openapi_backed:
-  rest:
-    version: v1
-    openapi:
-      payments:
-        path: ./openapi/payments.yaml
-        base_url: https://payments.internal
-        expose:
-          - getPayment
-          - createPayment
-          - cancelPayment
-        bind:
-          receivePaymentWebhook: payment_webhook
-        side_effects:
-          createPayment:
+<!-- field: hand_authored -->
+### Hand authored
+
+```yaml
+rest:
+  version: v1
+  auth:
+    github_app:
+      type: bearer
+      token_ref: github_token
+  limits:
+    public_api:
+      timeout: 30s
+      max_request_bytes: 65536
+      max_response_bytes: 1048576
+      redirect:
+        mode: same_host
+  retry_policies:
+    safe_reads:
+      attempts: 3
+      backoff: exponential
+      retry_status: [429, 500, 502, 503]
+  clients:
+    github:
+      base_url: https://api.github.com
+      auth_ref: github_app
+      limits_ref: public_api
+      resources:
+        issue:
+          path: /repos/{owner}/{repo}/issues/{number}
+          operations:
+            get:
+              method: GET
+              params:
+                path:
+                  owner: {type: string}
+                  repo: {type: string}
+                  number: {type: integer}
+              success: {status: [200], signal: RESTResourceRead}
+              failures:
+                - status: [404]
+                  signal: RESTMissing
+              response:
+                output:
+                  title: $.title
+                  state: $.state
+              side_effects:
+                - kind: external_api
+                  target: github.issue
+                  state: read_only
+              reversibility:
+                classification: reversible
+                undo: noop
+            set:
+              method: PATCH
+              params:
+                path:
+                  owner: {type: string}
+                  repo: {type: string}
+                  number: {type: integer}
+                body_schema:
+                  type: object
+                  properties:
+                    title: {type: string}
+                    state: {type: string}
+              success: {status: [200], signal: RESTResourceWritten}
+              side_effects:
+                - kind: external_api
+                  target: github.issue
+                  state: issue_updated
+              reversibility:
+                classification: compensatable
+                undo: restore_previous_issue_fields
+      operations:
+        search_issues:
+          method: GET
+          path: /search/issues
+          params:
+            query:
+              q: {type: string}
+          success: {status: [200], signal: RESTResponded}
+          side_effects:
+            - kind: external_api
+              target: github.search
+              state: read_only
+          reversibility:
+            classification: reversible
+            undo: noop
+```
+
+<!-- field: openapi_backed -->
+### OpenAPI backed
+
+```yaml
+rest:
+  version: v1
+  openapi:
+    payments:
+      path: ./openapi/payments.yaml
+      base_url: https://payments.internal
+      expose:
+        - getPayment
+        - createPayment
+        - cancelPayment
+      bind:
+        receivePaymentWebhook: payment_webhook
+      side_effects:
+        createPayment:
+          - kind: external_api
+            target: payments.payment
+            state: payment_created
+      reversibility:
+        createPayment:
+          classification: compensatable
+          undo: cancelPayment
+  clients:
+    payments:
+      base_url: https://payments.internal
+      operations:
+        create_payment:
+          openapi_operation_id: createPayment
+          success: {status: [202], signal: RESTAccepted}
+          async:
+            request_id: $.id
+            correlation: $.correlation_id
+            idempotency_token: "{{ params.order_id }}"
+            timeout: 2m
+            state_retention: consume
+          side_effects:
             - kind: external_api
               target: payments.payment
-              state: payment_created
-        reversibility:
-          createPayment:
+              state: payment_submitted
+          reversibility:
             classification: compensatable
             undo: cancelPayment
-    clients:
-      payments:
-        base_url: https://payments.internal
-        operations:
-          create_payment:
-            openapi_operation_id: createPayment
-            success: {status: [202], signal: RESTAccepted}
-            async:
-              request_id: $.id
-              correlation: $.correlation_id
-              idempotency_token: "{{ params.order_id }}"
-              timeout: 2m
-              state_retention: consume
-            side_effects:
-              - kind: external_api
-                target: payments.payment
-                state: payment_submitted
-            reversibility:
-              classification: compensatable
-              undo: cancelPayment
-    servers:
-      payments_webhooks:
-        address: 127.0.0.1:9090
-        queue:
-          name: payments
-          capacity: 128
-          overflow: reject
-        endpoints:
-          payment_webhook:
-            openapi_operation_id: receivePaymentWebhook
-            binding: emit_signal
-            signal: PaymentWebhookReceived
-            queue:
-              name: payments
-            response:
-              output:
-                accepted: "true"
-- previous_result_threading:
-  # An embedding word runs before a Chroma query word. The embed word carries
-  # the query text forward and yields a flat vector under mapped.embedding; the
-  # Chroma word selects that vector from the previous Result and renders it as
-  # a nested array through the single-token raw passthrough.
-  rest:
-    version: v1
-    clients:
-      ollama:
-        base_url: http://127.0.0.1:11434
-        operations:
-          embed_query:
-            method: POST
-            path: /api/embed
-            params:
-              body_schema:
-                type: object
-                required: [model, input]
-                properties:
-                  model: {type: string}
-                  input: {type: string}
-              carry_forward: [input]
-            success: {status: [200], signal: RESTResponded}
-            response:
-              output:
-                embedding: $.embedding
-            side_effects:
-              - kind: external_api
-                target: ollama.embed
-                state: read_only
-            reversibility:
-              classification: reversible
-              undo: noop
-      chroma:
-        base_url: http://127.0.0.1:8000
-        operations:
-          query_collection:
-            method: POST
-            path: /api/v2/tenants/default/databases/default/collections/{collection}/query
-            params:
-              path:
-                collection: {type: string}
-              body_schema:
-                type: object
-                required: [query_embeddings]
-                properties:
-                  query_embeddings: {type: array}
-                  n_results: {type: integer}
-              body_source: previous_result
-              input_mapping:
-                query_embeddings: $.mapped.embedding
-                collection: $.carried.input
-            body:
-              query_embeddings: ["{{ params.query_embeddings }}"]
-              n_results: 5
-            success: {status: [200], signal: RESTResponded}
-            side_effects:
-              - kind: external_api
-                target: chroma.collection
-                state: read_only
-            reversibility:
-              classification: reversible
-              undo: noop
-- command_state_threading:
-  # A three-word chain. embed_query (word 1) yields a flat vector under
-  # embedding and carries its input text forward. record_event (word 2) runs
-  # next. query_collection (word 3) reaches back past word 2 to word 1 by
-  # label through body_source command_state and $from(embed_query) selectors,
-  # so a non-adjacent output threads into its request body as a nested array.
-  rest:
-    version: v1
-    clients:
-      ollama:
-        base_url: http://127.0.0.1:11434
-        operations:
-          embed_query:
-            method: POST
-            path: /api/embed
-            params:
-              body_schema:
-                type: object
-                required: [model, input]
-                properties:
-                  model: {type: string}
-                  input: {type: string}
-              carry_forward: [input]
-            success: {status: [200], signal: RESTResponded}
-            response:
-              output:
-                embedding: $.embedding
-            side_effects:
-              - kind: external_api
-                target: ollama.embed
-                state: read_only
-            reversibility:
-              classification: reversible
-              undo: noop
-      audit:
-        base_url: http://127.0.0.1:9000
-        operations:
-          record_event:
-            method: POST
-            path: /api/events
-            params:
-              body_schema:
-                type: object
-                required: [event]
-                properties:
-                  event: {type: string}
-            body:
-              event: query_prepared
-            success: {status: [200], signal: RESTResponded}
-            side_effects:
-              - kind: external_api
-                target: audit.events
-                state: append_only
-            reversibility:
-              classification: reversible
-              undo: noop
-      chroma:
-        base_url: http://127.0.0.1:8000
-        operations:
-          query_collection:
-            method: POST
-            path: /api/v2/tenants/default/databases/default/collections/{collection}/query
-            params:
-              path:
-                collection: {type: string}
-              body_schema:
-                type: object
-                required: [query_embeddings]
-                properties:
-                  query_embeddings: {type: array}
-                  n_results: {type: integer}
-              body_source: command_state
-              input_mapping:
-                query_embeddings: $from(embed_query).mapped.embedding
-                collection: $from(embed_query).carried.input
-            body:
-              query_embeddings: ["{{ params.query_embeddings }}"]
-              n_results: 5
-            success: {status: [200], signal: RESTResponded}
-            side_effects:
-              - kind: external_api
-                target: chroma.collection
-                state: read_only
-            reversibility:
-              classification: reversible
-              undo: noop
-- lifecycle_control_fan_in:
-  rest:
-    version: v1
-    servers:
-      agent_control:
-        address: 127.0.0.1:19090
-        queue:
-          name: control
-          capacity: 64
-          overflow: reject
-        event_sources:
-          control_events:
-            routes: [exit, pause, rollback, inject]
-            signals: [AgentExitRequested, PauseRequested, RollbackRequested, InjectSignalRequested]
-            stopped_behavior: emit_server_stopped
-        endpoints:
-          exit:
-            method: POST
-            path: /api/lifecycle/exit
-            binding: lifecycle_control
-            lifecycle_control:
-              action: enqueue_signal
-              signal: AgentExitRequested
-              target_schema:
-                type: object
-                properties:
-                  reason: {type: string}
-                  status: {type: string}
-          pause:
-            method: POST
-            path: /api/lifecycle/pause
-            binding: lifecycle_control
-            lifecycle_control:
-              action: enqueue_signal
-              signal: PauseRequested
-          rollback:
-            method: POST
-            path: /api/lifecycle/rollback
-            binding: lifecycle_control
-            lifecycle_control:
-              action: enqueue_signal
-              signal: RollbackRequested
-              target_schema:
-                type: object
-                properties:
-                  target_iteration: {type: integer}
-          inject:
-            method: POST
-            path: /api/machine/inject
-            binding: lifecycle_control
-            lifecycle_control:
-              action: inject_signal
-              allowed_signals: [Approved, Rejected, PauseRequested]
-- tool_declarations:
-  tools:
-    - name: get_issue
-      type: builtin
-      init: rest_client_get
-      category: boundary
-      emits: [RESTResourceRead, RESTMissing, RESTDomainFailed, CommandError]
-      config:
-        rest_ref: github
-        resource: issue
-        operation: get
+  servers:
+    payments_webhooks:
+      address: 127.0.0.1:9090
+      queue:
+        name: payments
+        capacity: 128
+        overflow: reject
+      endpoints:
+        payment_webhook:
+          openapi_operation_id: receivePaymentWebhook
+          binding: emit_signal
+          signal: PaymentWebhookReceived
+          queue:
+            name: payments
+          response:
+            output:
+              accepted: "true"
+```
 
-    - name: create_payment
-      type: builtin
-      init: rest_client_send
-      category: boundary
-      emits: [RESTAccepted, CommandError]
-      config:
-        rest_ref: payments
-        operation: create_payment
+<!-- field: previous_result_threading -->
+### Previous result threading
 
-    - name: await_payment
-      type: builtin
-      init: rest_client_await
-      category: boundary
-      emits: [RESTResponded, RESTDomainFailed, RESTMissing, RESTAwaitTimedOut, CommandError]
-      config:
-        rest_ref: payments
-        operation: create_payment
+```yaml
+# An embedding word runs before a Chroma query word. The embed word carries
+# the query text forward and yields a flat vector under mapped.embedding; the
+# Chroma word selects that vector from the previous Result and renders it as
+# a nested array through the single-token raw passthrough.
+rest:
+  version: v1
+  clients:
+    ollama:
+      base_url: http://127.0.0.1:11434
+      operations:
+        embed_query:
+          method: POST
+          path: /api/embed
+          params:
+            body_schema:
+              type: object
+              required: [model, input]
+              properties:
+                model: {type: string}
+                input: {type: string}
+            carry_forward: [input]
+          success: {status: [200], signal: RESTResponded}
+          response:
+            output:
+              embedding: $.embedding
+          side_effects:
+            - kind: external_api
+              target: ollama.embed
+              state: read_only
+          reversibility:
+            classification: reversible
+            undo: noop
+    chroma:
+      base_url: http://127.0.0.1:8000
+      operations:
+        query_collection:
+          method: POST
+          path: /api/v2/tenants/default/databases/default/collections/{collection}/query
+          params:
+            path:
+              collection: {type: string}
+            body_schema:
+              type: object
+              required: [query_embeddings]
+              properties:
+                query_embeddings: {type: array}
+                n_results: {type: integer}
+            body_source: previous_result
+            input_mapping:
+              query_embeddings: $.mapped.embedding
+              collection: $.carried.input
+          body:
+            query_embeddings: ["{{ params.query_embeddings }}"]
+            n_results: 5
+          success: {status: [200], signal: RESTResponded}
+          side_effects:
+            - kind: external_api
+              target: chroma.collection
+              state: read_only
+          reversibility:
+            classification: reversible
+            undo: noop
+```
 
-    - name: launch_payment_webhooks
-      type: builtin
-      init: rest_server_launch
-      category: boundary
-      emits: [ServerLaunched, CommandError]
-      config:
-        rest_ref: payments_webhooks
+<!-- field: command_state_threading -->
+### Command state threading
 
-    - name: await_any_control_event
-      type: builtin
-      init: rest_await_event
-      category: boundary
-      emits: [AgentExitRequested, PauseRequested, RollbackRequested, InjectSignalRequested, AwaitTimedOut, ServerStopped, CommandError]
-      config:
-        sources:
-          - server: agent_control
-            routes: [exit, pause, rollback, inject]
-            signals: [AgentExitRequested, PauseRequested, RollbackRequested, InjectSignalRequested]
-        timeout: 30s
-        read_policy: first_available
-        stopped_behavior: emit_server_stopped
+```yaml
+# A three-word chain. embed_query (word 1) yields a flat vector under
+# embedding and carries its input text forward. record_event (word 2) runs
+# next. query_collection (word 3) reaches back past word 2 to word 1 by
+# label through body_source command_state and $from(embed_query) selectors,
+# so a non-adjacent output threads into its request body as a nested array.
+rest:
+  version: v1
+  clients:
+    ollama:
+      base_url: http://127.0.0.1:11434
+      operations:
+        embed_query:
+          method: POST
+          path: /api/embed
+          params:
+            body_schema:
+              type: object
+              required: [model, input]
+              properties:
+                model: {type: string}
+                input: {type: string}
+            carry_forward: [input]
+          success: {status: [200], signal: RESTResponded}
+          response:
+            output:
+              embedding: $.embedding
+          side_effects:
+            - kind: external_api
+              target: ollama.embed
+              state: read_only
+          reversibility:
+            classification: reversible
+            undo: noop
+    audit:
+      base_url: http://127.0.0.1:9000
+      operations:
+        record_event:
+          method: POST
+          path: /api/events
+          params:
+            body_schema:
+              type: object
+              required: [event]
+              properties:
+                event: {type: string}
+          body:
+            event: query_prepared
+          success: {status: [200], signal: RESTResponded}
+          side_effects:
+            - kind: external_api
+              target: audit.events
+              state: append_only
+          reversibility:
+            classification: reversible
+            undo: noop
+    chroma:
+      base_url: http://127.0.0.1:8000
+      operations:
+        query_collection:
+          method: POST
+          path: /api/v2/tenants/default/databases/default/collections/{collection}/query
+          params:
+            path:
+              collection: {type: string}
+            body_schema:
+              type: object
+              required: [query_embeddings]
+              properties:
+                query_embeddings: {type: array}
+                n_results: {type: integer}
+            body_source: command_state
+            input_mapping:
+              query_embeddings: $from(embed_query).mapped.embedding
+              collection: $from(embed_query).carried.input
+          body:
+            query_embeddings: ["{{ params.query_embeddings }}"]
+            n_results: 5
+          success: {status: [200], signal: RESTResponded}
+          side_effects:
+            - kind: external_api
+              target: chroma.collection
+              state: read_only
+          reversibility:
+            classification: reversible
+            undo: noop
+```
 
-    - name: exit_agent
-      type: builtin
-      init: exit_agent
-      category: boundary
-      emits: [AgentExited, CommandError]
-      config:
-        drain_policy: stop_servers
-- reserved_document_resource_target_format:
-  # Reserved target-format sketch. ValidateDefinition rejects
-  # rest.document_resources and machine_request.document_resources in release
-  # 03.0. Use profile-selected filesystem resource ToolDefs for current
-  # Knowledge Manager request machines.
-  rest:
-    version: v1
-    document_resources:
-      documentation_corpus:
-        root: docs
-        include: ["**/*.yaml", "**/*.yml", "**/*.md"]
-        extensions: [.yaml, .yml, .md]
-        response_modes: [raw_yaml, parsed_yaml, raw_markdown]
-        default_response_mode: parsed_yaml
-        max_bytes: 262144
-        symlinks: deny_escape
-        binary_policy: deny
-        category_rules:
-          - prefix: specs/software-requirements/
-            category: srd
-          - prefix: specs/semantic-models/
-            category: semantic-model
-          - prefix: specs/config-formats/
-            category: config-format
-        operations:
-          list:
-            type: list
-            success_signal: DocumentListReady
-          get:
-            type: get
-            success_signal: DocumentReady
-            not_found_signal: DocumentMissing
-            denied_signal: DocumentResourceDenied
-        ui:
-          label: Documentation
-          sidebar_grouping: category
-          actions: [doc_list, doc_get, doc_search]
-          asset_ref: ${AGENT_CATALOG_ROOT}/knowledge-manager/documentation-curator/ui
-    servers:
-      knowledge_manager:
-        address: 127.0.0.1:19191
-        endpoints:
-          get_documentation:
-            method: POST
-            path: /api/docs/query
-            binding: machine_request
+<!-- field: lifecycle_control_fan_in -->
+### Lifecycle control fan in
+
+```yaml
+rest:
+  version: v1
+  servers:
+    agent_control:
+      address: 127.0.0.1:19090
+      queue:
+        name: control
+        capacity: 64
+        overflow: reject
+      event_sources:
+        control_events:
+          routes: [exit, pause, rollback, inject]
+          signals: [AgentExitRequested, PauseRequested, RollbackRequested, InjectSignalRequested]
+          stopped_behavior: emit_server_stopped
+      endpoints:
+        exit:
+          method: POST
+          path: /api/lifecycle/exit
+          binding: lifecycle_control
+          lifecycle_control:
+            action: enqueue_signal
+            signal: AgentExitRequested
+            target_schema:
+              type: object
+              properties:
+                reason: {type: string}
+                status: {type: string}
+        pause:
+          method: POST
+          path: /api/lifecycle/pause
+          binding: lifecycle_control
+          lifecycle_control:
+            action: enqueue_signal
+            signal: PauseRequested
+        rollback:
+          method: POST
+          path: /api/lifecycle/rollback
+          binding: lifecycle_control
+          lifecycle_control:
+            action: enqueue_signal
+            signal: RollbackRequested
+            target_schema:
+              type: object
+              properties:
+                target_iteration: {type: integer}
+        inject:
+          method: POST
+          path: /api/machine/inject
+          binding: lifecycle_control
+          lifecycle_control:
+            action: inject_signal
+            allowed_signals: [Approved, Rejected, PauseRequested]
+```
+
+<!-- field: tool_declarations -->
+### Tool declarations
+
+```yaml
+tools:
+  - name: get_issue
+    type: builtin
+    init: rest_client_get
+    category: boundary
+    emits: [RESTResourceRead, RESTMissing, RESTDomainFailed, CommandError]
+    config:
+      rest_ref: github
+      resource: issue
+      operation: get
+
+  - name: create_payment
+    type: builtin
+    init: rest_client_send
+    category: boundary
+    emits: [RESTAccepted, CommandError]
+    config:
+      rest_ref: payments
+      operation: create_payment
+
+  - name: await_payment
+    type: builtin
+    init: rest_client_await
+    category: boundary
+    emits: [RESTResponded, RESTDomainFailed, RESTMissing, RESTAwaitTimedOut, CommandError]
+    config:
+      rest_ref: payments
+      operation: create_payment
+
+  - name: launch_payment_webhooks
+    type: builtin
+    init: rest_server_launch
+    category: boundary
+    emits: [ServerLaunched, CommandError]
+    config:
+      rest_ref: payments_webhooks
+
+  - name: await_any_control_event
+    type: builtin
+    init: rest_await_event
+    category: boundary
+    emits: [AgentExitRequested, PauseRequested, RollbackRequested, InjectSignalRequested, AwaitTimedOut, ServerStopped, CommandError]
+    config:
+      sources:
+        - server: agent_control
+          routes: [exit, pause, rollback, inject]
+          signals: [AgentExitRequested, PauseRequested, RollbackRequested, InjectSignalRequested]
+      timeout: 30s
+      read_policy: first_available
+      stopped_behavior: emit_server_stopped
+
+  - name: exit_agent
+    type: builtin
+    init: exit_agent
+    category: boundary
+    emits: [AgentExited, CommandError]
+    config:
+      drain_policy: stop_servers
+```
+
+<!-- field: reserved_document_resource_target_format -->
+### Reserved document resource target format
+
+```yaml
+# Reserved target-format sketch. ValidateDefinition rejects
+# rest.document_resources and machine_request.document_resources in release
+# 03.0. Use profile-selected filesystem resource ToolDefs for current
+# Knowledge Manager request machines.
+rest:
+  version: v1
+  document_resources:
+    documentation_corpus:
+      root: docs
+      include: ["**/*.yaml", "**/*.yml", "**/*.md"]
+      extensions: [.yaml, .yml, .md]
+      response_modes: [raw_yaml, parsed_yaml, raw_markdown]
+      default_response_mode: parsed_yaml
+      max_bytes: 262144
+      symlinks: deny_escape
+      binary_policy: deny
+      category_rules:
+        - prefix: specs/software-requirements/
+          category: srd
+        - prefix: specs/semantic-models/
+          category: semantic-model
+        - prefix: specs/config-formats/
+          category: config-format
+      operations:
+        list:
+          type: list
+          success_signal: DocumentListReady
+        get:
+          type: get
+          success_signal: DocumentReady
+          not_found_signal: DocumentMissing
+          denied_signal: DocumentResourceDenied
+      ui:
+        label: Documentation
+        sidebar_grouping: category
+        actions: [doc_list, doc_get, doc_search]
+        asset_ref: ${AGENT_CATALOG_ROOT}/knowledge-manager/documentation-curator/ui
+  servers:
+    knowledge_manager:
+      address: 127.0.0.1:19191
+      endpoints:
+        get_documentation:
+          method: POST
+          path: /api/docs/query
+          binding: machine_request
+          request:
+            body_schema:
+              type: object
+              required: [query]
+              properties:
+                query: {type: string}
+          machine_request:
+            profile: ${AGENT_CATALOG_ROOT}/knowledge-manager/documentation-curator/profile.yaml
+            document_resources: [documentation_corpus]
             request:
-              body_schema:
-                type: object
-                required: [query]
-                properties:
-                  query: {type: string}
-            machine_request:
-              profile: ${AGENT_CATALOG_ROOT}/knowledge-manager/documentation-curator/profile.yaml
-              document_resources: [documentation_corpus]
-              request:
-                body:
-                  query: $.query
-              response:
-                terminal_signals:
-                  DocumentationReady:
-                    status: 200
-                    content_type: application/json
-                    body:
-                      title: $.title
-                      body: $.body
-                  DocumentationMissing:
-                    status: 404
-                    body:
-                      error: $.message
-              timeout: 10s
+              body:
+                query: $.query
+            response:
+              terminal_signals:
+                DocumentationReady:
+                  status: 200
+                  content_type: application/json
+                  body:
+                    title: $.title
+                    body: $.body
+                DocumentationMissing:
+                  status: 404
+                  body:
+                    error: $.message
+            timeout: 10s
+```
 
 <!-- field: validation_rules -->
 ## Validation rules
@@ -2181,101 +2222,125 @@ signal_source validates and maps the complete request before invoking its inject
 
 monitor_view declared_machines is valid only on read_state and exposes the root plus distinct machine_request declarations from the trusted profile closure without request-machine run state.
 
-<!-- field: invalid_examples | form: "tree" -->
+<!-- field: invalid_examples -->
 ## Invalid examples
 
-- ambiguous_resource_operation:
-  # Resource operations cannot define RPC-style verbs.
-  rest:
-    version: v1
-    clients:
-      crm:
-        base_url: https://crm.example
-        resources:
-          account:
-            path: /accounts/{id}
-            operations:
-              approve:
-                method: POST
-                path: /accounts/{id}/approve
-                success: {status: [200], signal: RESTResponded}
-                side_effects:
-                  - kind: external_api
-                    target: crm.account
-                    state: approval_requested
-                reversibility:
-                  classification: compensatable
-                  undo: revokeApproval
+<!-- field: ambiguous_resource_operation -->
+### Ambiguous resource operation
 
-  invalid_because:
-    - approve is RPC-shaped and belongs under operations.
-    - Resource operation names are limited to get, set, create, and delete.
-- missing_schema_for_body:
-  # Body templates must reference declared runtime input.
-  rest:
-    version: v1
-    clients:
-      billing:
-        base_url: https://billing.example
-        operations:
-          create_invoice:
-            method: POST
-            path: /invoices
-            body:
-              customer: "{{ params.customer }}"
-            success: {status: [201], signal: RESTResourceWritten}
-            side_effects:
-              - kind: external_api
-                target: billing.invoice
-                state: invoice_created
-            reversibility:
-              classification: compensatable
-              undo: voidInvoice
+```yaml
+# Resource operations cannot define RPC-style verbs.
+rest:
+  version: v1
+  clients:
+    crm:
+      base_url: https://crm.example
+      resources:
+        account:
+          path: /accounts/{id}
+          operations:
+            approve:
+              method: POST
+              path: /accounts/{id}/approve
+              success: {status: [200], signal: RESTResponded}
+              side_effects:
+                - kind: external_api
+                  target: crm.account
+                  state: approval_requested
+              reversibility:
+                classification: compensatable
+                undo: revokeApproval
 
-  invalid_because:
-    - body references params.customer without a declared body_schema or request binding.
-- unsupported_auth:
-  # Auth types are limited to the supported set.
-  rest:
-    version: v1
-    auth:
-      cloud:
-        type: magic_signature
-        token_ref: cloud_token
+invalid_because:
+  - approve is RPC-shaped and belongs under operations.
+  - Resource operation names are limited to get, set, create, and delete.
+```
 
-  invalid_because:
-    - magic_signature is not a supported auth type.
-- duplicate_openapi_operation:
-  # Imported operation IDs must remain unique in one REST definition.
-  rest:
-    version: v1
-    openapi:
-      service_a:
-        path: ./service-a.yaml
-        expose: [createThing]
-      service_b:
-        path: ./service-b.yaml
-        expose: [createThing]
+<!-- field: missing_schema_for_body -->
+### Missing schema for body
 
-  invalid_because:
-    - createThing maps to two imported operations in the same REST definition scope.
-- unsafe_server_binding:
-  # Public listeners need an explicit network policy.
-  rest:
-    version: v1
-    servers:
-      public_control:
-        address: 0.0.0.0:8080
-        endpoints:
-          inject:
-            method: POST
-            path: /inject
-            binding: emit_dynamic_signal
-            allowed_signals: [Approved, Rejected]
+```yaml
+# Body templates must reference declared runtime input.
+rest:
+  version: v1
+  clients:
+    billing:
+      base_url: https://billing.example
+      operations:
+        create_invoice:
+          method: POST
+          path: /invoices
+          body:
+            customer: "{{ params.customer }}"
+          success: {status: [201], signal: RESTResourceWritten}
+          side_effects:
+            - kind: external_api
+              target: billing.invoice
+              state: invoice_created
+          reversibility:
+            classification: compensatable
+            undo: voidInvoice
 
-  invalid_because:
-    - Public listener binding needs explicit network policy.
-    - Dynamic signal endpoints need authentication or another configured boundary control.
+invalid_because:
+  - body references params.customer without a declared body_schema or request binding.
+```
+
+<!-- field: unsupported_auth -->
+### Unsupported auth
+
+```yaml
+# Auth types are limited to the supported set.
+rest:
+  version: v1
+  auth:
+    cloud:
+      type: magic_signature
+      token_ref: cloud_token
+
+invalid_because:
+  - magic_signature is not a supported auth type.
+```
+
+<!-- field: duplicate_openapi_operation -->
+### Duplicate OpenAPI operation
+
+```yaml
+# Imported operation IDs must remain unique in one REST definition.
+rest:
+  version: v1
+  openapi:
+    service_a:
+      path: ./service-a.yaml
+      expose: [createThing]
+    service_b:
+      path: ./service-b.yaml
+      expose: [createThing]
+
+invalid_because:
+  - createThing maps to two imported operations in the same REST definition scope.
+```
+
+<!-- field: unsafe_server_binding -->
+### Unsafe server binding
+
+```yaml
+# Public listeners need an explicit network policy.
+rest:
+  version: v1
+  servers:
+    public_control:
+      address: 0.0.0.0:8080
+      endpoints:
+        inject:
+          method: POST
+          path: /inject
+          binding: emit_dynamic_signal
+          allowed_signals: [Approved, Rejected]
+
+invalid_because:
+  - Public listener binding needs explicit network policy.
+  - Dynamic signal endpoints need authentication or another configured boundary control.
+```
 
 <!-- field: related_documents -->
 ## Related documents

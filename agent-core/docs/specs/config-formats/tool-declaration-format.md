@@ -205,6 +205,7 @@ directory segment.
 <!-- field: docs_resource -->
 #### Docs resource
 
+```yaml
 config:
   resources:
     docs:
@@ -216,6 +217,7 @@ config:
       category_rules:
         - {pattern: road-map.md, category: release}
         - {pattern: "specs/software-requirements/**", category: srd}
+```
 
 <!-- field: schema -->
 ## Schema
@@ -1076,6 +1078,7 @@ Omit, hash, classify, or none. Defaults to omit for unsafe sources.
 <!-- field: example -->
 ### Example
 
+```yaml
 metrics:
   instruments:
     - name: rest_client_request_duration
@@ -1090,6 +1093,7 @@ metrics:
       cardinality: bounded
       allowed_values: [documentation_curator.documents]
       redaction: none
+```
 
 <!-- field: child_agent_config -->
 ## Child agent config
@@ -1152,17 +1156,21 @@ drift.
 <!-- field: invoke_executor -->
 #### Invoke executor
 
+```yaml
 init: self_invoke
 config:
   profile: ${AGENT_CATALOG_ROOT}/generator/profile.yaml
+```
 
 <!-- field: self_invoke -->
 #### Self invoke
 
+```yaml
 config:
   profile: ${AGENT_CATALOG_ROOT}/generator/profile.yaml
   request_from: $from(request).path
   output_from: $from(request).output_dir
+```
 
 <!-- field: exec_fields -->
 ## Exec fields
@@ -1513,75 +1521,110 @@ model name, provider, endpoint URL, and prompts. Each agent
 directory contains its own llm/ subdirectory with one file per
 model variant. See cfg-llm-config-format for details.
 
-<!-- field: fragment_files | form: "tree" -->
+<!-- field: fragment_files -->
 ## Fragment files
 
-- description:
-  A tool declaration file MAY be a fragment: a unit with declared, typed
-  parameters that another file expands with arguments
-  (srd052-declaration-fragments). The two file-level fields below sit
-  beside `unit` and `imports` (srd050). A fragment is only ever
-  expanded; listing one under `imports` is a load error. Substitution
-  replaces `$param(name)` inside scalar values only, never inside mapping
-  names or list structure, and the expanded document is decoded and
-  validated exactly as a hand-written file would be. Nothing generated is
-  committed. Arriving with GH-2081.
-- fields:
-  1. - field: params
-     - type: "[]param"
-     - required: false
-     - description:
-       Declares the fragment's parameters. Present together with exactly one
-       body (`tools` here). Each entry carries `name` and `type`, and
-       optionally `enum`, `default`, and `description`. `type` is one of
-       string, integer, number, boolean. A file with `params` and no body,
-       or a body with a `$param(` reference and no `params`, fails to load.
-  1. - field: expand
-     - type: "[]expansion"
-     - required: false
-     - description:
-       Expands fragments into this file's closure. Each entry carries
-       `fragment`, a path relative to this file under the import rules;
-       `args`, a mapping from parameter name to value; and optionally `as`,
-       a prefix applied as `<as>_` to every name the expansion produces
-       so one fragment can be expanded more than once. Every parameter
-       without a default must be supplied; an unknown argument, a wrong type,
-       or a value outside an enum fails naming this file, the fragment, and
-       the parameter.
-- example:
-  # units/embed-provider.yaml -- the fragment
-  unit: embed-provider
-  imports:
-  - ./types-core.yaml
-  params:
-  - name: provider
-    type: string
-    enum: [cohere, openai, ollama]
-  - name: model
-    type: string
-  tools:
-  - name: embed_query
-    type: builtin
-    init: rest_client_invoke
-    category: boundary
-    description: Embed the query with $param(provider) model $param(model).
-    config:
-      rest_ref: $param(provider)_api
-      operation: embed
+<!-- field: description -->
+### Description
 
-  # agents/rag/declarations.yaml -- the importer
-  unit: rag
-  imports:
-  - ../units/types-core.yaml
-  expand:
-  - fragment: ../units/embed-provider.yaml
-    as: cohere
-    args: {provider: cohere, model: embed-english-v3.0}
-  - fragment: ../units/embed-provider.yaml
-    as: openai
-    args: {provider: openai, model: text-embedding-3-small}
-  tools: []
-  # produces cohere_embed_query and openai_embed_query
+A tool declaration file can be a fragment: a unit with declared, typed
+parameters that another file expands with arguments
+(srd052-declaration-fragments). The two file-level fields below sit
+beside `unit` and `imports` (srd050). A fragment is only ever
+expanded; listing one under `imports` is a load error. Substitution
+replaces `$param(name)` inside scalar values only, never inside mapping
+names or list structure, and the expanded document is decoded and
+validated exactly as a hand-written file would be. Nothing generated is
+committed. Arriving with GH-2081.
+
+<!-- field: fields -->
+### Fields
+
+<!-- field_entry: params -->
+#### params
+
+<!-- field: type -->
+##### Type
+
+[]param
+
+<!-- field: required | form: "scalar" -->
+##### Required
+
+false
+
+<!-- field: description -->
+##### Description
+
+Declares the fragment's parameters. Present together with exactly one
+body (`tools` here). Each entry carries `name` and `type`, and
+optionally `enum`, `default`, and `description`. `type` is one of
+string, integer, number, boolean. A file with `params` and no body,
+or a body with a `$param(` reference and no `params`, fails to load.
+
+<!-- field_entry: expand -->
+#### expand
+
+<!-- field: type -->
+##### Type
+
+[]expansion
+
+<!-- field: required | form: "scalar" -->
+##### Required
+
+false
+
+<!-- field: description -->
+##### Description
+
+Expands fragments into this file's closure. Each entry carries
+`fragment`, a path relative to this file under the import rules;
+`args`, a mapping from parameter name to value; and optionally `as`,
+a prefix applied as `<as>_` to every name the expansion produces
+so one fragment can be expanded more than once. Every parameter
+without a default must be supplied; an unknown argument, a wrong type,
+or a value outside an enum fails naming this file, the fragment, and
+the parameter.
+
+<!-- field: example -->
+### Example
+
+```yaml
+# units/embed-provider.yaml -- the fragment
+unit: embed-provider
+imports:
+- ./types-core.yaml
+params:
+- name: provider
+  type: string
+  enum: [cohere, openai, ollama]
+- name: model
+  type: string
+tools:
+- name: embed_query
+  type: builtin
+  init: rest_client_invoke
+  category: boundary
+  description: Embed the query with $param(provider) model $param(model).
+  config:
+    rest_ref: $param(provider)_api
+    operation: embed
+
+# agents/rag/declarations.yaml -- the importer
+unit: rag
+imports:
+- ../units/types-core.yaml
+expand:
+- fragment: ../units/embed-provider.yaml
+  as: cohere
+  args: {provider: cohere, model: embed-english-v3.0}
+- fragment: ../units/embed-provider.yaml
+  as: openai
+  args: {provider: openai, model: text-embedding-3-small}
+tools: []
+# produces cohere_embed_query and openai_embed_query
+```
 
 <!-- field: library_imports -->
 ## Library imports

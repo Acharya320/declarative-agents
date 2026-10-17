@@ -28,113 +28,223 @@ The format keeps each issue small, traceable, and tied to listed files.
   1. dependencies
   1. notes
 
-<!-- field: field_specs | form: "tree" -->
+<!-- field: field_specs -->
 ## Field specs
 
-- deliverable_type:
-  - type: string
-  - required: true
-  - values:
-    1. code
-    1. documentation
-  - description:
-    The kind of deliverable. Use code when the issue touches cmd/,
-    internal/, pkg/, tools that require Go changes, or tests. Use
-    documentation when the issue only changes docs, YAML specs, or guides.
-- required_reading:
-  - type: list of strings
-  - required: true
-  - description:
-    Repo-relative paths the worker must read before changing files. Include
-    upstream specs, architecture sections, source files, tests, and related
-    issue context.
-- files:
-  - type: list
-  - required: true
-  - accepted_item_shapes:
-    1. string
-    1. mapping
-  - mapping_fields:
-    - path:
-      - type: string
-      - required: true
-    - action:
-      - type: string
-      - values:
-        1. create
-        1. modify
-        1. delete
-      - required: false
-    - note:
-      - type: string
-      - required: false
-  - description:
-    Repo-relative paths the worker may change. Current agent-core issues
-    often use a simple list of path strings. More complex issues may use
-    mappings with path, action, and note.
-- requirements:
-  - type: list
-  - required: true
-  - accepted_item_shapes:
-    1. string
-    1. mapping
-  - mapping_fields:
-    - id:
-      - type: string
-      - required: false
-      - pattern: R[0-9]+
-    - text:
-      - type: string
-      - required: false
-  - description:
-    Specific work to complete. Use numbered mappings for new issues when
-    practical. String items remain valid for compatibility with the current
-    queue. An item may carry the literal marker [NEEDS CLARIFICATION: question]
-    for a decision nobody has made; an issue carrying one is not ready for a
-    worker, and resolving it means replacing the marker with the decision in
-    the same item. The inline marker is the tracker-issue convention only;
-    corpus YAML documents record unmade decisions in their structured
-    needs_clarification field (design.yaml clarification_marker).
-- acceptance_criteria:
-  - type: list
-  - required: true
-  - accepted_item_shapes:
-    1. string
-    1. mapping
-  - mapping_fields:
-    - id:
-      - type: string
-      - required: false
-      - pattern: AC[0-9]+
-    - text:
-      - type: string
-      - required: false
-  - description:
-    Checkable outcomes. Each item must be verifiable by inspection, tests,
-    mage audit, or another named command. An item may carry the literal marker
-    [NEEDS CLARIFICATION: question]; an issue carrying one is not ready for a
-    worker, and resolving it means replacing the marker with the decision in
-    the same item. The inline marker is the tracker-issue convention only;
-    corpus YAML documents use the needs_clarification field instead
-    (design.yaml clarification_marker).
-- format_rule:
-  - type: string
-  - required: false
-  - description:
-    Documentation issues may name the governing document type, such as
-    srd-format, use-case-format, test-suite-format, or constitution-format.
-- required_sections:
-  - type: list of strings
-  - required: false
-  - description:
-    Documentation issues may list headings or YAML fields that must appear in
-    the output artifact.
-- design_decisions:
-  - type: list
-  - required: false
-  - description:
-    Decisions made while shaping the issue. Prefer mappings with id and text
-    when a decision has lasting design value.
+<!-- field: deliverable_type -->
+### Deliverable type
+
+<!-- field: type -->
+#### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+true
+
+<!-- field: values -->
+#### Values
+
+- code
+- documentation
+
+<!-- field: description -->
+#### Description
+
+The kind of deliverable. Use code when the issue touches cmd/,
+internal/, pkg/, tools that require Go changes, or tests. Use
+documentation when the issue only changes docs, YAML specs, or guides.
+
+<!-- field: required_reading -->
+### Required reading
+
+<!-- field: type -->
+#### Type
+
+list of strings
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+true
+
+<!-- field: description -->
+#### Description
+
+Repo-relative paths the worker must read before changing files. Include
+upstream specs, architecture sections, source files, tests, and related
+issue context.
+
+<!-- field: files -->
+### Files
+
+<!-- field: type -->
+#### Type
+
+list
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+true
+
+<!-- field: accepted_item_shapes -->
+#### Accepted item shapes
+
+- string
+- mapping
+
+<!-- field: mapping_fields | form: "keyed table" -->
+#### Mapping fields
+
+| id | type | values | required |
+| --- | --- | --- | --- |
+| path | string |  | true |
+| action | string | [create, modify, delete] | false |
+| note | string |  | false |
+
+<!-- field: description -->
+#### Description
+
+Repo-relative paths the worker may change. Current agent-core issues
+often use a simple list of path strings. More complex issues may use
+mappings with path, action, and note.
+
+<!-- field: requirements -->
+### Requirements
+
+<!-- field: type -->
+#### Type
+
+list
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+true
+
+<!-- field: accepted_item_shapes -->
+#### Accepted item shapes
+
+- string
+- mapping
+
+<!-- field: mapping_fields | form: "keyed table" -->
+#### Mapping fields
+
+| id | type | required | pattern |
+| --- | --- | --- | --- |
+| id | string | false | R[0-9]+ |
+| text | string | false |  |
+
+<!-- field: description -->
+#### Description
+
+Specific work to complete. Use numbered mappings for new issues when
+practical. String items remain valid for compatibility with the current
+queue. An item may carry the literal marker [NEEDS CLARIFICATION: question]
+for a decision nobody has made; an issue carrying one is not ready for a
+worker, and resolving it means replacing the marker with the decision in
+the same item. The inline marker is the tracker-issue convention only;
+corpus YAML documents record unmade decisions in their structured
+needs_clarification field (design.yaml clarification_marker).
+
+<!-- field: acceptance_criteria -->
+### Acceptance criteria
+
+<!-- field: type -->
+#### Type
+
+list
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+true
+
+<!-- field: accepted_item_shapes -->
+#### Accepted item shapes
+
+- string
+- mapping
+
+<!-- field: mapping_fields | form: "keyed table" -->
+#### Mapping fields
+
+| id | type | required | pattern |
+| --- | --- | --- | --- |
+| id | string | false | AC[0-9]+ |
+| text | string | false |  |
+
+<!-- field: description -->
+#### Description
+
+Checkable outcomes. Each item must be verifiable by inspection, tests,
+mage audit, or another named command. An item may carry the literal marker
+[NEEDS CLARIFICATION: question]; an issue carrying one is not ready for a
+worker, and resolving it means replacing the marker with the decision in
+the same item. The inline marker is the tracker-issue convention only;
+corpus YAML documents use the needs_clarification field instead
+(design.yaml clarification_marker).
+
+<!-- field: format_rule -->
+### Format rule
+
+<!-- field: type -->
+#### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+false
+
+<!-- field: description -->
+#### Description
+
+Documentation issues may name the governing document type, such as
+srd-format, use-case-format, test-suite-format, or constitution-format.
+
+<!-- field: required_sections -->
+### Required sections
+
+<!-- field: type -->
+#### Type
+
+list of strings
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+false
+
+<!-- field: description -->
+#### Description
+
+Documentation issues may list headings or YAML fields that must appear in
+the output artifact.
+
+<!-- field: design_decisions -->
+### Design decisions
+
+<!-- field: type -->
+#### Type
+
+list
+
+<!-- field: required | form: "scalar" -->
+#### Required
+
+false
+
+<!-- field: description -->
+#### Description
+
+Decisions made while shaping the issue. Prefer mappings with id and text
+when a decision has lasting design value.
 
 <!-- field: yaml_rules -->
 ## YAML rules
@@ -193,6 +303,7 @@ Keep paths repo-relative unless the issue explicitly targets another repository.
 <!-- field: documentation_issue -->
 ### Documentation issue
 
+```yaml
 deliverable_type: documentation
 required_reading:
   - docs/VISION.md
@@ -205,6 +316,7 @@ requirements:
 acceptance_criteria:
   - The YAML parses.
   - mage audit reports no new warnings for the file.
+```
 
 <!-- field: documentation_issue_with_clarification -->
 ### Documentation issue with clarification
@@ -218,6 +330,7 @@ the fetch 3 times]". No marker survives into a worked issue.
 <!-- field: code_issue -->
 ### Code issue
 
+```yaml
 deliverable_type: code
 required_reading:
   - docs/specs/software-requirements/srd014-spec-graph.md
@@ -231,6 +344,7 @@ requirements:
 acceptance_criteria:
   - id: AC1
     text: go test ./pkg/spec passes.
+```
 
 <!-- field: references -->
 ## References

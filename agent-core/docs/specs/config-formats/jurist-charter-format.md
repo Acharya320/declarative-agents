@@ -643,6 +643,7 @@ default charter wrapper.
 <!-- field: example -->
 ## Example
 
+```yaml
 id: manuscript-charter
 title: Manuscript publication checks
 target:
@@ -676,6 +677,7 @@ checks:
   - id: built-in-agent-core-specs
     kind: spec_corpus
     severity: error
+```
 
 <!-- field: references -->
 ## References

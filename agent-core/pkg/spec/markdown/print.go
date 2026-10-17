@@ -183,8 +183,9 @@ func (p *printer) field(level int, slot, key string, value *yaml.Node, lines []s
 	if field, typed := p.d.ruleFor(slot, key); typed {
 		lines = p.links.linkLines(field, lines)
 	}
-	if form == "" && classifyContent(strings.Join(lines, "\n")) == shapeYAML {
-		p.fences = append(p.fences, Fence{Field: key, Reason: fenceReason(value)})
+	if rule, typed := p.d.ruleFor(slot, key); form == "" && (!typed || rule.Code == "") &&
+		classifyContent(strings.Join(lines, "\n")) == shapeYAML {
+		p.fences = append(p.fences, Fence{Field: key, Reason: fenceReason(value)}) // a code field's fence is its form
 	}
 	marker := Marker{Tag: tagField, Value: key}
 	if form != "" {

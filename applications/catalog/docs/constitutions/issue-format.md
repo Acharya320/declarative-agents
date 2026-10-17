@@ -85,6 +85,7 @@ runtime capability. Profiles configure behavior. agent-core executes it.
 <!-- field: documentation -->
 ### Documentation
 
+```yaml
 deliverable_type: documentation
 required_reading:
   - docs/VISION.md
@@ -98,10 +99,12 @@ requirements:
 acceptance_criteria:
   - id: AC1
     text: The document parses as YAML and is indexed when applicable.
+```
 
 <!-- field: migration -->
 ### Migration
 
+```yaml
 deliverable_type: migration
 required_reading:
   - docs/ARCHITECTURE.md
@@ -116,6 +119,7 @@ acceptance_criteria:
   - id: AC1
     text: The migrated profile loads from the demo.yaml catalog_root without
       developer-specific absolute paths.
+```
 
 <!-- field: validation_notes -->
 ## Validation notes

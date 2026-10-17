@@ -882,6 +882,7 @@ metric_labels, and monitor grouping never changes command-state identity.
 <!-- field: example -->
 ### Example
 
+```yaml
 transitions:
   - state: ReadingCorpus
     signal: Seed
@@ -893,6 +894,7 @@ transitions:
     next: RunningTool
     action: $tool
     label: selected_operation
+```
 
 <!-- field: state_scoped_dynamic_dispatch -->
 ## State scoped dynamic dispatch
@@ -1004,6 +1006,7 @@ MachineSpec labels define where in the grammar those instruments ran.
 <!-- field: example -->
 ### Example
 
+```yaml
 metric_labels:
   use_case: rel04.0-monitor
   phase: main_loop
@@ -1015,6 +1018,7 @@ transitions:
     action: monitor_snapshot
     metric_labels:
       phase: monitor_read
+```
 
 <!-- field: machine_presentation_views -->
 ## Machine presentation views
