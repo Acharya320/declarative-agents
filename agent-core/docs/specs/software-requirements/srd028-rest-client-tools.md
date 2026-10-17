@@ -833,32 +833,28 @@ A trusted REST operation resolves the composed authority's port per item through
 - docs/specs/semantic-models/tool-language.md
 - docs/guides/rest-tool.md
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-implemented:
-    - internal/tools/rest client commands for synchronous resource words, RPC-shaped invoke, async send, and async await.
-    - tools/builtin/rest client tool declarations and release 03.0 fixtures.
-    - Resource operation definitions loaded from YAML and OpenAPI imports.
-    - Config-bound method, path, host, auth, redirect, size-limit, request schema, response mapping, redaction, and status-signal behavior.
-    - Async request state indexed by request_id with idempotency and correlation metadata recorded in accepted output.
-    - CIDR allowlists are enforced while scheme, host, and port validation remains intact.
-    - Response bodies are validated against configured response schemas before success signals, and domain_error_code is included in structured output when configured.
-    - Async await can select stored completion by correlation token. Readiness polling is declared as one-shot REST probes separated by lifecycle delay states; await_operation is rejected with migration guidance.
-    - Idempotency metadata is emitted on configured outbound async requests, and retry validation requires idempotency for mutating operations when configured.
-    - Mutating REST client commands capture boundary compensation undo mementos with request, resource, idempotency, and compensation metadata. Read-only operations remain noop.
-    - Persisted checkpoint rollback can execute boundary compensation when a caller supplies the core CompensationExecutor. internal/tools/rest provides a CompensationExecutor that decodes REST boundary mementos, resolves the configured compensation operation from trusted definitions, filters runtime parameters to declared inputs, and executes through the REST client path.
-    - TestRESTClient_CompensationExecutorRunsConfiguredOperation, TestRESTClient_CompensationExecutorReportsMissingOperation, TestRollbackCheckpointExecutesBoundaryCompensation, and TestRollbackCheckpointReportsMissingBoundaryCompensationExecutor cover REST compensation execution and bounded failure reporting.
-    - Previous-Result parameter threading (R12): body_source previous_result consumption through request_binding.input_mapping selects declared params from the prior Result output; request_binding.carry_forward copies declared inputs into the Result output under a carried key; validateRequestBinding enforces the R12.4 rejections (undeclared targets, transport-authority overrides). Covered by TestRESTClient_ThreadsPreviousResultParams, TestRESTClient_ChainThreadsVectorIntoQueryBody, TestRESTClient_CarryForwardEchoesDeclaredInputs, and TestRESTClient_RejectsPreviousResultThreadingMisuse.
-    - >-
-      Composed command-state targets (R14.6): an operation may declare base_url_host_selector with base_url_scheme and base_url_port, and client_target.go composes scheme://host[:port] from the resolved bare host before the unchanged R14.3/R14.4 validation. validateSelectedBaseURLTarget keeps the two selector forms mutually exclusive and rejects an unsupported scheme or an out-of-range port at load. IPv6 literals are bracketed. Covered by TestRESTClient_HostSelectorComposesSelectedAuthority, TestRESTClient_HostSelectorRejectsUnsafeValuesBeforeIO, TestResolveOperationBaseURLComposesAuthority, and TestRESTClient_HostSelectorRejectionTable.
-    - >-
-      Per-item composed ports (R14.7): base_url_port_selector resolves the composed authority's port from command state for a fleet whose targets do not share one port, accepting a label string or a whole JSON number. resolvedBaseURLPort and selectedPortString range-check the value before composition, validateComposedPort keeps the literal and selector forms mutually exclusive at load, and the composed authority still passes the client's network ports allowlist, so configuration bounds the reachable ports. Covered by TestRESTClient_PortSelectorResolvesPerItemPort and TestRESTClient_PortSelectorRejectsUnusablePorts.
-    - Command-state parameter threading (R13): body_source command_state consumption through request_binding.input_mapping $from(<label>).<path> selectors resolved against the injected core CommandStateView (clientCmd implements core.CommandStateAware). selectCommandStateParams looks up the labeled step's output, decodes it, and walks the dotted path; a miss returns a typed error naming the label. validateBodySource accepts command_state; validateRequestBinding enforces V32 (a $from selector only under command_state, a $. selector only under previous_result) plus the R12.4 declared-target and transport-authority rejections; the no-store rejection is enforced at runtime (R13.5). previous_result threading is unchanged. Covered by TestRESTClient_CommandStateThreadsNonAdjacentStep, TestRESTClient_CommandStateDuplicateLabelMostRecentWins, TestRESTClient_CommandStateMissNamesLabel, TestRESTClient_CommandStateNoViewConfiguredRejected, and TestRESTClient_CommandStateRejectionTable.
-partial:
-    - Lifecycle profile wiring must still choose when to inject a REST CompensationExecutor into checkpoint rollback. Profile injection stays outside the REST client tool contract.
-```
+- implemented:
+  1. internal/tools/rest client commands for synchronous resource words, RPC-shaped invoke, async send, and async await.
+  1. tools/builtin/rest client tool declarations and release 03.0 fixtures.
+  1. Resource operation definitions loaded from YAML and OpenAPI imports.
+  1. Config-bound method, path, host, auth, redirect, size-limit, request schema, response mapping, redaction, and status-signal behavior.
+  1. Async request state indexed by request_id with idempotency and correlation metadata recorded in accepted output.
+  1. CIDR allowlists are enforced while scheme, host, and port validation remains intact.
+  1. Response bodies are validated against configured response schemas before success signals, and domain_error_code is included in structured output when configured.
+  1. Async await can select stored completion by correlation token. Readiness polling is declared as one-shot REST probes separated by lifecycle delay states; await_operation is rejected with migration guidance.
+  1. Idempotency metadata is emitted on configured outbound async requests, and retry validation requires idempotency for mutating operations when configured.
+  1. Mutating REST client commands capture boundary compensation undo mementos with request, resource, idempotency, and compensation metadata. Read-only operations remain noop.
+  1. Persisted checkpoint rollback can execute boundary compensation when a caller supplies the core CompensationExecutor. internal/tools/rest provides a CompensationExecutor that decodes REST boundary mementos, resolves the configured compensation operation from trusted definitions, filters runtime parameters to declared inputs, and executes through the REST client path.
+  1. TestRESTClient_CompensationExecutorRunsConfiguredOperation, TestRESTClient_CompensationExecutorReportsMissingOperation, TestRollbackCheckpointExecutesBoundaryCompensation, and TestRollbackCheckpointReportsMissingBoundaryCompensationExecutor cover REST compensation execution and bounded failure reporting.
+  1. - "Previous-Result parameter threading (R12)": body_source previous_result consumption through request_binding.input_mapping selects declared params from the prior Result output; request_binding.carry_forward copies declared inputs into the Result output under a carried key; validateRequestBinding enforces the R12.4 rejections (undeclared targets, transport-authority overrides). Covered by TestRESTClient_ThreadsPreviousResultParams, TestRESTClient_ChainThreadsVectorIntoQueryBody, TestRESTClient_CarryForwardEchoesDeclaredInputs, and TestRESTClient_RejectsPreviousResultThreadingMisuse.
+  1. "Composed command-state targets (R14.6): an operation may declare base_url_host_selector with base_url_scheme and base_url_port, and client_target.go composes scheme://host[:port] from the resolved bare host before the unchanged R14.3/R14.4 validation. validateSelectedBaseURLTarget keeps the two selector forms mutually exclusive and rejects an unsupported scheme or an out-of-range port at load. IPv6 literals are bracketed. Covered by TestRESTClient_HostSelectorComposesSelectedAuthority, TestRESTClient_HostSelectorRejectsUnsafeValuesBeforeIO, TestResolveOperationBaseURLComposesAuthority, and TestRESTClient_HostSelectorRejectionTable."
+  1. "Per-item composed ports (R14.7): base_url_port_selector resolves the composed authority's port from command state for a fleet whose targets do not share one port, accepting a label string or a whole JSON number. resolvedBaseURLPort and selectedPortString range-check the value before composition, validateComposedPort keeps the literal and selector forms mutually exclusive at load, and the composed authority still passes the client's network ports allowlist, so configuration bounds the reachable ports. Covered by TestRESTClient_PortSelectorResolvesPerItemPort and TestRESTClient_PortSelectorRejectsUnusablePorts."
+  1. - "Command-state parameter threading (R13)": body_source command_state consumption through request_binding.input_mapping $from(<label>).<path> selectors resolved against the injected core CommandStateView (clientCmd implements core.CommandStateAware). selectCommandStateParams looks up the labeled step's output, decodes it, and walks the dotted path; a miss returns a typed error naming the label. validateBodySource accepts command_state; validateRequestBinding enforces V32 (a $from selector only under command_state, a $. selector only under previous_result) plus the R12.4 declared-target and transport-authority rejections; the no-store rejection is enforced at runtime (R13.5). previous_result threading is unchanged. Covered by TestRESTClient_CommandStateThreadsNonAdjacentStep, TestRESTClient_CommandStateDuplicateLabelMostRecentWins, TestRESTClient_CommandStateMissNamesLabel, TestRESTClient_CommandStateNoViewConfiguredRejected, and TestRESTClient_CommandStateRejectionTable.
+- partial:
+  1. Lifecycle profile wiring must still choose when to inject a REST CompensationExecutor into checkpoint rollback. Profile injection stays outside the REST client tool contract.
 
 <!-- field: diagrams | form: "tree" -->
 ## Diagrams

@@ -61,6 +61,7 @@ executable_structural
 <!-- field: command -->
 #### Command
 
+```bash
 python3 - <<'PY'
 from pathlib import Path
 import subprocess
@@ -125,6 +126,7 @@ assert any(e["id"] == use_case["id"] for e in release["use_cases"])
 assert any(e["id"] == suite["id"] for e in release["test_suites"])
 print("validated Release 15.0 declarative UX trace closure")
 PY
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -167,7 +169,9 @@ GH-2261
 <!-- field: command -->
 #### Command
 
+```bash
 mage uikit:test
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -211,7 +215,9 @@ GH-2261
 <!-- field: command -->
 #### Command
 
+```bash
 mage uikit:test
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -253,7 +259,9 @@ GH-2263, GH-2264, GH-2265, GH-2266
 <!-- field: command -->
 #### Command
 
+```bash
 mage uikit:test
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -295,8 +303,10 @@ GH-2270
 <!-- field: command -->
 #### Command
 
+```bash
 (cd magefiles && go test ./uiyaml/)
 (cd applications/chatbot-mesh && go test ./magefiles/ -run TestChatbotUIRendersAsValidUIYAML)
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -338,8 +348,10 @@ GH-2271, GH-2272
 <!-- field: command -->
 #### Command
 
+```bash
 mage uikit:test
 (cd applications/chatbot-mesh && go test ./magefiles/...)
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -383,8 +395,10 @@ GH-2259, GH-2260
 <!-- field: command -->
 #### Command
 
+```bash
 mage uikit:build uikit:test uikit:pack
 (cd applications/catalog && go test ./conformance -run DesignTokens)
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -425,9 +439,11 @@ GH-2267, GH-2268, GH-2269
 <!-- field: command -->
 #### Command
 
+```bash
 (cd agent-core && go test ./internal/tools/rest/...)
 (cd magefiles && go test ./appmanifest/...)
 (cd applications/chatbot-mesh && go test ./magefiles/...)
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -471,7 +487,9 @@ GH-2275
 <!-- field: command -->
 #### Command
 
+```bash
 (cd magefiles && go test -run 'TestNoUIKitDuplicationInApplications|TestSweepUIDuplicationReportsEachShape' ./)
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected

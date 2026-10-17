@@ -116,3 +116,40 @@ func yamlQuote(text string) string {
 	data, _ := yaml.Marshal(text)
 	return strings.TrimRight(string(data), "\n")
 }
+
+// TestCodeFieldReadsFormsWrittenBeforeItsDeclaration reads a code field
+// written as plain text or as a fenced yaml string, and Format rewrites both
+// into the fence (GH-2644).
+func TestCodeFieldReadsFormsWrittenBeforeItsDeclaration(t *testing.T) {
+	d := toyDeclaration(t)
+	md, _ := roundTrip(t, d, yamlDoc(t, recipeWith("method: |\n  boil water\n  echo done\n")))
+	fenced := "```bash\nboil water\necho done\n```"
+	for name, legacy := range map[string]string{
+		"plain text":  "boil water\necho done",
+		"yaml string": "```yaml\n|\n    boil water\n    echo done\n```",
+	} {
+		old := strings.Replace(md, fenced, legacy, 1)
+		formatted, findings, err := d.Format([]byte(old), toyName)
+		if err != nil || len(findings) > 0 {
+			t.Fatalf("%s: did not read: %v %v", name, err, findings)
+		}
+		if !strings.Contains(string(formatted), fenced) {
+			t.Errorf("%s: Format did not fence the command:\n%s", name, formatted)
+		}
+	}
+}
+
+// TestFlowValuesIgnoreTrailingNewlines prints a one-line string that ends
+// in a newline, as YAML's folded style leaves it, as a flow value inside a
+// tree, since the canonical value has no trailing newline.
+func TestFlowValuesIgnoreTrailingNewlines(t *testing.T) {
+	d := toyDeclaration(t)
+	original := yamlDoc(t, recipeWith("notes:\n  note: >\n    - one folded line\n"))
+	md, back := roundTrip(t, d, original)
+	if diff := Diff(original, back); diff != "" {
+		t.Fatalf("round trip changed %s\n%s", diff, md)
+	}
+	if section := fieldSection(md, "notes"); section != `- note: "- one folded line"` {
+		t.Errorf("notes printed as:\n%s", section)
+	}
+}

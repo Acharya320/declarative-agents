@@ -14,26 +14,20 @@ SRD release assignments.
 - 00.0: srd001-auth (authentication), srd002-api (REST API)
 - 00.1: srd003-storage (data persistence)
 
-<!-- field: foundation_document_index -->
+<!-- field: foundation_document_index | form: "scalar" -->
 ## Foundation document index
 
-```yaml
 []
-```
 
-<!-- field: config_format_index -->
+<!-- field: config_format_index | form: "scalar" -->
 ## Config format index
 
-```yaml
 []
-```
 
-<!-- field: semantic_model_index -->
+<!-- field: semantic_model_index | form: "scalar" -->
 ## Semantic model index
 
-```yaml
 []
-```
 
 <!-- field: coverage_gaps -->
 ## Coverage gaps

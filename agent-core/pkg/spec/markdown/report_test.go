@@ -45,19 +45,19 @@ func TestOldHeadingTextStillParses(t *testing.T) {
 // value only the fenced yaml block holds, and nothing for one a form holds.
 func TestPrintReportsEveryRemainingFence(t *testing.T) {
 	d := toyDeclaration(t)
-	doc := yamlDoc(t, recipeWith("notes:\n  \"two words\": 1\nsizes: {small: 1}\n"))
+	doc := yamlDoc(t, recipeWith("notes:\n  body: \"\\nopens blank\\nsecond\"\nsizes: {small: 1}\n"))
 	md, fences, err := d.PrintReport(doc)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(fences) != 1 || fences[0].Field != "notes" || !strings.Contains(fences[0].Reason, `key "two words" is not a bare name`) {
-		t.Fatalf("fences = %v, want one for notes naming the key", fences)
+	if len(fences) != 1 || fences[0].Field != "notes" || !strings.Contains(fences[0].Reason, "body") {
+		t.Fatalf("fences = %v, want one for notes naming body", fences)
 	}
 	again, err := d.Fences(md, toyName)
 	if err != nil || len(again) != 1 || again[0] != fences[0] {
 		t.Errorf("Fences on the printed document = %v, %v", again, err)
 	}
-	_, report, err := d.ConvertYAML([]byte(recipeWith("notes:\n  \"two words\": 1\n")), "docs/recipes/soup.yaml")
+	_, report, err := d.ConvertYAML([]byte(recipeWith("notes:\n  body: \"\\nopens blank\\nsecond\"\n")), "docs/recipes/soup.yaml")
 	if err != nil || len(report.Fences) != 1 || !strings.Contains(strings.Join(report.Lines(), "\n"), "yaml fence: notes:") {
 		t.Errorf("conversion report lacks the fence: %v %v", report.Lines(), err)
 	}

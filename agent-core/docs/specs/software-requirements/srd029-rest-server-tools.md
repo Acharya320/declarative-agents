@@ -667,22 +667,20 @@ Server event queues expose named sources for rest_await_event, stopped-source be
 - docs/guides/boundary-tools-and-async.md
 - docs/guides/rest-tool.md
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-implemented:
-    - internal/tools/rest server state and server tool commands for launch, await, generic rest_await_event fan-in, stop, machine_request, monitor views, invoke_handler, stream_events, health, and static metadata.
-    - tools/builtin/rest server tool declarations and release 03.0 fixtures.
-    - OpenAPI operation ID binding for request and response schema import into configured endpoints.
-    - Plain Go tests for launch, await, fan-in filters, timeout, stopped-source signals, stop, shutdown policy validation, stream shutdown unblocking, validation failures, redaction, invoke_handler, stream_events, machine_request, and Knowledge Manager conformance.
-    - OpenAPI server binding preserves configured response mapping, machine_request, monitor view, queue, signal, and allowed_signals while importing method, path, request schema, and response schema.
-    - Queue overflow behavior supports reject, drop_oldest, and drop_newest. Unsupported shutdown queue controls are rejected during ValidateDefinition.
-    - Modeled lifecycle_control endpoints (R5.8, R11.4, R11.6): ValidateDefinition accepts enqueue_signal with a configured signal or inject_signal with an allowlist, validates any target selector, and enqueues the lifecycle request event for MachineSpec routing without running a lifecycle operation directly (proven by TestRESTServer_LifecycleControlEnqueuesSignals). Configured emit_signal control routes that MachineSpec routes to exit_agent remain as an alternative used by current control profiles.
-    - GH-2208 selects endpoints by path specificity then method (R6.8) and rejects same-method, same-shape endpoint pairs at load (R6.9). Before it, selection ignored the method, so a second endpoint on one path was unreachable and answered 405.
-partial:
-    - R10 read_policy supports only the default first_available behavior; priority_order, round_robin, and other values are rejected during ToolDef factory validation (TestRESTServer_ControlQueueAndReadPolicyConformance).
-```
+- implemented:
+  1. internal/tools/rest server state and server tool commands for launch, await, generic rest_await_event fan-in, stop, machine_request, monitor views, invoke_handler, stream_events, health, and static metadata.
+  1. tools/builtin/rest server tool declarations and release 03.0 fixtures.
+  1. OpenAPI operation ID binding for request and response schema import into configured endpoints.
+  1. Plain Go tests for launch, await, fan-in filters, timeout, stopped-source signals, stop, shutdown policy validation, stream shutdown unblocking, validation failures, redaction, invoke_handler, stream_events, machine_request, and Knowledge Manager conformance.
+  1. OpenAPI server binding preserves configured response mapping, machine_request, monitor view, queue, signal, and allowed_signals while importing method, path, request schema, and response schema.
+  1. Queue overflow behavior supports reject, drop_oldest, and drop_newest. Unsupported shutdown queue controls are rejected during ValidateDefinition.
+  1. - "Modeled lifecycle_control endpoints (R5.8, R11.4, R11.6)": ValidateDefinition accepts enqueue_signal with a configured signal or inject_signal with an allowlist, validates any target selector, and enqueues the lifecycle request event for MachineSpec routing without running a lifecycle operation directly (proven by TestRESTServer_LifecycleControlEnqueuesSignals). Configured emit_signal control routes that MachineSpec routes to exit_agent remain as an alternative used by current control profiles.
+  1. GH-2208 selects endpoints by path specificity then method (R6.8) and rejects same-method, same-shape endpoint pairs at load (R6.9). Before it, selection ignored the method, so a second endpoint on one path was unreachable and answered 405.
+- partial:
+  1. R10 read_policy supports only the default first_available behavior; priority_order, round_robin, and other values are rejected during ToolDef factory validation (TestRESTServer_ControlQueueAndReadPolicyConformance).
 
 <!-- field: diagrams | form: "tree" -->
 ## Diagrams

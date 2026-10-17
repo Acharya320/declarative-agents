@@ -93,79 +93,76 @@ instead of an error, so the declared charters run against arbitrary targets.
 The flag is opt-in on purpose: without it a missing corpus stays a hard error
 so a genuine SRD repo cannot silently degrade to a charter-only audit.
 
-<!-- field: schema -->
+<!-- field: schema | form: "tree" -->
 ## Schema
 
-```yaml
-- field: id
-  type: string
-  required: true
-  description: |
-    Stable charter identifier. Finding provenance records this value as the
-    suite id.
-- field: title
-  type: string
-  required: false
-  description: Human-readable charter title.
-- field: target
-  type: object
-  required: false
-  description: |
-    Optional defaults for target-relative file discovery. The runtime target
-    root remains --directory. Checks may add narrower globs under this root.
-  properties:
-    root:
-        type: string
-        required: false
-        description: |
-            Target-relative root for this charter. Defaults to ".".
-    include:
-        type: "[]string"
-        required: false
-        description: Glob patterns included by default for checks that omit include.
-    exclude:
-        type: "[]string"
-        required: false
-        description: Glob patterns excluded by default.
-- field: checks
-  type: "[]object"
-  required: true
-  description: |
-    Ordered check declarations. Each check has an id, kind, severity, and
-    kind-specific config. The interpreter may run checks in declaration order
-    but must sort findings before reporting.
-  item_fields:
-    - field: id
-      type: string
-      required: true
-      description: Stable check identifier unique within the charter.
-    - field: kind
-      type: string
-      required: true
-      description: |
-        Check kind. Supported values are grep_check, ref_check,
-        consistency_check, and spec_corpus.
-    - field: severity
-      type: string
-      required: false
-      description: |
-        Finding severity. Supported values are error and warning. Defaults to
-        error.
-    - field: message
-      type: string
-      required: false
-      description: |
-        Optional message template used when the check emits a finding. The
-        runtime may append file, line, and referenced value details.
-    - field: include
-      type: "[]string"
-      required: false
-      description: Target-relative glob patterns for this check.
-    - field: exclude
-      type: "[]string"
-      required: false
-      description: Target-relative glob patterns excluded for this check.
-```
+1. - field: id
+   - type: string
+   - required: true
+   - description:
+     Stable charter identifier. Finding provenance records this value as the
+     suite id.
+1. - field: title
+   - type: string
+   - required: false
+   - description: Human-readable charter title.
+1. - field: target
+   - type: object
+   - required: false
+   - description:
+     Optional defaults for target-relative file discovery. The runtime target
+     root remains --directory. Checks may add narrower globs under this root.
+   - properties:
+     - root:
+       - type: string
+       - required: false
+       - description: Target-relative root for this charter. Defaults to ".".
+     - include:
+       - type: "[]string"
+       - required: false
+       - description: Glob patterns included by default for checks that omit include.
+     - exclude:
+       - type: "[]string"
+       - required: false
+       - description: Glob patterns excluded by default.
+1. - field: checks
+   - type: "[]object"
+   - required: true
+   - description:
+     Ordered check declarations. Each check has an id, kind, severity, and
+     kind-specific config. The interpreter may run checks in declaration order
+     but must sort findings before reporting.
+   - item_fields:
+     1. - field: id
+        - type: string
+        - required: true
+        - description: Stable check identifier unique within the charter.
+     1. - field: kind
+        - type: string
+        - required: true
+        - description:
+          Check kind. Supported values are grep_check, ref_check,
+          consistency_check, and spec_corpus.
+     1. - field: severity
+        - type: string
+        - required: false
+        - description:
+          Finding severity. Supported values are error and warning. Defaults to
+          error.
+     1. - field: message
+        - type: string
+        - required: false
+        - description:
+          Optional message template used when the check emits a finding. The
+          runtime may append file, line, and referenced value details.
+     1. - field: include
+        - type: "[]string"
+        - required: false
+        - description: Target-relative glob patterns for this check.
+     1. - field: exclude
+        - type: "[]string"
+        - required: false
+        - description: Target-relative glob patterns excluded for this check.
 
 <!-- field: check_kinds | form: "tree" -->
 ## Check kinds

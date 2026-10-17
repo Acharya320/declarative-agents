@@ -24,40 +24,30 @@ Minimal specification index for running generic jurist charter checks.
 | --- | --- | --- | --- |
 | srd001-demo | Specification Critic Charter Demo | Minimal corpus for generic charter checks. | docs/specs/software-requirements/srd001-demo.md |
 
-<!-- field: use_case_index -->
+<!-- field: use_case_index | form: "scalar" -->
 ## Use case index
 
-```yaml
 []
-```
 
-<!-- field: test_suite_index -->
+<!-- field: test_suite_index | form: "scalar" -->
 ## Test suite index
 
-```yaml
 []
-```
 
-<!-- field: foundation_document_index -->
+<!-- field: foundation_document_index | form: "scalar" -->
 ## Foundation document index
 
-```yaml
 []
-```
 
-<!-- field: config_format_index -->
+<!-- field: config_format_index | form: "scalar" -->
 ## Config format index
 
-```yaml
 []
-```
 
-<!-- field: semantic_model_index -->
+<!-- field: semantic_model_index | form: "scalar" -->
 ## Semantic model index
 
-```yaml
 []
-```
 
 <!-- field: coverage_gaps -->
 ## Coverage gaps

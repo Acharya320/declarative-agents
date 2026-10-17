@@ -62,6 +62,7 @@ executable_structural
 <!-- field: command -->
 #### Command
 
+```bash
 python3 - <<'PY'
 from pathlib import Path
 import subprocess
@@ -138,6 +139,7 @@ assert any(e["id"] == use_case["id"] for e in release["use_cases"])
 assert any(e["id"] == suite["id"] for e in release["test_suites"])
 print("validated Release 18.0 release annotation trace closure")
 PY
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -181,7 +183,9 @@ GH-2420
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestTagVerify
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -223,7 +227,9 @@ GH-2420
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestTagVerify
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -266,7 +272,9 @@ GH-2420
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestTagVerify
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -307,7 +315,9 @@ GH-2420
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestTagVerify
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -348,7 +358,9 @@ GH-2420
 <!-- field: command -->
 #### Command
 
+```bash
 gh issue view 2198 --json body --jq .body | grep -c "tag:verify"
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected

@@ -71,6 +71,7 @@ GH-2476
 <!-- field: command -->
 #### Command
 
+```bash
 python3 - <<'PY'
 from pathlib import Path
 import subprocess
@@ -158,6 +159,7 @@ pattern_ids = {p["id"] for p in docs["pattern"]["patterns"]}
 assert "persistent-application-platform" in pattern_ids
 print("validated Release 19.0 persistent platform trace closure")
 PY
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -205,11 +207,13 @@ integration
 <!-- field: command -->
 #### Command
 
+```bash
 mage platform:up
 mage app:up agent-architecture
 mage app:up coding-agent
 mage app:up chatbot-mesh
 kubectl --context kind-da-platform get ns -l app.kubernetes.io/managed-by=apprig
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -255,9 +259,11 @@ integration
 <!-- field: command -->
 #### Command
 
+```bash
 mage integration:applicationLifecycle
 mage app:down chatbot-mesh
 mage app:purge chatbot-mesh purge:chatbot-mesh
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -302,8 +308,10 @@ structural_and_cloud_integration
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./gcprig -run TestFirstPartyApplicationBucketIAMIsolation
 cd ../applications/chatbot-mesh && go test ./magefiles -run TestGcpDeployOverridesShape
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -347,8 +355,10 @@ go_test_and_integration
 <!-- field: command -->
 #### Command
 
+```bash
 cd agent-core && go test ./internal/tools/otlp -run 'Test(Object|WAL)'
 cd ../applications/agent-architecture && mage integration:collectorWALRestart
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -391,9 +401,11 @@ GH-2478
 <!-- field: command -->
 #### Command
 
+```bash
 mage app:down agent-architecture
 mage app:up agent-architecture
 curl -fsS 'http://telemetry.agent-architecture.localhost/query/traces?page_size=1'
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -436,8 +448,10 @@ GH-2479
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./apprig ./kindrig
 cd .. && mage integration:applicationLifecycle
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -483,9 +497,11 @@ integration
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./kindrig -run 'TestPlatformHealth|TestDownPlatform'
 cd ../agent-core && go test ./internal/tools/otlp -run 'TestObjectSpool'
 cd ../applications/catalog && go test ./conformance -run TestApplicationPurge
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected

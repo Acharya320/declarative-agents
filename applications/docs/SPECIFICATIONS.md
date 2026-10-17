@@ -251,12 +251,10 @@ dependency-gated where project credentials are unavailable.
    - test_suites:
      1. test-rel19.0-persistent-application-platform
 
-<!-- field: config_format_index -->
+<!-- field: config_format_index | form: "scalar" -->
 ## Config format index
 
-```yaml
 []
-```
 
 <!-- field: semantic_model_index | form: "tree" -->
 ## Semantic model index

@@ -92,7 +92,7 @@ func (r *Declaration) parseField(key, text string) (*yaml.Node, error) {
 	field, typed := r.Fields[key]
 	switch {
 	case typed && field.Code != "":
-		return parseCode(field.Code, text)
+		return parseCodeField(field.Code, text)
 	case typed && field.Value == valueKeyed:
 		return parseKeyed(text)
 	case typed && field.Value == valueOutline:
@@ -394,6 +394,44 @@ func setKey(mapping *yaml.Node, key string, value *yaml.Node) {
 		}
 	}
 	mapping.Content = append(mapping.Content, stringNode(key), value)
+}
+
+// parseCodeField reads a code field: its fence, or a form written before the
+// declaration (plain text, or a fenced yaml block holding the string), which
+// mage fmt rewrites into the fence.
+func parseCodeField(language, text string) (*yaml.Node, error) {
+	value, err := parseCode(language, text)
+	switch {
+	case err == nil:
+		return value, nil
+	case plainText(text):
+		return stringNode(text), nil
+	case classifyContent(text) == shapeYAML:
+		if legacy, yamlErr := parseFencedYAML(text); yamlErr == nil && isString(legacy) {
+			return legacy, nil
+		}
+	}
+	return nil, err
+}
+
+// codeFieldReadable reports content a code field reads: its fence or a form
+// mage fmt rewrites into it.
+func codeFieldReadable(language, text string) bool {
+	_, err := parseCodeField(language, text)
+	return err == nil
+}
+
+// plainText reports field content that holds no fenced block, which a code
+// field reads as its string so a document written before the declaration
+// formats into the fence rather than failing.
+func plainText(text string) bool {
+	blocks, _ := topLevelBlocks([]byte(text))
+	for _, b := range blocks {
+		if _, fenced := b.Node.(*ast.FencedCodeBlock); fenced {
+			return false
+		}
+	}
+	return true
 }
 
 // codeLines prints a code field's string inside one fence of its declared

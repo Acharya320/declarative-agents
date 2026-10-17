@@ -52,63 +52,62 @@ executable_structural
 <!-- field: command -->
 #### Command
 
-```yaml
-|
-    python3 - <<'PY'
-    from pathlib import Path
-    import subprocess
-    import yaml
+```bash
+python3 - <<'PY'
+from pathlib import Path
+import subprocess
+import yaml
 
-    root = Path("applications/docs")
-    # Every corpus document under root, as the YAML tree its declaration
-    # parses it into (mage specYAML, GH-2627).
-    out = subprocess.run(["mage", "specYAML", str(root)], cwd="agent-core",
-                         check=True, capture_output=True, text=True).stdout
-    docs = {Path(p): tree for p, tree in yaml.safe_load(out).items()}
-    required = {
-        root / "VISION.md": {
-            "id", "title", "executive_summary", "problem", "what_this_does",
-            "why_we_build_this", "success_criteria", "not",
-        },
-        root / "ARCHITECTURE.md": {
-            "id", "title", "overview", "interfaces", "components",
-            "design_decisions", "technology_choices", "project_structure",
-            "implementation_status", "related_documents",
-        },
-        root / "road-map.md": {"id", "title", "releases"},
-        root / "SPECIFICATIONS.md": {
-            "id", "title", "overview", "roadmap_summary",
-            "foundation_document_index", "srd_index", "config_format_index",
-            "semantic_model_index", "use_case_index", "test_suite_index",
-            "coverage_gaps",
-        },
-    }
-    for path, fields in required.items():
-        assert path in docs, path
-        assert not fields - set(docs[path]), (path, fields - set(docs[path]))
-    index = docs[root / "SPECIFICATIONS.md"]
-    for section in ("foundation_document_index", "srd_index",
-                    "use_case_index", "test_suite_index"):
-        for entry in index[section]:
-            path = Path("applications") / entry["path"]
-            assert path.is_file(), path
-    uc_path = root / "specs/use-cases/rel00.0-uc001-application-contract-conformance.md"
-    ts_path = root / "specs/test-suites/test-rel00.0-application-contract-conformance.md"
-    uc, suite = docs[uc_path], docs[ts_path]
-    assert uc["test_suite"] == suite["id"]
-    assert uc["id"] in suite["traces"]
-    assert "test-rel00.0-application-contract-conformance" in {
-        trace["target"] for trace in uc["touchpoints"]
-    }
-    for srd_name in (
-        "srd001-application-module-contract.md",
-        "srd002-managed-application-services.md",
-    ):
-        srd = docs[root / "specs/software-requirements" / srd_name]
-        assert uc["id"] in srd["use_case_traces"]
-        assert suite["id"] in srd["test_suite_traces"]
-    print(f"validated {len(docs)} shared application corpus documents")
-    PY
+root = Path("applications/docs")
+# Every corpus document under root, as the YAML tree its declaration
+# parses it into (mage specYAML, GH-2627).
+out = subprocess.run(["mage", "specYAML", str(root)], cwd="agent-core",
+                     check=True, capture_output=True, text=True).stdout
+docs = {Path(p): tree for p, tree in yaml.safe_load(out).items()}
+required = {
+    root / "VISION.md": {
+        "id", "title", "executive_summary", "problem", "what_this_does",
+        "why_we_build_this", "success_criteria", "not",
+    },
+    root / "ARCHITECTURE.md": {
+        "id", "title", "overview", "interfaces", "components",
+        "design_decisions", "technology_choices", "project_structure",
+        "implementation_status", "related_documents",
+    },
+    root / "road-map.md": {"id", "title", "releases"},
+    root / "SPECIFICATIONS.md": {
+        "id", "title", "overview", "roadmap_summary",
+        "foundation_document_index", "srd_index", "config_format_index",
+        "semantic_model_index", "use_case_index", "test_suite_index",
+        "coverage_gaps",
+    },
+}
+for path, fields in required.items():
+    assert path in docs, path
+    assert not fields - set(docs[path]), (path, fields - set(docs[path]))
+index = docs[root / "SPECIFICATIONS.md"]
+for section in ("foundation_document_index", "srd_index",
+                "use_case_index", "test_suite_index"):
+    for entry in index[section]:
+        path = Path("applications") / entry["path"]
+        assert path.is_file(), path
+uc_path = root / "specs/use-cases/rel00.0-uc001-application-contract-conformance.md"
+ts_path = root / "specs/test-suites/test-rel00.0-application-contract-conformance.md"
+uc, suite = docs[uc_path], docs[ts_path]
+assert uc["test_suite"] == suite["id"]
+assert uc["id"] in suite["traces"]
+assert "test-rel00.0-application-contract-conformance" in {
+    trace["target"] for trace in uc["touchpoints"]
+}
+for srd_name in (
+    "srd001-application-module-contract.md",
+    "srd002-managed-application-services.md",
+):
+    srd = docs[root / "specs/software-requirements" / srd_name]
+    assert uc["id"] in srd["use_case_traces"]
+    assert suite["id"] in srd["test_suite_traces"]
+print(f"validated {len(docs)} shared application corpus documents")
+PY
 ```
 
 <!-- field: expected | form: "tree" -->
@@ -146,8 +145,10 @@ go_test
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles
 go test . -run 'Test(ApplicationModulesParticipateInAudit|ChatbotMeshIsAnApplicationModule|CodingAgentParticipatesInAudit|AgentArchitectureIsCompositionApplicationModule|EveryOrchestratedModuleDirectoryExists|OrchestrationUsesStableApplicationPaths|ApplicationModulesExcludedFromSubModules|StatsParticipantsIncludeApplicationModules|TestSubModulesDispatchesApplicationModules)$'
+```
 
 <!-- field: evidence -->
 #### Evidence
@@ -199,10 +200,12 @@ go_test
 <!-- field: command -->
 #### Command
 
+```bash
 (cd magefiles && go test . -run 'TestSumAgentsTotals')
 (cd applications/coding-agent && go test ./magefiles -run 'TestCollectCodingApplicationStats')
 (cd applications/chatbot-mesh && go test ./magefiles -run 'Test(ScanAgentOwnershipSeparatesCompositionWrapper|RepositoryMeshOwnershipClassifiesCorpusIngestAsComposition)')
 (cd applications/agent-architecture && go test ./magefiles -run '^TestStatsCompositionOnlyJSON$')
+```
 
 <!-- field: evidence -->
 #### Evidence
@@ -254,7 +257,9 @@ mage_gate
 <!-- field: command -->
 #### Command
 
+```bash
 mage audit
+```
 
 <!-- field: evidence -->
 #### Evidence
@@ -304,9 +309,11 @@ application_test_suites
 <!-- field: command -->
 #### Command
 
+```bash
 (cd applications/coding-agent && go test ./magefiles -run 'TestServingProfilesUseRealLifecycleAndCanonicalRoleProfiles|TestPlannerServingFlowUsesDeclaredRemoteBoundaries')
 (cd applications/chatbot-mesh && go test ./magefiles -run 'TestChatbotRolloutDrainsActiveRequests|TestDetachedAgentDualExportsAndStampsResourceIdentity')
 (cd applications/agent-architecture && go test ./magefiles -run '^TestManagedServicesEvidenceContract$')
+```
 
 <!-- field: evidence -->
 #### Evidence
@@ -358,8 +365,10 @@ application_test_suites
 <!-- field: command -->
 #### Command
 
+```bash
 (cd applications/coding-agent && go test ./magefiles -run 'Test(ProfilePackageIsDeterministic|DeploymentPackageIsDeterministic|HelmPrepareStagesPackageAsOnlyProfileSource|HelmPackage)')
 (cd applications/chatbot-mesh && go test ./magefiles -run 'Test(StagedProfilesCoverEnabledDeployments|HelmPackage)')
+```
 
 <!-- field: evidence -->
 #### Evidence
@@ -405,8 +414,10 @@ referenced_engineering_contract
 <!-- field: command -->
 #### Command
 
+```bash
 (cd applications/coding-agent && go test ./magefiles -run 'TestCodingHelm(SmokeSkipsMissingExternalPrerequisite|InfrastructureProbeClassification|DiagnosticsUseOneBoundedContext)')
 (cd applications/chatbot-mesh && go test ./magefiles -run 'TestHelmSmokeSkipReasonMissingBinary|TestCollectSharedTelemetryEvidenceIdentifiesSlowComponent')
+```
 
 <!-- field: evidence -->
 #### Evidence
@@ -450,7 +461,9 @@ mage_gate
 <!-- field: command -->
 #### Command
 
+```bash
 mage stats
+```
 
 <!-- field: evidence -->
 #### Evidence
@@ -498,8 +511,10 @@ go_test
 <!-- field: command -->
 #### Command
 
+```bash
 (cd magefiles && go test . -run '^TestAgentRoleRealization')
 (cd applications/catalog && go test ./conformance -run 'Test(ShippedProfilesMatchFoundationModels|CatalogMembershipUsesSharedRealizationAndAliasAuthority)$')
+```
 
 <!-- field: evidence -->
 #### Evidence

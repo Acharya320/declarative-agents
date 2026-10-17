@@ -204,15 +204,13 @@ Inbound REST server endpoints extract traceparent (and tracestate) to parent the
 - R5.3
 - R5.4
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-done:
-    - ParseTraceparent, FormatTraceparent, and ParseParentSpan primitives, and the subprocess --otel-parent-span propagation path, which remains unchanged and complementary to HTTP propagation.
-    - Outbound injection (R4): the engine injects the active dispatch span into TraceContextAware commands (core.TraceContextAware, set in dispatchWithMonitor from the dispatch span context); the REST client's applyTraceContext writes traceparent (and tracestate when present) into every outbound request uniformly, omitting the header when no recording span is active. No rest-tool-format surface. Delivered by GH-310.
-    - Inbound extraction (R5): the REST server's startMachineRequestSpan extracts an incoming traceparent (and tracestate), parents the machine_request span on the remote SpanContext through the global tracer, and falls back to a new root on absent or malformed headers using the same parser; traceparent/tracestate are allowed undeclared request headers. Delivered by GH-310.
-```
+- done:
+  1. ParseTraceparent, FormatTraceparent, and ParseParentSpan primitives, and the subprocess --otel-parent-span propagation path, which remains unchanged and complementary to HTTP propagation.
+  1. - "Outbound injection (R4)": the engine injects the active dispatch span into TraceContextAware commands (core.TraceContextAware, set in dispatchWithMonitor from the dispatch span context); the REST client's applyTraceContext writes traceparent (and tracestate when present) into every outbound request uniformly, omitting the header when no recording span is active. No rest-tool-format surface. Delivered by GH-310.
+  1. - "Inbound extraction (R5)": the REST server's startMachineRequestSpan extracts an incoming traceparent (and tracestate), parents the machine_request span on the remote SpanContext through the global tracer, and falls back to a new root on absent or malformed headers using the same parser; traceparent/tracestate are allowed undeclared request headers. Delivered by GH-310.
 
 <!-- field: diagrams | form: "tree" -->
 ## Diagrams

@@ -4,6 +4,7 @@
 package markdown
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"regexp"
@@ -45,10 +46,11 @@ func treeBlock(value *yaml.Node, indent string) ([]string, error) {
 	if value.Kind == yaml.MappingNode {
 		for i := 0; i+1 < len(value.Content); i += 2 {
 			key := value.Content[i].Value
+			printed := key
 			if !bareName(key) {
-				return nil, fmt.Errorf("key %q is not a bare name", key)
+				printed = jsonString(key) // a prose key prints quoted
 			}
-			entry, err := treeEntry(indent+treeBullet+key+":", value.Content[i+1], indent+strings.Repeat(" ", bulletWidth), false)
+			entry, err := treeEntry(indent+treeBullet+printed+":", value.Content[i+1], indent+strings.Repeat(" ", bulletWidth), false)
 			if err != nil {
 				return nil, fmt.Errorf("%s: %w", key, err)
 			}
@@ -80,6 +82,12 @@ func treeEntry(head string, value *yaml.Node, childIndent string, element bool) 
 	var err error
 	if value.Kind == yaml.ScalarNode {
 		nested, err = treeText(value, childIndent)
+		if err != nil && isString(value) && strings.Contains(strings.TrimRight(value.Value, "\n"), "\n") {
+			nested, err = literalText(value, childIndent)
+			if err == nil {
+				return append([]string{head + " " + literalMarker}, nested...), nil
+			}
+		}
 	} else {
 		nested, err = treeBlock(value, childIndent)
 	}
@@ -119,6 +127,26 @@ func treeText(value *yaml.Node, indent string) ([]string, error) {
 	if len(lines) < 2 || strings.TrimSpace(lines[0]) == "" || strings.TrimLeft(lines[0], " \t") != lines[0] ||
 		listOpener.MatchString(lines[0]) {
 		return nil, errors.New("text whose first line is indented or reads as a list item")
+	}
+	out := make([]string, len(lines))
+	for i, line := range lines {
+		if line != "" {
+			out[i] = indent + line
+		}
+	}
+	return out, nil
+}
+
+// literalMarker opens text the tree reads verbatim even when its first line
+// is indented or reads as a list item (GH-2644).
+const literalMarker = "|"
+
+// literalText prints multi-line text after a literal marker: every line
+// indented, read back verbatim.
+func literalText(value *yaml.Node, indent string) ([]string, error) {
+	lines := strings.Split(strings.TrimRight(value.Value, "\n"), "\n")
+	if strings.TrimSpace(lines[0]) == "" {
+		return nil, errors.New("text that opens with a blank line")
 	}
 	out := make([]string, len(lines))
 	for i, line := range lines {
@@ -188,12 +216,14 @@ func parseTreeEntries(lines []string, indent int, marker string) (*yaml.Node, er
 func parseTreeEntry(head string, nested []string, childIndent int, keyed bool) (*yaml.Node, string, error) {
 	key, rest := "", strings.TrimSpace(head)
 	if keyed {
-		var found bool
-		key, rest, found = strings.Cut(strings.TrimSpace(head), ":")
-		if !found || !bareName(key) {
-			return nil, "", fmt.Errorf("entry %q has no bare key", head)
+		var err error
+		if key, rest, err = splitTreeKey(strings.TrimSpace(head)); err != nil {
+			return nil, "", err
 		}
-		rest = strings.TrimSpace(rest)
+	}
+	if rest == literalMarker {
+		value, err := literalTextNode(nested, childIndent)
+		return value, key, err
 	}
 	if !keyed && rest != "" && (listOpener.MatchString(rest) || len(trimBlankEdges(nested)) > 0) {
 		block := append([]string{strings.Repeat(" ", childIndent) + rest}, nested...)
@@ -209,6 +239,45 @@ func parseTreeEntry(head string, nested []string, childIndent int, keyed bool) (
 	}
 	value, err := parseTreeBlock(nested, childIndent)
 	return value, key, err
+}
+
+// splitTreeKey splits a map entry's head into its key, bare or JSON-quoted,
+// and the rest after the colon.
+func splitTreeKey(head string) (string, string, error) {
+	if strings.HasPrefix(head, `"`) {
+		decoder := json.NewDecoder(strings.NewReader(head))
+		var key string
+		if err := decoder.Decode(&key); err != nil {
+			return "", "", fmt.Errorf("entry %q: %w", head, err)
+		}
+		rest, found := strings.CutPrefix(head[decoder.InputOffset():], ":")
+		if !found {
+			return "", "", fmt.Errorf("entry %q has no colon after its key", head)
+		}
+		return key, strings.TrimSpace(rest), nil
+	}
+	key, rest, found := strings.Cut(head, ":")
+	if !found || !bareName(key) {
+		return "", "", fmt.Errorf("entry %q has no key", head)
+	}
+	return key, strings.TrimSpace(rest), nil
+}
+
+// literalTextNode reads text after a literal marker back verbatim.
+func literalTextNode(lines []string, indent int) (*yaml.Node, error) {
+	lines = trimBlankEdges(lines)
+	out := make([]string, len(lines))
+	for i, line := range lines {
+		if line == "" {
+			continue
+		}
+		text, ok := dedent(line, indent)
+		if !ok {
+			return nil, fmt.Errorf("text line %q is not indented %d spaces", line, indent)
+		}
+		out[i] = text
+	}
+	return stringNode(strings.Join(out, "\n")), nil
 }
 
 // entryHead returns an entry line without its marker.

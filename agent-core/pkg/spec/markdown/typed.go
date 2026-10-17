@@ -115,7 +115,7 @@ func encodeFlowScalar(node *yaml.Node) (string, error) {
 		}
 		return "", fmt.Errorf("scalar %q does not read back as %s", node.Value, node.ShortTag())
 	}
-	plain := node.Value
+	plain := strings.TrimRight(node.Value, "\n") // trailing newlines are not part of the canonical value
 	if strings.Contains(plain, "\n") {
 		return "", errors.New("multi-line text is not a flow value")
 	}
@@ -151,6 +151,9 @@ func decodeFlow(text string) (*yaml.Node, error) {
 
 // scalarLines prints a lone scalar as one flow value.
 func scalarLines(value *yaml.Node) ([]string, error) {
+	if inline, ok := inlineTreeValue(value); ok && value.Kind != yaml.ScalarNode {
+		return []string{inline}, nil // an empty list or map: [] or {}
+	}
 	if value.Kind != yaml.ScalarNode {
 		return nil, errors.New("the scalar form holds a scalar")
 	}

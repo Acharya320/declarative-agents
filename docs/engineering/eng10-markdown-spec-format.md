@@ -332,6 +332,8 @@ Two types and one document stay outside the format by design. The corpus charter
 
 Every tracked document of every structured type round-trips under the round-trip laws: 369 documents, of which mage convert converts 368 (the design constitution stays YAML), from canonical YAML to Markdown and back to the same tree, with Markdown a fixed point of Format and the typed model unchanged where the type has one (TestEveryCorpusSRDRoundTrips and TestEveryCorpusDocumentRoundTrips in agent-core/pkg/spec/markdown). Table 11 gives the counts by type.
 
+After the rendering work of GH-2638 the printer writes no fenced yaml block anywhere in the corpus, down from 1,715 in 229 documents. Of the values that printed as YAML, 1,572 fields now print in the tree form, 85 as typed tables, and 27 as scalars; the 61 test-suite commands print as bash fences, and 132 Mermaid blocks draw. One fenced yaml block remains by intent: a code example inside the text of agent-core ARCHITECTURE decision 5, which an earlier indented example would have turned into an untagged list. mage fmt reports any fallback fence the printer writes again.
+
 Table 11: Corpus fit of the declarations
 
 | Type | Documents | Round-trip | Prose-containment hits |

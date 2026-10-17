@@ -62,6 +62,7 @@ executable_structural
 <!-- field: command -->
 #### Command
 
+```bash
 python3 - <<'PY'
 from pathlib import Path
 import subprocess
@@ -138,6 +139,7 @@ assert any(e["id"] == use_case["id"] for e in release["use_cases"])
 assert any(e["id"] == suite["id"] for e in release["test_suites"])
 print("validated Release 17.0 pin currency trace closure")
 PY
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -181,7 +183,9 @@ GH-2416
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./pinsurvey/... .
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -223,7 +227,9 @@ GH-2416
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestDeclaredPins
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -263,7 +269,9 @@ GH-2416
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./pinsurvey/...
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -304,7 +312,9 @@ GH-2416
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./pinsurvey/...
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -345,7 +355,9 @@ GH-2416
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./pinsurvey/...
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -386,7 +398,9 @@ GH-2416
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./pinsurvey/...
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -428,7 +442,9 @@ GH-2416
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestBump
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -470,7 +486,9 @@ GH-2416
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./pinsurvey/...
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected

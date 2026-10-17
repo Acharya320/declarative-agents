@@ -427,23 +427,21 @@ of its own. Execution metadata persists the optional authored label in a
 nullable field. The adapter upgrades an existing schema idempotently; old rows
 restore an empty label and retain command-name addressing.
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-done:
-    - Core CommandStateView (internal/runtime/core/command_state.go): a read-only, receipt-blind forward view over the run's execution log. One newest-to-oldest scan matches either an authored label or executed command name, while the projected struct omits Entry.Receipt so receipts are unreachable by construction (R1, R2, R3). The engine injects it before dispatch into commands implementing CommandStateAware, mirroring MonitorRecorderAware. Initially delivered by GH-277 and extended with authored labels and typed lookup errors by GH-488.
-    - REST body_source command_state consumption and $from(label).path selector validation (V32): clientCmd implements CommandStateAware and resolves selectors against the injected view, with the no-store rejection enforced at runtime (R13.5). Delivered by GH-278.
-    - rel07.0-uc001 tracer bullet (a three-word chain where word 3 selects word 1 non-adjacently and the run resumes mid-chain) and a commit-per-step large-blob storage benchmark showing per-step write cost bounded by the new blob (~linear, not cumulative). Delivered by GH-279.
-    - Shared $from resolution: core.ParseFromSelector and core.ResolveFromSelector factor the selector parse and path walk out of the REST client so a second consumer, the compose builtin, resolves $from(label).path against the same view. The compose word renders a template from $from selectors, letting a later word (invoke_llm) receive one composed input assembled from non-adjacent prior steps without carry_forward chains. Delivered by GH-342.
-    - Canonical selector AST: core.ParseSelector validates both $.path and $from(label).path forms, and the parsed selector owns the shared nested-map resolver used by core and REST consumers.
-    - "GH-488: TransitionSpec authored labels are validated with the canonical selector grammar, recorded separately from command names, resolved with exported typed label/path errors, and persisted through an idempotent nullable Dolt schema upgrade. Real MachineSpec execution proves dynamic-tool separation, command-name fallback, duplicate-label newest-match behavior, and fresh-view restart rehydration."
-    - "GH-786: Exec parameter source declarations resolve through CommandStateAware after command construction, and machine_request exposes its initial Result through the reserved seed entry."
-    - "GH-2067: for_each item labels take the element type of the array for_each.items reaches (R2.16); they had taken it from the per-item action's output. An item over a REST mapped field stays untyped by decision."
-    - "GH-2064 and GH-2065: REST label types are derived from the runtime result (R2.19). A client word's envelope comes from the operation its config names, uniting the keys every status mapping publishes under mapped; the server launch, stop, and await results are constants the runtime fixes. A response body and an inbound request payload stay undecided, because no declaration states their shape."
-    - "GH-489: Typed output-redaction metadata, pre-Entry removal, checkpoint defense in depth, selector denial for unsafe and legacy output, and persisted REST conformance evidence (R1.8, R5)."
-planned: []
-```
+- done:
+  1. - "Core CommandStateView (internal/runtime/core/command_state.go)": a read-only, receipt-blind forward view over the run's execution log. One newest-to-oldest scan matches either an authored label or executed command name, while the projected struct omits Entry.Receipt so receipts are unreachable by construction (R1, R2, R3). The engine injects it before dispatch into commands implementing CommandStateAware, mirroring MonitorRecorderAware. Initially delivered by GH-277 and extended with authored labels and typed lookup errors by GH-488.
+  1. - "REST body_source command_state consumption and $from(label).path selector validation (V32)": clientCmd implements CommandStateAware and resolves selectors against the injected view, with the no-store rejection enforced at runtime (R13.5). Delivered by GH-278.
+  1. rel07.0-uc001 tracer bullet (a three-word chain where word 3 selects word 1 non-adjacently and the run resumes mid-chain) and a commit-per-step large-blob storage benchmark showing per-step write cost bounded by the new blob (~linear, not cumulative). Delivered by GH-279.
+  1. - "Shared $from resolution": core.ParseFromSelector and core.ResolveFromSelector factor the selector parse and path walk out of the REST client so a second consumer, the compose builtin, resolves $from(label).path against the same view. The compose word renders a template from $from selectors, letting a later word (invoke_llm) receive one composed input assembled from non-adjacent prior steps without carry_forward chains. Delivered by GH-342.
+  1. - "Canonical selector AST": core.ParseSelector validates both $.path and $from(label).path forms, and the parsed selector owns the shared nested-map resolver used by core and REST consumers.
+  1. "GH-488: TransitionSpec authored labels are validated with the canonical selector grammar, recorded separately from command names, resolved with exported typed label/path errors, and persisted through an idempotent nullable Dolt schema upgrade. Real MachineSpec execution proves dynamic-tool separation, command-name fallback, duplicate-label newest-match behavior, and fresh-view restart rehydration."
+  1. "GH-786: Exec parameter source declarations resolve through CommandStateAware after command construction, and machine_request exposes its initial Result through the reserved seed entry."
+  1. "GH-2067: for_each item labels take the element type of the array for_each.items reaches (R2.16); they had taken it from the per-item action's output. An item over a REST mapped field stays untyped by decision."
+  1. "GH-2064 and GH-2065: REST label types are derived from the runtime result (R2.19). A client word's envelope comes from the operation its config names, uniting the keys every status mapping publishes under mapped; the server launch, stop, and await results are constants the runtime fixes. A response body and an inbound request payload stay undecided, because no declaration states their shape."
+  1. "GH-489: Typed output-redaction metadata, pre-Entry removal, checkpoint defense in depth, selector denial for unsafe and legacy output, and persisted REST conformance evidence (R1.8, R5)."
+- planned: []
 
 <!-- field: diagrams | form: "tree" -->
 ## Diagrams

@@ -369,19 +369,17 @@ tool_results table into a forward plane (tool_outputs) and a reverse plane
 reaching a receipt. srd036 implements the port defined by
 srd035-checkpoint-port.
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-done:
-    - DoltCheckpoint adapter, database/sql seam, generic schema, commit-per-step, branch-per-run, merge-on-terminal, and Revert.
-    - cmd/agent wiring that enables Dolt through --dolt-dsn and uses NoopCheckpoint when persistence is disabled.
-    - Five-table split of tool_results into tool_outputs (forward plane; signal, output, error, cost) and receipts (reverse plane; opaque receipt), both keyed (run_id, step_index) and written in one per-step transaction. An empty receipt is represented by receipts-row absence and restores "" on Load; tool_outputs carries no receipt column. Delivered by GH-275.
-    - Two-plane lifetime invariants pinned by tests (GH-276): revert reaps both planes past the target step by branch construction (R4, R6.4); terminal merge-and-delete reaps the run branch and both planes (R4.3).
-    - "GH-489: Versioned redaction columns, defense-in-depth sanitization in DoltCheckpoint.Save, legacy-row preservation, and fail-closed output omission (R3.7-R3.11)."
-    - "GH-1683: Immutable run/step/commit conversation references with strict parsing, run isolation, historical AS OF resolution, and fresh-adapter coverage (R5.5)."
-planned: []
-```
+- done:
+  1. DoltCheckpoint adapter, database/sql seam, generic schema, commit-per-step, branch-per-run, merge-on-terminal, and Revert.
+  1. cmd/agent wiring that enables Dolt through --dolt-dsn and uses NoopCheckpoint when persistence is disabled.
+  1. Five-table split of tool_results into tool_outputs (forward plane; signal, output, error, cost) and receipts (reverse plane; opaque receipt), both keyed (run_id, step_index) and written in one per-step transaction. An empty receipt is represented by receipts-row absence and restores "" on Load; tool_outputs carries no receipt column. Delivered by GH-275.
+  1. - "Two-plane lifetime invariants pinned by tests (GH-276)": revert reaps both planes past the target step by branch construction (R4, R6.4); terminal merge-and-delete reaps the run branch and both planes (R4.3).
+  1. "GH-489: Versioned redaction columns, defense-in-depth sanitization in DoltCheckpoint.Save, legacy-row preservation, and fail-closed output omission (R3.7-R3.11)."
+  1. "GH-1683: Immutable run/step/commit conversation references with strict parsing, run isolation, historical AS OF resolution, and fresh-adapter coverage (R5.5)."
+- planned: []
 
 <!-- field: diagrams | form: "tree" -->
 ## Diagrams

@@ -594,26 +594,24 @@ Generic REST event aggregation waits across configured server sources, applies s
 - docs/guides/boundary-tools-and-async.md
 - docs/guides/rest-tool.md
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-implemented:
-    - internal/tools/rest package with declarative client, async client, server, OpenAPI import, machine_request, monitor, and fan-in support.
-    - tools/builtin/rest declarations selected by REST profiles and tests.
-    - docs/specs/config-formats/rest-tool-format.md and docs/specs/semantic-models/rest-tool-language.md.
-    - Release 03.0 formal test-suite entries in docs/specs/test-suites/test-rel03.0-rest-tools.md.
-    - Client safety and async request metadata: CIDR enforcement, response schema validation, domain_error_code output, correlation lookup, idempotency headers, and explicit MachineSpec probe/delay polling.
-    - OpenAPI endpoint config preservation while importing transport and schema fields.
-    - REST compensation undo mementos and rollback-time compensation execution for mutating client operations that declare compensation metadata.
-    - machine_request terminal response schema validation before success responses.
-    - Typed loading plus explicit validation rejection for reserved rest.document_resources and machine_request.document_resources config.
-    - Strict known-field decoding for hand-authored REST YAML at every typed nesting level.
-    - Exact single-object JSON request decoding with complete primitive/container type enforcement.
-partial:
-    - R10 lifecycle control routing is currently proven through configured emit_signal control routes and MachineSpec exit_agent transitions. Modeled lifecycle_control endpoint config remains reserved target-format behavior.
-    - R10 read policy values outside the implemented first-available behavior are rejected during ToolDef factory validation.
-```
+- implemented:
+  1. internal/tools/rest package with declarative client, async client, server, OpenAPI import, machine_request, monitor, and fan-in support.
+  1. tools/builtin/rest declarations selected by REST profiles and tests.
+  1. docs/specs/config-formats/rest-tool-format.md and docs/specs/semantic-models/rest-tool-language.md.
+  1. Release 03.0 formal test-suite entries in docs/specs/test-suites/test-rel03.0-rest-tools.md.
+  1. - "Client safety and async request metadata": CIDR enforcement, response schema validation, domain_error_code output, correlation lookup, idempotency headers, and explicit MachineSpec probe/delay polling.
+  1. OpenAPI endpoint config preservation while importing transport and schema fields.
+  1. REST compensation undo mementos and rollback-time compensation execution for mutating client operations that declare compensation metadata.
+  1. machine_request terminal response schema validation before success responses.
+  1. Typed loading plus explicit validation rejection for reserved rest.document_resources and machine_request.document_resources config.
+  1. Strict known-field decoding for hand-authored REST YAML at every typed nesting level.
+  1. Exact single-object JSON request decoding with complete primitive/container type enforcement.
+- partial:
+  1. R10 lifecycle control routing is currently proven through configured emit_signal control routes and MachineSpec exit_agent transitions. Modeled lifecycle_control endpoint config remains reserved target-format behavior.
+  1. R10 read policy values outside the implemented first-available behavior are rejected during ToolDef factory validation.
 
 <!-- field: diagrams | form: "tree" -->
 ## Diagrams

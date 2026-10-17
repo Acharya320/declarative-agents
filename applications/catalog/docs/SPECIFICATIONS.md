@@ -304,12 +304,10 @@ targets that set catalog_root in demo.yaml.
 | srd022-applier | Canonical Deployment Applier Family |  | Shared lifecycle host, request-machine sequencing, name-only selections, and ToolDefs used by three application-owned wrappers whose endpoints, charts, rollout commands, and authority remain local, plus the host-side deploy and undeploy machines that install a release from the developer's machine through the same declared sequence. | implemented |  | docs/specs/software-requirements/srd022-applier.md |  |
 | srd023-rig-doctor | Rig Doctor Root-Cause Analyst |  | Catalog root-cause-analyst that reads one captured kind evidence directory and the trace spool tail, never the live cluster, and writes a diagnosis whose every claim cites a captured file and line. | implemented |  | docs/specs/software-requirements/srd023-rig-doctor.md |  |
 
-<!-- field: config_format_index -->
+<!-- field: config_format_index | form: "scalar" -->
 ## Config format index
 
-```yaml
 []
-```
 
 <!-- field: semantic_model_index | form: "tree" -->
 ## Semantic model index

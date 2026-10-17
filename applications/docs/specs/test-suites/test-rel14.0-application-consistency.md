@@ -64,6 +64,7 @@ executable_structural
 <!-- field: command -->
 #### Command
 
+```bash
 python3 - <<'PY'
 from pathlib import Path
 import subprocess
@@ -135,6 +136,7 @@ assert any(entry["id"] == use_case["id"] for entry in release["use_cases"])
 assert any(entry["id"] == suite["id"] for entry in release["test_suites"])
 print("validated Release 14.0 application consistency trace closure")
 PY
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -174,7 +176,9 @@ go_test
 <!-- field: command -->
 #### Command
 
+```bash
 (cd magefiles && go test -run '^TestApplicationConsistencyManifests$')
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -213,7 +217,9 @@ go_test
 <!-- field: command -->
 #### Command
 
+```bash
 (cd magefiles && go test -run '^TestApplicationActorGrammar$')
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -259,10 +265,12 @@ packaged
 <!-- field: command -->
 #### Command
 
+```bash
 (cd magefiles && go test -run '^TestManifestDerivedPackageAssets$')
 (cd applications/chatbot-mesh && go test ./magefiles -run '^TestManifestDerivedPackageClosure$')
 (cd applications/coding-agent && go test ./magefiles -run '^Test(ManifestMutationControlsCollectorAssets|UndeclaredCollectorUIIsNotPackaged|UndeclaredCollectorRootIsNotPackaged)$')
 (cd applications/agent-architecture && go test ./magefiles -run '^Test(ManifestMutationControlsCatalogDocsArchive|UndeclaredCatalogDocsAreNotArchived)$')
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -306,8 +314,10 @@ promotion candidates or ui
 <!-- field: command -->
 #### Command
 
+```bash
 (cd magefiles && go test -run '^TestApplicationPromotionAndUITokens$')
 (cd applications/catalog && go test ./conformance -run '^Test(DesignTokens|ApplierPromotion)')
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -345,7 +355,9 @@ go_test
 <!-- field: command -->
 #### Command
 
+```bash
 (cd magefiles && go test -run '^TestApplicationReadmeStatusAndRootClassification$')
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -384,7 +396,9 @@ go_test
 <!-- field: command -->
 #### Command
 
+```bash
 (cd magefiles && go test -run '^TestRelease14ApplicationMatrix$')
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -422,7 +436,9 @@ mage_gate
 <!-- field: command -->
 #### Command
 
+```bash
 mage audit
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected

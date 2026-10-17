@@ -65,19 +65,15 @@ shared agent-core runtime image remains profile-free.
 | srd003-critic | applications/catalog | Critic Functional Block | ../../catalog/docs/specs/software-requirements/srd003-critic.md | The critic-gate stage uses its suite, point, oracle, report, and terminal-outcome contract. |
 | srd004-planner | applications/catalog | Planner Functional Block | ../../catalog/docs/specs/software-requirements/srd004-planner.md | The planner-delegation stage uses its requirement traversal, task materialization, child-profile execution, and validation contract. |
 
-<!-- field: config_format_index -->
+<!-- field: config_format_index | form: "scalar" -->
 ## Config format index
 
-```yaml
 []
-```
 
-<!-- field: semantic_model_index -->
+<!-- field: semantic_model_index | form: "scalar" -->
 ## Semantic model index
 
-```yaml
 []
-```
 
 <!-- field: use_case_index -->
 ## Use case index

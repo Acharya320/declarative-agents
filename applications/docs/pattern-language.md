@@ -67,22 +67,17 @@ overlaps; syntax is a one-line sentence showing the pattern in combination;
 examples are independent occurrences, each cited to the bibliography, of
 kind external, internal, or sibling.
 
-<!-- field: declarative_agent_application -->
+<!-- field: declarative_agent_application | form: "tree" -->
 ## Declarative agent application
 
-```yaml
-summary: >
-    A declarative agent application is a runnable, governed composition of one or more agent realizations, application-owned configuration and interfaces, and any package or deployment artifacts needed to operate them. It consumes canonical agent programs by reference and owns the topology that turns those programs into an end-to-end capability.
-
-parts:
-    catalog: Canonical reusable agent programs and their conformance evidence.
-    composition: Application-owned references, sequencing, wrappers, and interfaces.
-    package: A resolved closure with provenance when a distributable artifact is required.
-    deployment: Role-scoped workloads, mounts, endpoints, authority, and lifecycle.
-    governance: Capability-dependent requirements, local evidence, and root orchestration.
-canonical_example: >
-    The coding-agent application references planner, executor, and critic in the catalog, resolves one closed profile tree at package time, mounts the appropriate closure into separate role workloads, and keeps its shared runtime image free of profiles.
-```
+- summary: A declarative agent application is a runnable, governed composition of one or more agent realizations, application-owned configuration and interfaces, and any package or deployment artifacts needed to operate them. It consumes canonical agent programs by reference and owns the topology that turns those programs into an end-to-end capability.
+- parts:
+  - catalog: Canonical reusable agent programs and their conformance evidence.
+  - composition: Application-owned references, sequencing, wrappers, and interfaces.
+  - package: A resolved closure with provenance when a distributable artifact is required.
+  - deployment: Role-scoped workloads, mounts, endpoints, authority, and lifecycle.
+  - governance: Capability-dependent requirements, local evidence, and root orchestration.
+- canonical_example: The coding-agent application references planner, executor, and critic in the catalog, resolves one closed profile tree at package time, mounts the appropriate closure into separate role workloads, and keeps its shared runtime image free of profiles.
 
 <!-- field: role_realization_conventions | form: "tree" -->
 ## Role realization conventions
@@ -960,13 +955,10 @@ Deploy each Role-Sharded Workload from its Composition Manifest onto a Persisten
 | Twelve-Factor backing services | twelve-factor-build-release-run | external | A deploy can be replaced independently while a bound backing service retains data across releases. |
 | Declarative Agents da-platform | reference-implementation | internal | The target contract shares Traefik and fake GCS while each application keeps its namespace, collector, bucket, and lifecycle authority. |
 
-<!-- field: grammar_check -->
+<!-- field: grammar_check | form: "tree" -->
 ## Grammar check
 
-```yaml
-note: >
-    Capability Ladder is the root. Every local pattern is connected through containment, prerequisites, or refinements, and all `da:` references resolve to the declared sibling language.
-```
+- note: Capability Ladder is the root. Every local pattern is connected through containment, prerequisites, or refinements, and all `da:` references resolve to the declared sibling language.
 
 <!-- field: bibliography | form: "tree" -->
 ## Bibliography

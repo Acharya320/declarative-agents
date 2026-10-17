@@ -10,9 +10,7 @@ title: Coding Loop Greet Fixture Road Map
 
 Implement the portable greeting requirement.
 
-<!-- field: use_cases -->
+<!-- field: use_cases | form: "scalar" -->
 ### Use cases
 
-```yaml
 []
-```

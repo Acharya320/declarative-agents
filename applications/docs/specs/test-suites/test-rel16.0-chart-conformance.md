@@ -63,6 +63,7 @@ executable_structural
 <!-- field: command -->
 #### Command
 
+```bash
 python3 - <<'PY'
 from pathlib import Path
 import subprocess
@@ -138,6 +139,7 @@ assert any(e["id"] == use_case["id"] for e in release["use_cases"])
 assert any(e["id"] == suite["id"] for e in release["test_suites"])
 print("validated Release 16.0 chart conformance trace closure")
 PY
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -181,7 +183,9 @@ GH-2408
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestChartConformance
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -224,7 +228,9 @@ GH-2408
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestChartConformance
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -265,7 +271,9 @@ GH-2408
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestChartConformance
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -306,7 +314,9 @@ GH-2408
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestChartConformance
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -347,7 +357,9 @@ GH-2408
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestChartConformance
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -388,7 +400,9 @@ GH-2408
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestChartConformance
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -429,7 +443,9 @@ GH-2408
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestChartConformance
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -472,7 +488,9 @@ GH-2408
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestChartConformance
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -515,7 +533,9 @@ GH-2409
 <!-- field: command -->
 #### Command
 
+```bash
 mage audit
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -560,7 +580,9 @@ GH-2512
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./chartconf -run 'TestImageReferenceGrammar|TestConformingRenderProducesNoFinding'
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected
@@ -606,7 +628,9 @@ GH-2533
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./chartconf -run 'TestApplierRole|TestReadOnlyApplier|TestPluralResource' && go test . -run TestChartConformance
+```
 
 <!-- field: expected | form: "tree" -->
 #### Expected

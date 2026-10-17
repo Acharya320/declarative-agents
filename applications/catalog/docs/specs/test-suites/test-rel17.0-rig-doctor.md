@@ -244,13 +244,11 @@ rig-doctor-retries-a-failed-model-call
 
 go test ./conformance -run '^TestRigDoctorRetriesAFailedModelCall'
 
-<!-- field: assertions -->
+<!-- field: assertions | form: "tree" -->
 #### Assertions
 
-```yaml
-- A provider that fails twice with a mapped status and then answers reaches Diagnosed, driven by ProviderUnavailable.
-- The run spends four provider calls: two failures, then the write and the done.
-```
+1. A provider that fails twice with a mapped status and then answers reaches Diagnosed, driven by ProviderUnavailable.
+1. - "The run spends four provider calls": two failures, then the write and the done.
 
 <!-- case: Rig doctor does not retry a rejected credential | status: implemented -->
 ### Rig doctor does not retry a rejected credential

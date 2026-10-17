@@ -13,242 +13,239 @@ Tool declarations describe purpose, invocation, parameters, and
 runtime contract. Two tool types exist: builtin tools
 (compiled into the agent binary) and exec tools (external executables).
 
-<!-- field: schema -->
+<!-- field: schema | form: "tree" -->
 ## Schema
 
-```yaml
-- field: name
-  type: string
-  required: true
-  description: |
-    Unique tool identifier. Referenced by tool selection files
-    (tools.yaml), machine transition actions, and LLM tool-call
-    output. Must be unique across all loaded declaration files.
-- field: type
-  type: string
-  required: false
-  description: |
-    Tool type discriminator. Either "builtin" (compiled-in Go
-    function) or "exec" (external executable). Defaults to "exec"
-    when omitted.
-- field: category
-  type: string
-  required: false
-  description: |
-    Tool vocabulary category used by contract validation and authoring
-    guidance. Known categories are word, sentence, boundary, and
-    stateful_internal. Boundary tools intentionally cross a program
-    boundary, such as invoking an LLM, spawning an agent subprocess, or
-    running a nested state machine. If omitted, validation categorizes
-    internal tools as internal, external builtins as external_builtin,
-    and exec tools as exec.
-- field: contract
-  type: string
-  required: false
-  description: |
-    Short contract summary for the tool. A concise statement of
-    the tool's purpose as a grammar word. Used by authoring and
-    validation tooling; not sent to the LLM.
-- field: description
-  type: string
-  required: false
-  description: |
-    Human-readable description of the tool's purpose and behavior.
-    Included in the tool schema sent to the LLM so it can decide
-    when and how to use the tool. Recommended but not enforced by
-    validateToolDefs.
-- field: problem
-  type: string
-  required: false
-  description: |
-    Contract field describing the vocabulary gap this tool fills.
-    It should explain why this tool exists as a single word in the
-    agent language. This is not currently sent to the LLM manifest.
-- field: goals
-  type: "[]string"
-  required: false
-  description: |
-    Contract field listing measurable success goals for the tool.
-    Goals describe what a correct implementation makes possible.
-- field: requirements
-  type: object
-  required: false
-  description: |
-    Contract field grouping observable "must" statements by
-    input, output, side_effects, undo, and errors. These sections
-    define the developer-facing requirements for the tool as a
-    deterministic vocabulary word.
-- field: non_goals
-  type: "[]string"
-  required: false
-  description: |
-    Contract field listing behavior this tool intentionally does
-    not provide. Non-goals help the agent choose between overlapping
-    tools and avoid using one word as a hidden workflow.
-- field: parameters
-  type: object
-  required: false
-  description: |
-    JSON Schema describing the tool's input parameters. This schema
-    is sent to the LLM for function-calling and is used for input
-    validation at runtime. Omitted for builtin tools that take no
-    parameters (e.g. parse_response, done). Exec tools may include
-    parameter extensions (see parameter_extensions) that are stripped
-    before sending to the LLM. Builtins may not declare exec-only source,
-    flag, positional, or position extensions. Defaults are strings and
-    position values are integers; startup rejects other types.
-- field: visibility
-  type: string
-  required: false
-  description: |
-    Controls whether the tool appears in the LLM's tool list.
-    "external" (default) — visible to the LLM and available for
-    tool calls. "internal" — hidden from the LLM; can only be
-    invoked by machine transitions (e.g. invoke_llm, parse_response).
-    Startup rejects every other value so a typo cannot expose an internal
-    word through the permissive default.
-- field: phases
-  type: "[]string"
-  required: false
-  description: |
-    Optional additional restriction on dynamic-tool availability. Every
-    authored phase must name a state in the loaded MachineSpec; startup
-    rejects an unknown state rather than registering an invisible word.
-- field: emits
-  type: "[]string"
-  required: false
-  description: |
-    Declarative signal contract for the tool. Lists the Result.Signal
-    values the tool may return, such as ToolDone, ToolFailed, CommandError,
-    or domain-specific signals like EvalPointsMaterialized and PointsCompleted. Startup
-    validation checks action tools with emits metadata against the loaded
-    machine: emitted signals must be declared by the machine, and each
-    emitted signal must have a transition from the action's target state
-    unless that target state is terminal.
-- field: output
-  type: object
-  required: false
-  description: |
-    Contract field describing the structured output produced by the
-    tool. Contains optional description, schema, and mode fields. The schema
-    is JSON Schema-compatible and describes the machine-readable output
-    contract. For exec tools, mode may be raw (the default) or structured.
-    Structured mode sets core.Result.Output to a JSON object containing the
-    captured output string and exit_code so a later command-state selector can
-    address $from(<label>).output. Other tools and raw exec tools retain the
-    human-readable/runtime string channel.
-- field: metrics
-  type: object
-  required: false
-  status: planned
-  description: |
-    Planned contract field for tool metric declarations. It describes metric
-    instruments emitted by this tool, the source of each value, and the
-    allowed low-cardinality attributes. It is documentation only until the
-    monitor recorder and validation code land.
+1. - field: name
+   - type: string
+   - required: true
+   - description:
+     Unique tool identifier. Referenced by tool selection files
+     (tools.yaml), machine transition actions, and LLM tool-call
+     output. Must be unique across all loaded declaration files.
+1. - field: type
+   - type: string
+   - required: false
+   - description:
+     Tool type discriminator. Either "builtin" (compiled-in Go
+     function) or "exec" (external executable). Defaults to "exec"
+     when omitted.
+1. - field: category
+   - type: string
+   - required: false
+   - description:
+     Tool vocabulary category used by contract validation and authoring
+     guidance. Known categories are word, sentence, boundary, and
+     stateful_internal. Boundary tools intentionally cross a program
+     boundary, such as invoking an LLM, spawning an agent subprocess, or
+     running a nested state machine. If omitted, validation categorizes
+     internal tools as internal, external builtins as external_builtin,
+     and exec tools as exec.
+1. - field: contract
+   - type: string
+   - required: false
+   - description:
+     Short contract summary for the tool. A concise statement of
+     the tool's purpose as a grammar word. Used by authoring and
+     validation tooling; not sent to the LLM.
+1. - field: description
+   - type: string
+   - required: false
+   - description:
+     Human-readable description of the tool's purpose and behavior.
+     Included in the tool schema sent to the LLM so it can decide
+     when and how to use the tool. Recommended but not enforced by
+     validateToolDefs.
+1. - field: problem
+   - type: string
+   - required: false
+   - description:
+     Contract field describing the vocabulary gap this tool fills.
+     It should explain why this tool exists as a single word in the
+     agent language. This is not currently sent to the LLM manifest.
+1. - field: goals
+   - type: "[]string"
+   - required: false
+   - description:
+     Contract field listing measurable success goals for the tool.
+     Goals describe what a correct implementation makes possible.
+1. - field: requirements
+   - type: object
+   - required: false
+   - description:
+     Contract field grouping observable "must" statements by
+     input, output, side_effects, undo, and errors. These sections
+     define the developer-facing requirements for the tool as a
+     deterministic vocabulary word.
+1. - field: non_goals
+   - type: "[]string"
+   - required: false
+   - description:
+     Contract field listing behavior this tool intentionally does
+     not provide. Non-goals help the agent choose between overlapping
+     tools and avoid using one word as a hidden workflow.
+1. - field: parameters
+   - type: object
+   - required: false
+   - description:
+     JSON Schema describing the tool's input parameters. This schema
+     is sent to the LLM for function-calling and is used for input
+     validation at runtime. Omitted for builtin tools that take no
+     parameters (e.g. parse_response, done). Exec tools may include
+     parameter extensions (see parameter_extensions) that are stripped
+     before sending to the LLM. Builtins may not declare exec-only source,
+     flag, positional, or position extensions. Defaults are strings and
+     position values are integers; startup rejects other types.
+1. - field: visibility
+   - type: string
+   - required: false
+   - description:
+     Controls whether the tool appears in the LLM's tool list.
+     "external" (default) — visible to the LLM and available for
+     tool calls. "internal" — hidden from the LLM; can only be
+     invoked by machine transitions (e.g. invoke_llm, parse_response).
+     Startup rejects every other value so a typo cannot expose an internal
+     word through the permissive default.
+1. - field: phases
+   - type: "[]string"
+   - required: false
+   - description:
+     Optional additional restriction on dynamic-tool availability. Every
+     authored phase must name a state in the loaded MachineSpec; startup
+     rejects an unknown state rather than registering an invisible word.
+1. - field: emits
+   - type: "[]string"
+   - required: false
+   - description:
+     Declarative signal contract for the tool. Lists the Result.Signal
+     values the tool may return, such as ToolDone, ToolFailed, CommandError,
+     or domain-specific signals like EvalPointsMaterialized and PointsCompleted. Startup
+     validation checks action tools with emits metadata against the loaded
+     machine: emitted signals must be declared by the machine, and each
+     emitted signal must have a transition from the action's target state
+     unless that target state is terminal.
+1. - field: output
+   - type: object
+   - required: false
+   - description:
+     Contract field describing the structured output produced by the
+     tool. Contains optional description, schema, and mode fields. The schema
+     is JSON Schema-compatible and describes the machine-readable output
+     contract. For exec tools, mode may be raw (the default) or structured.
+     Structured mode sets core.Result.Output to a JSON object containing the
+     captured output string and exit_code so a later command-state selector can
+     address $from(<label>).output. Other tools and raw exec tools retain the
+     human-readable/runtime string channel.
+1. - field: metrics
+   - type: object
+   - required: false
+   - status: planned
+   - description:
+     Planned contract field for tool metric declarations. It describes metric
+     instruments emitted by this tool, the source of each value, and the
+     allowed low-cardinality attributes. It is documentation only until the
+     monitor recorder and validation code land.
 
-    Tools own specialized metric meaning. Runtime code may attach standard
-    dispatch context such as tool name, state, signal, duration, and status.
-    Metric labels must not include raw prompts, full outputs, secrets,
-    unbounded paths, arbitrary URLs, or user-supplied free text.
-- field: side_effects
-  type: string or list
-  required: false
-  description: |
-    Contract field declaring world mutations beyond the returned output.
-    The legacy scalar string form is still accepted for compatibility
-    and may be appended to the LLM-visible description. New declarations
-    should use the structured list form with entries containing kind,
-    target, paths, state, and description.
-    Serialization preserves a legacy scalar as a scalar and structured
-    effects as a list; the internal representation is never emitted.
+     Tools own specialized metric meaning. Runtime code may attach standard
+     dispatch context such as tool name, state, signal, duration, and status.
+     Metric labels must not include raw prompts, full outputs, secrets,
+     unbounded paths, arbitrary URLs, or user-supplied free text.
+1. - field: side_effects
+   - type: string or list
+   - required: false
+   - description:
+     Contract field declaring world mutations beyond the returned output.
+     The legacy scalar string form is still accepted for compatibility
+     and may be appended to the LLM-visible description. New declarations
+     should use the structured list form with entries containing kind,
+     target, paths, state, and description.
+     Serialization preserves a legacy scalar as a scalar and structured
+     effects as a list; the internal representation is never emitted.
 
-    Known side-effect kind vocabulary (from current declarations):
-      none — no side effects (pure read or computation).
-      filesystem_read — reads files but does not modify them.
-      filesystem_write — creates, modifies, or deletes files.
-      state_read — reads in-memory agent state without mutation.
-      state_mutation — mutates in-memory agent/domain state.
-      command_state — modifies command-local state carried across calls.
-      stderr_write — writes diagnostic output to stderr.
-      child_process — spawns an external process (exec tools).
-      child_agent_execution — spawns a child agent subprocess.
-      child_tool_execution — runs child commands within the same loop.
-      nested_machine_execution — runs a nested core.Loop state machine.
-      external_api — calls an external API or issue tracker.
-      human_boundary — blocks on human input (UI or approval).
-- field: reversibility
-  type: object
-  required: false
-  description: |
-    Contract field classifying whether effects can be undone.
-    classification is one of reversible, compensatable, or irreversible.
-    undo describes the undo/compensation mechanism. requires_confirmation
-    marks tools that require explicit approval before use. Startup rejects an
-    unknown classification so it cannot disable receipt validation.
-- field: undo
-  type: object
-  required: false
-  description: |
-    Contract field describing how to reverse or compensate for the
-    tool's effects. This complements reversibility by naming the
-    specific rollback mechanism and metadata the persisted
-    UndoMemento captures.
-  sub_fields:
-    - field: strategy
-      type: string
-      description: |
-        The undo strategy name. Known values: noop,
-        conversation_truncate, file_snapshot_restore, workspace_restore,
-        compensating_action, child_command_undo, and irreversible. Builtin
-        strategy names describe typed Undo implementations. Exec words are
-        restricted to noop, workspace_restore, compensating_action, or
-        irreversible because one shared interpreter executes their Undo.
-    - field: description
-      type: string
-      description: |
-        Human-readable description of the rollback mechanism.
-    - field: payload
-      type: string
-      description: |
-        Memento payload type. When set to "boundary_compensation",
-        the UndoMemento carries a BoundaryCompensationPayload with
-        structured metadata about the external boundary crossed
-        (child process, issue system, nested machine, etc.).
-        Omitted for simple workspace_restore payloads.
-    - field: captures
-      type: "[]string"
-      description: |
-        Names of runtime parameter or structured-output values captured in
-        the UndoMemento payload. Generic exec words project these names into
-        receipt.captures; they are executable contract data, not comments.
-        Examples include
-        issue_id, child_run_id, workspace_paths, server_addr, and
-        suite_path.
-    - field: requires
-      type: "[]string"
-      description: |
-        Names of external context needed to perform the undo.
-        For example, ["approval_decision", "checkpoint_id"] for
-        a suspend tool that requires re-obtaining approval state.
-- field: errors
-  type: "[]object"
-  required: false
-  description: |
-    Contract field describing expected failure modes. Each entry can
-    declare signal, condition, message_shape, and state_after_failure.
-    This lets developers and agents understand what state the world is
-    in after a failed command.
-- field: relationships
-  type: object
-  required: false
-  description: |
-    Contract field documenting common composition neighbors and
-    overlapping tools. before lists tools that typically precede this
-    tool, after lists tools that typically consume this tool's output,
-    and overlaps explains similar tools and how they differ. These are
-    guidance, not execution constraints.
-```
+     Known side-effect kind vocabulary (from current declarations):
+       none — no side effects (pure read or computation).
+       filesystem_read — reads files but does not modify them.
+       filesystem_write — creates, modifies, or deletes files.
+       state_read — reads in-memory agent state without mutation.
+       state_mutation — mutates in-memory agent/domain state.
+       command_state — modifies command-local state carried across calls.
+       stderr_write — writes diagnostic output to stderr.
+       child_process — spawns an external process (exec tools).
+       child_agent_execution — spawns a child agent subprocess.
+       child_tool_execution — runs child commands within the same loop.
+       nested_machine_execution — runs a nested core.Loop state machine.
+       external_api — calls an external API or issue tracker.
+       human_boundary — blocks on human input (UI or approval).
+1. - field: reversibility
+   - type: object
+   - required: false
+   - description:
+     Contract field classifying whether effects can be undone.
+     classification is one of reversible, compensatable, or irreversible.
+     undo describes the undo/compensation mechanism. requires_confirmation
+     marks tools that require explicit approval before use. Startup rejects an
+     unknown classification so it cannot disable receipt validation.
+1. - field: undo
+   - type: object
+   - required: false
+   - description:
+     Contract field describing how to reverse or compensate for the
+     tool's effects. This complements reversibility by naming the
+     specific rollback mechanism and metadata the persisted
+     UndoMemento captures.
+   - sub_fields:
+     1. - field: strategy
+        - type: string
+        - description:
+          The undo strategy name. Known values: noop,
+          conversation_truncate, file_snapshot_restore, workspace_restore,
+          compensating_action, child_command_undo, and irreversible. Builtin
+          strategy names describe typed Undo implementations. Exec words are
+          restricted to noop, workspace_restore, compensating_action, or
+          irreversible because one shared interpreter executes their Undo.
+     1. - field: description
+        - type: string
+        - description: Human-readable description of the rollback mechanism.
+     1. - field: payload
+        - type: string
+        - description:
+          Memento payload type. When set to "boundary_compensation",
+          the UndoMemento carries a BoundaryCompensationPayload with
+          structured metadata about the external boundary crossed
+          (child process, issue system, nested machine, etc.).
+          Omitted for simple workspace_restore payloads.
+     1. - field: captures
+        - type: "[]string"
+        - description:
+          Names of runtime parameter or structured-output values captured in
+          the UndoMemento payload. Generic exec words project these names into
+          receipt.captures; they are executable contract data, not comments.
+          Examples include
+          issue_id, child_run_id, workspace_paths, server_addr, and
+          suite_path.
+     1. - field: requires
+        - type: "[]string"
+        - description:
+          Names of external context needed to perform the undo.
+          For example, ["approval_decision", "checkpoint_id"] for
+          a suspend tool that requires re-obtaining approval state.
+1. - field: errors
+   - type: "[]object"
+   - required: false
+   - description:
+     Contract field describing expected failure modes. Each entry can
+     declare signal, condition, message_shape, and state_after_failure.
+     This lets developers and agents understand what state the world is
+     in after a failed command.
+1. - field: relationships
+   - type: object
+   - required: false
+   - description:
+     Contract field documenting common composition neighbors and
+     overlapping tools. before lists tools that typically precede this
+     tool, after lists tools that typically consume this tool's output,
+     and overlaps explains similar tools and how they differ. These are
+     guidance, not execution constraints.
 
 <!-- field: builtin_fields | form: "tree" -->
 ## Builtin fields
@@ -278,65 +275,62 @@ runtime contract. Two tool types exist: builtin tools
      Filesystem document resource words use document_resource_config.
      See cfg-llm-config-format for invoke_llm details.
 
-<!-- field: document_resource_config -->
+<!-- field: document_resource_config | form: "tree" -->
 ## Document resource config
 
-```yaml
-purpose: |
-    Defines trusted read-only filesystem resources for list_resource and
-    read_resource builtin words. list_resource shapes newline-delimited paths
-    produced by a preceding declared filesystem CLI word; read_resource accepts
-    a relative path inside a configured resource. Runtime input cannot replace
-    roots, include patterns, extension allowlists, parser modes, or size limits.
-fields:
-    - field: resources
-      type: object
-      required: true
-      description: |
-        Map of resource names to filesystem resource definitions.
-resource_fields:
-    - field: root
-      type: string
-      required: true
-      description: Workspace-relative or absolute trusted corpus root.
-    - field: include
-      type: "[]string"
-      required: false
-      description: Slash-style include patterns for list and read operations.
-    - field: extensions
-      type: "[]string"
-      required: false
-      description: Extension allowlist without or with leading dots.
-    - field: modes
-      type: "[]string"
-      required: false
-      description: Enabled response modes such as raw_yaml, parsed_yaml, raw_markdown, and parsed_markdown.
-    - field: max_bytes
-      type: int
-      required: false
-      description: Maximum readable file size before size_limit_exceeded.
-    - field: category_rules
-      type: "[]object"
-      required: false
-      description: |
-        Ordered profile-owned path rules with pattern and category fields.
-        The first matching slash-style include pattern supplies presentation
-        metadata. Unmatched root files use root; nested files use their first
-        directory segment.
-examples:
-    docs_resource: |
-        config:
-          resources:
-            docs:
-              root: docs
-              include: ["**/*.yaml", "*.yaml", "**/*.md", "*.md"]
-              extensions: [yaml, yml, md]
-              modes: [raw_yaml, parsed_yaml, raw_markdown]
-              max_bytes: 65536
-              category_rules:
-                - {pattern: road-map.md, category: release}
-                - {pattern: "specs/software-requirements/**", category: srd}
-```
+- purpose:
+  Defines trusted read-only filesystem resources for list_resource and
+  read_resource builtin words. list_resource shapes newline-delimited paths
+  produced by a preceding declared filesystem CLI word; read_resource accepts
+  a relative path inside a configured resource. Runtime input cannot replace
+  roots, include patterns, extension allowlists, parser modes, or size limits.
+- fields:
+  1. - field: resources
+     - type: object
+     - required: true
+     - description: Map of resource names to filesystem resource definitions.
+- resource_fields:
+  1. - field: root
+     - type: string
+     - required: true
+     - description: Workspace-relative or absolute trusted corpus root.
+  1. - field: include
+     - type: "[]string"
+     - required: false
+     - description: Slash-style include patterns for list and read operations.
+  1. - field: extensions
+     - type: "[]string"
+     - required: false
+     - description: Extension allowlist without or with leading dots.
+  1. - field: modes
+     - type: "[]string"
+     - required: false
+     - description: Enabled response modes such as raw_yaml, parsed_yaml, raw_markdown, and parsed_markdown.
+  1. - field: max_bytes
+     - type: int
+     - required: false
+     - description: Maximum readable file size before size_limit_exceeded.
+  1. - field: category_rules
+     - type: "[]object"
+     - required: false
+     - description:
+       Ordered profile-owned path rules with pattern and category fields.
+       The first matching slash-style include pattern supplies presentation
+       metadata. Unmatched root files use root; nested files use their first
+       directory segment.
+- examples:
+  - docs_resource:
+    config:
+      resources:
+        docs:
+          root: docs
+          include: ["**/*.yaml", "*.yaml", "**/*.md", "*.md"]
+          extensions: [yaml, yml, md]
+          modes: [raw_yaml, parsed_yaml, raw_markdown]
+          max_bytes: 65536
+          category_rules:
+            - {pattern: road-map.md, category: release}
+            - {pattern: "specs/software-requirements/**", category: srd}
 
 <!-- field: metric_declaration_fields | form: "tree" -->
 ## Metric declaration fields
@@ -480,78 +474,75 @@ examples:
       request_from: $from(request).path
       output_from: $from(request).output_dir
 
-<!-- field: exec_fields -->
+<!-- field: exec_fields | form: "tree" -->
 ## Exec fields
 
-```yaml
-- field: binary
-  type: string
-  required: true
-  description: |
-    Executable name or path. Resolved via PATH at runtime.
-- field: args
-  type: "[]string"
-  required: false
-  description: |
-    Base arguments prepended to every invocation. Parameter values
-    from the LLM's tool call are appended after these.
-- field: dir
-  type: string
-  required: false
-  description: |
-    Working directory override for exec tool invocation. When set,
-    the external process runs in this directory instead of the
-    default workspace directory.
-- field: precondition
-  type: string
-  required: false
-  description: |
-    A named precondition that must be satisfied before the tool can
-    run (e.g. "git_repo" requires the workspace to be a git
-    repository).
-- field: output_cap
-  type: int
-  required: false
-  description: |
-    Maximum number of output lines captured from the tool's stdout.
-    Excess lines are truncated to keep LLM context manageable.
-- field: stdin_source
-  type: string
-  required: false
-  description: |
-    Canonical $from(<label>).<dotted-path> selector for a prior redacted
-    command-state output field. The resolved value must be a non-empty string
-    within stdin_max_bytes and is written to the declared binary's stdin.
-    Resolution and size validation finish before launch. No shell is invoked.
-- field: stdin_max_bytes
-  type: int
-  required: false
-  description: |
-    Positive byte limit for stdin_source. It is invalid without stdin_source.
-    When omitted, the exec runtime applies its finite default limit. Oversized
-    input is rejected before launch rather than truncated.
-- field: env
-  type: "[]string"
-  required: false
-  description: |
-    KEY=VALUE entries overlaid on the inherited parent environment before
-    launch. KEY must match [A-Za-z_][A-Za-z0-9_]*. VALUE may contain
-    "{{ params.NAME }}" tokens expanded from resolved exec parameters after
-    command-state source mapping. Env is not a $from selector surface.
-    Omitted or empty env inherits the parent environment only. Builtin
-    declarations cannot set env. Resolved values are not written to traces,
-    metrics, or receipts.
-- field: includes
-  type: "[]string"
-  required: false
-  scope: file-level (not per-tool)
-  description: |
-    A file-level field on the tool declarations file (not on
-    individual tool entries). Specifies paths to other tool files
-    whose declarations are merged before the current file's tools.
-    Included files load first. The including file may override a
-    tool with the same name.
-```
+1. - field: binary
+   - type: string
+   - required: true
+   - description: Executable name or path. Resolved via PATH at runtime.
+1. - field: args
+   - type: "[]string"
+   - required: false
+   - description:
+     Base arguments prepended to every invocation. Parameter values
+     from the LLM's tool call are appended after these.
+1. - field: dir
+   - type: string
+   - required: false
+   - description:
+     Working directory override for exec tool invocation. When set,
+     the external process runs in this directory instead of the
+     default workspace directory.
+1. - field: precondition
+   - type: string
+   - required: false
+   - description:
+     A named precondition that must be satisfied before the tool can
+     run (e.g. "git_repo" requires the workspace to be a git
+     repository).
+1. - field: output_cap
+   - type: int
+   - required: false
+   - description:
+     Maximum number of output lines captured from the tool's stdout.
+     Excess lines are truncated to keep LLM context manageable.
+1. - field: stdin_source
+   - type: string
+   - required: false
+   - description:
+     Canonical $from(<label>).<dotted-path> selector for a prior redacted
+     command-state output field. The resolved value must be a non-empty string
+     within stdin_max_bytes and is written to the declared binary's stdin.
+     Resolution and size validation finish before launch. No shell is invoked.
+1. - field: stdin_max_bytes
+   - type: int
+   - required: false
+   - description:
+     Positive byte limit for stdin_source. It is invalid without stdin_source.
+     When omitted, the exec runtime applies its finite default limit. Oversized
+     input is rejected before launch rather than truncated.
+1. - field: env
+   - type: "[]string"
+   - required: false
+   - description:
+     KEY=VALUE entries overlaid on the inherited parent environment before
+     launch. KEY must match [A-Za-z_][A-Za-z0-9_]*. VALUE may contain
+     "{{ params.NAME }}" tokens expanded from resolved exec parameters after
+     command-state source mapping. Env is not a $from selector surface.
+     Omitted or empty env inherits the parent environment only. Builtin
+     declarations cannot set env. Resolved values are not written to traces,
+     metrics, or receipts.
+1. - field: includes
+   - type: "[]string"
+   - required: false
+   - scope: file-level (not per-tool)
+   - description:
+     A file-level field on the tool declarations file (not on
+     individual tool entries). Specifies paths to other tool files
+     whose declarations are merged before the current file's tools.
+     Included files load first. The including file may override a
+     tool with the same name.
 
 <!-- field: parameter_extensions | form: "tree" -->
 ## Parameter extensions

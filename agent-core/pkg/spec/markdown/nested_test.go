@@ -67,23 +67,40 @@ diagrams:
 	}
 }
 
-// TestTreeFormKeepsTheFenceWhenItCannotHold keeps a fenced yaml block for a
-// key that is not a bare name and for text whose first line reads as a
-// list item.
-func TestTreeFormKeepsTheFenceWhenItCannotHold(t *testing.T) {
+// TestTreeFormQuotesKeysAndMarksLiteralText prints a prose key quoted and
+// text whose first line reads as a list item or is indented after a literal
+// marker, and reads both back (GH-2644).
+func TestTreeFormQuotesKeysAndMarksLiteralText(t *testing.T) {
 	d := toyDeclaration(t)
-	for name, member := range map[string]string{
-		"spaced key": "notes:\n  \"two words\": 1\n",
-		"list text":  "notes:\n  body: |\n    - looks like a list\n    second line\n",
-	} {
-		original := yamlDoc(t, recipeWith(member))
-		md, back := roundTrip(t, d, original)
-		if diff := Diff(original, back); diff != "" {
-			t.Fatalf("%s: round trip changed %s\n%s", name, diff, md)
-		}
-		if !strings.Contains(fieldSection(md, "notes"), "```yaml") {
-			t.Errorf("%s: printed without the fence:\n%s", name, fieldSection(md, "notes"))
-		}
+	original := yamlDoc(t, recipeWith(`notes:
+  "Outbound injection (R4)": done
+  "say \"hi\": now": 2
+  body: |
+    - looks like a list
+    second line
+  code: "    indented first line\nback out"
+`))
+	md, back := roundTrip(t, d, original)
+	if diff := Diff(original, back); diff != "" {
+		t.Fatalf("round trip changed %s\n%s", diff, md)
+	}
+	want := "- \"Outbound injection (R4)\": done\n- \"say \\\"hi\\\": now\": 2\n- body: |\n  - looks like a list\n  second line\n- code: |\n      indented first line\n  back out"
+	if section := fieldSection(md, "notes"); section != want {
+		t.Errorf("notes printed as:\n%s\nwant:\n%s", section, want)
+	}
+}
+
+// TestTreeFormKeepsTheFenceForTextOpeningBlank keeps a fenced yaml block for
+// text that opens with a blank line, which no rendering reads back.
+func TestTreeFormKeepsTheFenceForTextOpeningBlank(t *testing.T) {
+	d := toyDeclaration(t)
+	original := yamlDoc(t, recipeWith("notes:\n  body: \"\\nopens blank\\nsecond\"\n"))
+	md, back := roundTrip(t, d, original)
+	if diff := Diff(original, back); diff != "" {
+		t.Fatalf("round trip changed %s\n%s", diff, md)
+	}
+	if !strings.Contains(fieldSection(md, "notes"), "```yaml") {
+		t.Errorf("printed without the fence:\n%s", fieldSection(md, "notes"))
 	}
 }
 

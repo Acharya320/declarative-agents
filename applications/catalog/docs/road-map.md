@@ -688,15 +688,13 @@ teardown.
 - mage validate
 - mage rig
 
-<!-- field: success_markers -->
+<!-- field: success_markers | form: "tree" -->
 ### Success markers
 
-```yaml
-- Adding a test means adding files under a tests/ directory, never editing the scenario critic.
-- One mock profile serves every dependency; response content lives in scenario fixtures.
-- Scenarios run with no live Chroma, Ollama, Docker, or Kubernetes.
-- The rig can fail: a wrong expectation reaches Failed and names the failing validator.
-```
+1. Adding a test means adding files under a tests/ directory, never editing the scenario critic.
+1. One mock profile serves every dependency; response content lives in scenario fixtures.
+1. Scenarios run with no live Chroma, Ollama, Docker, or Kubernetes.
+1. - "The rig can fail": a wrong expectation reaches Failed and names the failing validator.
 
 <!-- release: 12.0 | status: release-ready -->
 ## 12.0 - Agent role-realization naming alignment
