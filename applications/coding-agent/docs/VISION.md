@@ -100,13 +100,18 @@ composition consistently.
 - docs/specs/test-suites/test-rel01.0-coding-loop.md
 - README.md
 
-<!-- field: library_references | form: "tree" -->
+<!-- field: library_references -->
 ## Library references
 
-- note:
-  These are canonical library requirements. The application cites them and
-  packages their profile implementations by reference.
-- requirements:
-  1. applications/catalog srd002-executor
-  1. applications/catalog srd003-critic
-  1. applications/catalog srd004-planner
+<!-- field: note -->
+### Note
+
+These are canonical library requirements. The application cites them and
+packages their profile implementations by reference.
+
+<!-- field: requirements -->
+### Requirements
+
+- applications/catalog srd002-executor
+- applications/catalog srd003-critic
+- applications/catalog srd004-planner

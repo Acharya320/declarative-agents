@@ -17,30 +17,31 @@ is release rel05.0. Release rel06.0 replaces the standard-library Go provisionin
 surface with the applier (srd006), a declarative agent that binds the helm and
 kubectl CLIs in its container.
 
-<!-- field: role_alignment | form: "tree" -->
+<!-- field: role_alignment -->
 ## Role alignment
 
-- status: specified
-- implemented_decisions:
-  1. Retain `chatbot` as a descriptive multi-role actor with Planner, Executor, and Knowledge Manager bindings.
-  1. Retain `rag-server` as a descriptive Knowledge Manager / Recommendation Generator realization.
-  1. Retain the mesh `corpus-ingest` wrapper with its inherited catalog Knowledge Manager / Ontology Manager binding.
-  1. Bind `creator` to Creator / Instance Manager and Agent Owner / Agent Lifecycle Manager and retain the compatible name.
-  1. Bind `applier` to Executor / Actuation Agent and Change Manager; Applier is not a canonical role.
-  1. Bind `collector` to Monitor / Telemetry Collector and distinguish its profile-backed workload from contrib metrics infrastructure.
-  1. Treat all Helm names as deployment identities inheriting profile bindings, not as semantic role names.
-- implemented_migrations:
-  1. - issue: GH-1077
-     - current_actor: provisioning-workflow-orchestrator
-     - implemented_responsibility: Sequence optional ingest and rollout requests through the creator.
-     - canonical_role_sub_role: Executor / Workflow Orchestrator; not Coordinator.
-     - retained_or_proposed_name: provisioning-workflow-orchestrator
-     - authority_boundary: No implemented synchronization, conflict-resolution, negotiation, consensus, deployment, or child-process authority.
-     - evidence:
-       1. agents/provisioning-workflow-orchestrator/request-machine.yaml
-       1. helm/templates/provisioning-workflow-orchestrator.yaml
-       1. srd004
-     - migration_impact: Profile, Helm, SRD, integration, packaging, release, and compatibility paths move together.
+<!-- field: status -->
+### Status
+
+specified
+
+<!-- field: implemented_decisions -->
+### Implemented decisions
+
+- Retain `chatbot` as a descriptive multi-role actor with Planner, Executor, and Knowledge Manager bindings.
+- Retain `rag-server` as a descriptive Knowledge Manager / Recommendation Generator realization.
+- Retain the mesh `corpus-ingest` wrapper with its inherited catalog Knowledge Manager / Ontology Manager binding.
+- Bind `creator` to Creator / Instance Manager and Agent Owner / Agent Lifecycle Manager and retain the compatible name.
+- Bind `applier` to Executor / Actuation Agent and Change Manager; Applier is not a canonical role.
+- Bind `collector` to Monitor / Telemetry Collector and distinguish its profile-backed workload from contrib metrics infrastructure.
+- Treat all Helm names as deployment identities inheriting profile bindings, not as semantic role names.
+
+<!-- field: implemented_migrations | form: "typed table" -->
+### Implemented migrations
+
+| issue | current_actor | implemented_responsibility | canonical_role_sub_role | retained_or_proposed_name | authority_boundary | evidence | migration_impact |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| GH-1077 | provisioning-workflow-orchestrator | Sequence optional ingest and rollout requests through the creator. | Executor / Workflow Orchestrator; not Coordinator. | provisioning-workflow-orchestrator | No implemented synchronization, conflict-resolution, negotiation, consensus, deployment, or child-process authority. | [agents/provisioning-workflow-orchestrator/request-machine.yaml, helm/templates/provisioning-workflow-orchestrator.yaml, srd004] | Profile, Helm, SRD, integration, packaging, release, and compatibility paths move together. |
 
 <!-- release: 00.0 | status: implemented -->
 ## 00.0 - RAG server and single-RAG chatbot turn
@@ -54,7 +55,7 @@ mapped 200 when the RAG
 fails.
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd001-rag-server-agent
 - srd002-chatbot-agent
@@ -84,7 +85,7 @@ embedding-mismatch-excluded (QueryRejected) source routing on as a visible
 machine transition, compose assembling the surviving per-source chunks.
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd002-chatbot-agent
 
@@ -113,7 +114,7 @@ request-scoped machine exports its spans and propagates traceparent to the
 RAG servers (agent-core srd016).
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd002-chatbot-agent
 
@@ -142,7 +143,7 @@ provisioning deployment API (srd003 R4) is the control-plane release
 (rel05.0); this release covers the topology and the swap paths.
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd003-chatbot-deployment
 
@@ -172,7 +173,7 @@ override reproduces the external-endpoint behavior, and the co-generation
 contract (R2) is unchanged either way.
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd003-chatbot-deployment
 
@@ -209,7 +210,7 @@ conflict-resolution, negotiation, or consensus state, so it does not assume
 canonical Coordinator; GH-1077 completed its coordinated mechanical rename.
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd004-provisioning-workflow-orchestrator
 - srd005-creator
@@ -242,7 +243,7 @@ reached only by the creator and authority stays set by declared, validated
 config -- and no agent-core change is required.
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd006-applier
 
@@ -271,7 +272,7 @@ proof. Migration is staged: contrib retains agent metrics export and Dolt
 Prometheus scraping until a later metrics-ingress replacement is specified.
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd007-collector-agent
 
@@ -302,7 +303,7 @@ the catalog rather than carried locally. Integration tests assert
 spool identity and metrics evidence without Jaeger cross-checks.
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd007-collector-agent
 - srd003-chatbot-deployment
@@ -345,7 +346,7 @@ the mesh-local generalization source, retaining the descriptive observer
 actor name via the historical_aliases pattern (GH-1247).
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd008-observer-agent
 

@@ -112,17 +112,22 @@ the chart; the checkout is a build/test dependency, not a runtime dependency.
 - docs/specs/software-requirements/srd003-chatbot-deployment.md
 - README.md
 
-<!-- field: platform_references | form: "tree" -->
+<!-- field: platform_references -->
 ## Platform references
 
-- note:
-  These agent-core requirements are the runtime contracts the application builds
-  on. They are external references, owned by agent-core, not restated here.
-- requirements:
-  1. agent-core srd028 (REST client tools)
-  1. agent-core srd030 (machine_request REST binding)
-  1. agent-core srd033 (monitor REST API)
-  1. agent-core srd034 (external mounted agent profiles)
-  1. agent-core srd035 and srd036 (checkpoint port and persistence)
-  1. agent-core srd038 (command-state store and $from selectors)
-  1. agent-core srd016 (W3C traceparent propagation)
+<!-- field: note -->
+### Note
+
+These agent-core requirements are the runtime contracts the application builds
+on. They are external references, owned by agent-core, not restated here.
+
+<!-- field: requirements -->
+### Requirements
+
+- agent-core srd028 (REST client tools)
+- agent-core srd030 (machine_request REST binding)
+- agent-core srd033 (monitor REST API)
+- agent-core srd034 (external mounted agent profiles)
+- agent-core srd035 and srd036 (checkpoint port and persistence)
+- agent-core srd038 (command-state store and $from selectors)
+- agent-core srd016 (W3C traceparent propagation)

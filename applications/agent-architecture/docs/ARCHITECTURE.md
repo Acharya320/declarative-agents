@@ -5,145 +5,158 @@ title: Agent Architecture Application Architecture
 <!-- Copyright (c) 2026 Nokia -->
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
 
-<!-- field: overview | form: "tree" -->
-## Overview
-
-- summary:
-  The Agent Architecture is a composition around catalog-owned
-  documentation-curator, collector, and lifecycle-exit roots plus one local
-  deployment applier. The application serves a slide deck, starts the curator
-  and collector through agent-core, directs the operator to their
-  catalog-owned browser interfaces, and uses the lifecycle-exit contract for
-  shutdown compatibility evidence. The current Mage run and kind paths send
-  the bounded lifecycle HTTP request directly; they do not execute or copy the
-  catalog lifecycle-exit profile.
-
-  The dependency direction is applications/agent-architecture ->
-  applications/catalog -> agent-core. The demo.yaml catalog_root locates the
-  canonical profile and its user interface. The demo.yaml core_root locates the
-  development runtime checkout. An installed agent runtime does not require
-  --core-root. Neither the catalog nor agent-core imports this application.
-  This module extends applications/docs srd001 and the applicable managed
-  service groups in srd002 by reference.
-
-  The implemented Kubernetes deployment runs the same composition on a cluster: a
-  chart runs the documentation-curator and the collector as workloads from
-  mounted catalog-owned closures (srd001-helm-deployment), and a standalone
-  declarative applier actuates that chart for an authorized operator or CI
-  caller (srd002-applier). The packaged, helm_managed, and kind_demo
-  capabilities are backed by checked-in package, render, and integration
-  targets. The local applier is a composition wrapper over the canonical
-  catalog applier; application-specific command bindings and deployment
-  authority remain local.
-- demo_flow_diagram:
-  ```mermaid
-  flowchart LR
-    OP[Operator] --> PRESENT[Go present slide server]
-    PRESENT --> DECK[agent-architecture.slide]
-    OP --> RUN[mage run]
-    RUN --> CURATOR[Catalog documentation-curator]
-    CURATOR --> CORE[agent-core runtime]
-    OP --> BROWSER[Catalog-owned Knowledge Manager UI]
-    BROWSER --> CURATOR
-    OP --> EXIT[Catalog lifecycle-exit client]
-    EXIT --> CONTROL[Curator control route]
-    CONTROL --> DONE[Curator Done and listeners released]
-  ```
-
-<!-- field: capability_classification | form: "tree" -->
+<!-- field: capability_classification -->
 ## Capability classification
 
-- ownership: composition-only
-- declared:
-  1. - capability: runnable_module
-     - applies: true
-     - shared_requirements:
-       1. srd001-application-module-contract R1
-       1. srd001-application-module-contract R2
-       1. srd001-application-module-contract R3
-       1. srd001-application-module-contract R4
-       1. srd001-application-module-contract R5
-       1. srd001-application-module-contract R6
-     - status: implemented
-  1. - capability: managed_service
-     - applies: true
-     - scope:
-       1. canonical documentation-curator server launched by this application
-       1. application-owned Go present server
-     - shared_requirements:
-       1. srd002-managed-application-services R1
-       1. srd002-managed-application-services R2
-       1. srd002-managed-application-services R3
-     - status: partial
-     - live_observation_status: dependency_gated
-  1. - capability: packaged
-     - applies: true
-     - scope:
-       1. deterministic archive staging the catalog-owned curator and collector profile closures
-     - shared_requirements:
-       1. srd002-managed-application-services R4
-     - local_requirements:
-       1. srd001-helm-deployment R2
-     - status: implemented
-     - realized_in: "02.0"
-  1. - capability: helm_managed
-     - applies: true
-     - scope:
-       1. chart running the documentation-curator and collector as workloads from mounted closures
-       1. values.schema.json and template guards over the deployment values
-     - shared_requirements:
-       1. srd002-managed-application-services R5
-     - local_requirements:
-       1. srd001-helm-deployment R1
-       1. srd001-helm-deployment R2
-     - status: implemented
-     - realized_in: "02.0"
-  1. - capability: kind_demo
-     - applies: true
-     - scope:
-       1. bounded kind install of the validated archive with curator and collector readiness, a served curator surface, and an exported trace
-     - shared_requirements:
-       1. srd002-managed-application-services R6
-     - local_requirements:
-       1. srd001-helm-deployment R3
-     - status: implemented
-     - realized_in: "03.0"
-- managed_services:
-  1. - name: documentation-curator
-     - ownership: applications/catalog canonical profile and lifecycle-exit client; application-owned launch composition
-     - shared_requirement_groups:
-       1. R1
-       1. R2
-       1. R3
-     - planned_local_evidence:
-       1. go test ./magefiles -run '^Test(Run|ResolveRoots)' proves command construction and root resolution
-       1. go test ./magefiles -run '^TestLifecycleExit' proves the declarative exit contract
-       1. dependency_gated live startup, role-readiness, shutdown, and listener-release observation
-     - deterministic_evidence_status: implemented
-     - live_observation_status: dependency_gated
-     - canonical_evidence:
-       1. srd011-knowledge-manager AC1
-       1. srd011-knowledge-manager AC2
-       1. srd011-knowledge-manager AC3
-       1. rel07.0-uc001-documentation-curator-profile-ux S1
-       1. rel07.0-uc001-documentation-curator-profile-ux S3
-       1. rel07.0-uc001-documentation-curator-profile-ux S4
-  1. - name: Go present
-     - ownership: application-managed development tool process
-     - shared_requirement_groups:
-       1. R1
-       1. R2
-       1. R3
-     - planned_local_evidence:
-       1. go test ./magefiles -run '^TestPresentation' proves the pinned exact command and working directory
-       1. dependency_gated bounded HTTP role-readiness observation
-       1. dependency_gated interrupt-driven process and listener-release observation
-     - deterministic_evidence_status: implemented
-     - live_observation_status: dependency_gated
-     - limitation:
-       Release 00.0 specifies no dedicated present health or telemetry API.
-       Tests must use bounded process and HTTP observations and record this
-       signal limitation; process existence alone is not readiness evidence.
+<!-- field: ownership -->
+### Ownership
+
+composition-only
+
+<!-- field: declared | form: "typed table" -->
+### Declared
+
+| capability | applies | scope | shared_requirements | local_requirements | status | live_observation_status | realized_in |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| runnable_module | true |  | [srd001-application-module-contract R1, srd001-application-module-contract R2, srd001-application-module-contract R3, srd001-application-module-contract R4, srd001-application-module-contract R5, srd001-application-module-contract R6] |  | implemented |  |  |
+| managed_service | true | [canonical documentation-curator server launched by this application, application-owned Go present server] | [srd002-managed-application-services R1, srd002-managed-application-services R2, srd002-managed-application-services R3] |  | partial | dependency_gated |  |
+| packaged | true | [deterministic archive staging the catalog-owned curator and collector profile closures] | [srd002-managed-application-services R4] | [srd001-helm-deployment R2] | implemented |  | "02.0" |
+| helm_managed | true | [chart running the documentation-curator and collector as workloads from mounted closures, values.schema.json and template guards over the deployment values] | [srd002-managed-application-services R5] | [srd001-helm-deployment R1, srd001-helm-deployment R2] | implemented |  | "02.0" |
+| kind_demo | true | ["bounded kind install of the validated archive with curator and collector readiness, a served curator surface, and an exported trace"] | [srd002-managed-application-services R6] | [srd001-helm-deployment R3] | implemented |  | "03.0" |
+
+<!-- field: managed_services -->
+### Managed services
+
+<!-- managed_service: documentation-curator -->
+#### documentation-curator
+
+<!-- field: ownership -->
+##### Ownership
+
+applications/catalog canonical profile and lifecycle-exit client; application-owned launch composition
+
+<!-- field: shared_requirement_groups -->
+##### Shared requirement groups
+
+- R1
+- R2
+- R3
+
+<!-- field: planned_local_evidence -->
+##### Planned local evidence
+
+- go test ./magefiles -run '^Test(Run|ResolveRoots)' proves command construction and root resolution
+- go test ./magefiles -run '^TestLifecycleExit' proves the declarative exit contract
+- dependency_gated live startup, role-readiness, shutdown, and listener-release observation
+
+<!-- field: deterministic_evidence_status -->
+##### Deterministic evidence status
+
+implemented
+
+<!-- field: live_observation_status -->
+##### Live observation status
+
+dependency_gated
+
+<!-- field: canonical_evidence -->
+##### Canonical evidence
+
+- srd011-knowledge-manager AC1
+- srd011-knowledge-manager AC2
+- srd011-knowledge-manager AC3
+- rel07.0-uc001-documentation-curator-profile-ux S1
+- rel07.0-uc001-documentation-curator-profile-ux S3
+- rel07.0-uc001-documentation-curator-profile-ux S4
+
+<!-- managed_service: Go present -->
+#### Go present
+
+<!-- field: ownership -->
+##### Ownership
+
+application-managed development tool process
+
+<!-- field: shared_requirement_groups -->
+##### Shared requirement groups
+
+- R1
+- R2
+- R3
+
+<!-- field: planned_local_evidence -->
+##### Planned local evidence
+
+- go test ./magefiles -run '^TestPresentation' proves the pinned exact command and working directory
+- dependency_gated bounded HTTP role-readiness observation
+- dependency_gated interrupt-driven process and listener-release observation
+
+<!-- field: deterministic_evidence_status -->
+##### Deterministic evidence status
+
+implemented
+
+<!-- field: live_observation_status -->
+##### Live observation status
+
+dependency_gated
+
+<!-- field: limitation -->
+##### Limitation
+
+Release 00.0 specifies no dedicated present health or telemetry API.
+Tests must use bounded process and HTTP observations and record this
+signal limitation; process existence alone is not readiness evidence.
+
+<!-- field: overview -->
+## Overview
+
+<!-- field: summary -->
+### Summary
+
+The Agent Architecture is a composition around catalog-owned
+documentation-curator, collector, and lifecycle-exit roots plus one local
+deployment applier. The application serves a slide deck, starts the curator
+and collector through agent-core, directs the operator to their
+catalog-owned browser interfaces, and uses the lifecycle-exit contract for
+shutdown compatibility evidence. The current Mage run and kind paths send
+the bounded lifecycle HTTP request directly; they do not execute or copy the
+catalog lifecycle-exit profile.
+
+The dependency direction is applications/agent-architecture ->
+applications/catalog -> agent-core. The demo.yaml catalog_root locates the
+canonical profile and its user interface. The demo.yaml core_root locates the
+development runtime checkout. An installed agent runtime does not require
+--core-root. Neither the catalog nor agent-core imports this application.
+This module extends applications/docs srd001 and the applicable managed
+service groups in srd002 by reference.
+
+The implemented Kubernetes deployment runs the same composition on a cluster: a
+chart runs the documentation-curator and the collector as workloads from
+mounted catalog-owned closures (srd001-helm-deployment), and a standalone
+declarative applier actuates that chart for an authorized operator or CI
+caller (srd002-applier). The packaged, helm_managed, and kind_demo
+capabilities are backed by checked-in package, render, and integration
+targets. The local applier is a composition wrapper over the canonical
+catalog applier; application-specific command bindings and deployment
+authority remain local.
+
+<!-- field: demo_flow_diagram -->
+### Demo flow diagram
+
+```mermaid
+flowchart LR
+  OP[Operator] --> PRESENT[Go present slide server]
+  PRESENT --> DECK[agent-architecture.slide]
+  OP --> RUN[mage run]
+  RUN --> CURATOR[Catalog documentation-curator]
+  CURATOR --> CORE[agent-core runtime]
+  OP --> BROWSER[Catalog-owned Knowledge Manager UI]
+  BROWSER --> CURATOR
+  OP --> EXIT[Catalog lifecycle-exit client]
+  EXIT --> CONTROL[Curator control route]
+  CONTROL --> DONE[Curator Done and listeners released]
+```
 
 <!-- field: interfaces -->
 ## Interfaces
@@ -478,61 +491,67 @@ machine, and authority boundary.
 | Reusable profile | applications/catalog | Supply the canonical documentation-curator profile and UI. |
 | Runtime | agent-core | Supply the interpreter, documentation host, REST runtime, and tools. |
 
-<!-- field: project_structure | form: "tree" -->
+<!-- field: project_structure -->
 ## Project structure
 
-- application:
-  1. - path: README.md
-     - role: Operator prerequisites, ports, commands, and lifecycle.
-  1. - path: agent-architecture.slide
-     - role: Guided presentation.
-  1. - path: magefiles/
-     - role: Run, presentation, audit, stats, and deterministic tests.
-  1. - path: go.mod
-     - role: Standalone module and pinned Go presentation tool dependency.
-- documentation:
-  1. - path: docs/VISION.md
-     - role: Goals, boundaries, and ownership.
-  1. - path: docs/ARCHITECTURE.md
-     - role: Components, interfaces, dependency direction, and decisions.
-  1. - path: docs/road-map.md
-     - role: Release 00.0 contract and Mage evidence.
-  1. - path: docs/SPECIFICATIONS.md
-     - role: Reciprocal use-case and test-suite index.
-  1. - path: docs/specs/use-cases/
-     - role: Guided operator flow.
-  1. - path: docs/specs/test-suites/
-     - role: Executable evidence contract.
+<!-- field: application -->
+### Application
 
-<!-- field: implementation_status | form: "tree" -->
+| path | role |
+| --- | --- |
+| README.md | Operator prerequisites, ports, commands, and lifecycle. |
+| agent-architecture.slide | Guided presentation. |
+| magefiles/ | Run, presentation, audit, stats, and deterministic tests. |
+| go.mod | Standalone module and pinned Go presentation tool dependency. |
+
+<!-- field: documentation -->
+### Documentation
+
+| path | role |
+| --- | --- |
+| docs/VISION.md | Goals, boundaries, and ownership. |
+| docs/ARCHITECTURE.md | Components, interfaces, dependency direction, and decisions. |
+| docs/road-map.md | Release 00.0 contract and Mage evidence. |
+| docs/SPECIFICATIONS.md | Reciprocal use-case and test-suite index. |
+| docs/specs/use-cases/ | Guided operator flow. |
+| docs/specs/test-suites/ | Executable evidence contract. |
+
+<!-- field: implementation_status -->
 ## Implementation status
 
-- current_focus:
-  The runnable module, trace collection, manifest-derived package, Helm chart,
-  bounded kind target, local declarative applier, and canonical persistent
-  application on da-platform are implemented. The
-  application remains composition-only: curator, collector, lifecycle-exit,
-  canonical applier, and their UIs stay catalog-owned, while the local applier
-  wrapper, command bindings, and deployment stay application-owned.
-  app-agent-architecture exposes documentation, monitor, lifecycle health,
-  and retained telemetry through shared Traefik; destructive lifecycle exit
-  remains loopback-only and is exercised by the catalog client over a bounded
-  port-forward.
-- progress:
-  1. - implemented: Application ownership and dependency direction.
-  1. - implemented: Reciprocal deterministic test suite for run, presentation, audit, and stats.
-  1. - implemented: runnable_module applicability and managed_service classification.
-  1. - implemented: Relocated deck, README, and lifecycle-exit profile.
-  1. - implemented: Version-pinned present dependency and tested Mage entry points.
-  1. - implemented: Root audit, test, stats, and release participation.
-  1. - implemented: Collector agent trace collection wired into the demo run path.
-  1. - implemented: agents/application.yaml is the direct-root, deployment, UI, capability, and compatibility authority.
-  1. - implemented: Helm preparation and packaging derive curator, collector, and applier packages and provenance from the shared appmanifest closure.
-  1. - implemented: Packaged chart render, schema guards, bounded kind smoke target, and declarative applier evidence.
-  1. - implemented: apprig app:up|status|exit|diagnose|down on da-platform with an application bucket, persistent collector WAL, shared ingress, down-time query absence, and retained-history restoration after redeploy (GH-2480).
-  1. - partial: Guided presentation, launch, browser, and exit use case.
-  1. - partial: srd002 R1 through R3 conformance for the curator and Go present servers; AC1 through AC3 are not yet satisfied.
-  1. - dependency_gated: Live server startup, browser inspection, role readiness, liveness, representative failure, diagnostics, telemetry, shutdown, in-flight handling, and listener-release observations.
+<!-- field: current_focus -->
+### Current focus
+
+The runnable module, trace collection, manifest-derived package, Helm chart,
+bounded kind target, local declarative applier, and canonical persistent
+application on da-platform are implemented. The
+application remains composition-only: curator, collector, lifecycle-exit,
+canonical applier, and their UIs stay catalog-owned, while the local applier
+wrapper, command bindings, and deployment stay application-owned.
+app-agent-architecture exposes documentation, monitor, lifecycle health,
+and retained telemetry through shared Traefik; destructive lifecycle exit
+remains loopback-only and is exercised by the catalog client over a bounded
+port-forward.
+
+<!-- field: progress | form: "typed table" -->
+### Progress
+
+| implemented | partial | dependency_gated |
+| --- | --- | --- |
+| Application ownership and dependency direction. |  |  |
+| Reciprocal deterministic test suite for run, presentation, audit, and stats. |  |  |
+| runnable_module applicability and managed_service classification. |  |  |
+| Relocated deck, README, and lifecycle-exit profile. |  |  |
+| Version-pinned present dependency and tested Mage entry points. |  |  |
+| Root audit, test, stats, and release participation. |  |  |
+| Collector agent trace collection wired into the demo run path. |  |  |
+| agents/application.yaml is the direct-root, deployment, UI, capability, and compatibility authority. |  |  |
+| Helm preparation and packaging derive curator, collector, and applier packages and provenance from the shared appmanifest closure. |  |  |
+| Packaged chart render, schema guards, bounded kind smoke target, and declarative applier evidence. |  |  |
+| apprig app:up\|status\|exit\|diagnose\|down on da-platform with an application bucket, persistent collector WAL, shared ingress, down-time query absence, and retained-history restoration after redeploy (GH-2480). |  |  |
+|  | Guided presentation, launch, browser, and exit use case. |  |
+|  | srd002 R1 through R3 conformance for the curator and Go present servers; AC1 through AC3 are not yet satisfied. |  |
+|  |  | Live server startup, browser inspection, role readiness, liveness, representative failure, diagnostics, telemetry, shutdown, in-flight handling, and listener-release observations. |
 
 <!-- field: related_documents -->
 ## Related documents

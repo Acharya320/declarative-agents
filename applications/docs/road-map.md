@@ -13,6 +13,63 @@ module obligations from managed-service, package, Helm, and kind-demo
 capabilities, and connect the contract to current executable structural
 evidence.
 
+<!-- field: srds -->
+### SRDs
+
+- srd001-application-module-contract
+- srd002-managed-application-services
+
+<!-- field: use_cases -->
+### Use cases
+
+| id | summary | status |
+| --- | --- | --- |
+| rel00.0-uc001-application-contract-conformance | Verify baseline and declared capability conformance through structural and application-owned evidence. | implemented |
+
+<!-- field: applicability -->
+### Applicability
+
+<!-- field: baseline -->
+#### Baseline
+
+Every runnable application.
+
+<!-- field: managed_service -->
+#### Managed service
+
+Only applications with application-owned long-running services.
+
+<!-- field: packaged -->
+#### Packaged
+
+Only applications that produce distributable artifacts.
+
+<!-- field: helm_managed -->
+#### Helm managed
+
+Only applications that ship a Helm chart.
+
+<!-- field: kind_demo -->
+#### Kind demo
+
+Only applications that ship a kind integration or demo; ENG01 applies.
+
+<!-- field: test_suites -->
+### Test suites
+
+| id | summary | status |
+| --- | --- | --- |
+| test-rel00.0-application-contract-conformance | Parse shared YAML, verify reciprocal traces, run root orchestration/accounting tests, and invoke current application evidence. | implemented |
+
+<!-- field: current_applications | form: "typed table" -->
+### Current applications
+
+| path | ownership | runnable_module | managed_service | live_managed_service_evidence | packaged | helm_managed | kind_demo |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| applications/chatbot-mesh | agent-owning | implemented |  |  |  |  |  |
+| applications/coding-agent | composition-only | implemented |  |  |  |  |  |
+| applications/agent-architecture | composition-only | implemented | partial | dependency_gated | planned | planned | planned |
+
 <!-- field: implementation_evidence | form: "tree" -->
 ### Implementation evidence
 
@@ -43,44 +100,6 @@ evidence.
      agents section and retains 15 canonical agents.
 1. - path: docs/engineering/eng01-kind-test-demo-rig.md
    - proves: kind-demo obligations have one referenced engineering contract.
-
-<!-- field: srds -->
-### Srds
-
-- srd001-application-module-contract
-- srd002-managed-application-services
-
-<!-- field: use_cases -->
-### Use cases
-
-| id | summary | status |
-| --- | --- | --- |
-| rel00.0-uc001-application-contract-conformance | Verify baseline and declared capability conformance through structural and application-owned evidence. | implemented |
-
-<!-- field: test_suites -->
-### Test suites
-
-| id | summary | status |
-| --- | --- | --- |
-| test-rel00.0-application-contract-conformance | Parse shared YAML, verify reciprocal traces, run root orchestration/accounting tests, and invoke current application evidence. | implemented |
-
-<!-- field: applicability | form: "tree" -->
-### Applicability
-
-- baseline: Every runnable application.
-- managed_service: Only applications with application-owned long-running services.
-- packaged: Only applications that produce distributable artifacts.
-- helm_managed: Only applications that ship a Helm chart.
-- kind_demo: Only applications that ship a kind integration or demo; ENG01 applies.
-
-<!-- field: current_applications | form: "typed table" -->
-### Current applications
-
-| path | ownership | runnable_module | managed_service | live_managed_service_evidence | packaged | helm_managed | kind_demo |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| applications/chatbot-mesh | agent-owning | implemented |  |  |  |  |  |
-| applications/coding-agent | composition-only | implemented |  |  |  |  |  |
-| applications/agent-architecture | composition-only | implemented | partial | dependency_gated | planned | planned | planned |
 
 <!-- field: non_runnable_modules -->
 ### Non runnable modules
@@ -136,12 +155,23 @@ migrations follow without rewriting historical releases.
 - Migrate Critic realizations and catalog canonical-name collisions.
 - Coordinate release aliases, consumers, packaging closures, and migration evidence.
 
-<!-- field: release | form: "tree" -->
+<!-- field: release -->
 ### Release
 
-- canonical_catalog: applications/catalog/v0.20260727.0
-- legacy_alias: agent-profiles/v0.20260727.0
-- publication: post-merge from clean main through mage tag
+<!-- field: canonical_catalog -->
+#### Canonical catalog
+
+applications/catalog/v0.20260727.0
+
+<!-- field: legacy_alias -->
+#### Legacy alias
+
+agent-profiles/v0.20260727.0
+
+<!-- field: publication -->
+#### Publication
+
+post-merge from clean main through mage tag
 
 <!-- field: implementation_evidence | form: "tree" -->
 ### Implementation evidence
@@ -232,7 +262,7 @@ gh-1414-normalize-showcase-applications
 | design-constitution | implemented | Defines structured document fields and reciprocal traceability. |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd003-application-consistency
 
@@ -244,6 +274,18 @@ gh-1414-normalize-showcase-applications
      Normalize and verify one showcase application while preserving
      capability gating, ownership, and truthful audit-only or runnable status.
    - status: implemented
+
+<!-- field: implementation_sequence | form: "typed table" -->
+### Implementation sequence
+
+| order | action | status |
+| --- | --- | --- |
+| 1 | Specify the shared SRD, use case, suite, architecture, roadmap, index, and root guide. | implemented |
+| 2 | Add shared manifest and application-layout validation without requiring optional surfaces. | implemented |
+| 3 | Normalize Chatbot Mesh actor roots, manifest, deployment entries, UIs, and shared-token consumption. | implemented |
+| 4 | Normalize Coding Agent manifest, actor variants, ownership, and manifest-derived packaging. | implemented |
+| 5 | Normalize Agent Architecture manifest, applier ownership, package/UI roots, and stale capability status. | implemented |
+| 6 | Run the full Release 14.0 suite and close only evidence-backed capability states. | implemented |
 
 <!-- field: test_suites | form: "tree" -->
 ### Test suites
@@ -265,44 +307,82 @@ gh-1414-normalize-showcase-applications
      1. TC8
    - planned_cases: []
 
-<!-- field: implementation_sequence | form: "typed table" -->
-### Implementation sequence
-
-| order | action | status |
-| --- | --- | --- |
-| 1 | Specify the shared SRD, use case, suite, architecture, roadmap, index, and root guide. | implemented |
-| 2 | Add shared manifest and application-layout validation without requiring optional surfaces. | implemented |
-| 3 | Normalize Chatbot Mesh actor roots, manifest, deployment entries, UIs, and shared-token consumption. | implemented |
-| 4 | Normalize Coding Agent manifest, actor variants, ownership, and manifest-derived packaging. | implemented |
-| 5 | Normalize Agent Architecture manifest, applier ownership, package/UI roots, and stale capability status. | implemented |
-| 6 | Run the full Release 14.0 suite and close only evidence-backed capability states. | implemented |
-
-<!-- field: current_application_evidence | form: "tree" -->
+<!-- field: current_application_evidence -->
 ### Current application evidence
 
-1. - path: applications/chatbot-mesh
-   - module_state: runnable
-   - ownership: agent-owning
-   - release_14_status: implemented
-   - note:
-     The manifest, package closure, local actors, two composition wrappers,
-     deployment entries, and canonical token imports have executable checks.
-1. - path: applications/coding-agent
-   - module_state: runnable
-   - ownership: composition-only
-   - release_14_status: implemented
-   - note:
-     Local planner, executor, critic, and applier profiles are composition
-     wrappers; canonical implementations remain catalog-owned and stats
-     contribute zero agents.
-1. - path: applications/agent-architecture
-   - module_state: runnable
-   - ownership: composition-only
-   - release_14_status: implemented
-   - note:
-     Canonical curator, collector, lifecycle-exit, and applier behavior
-     remains catalog-owned. The local applier is one composition wrapper,
-     and package/UI assets derive from the manifest.
+<!-- current_application_evidence_entry: applications/chatbot-mesh -->
+#### applications/chatbot-mesh
+
+<!-- field: module_state -->
+##### Module state
+
+runnable
+
+<!-- field: ownership -->
+##### Ownership
+
+agent-owning
+
+<!-- field: release_14_status -->
+##### Release 14 status
+
+implemented
+
+<!-- field: note -->
+##### Note
+
+The manifest, package closure, local actors, two composition wrappers,
+deployment entries, and canonical token imports have executable checks.
+
+<!-- current_application_evidence_entry: applications/coding-agent -->
+#### applications/coding-agent
+
+<!-- field: module_state -->
+##### Module state
+
+runnable
+
+<!-- field: ownership -->
+##### Ownership
+
+composition-only
+
+<!-- field: release_14_status -->
+##### Release 14 status
+
+implemented
+
+<!-- field: note -->
+##### Note
+
+Local planner, executor, critic, and applier profiles are composition
+wrappers; canonical implementations remain catalog-owned and stats
+contribute zero agents.
+
+<!-- current_application_evidence_entry: applications/agent-architecture -->
+#### applications/agent-architecture
+
+<!-- field: module_state -->
+##### Module state
+
+runnable
+
+<!-- field: ownership -->
+##### Ownership
+
+composition-only
+
+<!-- field: release_14_status -->
+##### Release 14 status
+
+implemented
+
+<!-- field: note -->
+##### Note
+
+Canonical curator, collector, lifecycle-exit, and applier behavior
+remains catalog-owned. The local applier is one composition wrapper,
+and package/UI assets derive from the manifest.
 
 <!-- field: evidence_status | form: "tree" -->
 ### Evidence status
@@ -350,7 +430,7 @@ gh-2154-declarative-ux
 | catalog-srd021-observer | implemented | Owns the /monitor/fleet response the embedded observer reads (GH-2170). |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd004-declarative-ux
 
@@ -362,6 +442,18 @@ gh-2154-declarative-ux
      Compose an application UI from ui.yaml, kit panels, and domain panels,
      and serve the observer UI from an embedded bundle.
    - status: implemented
+
+<!-- field: implementation_sequence | form: "typed table" -->
+### Implementation sequence
+
+| order | action | status |
+| --- | --- | --- |
+| 1 | Specify srd004, the use case, the suite, and the index entries (GH-2155). | implemented |
+| 2 | Scaffold the kit, move tokens, and add the client, fixtures, shell primitives, and hooks (GH-2156; GH-2259 to GH-2262). | implemented |
+| 3 | Extract the kit panels as a best-of merge (GH-2157; GH-2263 to GH-2266). | implemented |
+| 4 | Serve the observer from an embedded bundle and delete its UI tree (GH-2158; GH-2267 to GH-2269). | implemented |
+| 5 | Validate ui.yaml version 2 and run the chatbot-mesh chatbot on the generic shell (GH-2159; GH-2270 to GH-2272). | implemented |
+| 6 | Migrate the remaining monorepo UIs, add the duplication sweep, and version the kit 1.0.0 (GH-2160; GH-2273 to GH-2275). | implemented |
 
 <!-- field: test_suites | form: "tree" -->
 ### Test suites
@@ -383,18 +475,6 @@ gh-2154-declarative-ux
      1. TC8
      1. TC9
    - planned_cases: []
-
-<!-- field: implementation_sequence | form: "typed table" -->
-### Implementation sequence
-
-| order | action | status |
-| --- | --- | --- |
-| 1 | Specify srd004, the use case, the suite, and the index entries (GH-2155). | implemented |
-| 2 | Scaffold the kit, move tokens, and add the client, fixtures, shell primitives, and hooks (GH-2156; GH-2259 to GH-2262). | implemented |
-| 3 | Extract the kit panels as a best-of merge (GH-2157; GH-2263 to GH-2266). | implemented |
-| 4 | Serve the observer from an embedded bundle and delete its UI tree (GH-2158; GH-2267 to GH-2269). | implemented |
-| 5 | Validate ui.yaml version 2 and run the chatbot-mesh chatbot on the generic shell (GH-2159; GH-2270 to GH-2272). | implemented |
-| 6 | Migrate the remaining monorepo UIs, add the duplication sweep, and version the kit 1.0.0 (GH-2160; GH-2273 to GH-2275). | implemented |
 
 <!-- field: implementation_evidence -->
 ### Implementation evidence
@@ -428,7 +508,7 @@ gh-2047-chart-conformance
 | eng01-kind-test-demo-rig | implemented | States the rules this release numbers and gates; GH-2407 adds the rule table to it. |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd005-chart-conformance
 
@@ -441,6 +521,15 @@ gh-2047-chart-conformance
      naming the chart, the overlay, the resource and the rule, and the
      exception baseline carries what must stand.
    - status: implemented
+
+<!-- field: implementation_sequence | form: "typed table" -->
+### Implementation sequence
+
+| order | action | status |
+| --- | --- | --- |
+| 1 | Add the ENG01 rule table and specify srd005, the use case, the suite, and the index entries (GH-2407). | planned |
+| 2 | Add the chart conformance module, its exception baseline, and the root audit wiring (GH-2408). | implemented |
+| 3 | Pin the floating image tags and shrink the baseline (GH-2409). | implemented |
 
 <!-- field: test_suites | form: "tree" -->
 ### Test suites
@@ -463,15 +552,6 @@ gh-2047-chart-conformance
      1. TC9
      1. TC10
    - planned_cases: []
-
-<!-- field: implementation_sequence | form: "typed table" -->
-### Implementation sequence
-
-| order | action | status |
-| --- | --- | --- |
-| 1 | Add the ENG01 rule table and specify srd005, the use case, the suite, and the index entries (GH-2407). | planned |
-| 2 | Add the chart conformance module, its exception baseline, and the root audit wiring (GH-2408). | implemented |
-| 3 | Pin the floating image tags and shrink the baseline (GH-2409). | implemented |
 
 <!-- field: implementation_evidence | form: "typed table" -->
 ### Implementation evidence
@@ -511,7 +591,7 @@ gh-2049-pin-currency
 | eng01-kind-test-demo-rig | implemented | Holds the pin currency section and the bump verb contract GH-2415 adds. |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd006-pin-currency
 
@@ -523,6 +603,14 @@ gh-2049-pin-currency
      An operator runs the bump target, reads which pins moved and which
      aged, and edits the ones they choose to take.
    - status: implemented
+
+<!-- field: implementation_sequence | form: "typed table" -->
+### Implementation sequence
+
+| order | action | status |
+| --- | --- | --- |
+| 1 | Add the ENG01 pin currency section and the bump verb, and specify srd006, the use case, the suite, and the index entries (GH-2415). | planned |
+| 2 | Add the pin survey, its registry client, the declared pin list, and the bump target (GH-2416). | implemented |
 
 <!-- field: test_suites | form: "tree" -->
 ### Test suites
@@ -544,14 +632,6 @@ gh-2049-pin-currency
      1. TC8
      1. TC9
    - planned_cases: []
-
-<!-- field: implementation_sequence | form: "typed table" -->
-### Implementation sequence
-
-| order | action | status |
-| --- | --- | --- |
-| 1 | Add the ENG01 pin currency section and the bump verb, and specify srd006, the use case, the suite, and the index entries (GH-2415). | planned |
-| 2 | Add the pin survey, its registry client, the declared pin list, and the bump target (GH-2416). | implemented |
 
 <!-- field: implementation_evidence | form: "typed table" -->
 ### Implementation evidence
@@ -588,7 +668,7 @@ gh-2418-tag-verify
 | eng01-kind-test-demo-rig | implemented | Holds the release-annotation section and the tag:verify verb contract GH-2419 adds. |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd007-release-annotation
 
@@ -600,6 +680,14 @@ gh-2418-tag-verify
      An operator about to push runs the check; a real summary passes
      and a degenerate annotation is refused with the rule it broke.
    - status: implemented
+
+<!-- field: implementation_sequence | form: "typed table" -->
+### Implementation sequence
+
+| order | action | status |
+| --- | --- | --- |
+| 1 | Add the ENG01 release-annotation section and the tag:verify verb, and specify srd007, the use case, the suite, and the index entries (GH-2419). | planned |
+| 2 | Add the tag:verify target, its scratch-repository tests, and the runbook step (GH-2420). | implemented |
 
 <!-- field: test_suites | form: "tree" -->
 ### Test suites
@@ -618,14 +706,6 @@ gh-2418-tag-verify
      1. TC5
      1. TC6
    - planned_cases: []
-
-<!-- field: implementation_sequence | form: "typed table" -->
-### Implementation sequence
-
-| order | action | status |
-| --- | --- | --- |
-| 1 | Add the ENG01 release-annotation section and the tag:verify verb, and specify srd007, the use case, the suite, and the index entries (GH-2419). | planned |
-| 2 | Add the tag:verify target, its scratch-repository tests, and the runbook step (GH-2420). | implemented |
 
 <!-- field: implementation_evidence | form: "typed table" -->
 ### Implementation evidence
@@ -665,7 +745,7 @@ gh-2474-shared-platform
 | agent-core-srd059-objectstore-tools | implemented | Supplies provider-neutral bucket access across fake GCS, GCS, and S3. |
 
 <!-- field: srds -->
-### Srds
+### SRDs
 
 - srd008-persistent-application-platform
 
@@ -678,6 +758,19 @@ gh-2474-shared-platform
      prove that compute, retained data, and query availability follow
      their separate lifecycle boundaries.
    - status: implemented
+
+<!-- field: implementation_sequence | form: "typed table" -->
+### Implementation sequence
+
+| order | action | status | note |
+| --- | --- | --- | --- |
+| 1 | Specify ownership, lifecycle, storage, query, threat, routing, and apprig boundaries (GH-2476). | implemented |  |
+| 2 | Add collector WAL and immutable object-bucket persistence (GH-2475). | implemented |  |
+| 3 | Add application-scoped object-backed query and retention (GH-2478, split into GH-2489 object-read query engine and GH-2490 collector wiring/retention/purge/cloud isolation). | implemented | GH-2489 supplies object-backed query/WAL merge; GH-2490 supplies collector wiring, retention metadata, storage-status UI, isolated purge, and cloud IAM fixtures. |
+| 4 | Wire durable collector configuration through the shared agent-services chart (GH-2484). | implemented |  |
+| 5 | Make ingress and filesystem-backed fake GCS persistent platform services (GH-2477). | implemented |  |
+| 6 | Add the manifest-driven magefiles/apprig lifecycle runner (GH-2479, split into GH-2492 deterministic core and GH-2493 live proofs/external fixture). | implemented | GH-2492 supplies the deterministic core; GH-2493 supplies live lifecycle, compensation, diagnosis, external-module, retained-history, and approved purge evidence. |
+| 7 | Migrate Chatbot Mesh, Coding Agent, and Agent Architecture (GH-2482, GH-2483, GH-2480). | implemented |  |
 
 <!-- field: test_suites | form: "tree" -->
 ### Test suites
@@ -699,19 +792,6 @@ gh-2474-shared-platform
      1. TC7
      1. TC8
    - planned_cases: []
-
-<!-- field: implementation_sequence | form: "typed table" -->
-### Implementation sequence
-
-| order | action | status | note |
-| --- | --- | --- | --- |
-| 1 | Specify ownership, lifecycle, storage, query, threat, routing, and apprig boundaries (GH-2476). | implemented |  |
-| 2 | Add collector WAL and immutable object-bucket persistence (GH-2475). | implemented |  |
-| 3 | Add application-scoped object-backed query and retention (GH-2478, split into GH-2489 object-read query engine and GH-2490 collector wiring/retention/purge/cloud isolation). | implemented | GH-2489 supplies object-backed query/WAL merge; GH-2490 supplies collector wiring, retention metadata, storage-status UI, isolated purge, and cloud IAM fixtures. |
-| 4 | Wire durable collector configuration through the shared agent-services chart (GH-2484). | implemented |  |
-| 5 | Make ingress and filesystem-backed fake GCS persistent platform services (GH-2477). | implemented |  |
-| 6 | Add the manifest-driven magefiles/apprig lifecycle runner (GH-2479, split into GH-2492 deterministic core and GH-2493 live proofs/external fixture). | implemented | GH-2492 supplies the deterministic core; GH-2493 supplies live lifecycle, compensation, diagnosis, external-module, retained-history, and approved purge evidence. |
-| 7 | Migrate Chatbot Mesh, Coding Agent, and Agent Architecture (GH-2482, GH-2483, GH-2480). | implemented |  |
 
 <!-- field: implementation_evidence | form: "typed table" -->
 ### Implementation evidence

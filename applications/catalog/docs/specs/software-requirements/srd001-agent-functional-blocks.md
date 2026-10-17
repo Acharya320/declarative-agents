@@ -7,7 +7,7 @@ depends_on: []
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
 
 <!-- field: family_srds -->
-## Family srds
+## Family SRDs
 
 - srd002-executor
 - srd003-critic
@@ -24,7 +24,7 @@ depends_on: []
 - srd023-rig-doctor
 
 <!-- field: conformance_fixture_srds -->
-## Conformance fixture srds
+## Conformance fixture SRDs
 
 - srd007-rest
 - srd009-lifecycle

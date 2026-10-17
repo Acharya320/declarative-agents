@@ -30,7 +30,7 @@ IAM policy fixture is executable without cloud access.
 - rel19.0-uc001-persistent-application-platform
 
 <!-- field: srds -->
-## Srds
+## SRDs
 
 - srd008-persistent-application-platform
 

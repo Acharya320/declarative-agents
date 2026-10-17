@@ -28,7 +28,7 @@ audit.
 - rel16.0-uc001-chart-conformance
 
 <!-- field: srds -->
-## Srds
+## SRDs
 
 - srd005-chart-conformance
 

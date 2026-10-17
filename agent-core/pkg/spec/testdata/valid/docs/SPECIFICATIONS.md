@@ -14,10 +14,26 @@ SRD release assignments.
 - 00.0: srd001-auth (authentication), srd002-api (REST API)
 - 00.1: srd003-storage (data persistence)
 
+<!-- field: roadmap_summary | form: "typed table" -->
+## Roadmap summary
+
+| version | name | use_cases_done | use_cases_total | status |
+| --- | --- | --- | --- | --- |
+| "00.0" | Foundation | 0 | 1 | open |
+
 <!-- field: foundation_document_index | form: "empty list" -->
 ## Foundation document index
 
 None
+
+<!-- field: srd_index -->
+## SRD index
+
+| id | title | summary | path |
+| --- | --- | --- | --- |
+| srd001-auth | Authentication | Secure authentication. | docs/specs/software-requirements/srd001-auth.md |
+| srd002-api | REST API | RESTful endpoints. | docs/specs/software-requirements/srd002-api.md |
+| srd003-storage | Storage Layer | Data persistence. | docs/specs/software-requirements/srd003-storage.md |
 
 <!-- field: config_format_index | form: "empty list" -->
 ## Config format index
@@ -28,27 +44,6 @@ None
 ## Semantic model index
 
 None
-
-<!-- field: coverage_gaps -->
-## Coverage gaps
-
-None known.
-
-<!-- field: roadmap_summary | form: "typed table" -->
-## Roadmap summary
-
-| version | name | use_cases_done | use_cases_total | status |
-| --- | --- | --- | --- | --- |
-| "00.0" | Foundation | 0 | 1 | open |
-
-<!-- field: srd_index -->
-## SRD index
-
-| id | title | summary | path |
-| --- | --- | --- | --- |
-| srd001-auth | Authentication | Secure authentication. | docs/specs/software-requirements/srd001-auth.md |
-| srd002-api | REST API | RESTful endpoints. | docs/specs/software-requirements/srd002-api.md |
-| srd003-storage | Storage Layer | Data persistence. | docs/specs/software-requirements/srd003-storage.md |
 
 <!-- field: use_case_index -->
 ## Use case index
@@ -63,3 +58,8 @@ None known.
 | id | title | release | test_case_count | traces | path |
 | --- | --- | --- | --- | --- | --- |
 | test-rel00.0 | Release 00.0 Tests | "00.0" | 2 | [rel00.0-uc001-login] | docs/specs/test-suites/test-rel00.0.md |
+
+<!-- field: coverage_gaps -->
+## Coverage gaps
+
+None known.

@@ -149,7 +149,9 @@ func (r *Declaration) nestedSlot(level int, key string) bool {
 var headingAcronyms = map[string]string{
 	"srd": "SRD", "id": "ID", "ids": "IDs", "api": "API", "ui": "UI", "ux": "UX", "llm": "LLM",
 	"cli": "CLI", "rest": "REST", "yaml": "YAML", "url": "URL", "json": "JSON", "http": "HTTP",
-	"otel": "OTel",
+	"otel": "OTel", "openapi": "OpenAPI", "srds": "SRDs", "sdk": "SDK", "oci": "OCI", "gcs": "GCS", "gcp": "GCP",
+	"ci": "CI", "pvc": "PVC", "rbac": "RBAC", "tls": "TLS", "dns": "DNS", "sql": "SQL", "uri": "URI", "html": "HTML",
+	"mcp": "MCP", "cqrs": "CQRS", "grpc": "gRPC", "crd": "CRD", "crds": "CRDs", "cpu": "CPU", "ttl": "TTL",
 }
 
 // fieldHeading is the heading a field prints with: the declared one, or the

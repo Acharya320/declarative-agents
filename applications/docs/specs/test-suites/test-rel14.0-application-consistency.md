@@ -28,7 +28,7 @@ only for applications that declare the matching capability.
 - rel14.0-uc001-application-consistency
 
 <!-- field: srds -->
-## Srds
+## SRDs
 
 - srd003-application-consistency
 

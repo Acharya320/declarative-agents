@@ -85,19 +85,19 @@ releases:
 	writeCorpusDocument(t, filepath.Join(root, "docs", "SPECIFICATIONS.yaml"), `id: test
 title: Test
 overview: A test corpus.
-foundation_document_index: []
-config_format_index: []
-semantic_model_index: []
-coverage_gaps: None known.
 roadmap_summary:
   - version: "00.0"
     name: Foundation
     use_cases_done: 0
     use_cases_total: 0
     status: open
+foundation_document_index: []
 srd_index: []
+config_format_index: []
+semantic_model_index: []
 use_case_index: []
 test_suite_index: []
+coverage_gaps: None known.
 `)
 }
 

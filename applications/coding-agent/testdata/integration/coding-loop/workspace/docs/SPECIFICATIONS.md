@@ -17,27 +17,17 @@ One portable requirement used by the coding application integration stages.
 | --- | --- | --- | --- | --- |
 | "01.0" | Greeting | 0 | 0 | open |
 
+<!-- field: foundation_document_index | form: "empty list" -->
+## Foundation document index
+
+None
+
 <!-- field: srd_index -->
 ## SRD index
 
 | id | title | summary | path |
 | --- | --- | --- | --- |
 | srd001-greet | Greeting Function | Implement the fixture greeting. | docs/specs/software-requirements/srd001-greet.md |
-
-<!-- field: use_case_index | form: "empty list" -->
-## Use case index
-
-None
-
-<!-- field: test_suite_index | form: "empty list" -->
-## Test suite index
-
-None
-
-<!-- field: foundation_document_index | form: "empty list" -->
-## Foundation document index
-
-None
 
 <!-- field: config_format_index | form: "empty list" -->
 ## Config format index
@@ -46,6 +36,16 @@ None
 
 <!-- field: semantic_model_index | form: "empty list" -->
 ## Semantic model index
+
+None
+
+<!-- field: use_case_index | form: "empty list" -->
+## Use case index
+
+None
+
+<!-- field: test_suite_index | form: "empty list" -->
+## Test suite index
 
 None
 

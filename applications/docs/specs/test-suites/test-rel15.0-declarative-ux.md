@@ -26,7 +26,7 @@ under the ui-kit mage targets; REST and manifest cases run under go test.
 - rel15.0-uc001-declarative-ux
 
 <!-- field: srds -->
-## Srds
+## SRDs
 
 - srd004-declarative-ux
 

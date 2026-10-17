@@ -301,22 +301,27 @@ and lifecycle recovery benefit every agent that imports agent-core.
 - docs/specs/use-cases/rel03.0-uc007-machine-request-documentation-ux.md
 - docs/specs/test-suites/test-rel02.0-tool-contracts.md
 
-<!-- field: dependencies | form: "tree" -->
+<!-- field: dependencies -->
 ## Dependencies
 
-- direct:
-  1. go.opentelemetry.io/otel for attributes, trace, and metric APIs
-  1. go.opentelemetry.io/otel/sdk for trace and metric providers
-  1. go.opentelemetry.io/otel/exporters for OTLP gRPC and stdout exporters
-  1. go.opentelemetry.io/proto/otlp for replay proto types
-  1. google.golang.org/grpc for OTLP transport
-  1. google.golang.org/protobuf for proto serialization
-  1. gopkg.in/yaml.v3 for YAML parsing
-  1. github.com/stretchr/testify for test assertions
-  1. github.com/getkin/kin-openapi/openapi3 for OpenAPI 3 loading, resolution, and validation for REST tools
-  1. database/sql (standard library) as the Database/Transaction/Scanner/Rows seam in internal/doltsql, shared by the Dolt checkpoint backend and Dolt boundary words, so internal/runtime/core never imports database/sql
-  1. the Dolt SQL driver, registered by internal/doltsql and invoked from cmd/agent, as the default persistent checkpoint backend (Noop when persistence is disabled)
-- indirect:
-  1. github.com/dominikbraun/graph for spec dependency graphs
-  1. github.com/google/uuid for trace IDs
-  1. github.com/cenkalti/backoff/v5 for OTLP retry
+<!-- field: direct -->
+### Direct
+
+- go.opentelemetry.io/otel for attributes, trace, and metric APIs
+- go.opentelemetry.io/otel/sdk for trace and metric providers
+- go.opentelemetry.io/otel/exporters for OTLP gRPC and stdout exporters
+- go.opentelemetry.io/proto/otlp for replay proto types
+- google.golang.org/grpc for OTLP transport
+- google.golang.org/protobuf for proto serialization
+- gopkg.in/yaml.v3 for YAML parsing
+- github.com/stretchr/testify for test assertions
+- github.com/getkin/kin-openapi/openapi3 for OpenAPI 3 loading, resolution, and validation for REST tools
+- database/sql (standard library) as the Database/Transaction/Scanner/Rows seam in internal/doltsql, shared by the Dolt checkpoint backend and Dolt boundary words, so internal/runtime/core never imports database/sql
+- the Dolt SQL driver, registered by internal/doltsql and invoked from cmd/agent, as the default persistent checkpoint backend (Noop when persistence is disabled)
+
+<!-- field: indirect -->
+### Indirect
+
+- github.com/dominikbraun/graph for spec dependency graphs
+- github.com/google/uuid for trace IDs
+- github.com/cenkalti/backoff/v5 for OTLP retry

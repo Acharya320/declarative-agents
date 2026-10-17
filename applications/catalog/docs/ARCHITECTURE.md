@@ -5,40 +5,45 @@ title: Application Catalog Architecture
 <!-- Copyright (c) 2026 Nokia -->
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
 
-<!-- field: overview | form: "tree" -->
+<!-- field: overview -->
 ## Overview
 
-- summary:
-  applications/catalog is this repository's versioned catalog of reusable
-  declarative tool and agent blocks. It is not a universal agent library. At
-  runtime, agent-core loads external agent programs from it. Applications
-  compose canonical catalog members by reference and package their transitive
-  closure. Profile directories, catalog tool declarations, profile-local
-  overrides, conformance, integration fixtures, profile-local UIs, and
-  structured docs live here. Application presentations and composition live
-  in their owning modules under applications/.
+<!-- field: summary -->
+### Summary
 
-  Runtime ownership remains in agent-core. That repository owns the Go
-  engine, cmd/agent, builtin tool implementations, shared runtime assets, Mage
-  targets, and release image. Operators supply this checkout through explicit
-  --profile paths (often after bind-mounting it at a stable container path such
-  as /profiles).
+applications/catalog is this repository's versioned catalog of reusable
+declarative tool and agent blocks. It is not a universal agent library. At
+runtime, agent-core loads external agent programs from it. Applications
+compose canonical catalog members by reference and package their transitive
+closure. Profile directories, catalog tool declarations, profile-local
+overrides, conformance, integration fixtures, profile-local UIs, and
+structured docs live here. Application presentations and composition live
+in their owning modules under applications/.
 
-  Bootstrap authority for argv, mounts, and file-only configuration lives in
-  agent-core docs and constitutions. Track the umbrella work there as
-  epic agent-core-tj96; the runtime contract text is anchored in
-  docs/specs/config-formats/runtime-contract.md (see agent-core-tj96.1).
-- runtime_mount_diagram:
-  ```mermaid
-  flowchart LR
-    OP[Developer or operator] --> RUNTIME[agent-core runtime]
-    OP --> PROFILES[applications/catalog checkout]
-    OP --> WORK[workspace]
-    PROFILES -->|--profile path| RUNTIME
-    WORK -->|--directory| RUNTIME
-    RUNTIME --> CORE[agent binary and core assets]
-    RUNTIME --> PROGRAM[profile-owned agent program]
-  ```
+Runtime ownership remains in agent-core. That repository owns the Go
+engine, cmd/agent, builtin tool implementations, shared runtime assets, Mage
+targets, and release image. Operators supply this checkout through explicit
+--profile paths (often after bind-mounting it at a stable container path such
+as /profiles).
+
+Bootstrap authority for argv, mounts, and file-only configuration lives in
+agent-core docs and constitutions. Track the umbrella work there as
+epic agent-core-tj96; the runtime contract text is anchored in
+docs/specs/config-formats/runtime-contract.md (see agent-core-tj96.1).
+
+<!-- field: runtime_mount_diagram -->
+### Runtime mount diagram
+
+```mermaid
+flowchart LR
+  OP[Developer or operator] --> RUNTIME[agent-core runtime]
+  OP --> PROFILES[applications/catalog checkout]
+  OP --> WORK[workspace]
+  PROFILES -->|--profile path| RUNTIME
+  WORK -->|--directory| RUNTIME
+  RUNTIME --> CORE[agent binary and core assets]
+  RUNTIME --> PROGRAM[profile-owned agent program]
+```
 
 <!-- field: interfaces -->
 ## Interfaces
@@ -251,51 +256,59 @@ defines one vocabulary word.
 | Issue tracking | issue tracker | Issues track migration, documentation, validation, and fixture work. |
 | Runtime | agent-core | agent-core supplies the executable runtime and reusable tool implementations. |
 
-<!-- field: project_structure | form: "tree" -->
+<!-- field: project_structure -->
 ## Project structure
 
-- configuration:
-  1. - path: agents/
-     - role: Reusable catalog agent blocks, catalog tool declarations, selection lists, overrides, and profile-local assets.
-  1. - path: tools/README.md
-     - role: Catalog tool-block taxonomy and membership contract.
-  1. - path: ../agent-architecture/
-     - role: Application-owned Knowledge Manager presentation and composition that references the canonical curator.
-  1. - path: testdata/integration/
-     - role: Profile-owned fixtures consumed by agent-core integration targets.
-- documentation:
-  1. - path: docs/VISION.md
-     - role: Goals, boundaries, and success criteria.
-  1. - path: docs/ARCHITECTURE.md
-     - role: Repository ownership, interfaces, components, and decisions.
-  1. - path: docs/SPECIFICATIONS.md
-     - role: Specification index and coverage notes.
-  1. - path: docs/road-map.md
-     - role: Migration release plan.
-  1. - path: docs/constitutions/issue-format.md
-     - role: Issue shape for future work.
+<!-- field: configuration -->
+### Configuration
 
-<!-- field: implementation_status | form: "tree" -->
+| path | role |
+| --- | --- |
+| agents/ | Reusable catalog agent blocks, catalog tool declarations, selection lists, overrides, and profile-local assets. |
+| tools/README.md | Catalog tool-block taxonomy and membership contract. |
+| ../agent-architecture/ | Application-owned Knowledge Manager presentation and composition that references the canonical curator. |
+| testdata/integration/ | Profile-owned fixtures consumed by agent-core integration targets. |
+
+<!-- field: documentation -->
+### Documentation
+
+| path | role |
+| --- | --- |
+| docs/VISION.md | Goals, boundaries, and success criteria. |
+| docs/ARCHITECTURE.md | Repository ownership, interfaces, components, and decisions. |
+| docs/SPECIFICATIONS.md | Specification index and coverage notes. |
+| docs/road-map.md | Migration release plan. |
+| docs/constitutions/issue-format.md | Issue shape for future work. |
+
+<!-- field: implementation_status -->
 ## Implementation status
 
-- current_focus: Repository-specific reusable application catalog, validation, release tagging, conformance, and consumer reference contracts.
-- progress:
-  1. - done: Initial issue queue exists.
-  1. - done: Repository purpose and ownership docs are defined.
-  1. - done: Agent functional block requirements and semantic models are defined.
-  1. - done: Agent profiles and Knowledge Manager UX assets migrated from agent-core into agents/.
-  1. - done: Release 06 historically migrated demos and integration fixtures into demo/ and testdata/integration/.
-  1. - done: Presentation-specific Knowledge Manager assets were subsequently relocated to applications/agent-architecture; catalog-owned documentation-curator profile UX and integration evidence remain here.
-  1. - done: Profile bundle release tagging is implemented through mage tag.
-  1. - done: Profile validation and container usage checks verify the mounted profile contract.
-  1. - done: Variant profile discovery covers profile.yaml, profile-*.yaml, and *-profile.yaml files.
-  1. - done: Formal migration use cases and test suites document the implemented profile repository workflow.
-  1. - done: Profile-owned integration tracer bullets cover documentation-curator, bench-to-critic, and monitor/control boundaries. Retired critic-to-executor and planner-to-executor catalog tracers point to application-owned replacements under applications/coding-agent.
-  1. - done: Catalog membership, member obligations, one-canonical-home, application reference, exact v0 release compatibility, and migration contracts are recorded.
-  1. - done: Tool-first taxonomy separates catalog declaration blocks, selection lists, profile-local overrides, core declarations and implementations, and application-local exclusions.
-  1. - done: Release 12 role-realization alignment provides non-forking v0 compatibility wrappers for renamed catalog paths, exact consumer pins, package-closure and generated-Helm evidence, and atomic canonical/legacy release-tag tests; immutable tag publication remains a post-merge action.
-  1. - done: scenario-critic and mock are classified as supported test-time catalog members; rig-subject and runtime conformance fixtures remain internal, with no relocation scheduled.
-  1. - in-progress: Release 11 scenario critic and mock implementation is present with profile, fixture, conformance, and rig evidence; validator semantics, serving-startup rejection, process survival, named failure causes, and mock-start-failure cleanup remain unproven.
+<!-- field: current_focus -->
+### Current focus
+
+Repository-specific reusable application catalog, validation, release tagging, conformance, and consumer reference contracts.
+
+<!-- field: progress | form: "typed table" -->
+### Progress
+
+| done | in-progress |
+| --- | --- |
+| Initial issue queue exists. |  |
+| Repository purpose and ownership docs are defined. |  |
+| Agent functional block requirements and semantic models are defined. |  |
+| Agent profiles and Knowledge Manager UX assets migrated from agent-core into agents/. |  |
+| Release 06 historically migrated demos and integration fixtures into demo/ and testdata/integration/. |  |
+| Presentation-specific Knowledge Manager assets were subsequently relocated to applications/agent-architecture; catalog-owned documentation-curator profile UX and integration evidence remain here. |  |
+| Profile bundle release tagging is implemented through mage tag. |  |
+| Profile validation and container usage checks verify the mounted profile contract. |  |
+| Variant profile discovery covers profile.yaml, profile-*.yaml, and *-profile.yaml files. |  |
+| Formal migration use cases and test suites document the implemented profile repository workflow. |  |
+| Profile-owned integration tracer bullets cover documentation-curator, bench-to-critic, and monitor/control boundaries. Retired critic-to-executor and planner-to-executor catalog tracers point to application-owned replacements under applications/coding-agent. |  |
+| Catalog membership, member obligations, one-canonical-home, application reference, exact v0 release compatibility, and migration contracts are recorded. |  |
+| Tool-first taxonomy separates catalog declaration blocks, selection lists, profile-local overrides, core declarations and implementations, and application-local exclusions. |  |
+| Release 12 role-realization alignment provides non-forking v0 compatibility wrappers for renamed catalog paths, exact consumer pins, package-closure and generated-Helm evidence, and atomic canonical/legacy release-tag tests; immutable tag publication remains a post-merge action. |  |
+| scenario-critic and mock are classified as supported test-time catalog members; rig-subject and runtime conformance fixtures remain internal, with no relocation scheduled. |  |
+|  | Release 11 scenario critic and mock implementation is present with profile, fixture, conformance, and rig evidence; validator semantics, serving-startup rejection, process survival, named failure causes, and mock-start-failure cleanup remain unproven. |
 
 <!-- field: related_documents -->
 ## Related documents

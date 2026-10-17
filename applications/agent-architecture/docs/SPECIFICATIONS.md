@@ -64,55 +64,115 @@ requirements.
 | srd001-helm-deployment | Agent Architecture Helm Deployment | planned | docs/specs/software-requirements/srd001-helm-deployment.md |
 | srd002-applier | Declarative Applier Agent | implemented | docs/specs/software-requirements/srd002-applier.md |
 
-<!-- field: external_requirement_references | form: "tree" -->
+<!-- field: external_requirement_references -->
 ## External requirement references
 
-1. - id: srd001-application-module-contract
-   - owner: applications
-   - path: ../docs/specs/software-requirements/srd001-application-module-contract.md
-   - requirements:
-     1. R1
-     1. R2
-     1. R3
-     1. R4
-     1. R5
-     1. R6
-   - usage:
-     Governs runnable-module identity, canonical references, local
-     documentation, Mage participation, and composition-only accounting.
-     This application supplies local paths and evidence without copying those
-     requirements.
-1. - id: srd002-managed-application-services
-   - owner: applications
-   - path: ../docs/specs/software-requirements/srd002-managed-application-services.md
-   - requirements:
-     1. R1
-     1. R2
-     1. R3
-     1. R4
-     1. R5
-     1. R6
-   - applies_to:
-     1. documentation-curator server launched by this application
-     1. Go present server
-     1. planned chart, package, and kind deployment
-   - usage:
-     Governs lifecycle, control and operator verbs, telemetry, and
-     configuration for both Release 00.0 managed services (R1 through R3). The
-     planned deployment cites the package (R4), Helm (R5), and kind (R6) groups,
-     supplying their evidence through srd001-helm-deployment.
-1. - id: srd011-knowledge-manager
-   - owner: applications/catalog
-   - path: ../catalog/docs/specs/software-requirements/srd011-knowledge-manager.md
-   - usage:
-     Defines the canonical documentation-curator profile, catalog-owned UI and
-     resources, agent-core runtime dependencies, and lifecycle outcomes.
-1. - id: rel07.0-uc001-documentation-curator-profile-ux
-   - owner: applications/catalog
-   - path: ../catalog/docs/specs/use-cases/rel07.0-uc001-documentation-curator-profile-ux.md
-   - usage:
-     Proves the catalog profile's browser, action-route, and lifecycle behavior.
-     Release 00.0 composes that behavior into a guided presentation.
+<!-- external_requirement_reference: srd001-application-module-contract -->
+### srd001-application-module-contract
+
+<!-- field: owner -->
+#### Owner
+
+applications
+
+<!-- field: path -->
+#### Path
+
+../docs/specs/software-requirements/srd001-application-module-contract.md
+
+<!-- field: requirements -->
+#### Requirements
+
+- R1
+- R2
+- R3
+- R4
+- R5
+- R6
+
+<!-- field: usage -->
+#### Usage
+
+Governs runnable-module identity, canonical references, local
+documentation, Mage participation, and composition-only accounting.
+This application supplies local paths and evidence without copying those
+requirements.
+
+<!-- external_requirement_reference: srd002-managed-application-services -->
+### srd002-managed-application-services
+
+<!-- field: owner -->
+#### Owner
+
+applications
+
+<!-- field: path -->
+#### Path
+
+../docs/specs/software-requirements/srd002-managed-application-services.md
+
+<!-- field: requirements -->
+#### Requirements
+
+- R1
+- R2
+- R3
+- R4
+- R5
+- R6
+
+<!-- field: applies_to -->
+#### Applies to
+
+- documentation-curator server launched by this application
+- Go present server
+- planned chart, package, and kind deployment
+
+<!-- field: usage -->
+#### Usage
+
+Governs lifecycle, control and operator verbs, telemetry, and
+configuration for both Release 00.0 managed services (R1 through R3). The
+planned deployment cites the package (R4), Helm (R5), and kind (R6) groups,
+supplying their evidence through srd001-helm-deployment.
+
+<!-- external_requirement_reference: srd011-knowledge-manager -->
+### srd011-knowledge-manager
+
+<!-- field: owner -->
+#### Owner
+
+applications/catalog
+
+<!-- field: path -->
+#### Path
+
+../catalog/docs/specs/software-requirements/srd011-knowledge-manager.md
+
+<!-- field: usage -->
+#### Usage
+
+Defines the canonical documentation-curator profile, catalog-owned UI and
+resources, agent-core runtime dependencies, and lifecycle outcomes.
+
+<!-- external_requirement_reference: rel07.0-uc001-documentation-curator-profile-ux -->
+### rel07.0-uc001-documentation-curator-profile-ux
+
+<!-- field: owner -->
+#### Owner
+
+applications/catalog
+
+<!-- field: path -->
+#### Path
+
+../catalog/docs/specs/use-cases/rel07.0-uc001-documentation-curator-profile-ux.md
+
+<!-- field: usage -->
+#### Usage
+
+Proves the catalog profile's browser, action-route, and lifecycle behavior.
+Release 00.0 composes that behavior into a guided presentation.
 
 <!-- field: config_format_index | form: "empty list" -->
 ## Config format index
