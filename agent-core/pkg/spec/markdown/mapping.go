@@ -98,6 +98,16 @@ func (r *Declaration) checkSlots() error {
 	return nil
 }
 
+// declaresLinks reports a type with a field whose references render as links.
+func (r *Declaration) declaresLinks() bool {
+	for _, field := range r.Fields {
+		if field.Links || len(field.LinkColumns) > 0 {
+			return true
+		}
+	}
+	return false
+}
+
 // fieldKind finds the field node kind that opens at level under parent.
 func (r *Declaration) fieldKind(level int, parent string) (string, bool) {
 	return r.nodeFor(tagField, level, parent)
