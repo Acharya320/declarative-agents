@@ -174,15 +174,11 @@ applications/catalog
 Proves the catalog profile's browser, action-route, and lifecycle behavior.
 Release 00.0 composes that behavior into a guided presentation.
 
-<!-- field: config_format_index | form: "empty list" -->
+<!-- field: config_format_index -->
 ## Config format index
 
-None
-
-<!-- field: semantic_model_index | form: "empty list" -->
+<!-- field: semantic_model_index -->
 ## Semantic model index
-
-None
 
 <!-- field: use_case_index -->
 ## Use case index
@@ -198,30 +194,47 @@ None
 <!-- field: test_suite_index | form: "typed table" -->
 ## Test suite index
 
-| id | title | release | status | test_case_count | traces | path |
+| id | title | release | test_case_count | traces | status | path |
 | --- | --- | --- | --- | --- | --- | --- |
-| [test-rel00.0-guided-agent-architecture](specs/test-suites/test-rel00.0-guided-agent-architecture.md) | Test Suite for Release 00.0 Guided Agent Architecture | "00.0" | partial | 5 | [[rel00.0-uc001-guided-agent-architecture](specs/use-cases/rel00.0-uc001-guided-agent-architecture.md)] | docs/specs/test-suites/test-rel00.0-guided-agent-architecture.md |
-| [test-rel01.0-demo-trace-collection](specs/test-suites/test-rel01.0-demo-trace-collection.md) | Test Suite for Release 01.0 Demo Trace Collection | "01.0" | implemented | 3 | [[rel01.0-uc001-demo-trace-collection](specs/use-cases/rel01.0-uc001-demo-trace-collection.md)] | docs/specs/test-suites/test-rel01.0-demo-trace-collection.md |
-| [test-rel02.0-render-packaged-chart](specs/test-suites/test-rel02.0-render-packaged-chart.md) | Test Suite for Release 02.0 Packaged Chart Render and Validation | "02.0" | planned | 4 | [[rel02.0-uc001-render-packaged-chart](specs/use-cases/rel02.0-uc001-render-packaged-chart.md)] | docs/specs/test-suites/test-rel02.0-render-packaged-chart.md |
-| [test-rel03.0-live-helm-smoke](specs/test-suites/test-rel03.0-live-helm-smoke.md) | Test Suite for Release 03.0 Live Helm Smoke | "03.0" | planned | 4 | [[rel03.0-uc001-live-helm-smoke](specs/use-cases/rel03.0-uc001-live-helm-smoke.md)] | docs/specs/test-suites/test-rel03.0-live-helm-smoke.md |
-| [test-rel04.0-declarative-applier](specs/test-suites/test-rel04.0-declarative-applier.md) | Test Suite for Release 04.0 Declarative Applier Agent | "04.0" | planned | 5 | [[rel04.0-uc001-declarative-applier](specs/use-cases/rel04.0-uc001-declarative-applier.md)] | docs/specs/test-suites/test-rel04.0-declarative-applier.md |
+| [test-rel00.0-guided-agent-architecture](specs/test-suites/test-rel00.0-guided-agent-architecture.md) | Test Suite for Release 00.0 Guided Agent Architecture | "00.0" | 5 | [[rel00.0-uc001-guided-agent-architecture](specs/use-cases/rel00.0-uc001-guided-agent-architecture.md)] | partial | docs/specs/test-suites/test-rel00.0-guided-agent-architecture.md |
+| [test-rel01.0-demo-trace-collection](specs/test-suites/test-rel01.0-demo-trace-collection.md) | Test Suite for Release 01.0 Demo Trace Collection | "01.0" | 3 | [[rel01.0-uc001-demo-trace-collection](specs/use-cases/rel01.0-uc001-demo-trace-collection.md)] | implemented | docs/specs/test-suites/test-rel01.0-demo-trace-collection.md |
+| [test-rel02.0-render-packaged-chart](specs/test-suites/test-rel02.0-render-packaged-chart.md) | Test Suite for Release 02.0 Packaged Chart Render and Validation | "02.0" | 4 | [[rel02.0-uc001-render-packaged-chart](specs/use-cases/rel02.0-uc001-render-packaged-chart.md)] | planned | docs/specs/test-suites/test-rel02.0-render-packaged-chart.md |
+| [test-rel03.0-live-helm-smoke](specs/test-suites/test-rel03.0-live-helm-smoke.md) | Test Suite for Release 03.0 Live Helm Smoke | "03.0" | 4 | [[rel03.0-uc001-live-helm-smoke](specs/use-cases/rel03.0-uc001-live-helm-smoke.md)] | planned | docs/specs/test-suites/test-rel03.0-live-helm-smoke.md |
+| [test-rel04.0-declarative-applier](specs/test-suites/test-rel04.0-declarative-applier.md) | Test Suite for Release 04.0 Declarative Applier Agent | "04.0" | 5 | [[rel04.0-uc001-declarative-applier](specs/use-cases/rel04.0-uc001-declarative-applier.md)] | planned | docs/specs/test-suites/test-rel04.0-declarative-applier.md |
 
-<!-- field: coverage_gaps | form: "tree" -->
+<!-- field: coverage_gaps -->
 ## Coverage gaps
 
-1. - id: live-browser-observation
-   - status: dependency_gated
-   - description:
-     Deterministic tests validate commands, configuration, reciprocal traces,
-     root dispatch, and accounting without starting servers. Live launch,
-     browser rendering, role readiness, exit, and listener-release evidence
-     requires available ports, a buildable agent-core checkout, and operator
-     execution. Command construction is not live-service proof.
-1. - id: kubernetes-deployment
-   - status: implemented
-   - description:
-     The chart, profile-closure package, values schema, kind smoke, and applier
-     are implemented through srd001-helm-deployment and srd002-applier use
-     cases and test suites. Package, Helm, kind, and canonical-applier wrapper
-     evidence is executable; live runs retain their documented host
-     prerequisite gates.
+<!-- coverage_gap: live-browser-observation -->
+### live-browser-observation
+
+<!-- field: status -->
+#### Status
+
+dependency_gated
+
+<!-- field: description -->
+#### Description
+
+Deterministic tests validate commands, configuration, reciprocal traces,
+root dispatch, and accounting without starting servers. Live launch,
+browser rendering, role readiness, exit, and listener-release evidence
+requires available ports, a buildable agent-core checkout, and operator
+execution. Command construction is not live-service proof.
+
+<!-- coverage_gap: kubernetes-deployment -->
+### kubernetes-deployment
+
+<!-- field: status -->
+#### Status
+
+implemented
+
+<!-- field: description -->
+#### Description
+
+The chart, profile-closure package, values schema, kind smoke, and applier
+are implemented through srd001-helm-deployment and srd002-applier use
+cases and test suites. Package, Helm, kind, and canonical-applier wrapper
+evidence is executable; live runs retain their documented host
+prerequisite gates.

@@ -635,44 +635,89 @@ tool's effects. This complements reversibility by naming the
 specific rollback mechanism and metadata the persisted
 UndoMemento captures.
 
-<!-- field: sub_fields | form: "tree" -->
+<!-- field: sub_fields -->
 #### Sub fields
 
-1. - field: strategy
-   - type: string
-   - description:
-     The undo strategy name. Known values: noop,
-     conversation_truncate, file_snapshot_restore, workspace_restore,
-     compensating_action, child_command_undo, and irreversible. Builtin
-     strategy names describe typed Undo implementations. Exec words are
-     restricted to noop, workspace_restore, compensating_action, or
-     irreversible because one shared interpreter executes their Undo.
-1. - field: description
-   - type: string
-   - description: Human-readable description of the rollback mechanism.
-1. - field: payload
-   - type: string
-   - description:
-     Memento payload type. When set to "boundary_compensation",
-     the UndoMemento carries a BoundaryCompensationPayload with
-     structured metadata about the external boundary crossed
-     (child process, issue system, nested machine, etc.).
-     Omitted for simple workspace_restore payloads.
-1. - field: captures
-   - type: "[]string"
-   - description:
-     Names of runtime parameter or structured-output values captured in
-     the UndoMemento payload. Generic exec words project these names into
-     receipt.captures; they are executable contract data, not comments.
-     Examples include
-     issue_id, child_run_id, workspace_paths, server_addr, and
-     suite_path.
-1. - field: requires
-   - type: "[]string"
-   - description:
-     Names of external context needed to perform the undo.
-     For example, ["approval_decision", "checkpoint_id"] for
-     a suspend tool that requires re-obtaining approval state.
+<!-- sub_field_entry: strategy -->
+##### strategy
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: description -->
+###### Description
+
+The undo strategy name. Known values: noop,
+conversation_truncate, file_snapshot_restore, workspace_restore,
+compensating_action, child_command_undo, and irreversible. Builtin
+strategy names describe typed Undo implementations. Exec words are
+restricted to noop, workspace_restore, compensating_action, or
+irreversible because one shared interpreter executes their Undo.
+
+<!-- sub_field_entry: description -->
+##### description
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: description -->
+###### Description
+
+Human-readable description of the rollback mechanism.
+
+<!-- sub_field_entry: payload -->
+##### payload
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: description -->
+###### Description
+
+Memento payload type. When set to "boundary_compensation",
+the UndoMemento carries a BoundaryCompensationPayload with
+structured metadata about the external boundary crossed
+(child process, issue system, nested machine, etc.).
+Omitted for simple workspace_restore payloads.
+
+<!-- sub_field_entry: captures -->
+##### captures
+
+<!-- field: type -->
+###### Type
+
+[]string
+
+<!-- field: description -->
+###### Description
+
+Names of runtime parameter or structured-output values captured in
+the UndoMemento payload. Generic exec words project these names into
+receipt.captures; they are executable contract data, not comments.
+Examples include
+issue_id, child_run_id, workspace_paths, server_addr, and
+suite_path.
+
+<!-- sub_field_entry: requires -->
+##### requires
+
+<!-- field: type -->
+###### Type
+
+[]string
+
+<!-- field: description -->
+###### Description
+
+Names of external context needed to perform the undo.
+For example, ["approval_decision", "checkpoint_id"] for
+a suspend tool that requires re-obtaining approval state.
 
 <!-- schema_entry: errors -->
 ### errors
@@ -732,28 +777,66 @@ Defines the planned shape of ToolDef metrics config. Metric declarations
 reserve vocabulary for follow-up monitor SRDs and code. They should be
 written only for values the tool can emit safely through a shared recorder.
 
-<!-- field: fields | form: "tree" -->
+<!-- field: fields -->
 ### Fields
 
-1. - field: instruments
-   - type: "[]object"
-   - required: false
-   - description:
-     Metric instruments emitted by the tool. Each item declares name, kind,
-     unit, description, value_source, and allowed attributes.
-1. - field: attributes
-   - type: "[]object"
-   - required: false
-   - description:
-     Shared attribute declarations for this tool. Attribute values must come
-     from trusted config, bounded runtime enums, or redacted low-cardinality
-     values allowed by the metric schema.
-1. - field: disabled
-   - type: bool
-   - required: false
-   - description:
-     Explicit opt-out for a tool that would otherwise receive standard
-     dispatch metrics from profile or runtime policy.
+<!-- field_entry: instruments -->
+#### instruments
+
+<!-- field: type -->
+##### Type
+
+[]object
+
+<!-- field: required | form: "scalar" -->
+##### Required
+
+false
+
+<!-- field: description -->
+##### Description
+
+Metric instruments emitted by the tool. Each item declares name, kind,
+unit, description, value_source, and allowed attributes.
+
+<!-- field_entry: attributes -->
+#### attributes
+
+<!-- field: type -->
+##### Type
+
+[]object
+
+<!-- field: required | form: "scalar" -->
+##### Required
+
+false
+
+<!-- field: description -->
+##### Description
+
+Shared attribute declarations for this tool. Attribute values must come
+from trusted config, bounded runtime enums, or redacted low-cardinality
+values allowed by the metric schema.
+
+<!-- field_entry: disabled -->
+#### disabled
+
+<!-- field: type -->
+##### Type
+
+bool
+
+<!-- field: required | form: "scalar" -->
+##### Required
+
+false
+
+<!-- field: description -->
+##### Description
+
+Explicit opt-out for a tool that would otherwise receive standard
+dispatch metrics from profile or runtime policy.
 
 <!-- field: instrument_fields -->
 ### Instrument fields
@@ -1017,16 +1100,28 @@ metrics:
 Defines config for builtin boundary tools that spawn another agent process.
 This applies to self_invoke and profile aliases such as invoke_executor.
 
-<!-- field: fields | form: "tree" -->
+<!-- field: fields -->
 ### Fields
 
-1. - field: profile
-   - type: string
-   - required: true
-   - description:
-     Path to the child agent profile YAML. The child process receives this
-     value as --profile. The profile owns the child's machine, tools.yaml,
-     tool_config_dirs, tool_declarations, and agent-local config.
+<!-- field_entry: profile -->
+#### profile
+
+<!-- field: type -->
+##### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+##### Required
+
+true
+
+<!-- field: description -->
+##### Description
+
+Path to the child agent profile YAML. The child process receives this
+value as --profile. The profile owns the child's machine, tools.yaml,
+tool_config_dirs, tool_declarations, and agent-local config.
 
 <!-- field: legacy_fields -->
 ### Legacy fields
@@ -1273,47 +1368,104 @@ A source extension can instead select a value from an earlier command-state
 entry. All extensions are stripped from the schema before it is sent to the
 LLM, so the model never sees CLI-level or command-state wiring details.
 
-<!-- field: fields | form: "tree" -->
+<!-- field: fields -->
 ### Fields
 
-1. - field: flag
-   - type: string
-   - description:
-     CLI flag mapping. The parameter value is passed as this flag
-     (e.g. "--path" causes the value to be passed as --path <value>).
-1. - field: positional
-   - type: bool
-   - description:
-     When true, the parameter value is passed as a positional
-     argument rather than a named flag.
-1. - field: bool_flag
-   - type: bool
-   - description:
-     Boolean flag marker. When true and the parameter value is
-     true, the CLI flag from the "flag" field is included in the
-     command (e.g. flag: "--all", bool_flag: true).
-1. - field: default
-   - type: string
-   - description:
-     Default value used when the LLM omits the parameter. Applied
-     before CLI argument construction.
-1. - field: position
-   - type: int
-   - description:
-     Positive ordering key for mapped arguments. Positioned mappings are
-     appended in ascending order after the tool's base args. Unpositioned
-     mappings follow in stable parameter-name order.
-1. - field: source
-   - type: string
-   - description:
-     Optional canonical $from(<label>).<dotted-path> selector. The exec
-     command resolves it from the injected command-state view before
-     subprocess launch. When omitted, the parameter keeps the existing
-     parameters.<name> lookup against the immediately previous Result.
-     A malformed selector fails declaration validation. An unresolved label
-     or path emits CommandError and prevents subprocess launch; it never
-     substitutes an empty value.
-   - example: $from(seed).parameters.directory
+<!-- field_entry: flag -->
+#### flag
+
+<!-- field: type -->
+##### Type
+
+string
+
+<!-- field: description -->
+##### Description
+
+CLI flag mapping. The parameter value is passed as this flag
+(e.g. "--path" causes the value to be passed as --path <value>).
+
+<!-- field_entry: positional -->
+#### positional
+
+<!-- field: type -->
+##### Type
+
+bool
+
+<!-- field: description -->
+##### Description
+
+When true, the parameter value is passed as a positional
+argument rather than a named flag.
+
+<!-- field_entry: bool_flag -->
+#### bool_flag
+
+<!-- field: type -->
+##### Type
+
+bool
+
+<!-- field: description -->
+##### Description
+
+Boolean flag marker. When true and the parameter value is
+true, the CLI flag from the "flag" field is included in the
+command (e.g. flag: "--all", bool_flag: true).
+
+<!-- field_entry: default -->
+#### default
+
+<!-- field: type -->
+##### Type
+
+string
+
+<!-- field: description -->
+##### Description
+
+Default value used when the LLM omits the parameter. Applied
+before CLI argument construction.
+
+<!-- field_entry: position -->
+#### position
+
+<!-- field: type -->
+##### Type
+
+int
+
+<!-- field: description -->
+##### Description
+
+Positive ordering key for mapped arguments. Positioned mappings are
+appended in ascending order after the tool's base args. Unpositioned
+mappings follow in stable parameter-name order.
+
+<!-- field_entry: source -->
+#### source
+
+<!-- field: type -->
+##### Type
+
+string
+
+<!-- field: description -->
+##### Description
+
+Optional canonical $from(<label>).<dotted-path> selector. The exec
+command resolves it from the injected command-state view before
+subprocess launch. When omitted, the parameter keeps the existing
+parameters.<name> lookup against the immediately previous Result.
+A malformed selector fails declaration validation. An unresolved label
+or path emits CommandError and prevents subprocess launch; it never
+substitutes an empty value.
+
+<!-- field: example -->
+##### Example
+
+$from(seed).parameters.directory
 
 <!-- field: declaration_files -->
 ## Declaration files

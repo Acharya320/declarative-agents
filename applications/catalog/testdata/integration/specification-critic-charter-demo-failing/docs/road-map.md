@@ -10,7 +10,5 @@ title: Specification Critic Demo Road Map
 
 Minimal release metadata for the jurist charter demo fixture.
 
-<!-- field: use_cases | form: "empty list" -->
+<!-- field: use_cases -->
 ### Use cases
-
-None

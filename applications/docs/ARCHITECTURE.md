@@ -1015,49 +1015,154 @@ reconciliation, and current three-application classification are executable.
 | Release 15.0 srd004. The UI kit owns tokens, the client, fixtures, shell, and panels; Chatbot Mesh, bench, collector, and the curator monitor run on it; the observer is an embedded bundle. |  |  |
 |  |  | Release 19.0 srd008 defines one persistent local/cloud platform, separate platform/application/data authorities, per-application collector and bucket identity, WAL-first immutable telemetry, teardown/query semantics, and the reusable application-rig boundary. |
 
-<!-- field: related_documents | form: "tree" -->
+<!-- field: related_documents -->
 ## Related documents
 
-1. - doc: docs/pattern-language.md
-   - purpose:
-     Sibling Alexandrian language for application composition, package-time
-     closure, deployment topology, and module governance. Single-agent
-     machines, tools, execution, and controls remain in
-     ../../design-patterns/pattern-language.yaml.
-1. - doc: docs/VISION.md
-   - purpose:
-     Canonical rationale and construction guide for declarative multi-agent
-     applications, including operating flows, human governance, role
-     realizations, package closure, capability-aware goals, and exclusions.
-1. - doc: docs/SPECIFICATIONS.md
-   - purpose: Shared SRD, use-case, and test-suite index.
-1. - doc: ../../docs/engineering/eng01-kind-test-demo-rig.md
-   - purpose: Referenced kind-demo engineering contract.
-1. - doc: ../catalog/docs/ARCHITECTURE.md
-   - purpose: Canonical catalog ownership and consumer contract.
-1. - doc: docs/specs/semantic-models/agent-role-realizations.md
-   - purpose: Canonical role provenance, realization naming, bindings, classifications, and aliases.
-1. - doc: docs/specs/software-requirements/srd003-application-consistency.md
-   - purpose: Release 14.0 normalized manifest, ownership, naming, package, UI, README, status, and boundary contract.
-1. - doc: docs/specs/use-cases/rel14.0-uc001-application-consistency.md
-   - purpose: Completed cross-application normalization flow for the current runnable applications.
-1. - doc: docs/specs/test-suites/test-rel14.0-application-consistency.md
-   - purpose: Structural and capability-gated executable conformance evidence.
-1. - doc: docs/specs/software-requirements/srd004-declarative-ux.md
-   - purpose: Release 15.0 presentation contract, panel unit, build-time composition, UI kit, and embedded bundles.
-1. - doc: docs/specs/use-cases/rel15.0-uc001-declarative-ux.md
-   - purpose: Panel composition flow and the endpoint-usage review of all three repositories.
-1. - doc: docs/specs/test-suites/test-rel15.0-declarative-ux.md
-   - purpose: Release 15.0 structural and planned executable evidence.
-1. - doc: ../chatbot-mesh/docs/ARCHITECTURE.md
-   - purpose: Local-agent runnable application reference.
-1. - doc: ../coding-agent/docs/ARCHITECTURE.md
-   - purpose: Composition-only runnable application reference.
-1. - doc: ../agent-architecture/docs/ARCHITECTURE.md
-   - purpose: Composition-only demo classification and partial managed-service evidence boundary.
-1. - doc: docs/specs/software-requirements/srd008-persistent-application-platform.md
-   - purpose: Persistent platform ownership, lifecycle, routing, storage, query, threat, and reusable runner contract.
-1. - doc: ../../docs/engineering/eng08-gcp-demo-rig.md
-   - purpose: Cloud realization of the persistent application platform.
-1. - doc: ../../magefiles/build.go
-   - purpose: Executable module classification.
+<!-- related_document: docs/pattern-language.md -->
+### docs/pattern-language.md
+
+<!-- field: purpose -->
+#### Purpose
+
+Sibling Alexandrian language for application composition, package-time
+closure, deployment topology, and module governance. Single-agent
+machines, tools, execution, and controls remain in
+../../design-patterns/pattern-language.yaml.
+
+<!-- related_document: docs/VISION.md -->
+### docs/VISION.md
+
+<!-- field: purpose -->
+#### Purpose
+
+Canonical rationale and construction guide for declarative multi-agent
+applications, including operating flows, human governance, role
+realizations, package closure, capability-aware goals, and exclusions.
+
+<!-- related_document: docs/SPECIFICATIONS.md -->
+### docs/SPECIFICATIONS.md
+
+<!-- field: purpose -->
+#### Purpose
+
+Shared SRD, use-case, and test-suite index.
+
+<!-- related_document: ../../docs/engineering/eng01-kind-test-demo-rig.md -->
+### ../../docs/engineering/eng01-kind-test-demo-rig.md
+
+<!-- field: purpose -->
+#### Purpose
+
+Referenced kind-demo engineering contract.
+
+<!-- related_document: ../catalog/docs/ARCHITECTURE.md -->
+### ../catalog/docs/ARCHITECTURE.md
+
+<!-- field: purpose -->
+#### Purpose
+
+Canonical catalog ownership and consumer contract.
+
+<!-- related_document: docs/specs/semantic-models/agent-role-realizations.md -->
+### docs/specs/semantic-models/agent-role-realizations.md
+
+<!-- field: purpose -->
+#### Purpose
+
+Canonical role provenance, realization naming, bindings, classifications, and aliases.
+
+<!-- related_document: docs/specs/software-requirements/srd003-application-consistency.md -->
+### docs/specs/software-requirements/srd003-application-consistency.md
+
+<!-- field: purpose -->
+#### Purpose
+
+Release 14.0 normalized manifest, ownership, naming, package, UI, README, status, and boundary contract.
+
+<!-- related_document: docs/specs/use-cases/rel14.0-uc001-application-consistency.md -->
+### docs/specs/use-cases/rel14.0-uc001-application-consistency.md
+
+<!-- field: purpose -->
+#### Purpose
+
+Completed cross-application normalization flow for the current runnable applications.
+
+<!-- related_document: docs/specs/test-suites/test-rel14.0-application-consistency.md -->
+### docs/specs/test-suites/test-rel14.0-application-consistency.md
+
+<!-- field: purpose -->
+#### Purpose
+
+Structural and capability-gated executable conformance evidence.
+
+<!-- related_document: docs/specs/software-requirements/srd004-declarative-ux.md -->
+### docs/specs/software-requirements/srd004-declarative-ux.md
+
+<!-- field: purpose -->
+#### Purpose
+
+Release 15.0 presentation contract, panel unit, build-time composition, UI kit, and embedded bundles.
+
+<!-- related_document: docs/specs/use-cases/rel15.0-uc001-declarative-ux.md -->
+### docs/specs/use-cases/rel15.0-uc001-declarative-ux.md
+
+<!-- field: purpose -->
+#### Purpose
+
+Panel composition flow and the endpoint-usage review of all three repositories.
+
+<!-- related_document: docs/specs/test-suites/test-rel15.0-declarative-ux.md -->
+### docs/specs/test-suites/test-rel15.0-declarative-ux.md
+
+<!-- field: purpose -->
+#### Purpose
+
+Release 15.0 structural and planned executable evidence.
+
+<!-- related_document: ../chatbot-mesh/docs/ARCHITECTURE.md -->
+### ../chatbot-mesh/docs/ARCHITECTURE.md
+
+<!-- field: purpose -->
+#### Purpose
+
+Local-agent runnable application reference.
+
+<!-- related_document: ../coding-agent/docs/ARCHITECTURE.md -->
+### ../coding-agent/docs/ARCHITECTURE.md
+
+<!-- field: purpose -->
+#### Purpose
+
+Composition-only runnable application reference.
+
+<!-- related_document: ../agent-architecture/docs/ARCHITECTURE.md -->
+### ../agent-architecture/docs/ARCHITECTURE.md
+
+<!-- field: purpose -->
+#### Purpose
+
+Composition-only demo classification and partial managed-service evidence boundary.
+
+<!-- related_document: docs/specs/software-requirements/srd008-persistent-application-platform.md -->
+### docs/specs/software-requirements/srd008-persistent-application-platform.md
+
+<!-- field: purpose -->
+#### Purpose
+
+Persistent platform ownership, lifecycle, routing, storage, query, threat, and reusable runner contract.
+
+<!-- related_document: ../../docs/engineering/eng08-gcp-demo-rig.md -->
+### ../../docs/engineering/eng08-gcp-demo-rig.md
+
+<!-- field: purpose -->
+#### Purpose
+
+Cloud realization of the persistent application platform.
+
+<!-- related_document: ../../magefiles/build.go -->
+### ../../magefiles/build.go
+
+<!-- field: purpose -->
+#### Purpose
+
+Executable module classification.

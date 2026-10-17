@@ -122,50 +122,41 @@ file, or a future REST-specific config directory. Each file contains one
 rest mapping. The runtime merges selected files through profile-owned
 declaration paths.
 
-<!-- field: fields | form: "tree" -->
+<!-- field: fields -->
 ### Fields
 
-1. - field: rest
-   - type: object
-   - required: true
-   - description: Root mapping for all REST definitions in the file.
-   - sub_fields:
-     1. - field: version
-        - type: string
-        - required: true
-        - description: Format version. Initial value is "v1".
-     1. - field: clients
-        - type: map[string]rest_client
-        - required: false
-        - description: Named outbound REST clients.
-     1. - field: servers
-        - type: map[string]rest_server
-        - required: false
-        - description: Named inbound REST servers.
-     1. - field: openapi
-        - type: map[string]openapi_import
-        - required: false
-        - description: Named OpenAPI 3 imports.
-     1. - field: auth
-        - type: map[string]auth_profile
-        - required: false
-        - description: Named authentication profiles referenced by clients, operations, or servers.
-     1. - field: limits
-        - type: map[string]limit_profile
-        - required: false
-        - description: Named timeout, size, redirect, and network limit profiles.
-     1. - field: retry_policies
-        - type: map[string]retry_policy
-        - required: false
-        - description: Named retry policies for outbound operations.
-     1. - field: response_mappings
-        - type: map[string]response_mapping
-        - required: false
-        - description: Reusable response mapping profiles.
-     1. - field: document_resources
-        - type: map[string]document_resource
-        - required: false
-        - description: Reserved target-format field for named filesystem-backed document resources. ValidateDefinition rejects this field. Knowledge Manager behavior uses profile-selected filesystem resource ToolDefs instead.
+<!-- field_entry: rest -->
+#### rest
+
+<!-- field: type -->
+##### Type
+
+object
+
+<!-- field: required | form: "scalar" -->
+##### Required
+
+true
+
+<!-- field: description -->
+##### Description
+
+Root mapping for all REST definitions in the file.
+
+<!-- field: sub_fields | form: "typed table" -->
+##### Sub fields
+
+| field | type | required | description |
+| --- | --- | --- | --- |
+| version | string | true | Format version. Initial value is "v1". |
+| clients | map[string]rest_client | false | Named outbound REST clients. |
+| servers | map[string]rest_server | false | Named inbound REST servers. |
+| openapi | map[string]openapi_import | false | Named OpenAPI 3 imports. |
+| auth | map[string]auth_profile | false | Named authentication profiles referenced by clients, operations, or servers. |
+| limits | map[string]limit_profile | false | Named timeout, size, redirect, and network limit profiles. |
+| retry_policies | map[string]retry_policy | false | Named retry policies for outbound operations. |
+| response_mappings | map[string]response_mapping | false | Reusable response mapping profiles. |
+| document_resources | map[string]document_resource | false | Reserved target-format field for named filesystem-backed document resources. ValidateDefinition rejects this field. Knowledge Manager behavior uses profile-selected filesystem resource ToolDefs instead. |
 
 <!-- field: rest_client -->
 ### REST client
@@ -198,123 +189,395 @@ declaration paths.
 <!-- field: operation -->
 ### Operation
 
-<!-- field: fields | form: "tree" -->
+<!-- field: fields -->
 #### Fields
 
-1. - field: openapi_operation_id
-   - type: string
-   - required: false
-   - description: Imported OpenAPI operation ID used to populate method, path, and schemas.
-1. - field: method
-   - type: string
-   - required: unless_openapi_operation_id
-   - description: HTTP method fixed by configuration or imported from OpenAPI.
-1. - field: path
-   - type: string
-   - required: unless_openapi_operation_id_or_resource_path
-   - description: Path template. Resource operations may inherit the resource path. Absolute URLs are rejected unless network policy allows them.
-1. - field: base_url_source
-   - type: string
-   - required: false
-   - description:
-     Optional command_state value that lets this trusted operation select
-     its base URL from a labeled prior command output. Omission preserves
-     the client's configured base_url.
-1. - field: base_url_selector
-   - type: string
-   - required: when_base_url_source_is_command_state
-   - description:
-     A $from(<label>).<path> selector resolving to an absolute HTTP or
-     HTTPS URL. This is operation configuration, not a runtime parameter;
-     input_mapping remains forbidden from setting transport authority.
-     Mutually exclusive with base_url_host_selector.
-1. - field: base_url_host_selector
-   - type: string
-   - required: false
-   - description:
-     A $from(<label>).<path> selector resolving to a bare host or IP, for a
-     target a prior step discovered as an address rather than a whole URL
-     (for example a pod address). The resolved value is composed with
-     base_url_scheme and base_url_port. A value carrying a scheme,
-     credential, port, path, query, fragment, whitespace, or control
-     character is rejected before network I/O. Mutually exclusive with
-     base_url_selector; requires base_url_source command_state.
-1. - field: base_url_scheme
-   - type: string
-   - required: false
-   - description:
-     Scheme for a host composed through base_url_host_selector. Accepts
-     http or https and defaults to http. Rejected without
-     base_url_host_selector.
-1. - field: base_url_port
-   - type: string
-   - required: false
-   - description:
-     Literal port for a host composed through base_url_host_selector. Must
-     be 1-65535 and is omitted when unset, leaving the scheme default.
-     Mutually exclusive with base_url_port_selector; rejected without
-     base_url_host_selector.
-1. - field: base_url_port_selector
-   - type: string
-   - required: false
-   - description:
-     A $from(<label>).<path> selector resolving the composed port per item,
-     for a fleet whose targets do not share one port (for example each
-     agent's own monitor port, published beside its address). Accepts a
-     string or a whole JSON number in 1-65535; another type, a fractional
-     or out-of-range value is rejected before network I/O. The composed
-     authority must still satisfy the client's limits.network.ports
-     allowlist, so configuration bounds the reachable ports and the
-     selector only chooses among them. Mutually exclusive with
-     base_url_port; rejected without base_url_host_selector.
-1. - field: allow_auth_on_selected_authority
-   - type: bool
-   - required: false
-   - description:
-     Explicitly permits configured credentials on an authority selected
-     through base_url_source. The default is false: authenticated
-     operations reject a selected authority that differs from the
-     configured client authority before network I/O.
-1. - field: params
-   - type: request_binding
-   - required: false
-   - description: Declared path, query, header, and body inputs.
-1. - field: body
-   - type: object
-   - required: false
-   - description: Request body template built from declared params.
-1. - field: success
-   - type: status_mapping
-   - required: true
-   - description: Successful HTTP status mapping and emitted signal.
-1. - field: failures
-   - type: "[]status_mapping"
-   - required: false
-   - description: Domain failure status mappings.
-1. - field: response_ref
-   - type: string
-   - required: false
-   - description: Reusable response mapping profile.
-1. - field: response
-   - type: response_mapping
-   - required: false
-   - description: Inline response mapping.
-1. - field: side_effects
-   - type: "[]object"
-   - required: true
-   - description: ToolDef-style side-effect declarations for the operation.
-1. - field: reversibility
-   - type: object
-   - required: true
-   - description: Reversible, compensatable, or irreversible classification.
-1. - field: compensation
-   - type: object
-   - required: false
-   - description: Configured compensating operation or cancellation path.
-1. - field: async
-   - type: async_client_config
-   - required: false
-   - description: Enables rest_client_send and rest_client_await for this operation.
+<!-- field_entry_deep: openapi_operation_id -->
+##### openapi_operation_id
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Imported OpenAPI operation ID used to populate method, path, and schemas.
+
+<!-- field_entry_deep: method -->
+##### method
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required -->
+###### Required
+
+unless_openapi_operation_id
+
+<!-- field: description -->
+###### Description
+
+HTTP method fixed by configuration or imported from OpenAPI.
+
+<!-- field_entry_deep: path -->
+##### path
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required -->
+###### Required
+
+unless_openapi_operation_id_or_resource_path
+
+<!-- field: description -->
+###### Description
+
+Path template. Resource operations may inherit the resource path. Absolute URLs are rejected unless network policy allows them.
+
+<!-- field_entry_deep: base_url_source -->
+##### base_url_source
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Optional command_state value that lets this trusted operation select
+its base URL from a labeled prior command output. Omission preserves
+the client's configured base_url.
+
+<!-- field_entry_deep: base_url_selector -->
+##### base_url_selector
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required -->
+###### Required
+
+when_base_url_source_is_command_state
+
+<!-- field: description -->
+###### Description
+
+A $from(<label>).<path> selector resolving to an absolute HTTP or
+HTTPS URL. This is operation configuration, not a runtime parameter;
+input_mapping remains forbidden from setting transport authority.
+Mutually exclusive with base_url_host_selector.
+
+<!-- field_entry_deep: base_url_host_selector -->
+##### base_url_host_selector
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+A $from(<label>).<path> selector resolving to a bare host or IP, for a
+target a prior step discovered as an address rather than a whole URL
+(for example a pod address). The resolved value is composed with
+base_url_scheme and base_url_port. A value carrying a scheme,
+credential, port, path, query, fragment, whitespace, or control
+character is rejected before network I/O. Mutually exclusive with
+base_url_selector; requires base_url_source command_state.
+
+<!-- field_entry_deep: base_url_scheme -->
+##### base_url_scheme
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Scheme for a host composed through base_url_host_selector. Accepts
+http or https and defaults to http. Rejected without
+base_url_host_selector.
+
+<!-- field_entry_deep: base_url_port -->
+##### base_url_port
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Literal port for a host composed through base_url_host_selector. Must
+be 1-65535 and is omitted when unset, leaving the scheme default.
+Mutually exclusive with base_url_port_selector; rejected without
+base_url_host_selector.
+
+<!-- field_entry_deep: base_url_port_selector -->
+##### base_url_port_selector
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+A $from(<label>).<path> selector resolving the composed port per item,
+for a fleet whose targets do not share one port (for example each
+agent's own monitor port, published beside its address). Accepts a
+string or a whole JSON number in 1-65535; another type, a fractional
+or out-of-range value is rejected before network I/O. The composed
+authority must still satisfy the client's limits.network.ports
+allowlist, so configuration bounds the reachable ports and the
+selector only chooses among them. Mutually exclusive with
+base_url_port; rejected without base_url_host_selector.
+
+<!-- field_entry_deep: allow_auth_on_selected_authority -->
+##### allow_auth_on_selected_authority
+
+<!-- field: type -->
+###### Type
+
+bool
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Explicitly permits configured credentials on an authority selected
+through base_url_source. The default is false: authenticated
+operations reject a selected authority that differs from the
+configured client authority before network I/O.
+
+<!-- field_entry_deep: params -->
+##### params
+
+<!-- field: type -->
+###### Type
+
+request_binding
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Declared path, query, header, and body inputs.
+
+<!-- field_entry_deep: body -->
+##### body
+
+<!-- field: type -->
+###### Type
+
+object
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Request body template built from declared params.
+
+<!-- field_entry_deep: success -->
+##### success
+
+<!-- field: type -->
+###### Type
+
+status_mapping
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+true
+
+<!-- field: description -->
+###### Description
+
+Successful HTTP status mapping and emitted signal.
+
+<!-- field_entry_deep: failures -->
+##### failures
+
+<!-- field: type -->
+###### Type
+
+[]status_mapping
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Domain failure status mappings.
+
+<!-- field_entry_deep: response_ref -->
+##### response_ref
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Reusable response mapping profile.
+
+<!-- field_entry_deep: response -->
+##### response
+
+<!-- field: type -->
+###### Type
+
+response_mapping
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Inline response mapping.
+
+<!-- field_entry_deep: side_effects -->
+##### side_effects
+
+<!-- field: type -->
+###### Type
+
+[]object
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+true
+
+<!-- field: description -->
+###### Description
+
+ToolDef-style side-effect declarations for the operation.
+
+<!-- field_entry_deep: reversibility -->
+##### reversibility
+
+<!-- field: type -->
+###### Type
+
+object
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+true
+
+<!-- field: description -->
+###### Description
+
+Reversible, compensatable, or irreversible classification.
+
+<!-- field_entry_deep: compensation -->
+##### compensation
+
+<!-- field: type -->
+###### Type
+
+object
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Configured compensating operation or cancellation path.
+
+<!-- field_entry_deep: async -->
+##### async
+
+<!-- field: type -->
+###### Type
+
+async_client_config
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Enables rest_client_send and rest_client_await for this operation.
 
 <!-- field: resource_operation -->
 ### Resource operation
@@ -566,24 +829,50 @@ REST definitions load with strict field checking; any field not listed here is r
 
 default_signal, response_word, and missing_response_stage were previously documented but never implemented; they are reserved and rejected at load (GH-486).
 
-<!-- field: fields | form: "tree" -->
+<!-- field: fields -->
 #### Fields
 
-1. - field: terminal_signals
-   - type: map[string]machine_request_terminal_response
-   - required: false
-   - description: HTTP response mapping by allowed terminal signal. Either this or terminal_states is required.
-1. - field: terminal_states
-   - type: map[string]machine_request_terminal_response
-   - required: false
-   - description:
-     HTTP response mapping by terminal machine state. Resolved before
-     terminal_signals when both are present, because many signals may reach
-     one terminal state and one signal may reach many. A request machine
-     built from exec words emits only ToolDone and ToolFailed, so state
-     keying is what lets it return a distinct response per outcome
-     (GH-615). Each key must be a terminal state of the request machine, or
-     the endpoint fails configuration validation.
+<!-- field_entry_deep: terminal_signals -->
+##### terminal_signals
+
+<!-- field: type -->
+###### Type
+
+map[string]machine_request_terminal_response
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+HTTP response mapping by allowed terminal signal. Either this or terminal_states is required.
+
+<!-- field_entry_deep: terminal_states -->
+##### terminal_states
+
+<!-- field: type -->
+###### Type
+
+map[string]machine_request_terminal_response
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+HTTP response mapping by terminal machine state. Resolved before
+terminal_signals when both are present, because many signals may reach
+one terminal state and one signal may reach many. A request machine
+built from exec words emits only ToolDone and ToolFailed, so state
+keying is what lets it return a distinct response per outcome
+(GH-615). Each key must be a terminal state of the request machine, or
+the endpoint fails configuration validation.
 
 <!-- field: machine_request_terminal_response -->
 ### Machine request terminal response
@@ -725,60 +1014,154 @@ REST definitions load this mapping with strict field checking. Runtime input sup
 <!-- field: request_binding -->
 ### Request binding
 
-<!-- field: fields | form: "tree" -->
+<!-- field: fields -->
 #### Fields
 
-1. - field: path
-   - type: map[string]json_schema
-   - required: false
-   - description: Path variables accepted from runtime input.
-1. - field: query
-   - type: map[string]json_schema
-   - required: false
-   - description: Query parameters accepted from runtime input.
-1. - field: headers
-   - type: map[string]json_schema
-   - required: false
-   - description: Header parameters accepted from runtime input.
-1. - field: body_schema
-   - type: json_schema
-   - required: false
-   - description: Schema for runtime body input.
-1. - field: body_source
-   - type: string
-   - required: false
-   - description:
-     Selects where declared runtime params come from. One of params
-     (default, explicit tool input), previous_result (select declared
-     params from the prior Result output through input_mapping),
-     command_state (select declared params from a labeled prior step in the
-     srd038 command-state store through input_mapping $from(...) selectors),
-     or none. body_source command_state is rejected only when no
-     command-state store is configured.
-1. - field: input_mapping
-   - type: map[string]string
-   - required: false
-   - description:
-     Map of declared-param-name to a selector. Under body_source
-     previous_result the selector is a $.-style path into the previous
-     Result output (for example embedding: $.mapped.embedding,
-     id: $.body.id, document: $.carried.doc). Under body_source
-     command_state the selector takes the $from(<label>).<dotted-path> form,
-     naming a prior step by command name or label (for example
-     embedding: $from(embed_query).mapped.embedding). After selection only
-     declared params reach the request builder, so the source output shape
-     does not violate the declared-only contract. Every target MUST be a
-     declared path, query, header, or body param; selectors MUST NOT name
-     method, URL, auth, redirect, or host.
-1. - field: carry_forward
-   - type: "[]string"
-   - required: false
-   - description:
-     Declared param names copied into this operation's Result output under a
-     carried key, so a later word can select them (for example
-     $.carried.document). Carry-forward threads data past an intermediate
-     word without a shared command-state store. Every entry MUST be a
-     declared param and MUST NOT name transport authority.
+<!-- field_entry_deep: path -->
+##### path
+
+<!-- field: type -->
+###### Type
+
+map[string]json_schema
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Path variables accepted from runtime input.
+
+<!-- field_entry_deep: query -->
+##### query
+
+<!-- field: type -->
+###### Type
+
+map[string]json_schema
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Query parameters accepted from runtime input.
+
+<!-- field_entry_deep: headers -->
+##### headers
+
+<!-- field: type -->
+###### Type
+
+map[string]json_schema
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Header parameters accepted from runtime input.
+
+<!-- field_entry_deep: body_schema -->
+##### body_schema
+
+<!-- field: type -->
+###### Type
+
+json_schema
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Schema for runtime body input.
+
+<!-- field_entry_deep: body_source -->
+##### body_source
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Selects where declared runtime params come from. One of params
+(default, explicit tool input), previous_result (select declared
+params from the prior Result output through input_mapping),
+command_state (select declared params from a labeled prior step in the
+srd038 command-state store through input_mapping $from(...) selectors),
+or none. body_source command_state is rejected only when no
+command-state store is configured.
+
+<!-- field_entry_deep: input_mapping -->
+##### input_mapping
+
+<!-- field: type -->
+###### Type
+
+map[string]string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Map of declared-param-name to a selector. Under body_source
+previous_result the selector is a $.-style path into the previous
+Result output (for example embedding: $.mapped.embedding,
+id: $.body.id, document: $.carried.doc). Under body_source
+command_state the selector takes the $from(<label>).<dotted-path> form,
+naming a prior step by command name or label (for example
+embedding: $from(embed_query).mapped.embedding). After selection only
+declared params reach the request builder, so the source output shape
+does not violate the declared-only contract. Every target is a
+declared path, query, header, or body param; selectors do not name
+method, URL, auth, redirect, or host.
+
+<!-- field_entry_deep: carry_forward -->
+##### carry_forward
+
+<!-- field: type -->
+###### Type
+
+[]string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Declared param names copied into this operation's Result output under a
+carried key, so a later word can select them (for example
+$.carried.document). Carry-forward threads data past an intermediate
+word without a shared command-state store. Every entry is a
+declared param and does not name transport authority.
 
 <!-- field: response_mapping -->
 ### Response mapping

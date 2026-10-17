@@ -485,8 +485,8 @@ document_types:
           - configuration
           - shared
           - infrastructure
-          - domain
           - modules
+          - domain
           - build
           - documentation
           - library
@@ -756,6 +756,38 @@ document_types:
           fields:
           - responsibility
           - dependencies
+        related_document:
+          tag: related_document
+          level: 3
+          parent: 'field:related_documents'
+          heading: id
+          content: none
+          yaml: {from: related_documents, records: list, id: doc}
+          flat: table
+        application_entry:
+          tag: application_entry
+          level: 4
+          parent: 'field:application'
+          heading: id
+          content: none
+          yaml: {from: application, records: list, id: path}
+          flat: table
+        related_document_field:
+          tag: field
+          level: 4
+          parent: related_document
+          heading: free
+          content: any
+          fields:
+          - purpose
+        application_entry_field:
+          tag: field
+          level: 5
+          parent: application_entry
+          heading: free
+          content: any
+          fields:
+          - role
       fields:
         interfaces: {in: [document_field], shape: empty}
         components: {in: [document_field], shape: empty}
@@ -767,7 +799,7 @@ document_types:
       required_fields: [overview, interfaces, components, design_decisions, technology_choices, project_structure, implementation_status, related_documents]
       prose_containment:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
-        outside: [document_field, interface, component, component_field, decision, decision_field, capability_classification_field, implementation_status_field, overview_field, project_structure_field, role_realization_alignment_field, container_runtime_architecture_field, embedded_monitor_runtime_architecture_field, engine_operations_field, managed_service, module, orchestration_entry, request_signal_source_architecture_field, rest_tool_runtime_architecture_field, rollback_lifecycle_architecture_field, shared_entry, target_application_entry, target_tool_package_layout_field, tool_language_architecture_field, boundaries_field, categories_field, managed_service_field, module_field, orchestration_entry_field, package, responsibilities_field, shared_entry_field, source_files_field, target_application_entry_field, package_field]
+        outside: [document_field, interface, component, component_field, decision, decision_field, capability_classification_field, implementation_status_field, overview_field, project_structure_field, role_realization_alignment_field, container_runtime_architecture_field, embedded_monitor_runtime_architecture_field, engine_operations_field, managed_service, module, orchestration_entry, request_signal_source_architecture_field, rest_tool_runtime_architecture_field, rollback_lifecycle_architecture_field, shared_entry, target_application_entry, target_tool_package_layout_field, tool_language_architecture_field, boundaries_field, categories_field, managed_service_field, module_field, orchestration_entry_field, package, responsibilities_field, shared_entry_field, source_files_field, target_application_entry_field, package_field, related_document, application_entry, related_document_field, application_entry_field]
   specifications:
     location: docs/SPECIFICATIONS.md
     converts_from: docs/SPECIFICATIONS.yaml
@@ -850,7 +882,184 @@ document_types:
           - requirements
           - applies_to
           - usage
+        config_format_index_entry:
+          tag: config_format_index_entry
+          level: 3
+          parent: 'field:config_format_index'
+          heading: id
+          content: none
+          yaml: {from: config_format_index, records: list, id: id}
+          flat: table
+        coverage_gap:
+          tag: coverage_gap
+          level: 3
+          parent: 'field:coverage_gaps'
+          heading: id
+          content: none
+          yaml: {from: coverage_gaps, records: list, id: id}
+          flat: table
+        foundation_document_index_entry:
+          tag: foundation_document_index_entry
+          level: 3
+          parent: 'field:foundation_document_index'
+          heading: id
+          content: none
+          yaml: {from: foundation_document_index, records: list, id: id}
+          flat: table
+        roadmap_summary_entry:
+          tag: roadmap_summary_entry
+          level: 3
+          parent: 'field:roadmap_summary'
+          heading: id
+          content: none
+          yaml: {from: roadmap_summary, records: list, id: version}
+          flat: table
+        semantic_model_index_entry:
+          tag: semantic_model_index_entry
+          level: 3
+          parent: 'field:semantic_model_index'
+          heading: id
+          content: none
+          yaml: {from: semantic_model_index, records: list, id: id}
+          flat: table
+        srd_index_entry:
+          tag: srd_index_entry
+          level: 3
+          parent: 'field:srd_index'
+          heading: id
+          content: none
+          yaml: {from: srd_index, records: list, id: id}
+          flat: table
+        test_suite_index_entry:
+          tag: test_suite_index_entry
+          level: 3
+          parent: 'field:test_suite_index'
+          heading: id
+          content: none
+          yaml: {from: test_suite_index, records: list, id: id}
+          flat: table
+        use_case_index_entry:
+          tag: use_case_index_entry
+          level: 3
+          parent: 'field:use_case_index'
+          heading: id
+          content: none
+          yaml: {from: use_case_index, records: list, id: id}
+          flat: table
+        config_format_index_entry_field:
+          tag: field
+          level: 4
+          parent: config_format_index_entry
+          heading: free
+          content: any
+          fields:
+          - title
+          - summary
+          - path
+        coverage_gap_field:
+          tag: field
+          level: 4
+          parent: coverage_gap
+          heading: free
+          content: any
+          fields:
+          - release
+          - status
+          - description
+          - gap
+        foundation_document_index_entry_field:
+          tag: field
+          level: 4
+          parent: foundation_document_index_entry
+          heading: free
+          content: any
+          fields:
+          - title
+          - summary
+          - path
+        roadmap_summary_entry_field:
+          tag: field
+          level: 4
+          parent: roadmap_summary_entry
+          heading: free
+          content: any
+          fields:
+          - name
+          - use_cases_done
+          - use_cases_total
+          - status
+          - scope
+          - evidence
+        semantic_model_index_entry_field:
+          tag: field
+          level: 4
+          parent: semantic_model_index_entry
+          heading: free
+          content: any
+          fields:
+          - title
+          - summary
+          - status
+          - path
+          - reciprocal_index
+          - reciprocal_indexes
+        srd_index_entry_field:
+          tag: field
+          level: 4
+          parent: srd_index_entry
+          heading: free
+          content: any
+          fields:
+          - title
+          - historical_aliases
+          - summary
+          - status
+          - applicability
+          - support
+          - path
+          - use_cases
+          - canonical_path
+          - test_suites
+        test_suite_index_entry_field:
+          tag: field
+          level: 4
+          parent: test_suite_index_entry
+          heading: free
+          content: any
+          fields:
+          - title
+          - release
+          - historical_aliases
+          - summary
+          - test_case_count
+          - traces
+          - formal_test_cases
+          - status
+          - srds
+          - path
+          - canonical_path
+        use_case_index_entry_field:
+          tag: field
+          level: 4
+          parent: use_case_index_entry
+          heading: free
+          content: any
+          fields:
+          - title
+          - release
+          - historical_aliases
+          - summary
+          - status
+          - srds
+          - test_suite
+          - path
+          - canonical_path
       fields:
+        use_cases: {in: [srd_index_entry_field], links: true}
+        test_suites: {in: [srd_index_entry_field], links: true}
+        srds: {in: [use_case_index_entry_field, test_suite_index_entry_field], links: true}
+        test_suite: {in: [use_case_index_entry_field], links: true}
+        traces: {in: [test_suite_index_entry_field], links: true}
         srd_to_use_case_mapping: {in: [document_field], link_columns: [use_case, srd]}
         test_suite_index: {in: [document_field], link_columns: [id, traces, srds]}
         use_case_index: {in: [document_field], link_columns: [id, test_suite, srds]}
@@ -862,7 +1071,7 @@ document_types:
       required_fields: [overview, roadmap_summary, foundation_document_index, srd_index, config_format_index, semantic_model_index, use_case_index, test_suite_index, coverage_gaps]
       prose_containment:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
-        outside: [document_field, external_requirement_reference, go_test_coverage_field, role_alignment_index_field, external_requirement_reference_field]
+        outside: [document_field, external_requirement_reference, go_test_coverage_field, role_alignment_index_field, external_requirement_reference_field, config_format_index_entry, coverage_gap, foundation_document_index_entry, roadmap_summary_entry, semantic_model_index_entry, srd_index_entry, test_suite_index_entry, use_case_index_entry, config_format_index_entry_field, coverage_gap_field, foundation_document_index_entry_field, roadmap_summary_entry_field, semantic_model_index_entry_field, srd_index_entry_field, test_suite_index_entry_field, use_case_index_entry_field]
   roadmap:
     location: docs/road-map.md
     converts_from: docs/road-map.yaml
@@ -911,31 +1120,31 @@ document_types:
           - parent
           - related_agent_core_release
           - application_srds
-          - relocated_to
           - planned_work
+          - relocated_to
           - deliverables
           - dependencies
-          - shared_requirements
           - srds
           - semantic_models
-          - historical_aliases
+          - shared_requirements
           - migration_note
+          - applicability
           - external_requirements
+          - historical_aliases
           - specification
           - config_formats
           - migration
           - use_cases
-          - applicability
           - implementation_sequence
+          - current_applications
           - release
           - test_suites
           - current_application_evidence
-          - current_applications
-          - evidence_status
-          - implementation_evidence
           - follow_up
+          - evidence_status
           - proof
           - evidence
+          - implementation_evidence
           - evidence_boundary
           - success_markers
           - deferred
@@ -991,7 +1200,69 @@ document_types:
           - ownership
           - release_14_status
           - note
+        dependency:
+          tag: dependency
+          level: 4
+          parent: 'field:dependencies'
+          heading: id
+          content: none
+          yaml: {from: dependencies, records: list, id: id}
+          flat: table
+        test_suite_entry:
+          tag: test_suite_entry
+          level: 4
+          parent: 'field:test_suites'
+          heading: id
+          content: none
+          yaml: {from: test_suites, records: list, id: id}
+          flat: table
+        use_case_entry:
+          tag: use_case_entry
+          level: 4
+          parent: 'field:use_cases'
+          heading: id
+          content: none
+          yaml: {from: use_cases, records: list, id: id}
+          flat: table
+        dependency_field:
+          tag: field
+          level: 5
+          parent: dependency
+          heading: free
+          content: any
+          fields:
+          - status
+          - effect
+          - reason
+        test_suite_entry_field:
+          tag: field
+          level: 5
+          parent: test_suite_entry
+          heading: free
+          content: any
+          fields:
+          - summary
+          - title
+          - cases
+          - status
+          - implemented_cases
+          - live_observation_status
+          - planned_cases
+        use_case_entry_field:
+          tag: field
+          level: 5
+          parent: use_case_entry
+          heading: free
+          content: any
+          fields:
+          - historical_aliases
+          - title
+          - summary
+          - status
+          - live_observation_status
+          - semantic_models
       fields:
+        semantic_models: {in: [use_case_entry_field], links: true}
         test_suites: {in: [release_field], link_columns: [id]}
         use_cases: {in: [release_field], link_columns: [id]}
         overview: {in: [document_field], shape: prose}
@@ -1000,7 +1271,7 @@ document_types:
         status: text
       prose_containment:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
-        outside: [document_field, release, release_field, role_alignment_field, applicability_field, current_application_evidence_entry, release_field_2, current_application_evidence_entry_field]
+        outside: [document_field, release, release_field, role_alignment_field, applicability_field, current_application_evidence_entry, release_field_2, current_application_evidence_entry_field, dependency, test_suite_entry, use_case_entry, dependency_field, test_suite_entry_field, use_case_entry_field]
   pattern_language:
     location: docs/pattern-language.md
     converts_from: docs/pattern-language.yaml
@@ -1263,34 +1534,34 @@ document_types:
           - migration_notes
           - compatibility_policy
           - capability_classes
+          - tool_words
           - applicability
           - target_package_layout
           - declaration_layout
           - deployment_api_contract
-          - tool_words
-          - target_declaration_layout
           - non_goals
           - test_trace_plan
+          - target_declaration_layout
           - implementation_plan
           - acceptance_criteria
           - depends_on_note
           - historical_background
-          - external_contracts
+          - platform_dependencies_note
           - implementation_follow_up
           - neighboring_contracts
-          - platform_dependencies_note
           - reference_model
+          - related_agents
           - implementation
+          - external_contracts
           - related_documents
           - implementation_targets
-          - related_agents
-          - use_case_traces
-          - platform_dependencies
           - implementation_examples
+          - platform_dependencies
+          - use_case_traces
           - implementation_status
           - diagrams
-          - test_suite_traces
           - follow_up
+          - test_suite_traces
           - assumptions
           - needs_clarification
         requirement_group:
@@ -1513,6 +1784,43 @@ document_types:
           - endpoint
           - description
           - fields
+        external_contract:
+          tag: external_contract
+          level: 3
+          parent: 'field:external_contracts'
+          heading: id
+          content: none
+          yaml: {from: external_contracts, records: list, id: id}
+          flat: table
+        external_contract_field:
+          tag: field
+          level: 4
+          parent: external_contract
+          heading: free
+          content: any
+          fields:
+          - owner
+          - path
+          - symbols_used
+          - usage
+        field_entry:
+          tag: field_entry
+          level: 5
+          parent: 'field:fields'
+          heading: id
+          content: none
+          yaml: {from: fields, records: list, id: name}
+          flat: table
+        field_entry_field:
+          tag: field
+          level: 6
+          parent: field_entry
+          heading: free
+          content: any
+          fields:
+          - type
+          - required
+          - note
       fields:
         problem: {in: [document_field], shape: prose}
         goals: {in: [document_field], shape: list, item_pattern: '^G[0-9]+: ', value: outline, id: id, content: text}
@@ -1534,7 +1842,7 @@ document_types:
         derived_from: references
       prose_containment:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
-        outside: [document_field, acceptance_criterion, criterion_field, applicability_field, declaration_layout_field, deployment_api_contract_field, diagrams_field, implementation_status_field, package_ownership_field, role_realization_decision_field, target_declaration_layout_field, target_package_layout_field, apply_request_field, apply_response_field, capability_gates_field, rollout_response_field, state_response_field]
+        outside: [document_field, acceptance_criterion, criterion_field, applicability_field, declaration_layout_field, deployment_api_contract_field, diagrams_field, implementation_status_field, package_ownership_field, role_realization_decision_field, target_declaration_layout_field, target_package_layout_field, apply_request_field, apply_response_field, capability_gates_field, rollout_response_field, state_response_field, external_contract, external_contract_field, field_entry, field_entry_field]
   use_case:
     location: docs/specs/use-cases/relNN.N-ucNNN-short-name.md
     converts_from: docs/specs/use-cases/relNN.N-ucNNN-short-name.yaml
@@ -2216,12 +2524,46 @@ document_types:
           - backup
           - retention
           - purge
+        finding:
+          tag: finding
+          level: 3
+          parent: 'field:findings'
+          heading: id
+          content: none
+          yaml: {from: findings, records: list, id: id}
+          flat: table
+        finding_field:
+          tag: field
+          level: 4
+          parent: finding
+          heading: free
+          content: any
+          fields:
+          - issue
+          - severity
+          - rule
+          - evidence
+          - destination
+          - cmd_wiring_remaining
+          - finding
+          - tests
+        evidence_field:
+          tag: field
+          level: 5
+          parent: 'field:evidence'
+          heading: free
+          content: any
+          fields:
+          - file
+          - functions
+          - contract
+          - reason
       fields:
         references: {in: [document_field], shape: list}
       required_fields: [scope, candidates, findings, rejected_candidates]
       prose_containment:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
-        outside: [document_field, authority_field, candidates_field, inventory_field, measurements_field, recommendation_field, rejected_candidate, results_field, scope_field, verification_field, application_query_latency_field, application_removal_field, backup_stream_field, document, document_placement_field, first_party_entry, heartbeat_latency_field, ingest_field, package, package_role_field, rejected_candidate_field, restart_field, steady_state_field, after_field, document_field_2, first_party_entry_field, package_field, lifecycle_field]
+        outside: [document_field, authority_field, candidates_field, inventory_field, measurements_field, recommendation_field, rejected_candidate, results_field, scope_field, verification_field, application_query_latency_field, application_removal_field, backup_stream_field, document, document_placement_field, first_party_entry, heartbeat_latency_field, ingest_field, package, package_role_field, rejected_candidate_field, restart_field, steady_state_field, after_field, document_field_2, first_party_entry_field, package_field, lifecycle_field, finding, finding_field, evidence_field]
   audit_report:
     location: docs/specs/audits/name.md
     format: markdown
@@ -2881,30 +3223,29 @@ document_types:
           fields:
           - purpose
           - configuration_authority
+          - builtin_fields
           - principle
+          - action_semantics
           - ownership
           - release_03_0_support
           - operator_paths
-          - builtin_fields
+          - document_resource_config
           - tool_categories
           - invocation
-          - action_semantics
           - determinism
-          - document_resource_config
           - timeout_envelope
           - integration_telemetry
-          - good_tool_rules
           - schema
+          - good_tool_rules
           - metric_declaration_fields
           - data_driven_iteration
           - process_result_contract
-          - grep_execution
           - provider_behavior
           - child_agent_config
           - anti_patterns
           - termination_contract
           - command_state_step_labels
-          - ref_execution
+          - grep_execution
           - exec_fields
           - startup_sequence
           - required_contract_sections
@@ -2913,7 +3254,7 @@ document_types:
           - tool_parametrization
           - parameter_extensions
           - parse_response_config
-          - consistency_execution
+          - ref_execution
           - path_resolution
           - machine_composition
           - suite_input_contract
@@ -2921,7 +3262,7 @@ document_types:
           - fragment_files
           - workflow_metric_labels
           - llm_parser_ownership
-          - suite_selection
+          - consistency_execution
           - rollback_model
           - library_imports
           - per_model_pattern
@@ -2929,13 +3270,14 @@ document_types:
           - nested_machines
           - selection_files
           - authoring_workflow
-          - charter_only_targets
+          - suite_selection
           - service_libraries
           - child_agent_boundaries
           - boundary_compensation_example
           - lifecycle
           - blueprints
           - declaration_placement
+          - charter_only_targets
           - profile_terms
           - inline_pattern
           - format_examples
@@ -4107,6 +4449,64 @@ document_types:
           - type
           - required
           - description
+        field_entry:
+          tag: field_entry
+          level: 4
+          parent: 'field:fields'
+          heading: id
+          content: none
+          yaml: {from: fields, records: list, id: field}
+          flat: table
+        field_entry_deep:
+          tag: field_entry_deep
+          level: 5
+          parent: 'field:fields'
+          heading: id
+          content: none
+          yaml: {from: fields, records: list, id: field}
+          flat: table
+        field_entry_field:
+          tag: field
+          level: 5
+          parent: field_entry
+          heading: free
+          content: any
+          fields:
+          - type
+          - required
+          - description
+          - sub_fields
+          - example
+        sub_field_entry:
+          tag: sub_field_entry
+          level: 5
+          parent: 'field:sub_fields'
+          heading: id
+          content: none
+          yaml: {from: sub_fields, records: list, id: field}
+          flat: table
+        field_entry_deep_field:
+          tag: field
+          level: 6
+          parent: field_entry_deep
+          heading: free
+          content: any
+          fields:
+          - type
+          - required
+          - description
+        sub_field_entry_field:
+          tag: field
+          level: 6
+          parent: sub_field_entry
+          heading: free
+          content: any
+          fields:
+          - type
+          - required
+          - status
+          - description
+          - sub_fields
       fields:
         purpose: {in: [document_field], shape: prose}
         related_documents: {in: [document_field], shape: list, links: true}
@@ -4114,7 +4514,7 @@ document_types:
       required_fields: [purpose]
       prose_containment:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
-        outside: [document_field, action_semantic, builtin_field, check_kind, child_agent_config_field, cli_mapping_field, command_state_step_labels_field, config_file, data_driven_iteration_field, declaration_file, declaration_placement_field, document_resource_config_field, engine_policy_audit_field, example, example_tools_field, exec_field, grouped_declaration_loading_field, implementation_status_field, kind_required_field, machine_composition_field, machine_presentation_views_field, metric_declaration_fields_field, parameter_extensions_field, parse_response_config_field, provider_behavior_field, release_03_0_support_field, required_contract_sections_field, rollback_model_field, schema_entry, schema_field, selection_file, startup_sequence_entry, state_scoped_dynamic_dispatch_field, target_grouped_layout_field, timeout_envelope_field, workflow_metric_labels_field, action_semantic_field, async_client_config_field, attribute_field, auth_profile_field, bad_sentence_field, builtin_field_field, check_kind_field, compensatable_boundary_field, config_file_field, declaration_file_field, document_category_rule_field, document_resource_field, document_resource_operation_field, document_resource_ui_field, domain_policy_hook, endpoint_field, enforcement_field, event_source_field, example_field, examples_field, exec_field_field, fixed_engine_invariant, flag, good_boundary_field, good_word_field, instrument_field, irreversible_confirmation_field, json_schema_field, kind_required_field_field, legacy_fields_field, lifecycle_control_config_field, lifecycle_exit_injection_config_field, lifecycle_infrastructure_entry, limit_profile_field, machine_request_config_field, machine_request_input_mapping_field, machine_request_response_mapping_field, machine_request_terminal_response_field, migration_candidate, network_policy_field, openapi_import_field, operation_field, persistence_field, queue_config_field, readonly_noop_word_field, receipt_field, redirect_policy_field, request_binding_field, requirements_field, resource_field, resource_field_2, resource_operation_field, response_mapping_field, rest_await_event_config_field, rest_client_field, rest_server_field, retry_policy_field, reversible_state_word_field, rollback_field, schema_entry_field, selection_file_field, shutdown_config_field, signal_source_config_field, signal_source_response_field, signal_source_response_mappings_field, startup_sequence_entry_field, status_mapping_field, attribute_field_field, config_field, domain_policy_hook_field, fixed_engine_invariant_field, flag_field, instrument_field_field, item_field, lifecycle_infrastructure_entry_field, migration_candidate_field, resource_field_field, undo_field, config_field_field, item_field_field]
+        outside: [document_field, action_semantic, builtin_field, check_kind, child_agent_config_field, cli_mapping_field, command_state_step_labels_field, config_file, data_driven_iteration_field, declaration_file, declaration_placement_field, document_resource_config_field, engine_policy_audit_field, example, example_tools_field, exec_field, grouped_declaration_loading_field, implementation_status_field, kind_required_field, machine_composition_field, machine_presentation_views_field, metric_declaration_fields_field, parameter_extensions_field, parse_response_config_field, provider_behavior_field, release_03_0_support_field, required_contract_sections_field, rollback_model_field, schema_entry, schema_field, selection_file, startup_sequence_entry, state_scoped_dynamic_dispatch_field, target_grouped_layout_field, timeout_envelope_field, workflow_metric_labels_field, action_semantic_field, async_client_config_field, attribute_field, auth_profile_field, bad_sentence_field, builtin_field_field, check_kind_field, compensatable_boundary_field, config_file_field, declaration_file_field, document_category_rule_field, document_resource_field, document_resource_operation_field, document_resource_ui_field, domain_policy_hook, endpoint_field, enforcement_field, event_source_field, example_field, examples_field, exec_field_field, fixed_engine_invariant, flag, good_boundary_field, good_word_field, instrument_field, irreversible_confirmation_field, json_schema_field, kind_required_field_field, legacy_fields_field, lifecycle_control_config_field, lifecycle_exit_injection_config_field, lifecycle_infrastructure_entry, limit_profile_field, machine_request_config_field, machine_request_input_mapping_field, machine_request_response_mapping_field, machine_request_terminal_response_field, migration_candidate, network_policy_field, openapi_import_field, operation_field, persistence_field, queue_config_field, readonly_noop_word_field, receipt_field, redirect_policy_field, request_binding_field, requirements_field, resource_field, resource_field_2, resource_operation_field, response_mapping_field, rest_await_event_config_field, rest_client_field, rest_server_field, retry_policy_field, reversible_state_word_field, rollback_field, schema_entry_field, selection_file_field, shutdown_config_field, signal_source_config_field, signal_source_response_field, signal_source_response_mappings_field, startup_sequence_entry_field, status_mapping_field, attribute_field_field, config_field, domain_policy_hook_field, fixed_engine_invariant_field, flag_field, instrument_field_field, item_field, lifecycle_infrastructure_entry_field, migration_candidate_field, resource_field_field, undo_field, config_field_field, item_field_field, field_entry, field_entry_deep, field_entry_field, sub_field_entry, field_entry_deep_field, sub_field_entry_field]
   constitution:
     location: docs/constitutions/name.md
     converts_from: docs/constitutions/name.yaml

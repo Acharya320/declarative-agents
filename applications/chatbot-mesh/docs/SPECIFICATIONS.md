@@ -115,10 +115,8 @@ Actors assume roles; profile, wrapper, Helm workload, and values-selected instan
 | [srd007-collector-agent](specs/software-requirements/srd007-collector-agent.md) | Collector Agent Functional Block | Monitor / Telemetry Collector realization composing bounded OTLP receive, deterministic spool, unchanged relay, lifecycle surfaces, and self-loop prevention while contrib retains metrics. | docs/specs/software-requirements/srd007-collector-agent.md |
 | [srd008-observer-agent](specs/software-requirements/srd008-observer-agent.md) | Observer Agent Functional Block | Monitor / Fleet Observer realization that discovers mesh agents and the deployment topology from the Kubernetes API, polls each agent's monitor surface and per-pod resource usage (metrics.k8s.io), and serves a fleet-level view. | docs/specs/software-requirements/srd008-observer-agent.md |
 
-<!-- field: config_format_index | form: "empty list" -->
+<!-- field: config_format_index -->
 ## Config format index
-
-None
 
 <!-- field: semantic_model_index -->
 ## Semantic model index
@@ -161,8 +159,8 @@ None
 <!-- field: coverage_gaps -->
 ## Coverage gaps
 
-| release | status | gap |
-| --- | --- | --- |
-| 05.0 | partial | Control-plane provisioning remains partially implemented. |
-| 07.0 | partial | Collector-agent evidence remains partial. |
-| 08.0 | planned | Fleet-observer evidence remains planned. |
+| id | release | status | gap |
+| --- | --- | --- | --- |
+| release-05-control-plane-provisioning | 05.0 | partial | Control-plane provisioning remains partially implemented. |
+| release-07-collector-agent-evidence | 07.0 | partial | Collector-agent evidence remains partial. |
+| release-08-fleet-observer-evidence | 08.0 | planned | Fleet-observer evidence remains planned. |

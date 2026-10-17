@@ -336,68 +336,120 @@ Resource limits that bound the agent's execution. MachineSpec is the sole
 authority for run-level max_tokens and max_duration; invoke_llm word
 configuration cannot replace either value.
 
-<!-- field: sub_fields | form: "tree" -->
+<!-- field: sub_fields -->
 #### Sub fields
 
-1. - field: max_iterations
-   - type: int
-   - required: true
-   - description:
-     Maximum number of state transitions before halting. When
-     exceeded, the machine transitions via the BudgetExhausted
-     signal. Must be a positive integer.
-1. - field: max_tokens
-   - type: int
-   - description:
-     Maximum total tokens consumed across all LLM calls. When
-     exceeded, transitions via BudgetExhausted.
-1. - field: max_duration
-   - type: duration string
-   - description:
-     Wall-clock time limit (e.g. "5m0s"). Enforced via
-     context.WithTimeout — when elapsed, the loop terminates
-     with StatusCancelled (not BudgetExhausted).
-1. - field: command_timeout
-   - type: duration string
-   - required: true
-   - description:
-     Positive per-dispatch timeout applied to every command in this
-     machine. Runtime profiles fail validation when it is omitted.
+<!-- sub_field_entry: max_iterations -->
+##### max_iterations
 
-     The value must exceed the longest legitimate duration of every action
-     reachable in the machine, plus scheduling margin. Authorities include
-     ToolDef timeout config, REST limits and machine_request timeout,
-     model or child-process limits, and blocking await duration. A copied
-     repository-wide value is not calibration evidence when workloads
-     differ. Environment-overridable operation timeouts must have a finite
-     maximum no greater than this bound.
+<!-- field: type -->
+###### Type
 
-     Examples:
-     - a request machine whose longest REST operation is 30s may use 1m;
-     - a host with a 10m blocking control await may use 11m;
-     - an evaluator with a 24h await or child operation may use 25h.
+int
 
-     Startup validates this relationship from the executable profile
-     closure. The inspector follows declaration includes and override
-     precedence, selected actions, REST definitions and machine_request
-     profiles, child profiles, evaluator point machines, and compatibility
-     wrappers. It reports the machine, action, authority source, operation
-     duration, and command timeout for each failure.
+<!-- field: required | form: "scalar" -->
+###### Required
 
-     Environment expansion happens before authority comparison. The active
-     machine command_timeout is the finite maximum for every expanded
-     operation timeout in that machine; an equal or larger value is
-     rejected before dispatch. A deployment schema may impose a tighter
-     input bound, but it is not the runtime safety boundary.
-1. - field: max_consecutive_parse_errors
-   - type: int
-   - description:
-     Maximum consecutive LLM parse failures before the machine
-     transitions via BudgetExhausted. The profile must select
-     report_parse_error, route ParseFailed through that word, and route
-     BudgetExhausted from the report transition's destination state.
-     Startup validation rejects the budget when any of that wiring is
-     absent; profiles that do not retry parse failures must omit it.
+true
+
+<!-- field: description -->
+###### Description
+
+Maximum number of state transitions before halting. When
+exceeded, the machine transitions via the BudgetExhausted
+signal. Must be a positive integer.
+
+<!-- sub_field_entry: max_tokens -->
+##### max_tokens
+
+<!-- field: type -->
+###### Type
+
+int
+
+<!-- field: description -->
+###### Description
+
+Maximum total tokens consumed across all LLM calls. When
+exceeded, transitions via BudgetExhausted.
+
+<!-- sub_field_entry: max_duration -->
+##### max_duration
+
+<!-- field: type -->
+###### Type
+
+duration string
+
+<!-- field: description -->
+###### Description
+
+Wall-clock time limit (e.g. "5m0s"). Enforced via
+context.WithTimeout — when elapsed, the loop terminates
+with StatusCancelled (not BudgetExhausted).
+
+<!-- sub_field_entry: command_timeout -->
+##### command_timeout
+
+<!-- field: type -->
+###### Type
+
+duration string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+true
+
+<!-- field: description -->
+###### Description
+
+Positive per-dispatch timeout applied to every command in this
+machine. Runtime profiles fail validation when it is omitted.
+
+The value must exceed the longest legitimate duration of every action
+reachable in the machine, plus scheduling margin. Authorities include
+ToolDef timeout config, REST limits and machine_request timeout,
+model or child-process limits, and blocking await duration. A copied
+repository-wide value is not calibration evidence when workloads
+differ. Environment-overridable operation timeouts must have a finite
+maximum no greater than this bound.
+
+Examples:
+- a request machine whose longest REST operation is 30s may use 1m;
+- a host with a 10m blocking control await may use 11m;
+- an evaluator with a 24h await or child operation may use 25h.
+
+Startup validates this relationship from the executable profile
+closure. The inspector follows declaration includes and override
+precedence, selected actions, REST definitions and machine_request
+profiles, child profiles, evaluator point machines, and compatibility
+wrappers. It reports the machine, action, authority source, operation
+duration, and command timeout for each failure.
+
+Environment expansion happens before authority comparison. The active
+machine command_timeout is the finite maximum for every expanded
+operation timeout in that machine; an equal or larger value is
+rejected before dispatch. A deployment schema may impose a tighter
+input bound, but it is not the runtime safety boundary.
+
+<!-- sub_field_entry: max_consecutive_parse_errors -->
+##### max_consecutive_parse_errors
+
+<!-- field: type -->
+###### Type
+
+int
+
+<!-- field: description -->
+###### Description
+
+Maximum consecutive LLM parse failures before the machine
+transitions via BudgetExhausted. The profile must select
+report_parse_error, route ParseFailed through that word, and route
+BudgetExhausted from the report transition's destination state.
+Startup validation rejects the budget when any of that wiring is
+absent; profiles that do not retry parse failures must omit it.
 
 <!-- schema_entry: states -->
 ### states
@@ -533,102 +585,208 @@ The transition table. Each entry maps a (state, signal) pair to
 a next state, an optional action, and an optional stable
 command-state label for the completed action step.
 
-<!-- field: sub_fields | form: "tree" -->
+<!-- field: sub_fields -->
 #### Sub fields
 
-1. - field: state
-   - type: string
-   - description: Current state the machine must be in.
-1. - field: signal
-   - type: string
-   - description: Signal that triggers this transition.
-1. - field: next
-   - type: string
-   - description: Target state after the transition.
-1. - field: action
-   - type: string
-   - description:
-     Tool to execute during the transition. See action_semantics
-     for the three modes. May be omitted for terminal transitions.
-1. - field: label
-   - type: string
-   - required: false
-   - description:
-     Stable authored address for the action's completed execution step.
-     A later word selects its output with $from(label).path. The label
-     belongs to this transition because MachineSpec owns workflow order
-     and step identity.
+<!-- sub_field_entry: state -->
+##### state
 
-     The label must be non-empty when present and must not contain dots,
-     parentheses, whitespace, or control characters. Duplicate labels are
-     valid; lookup resolves the most recent matching completed step.
+<!-- field: type -->
+###### Type
 
-     When omitted, the step remains addressable by its executed command
-     name. On a $tool transition, label remains the stable authored
-     address while command_name records the tool selected at runtime.
-1. - field: report_output
+string
+
+<!-- field: description -->
+###### Description
+
+Current state the machine must be in.
+
+<!-- sub_field_entry: signal -->
+##### signal
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: description -->
+###### Description
+
+Signal that triggers this transition.
+
+<!-- sub_field_entry: next -->
+##### next
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: description -->
+###### Description
+
+Target state after the transition.
+
+<!-- sub_field_entry: action -->
+##### action
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: description -->
+###### Description
+
+Tool to execute during the transition. See action_semantics
+for the three modes. May be omitted for terminal transitions.
+
+<!-- sub_field_entry: label -->
+##### label
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Stable authored address for the action's completed execution step.
+A later word selects its output with $from(label).path. The label
+belongs to this transition because MachineSpec owns workflow order
+and step identity.
+
+The label must be non-empty when present and must not contain dots,
+parentheses, whitespace, or control characters. Duplicate labels are
+valid; lookup resolves the most recent matching completed step.
+
+When omitted, the step remains addressable by its executed command
+name. On a $tool transition, label remains the stable authored
+address while command_name records the tool selected at runtime.
+
+<!-- sub_field_entry: report_output -->
+##### report_output
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Operator-facing field selected from this action's Result.Output using
+the canonical $.path grammar (for example $.address). Requires an
+action. The CLI may report the selected scalar without hard-coding a
+command name.
+
+<!-- sub_field_entry: summary -->
+##### summary
+
+<!-- field: type -->
+###### Type
+
+bool
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+When true, this action's complete Result.Output becomes the run
+summary and is not overwritten by later dispatches. Use this for
+machines with more than one summary-producing signal. A machine-level
+summary_signal remains the concise option when one signal owns every
+summary.
+
+<!-- sub_field_entry: metric_labels -->
+##### metric_labels
+
+<!-- field: type -->
+###### Type
+
+object
+
+<!-- field: status -->
+###### Status
+
+planned
+
+<!-- field: description -->
+###### Description
+
+Planned transition-level metric labels. These labels refine the
+workflow context for samples emitted by the action on this
+transition. Transition labels override or extend machine-level
+labels by label name. They must follow the same low-cardinality safety
+policy as top-level metric_labels.
+
+<!-- sub_field_entry: for_each -->
+##### for_each
+
+<!-- field: type -->
+###### Type
+
+object
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Expand this transition's named action over an array selected from a
+prior command-state entry. Dispatch is sequential by default or
+bounded parallel when max_concurrency is declared.
+Each item is a normal registry-built command dispatch and therefore
+gets its own trace, checkpoint Entry, receipt, cancellation boundary,
+budget iteration, and rollback visibility.
+
+<!-- field: sub_fields | form: "tree" -->
+###### Sub fields
+
+1. - field: items
    - type: string
-   - required: false
-   - description:
-     Operator-facing field selected from this action's Result.Output using
-     the canonical $.path grammar (for example $.address). Requires an
-     action. The CLI may report the selected scalar without hard-coding a
-     command name.
-1. - field: summary
-   - type: bool
-   - required: false
-   - description:
-     When true, this action's complete Result.Output becomes the run
-     summary and is not overwritten by later dispatches. Use this for
-     machines with more than one summary-producing signal. A machine-level
-     summary_signal remains the concise option when one signal owns every
-     summary.
-1. - field: metric_labels
+   - description: A required $from(label).path selector resolving to a JSON array.
+1. - field: as
+   - type: string
+   - description: Command-state binding label for the current item.
+1. - field: mode
+   - type: string
+   - description: sequential (default) or parallel.
+1. - field: max_concurrency
+   - type: int
+   - description: Required positive worker bound for parallel mode; invalid for sequential mode.
+1. - field: failure
+   - type: string
+   - description: fail_fast (default) or collect_all.
+1. - field: continue_on
+   - type: "[]string"
+   - description: Item result signals counted as successful.
+1. - field: abort_on
+   - type: "[]string"
+   - description: Item signals that stop scheduling and cancel contextual siblings.
+1. - field: join
    - type: object
-   - status: planned
    - description:
-     Planned transition-level metric labels. These labels refine the
-     workflow context for samples emitted by the action on this
-     transition. Transition labels override or extend machine-level
-     labels by label name. They must follow the same low-cardinality safety
-     policy as top-level metric_labels.
-1. - field: for_each
-   - type: object
-   - required: false
-   - description:
-     Expand this transition's named action over an array selected from a
-     prior command-state entry. Dispatch is sequential by default or
-     bounded parallel when max_concurrency is declared.
-     Each item is a normal registry-built command dispatch and therefore
-     gets its own trace, checkpoint Entry, receipt, cancellation boundary,
-     budget iteration, and rollback visibility.
-   - sub_fields:
-     1. - field: items
-        - type: string
-        - description: A required $from(label).path selector resolving to a JSON array.
-     1. - field: as
-        - type: string
-        - description: Command-state binding label for the current item.
-     1. - field: mode
-        - type: string
-        - description: sequential (default) or parallel.
-     1. - field: max_concurrency
-        - type: int
-        - description: Required positive worker bound for parallel mode; invalid for sequential mode.
-     1. - field: failure
-        - type: string
-        - description: fail_fast (default) or collect_all.
-     1. - field: continue_on
-        - type: "[]string"
-        - description: Item result signals counted as successful.
-     1. - field: abort_on
-        - type: "[]string"
-        - description: Item signals that stop scheduling and cancel contextual siblings.
-     1. - field: join
-        - type: object
-        - description:
-          Declares the receiving state, optional output label, and signals
-          for all_success, partial (collect_all), failed, and empty.
+     Declares the receiving state, optional output label, and signals
+     for all_success, partial (collect_all), failed, and empty.
 
 <!-- field: data_driven_iteration -->
 ## Data driven iteration

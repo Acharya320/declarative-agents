@@ -21,10 +21,8 @@ SRD release assignments.
 | --- | --- | --- | --- | --- |
 | "00.0" | Foundation | 0 | 1 | open |
 
-<!-- field: foundation_document_index | form: "empty list" -->
+<!-- field: foundation_document_index -->
 ## Foundation document index
-
-None
 
 <!-- field: srd_index -->
 ## SRD index
@@ -35,15 +33,11 @@ None
 | [srd002-api](specs/software-requirements/srd002-api.md) | REST API | RESTful endpoints. | docs/specs/software-requirements/srd002-api.md |
 | [srd003-storage](specs/software-requirements/srd003-storage.md) | Storage Layer | Data persistence. | docs/specs/software-requirements/srd003-storage.md |
 
-<!-- field: config_format_index | form: "empty list" -->
+<!-- field: config_format_index -->
 ## Config format index
 
-None
-
-<!-- field: semantic_model_index | form: "empty list" -->
+<!-- field: semantic_model_index -->
 ## Semantic model index
-
-None
 
 <!-- field: use_case_index -->
 ## Use case index
