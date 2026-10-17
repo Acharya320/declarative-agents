@@ -41,6 +41,58 @@ func (ix LinkIndex) Add(id, docPath string, data []byte) {
 	ix[id] = LinkTarget{Path: docPath, Anchors: pageAnchors(strings.Split(string(data), "\n"))}
 }
 
+// LinkIndexes holds one link index per corpus, keyed by the corpus root: a
+// reference links only within its own corpus, so every tool that prints a
+// corpus document agrees on its links whatever else it has loaded.
+type LinkIndexes map[string]LinkIndex
+
+// Add records a corpus document under its frontmatter id in its corpus's
+// index; a document without an id is not a link target.
+func (ix LinkIndexes) Add(docPath string, data []byte) {
+	id := DocumentID(data)
+	if id == "" {
+		return
+	}
+	root := CorpusRoot(docPath)
+	if ix[root] == nil {
+		ix[root] = LinkIndex{}
+	}
+	ix[root].Add(id, docPath, data)
+}
+
+// For returns the index of the corpus a document belongs to.
+func (ix LinkIndexes) For(docPath string) LinkIndex { return ix[CorpusRoot(docPath)] }
+
+// CorpusRoot is the directory holding a corpus document's docs tree: "" for
+// docs/..., agent-core/ for agent-core/docs/..., in slash form.
+func CorpusRoot(docPath string) string {
+	if strings.HasPrefix(docPath, "docs/") {
+		return ""
+	}
+	if i := strings.Index(docPath, "/docs/"); i >= 0 {
+		return docPath[:i+1]
+	}
+	return ""
+}
+
+// DocumentID reads a document's frontmatter id, or "" when it has none.
+func DocumentID(data []byte) string {
+	text := string(data)
+	if !strings.HasPrefix(text, "---\n") {
+		return ""
+	}
+	head, _, found := strings.Cut(text[4:], "\n---\n")
+	if !found {
+		return ""
+	}
+	for _, line := range strings.Split(head, "\n") {
+		if id, ok := strings.CutPrefix(line, "id: "); ok {
+			return strings.Trim(strings.TrimSpace(id), `"'`)
+		}
+	}
+	return ""
+}
+
 // linkContext is what the printer links against: the document's own path
 // and item anchors, and the corpus index when it has one.
 type linkContext struct {

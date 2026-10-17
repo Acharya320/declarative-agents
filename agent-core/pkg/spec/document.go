@@ -84,6 +84,7 @@ type formatScan struct {
 	files    map[string]string
 	findings []Finding
 	leftOut  []string // documents whose structure kept them from loading
+	links    markdown.LinkIndex
 }
 
 func newFormatScan(rootDir string) *formatScan {
@@ -139,7 +140,7 @@ func (s *formatScan) checkMarkdown(path string) bool {
 		s.add(Finding{Check: checkMarkdownFormat, Level: "error", File: s.relative(path), Message: err.Error()})
 		return false
 	}
-	formatted, findings, err := d.Format(data, path)
+	formatted, findings, err := d.FormatLinked(data, filepath.ToSlash(path), s.linkIndex())
 	loads := err == nil && formatted != nil
 	for _, f := range findings {
 		s.add(Finding{Check: checkMarkdownFormat, CheckID: f.Name, Level: "error", File: s.relative(path), Line: f.Line,
@@ -153,6 +154,30 @@ func (s *formatScan) checkMarkdown(path string) bool {
 }
 
 func (s *formatScan) add(f Finding) { s.findings = append(s.findings, f) }
+
+// linkIndex indexes the corpus's Markdown documents once, so the canonical
+// form the scan checks links references as mage fmt does (GH-2668).
+func (s *formatScan) linkIndex() markdown.LinkIndex {
+	if s.links != nil {
+		return s.links
+	}
+	s.links = markdown.LinkIndex{}
+	_ = filepath.WalkDir(filepath.Join(s.rootDir, "docs"), func(path string, entry os.DirEntry, err error) error {
+		if err != nil || entry.IsDir() || !strings.HasSuffix(path, markdownExt) {
+			return nil
+		}
+		if _, err := declarationFor(path); err != nil {
+			return nil
+		}
+		if data, err := os.ReadFile(path); err == nil {
+			if id := markdown.DocumentID(data); id != "" {
+				s.links.Add(id, filepath.ToSlash(path), data)
+			}
+		}
+		return nil
+	})
+	return s.links
+}
 
 func (s *formatScan) relative(path string) string {
 	if rel, err := filepath.Rel(s.rootDir, path); err == nil {

@@ -127,3 +127,60 @@ func TestUnlinkReadsBackOnlyGeneratedLinks(t *testing.T) {
 		}
 	}
 }
+
+// TestCrossDocumentReferencesLink links a document id and a document's
+// items across directories through the corpus index, leaves an id the index
+// lacks as text, and reads every value back exactly (GH-2668).
+func TestCrossDocumentReferencesLink(t *testing.T) {
+	d := linkedDeclaration(t)
+	indexes := LinkIndexes{}
+	indexes.Add("docs/specs/other-doc.md", []byte("---\nid: other-doc\ntitle: Other\n---\n\n<!-- ac: AC1 -->\n### AC1\n\nText.\n"))
+	indexes.Add("app/docs/specs/elsewhere.md", []byte("---\nid: plan-two\ntitle: Two\n---\n"))
+	original := yamlDoc(t, linkedPlan)
+	md, err := d.PrintLinked(original, "docs/plans/plan.md", indexes.For("docs/plans/plan.md"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, want := range []string{
+		"## Use case\n\n[other-doc](../specs/other-doc.md)\n",
+		"| T1 | [other-doc](../specs/other-doc.md) [AC1](../specs/other-doc.md#ac1), AC2 | why |",
+	} {
+		if !strings.Contains(string(md), want) {
+			t.Errorf("printed Markdown lacks %q\n%s", want, md)
+		}
+	}
+	back, findings, err := d.Parse(md, "docs/plans/plan.md")
+	if err != nil || len(findings) > 0 {
+		t.Fatalf("parse: %v %v", err, findings)
+	}
+	if diff := Diff(original, back); diff != "" {
+		t.Fatalf("round trip changed %s\n%s", diff, md)
+	}
+	if _, ok := indexes.For("docs/plans/plan.md")["plan-two"]; ok {
+		t.Error("a document of another corpus is in this corpus's index")
+	}
+}
+
+func TestCorpusRootAndPaths(t *testing.T) {
+	for in, want := range map[string]string{
+		"docs/engineering/eng10.md": "", "agent-core/docs/specs/srd.md": "agent-core/",
+		"applications/catalog/docs/VISION.md": "applications/catalog/", "/abs/agent-core/docs/x.md": "/abs/agent-core/",
+	} {
+		if got := CorpusRoot(in); got != want {
+			t.Errorf("CorpusRoot(%q) = %q, want %q", in, got, want)
+		}
+	}
+	for _, c := range [][3]string{
+		{"a/docs/specs/test-suites/t.md", "a/docs/specs/software-requirements/s.md", "../software-requirements/s.md"},
+		{"a/docs/specs/use-cases/u.md", "a/docs/specs/use-cases/v.md", "v.md"},
+		{"a/docs/SPECIFICATIONS.md", "a/docs/specs/use-cases/v.md", "specs/use-cases/v.md"},
+		{"x.md", "docs/y.md", "docs/y.md"},
+	} {
+		if got := relativePath(c[0], c[1]); got != c[2] {
+			t.Errorf("relativePath(%q, %q) = %q, want %q", c[0], c[1], got, c[2])
+		}
+	}
+	if id := DocumentID([]byte("---\nid: \"srd005-agentic-loop\"\ntitle: x\n---\nbody")); id != "srd005-agentic-loop" {
+		t.Errorf("DocumentID = %q", id)
+	}
+}
