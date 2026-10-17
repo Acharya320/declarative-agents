@@ -52,47 +52,73 @@ docs. Integration targets run when the issue changes profile behavior,
 machine routing, evaluator flow, bench behavior, lifecycle operations, or
 model-boundary config.
 
-<!-- field: go_test_style | form: "tree" -->
+<!-- field: go_test_style -->
 ## Go test style
 
-- table_driven_tests:
-  - rule: Use named rows and t.Run for repeated cases.
-  - example:
-    tests := []struct {
-      name string
-      input string
-      want string
-    }{
-      {name: "empty", input: "", want: ""},
-    }
-    for _, tc := range tests {
-      t.Run(tc.name, func(t *testing.T) {
-        t.Parallel()
-        require.Equal(t, tc.want, transform(tc.input))
-      })
-    }
-- parallelism:
-  - use_t_parallel_when:
-    1. The test uses only local values.
-    1. The test writes only to its own t.TempDir.
-    1. The test does not mutate global state.
-    1. The test does not call os.Chdir.
-  - do_not_parallelize_when:
-    1. The test changes process working directory.
-    1. The test mutates environment variables without isolated cleanup.
-    1. The test uses shared package state.
-    1. The test binds a fixed network port.
-- helpers:
-  - rules:
-    1. Every helper calls t.Helper() first.
-    1. Helpers create clear failure messages.
-    1. Shared fixtures should be read-only.
-    1. Use t.Cleanup for temporary process or filesystem state.
-- assertions:
-  - rules:
-    1. Use require for setup failures and fatal preconditions.
-    1. Use assert for independent checks after setup succeeds.
-    1. Check error messages when the contract promises specific context.
+<!-- field: table_driven_tests -->
+### Table driven tests
+
+<!-- field: rule -->
+#### Rule
+
+Use named rows and t.Run for repeated cases.
+
+<!-- field: example -->
+#### Example
+
+tests := []struct {
+  name string
+  input string
+  want string
+}{
+  {name: "empty", input: "", want: ""},
+}
+for _, tc := range tests {
+  t.Run(tc.name, func(t *testing.T) {
+    t.Parallel()
+    require.Equal(t, tc.want, transform(tc.input))
+  })
+}
+
+<!-- field: parallelism -->
+### Parallelism
+
+<!-- field: use_t_parallel_when -->
+#### Use t parallel when
+
+- The test uses only local values.
+- The test writes only to its own t.TempDir.
+- The test does not mutate global state.
+- The test does not call os.Chdir.
+
+<!-- field: do_not_parallelize_when -->
+#### Do not parallelize when
+
+- The test changes process working directory.
+- The test mutates environment variables without isolated cleanup.
+- The test uses shared package state.
+- The test binds a fixed network port.
+
+<!-- field: helpers -->
+### Helpers
+
+<!-- field: rules -->
+#### Rules
+
+- Every helper calls t.Helper() first.
+- Helpers create clear failure messages.
+- Shared fixtures should be read-only.
+- Use t.Cleanup for temporary process or filesystem state.
+
+<!-- field: assertions -->
+### Assertions
+
+<!-- field: rules -->
+#### Rules
+
+- Use require for setup failures and fatal preconditions.
+- Use assert for independent checks after setup succeeds.
+- Check error messages when the contract promises specific context.
 
 <!-- field: yaml_test_suites | form: "tree" -->
 ## YAML test suites
@@ -145,28 +171,41 @@ model-boundary config.
   1. bash .cursor/skills/de-ai/scripts/detect-lexical.sh <touched-doc>
   1. python3 .cursor/skills/de-ai/scripts/detect-structural.py <touched-doc>
 
-<!-- field: documentation_de_ai_scope | form: "tree" -->
+<!-- field: documentation_de_ai_scope -->
 ## Documentation de ai scope
 
-- lexical: Full touched-document lexical scans are blocking for documentation issues.
-- structural:
-  Structural scans are blocking for touched prose blocks in Markdown and YAML
-  block scalars when they report suspicious or likely-ai prose that can be
-  rewritten without changing formal meaning.
+<!-- field: lexical -->
+### Lexical
 
-  Formal reference docs may keep whole-file structural warnings caused by
-  required YAML shape. Required lists, field inventories, trace matrices, and
-  examples can trigger those metrics. Compact status sections may show the
-  same pattern. Accept residual warnings about list density and punctuation
-  density when lexical scans are clean.
-  The same exception covers inline inventories, parenthetical text, and
-  paragraph length when three focused rewrite passes would make the reference
-  less precise.
-- close_comment: Record any accepted formal-document residuals in the issue stats comment.
-- config_or_profile:
-  1. mage audit
-  1. go test ./...
-  1. relevant mage integration target when profile behavior changes
+Full touched-document lexical scans are blocking for documentation issues.
+
+<!-- field: structural -->
+### Structural
+
+Structural scans are blocking for touched prose blocks in Markdown and YAML
+block scalars when they report suspicious or likely-ai prose that can be
+rewritten without changing formal meaning.
+
+Formal reference docs may keep whole-file structural warnings caused by
+required YAML shape. Required lists, field inventories, trace matrices, and
+examples can trigger those metrics. Compact status sections may show the
+same pattern. Accept residual warnings about list density and punctuation
+density when lexical scans are clean.
+The same exception covers inline inventories, parenthetical text, and
+paragraph length when three focused rewrite passes would make the reference
+less precise.
+
+<!-- field: close_comment -->
+### Close comment
+
+Record any accepted formal-document residuals in the issue stats comment.
+
+<!-- field: config_or_profile -->
+### Config or profile
+
+- mage audit
+- go test ./...
+- relevant mage integration target when profile behavior changes
 
 <!-- field: coverage_notes -->
 ## Coverage notes

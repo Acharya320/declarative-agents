@@ -10,15 +10,20 @@ title: Control Plane Constitution
 
 We bind the components that change a running population — the deciding orchestrator and the acting creator — to the specification (application-dsl-spec/). Each obligation cites a statement identifier; this constitution introduces no grammar of its own.
 
-<!-- field: obligations | form: "tree" -->
+<!-- field: obligations -->
 ## Obligations
 
-- authority:
-  1. The deployment authority rests with the creator's instances alone, and the orchestrator that decides operations never holds it (R-POP-002). The creator accepts a decided operation and its parameters, never a resolved endpoint or credential for a running agent-instance.
-  1. The orchestrator decides what the population should look like and requests operations; it performs none itself, so the decide/act split stays auditable at the request boundary.
-- population:
-  1. Every instance operation the creator performs starts from a declared root, preserving closure (R-POP-001).
-  1. Creating an agent-instance provisions or rebinds exactly one workspace (R-LCM-001); terminating one releases the workspace without decommissioning it (R-LCM-002); orphan workspaces are left in place as the legal state they are (R-POP-004), and only an explicit decommission operation removes one.
+<!-- field: authority -->
+### Authority
+
+- The deployment authority rests with the creator's instances alone, and the orchestrator that decides operations never holds it (R-POP-002). The creator accepts a decided operation and its parameters, never a resolved endpoint or credential for a running agent-instance.
+- The orchestrator decides what the population should look like and requests operations; it performs none itself, so the decide/act split stays auditable at the request boundary.
+
+<!-- field: population -->
+### Population
+
+- Every instance operation the creator performs starts from a declared root, preserving closure (R-POP-001).
+- Creating an agent-instance provisions or rebinds exactly one workspace (R-LCM-001); terminating one releases the workspace without decommissioning it (R-LCM-002); orphan workspaces are left in place as the legal state they are (R-POP-004), and only an explicit decommission operation removes one.
 
 <!-- field: references -->
 ## References

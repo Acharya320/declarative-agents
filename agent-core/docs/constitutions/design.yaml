@@ -1164,7 +1164,15 @@ document_types:
         allowed: [id, title]
         id_matches_filename: true
       nodes:
-        document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
+        document_field:
+          tag: field
+          level: 2
+          parent: document
+          heading: free
+          content: any
+          fields:
+          - introduction
+          - references
         section:
           tag: section
           level: 2
@@ -1871,13 +1879,338 @@ document_types:
         required: [id, title, audit_date]
         allowed: [id, title, audit_date]
       nodes:
-        document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
+        document_field:
+          tag: field
+          level: 2
+          parent: document
+          heading: free
+          content: any
+          fields:
+          - scope
+          - inventory
+          - measurements
+          - candidates
+          - findings
+          - threat_model
+          - authority
+          - recommendation
+          - rejected_candidates
+          - results
+          - verification
+          - references
+        authority_field:
+          tag: field
+          level: 3
+          parent: 'field:authority'
+          heading: free
+          content: any
+          fields:
+          - create
+          - ingest
+          - query
+          - backup
+          - migration
+          - retention
+          - purge
+        candidates_field:
+          tag: field
+          level: 3
+          parent: 'field:candidates'
+          heading: free
+          content: any
+          fields:
+          - documents
+          - packages
+        inventory_field:
+          tag: field
+          level: 3
+          parent: 'field:inventory'
+          heading: free
+          content: any
+          fields:
+          - first_party
+          - downstream
+        measurements_field:
+          tag: field
+          level: 3
+          parent: 'field:measurements'
+          heading: free
+          content: any
+          fields:
+          - environment
+          - steady_state
+          - heartbeat_latency
+          - application_query_latency
+          - ingest
+          - restart
+          - backup_stream
+          - application_removal
+        recommendation_field:
+          tag: field
+          level: 3
+          parent: 'field:recommendation'
+          heading: free
+          content: any
+          fields:
+          - decision
+          - rationale
+          - revisit_when
+          - epic_effect
+        rejected_candidate:
+          tag: rejected_candidate
+          level: 3
+          parent: 'field:rejected_candidates'
+          heading: id
+          content: none
+          yaml: {from: rejected_candidates, records: list, id: id}
+        results_field:
+          tag: field
+          level: 3
+          parent: 'field:results'
+          heading: free
+          content: any
+          fields:
+          - document_placement
+          - package_role
+          - unresolved_external_work
+        scope_field:
+          tag: field
+          level: 3
+          parent: 'field:scope'
+          heading: free
+          content: any
+          fields:
+          - issue
+          - purpose
+          - decision
+          - document_placement
+          - evidence_boundary
+          - package_role
+          - finding_gate
+          - examined
+        verification_field:
+          tag: field
+          level: 3
+          parent: 'field:verification'
+          heading: free
+          content: any
+          fields:
+          - inventory_commands
+          - yaml_parse
+          - mage_audit
+          - mage_lint
+          - mage_test
+        application_query_latency_field:
+          tag: field
+          level: 4
+          parent: 'field:application_query_latency'
+          heading: free
+          content: any
+          fields:
+          - requests
+          - min_ms
+          - median_ms
+          - max_ms
+          - command
+          - note
+        application_removal_field:
+          tag: field
+          level: 4
+          parent: 'field:application_removal'
+          heading: free
+          content: any
+          fields:
+          - app_down_seconds
+          - result
+          - implication
+        backup_stream_field:
+          tag: field
+          level: 4
+          parent: 'field:backup_stream'
+          heading: free
+          content: any
+          fields:
+          - bytes
+          - elapsed_seconds
+          - method
+        document:
+          tag: document
+          level: 4
+          parent: 'field:documents'
+          heading: id
+          content: none
+          yaml: {from: documents, records: list, id: path}
+        document_placement_field:
+          tag: field
+          level: 4
+          parent: 'field:document_placement'
+          heading: free
+          content: any
+          fields:
+          - authority
+          - before
+          - method
+          - after
+          - reconciliation
+          - changes
+        first_party_entry:
+          tag: first_party_entry
+          level: 4
+          parent: 'field:first_party'
+          heading: id
+          content: none
+          yaml: {from: first_party, records: list, id: application}
+        heartbeat_latency_field:
+          tag: field
+          level: 4
+          parent: 'field:heartbeat_latency'
+          heading: free
+          content: any
+          fields:
+          - requests
+          - min_ms
+          - p50_ms
+          - p95_ms
+          - max_ms
+          - command
+        ingest_field:
+          tag: field
+          level: 4
+          parent: 'field:ingest'
+          heading: free
+          content: any
+          fields:
+          - corpus
+          - elapsed_seconds
+          - result
+        package:
+          tag: package
+          level: 4
+          parent: 'field:packages'
+          heading: id
+          content: none
+          yaml: {from: packages, records: list, id: path}
+        package_role_field:
+          tag: field
+          level: 4
+          parent: 'field:package_role'
+          heading: free
+          content: any
+          fields:
+          - authority
+          - before
+          - method
+          - after
+        rejected_candidate_field:
+          tag: field
+          level: 4
+          parent: rejected_candidate
+          heading: free
+          content: any
+          fields:
+          - gate_question
+          - files
+          - classification
+          - reason
+          - tests
+          - prior_evidence
+        restart_field:
+          tag: field
+          level: 4
+          parent: 'field:restart'
+          heading: free
+          content: any
+          fields:
+          - delete_to_ready_seconds
+          - persistence_check
+        steady_state_field:
+          tag: field
+          level: 4
+          parent: 'field:steady_state'
+          heading: free
+          content: any
+          fields:
+          - cpu_millicores
+          - memory_mib
+          - pvc_capacity_mib
+          - data_bytes
+          - command
+        after_field:
+          tag: field
+          level: 5
+          parent: 'field:after'
+          heading: free
+          content: any
+          fields:
+          - method_1_output
+          - unclassified_packages
+          - unclassified_files
+          - unclassified
+          - findings
+          - explanation
+          - rejected_candidate_groups
+        document_field_2:
+          tag: field
+          level: 5
+          parent: document
+          heading: free
+          content: any
+          fields:
+          - previous_path
+          - source
+          - status
+          - classification
+          - document_type
+          - referrers
+          - supersession
+          - resolution
+        first_party_entry_field:
+          tag: field
+          level: 5
+          parent: first_party_entry
+          heading: free
+          content: any
+          fields:
+          - vector_workloads
+          - current_local_instance
+          - namespace
+          - collection
+          - embedding_identity
+          - persistence
+          - credentials
+          - authorization
+          - lifecycle
+          - retrieval_policy
+        package_field:
+          tag: field
+          level: 5
+          parent: package
+          heading: free
+          content: any
+          fields:
+          - production_lines
+          - status
+          - classification
+          - files
+        lifecycle_field:
+          tag: field
+          level: 6
+          parent: 'field:lifecycle'
+          heading: free
+          content: any
+          fields:
+          - create
+          - ingest
+          - query
+          - backup
+          - retention
+          - purge
       fields:
         references: {in: [document_field], shape: list}
       required_fields: [scope, candidates, findings, rejected_candidates]
       prose_containment:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
-        outside: [document_field]
+        outside: [document_field, authority_field, candidates_field, inventory_field, measurements_field, recommendation_field, rejected_candidate, results_field, scope_field, verification_field, application_query_latency_field, application_removal_field, backup_stream_field, document, document_placement_field, first_party_entry, heartbeat_latency_field, ingest_field, package, package_role_field, rejected_candidate_field, restart_field, steady_state_field, after_field, document_field_2, first_party_entry_field, package_field, lifecycle_field]
   audit_report:
     location: docs/specs/audits/name.md
     format: markdown
@@ -3786,7 +4119,56 @@ document_types:
         allowed: [id, title]
         id_matches_filename: true
       nodes:
-        document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
+        document_field:
+          tag: field
+          level: 2
+          parent: document
+          heading: free
+          content: any
+          fields:
+          - purpose
+          - copyright_header
+          - implementation_strategy
+          - ownership
+          - articles
+          - package_layout
+          - schema
+          - interfaces
+          - composition_root
+          - go_test_style
+          - required_fields
+          - design_patterns
+          - errors
+          - import_law
+          - yaml_test_suites
+          - field_specs
+          - naming
+          - file_entry_fields
+          - file_organization
+          - package_shape
+          - workflows
+          - mage_targets
+          - obligations
+          - functions
+          - allowed_file_actions
+          - files
+          - yaml_rules
+          - test_placement
+          - quality_gates
+          - enforcement
+          - configuration
+          - requirement_numbering
+          - git
+          - documentation_de_ai_scope
+          - tool_language
+          - examples
+          - testing
+          - issue_templates
+          - coverage_notes
+          - comments
+          - review_checklist
+          - references
+          - validation_notes
         article:
           tag: article
           level: 3
@@ -3796,7 +4178,308 @@ document_types:
           content: prose
           unique_id: true
           yaml: {from: articles, records: list, id: id, title: title, content: rule}
-        article_field: {tag: field, level: 4, parent: article, heading: free, content: any}
+        article_field:
+          tag: field
+          level: 4
+          parent: article
+          heading: free
+          content: any
+          fields:
+          - formal_reference_scope
+        comments_field:
+          tag: field
+          level: 3
+          parent: 'field:comments'
+          heading: free
+          content: any
+          fields:
+          - exported_symbols
+          - unexported_symbols
+          - requirement_ids
+        composition_root_field:
+          tag: field
+          level: 3
+          parent: 'field:composition_root'
+          heading: free
+          content: any
+          fields:
+          - rules
+        configuration_field:
+          tag: field
+          level: 3
+          parent: 'field:configuration'
+          heading: free
+          content: any
+          fields:
+          - rules
+        documentation_de_ai_scope_field:
+          tag: field
+          level: 3
+          parent: 'field:documentation_de_ai_scope'
+          heading: free
+          content: any
+          fields:
+          - lexical
+          - structural
+          - close_comment
+          - config_or_profile
+        enforcement_field:
+          tag: field
+          level: 3
+          parent: 'field:enforcement'
+          heading: free
+          content: any
+          fields:
+          - gate
+          - amendment
+        errors_field:
+          tag: field
+          level: 3
+          parent: 'field:errors'
+          heading: free
+          content: any
+          fields:
+          - rules
+        examples_field:
+          tag: field
+          level: 3
+          parent: 'field:examples'
+          heading: free
+          content: any
+          fields:
+          - documentation_issue
+          - documentation_issue_with_clarification
+          - code_issue
+        file_organization_field:
+          tag: field
+          level: 3
+          parent: 'field:file_organization'
+          heading: free
+          content: any
+          fields:
+          - file_names
+          - declaration_order
+          - imports
+        files_field:
+          tag: field
+          level: 3
+          parent: 'field:files'
+          heading: free
+          content: any
+          fields:
+          - max_production_lines
+          - split_rule
+        functions_field:
+          tag: field
+          level: 3
+          parent: 'field:functions'
+          heading: free
+          content: any
+          fields:
+          - max_lines
+          - parameter_rule
+          - responsibility_rule
+          - split_points
+        git_field:
+          tag: field
+          level: 3
+          parent: 'field:git'
+          heading: free
+          content: any
+          fields:
+          - commit_per_issue
+          - push_automatically
+          - commit_message
+        go_test_style_field:
+          tag: field
+          level: 3
+          parent: 'field:go_test_style'
+          heading: free
+          content: any
+          fields:
+          - table_driven_tests
+          - parallelism
+          - helpers
+          - assertions
+        import_law_field:
+          tag: field
+          level: 3
+          parent: 'field:import_law'
+          heading: free
+          content: any
+          fields:
+          - principle
+          - rules
+        interfaces_field:
+          tag: field
+          level: 3
+          parent: 'field:interfaces'
+          heading: free
+          content: any
+          fields:
+          - rules
+        issue_templates_field:
+          tag: field
+          level: 3
+          parent: 'field:issue_templates'
+          heading: free
+          content: any
+          fields:
+          - documentation
+          - migration
+        naming_field:
+          tag: field
+          level: 3
+          parent: 'field:naming'
+          heading: free
+          content: any
+          fields:
+          - exported
+          - unexported
+          - cli_flags
+          - binary_constants
+          - factories
+          - receivers
+          - packages
+        obligations_field:
+          tag: field
+          level: 3
+          parent: 'field:obligations'
+          heading: free
+          content: any
+          fields:
+          - processing
+          - manifest
+          - publication
+          - authority
+          - activation
+          - attribute_reporting
+          - composition
+          - compatibility
+          - population
+        ownership_field:
+          tag: field
+          level: 3
+          parent: 'field:ownership'
+          heading: free
+          content: any
+          fields:
+          - principle
+          - rules
+        package_layout_field:
+          tag: field
+          level: 3
+          parent: 'field:package_layout'
+          heading: free
+          content: any
+          fields:
+          - cmd
+          - internal
+          - pkg
+          - magefiles
+          - agents
+          - tools
+        package_shape_field:
+          tag: field
+          level: 3
+          parent: 'field:package_shape'
+          heading: free
+          content: any
+          fields:
+          - principle
+          - rules
+        test_placement_field:
+          tag: field
+          level: 3
+          parent: 'field:test_placement'
+          heading: free
+          content: any
+          fields:
+          - rules
+        testing_field:
+          tag: field
+          level: 3
+          parent: 'field:testing'
+          heading: free
+          content: any
+          fields:
+          - rules
+        tool_language_field:
+          tag: field
+          level: 3
+          parent: 'field:tool_language'
+          heading: free
+          content: any
+          fields:
+          - rules
+        yaml_rule:
+          tag: yaml_rule
+          level: 3
+          parent: 'field:yaml_rules'
+          heading: id
+          content: none
+          yaml: {from: yaml_rules, records: list, id: id}
+        assertions_field:
+          tag: field
+          level: 4
+          parent: 'field:assertions'
+          heading: free
+          content: any
+          fields:
+          - rules
+        file_names_field:
+          tag: field
+          level: 4
+          parent: 'field:file_names'
+          heading: free
+          content: any
+          fields:
+          - rule
+          - forbidden
+        helpers_field:
+          tag: field
+          level: 4
+          parent: 'field:helpers'
+          heading: free
+          content: any
+          fields:
+          - rules
+        imports_field:
+          tag: field
+          level: 4
+          parent: 'field:imports'
+          heading: free
+          content: any
+          fields:
+          - groups
+          - rule
+        parallelism_field:
+          tag: field
+          level: 4
+          parent: 'field:parallelism'
+          heading: free
+          content: any
+          fields:
+          - use_t_parallel_when
+          - do_not_parallelize_when
+        table_driven_tests_field:
+          tag: field
+          level: 4
+          parent: 'field:table_driven_tests'
+          heading: free
+          content: any
+          fields:
+          - rule
+          - example
+        yaml_rule_field:
+          tag: field
+          level: 4
+          parent: yaml_rule
+          heading: free
+          content: any
+          fields:
+          - rule
+          - check
       fields:
         purpose: {in: [document_field], shape: prose}
         references: {in: [document_field], shape: list}
@@ -3805,7 +4488,7 @@ document_types:
       required_fields: [purpose]
       prose_containment:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
-        outside: [document_field, article_field]
+        outside: [document_field, article_field, comments_field, composition_root_field, configuration_field, documentation_de_ai_scope_field, enforcement_field, errors_field, examples_field, file_organization_field, files_field, functions_field, git_field, go_test_style_field, import_law_field, interfaces_field, issue_templates_field, naming_field, obligations_field, ownership_field, package_layout_field, package_shape_field, test_placement_field, testing_field, tool_language_field, yaml_rule, assertions_field, file_names_field, helpers_field, imports_field, parallelism_field, table_driven_tests_field, yaml_rule_field]
   migration:
     location: docs/migrations/name.md
     converts_from: docs/migrations/name.yaml
@@ -3819,13 +4502,124 @@ document_types:
         required: [id, title, status]
         allowed: [id, title, status, release, root_release, legacy_release_alias, supersedes, issue]
       nodes:
-        document_field: {tag: field, level: 2, parent: document, heading: free, content: any}
+        document_field:
+          tag: field
+          level: 2
+          parent: document
+          heading: free
+          content: any
+          fields:
+          - publication
+          - summary
+          - historical_source_layout
+          - compatibility_policy
+          - addition
+          - migrations
+          - current_source_layout
+          - local_boundaries
+          - additions
+          - runtime_paths
+          - removed_copies
+          - consumers
+          - evidence
+          - compatibility
+        addition:
+          tag: addition
+          level: 3
+          parent: 'field:additions'
+          heading: id
+          content: none
+          yaml: {from: additions, records: list, id: name}
+        addition_field_2:
+          tag: field
+          level: 3
+          parent: 'field:addition'
+          heading: free
+          content: any
+          fields:
+          - name
+          - path
+          - canonical_binding
+          - consumers
+          - responsibility
+        compatibility_field:
+          tag: field
+          level: 3
+          parent: 'field:compatibility'
+          heading: free
+          content: any
+          fields:
+          - source_paths
+          - runtime_contract
+          - aliases
+          - guidance
+        compatibility_policy_field:
+          tag: field
+          level: 3
+          parent: 'field:compatibility_policy'
+          heading: free
+          content: any
+          fields:
+          - catalog_v0
+          - catalog_v1
+          - application_local
+        historical_source_layout_field:
+          tag: field
+          level: 3
+          parent: 'field:historical_source_layout'
+          heading: free
+          content: any
+          fields:
+          - status
+          - path
+          - note
+        migration:
+          tag: migration
+          level: 3
+          parent: 'field:migrations'
+          heading: id
+          content: none
+          yaml: {from: migrations, records: list, id: old_name}
+        publication_field:
+          tag: field
+          level: 3
+          parent: 'field:publication'
+          heading: free
+          content: any
+          fields:
+          - timing
+          - command
+          - policy
+        addition_field:
+          tag: field
+          level: 4
+          parent: addition
+          heading: free
+          content: any
+          fields:
+          - path
+          - canonical_binding
+          - summary
+        migration_field:
+          tag: field
+          level: 4
+          parent: migration
+          heading: free
+          content: any
+          fields:
+          - new_name
+          - old_path
+          - old_paths
+          - new_path
+          - compatibility
+          - canonical_binding
+          - classification
       fields:
         summary: {in: [document_field], shape: prose}
         evidence: {in: [document_field], shape: list}
       prose_containment:
         keywords: [MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, OPTIONAL, shall, shall not]
-        outside: [document_field]
+        outside: [document_field, addition, addition_field_2, compatibility_field, compatibility_policy_field, historical_source_layout_field, migration, publication_field, addition_field, migration_field]
   guide:
     location: docs/guides/name.md
     format: markdown
