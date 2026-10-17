@@ -151,6 +151,39 @@ func (s *Server) WaitHealthy(url string, timeout time.Duration) {
 		url, timeout, last, outcome, timeoutTraceEvidence(s.logFile), s.out.String())
 }
 
+// WaitListening waits until every address accepts a TCP connection or the
+// timeout elapses. A profile with several servers reports health on one of
+// them; a test that calls another must wait for that listener as well, since
+// under load it can still be starting when the first answers (GH-2635). It
+// fails fast if the server exits first.
+func (s *Server) WaitListening(timeout time.Duration, addrs ...string) {
+	s.t.Helper()
+	deadline := time.Now().Add(timeout)
+	for _, addr := range addrs {
+		var last error
+		for {
+			select {
+			case <-s.process.done:
+				s.t.Fatalf("server exited before %s was listening: %v\noutput:\n%s",
+					addr, s.process.err(), s.out.String())
+			default:
+			}
+			conn, err := net.DialTimeout("tcp", addr, time.Second)
+			if err == nil {
+				_ = conn.Close()
+				break
+			}
+			last = err
+			if time.Now().After(deadline) {
+				outcome := s.process.terminate(defaultProcessGrace)
+				s.t.Fatalf("%s not listening within %s: %v (%s)\noutput:\n%s",
+					addr, timeout, last, outcome, s.out.String())
+			}
+			time.Sleep(50 * time.Millisecond)
+		}
+	}
+}
+
 // Post sends a JSON POST to url and returns the response status code.
 func (s *Server) Post(url, body string) int {
 	s.t.Helper()
