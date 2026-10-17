@@ -22,12 +22,18 @@ const (
 	formScalar      = "scalar"
 	formTypedTable  = "typed table"
 	formTree        = "tree"
+	formEmptyList   = "empty list"
+	formEmptyMap    = "empty map"
+	noneText        = "None"
 	flowPlainReject = "[]{},#&*!|>'\"%@`"
 )
 
 // typedFormFor prints a value no simple shape holds in the first typed form
 // that parses back to the same node, or reports that none does.
 func typedFormFor(value *yaml.Node) (string, []string, bool) {
+	if form, ok := emptyForm(value); ok {
+		return form, []string{noneText}, true
+	}
 	candidates := []struct {
 		form  string
 		print func(*yaml.Node) ([]string, error)
@@ -77,8 +83,31 @@ func parseTyped(form, text string) (*yaml.Node, error) {
 		return parseTypedTable(text)
 	case formTree:
 		return parseTree(text)
+	case formEmptyList, formEmptyMap:
+		if strings.TrimSpace(text) != noneText {
+			return nil, fmt.Errorf("form %s holds the line %s", form, noneText)
+		}
+		if form == formEmptyMap {
+			return &yaml.Node{Kind: yaml.MappingNode, Tag: "!!map"}, nil
+		}
+		return &yaml.Node{Kind: yaml.SequenceNode, Tag: "!!seq"}, nil
 	}
-	return nil, fmt.Errorf("unknown form %q (scalar, typed table, or tree)", form)
+	return nil, fmt.Errorf("unknown form %q (%s)", form, strings.Join(typedForms, ", "))
+}
+
+// typedForms are the forms a field marker may name.
+var typedForms = []string{formScalar, formTypedTable, formTree, formEmptyList, formEmptyMap}
+
+// emptyForm names the form an empty list or map prints in: the line None,
+// which a reader takes for a word and the parser restores exactly (GH-2655).
+func emptyForm(value *yaml.Node) (string, bool) {
+	switch {
+	case !emptyCollection(value):
+		return "", false
+	case value.Kind == yaml.MappingNode:
+		return formEmptyMap, true
+	}
+	return formEmptyList, true
 }
 
 // encodeFlow writes a scalar, or a list of scalars, as a one-line YAML flow

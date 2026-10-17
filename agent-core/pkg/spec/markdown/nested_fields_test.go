@@ -145,3 +145,40 @@ func nestedRoundTrip(t *testing.T, d *Declaration, doc *yaml.Node) (string, *yam
 	}
 	return string(md), back
 }
+
+// TestNestedRecordListsPrintAsTables prints a list of flat records under a
+// nested field heading as a table, typed when a value is not a string, and
+// an empty field as None, all reading back exactly (GH-2655).
+func TestNestedRecordListsPrintAsTables(t *testing.T) {
+	d := nestedDeclaration(t)
+	original := yamlDoc(t, `id: plan
+title: Plan
+overview:
+  workspace_state:
+    - command: write
+      strategy: file_snapshot_restore
+    - command: copy_dir
+      strategy: tool_owned_commit_restore
+  counts:
+    - command: write
+      calls: 3
+  mismatches: []
+  limits: {}
+  word: None
+`)
+	md, back := nestedRoundTrip(t, d, original)
+	if diff := Diff(original, back); diff != "" {
+		t.Fatalf("round trip changed %s\n%s", diff, md)
+	}
+	for _, want := range []string{
+		"### Workspace state\n\n| command | strategy |\n| --- | --- |\n| write | file_snapshot_restore |\n",
+		"<!-- field: counts | form: \"typed table\" -->\n### Counts\n\n| command | calls |\n| --- | --- |\n| write | 3 |\n",
+		"<!-- field: mismatches | form: \"empty list\" -->\n### Mismatches\n\nNone\n",
+		"<!-- field: limits | form: \"empty map\" -->\n### Limits\n\nNone\n",
+		"<!-- field: word -->\n### Word\n\nNone\n",
+	} {
+		if !strings.Contains(md, want) {
+			t.Errorf("printed Markdown lacks %q\n%s", want, md)
+		}
+	}
+}

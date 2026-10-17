@@ -258,10 +258,10 @@ tool's own round-trip test.
        1. workspace_paths
        1. artifact_paths
 
-<!-- field: declaration_mismatches | form: "scalar" -->
+<!-- field: declaration_mismatches | form: "empty list" -->
 ## Declaration mismatches
 
-[]
+None
 
 <!-- field: related_documents -->
 ## Related documents

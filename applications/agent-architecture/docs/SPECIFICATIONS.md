@@ -114,15 +114,15 @@ requirements.
      Proves the catalog profile's browser, action-route, and lifecycle behavior.
      Release 00.0 composes that behavior into a guided presentation.
 
-<!-- field: config_format_index | form: "scalar" -->
+<!-- field: config_format_index | form: "empty list" -->
 ## Config format index
 
-[]
+None
 
-<!-- field: semantic_model_index | form: "scalar" -->
+<!-- field: semantic_model_index | form: "empty list" -->
 ## Semantic model index
 
-[]
+None
 
 <!-- field: use_case_index -->
 ## Use case index
