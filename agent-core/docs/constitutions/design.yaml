@@ -37,7 +37,11 @@ articles:
 
     declaration under document_types gives its layout; run mage fmt to put a
 
-    document in canonical form and mage audit to check it. This constitution
+    document in canonical form and mage audit to check it. Every field a
+
+    document holds, nested fields included, is declared in its type''s field
+
+    slots in order, and mage audit checks both. This constitution
 
     and corpus charters stay YAML: the first declares the types, and a charter
 

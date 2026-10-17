@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-// nodeYAML maps a node kind to the YAML records it comes from (eng10 Table 4):
+// nodeYAML maps a node kind to the YAML records it comes from (eng10 Table 5):
 // the key holding them, whether they are a list or a map keyed by id, and the
 // record keys holding the id, the heading title, and the prose content. A
 // keyed record may be written as a one-entry map from id to content.
