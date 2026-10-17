@@ -298,14 +298,12 @@ The observer polls metrics.k8s.io PodMetrics and shows per-pod CPU and memory on
 - R6.2
 - R6.3
 
-<!-- field: platform_dependencies -->
+<!-- field: platform_dependencies | form: "typed table" -->
 ## Platform dependencies
 
-```yaml
-- srd_id: srd033-monitor
-  provider: agent-core
-  symbols_used: [R1, R2, R3, R4, R5, R6, R7]
-```
+| srd_id | provider | symbols_used |
+| --- | --- | --- |
+| srd033-monitor | agent-core | [R1, R2, R3, R4, R5, R6, R7] |
 
 <!-- field: implementation_status -->
 ## Implementation status

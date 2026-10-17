@@ -375,15 +375,13 @@ Suspend and approval gates end the run through machine-declared signals with a c
 - R5.4
 - R5.5
 
-<!-- field: test_trace_plan -->
+<!-- field: test_trace_plan | form: "typed table" -->
 ## Test trace plan
 
-```yaml
-- test_suite: test-rel02.0-lifecycle
-  covers: [AC1, AC2, AC3, AC4, AC5]
-- test_suite: test-rel02.0-tool-contracts
-  covers: [AC3]
-```
+| test_suite | covers |
+| --- | --- |
+| test-rel02.0-lifecycle | [AC1, AC2, AC3, AC4, AC5] |
+| test-rel02.0-tool-contracts | [AC3] |
 
 <!-- field: historical_background -->
 ## Historical background

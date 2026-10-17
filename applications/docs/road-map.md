@@ -77,25 +77,14 @@ helm_managed: Only applications that ship a Helm chart.
 kind_demo: Only applications that ship a kind integration or demo; ENG01 applies.
 ```
 
-<!-- field: current_applications -->
+<!-- field: current_applications | form: "typed table" -->
 ### Current applications
 
-```yaml
-- path: applications/chatbot-mesh
-  ownership: agent-owning
-  runnable_module: implemented
-- path: applications/coding-agent
-  ownership: composition-only
-  runnable_module: implemented
-- path: applications/agent-architecture
-  ownership: composition-only
-  runnable_module: implemented
-  managed_service: partial
-  live_managed_service_evidence: dependency_gated
-  packaged: planned
-  helm_managed: planned
-  kind_demo: planned
-```
+| path | ownership | runnable_module | managed_service | live_managed_service_evidence | packaged | helm_managed | kind_demo |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| applications/chatbot-mesh | agent-owning | implemented |  |  |  |  |  |
+| applications/coding-agent | composition-only | implemented |  |  |  |  |  |
+| applications/agent-architecture | composition-only | implemented | partial | dependency_gated | planned | planned | planned |
 
 <!-- field: non_runnable_modules -->
 ### Non runnable modules
@@ -285,29 +274,17 @@ gh-1414-normalize-showcase-applications
   planned_cases: []
 ```
 
-<!-- field: implementation_sequence -->
+<!-- field: implementation_sequence | form: "typed table" -->
 ### Implementation sequence
 
-```yaml
-- order: 1
-  action: Specify the shared SRD, use case, suite, architecture, roadmap, index, and root guide.
-  status: implemented
-- order: 2
-  action: Add shared manifest and application-layout validation without requiring optional surfaces.
-  status: implemented
-- order: 3
-  action: Normalize Chatbot Mesh actor roots, manifest, deployment entries, UIs, and shared-token consumption.
-  status: implemented
-- order: 4
-  action: Normalize Coding Agent manifest, actor variants, ownership, and manifest-derived packaging.
-  status: implemented
-- order: 5
-  action: Normalize Agent Architecture manifest, applier ownership, package/UI roots, and stale capability status.
-  status: implemented
-- order: 6
-  action: Run the full Release 14.0 suite and close only evidence-backed capability states.
-  status: implemented
-```
+| order | action | status |
+| --- | --- | --- |
+| 1 | Specify the shared SRD, use case, suite, architecture, roadmap, index, and root guide. | implemented |
+| 2 | Add shared manifest and application-layout validation without requiring optional surfaces. | implemented |
+| 3 | Normalize Chatbot Mesh actor roots, manifest, deployment entries, UIs, and shared-token consumption. | implemented |
+| 4 | Normalize Coding Agent manifest, actor variants, ownership, and manifest-derived packaging. | implemented |
+| 5 | Normalize Agent Architecture manifest, applier ownership, package/UI roots, and stale capability status. | implemented |
+| 6 | Run the full Release 14.0 suite and close only evidence-backed capability states. | implemented |
 
 <!-- field: current_application_evidence -->
 ### Current application evidence
@@ -350,27 +327,19 @@ cross_application_manifest_validation: implemented
 application_normalization: implemented
 ```
 
-<!-- field: implementation_evidence -->
+<!-- field: implementation_evidence | form: "typed table" -->
 ### Implementation evidence
 
-```yaml
-- path: applications/docs/specs/software-requirements/srd003-application-consistency.md
-  proves: Numbered capability-aware composition consistency requirements and acceptance criteria.
-- path: applications/docs/specs/use-cases/rel14.0-uc001-application-consistency.md
-  proves: Three-application flow and ownership touchpoints.
-- path: applications/docs/specs/test-suites/test-rel14.0-application-consistency.md
-  proves: Requirement-to-AC-to-flow-to-test coverage and eight executable cases.
-- path: applications/docs/ARCHITECTURE.md
-  proves: Normalized authority, ownership components, decisions, target structure, and status.
-- path: applications/docs/SPECIFICATIONS.md
-  proves: Reciprocal SRD, use-case, suite, and coverage-gap indexes.
-- path: applications/README.md
-  proves: Capability-gated directory guidance and truthful current classifications.
-- command: mage audit
-  proves: Repository documentation, ownership, application audit, and root classification gates remain green.
-- command: cd magefiles && go test -run 'Test(ApplicationConsistency|ApplicationActor|ManifestDerived|ApplicationPromotion|ApplicationReadme|Release14)'
-  proves: Cross-application Release 14 manifests, grammar, package assets, promotion, tokens, statuses, and matrix remain executable.
-```
+| path | command | proves |
+| --- | --- | --- |
+| applications/docs/specs/software-requirements/srd003-application-consistency.md |  | Numbered capability-aware composition consistency requirements and acceptance criteria. |
+| applications/docs/specs/use-cases/rel14.0-uc001-application-consistency.md |  | Three-application flow and ownership touchpoints. |
+| applications/docs/specs/test-suites/test-rel14.0-application-consistency.md |  | Requirement-to-AC-to-flow-to-test coverage and eight executable cases. |
+| applications/docs/ARCHITECTURE.md |  | Normalized authority, ownership components, decisions, target structure, and status. |
+| applications/docs/SPECIFICATIONS.md |  | Reciprocal SRD, use-case, suite, and coverage-gap indexes. |
+| applications/README.md |  | Capability-gated directory guidance and truthful current classifications. |
+|  | mage audit | Repository documentation, ownership, application audit, and root classification gates remain green. |
+|  | cd magefiles && go test -run 'Test(ApplicationConsistency\|ApplicationActor\|ManifestDerived\|ApplicationPromotion\|ApplicationReadme\|Release14)' | Cross-application Release 14 manifests, grammar, package assets, promotion, tokens, statuses, and matrix remain executable. |
 
 <!-- release: 15.0 | status: implemented -->
 ## 15.0 - Declarative UX
@@ -423,29 +392,17 @@ gh-2154-declarative-ux
   planned_cases: []
 ```
 
-<!-- field: implementation_sequence -->
+<!-- field: implementation_sequence | form: "typed table" -->
 ### Implementation sequence
 
-```yaml
-- order: 1
-  action: Specify srd004, the use case, the suite, and the index entries (GH-2155).
-  status: implemented
-- order: 2
-  action: Scaffold the kit, move tokens, and add the client, fixtures, shell primitives, and hooks (GH-2156; GH-2259 to GH-2262).
-  status: implemented
-- order: 3
-  action: Extract the kit panels as a best-of merge (GH-2157; GH-2263 to GH-2266).
-  status: implemented
-- order: 4
-  action: Serve the observer from an embedded bundle and delete its UI tree (GH-2158; GH-2267 to GH-2269).
-  status: implemented
-- order: 5
-  action: Validate ui.yaml version 2 and run the chatbot-mesh chatbot on the generic shell (GH-2159; GH-2270 to GH-2272).
-  status: implemented
-- order: 6
-  action: Migrate the remaining monorepo UIs, add the duplication sweep, and version the kit 1.0.0 (GH-2160; GH-2273 to GH-2275).
-  status: implemented
-```
+| order | action | status |
+| --- | --- | --- |
+| 1 | Specify srd004, the use case, the suite, and the index entries (GH-2155). | implemented |
+| 2 | Scaffold the kit, move tokens, and add the client, fixtures, shell primitives, and hooks (GH-2156; GH-2259 to GH-2262). | implemented |
+| 3 | Extract the kit panels as a best-of merge (GH-2157; GH-2263 to GH-2266). | implemented |
+| 4 | Serve the observer from an embedded bundle and delete its UI tree (GH-2158; GH-2267 to GH-2269). | implemented |
+| 5 | Validate ui.yaml version 2 and run the chatbot-mesh chatbot on the generic shell (GH-2159; GH-2270 to GH-2272). | implemented |
+| 6 | Migrate the remaining monorepo UIs, add the duplication sweep, and version the kit 1.0.0 (GH-2160; GH-2273 to GH-2275). | implemented |
 
 <!-- field: implementation_evidence -->
 ### Implementation evidence
@@ -509,46 +466,30 @@ gh-2047-chart-conformance
   planned_cases: []
 ```
 
-<!-- field: implementation_sequence -->
+<!-- field: implementation_sequence | form: "typed table" -->
 ### Implementation sequence
 
-```yaml
-- order: 1
-  action: Add the ENG01 rule table and specify srd005, the use case, the suite, and the index entries (GH-2407).
-  status: planned
-- order: 2
-  action: Add the chart conformance module, its exception baseline, and the root audit wiring (GH-2408).
-  status: implemented
-- order: 3
-  action: Pin the floating image tags and shrink the baseline (GH-2409).
-  status: implemented
-```
+| order | action | status |
+| --- | --- | --- |
+| 1 | Add the ENG01 rule table and specify srd005, the use case, the suite, and the index entries (GH-2407). | planned |
+| 2 | Add the chart conformance module, its exception baseline, and the root audit wiring (GH-2408). | implemented |
+| 3 | Pin the floating image tags and shrink the baseline (GH-2409). | implemented |
 
-<!-- field: implementation_evidence -->
+<!-- field: implementation_evidence | form: "typed table" -->
 ### Implementation evidence
 
-```yaml
-- path: docs/engineering/eng01-kind-test-demo-rig.md
-  proves: Numbered chart conformance rules C1 through C6 and the exception-baseline contract.
-- path: applications/docs/specs/software-requirements/srd005-chart-conformance.md
-  proves: Numbered rendering, pinning, policy, service, readiness, baseline, and reporting requirements.
-- path: applications/docs/specs/use-cases/rel16.0-uc001-chart-conformance.md
-  proves: The flow from a changed chart to a named finding to a shrinking baseline.
-- path: applications/docs/specs/test-suites/test-rel16.0-chart-conformance.md
-  proves: Requirement-to-AC-to-test coverage with every case executable.
-- path: applications/charts/agent-services/templates/_naming.tpl
-  proves: One helper renders every image reference and appends the digest the values pin.
-- command: cd applications/chatbot-mesh && mage integration:helmSmoke
-  proves: The mesh installs and serves on the pinned images against a real cluster, Dolt metrics included.
-- path: magefiles/chartconf/
-  proves: Every numbered rule, the shrink-only baseline, and the shape of a finding, checked from rendered YAML without helm.
-- path: magefiles/chart_conformance_test.go
-  proves: Every chart rendered under its defaults and each checked-in overlay, every kind configuration read, and the baseline reconciled.
-- path: magefiles/chartconf/baseline.yaml
-  proves: The fifty violations the charts carried when the gate first ran, each naming GH-2409.
-- command: cd magefiles && go test . -run TestChartConformance
-  proves: The gate passes against the seeded baseline and fails on an unlisted or a stale entry.
-```
+| path | command | proves |
+| --- | --- | --- |
+| docs/engineering/eng01-kind-test-demo-rig.md |  | Numbered chart conformance rules C1 through C6 and the exception-baseline contract. |
+| applications/docs/specs/software-requirements/srd005-chart-conformance.md |  | Numbered rendering, pinning, policy, service, readiness, baseline, and reporting requirements. |
+| applications/docs/specs/use-cases/rel16.0-uc001-chart-conformance.md |  | The flow from a changed chart to a named finding to a shrinking baseline. |
+| applications/docs/specs/test-suites/test-rel16.0-chart-conformance.md |  | Requirement-to-AC-to-test coverage with every case executable. |
+| applications/charts/agent-services/templates/_naming.tpl |  | One helper renders every image reference and appends the digest the values pin. |
+|  | cd applications/chatbot-mesh && mage integration:helmSmoke | The mesh installs and serves on the pinned images against a real cluster, Dolt metrics included. |
+| magefiles/chartconf/ |  | Every numbered rule, the shrink-only baseline, and the shape of a finding, checked from rendered YAML without helm. |
+| magefiles/chart_conformance_test.go |  | Every chart rendered under its defaults and each checked-in overlay, every kind configuration read, and the baseline reconciled. |
+| magefiles/chartconf/baseline.yaml |  | The fifty violations the charts carried when the gate first ran, each naming GH-2409. |
+|  | cd magefiles && go test . -run TestChartConformance | The gate passes against the seeded baseline and fails on an unlisted or a stale entry. |
 
 <!-- release: 17.0 | status: implemented -->
 ## 17.0 - Pin currency report
@@ -601,39 +542,27 @@ gh-2049-pin-currency
   planned_cases: []
 ```
 
-<!-- field: implementation_sequence -->
+<!-- field: implementation_sequence | form: "typed table" -->
 ### Implementation sequence
 
-```yaml
-- order: 1
-  action: Add the ENG01 pin currency section and the bump verb, and specify srd006, the use case, the suite, and the index entries (GH-2415).
-  status: planned
-- order: 2
-  action: Add the pin survey, its registry client, the declared pin list, and the bump target (GH-2416).
-  status: implemented
-```
+| order | action | status |
+| --- | --- | --- |
+| 1 | Add the ENG01 pin currency section and the bump verb, and specify srd006, the use case, the suite, and the index entries (GH-2415). | planned |
+| 2 | Add the pin survey, its registry client, the declared pin list, and the bump target (GH-2416). | implemented |
 
-<!-- field: implementation_evidence -->
+<!-- field: implementation_evidence | form: "typed table" -->
 ### Implementation evidence
 
-```yaml
-- path: docs/engineering/eng01-kind-test-demo-rig.md
-  proves: The integrity and currency properties, and the bump verb's report-never-mutate contract.
-- path: applications/docs/specs/software-requirements/srd006-pin-currency.md
-  proves: Numbered inventory, integrity, currency, no-write, unknown, and reporting requirements.
-- path: applications/docs/specs/use-cases/rel17.0-uc001-pin-currency.md
-  proves: The flow from one command to a decision the operator takes.
-- path: applications/docs/specs/test-suites/test-rel17.0-pin-currency.md
-  proves: Requirement-to-AC-to-test coverage with every case executable.
-- path: magefiles/pinsurvey/
-  proves: The distribution client, both verdicts, version comparison, and the inventory's two halves.
-- path: magefiles/pinsurvey/pins.yaml
-  proves: The pins no render exposes, each naming the file and symbol that holds it.
-- path: magefiles/bump.go
-  proves: The target joining both halves, skipping images this checkout produces, and reporting without writing.
-- command: mage bump
-  proves: Eleven pins resolved against their registries with no moved pin and no unknown.
-```
+| path | command | proves |
+| --- | --- | --- |
+| docs/engineering/eng01-kind-test-demo-rig.md |  | The integrity and currency properties, and the bump verb's report-never-mutate contract. |
+| applications/docs/specs/software-requirements/srd006-pin-currency.md |  | Numbered inventory, integrity, currency, no-write, unknown, and reporting requirements. |
+| applications/docs/specs/use-cases/rel17.0-uc001-pin-currency.md |  | The flow from one command to a decision the operator takes. |
+| applications/docs/specs/test-suites/test-rel17.0-pin-currency.md |  | Requirement-to-AC-to-test coverage with every case executable. |
+| magefiles/pinsurvey/ |  | The distribution client, both verdicts, version comparison, and the inventory's two halves. |
+| magefiles/pinsurvey/pins.yaml |  | The pins no render exposes, each naming the file and symbol that holds it. |
+| magefiles/bump.go |  | The target joining both halves, skipping images this checkout produces, and reporting without writing. |
+|  | mage bump | Eleven pins resolved against their registries with no moved pin and no unknown. |
 
 <!-- release: 18.0 | status: implemented -->
 ## 18.0 - Release annotation gate
@@ -685,35 +614,25 @@ gh-2418-tag-verify
   planned_cases: []
 ```
 
-<!-- field: implementation_sequence -->
+<!-- field: implementation_sequence | form: "typed table" -->
 ### Implementation sequence
 
-```yaml
-- order: 1
-  action: Add the ENG01 release-annotation section and the tag:verify verb, and specify srd007, the use case, the suite, and the index entries (GH-2419).
-  status: planned
-- order: 2
-  action: Add the tag:verify target, its scratch-repository tests, and the runbook step (GH-2420).
-  status: implemented
-```
+| order | action | status |
+| --- | --- | --- |
+| 1 | Add the ENG01 release-annotation section and the tag:verify verb, and specify srd007, the use case, the suite, and the index entries (GH-2419). | planned |
+| 2 | Add the tag:verify target, its scratch-repository tests, and the runbook step (GH-2420). | implemented |
 
-<!-- field: implementation_evidence -->
+<!-- field: implementation_evidence | form: "typed table" -->
 ### Implementation evidence
 
-```yaml
-- path: docs/engineering/eng01-kind-test-demo-rig.md
-  proves: The annotation-is-the-record statement and the verb's refuse-and-mutate-nothing contract.
-- path: applications/docs/specs/software-requirements/srd007-release-annotation.md
-  proves: Numbered object, degeneracy, reachability, and no-mutation requirements.
-- path: applications/docs/specs/use-cases/rel18.0-uc001-release-annotation.md
-  proves: The flow from an annotated tag to a push that carries a real record.
-- path: applications/docs/specs/test-suites/test-rel18.0-release-annotation.md
-  proves: Requirement-to-AC-to-test coverage with every case executable.
-- path: magefiles/tag_verify.go
-  proves: The four rules with one named reason per failure, and the bar stated once.
-- command: mage tag:verify v0.20260919.1
-  proves: The most recent real-summary tag passes and the degenerate v0.20260919.0 is refused naming R2.1.
-```
+| path | command | proves |
+| --- | --- | --- |
+| docs/engineering/eng01-kind-test-demo-rig.md |  | The annotation-is-the-record statement and the verb's refuse-and-mutate-nothing contract. |
+| applications/docs/specs/software-requirements/srd007-release-annotation.md |  | Numbered object, degeneracy, reachability, and no-mutation requirements. |
+| applications/docs/specs/use-cases/rel18.0-uc001-release-annotation.md |  | The flow from an annotated tag to a push that carries a real record. |
+| applications/docs/specs/test-suites/test-rel18.0-release-annotation.md |  | Requirement-to-AC-to-test coverage with every case executable. |
+| magefiles/tag_verify.go |  | The four rules with one named reason per failure, and the bar stated once. |
+|  | mage tag:verify v0.20260919.1 | The most recent real-summary tag passes and the degenerate v0.20260919.0 is refused naming R2.1. |
 
 <!-- release: 19.0 | status: implemented -->
 ## 19.0 - Persistent application platform
@@ -772,49 +691,27 @@ gh-2474-shared-platform
   planned_cases: []
 ```
 
-<!-- field: implementation_sequence -->
+<!-- field: implementation_sequence | form: "typed table" -->
 ### Implementation sequence
 
-```yaml
-- order: 1
-  action: Specify ownership, lifecycle, storage, query, threat, routing, and apprig boundaries (GH-2476).
-  status: implemented
-- order: 2
-  action: Add collector WAL and immutable object-bucket persistence (GH-2475).
-  status: implemented
-- order: 3
-  action: Add application-scoped object-backed query and retention (GH-2478, split into GH-2489 object-read query engine and GH-2490 collector wiring/retention/purge/cloud isolation).
-  status: implemented
-  note: GH-2489 supplies object-backed query/WAL merge; GH-2490 supplies collector wiring, retention metadata, storage-status UI, isolated purge, and cloud IAM fixtures.
-- order: 4
-  action: Wire durable collector configuration through the shared agent-services chart (GH-2484).
-  status: implemented
-- order: 5
-  action: Make ingress and filesystem-backed fake GCS persistent platform services (GH-2477).
-  status: implemented
-- order: 6
-  action: Add the manifest-driven magefiles/apprig lifecycle runner (GH-2479, split into GH-2492 deterministic core and GH-2493 live proofs/external fixture).
-  status: implemented
-  note: GH-2492 supplies the deterministic core; GH-2493 supplies live lifecycle, compensation, diagnosis, external-module, retained-history, and approved purge evidence.
-- order: 7
-  action: Migrate Chatbot Mesh, Coding Agent, and Agent Architecture (GH-2482, GH-2483, GH-2480).
-  status: implemented
-```
+| order | action | status | note |
+| --- | --- | --- | --- |
+| 1 | Specify ownership, lifecycle, storage, query, threat, routing, and apprig boundaries (GH-2476). | implemented |  |
+| 2 | Add collector WAL and immutable object-bucket persistence (GH-2475). | implemented |  |
+| 3 | Add application-scoped object-backed query and retention (GH-2478, split into GH-2489 object-read query engine and GH-2490 collector wiring/retention/purge/cloud isolation). | implemented | GH-2489 supplies object-backed query/WAL merge; GH-2490 supplies collector wiring, retention metadata, storage-status UI, isolated purge, and cloud IAM fixtures. |
+| 4 | Wire durable collector configuration through the shared agent-services chart (GH-2484). | implemented |  |
+| 5 | Make ingress and filesystem-backed fake GCS persistent platform services (GH-2477). | implemented |  |
+| 6 | Add the manifest-driven magefiles/apprig lifecycle runner (GH-2479, split into GH-2492 deterministic core and GH-2493 live proofs/external fixture). | implemented | GH-2492 supplies the deterministic core; GH-2493 supplies live lifecycle, compensation, diagnosis, external-module, retained-history, and approved purge evidence. |
+| 7 | Migrate Chatbot Mesh, Coding Agent, and Agent Architecture (GH-2482, GH-2483, GH-2480). | implemented |  |
 
-<!-- field: implementation_evidence -->
+<!-- field: implementation_evidence | form: "typed table" -->
 ### Implementation evidence
 
-```yaml
-- path: applications/docs/specs/software-requirements/srd008-persistent-application-platform.md
-  proves: Numbered ownership, platform, collector, lifecycle, parity, object, query, routing, and runner requirements.
-- path: applications/docs/specs/use-cases/rel19.0-uc001-persistent-application-platform.md
-  proves: Complete two-application lifecycle from platform creation through teardown, recovery, purge, and reset.
-- path: applications/docs/specs/test-suites/test-rel19.0-persistent-application-platform.md
-  proves: Requirement-to-acceptance and acceptance-to-test closure with planned implementation owners.
-- path: docs/engineering/eng01-kind-test-demo-rig.md
-  proves: Canonical local platform, exception modes, application verbs, persistence, and query availability.
-- path: docs/engineering/eng08-gcp-demo-rig.md
-  proves: Cloud application buckets, workload identity, bucket IAM, and cluster-independent retention.
-- command: mage audit
-  proves: Structured documents parse and reciprocal traceability remains valid.
-```
+| path | command | proves |
+| --- | --- | --- |
+| applications/docs/specs/software-requirements/srd008-persistent-application-platform.md |  | Numbered ownership, platform, collector, lifecycle, parity, object, query, routing, and runner requirements. |
+| applications/docs/specs/use-cases/rel19.0-uc001-persistent-application-platform.md |  | Complete two-application lifecycle from platform creation through teardown, recovery, purge, and reset. |
+| applications/docs/specs/test-suites/test-rel19.0-persistent-application-platform.md |  | Requirement-to-acceptance and acceptance-to-test closure with planned implementation owners. |
+| docs/engineering/eng01-kind-test-demo-rig.md |  | Canonical local platform, exception modes, application verbs, persistence, and query availability. |
+| docs/engineering/eng08-gcp-demo-rig.md |  | Cloud application buckets, workload identity, bucket IAM, and cluster-independent retention. |
+|  | mage audit | Structured documents parse and reciprocal traceability remains valid. |

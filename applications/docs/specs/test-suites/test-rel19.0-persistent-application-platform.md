@@ -7,12 +7,10 @@ status: planned
 <!-- Copyright (c) 2026 Nokia -->
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
 
-<!-- field: test_case_count -->
+<!-- field: test_case_count | form: "scalar" -->
 ## Test case count
 
-```yaml
 8
-```
 
 <!-- field: overview -->
 ## Overview

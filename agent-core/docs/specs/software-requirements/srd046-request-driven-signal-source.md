@@ -322,13 +322,12 @@ Structured traces and errors cover every source outcome, ownership is always rel
 - R6.4
 - R6.5
 
-<!-- field: test_trace_plan -->
+<!-- field: test_trace_plan | form: "typed table" -->
 ## Test trace plan
 
-```yaml
-- test_suite: test-rel14.0-agent-input-and-dolt
-  covers: [AC1, AC2, AC3, AC4, AC5, AC6]
-```
+| test_suite | covers |
+| --- | --- |
+| test-rel14.0-agent-input-and-dolt | [AC1, AC2, AC3, AC4, AC5, AC6] |
 
 <!-- field: related_documents -->
 ## Related documents

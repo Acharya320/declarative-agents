@@ -283,11 +283,9 @@ Rig capture writes a manifest that lists every captured file and records capture
 - R1.1
 - R1.4
 
-<!-- field: platform_dependencies -->
+<!-- field: platform_dependencies | form: "typed table" -->
 ## Platform dependencies
 
-```yaml
-- srd_id: srd003-application-consistency
-  provider: applications
-  symbols_used: [R2, R4, R5, R7]
-```
+| srd_id | provider | symbols_used |
+| --- | --- | --- |
+| srd003-application-consistency | applications | [R2, R4, R5, R7] |

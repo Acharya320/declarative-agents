@@ -126,12 +126,10 @@ relationship_types:
 - Progressive Contract
 - Capability-Gated Governance
 
-<!-- field: confidence -->
+<!-- field: confidence | form: "scalar" -->
 #### Confidence
 
-```yaml
 1
-```
 
 <!-- field: intent -->
 #### Intent
@@ -218,12 +216,10 @@ Establish the Capability Ladder first; use its declared rungs to decide which co
 - Single Source of Truth
 - Reference Not Fork
 
-<!-- field: confidence -->
+<!-- field: confidence | form: "scalar" -->
 #### Confidence
 
-```yaml
 2
-```
 
 <!-- field: intent -->
 #### Intent
@@ -311,12 +307,10 @@ Under the Capability Ladder, keep every reusable Agent-as-Data in One Canonical 
 - Application Bill of Materials
 - Assembly Manifest
 
-<!-- field: confidence -->
+<!-- field: confidence | form: "scalar" -->
 #### Confidence
 
-```yaml
 1
-```
 
 <!-- field: intent -->
 #### Intent
@@ -404,12 +398,10 @@ Reference each One Canonical Home from a Composition Manifest; use those roots f
 - Transitive Profile Closure
 - Hermetic Bundle
 
-<!-- field: confidence -->
+<!-- field: confidence | form: "scalar" -->
 #### Confidence
 
-```yaml
 2
-```
 
 <!-- field: intent -->
 #### Intent
@@ -498,12 +490,10 @@ Traverse the Composition Manifest into a Package-Time Closure, validate the asse
 - Behavior-Free Image
 - Runtime-Profile Separation
 
-<!-- field: confidence -->
+<!-- field: confidence | form: "scalar" -->
 #### Confidence
 
-```yaml
 1
-```
 
 <!-- field: intent -->
 #### Intent
@@ -591,12 +581,10 @@ Mount each verified Package-Time Closure into a Profile-Free Runtime and select 
 - Application Overlay
 - Configuration Wrapper
 
-<!-- field: confidence -->
+<!-- field: confidence | form: "scalar" -->
 #### Confidence
 
-```yaml
 1
-```
 
 <!-- field: intent -->
 #### Intent
@@ -684,12 +672,10 @@ Add a Parameterization Wrapper around the One Canonical Home, record it in the C
 - One Role per Workload
 - Deployment Role Shard
 
-<!-- field: confidence -->
+<!-- field: confidence | form: "scalar" -->
 #### Confidence
 
-```yaml
 2
-```
 
 <!-- field: intent -->
 #### Intent
@@ -778,12 +764,10 @@ Give each deployed role its own closure-backed, Profile-Free Runtime and connect
 - Control-Actuation Separation
 - Decide Then Apply
 
-<!-- field: confidence -->
+<!-- field: confidence | form: "scalar" -->
 #### Confidence
 
-```yaml
 0
-```
 
 <!-- field: intent -->
 #### Intent
@@ -872,12 +856,10 @@ Within Role-Sharded Workloads, let the orchestrator decide and let a separately 
 - Shared Cluster
 - Retained-Data Application Rig
 
-<!-- field: confidence -->
+<!-- field: confidence | form: "scalar" -->
 #### Confidence
 
-```yaml
 1
-```
 
 <!-- field: intent -->
 #### Intent

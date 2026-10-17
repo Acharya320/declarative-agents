@@ -36,36 +36,16 @@ cite srd002 R4 through R6; the application owns srd001-helm-deployment and
 srd002-applier for their local topology, package, schema, smoke, and actuation
 requirements.
 
-<!-- field: roadmap_summary -->
+<!-- field: roadmap_summary | form: "typed table" -->
 ## Roadmap summary
 
-```yaml
-- version: "00.0"
-  name: Guided Knowledge Manager presentation
-  use_cases_done: 0
-  use_cases_total: 1
-  status: partial
-- version: "01.0"
-  name: Demo trace collection
-  use_cases_done: 1
-  use_cases_total: 1
-  status: implemented
-- version: "02.0"
-  name: Packaged chart render and validation
-  use_cases_done: 0
-  use_cases_total: 1
-  status: planned
-- version: "03.0"
-  name: Live Helm smoke
-  use_cases_done: 0
-  use_cases_total: 1
-  status: planned
-- version: "04.0"
-  name: Declarative applier agent
-  use_cases_done: 0
-  use_cases_total: 1
-  status: planned
-```
+| version | name | use_cases_done | use_cases_total | status |
+| --- | --- | --- | --- | --- |
+| "00.0" | Guided Knowledge Manager presentation | 0 | 1 | partial |
+| "01.0" | Demo trace collection | 1 | 1 | implemented |
+| "02.0" | Packaged chart render and validation | 0 | 1 | planned |
+| "03.0" | Live Helm smoke | 0 | 1 | planned |
+| "04.0" | Declarative applier agent | 0 | 1 | planned |
 
 <!-- field: foundation_document_index -->
 ## Foundation document index
@@ -149,51 +129,16 @@ requirements.
 | rel03.0-uc001-live-helm-smoke | Prove the Packaged Agent Architecture Chart on Kind | 03.0 | planned | test-rel03.0-live-helm-smoke | docs/specs/use-cases/rel03.0-uc001-live-helm-smoke.md |
 | rel04.0-uc001-declarative-applier | The Applier Agent Validates, Applies, and Verifies an Agent Architecture Values Change | 04.0 | planned | test-rel04.0-declarative-applier | docs/specs/use-cases/rel04.0-uc001-declarative-applier.md |
 
-<!-- field: test_suite_index -->
+<!-- field: test_suite_index | form: "typed table" -->
 ## Test suite index
 
-```yaml
-- id: test-rel00.0-guided-agent-architecture
-  title: Test Suite for Release 00.0 Guided Agent Architecture
-  release: "00.0"
-  status: partial
-  test_case_count: 5
-  traces:
-    - rel00.0-uc001-guided-agent-architecture
-  path: docs/specs/test-suites/test-rel00.0-guided-agent-architecture.md
-- id: test-rel01.0-demo-trace-collection
-  title: Test Suite for Release 01.0 Demo Trace Collection
-  release: "01.0"
-  status: implemented
-  test_case_count: 3
-  traces:
-    - rel01.0-uc001-demo-trace-collection
-  path: docs/specs/test-suites/test-rel01.0-demo-trace-collection.md
-- id: test-rel02.0-render-packaged-chart
-  title: Test Suite for Release 02.0 Packaged Chart Render and Validation
-  release: "02.0"
-  status: planned
-  test_case_count: 4
-  traces:
-    - rel02.0-uc001-render-packaged-chart
-  path: docs/specs/test-suites/test-rel02.0-render-packaged-chart.md
-- id: test-rel03.0-live-helm-smoke
-  title: Test Suite for Release 03.0 Live Helm Smoke
-  release: "03.0"
-  status: planned
-  test_case_count: 4
-  traces:
-    - rel03.0-uc001-live-helm-smoke
-  path: docs/specs/test-suites/test-rel03.0-live-helm-smoke.md
-- id: test-rel04.0-declarative-applier
-  title: Test Suite for Release 04.0 Declarative Applier Agent
-  release: "04.0"
-  status: planned
-  test_case_count: 5
-  traces:
-    - rel04.0-uc001-declarative-applier
-  path: docs/specs/test-suites/test-rel04.0-declarative-applier.md
-```
+| id | title | release | status | test_case_count | traces | path |
+| --- | --- | --- | --- | --- | --- | --- |
+| test-rel00.0-guided-agent-architecture | Test Suite for Release 00.0 Guided Agent Architecture | "00.0" | partial | 5 | [rel00.0-uc001-guided-agent-architecture] | docs/specs/test-suites/test-rel00.0-guided-agent-architecture.md |
+| test-rel01.0-demo-trace-collection | Test Suite for Release 01.0 Demo Trace Collection | "01.0" | implemented | 3 | [rel01.0-uc001-demo-trace-collection] | docs/specs/test-suites/test-rel01.0-demo-trace-collection.md |
+| test-rel02.0-render-packaged-chart | Test Suite for Release 02.0 Packaged Chart Render and Validation | "02.0" | planned | 4 | [rel02.0-uc001-render-packaged-chart] | docs/specs/test-suites/test-rel02.0-render-packaged-chart.md |
+| test-rel03.0-live-helm-smoke | Test Suite for Release 03.0 Live Helm Smoke | "03.0" | planned | 4 | [rel03.0-uc001-live-helm-smoke] | docs/specs/test-suites/test-rel03.0-live-helm-smoke.md |
+| test-rel04.0-declarative-applier | Test Suite for Release 04.0 Declarative Applier Agent | "04.0" | planned | 5 | [rel04.0-uc001-declarative-applier] | docs/specs/test-suites/test-rel04.0-declarative-applier.md |
 
 <!-- field: coverage_gaps -->
 ## Coverage gaps

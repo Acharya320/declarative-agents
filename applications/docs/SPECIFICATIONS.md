@@ -265,138 +265,31 @@ dependency-gated where project credentials are unavailable.
     - catalog/docs/specs/semantic-models/agent-role-taxonomy.md#shared_authority
 ```
 
-<!-- field: use_case_index -->
+<!-- field: use_case_index | form: "typed table" -->
 ## Use case index
 
-```yaml
-- id: rel00.0-uc001-application-contract-conformance
-  title: Verify a Runnable Application Against the Shared Contract
-  release: "00.0"
-  status: implemented
-  srds:
-    - srd001-application-module-contract
-    - srd002-managed-application-services
-  test_suite: test-rel00.0-application-contract-conformance
-  path: docs/specs/use-cases/rel00.0-uc001-application-contract-conformance.md
-- id: rel14.0-uc001-application-consistency
-  title: Normalize and Verify a Showcase Application Composition
-  release: "14.0"
-  status: implemented
-  srds:
-    - srd003-application-consistency
-  test_suite: test-rel14.0-application-consistency
-  path: docs/specs/use-cases/rel14.0-uc001-application-consistency.md
-- id: rel15.0-uc001-declarative-ux
-  title: Compose an Application UI from Declared Panels
-  release: "15.0"
-  status: implemented
-  srds:
-    - srd004-declarative-ux
-  test_suite: test-rel15.0-declarative-ux
-  path: docs/specs/use-cases/rel15.0-uc001-declarative-ux.md
-- id: rel16.0-uc001-chart-conformance
-  title: Add a Workload and Learn at Audit Time That Its Image Floats
-  release: "16.0"
-  status: implemented
-  srds:
-    - srd005-chart-conformance
-  test_suite: test-rel16.0-chart-conformance
-  path: docs/specs/use-cases/rel16.0-uc001-chart-conformance.md
-- id: rel17.0-uc001-pin-currency
-  title: Read Which Pins Moved and Which Aged, Then Decide
-  release: "17.0"
-  status: implemented
-  srds:
-    - srd006-pin-currency
-  test_suite: test-rel17.0-pin-currency
-  path: docs/specs/use-cases/rel17.0-uc001-pin-currency.md
-- id: rel18.0-uc001-release-annotation
-  title: A Degenerate Release Annotation Is Refused Before the Push
-  release: "18.0"
-  status: implemented
-  srds:
-    - srd007-release-annotation
-  test_suite: test-rel18.0-release-annotation
-  path: docs/specs/use-cases/rel18.0-uc001-release-annotation.md
-- id: rel19.0-uc001-persistent-application-platform
-  title: Operate Two Namespaced Applications Without Losing Retained Telemetry
-  release: "19.0"
-  status: implemented
-  srds:
-    - srd008-persistent-application-platform
-  test_suite: test-rel19.0-persistent-application-platform
-  path: docs/specs/use-cases/rel19.0-uc001-persistent-application-platform.md
-```
+| id | title | release | status | srds | test_suite | path |
+| --- | --- | --- | --- | --- | --- | --- |
+| rel00.0-uc001-application-contract-conformance | Verify a Runnable Application Against the Shared Contract | "00.0" | implemented | [srd001-application-module-contract, srd002-managed-application-services] | test-rel00.0-application-contract-conformance | docs/specs/use-cases/rel00.0-uc001-application-contract-conformance.md |
+| rel14.0-uc001-application-consistency | Normalize and Verify a Showcase Application Composition | "14.0" | implemented | [srd003-application-consistency] | test-rel14.0-application-consistency | docs/specs/use-cases/rel14.0-uc001-application-consistency.md |
+| rel15.0-uc001-declarative-ux | Compose an Application UI from Declared Panels | "15.0" | implemented | [srd004-declarative-ux] | test-rel15.0-declarative-ux | docs/specs/use-cases/rel15.0-uc001-declarative-ux.md |
+| rel16.0-uc001-chart-conformance | Add a Workload and Learn at Audit Time That Its Image Floats | "16.0" | implemented | [srd005-chart-conformance] | test-rel16.0-chart-conformance | docs/specs/use-cases/rel16.0-uc001-chart-conformance.md |
+| rel17.0-uc001-pin-currency | Read Which Pins Moved and Which Aged, Then Decide | "17.0" | implemented | [srd006-pin-currency] | test-rel17.0-pin-currency | docs/specs/use-cases/rel17.0-uc001-pin-currency.md |
+| rel18.0-uc001-release-annotation | A Degenerate Release Annotation Is Refused Before the Push | "18.0" | implemented | [srd007-release-annotation] | test-rel18.0-release-annotation | docs/specs/use-cases/rel18.0-uc001-release-annotation.md |
+| rel19.0-uc001-persistent-application-platform | Operate Two Namespaced Applications Without Losing Retained Telemetry | "19.0" | implemented | [srd008-persistent-application-platform] | test-rel19.0-persistent-application-platform | docs/specs/use-cases/rel19.0-uc001-persistent-application-platform.md |
 
-<!-- field: test_suite_index -->
+<!-- field: test_suite_index | form: "typed table" -->
 ## Test suite index
 
-```yaml
-- id: test-rel00.0-application-contract-conformance
-  title: Shared Application Contract Conformance Suite
-  release: "00.0"
-  status: implemented
-  test_case_count: 8
-  traces: [rel00.0-uc001-application-contract-conformance]
-  srds:
-    - srd001-application-module-contract
-    - srd002-managed-application-services
-  path: docs/specs/test-suites/test-rel00.0-application-contract-conformance.md
-- id: test-rel14.0-application-consistency
-  title: Release 14.0 Application Consistency Test Suite
-  release: "14.0"
-  status: implemented
-  test_case_count: 8
-  traces: [rel14.0-uc001-application-consistency]
-  srds:
-    - srd003-application-consistency
-  path: docs/specs/test-suites/test-rel14.0-application-consistency.md
-- id: test-rel15.0-declarative-ux
-  title: Release 15.0 Declarative UX Test Suite
-  release: "15.0"
-  status: implemented
-  test_case_count: 9
-  traces: [rel15.0-uc001-declarative-ux]
-  srds:
-    - srd004-declarative-ux
-  path: docs/specs/test-suites/test-rel15.0-declarative-ux.md
-- id: test-rel16.0-chart-conformance
-  title: Release 16.0 Chart Conformance Test Suite
-  release: "16.0"
-  status: implemented
-  test_case_count: 12
-  traces: [rel16.0-uc001-chart-conformance]
-  srds:
-    - srd005-chart-conformance
-  path: docs/specs/test-suites/test-rel16.0-chart-conformance.md
-- id: test-rel17.0-pin-currency
-  title: Release 17.0 Pin Currency Test Suite
-  release: "17.0"
-  status: implemented
-  test_case_count: 9
-  traces: [rel17.0-uc001-pin-currency]
-  srds:
-    - srd006-pin-currency
-  path: docs/specs/test-suites/test-rel17.0-pin-currency.md
-- id: test-rel18.0-release-annotation
-  title: Release 18.0 Release Annotation Test Suite
-  release: "18.0"
-  status: implemented
-  test_case_count: 6
-  traces: [rel18.0-uc001-release-annotation]
-  srds:
-    - srd007-release-annotation
-  path: docs/specs/test-suites/test-rel18.0-release-annotation.md
-- id: test-rel19.0-persistent-application-platform
-  title: Release 19.0 Persistent Application Platform Test Suite
-  release: "19.0"
-  status: implemented
-  test_case_count: 8
-  traces: [rel19.0-uc001-persistent-application-platform]
-  srds:
-    - srd008-persistent-application-platform
-  path: docs/specs/test-suites/test-rel19.0-persistent-application-platform.md
-```
+| id | title | release | status | test_case_count | traces | srds | path |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| test-rel00.0-application-contract-conformance | Shared Application Contract Conformance Suite | "00.0" | implemented | 8 | [rel00.0-uc001-application-contract-conformance] | [srd001-application-module-contract, srd002-managed-application-services] | docs/specs/test-suites/test-rel00.0-application-contract-conformance.md |
+| test-rel14.0-application-consistency | Release 14.0 Application Consistency Test Suite | "14.0" | implemented | 8 | [rel14.0-uc001-application-consistency] | [srd003-application-consistency] | docs/specs/test-suites/test-rel14.0-application-consistency.md |
+| test-rel15.0-declarative-ux | Release 15.0 Declarative UX Test Suite | "15.0" | implemented | 9 | [rel15.0-uc001-declarative-ux] | [srd004-declarative-ux] | docs/specs/test-suites/test-rel15.0-declarative-ux.md |
+| test-rel16.0-chart-conformance | Release 16.0 Chart Conformance Test Suite | "16.0" | implemented | 12 | [rel16.0-uc001-chart-conformance] | [srd005-chart-conformance] | docs/specs/test-suites/test-rel16.0-chart-conformance.md |
+| test-rel17.0-pin-currency | Release 17.0 Pin Currency Test Suite | "17.0" | implemented | 9 | [rel17.0-uc001-pin-currency] | [srd006-pin-currency] | docs/specs/test-suites/test-rel17.0-pin-currency.md |
+| test-rel18.0-release-annotation | Release 18.0 Release Annotation Test Suite | "18.0" | implemented | 6 | [rel18.0-uc001-release-annotation] | [srd007-release-annotation] | docs/specs/test-suites/test-rel18.0-release-annotation.md |
+| test-rel19.0-persistent-application-platform | Release 19.0 Persistent Application Platform Test Suite | "19.0" | implemented | 8 | [rel19.0-uc001-persistent-application-platform] | [srd008-persistent-application-platform] | docs/specs/test-suites/test-rel19.0-persistent-application-platform.md |
 
 <!-- field: coverage_gaps -->
 ## Coverage gaps

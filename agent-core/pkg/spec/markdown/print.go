@@ -87,14 +87,19 @@ func (p *printer) member(level int, parent, key string, value *yaml.Node) error 
 	if _, ok := p.d.fieldKind(level, parent); !ok {
 		return fmt.Errorf("%s: no field is declared at level %d under %s", key, level, parent)
 	}
-	p.block(Marker{Tag: tagField, Value: key}.String(), strings.Repeat("#", level)+" "+p.d.fieldHeading(key))
 	if kind, ok := p.d.fieldRecords(key); ok {
+		p.block(Marker{Tag: tagField, Value: key}.String(), strings.Repeat("#", level)+" "+p.d.fieldHeading(key))
 		return p.records(kind, value)
 	}
-	lines, err := p.d.renderField(key, value)
+	lines, form, err := p.d.renderField(key, value)
 	if err != nil {
 		return fmt.Errorf("field %s: %w", key, err)
 	}
+	marker := Marker{Tag: tagField, Value: key}
+	if form != "" {
+		marker.Attrs = []Attr{{Key: attrForm, Value: jsonString(form)}}
+	}
+	p.block(marker.String(), strings.Repeat("#", level)+" "+p.d.fieldHeading(key))
 	if len(lines) > 0 {
 		p.block(lines...)
 	}

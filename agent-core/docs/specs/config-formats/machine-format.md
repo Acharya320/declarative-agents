@@ -706,7 +706,7 @@ code, message, and the affected state/signal/transition index.
 <!-- field: stage_fragments -->
 ## Stage fragments
 
-A machine MAY expand stage fragments (srd052 R4, srd006 R1.9). A stage
+A machine can expand stage fragments (srd052 R4, srd006 R1.9). A stage
 fragment is a unit whose body is `stage` rather than a whole machine:
 
   unit: control-stage-fragment
@@ -751,7 +751,7 @@ has no other unit kind to import.
 <!-- field: machine_templates -->
 ## Machine templates
 
-A whole machine MAY be a template (srd054-machine-templates). A template is
+A whole machine can be a template (srd054-machine-templates). A template is
 a fragment whose body is `machine` rather than `stage`, holding the fields
 a machine file holds apart from `unit` and `imports`:
 
@@ -780,7 +780,7 @@ expansion entry, and optionally its own name and purpose:
 Any other field on an instance is a load error naming the field, as is an
 `as` on the entry (srd054 R1.2). The target's body kind selects the
 behavior: a `machine` body replaces the instance's machine and a `stage`
-body splices into it. A template body MAY itself expand stages, whose
+body splices into it. A template body can itself expand stages, whose
 paths resolve against the template's directory; a template cannot
 expand a template, and an instance cannot splice a stage beside its
 template (srd054 R1.3). The expanded machine is validated by every check

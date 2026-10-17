@@ -111,185 +111,49 @@ rule: |
     than hidden runtime branching.
 ```
 
-<!-- field: dependency_directions -->
+<!-- field: dependency_directions | form: "typed table" -->
 ## Dependency directions
 
-```yaml
-- from: planner
-  to: executor
-  kind: child_profile_execution
-  meaning: Planner materializes and executes tasks through the executor profile. Executor does not depend on planner.
-  evidence: rel07.0-uc003-planner-generator-profile-boundary
-- from: critic
-  to: executor
-  kind: benchmark_subject_execution
-  meaning: Critic point runs can invoke executor or another configured profile as the benchmark subject.
-  evidence: rel07.0-uc002-evaluator-generator-profile-boundary
-- from: bench
-  to: critic
-  kind: human_launched_evaluation
-  meaning: Bench serves the human UI and launches critic runs.
-  evidence: rel07.0-uc004-bench-evaluator-profile-boundary
-- from: runtime-state-reader
-  to: agent-core monitor store
-  kind: runtime_state_read
-  meaning: Runtime-state-reader exposes cached monitor state supplied by agent-core.
-  evidence: rel07.0-uc005-monitor-control-profile-boundary
-- from: control
-  to: lifecycle vocabulary
-  kind: signal_to_lifecycle_action
-  meaning: Control routes REST events to visible lifecycle words such as exit_agent.
-  evidence: rel07.0-uc005-monitor-control-profile-boundary
-- from: documentation-curator
-  to: control
-  kind: embedded_control_flow
-  meaning: The Knowledge Manager documentation profile launches control routes and waits for explicit exit events.
-  evidence: rel07.0-uc001-documentation-curator-profile-ux
-- from: corpus-ingest
-  to: provider embedding and Chroma
-  kind: configured_corpus_write
-  meaning: Corpus ingest discovers trusted files, computes provider vectors, and writes documents and ids through profile-owned REST operations.
-  evidence: rel08.0-uc001-corpus-ingest
-- from: corpus-reader
-  to: provider embedding, Chroma, and model
-  kind: grounded_retrieval
-  meaning: Corpus reader threads a provider vector into Chroma query and gives the retrieved identities and chunks to the answer model.
-  evidence: rel08.0-uc002-corpus-query
-- from: scenario-critic
-  to: mock, subject, and validator profiles
-  kind: scenario_composition
-  meaning: Scenario-critic discovers scenario data, starts deterministic mocks and a fresh subject, runs validators, reduces a verdict, and stops all children.
-  evidence: rel11.0-uc001-scenario-critic-scenario-run
-- from: mock
-  to: subject REST dependency
-  kind: deterministic_test_boundary
-  meaning: Mock serves scenario-owned responses and records subject requests.
-  evidence: rel11.0-uc002-mock-serves-fixtures
-- from: lifecycle profiles
-  to: agent-core lifecycle ports
-  kind: checkpoint_operation
-  meaning: Lifecycle profiles select checkpoint, rollback, suspend, and resume vocabulary implemented by agent-core.
-- from: rest
-  to: external HTTP systems
-  kind: configured_boundary
-  meaning: REST profile definitions describe trusted outbound and inbound HTTP boundaries.
-- from: deployment-applier
-  to: application-owned rollout boundaries
-  kind: configured_deployment_actuation
-  meaning: Applier supplies lifecycle and compensation sequencing while each application supplies chart, release, namespace, Deployment, endpoint, and authority configuration.
-```
+| from | to | kind | meaning | evidence |
+| --- | --- | --- | --- | --- |
+| planner | executor | child_profile_execution | Planner materializes and executes tasks through the executor profile. Executor does not depend on planner. | rel07.0-uc003-planner-generator-profile-boundary |
+| critic | executor | benchmark_subject_execution | Critic point runs can invoke executor or another configured profile as the benchmark subject. | rel07.0-uc002-evaluator-generator-profile-boundary |
+| bench | critic | human_launched_evaluation | Bench serves the human UI and launches critic runs. | rel07.0-uc004-bench-evaluator-profile-boundary |
+| runtime-state-reader | agent-core monitor store | runtime_state_read | Runtime-state-reader exposes cached monitor state supplied by agent-core. | rel07.0-uc005-monitor-control-profile-boundary |
+| control | lifecycle vocabulary | signal_to_lifecycle_action | Control routes REST events to visible lifecycle words such as exit_agent. | rel07.0-uc005-monitor-control-profile-boundary |
+| documentation-curator | control | embedded_control_flow | The Knowledge Manager documentation profile launches control routes and waits for explicit exit events. | rel07.0-uc001-documentation-curator-profile-ux |
+| corpus-ingest | provider embedding and Chroma | configured_corpus_write | Corpus ingest discovers trusted files, computes provider vectors, and writes documents and ids through profile-owned REST operations. | rel08.0-uc001-corpus-ingest |
+| corpus-reader | provider embedding, Chroma, and model | grounded_retrieval | Corpus reader threads a provider vector into Chroma query and gives the retrieved identities and chunks to the answer model. | rel08.0-uc002-corpus-query |
+| scenario-critic | mock, subject, and validator profiles | scenario_composition | Scenario-critic discovers scenario data, starts deterministic mocks and a fresh subject, runs validators, reduces a verdict, and stops all children. | rel11.0-uc001-scenario-critic-scenario-run |
+| mock | subject REST dependency | deterministic_test_boundary | Mock serves scenario-owned responses and records subject requests. | rel11.0-uc002-mock-serves-fixtures |
+| lifecycle profiles | agent-core lifecycle ports | checkpoint_operation | Lifecycle profiles select checkpoint, rollback, suspend, and resume vocabulary implemented by agent-core. |  |
+| rest | external HTTP systems | configured_boundary | REST profile definitions describe trusted outbound and inbound HTTP boundaries. |  |
+| deployment-applier | application-owned rollout boundaries | configured_deployment_actuation | Applier supplies lifecycle and compensation sequencing while each application supplies chart, release, namespace, Deployment, endpoint, and authority configuration. |  |
 
-<!-- field: actor_boundaries -->
+<!-- field: actor_boundaries | form: "typed table" -->
 ## Actor boundaries
 
-```yaml
-- profile: executor
-  actors:
-    - model
-    - workspace
-    - validation commands
-  boundary: LLM responses choose selected tools; filesystem and validation commands mutate or inspect the workspace.
-- profile: rig-doctor
-  actors:
-    - model
-    - captured evidence directory
-  boundary: LLM responses choose filesystem reads and spool queries over one captured directory; the only write is the diagnosis beside the evidence.
-- profile: deployment-applier
-  actors:
-    - authorized apply caller
-    - application rollout boundary
-    - lifecycle caller
-  boundary: The catalog machine sequences request hosting, validation, apply, verification, and compensation. Applications retain every deployment coordinate, endpoint, and authorization decision.
-- profile: critic
-  actors:
-    - suite author
-    - child agent process
-    - oracle command
-  boundary: Suites define points; nested point runs execute child profiles and collect result artifacts.
-- profile: planner
-  actors:
-    - requirement graph
-    - model
-    - issue queue
-    - child executor process
-  boundary: Planner turns requirements into issues and invokes executor for execution.
-- profile: specification-critic
-  actors:
-    - specification corpus
-  boundary: Specification-critic reads local docs and emits validation reports.
-- profile: bench
-  actors:
-    - human operator
-    - critic process
-  boundary: Human HTTP actions launch critic runs.
-- profile: rest
-  actors:
-    - configured upstream HTTP service
-    - inbound webhook sender
-  boundary: REST definitions constrain client calls and server events.
-- profile: runtime-state-reader
-  actors:
-    - supervisor
-    - runtime monitor store
-  boundary: The infrastructure adapter lets a supervisor read cached monitor state and request controlled exit; it does not implement canonical Monitor.
-- profile: collector
-  actors:
-    - OTLP trace sources
-    - spool filesystem
-    - query HTTP clients
-  boundary: The collector receives OTLP trace batches, spools them to NDJSON, and serves bounded reads through query endpoints.
-- profile: control
-  actors:
-    - lifecycle supervisor
-  boundary: REST events become MachineSpec signals.
-- profile: lifecycle
-  actors:
-    - operator
-    - checkpoint store
-    - workspace
-  boundary: Lifecycle tools read or rewrite checkpoints and route approval decisions.
-- profile: lifecycle-exit
-  actors:
-    - supervisor
-  boundary: A fixed exit request becomes one control-server POST that emits ExitRequested.
-- profile: application-purge
-  actors:
-    - application retention authority
-    - rendered object bucket prefix
-    - external audit file
-  boundary: An exact application confirmation permits one bounded, verified deletion of declaration-fixed retained data; request content cannot select storage authority.
-- profile: documentation-curator
-  actors:
-    - human browser
-    - documentation corpus
-    - local REST API
-  boundary: Browser requests read or manage documentation through configured document resource and control routes.
-- profile: corpus-ingest
-  actors:
-    - trusted corpus
-    - embedding provider
-    - Chroma
-  boundary: The profile lists trusted paths before model selection, computes embeddings at the provider, and writes identified documents to Chroma.
-- profile: corpus-reader
-  actors:
-    - questioner
-    - embedding provider
-    - Chroma
-    - answer model
-  boundary: The profile computes a query embedding, retrieves identified chunks, and constrains the model answer to those chunks.
-- profile: scenario-critic
-  actors:
-    - scenario author
-    - child subject
-    - validator profiles
-    - mock profiles
-  boundary: Scenario data controls a fresh test topology whose terminal results are reduced to one verdict.
-- profile: mock
-  actors:
-    - subject agent under test
-    - scenario fixture
-  boundary: Fixture routes provide deterministic REST responses and a per-instance request log.
-```
+| profile | actors | boundary |
+| --- | --- | --- |
+| executor | [model, workspace, validation commands] | LLM responses choose selected tools; filesystem and validation commands mutate or inspect the workspace. |
+| rig-doctor | [model, captured evidence directory] | LLM responses choose filesystem reads and spool queries over one captured directory; the only write is the diagnosis beside the evidence. |
+| deployment-applier | [authorized apply caller, application rollout boundary, lifecycle caller] | The catalog machine sequences request hosting, validation, apply, verification, and compensation. Applications retain every deployment coordinate, endpoint, and authorization decision. |
+| critic | [suite author, child agent process, oracle command] | Suites define points; nested point runs execute child profiles and collect result artifacts. |
+| planner | [requirement graph, model, issue queue, child executor process] | Planner turns requirements into issues and invokes executor for execution. |
+| specification-critic | [specification corpus] | Specification-critic reads local docs and emits validation reports. |
+| bench | [human operator, critic process] | Human HTTP actions launch critic runs. |
+| rest | [configured upstream HTTP service, inbound webhook sender] | REST definitions constrain client calls and server events. |
+| runtime-state-reader | [supervisor, runtime monitor store] | The infrastructure adapter lets a supervisor read cached monitor state and request controlled exit; it does not implement canonical Monitor. |
+| collector | [OTLP trace sources, spool filesystem, query HTTP clients] | The collector receives OTLP trace batches, spools them to NDJSON, and serves bounded reads through query endpoints. |
+| control | [lifecycle supervisor] | REST events become MachineSpec signals. |
+| lifecycle | [operator, checkpoint store, workspace] | Lifecycle tools read or rewrite checkpoints and route approval decisions. |
+| lifecycle-exit | [supervisor] | A fixed exit request becomes one control-server POST that emits ExitRequested. |
+| application-purge | [application retention authority, rendered object bucket prefix, external audit file] | An exact application confirmation permits one bounded, verified deletion of declaration-fixed retained data; request content cannot select storage authority. |
+| documentation-curator | [human browser, documentation corpus, local REST API] | Browser requests read or manage documentation through configured document resource and control routes. |
+| corpus-ingest | [trusted corpus, embedding provider, Chroma] | The profile lists trusted paths before model selection, computes embeddings at the provider, and writes identified documents to Chroma. |
+| corpus-reader | [questioner, embedding provider, Chroma, answer model] | The profile computes a query embedding, retrieves identified chunks, and constrains the model answer to those chunks. |
+| scenario-critic | [scenario author, child subject, validator profiles, mock profiles] | Scenario data controls a fresh test topology whose terminal results are reduced to one verdict. |
+| mock | [subject agent under test, scenario fixture] | Fixture routes provide deterministic REST responses and a per-instance request log. |
 
 <!-- field: profile_asset_rules -->
 ## Profile asset rules

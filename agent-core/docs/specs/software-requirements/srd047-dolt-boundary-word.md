@@ -374,13 +374,12 @@ Word and checkpoint databases are independently configured and cannot share one 
 - R7.5
 - R7.6
 
-<!-- field: test_trace_plan -->
+<!-- field: test_trace_plan | form: "typed table" -->
 ## Test trace plan
 
-```yaml
-- test_suite: test-rel14.0-agent-input-and-dolt
-  covers: [AC1, AC2, AC3, AC4, AC5, AC6, AC7]
-```
+| test_suite | covers |
+| --- | --- |
+| test-rel14.0-agent-input-and-dolt | [AC1, AC2, AC3, AC4, AC5, AC6, AC7] |
 
 <!-- field: related_documents -->
 ## Related documents

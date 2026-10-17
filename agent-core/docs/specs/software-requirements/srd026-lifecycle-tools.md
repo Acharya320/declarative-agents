@@ -463,24 +463,14 @@ Generic lifecycle control vocabulary defines exit_agent inputs, outputs, signals
 - R7.9
 - R7.10
 
-<!-- field: test_trace_plan -->
+<!-- field: test_trace_plan | form: "typed table" -->
 ## Test trace plan
 
-```yaml
-- test_suite: test-rel02.0-lifecycle
-  covers: [AC1, AC2, AC3, AC4, AC5, AC6]
-- test_suite: test-rel03.0-rest-tools
-  covers: [AC7]
-- existing_go_tests:
-    - internal/tools/lifecycle/checkpoint_history_test.go
-    - internal/tools/lifecycle/checkpoint_rollback_test.go
-    - internal/tools/lifecycle/checkpoint_compensation_test.go
-    - internal/tools/lifecycle/receipt_rollback_test.go
-    - internal/tools/catalog/receipt_contract_test.go
-    - internal/runtime/core/checkpoint_test.go
-    - internal/runtime/core/checkpoint_adapters_test.go
-    - internal/runtime/checkpoint/dolt/dolt_checkpoint_revert_test.go
-```
+| test_suite | covers | existing_go_tests |
+| --- | --- | --- |
+| test-rel02.0-lifecycle | [AC1, AC2, AC3, AC4, AC5, AC6] |  |
+| test-rel03.0-rest-tools | [AC7] |  |
+|  |  | [internal/tools/lifecycle/checkpoint_history_test.go, internal/tools/lifecycle/checkpoint_rollback_test.go, internal/tools/lifecycle/checkpoint_compensation_test.go, internal/tools/lifecycle/receipt_rollback_test.go, internal/tools/catalog/receipt_contract_test.go, internal/runtime/core/checkpoint_test.go, internal/runtime/core/checkpoint_adapters_test.go, internal/runtime/checkpoint/dolt/dolt_checkpoint_revert_test.go] |
 
 <!-- field: related_documents -->
 ## Related documents

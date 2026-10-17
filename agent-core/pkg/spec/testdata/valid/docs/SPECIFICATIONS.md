@@ -40,16 +40,12 @@ SRD release assignments.
 
 None known.
 
-<!-- field: roadmap_summary -->
+<!-- field: roadmap_summary | form: "typed table" -->
 ## Roadmap summary
 
-```yaml
-- version: "00.0"
-  name: Foundation
-  use_cases_done: 0
-  use_cases_total: 1
-  status: open
-```
+| version | name | use_cases_done | use_cases_total | status |
+| --- | --- | --- | --- | --- |
+| "00.0" | Foundation | 0 | 1 | open |
 
 <!-- field: srd_index -->
 ## Srd index
@@ -67,15 +63,9 @@ None known.
 | --- | --- | --- | --- | --- | --- |
 | rel00.0-uc001-login | Login flow | 00.0 | open | test-rel00.0 | docs/specs/use-cases/rel00.0-uc001-login.md |
 
-<!-- field: test_suite_index -->
+<!-- field: test_suite_index | form: "typed table" -->
 ## Test suite index
 
-```yaml
-- id: test-rel00.0
-  title: Release 00.0 Tests
-  release: "00.0"
-  test_case_count: 2
-  traces:
-    - rel00.0-uc001-login
-  path: docs/specs/test-suites/test-rel00.0.md
-```
+| id | title | release | test_case_count | traces | path |
+| --- | --- | --- | --- | --- | --- |
+| test-rel00.0 | Release 00.0 Tests | "00.0" | 2 | [rel00.0-uc001-login] | docs/specs/test-suites/test-rel00.0.md |

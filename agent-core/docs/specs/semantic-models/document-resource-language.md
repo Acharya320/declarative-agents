@@ -27,41 +27,18 @@ supporting:
     - docs/guides/declarative-programming-pattern.md
 ```
 
-<!-- field: primary_entities -->
+<!-- field: primary_entities | form: "typed table" -->
 ## Primary entities
 
-```yaml
-- name: DocumentResource
-  kind: declarative_filesystem_resource
-  responsibility: Defines a named read-only documentation corpus with root, include rules, extension allowlist, response modes, parser policy, and ordered presentation category rules.
-  owns: [corpus_authority, response_modes, category_rules]
-- name: CorpusRoot
-  kind: trusted_filesystem_root
-  responsibility: Names the base directory for document reads and list operations.
-  owns: [root_path, root_escape_policy]
-- name: DocumentSelector
-  kind: runtime_resource_input
-  responsibility: Carries declared path variables, query fields, or machine request input used to select a document.
-  owns: [relative_path, query_values]
-- name: PathPolicy
-  kind: safety_contract
-  responsibility: Defines normalization, traversal denial, symlink handling, size limits, binary policy, and extension allowlists.
-  owns: [path_safety]
-- name: DocumentResponseMode
-  kind: output_shape
-  responsibility: Defines configured output shape for raw YAML, parsed YAML, raw Markdown, parsed Markdown, or combined raw and parsed content.
-  owns: [content_shape, parser_policy]
-- name: DocumentResourceWord
-  kind: vocabulary_word
-  responsibility: Executes one declared document operation such as list, get, search, validate, or suggest.
-  owns: [operation_signal, result_output]
-  references: [DocumentResource, ToolDef, MachineSpec]
-- name: UIActorConfig
-  kind: human_actor_configuration
-  responsibility: Defines Knowledge Manager UI assets, labels, route/action mapping, grouping, and presentation rules for a human actor.
-  owns: [ui_surface, human_action_contract]
-  references: [DocumentResource]
-```
+| name | kind | responsibility | owns | references |
+| --- | --- | --- | --- | --- |
+| DocumentResource | declarative_filesystem_resource | Defines a named read-only documentation corpus with root, include rules, extension allowlist, response modes, parser policy, and ordered presentation category rules. | [corpus_authority, response_modes, category_rules] |  |
+| CorpusRoot | trusted_filesystem_root | Names the base directory for document reads and list operations. | [root_path, root_escape_policy] |  |
+| DocumentSelector | runtime_resource_input | Carries declared path variables, query fields, or machine request input used to select a document. | [relative_path, query_values] |  |
+| PathPolicy | safety_contract | Defines normalization, traversal denial, symlink handling, size limits, binary policy, and extension allowlists. | [path_safety] |  |
+| DocumentResponseMode | output_shape | Defines configured output shape for raw YAML, parsed YAML, raw Markdown, parsed Markdown, or combined raw and parsed content. | [content_shape, parser_policy] |  |
+| DocumentResourceWord | vocabulary_word | Executes one declared document operation such as list, get, search, validate, or suggest. | [operation_signal, result_output] | [DocumentResource, ToolDef, MachineSpec] |
+| UIActorConfig | human_actor_configuration | Defines Knowledge Manager UI assets, labels, route/action mapping, grouping, and presentation rules for a human actor. | [ui_surface, human_action_contract] | [DocumentResource] |
 
 <!-- field: language_model -->
 ## Language model

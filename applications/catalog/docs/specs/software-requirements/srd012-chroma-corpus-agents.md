@@ -316,14 +316,10 @@ requirements_trace: |
 
 These SRDs live in the agent-core corpus, not this one; they are platform dependencies rather than in-corpus depends_on (GH-2310).
 
-<!-- field: platform_dependencies -->
+<!-- field: platform_dependencies | form: "typed table" -->
 ## Platform dependencies
 
-```yaml
-- srd_id: srd028-rest-client-tools
-  provider: agent-core
-  symbols_used: [R12]
-- srd_id: srd022-builtin-tools
-  provider: agent-core
-  symbols_used: [R7.12]
-```
+| srd_id | provider | symbols_used |
+| --- | --- | --- |
+| srd028-rest-client-tools | agent-core | [R12] |
+| srd022-builtin-tools | agent-core | [R7.12] |

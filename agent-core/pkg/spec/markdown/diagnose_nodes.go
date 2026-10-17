@@ -148,6 +148,13 @@ func (d *diagnosis) checkField(node *dnode) {
 func (d *diagnosis) checkAttributes(node *dnode, m Marker) {
 	allowed := d.rules.Nodes[node.kind].Attributes
 	for _, a := range m.Attrs {
+		if node.tag == tagField && a.Key == attrForm {
+			if form := markerForm(m); form != formScalar && form != formTypedTable && form != formTree {
+				d.add("attribute-shape", node.markerLine, "form as scalar, typed table, or tree", a.Value,
+					"eng10 typed forms", `write form: "scalar", "typed table", or "tree"`)
+			}
+			continue
+		}
 		if !contains(allowed, a.Key) {
 			d.add("marker-unknown-attribute", node.markerLine, "an attribute "+node.kind+" declares", a.Key,
 				"nodes."+node.kind+".attributes", suggest(a.Key, allowed))

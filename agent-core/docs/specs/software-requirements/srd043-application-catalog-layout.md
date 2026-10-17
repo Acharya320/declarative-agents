@@ -309,53 +309,25 @@ planned: |
     requires a separately specified major-version transition.
 ```
 
-<!-- field: implementation_plan -->
+<!-- field: implementation_plan | form: "typed table" -->
 ## Implementation plan
 
-```yaml
-- issue: GH-1040
-  requirements: [R1.1, R1.2, R1.3, R1.4, R1.5, R2.1, R2.2, R2.3, R2.4, R2.5, R3.1, R3.2, R4.1, R4.3, R5.1, R5.3, R6.1, R6.2, R7.1, R7.2, R7.3, R7.4]
-  test_case: Migration contract is indexed and complete
-- issue: GH-1037
-  requirements: [R1.1, R1.5, R1.6, R3.1, R5.2, R7.1]
-  test_case: Runnable application source trees move mechanically
-- issue: GH-1038
-  requirements: [R1.2, R1.3, R3.2, R3.4, R3.5, R7.2]
-  test_case: Core integrations use only core-owned profiles
-- issue: GH-1039
-  requirements: [R1.2, R1.3, R3.2, R3.5, R4.6, R7.2]
-  test_case: Core tests and audit require no catalog
-- issue: GH-1041
-  requirements: [R1.1, R1.4, R1.6, R2.3, R2.4, R5.1, R7.1]
-  test_case: Catalog module relocates without semantic reorganization
-- issue: GH-1047
-  requirements: [R1.2, R1.3, R3.2, R3.5, R4.6, R7.2]
-  test_case: Obsolete core catalog discovery is absent
-- issue: GH-1043
-  requirements: [R3.2, R3.6, R4.1, R4.2, R4.3, R4.4, R4.5, R4.6, R4.7]
-  test_case: Catalog root and legacy alias resolve deterministically
-- issue: GH-1048
-  requirements: [R1.1, R3.1, R3.3, R7.5, R7.6]
-  test_case: Root module registry uses applications
-- issue: GH-1046
-  requirements: [R3.1, R3.3, R5.1, R6.1, R6.2, R6.3, R6.4, R6.6, R7.5, R7.6]
-  test_case: Root gates tags UIs and stats use applications
-- issue: GH-1044
-  requirements: [R1.5, R1.7, R3.6, R5.3, R5.5, R5.6, R6.4, R6.5, R7.3]
-  test_case: Coding agent packages catalog closures with provenance
-- issue: GH-1042
-  requirements: [R1.5, R1.7, R2.5, R3.6, R5.3, R5.5, R5.6, R7.3]
-  test_case: Chatbot mesh resolves catalog blocks from its owner root
-- issue: GH-1049
-  requirements: [R1.5, R3.2, R3.6, R4.1, R4.3, R5.3, R7.3]
-  test_case: Chatbot integrations use the canonical catalog root
-- issue: GH-1050
-  requirements: [R1.5, R3.1, R5.6, R7.5]
-  test_case: Chatbot checkpoint database initializes idempotently
-- issue: GH-1045
-  requirements: [R1.3, R1.4, R1.5, R1.7, R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R4.7, R6.4, R7.4]
-  test_case: Taxonomy and active path references match the new ownership
-```
+| issue | requirements | test_case |
+| --- | --- | --- |
+| GH-1040 | [R1.1, R1.2, R1.3, R1.4, R1.5, R2.1, R2.2, R2.3, R2.4, R2.5, R3.1, R3.2, R4.1, R4.3, R5.1, R5.3, R6.1, R6.2, R7.1, R7.2, R7.3, R7.4] | Migration contract is indexed and complete |
+| GH-1037 | [R1.1, R1.5, R1.6, R3.1, R5.2, R7.1] | Runnable application source trees move mechanically |
+| GH-1038 | [R1.2, R1.3, R3.2, R3.4, R3.5, R7.2] | Core integrations use only core-owned profiles |
+| GH-1039 | [R1.2, R1.3, R3.2, R3.5, R4.6, R7.2] | Core tests and audit require no catalog |
+| GH-1041 | [R1.1, R1.4, R1.6, R2.3, R2.4, R5.1, R7.1] | Catalog module relocates without semantic reorganization |
+| GH-1047 | [R1.2, R1.3, R3.2, R3.5, R4.6, R7.2] | Obsolete core catalog discovery is absent |
+| GH-1043 | [R3.2, R3.6, R4.1, R4.2, R4.3, R4.4, R4.5, R4.6, R4.7] | Catalog root and legacy alias resolve deterministically |
+| GH-1048 | [R1.1, R3.1, R3.3, R7.5, R7.6] | Root module registry uses applications |
+| GH-1046 | [R3.1, R3.3, R5.1, R6.1, R6.2, R6.3, R6.4, R6.6, R7.5, R7.6] | Root gates tags UIs and stats use applications |
+| GH-1044 | [R1.5, R1.7, R3.6, R5.3, R5.5, R5.6, R6.4, R6.5, R7.3] | Coding agent packages catalog closures with provenance |
+| GH-1042 | [R1.5, R1.7, R2.5, R3.6, R5.3, R5.5, R5.6, R7.3] | Chatbot mesh resolves catalog blocks from its owner root |
+| GH-1049 | [R1.5, R3.2, R3.6, R4.1, R4.3, R5.3, R7.3] | Chatbot integrations use the canonical catalog root |
+| GH-1050 | [R1.5, R3.1, R5.6, R7.5] | Chatbot checkpoint database initializes idempotently |
+| GH-1045 | [R1.3, R1.4, R1.5, R1.7, R2.1, R2.2, R2.3, R2.4, R2.5, R2.6, R4.7, R6.4, R7.4] | Taxonomy and active path references match the new ownership |
 
 <!-- field: non_goals -->
 ## Non-goals

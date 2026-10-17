@@ -355,29 +355,17 @@ The in-cluster LLM tier is specified -- an optional Ollama subchart enabled by d
 
 agent-core runtime contracts this chart deploys against. External references, owned by agent-core, not part of this application's corpus.
 
-<!-- field: platform_dependencies -->
+<!-- field: platform_dependencies | form: "typed table" -->
 ## Platform dependencies
 
-```yaml
-- srd_id: srd034-external-agent-profiles
-  provider: agent-core
-  symbols_used: [R1]
-- srd_id: srd035-checkpoint-port
-  provider: agent-core
-  symbols_used: [R1]
-- srd_id: srd036-dolt-state-persistence
-  provider: agent-core
-  symbols_used: [R6]
-- srd_id: srd016-traceparent
-  provider: agent-core
-  symbols_used: [R5]
-- srd_id: srd008-telemetry
-  provider: agent-core
-  symbols_used: [R5]
-- srd_id: srd018-cli-flag-contract
-  provider: agent-core
-  symbols_used: [R5]
-```
+| srd_id | provider | symbols_used |
+| --- | --- | --- |
+| srd034-external-agent-profiles | agent-core | [R1] |
+| srd035-checkpoint-port | agent-core | [R1] |
+| srd036-dolt-state-persistence | agent-core | [R6] |
+| srd016-traceparent | agent-core | [R5] |
+| srd008-telemetry | agent-core | [R5] |
+| srd018-cli-flag-contract | agent-core | [R5] |
 
 <!-- field: implementation_status -->
 ## Implementation status

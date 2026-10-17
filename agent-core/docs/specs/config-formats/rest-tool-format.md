@@ -1186,7 +1186,7 @@ import outside its root except by another root's prefix.
 <!-- field: service_libraries -->
 ## Service libraries
 
-An agent that serves a REST surface MAY publish a service library
+An agent that serves a REST surface can publish a service library
 (srd056-unit-libraries R4). Inside one application it is a directory beside
 the agents, holding
 

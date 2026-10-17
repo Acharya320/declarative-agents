@@ -554,60 +554,18 @@ The composed port SHALL come from either a declared base_url_port literal or a b
 - Replacing MachineSpec sequencing with hidden REST client workflows.
 - Requiring a curl executable for REST client words without full srd027/srd028 parity and runtime-image provisioning.
 
-<!-- field: tool_words -->
+<!-- field: tool_words | form: "typed table" -->
 ## Tool words
 
-```yaml
-- name: rest_client_get
-  input: declared path, query, header parameters, and optional previous Result source.
-  output: resource payload, status code, headers, resource ID, version metadata, operation ID.
-  signals: [RESTResourceRead, RESTMissing, RESTDomainFailed, CommandError]
-  side_effects: [external_api_read]
-  errors: [operation_lookup, schema_invalid, auth_resolution, network_io, timeout, response_mapping]
-  undo: noop.
-- name: rest_client_set
-  input: declared path, query, header, and body parameters for an existing resource.
-  output: written resource payload or summary, status code, resource ID, version metadata, operation ID.
-  signals: [RESTResourceWritten, RESTMissing, RESTDomainFailed, CommandError]
-  side_effects: [external_api_write]
-  errors: [operation_lookup, schema_invalid, request_rendering, auth_resolution, network_io, timeout, status_mapping]
-  undo: previous-state restore or compensating action when configured; otherwise noop with irreversible or compensatable contract.
-- name: rest_client_create
-  input: declared path, query, header, and body parameters for a new resource.
-  output: created resource payload or summary, status code, resource ID, location header, operation ID.
-  signals: [RESTResourceWritten, RESTDomainFailed, CommandError]
-  side_effects: [external_api_write]
-  errors: [operation_lookup, schema_invalid, request_rendering, auth_resolution, network_io, timeout, status_mapping]
-  undo: configured delete or deactivate compensation when resource ID is available.
-- name: rest_client_delete
-  input: declared path, query, header, and optional body parameters for a resource delete or deactivate operation.
-  output: delete summary, status code, resource ID, operation ID.
-  signals: [RESTResourceWritten, RESTMissing, RESTDomainFailed, CommandError]
-  side_effects: [external_api_write]
-  errors: [operation_lookup, schema_invalid, auth_resolution, network_io, timeout, status_mapping]
-  undo: configured restore or recreate compensation when prior state is available.
-- name: rest_client_invoke
-  input: declared operation parameters for an RPC-shaped REST operation.
-  output: mapped response payload, status code, operation ID, domain outcome.
-  signals: [RESTResponded, RESTAccepted, RESTDomainFailed, RESTMissing, CommandError]
-  side_effects: [external_api_read, external_api_write]
-  errors: [operation_lookup, schema_invalid, request_rendering, auth_resolution, network_io, timeout, response_mapping]
-  undo: noop unless a compensating action is configured.
-- name: rest_client_send
-  input: declared operation parameters for an async REST operation.
-  output: request ID, operation ID, idempotency token, submitted payload summary, correlation metadata.
-  signals: [RESTAccepted, CommandError]
-  side_effects: [external_api_call, command_state]
-  errors: [operation_lookup, schema_invalid, request_rendering, auth_resolution, network_io, timeout]
-  undo: cancel or compensate when configured; otherwise record request metadata for audit.
-- name: rest_client_await
-  input: request ID, correlation token, operation state selector, timeout, and response mapping.
-  output: final response payload, status code, request ID, operation ID, retry and timing metadata.
-  signals: [RESTResponded, RESTDomainFailed, RESTMissing, RESTAwaitTimedOut, CommandError]
-  side_effects: [command_state]
-  errors: [async_state_missing, timeout, network_io, response_mapping, status_mapping]
-  undo: noop unless await mutates command state that can be restored.
-```
+| name | input | output | signals | side_effects | errors | undo |
+| --- | --- | --- | --- | --- | --- | --- |
+| rest_client_get | declared path, query, header parameters, and optional previous Result source. | resource payload, status code, headers, resource ID, version metadata, operation ID. | [RESTResourceRead, RESTMissing, RESTDomainFailed, CommandError] | [external_api_read] | [operation_lookup, schema_invalid, auth_resolution, network_io, timeout, response_mapping] | noop. |
+| rest_client_set | declared path, query, header, and body parameters for an existing resource. | written resource payload or summary, status code, resource ID, version metadata, operation ID. | [RESTResourceWritten, RESTMissing, RESTDomainFailed, CommandError] | [external_api_write] | [operation_lookup, schema_invalid, request_rendering, auth_resolution, network_io, timeout, status_mapping] | previous-state restore or compensating action when configured; otherwise noop with irreversible or compensatable contract. |
+| rest_client_create | declared path, query, header, and body parameters for a new resource. | created resource payload or summary, status code, resource ID, location header, operation ID. | [RESTResourceWritten, RESTDomainFailed, CommandError] | [external_api_write] | [operation_lookup, schema_invalid, request_rendering, auth_resolution, network_io, timeout, status_mapping] | configured delete or deactivate compensation when resource ID is available. |
+| rest_client_delete | declared path, query, header, and optional body parameters for a resource delete or deactivate operation. | delete summary, status code, resource ID, operation ID. | [RESTResourceWritten, RESTMissing, RESTDomainFailed, CommandError] | [external_api_write] | [operation_lookup, schema_invalid, auth_resolution, network_io, timeout, status_mapping] | configured restore or recreate compensation when prior state is available. |
+| rest_client_invoke | declared operation parameters for an RPC-shaped REST operation. | mapped response payload, status code, operation ID, domain outcome. | [RESTResponded, RESTAccepted, RESTDomainFailed, RESTMissing, CommandError] | [external_api_read, external_api_write] | [operation_lookup, schema_invalid, request_rendering, auth_resolution, network_io, timeout, response_mapping] | noop unless a compensating action is configured. |
+| rest_client_send | declared operation parameters for an async REST operation. | request ID, operation ID, idempotency token, submitted payload summary, correlation metadata. | [RESTAccepted, CommandError] | [external_api_call, command_state] | [operation_lookup, schema_invalid, request_rendering, auth_resolution, network_io, timeout] | cancel or compensate when configured; otherwise record request metadata for audit. |
+| rest_client_await | request ID, correlation token, operation state selector, timeout, and response mapping. | final response payload, status code, request ID, operation ID, retry and timing metadata. | [RESTResponded, RESTDomainFailed, RESTMissing, RESTAwaitTimedOut, CommandError] | [command_state] | [async_state_missing, timeout, network_io, response_mapping, status_mapping] | noop unless await mutates command state that can be restored. |
 
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria

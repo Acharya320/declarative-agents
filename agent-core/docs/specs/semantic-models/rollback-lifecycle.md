@@ -31,73 +31,26 @@ historical_background:
     - docs/guides/roll-backs.md
 ```
 
-<!-- field: primary_entities -->
+<!-- field: primary_entities | form: "typed table" -->
 ## Primary entities
 
-```yaml
-- name: CheckpointPort
-  kind: storage_port
-  responsibility: Two-method typed port (Save(Position, Execution) / Load) that persists the resumable position and the ordered execution log.
-  owns: [persistence_contract]
-  not_responsible_for: [interpreting receipts, Cobra flags, ToolDef declarations, profile loading]
-- name: NoopCheckpoint
-  kind: storage_adapter
-  responsibility: Default adapter when persistence is disabled; Save is a no-op and Load reports not-found.
-  implements: CheckpointPort
-- name: InMemoryCheckpoint
-  kind: storage_adapter
-  responsibility: Reference adapter for tests that round-trips Position and Execution in process.
-  implements: CheckpointPort
-- name: DoltCheckpoint
-  kind: storage_adapter
-  responsibility: Default persistent backend; stores state as versioned SQL with commit-per-step, branch-per-run, merge-to-main on terminal, and git-style Revert.
-  implements: CheckpointPort
-  owns: [dolt_commit_history, revert]
-- name: Loop
-  kind: runtime
-  responsibility: Drives MachineSpec transitions, dispatches Command values, appends an Execution Entry per step, and calls Save after each dispatch cycle.
-  owns: [agent_state]
-  references: [CheckpointPort]
-- name: Position
-  kind: persisted_value
-  responsibility: Resumable machine position (CurrentState, LastSignal) plus the AgentSnapshot counters and folded conversation snapshot.
-  owns: [resumable_agent_state]
-- name: Execution
-  kind: ordered_log
-  responsibility: Ordered slice of Entry values preserving dispatch order for forward inspection and reverse traversal.
-- name: Entry
-  kind: execution_record
-  responsibility: Records one dispatched step (iteration, timestamp, command, from/to state, signal, result digest) and carries the step's opaque Receipt.
-  owns: [step_record, receipt]
-- name: Receipt
-  kind: opaque_memento
-  responsibility: Tool-owned opaque payload capturing what the originating tool's Undo needs (prior content, resource ids, or a workspace commit hash). It is the reverse edge for external effects.
-  owned_by: originating_tool
-  not_responsible_for: [engine interpretation, adapter interpretation]
-- name: Command
-  kind: executable_word
-  responsibility: Executes one tool action, encoding a Receipt during Execute, and exposes a receipt-consuming Undo that reverses the external effect from a restored Result.
-  owns: [external_effect, receipt_encoding]
-- name: CheckpointHistoryTool
-  kind: stl_lifecycle_tool
-  responsibility: Adapts a Dolt commit-history read through Load into a checkpoint_history Command that prints an execution digest.
-  owns: [history_inspection_result]
-  calls: [CheckpointPort]
-- name: CheckpointRollbackTool
-  kind: stl_lifecycle_tool
-  responsibility: Runs Dolt Revert for DB state, then walks the reverted entries in reverse and hands each restored, receipt-bearing Result to its tool's receipt-consuming Undo for external effects.
-  owns: [rollback_command_result, reverse_receipt_walk]
-  calls: [CheckpointPort, DoltCheckpoint, Command]
-- name: LifecycleProfile
-  kind: configured_program
-  responsibility: Selects a lifecycle MachineSpec, lifecycle tool selection, and lifecycle tool declarations through the normal profile contract.
-- name: MachineSpec
-  kind: declarative_program
-  responsibility: Defines states, signals, and actions; expresses approval/suspend routing and dispatches lifecycle tools.
-- name: ToolDef
-  kind: tool_contract
-  responsibility: Declares tool side effects, reversibility, receipt-based undo, errors, and relationships.
-```
+| name | kind | responsibility | implements | owns | references | owned_by | not_responsible_for | calls |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| CheckpointPort | storage_port | Two-method typed port (Save(Position, Execution) / Load) that persists the resumable position and the ordered execution log. |  | [persistence_contract] |  |  | [interpreting receipts, Cobra flags, ToolDef declarations, profile loading] |  |
+| NoopCheckpoint | storage_adapter | Default adapter when persistence is disabled; Save is a no-op and Load reports not-found. | CheckpointPort |  |  |  |  |  |
+| InMemoryCheckpoint | storage_adapter | Reference adapter for tests that round-trips Position and Execution in process. | CheckpointPort |  |  |  |  |  |
+| DoltCheckpoint | storage_adapter | Default persistent backend; stores state as versioned SQL with commit-per-step, branch-per-run, merge-to-main on terminal, and git-style Revert. | CheckpointPort | [dolt_commit_history, revert] |  |  |  |  |
+| Loop | runtime | Drives MachineSpec transitions, dispatches Command values, appends an Execution Entry per step, and calls Save after each dispatch cycle. |  | [agent_state] | [CheckpointPort] |  |  |  |
+| Position | persisted_value | Resumable machine position (CurrentState, LastSignal) plus the AgentSnapshot counters and folded conversation snapshot. |  | [resumable_agent_state] |  |  |  |  |
+| Execution | ordered_log | Ordered slice of Entry values preserving dispatch order for forward inspection and reverse traversal. |  |  |  |  |  |  |
+| Entry | execution_record | Records one dispatched step (iteration, timestamp, command, from/to state, signal, result digest) and carries the step's opaque Receipt. |  | [step_record, receipt] |  |  |  |  |
+| Receipt | opaque_memento | Tool-owned opaque payload capturing what the originating tool's Undo needs (prior content, resource ids, or a workspace commit hash). It is the reverse edge for external effects. |  |  |  | originating_tool | [engine interpretation, adapter interpretation] |  |
+| Command | executable_word | Executes one tool action, encoding a Receipt during Execute, and exposes a receipt-consuming Undo that reverses the external effect from a restored Result. |  | [external_effect, receipt_encoding] |  |  |  |  |
+| CheckpointHistoryTool | stl_lifecycle_tool | Adapts a Dolt commit-history read through Load into a checkpoint_history Command that prints an execution digest. |  | [history_inspection_result] |  |  |  | [CheckpointPort] |
+| CheckpointRollbackTool | stl_lifecycle_tool | Runs Dolt Revert for DB state, then walks the reverted entries in reverse and hands each restored, receipt-bearing Result to its tool's receipt-consuming Undo for external effects. |  | [rollback_command_result, reverse_receipt_walk] |  |  |  | [CheckpointPort, DoltCheckpoint, Command] |
+| LifecycleProfile | configured_program | Selects a lifecycle MachineSpec, lifecycle tool selection, and lifecycle tool declarations through the normal profile contract. |  |  |  |  |  |  |
+| MachineSpec | declarative_program | Defines states, signals, and actions; expresses approval/suspend routing and dispatches lifecycle tools. |  |  |  |  |  |  |
+| ToolDef | tool_contract | Declares tool side effects, reversibility, receipt-based undo, errors, and relationships. |  |  |  |  |  |  |
 
 <!-- field: persisted_state -->
 ## Persisted state

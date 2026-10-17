@@ -35,99 +35,31 @@ supporting:
     - docs/guides/boundary-tools-and-async.md
 ```
 
-<!-- field: primary_entities -->
+<!-- field: primary_entities | form: "typed table" -->
 ## Primary entities
 
-```yaml
-- name: RestDefinition
-  kind: declarative_boundary_program
-  responsibility: Defines shared REST clients and servers, including their resources, operations, endpoints, mappings, limits, auth references, and side effects.
-  owns: [rest_authority, rest_vocabulary]
-  not_responsible_for: [MachineSpec sequencing, model-provider semantics, arbitrary runtime URLs]
-- name: RestClient
-  kind: outbound_actor_config
-  responsibility: Names an upstream service and binds auth, base endpoint policy, network policy, and operation definitions for outbound HTTP calls.
-  owns: [outbound_authority]
-  references: [Operation, Resource, OpenAPIImport]
-- name: RestServer
-  kind: inbound_actor_config
-  responsibility: Names a server address, route set, endpoint bindings, queue policy, stream policy, and shutdown behavior for inbound HTTP traffic.
-  owns: [listener_authority, server_state]
-  references: [Endpoint, InboundEvent, RestToolState]
-- name: Resource
-  kind: rest_domain_object
-  responsibility: Groups resource-shaped operations that read, create, set, or delete stored upstream state.
-  owns: [resource_identity, resource_operation_names]
-- name: Operation
-  kind: outbound_rest_action
-  responsibility: Defines one configured outbound HTTP action with method, path template, request binding, response mapping, status mapping, retry policy, and side-effect contract.
-  owns: [operation_id, outbound_status_mapping]
-- name: Endpoint
-  kind: inbound_rest_route
-  responsibility: Defines one configured route with method, path template, request validation, endpoint binding kind, response mapping, and allowed signal behavior.
-  owns: [route_id, inbound_validation]
-- name: RequestBinding
-  kind: parameter_mapping
-  responsibility: Maps runtime values from explicit tool input, previous Result output, or command state into declared path, query, header, and body fields.
-  owns: [runtime_parameter_contract]
-- name: ResponseMapping
-  kind: output_mapping
-  responsibility: Maps HTTP status, headers, and body into Result output, domain signals, error output, resource metadata, request IDs, and redacted diagnostics.
-  owns: [result_shape, signal_mapping]
-- name: OpenAPIImport
-  kind: source_adapter
-  responsibility: Loads OpenAPI 3 operations, paths, request schemas, and response schemas into the same internal RestDefinition model as hand-authored YAML.
-  owns: [source_document_reference]
-- name: AsyncRequest
-  kind: outbound_pending_state
-  responsibility: Records an accepted outbound submission created by rest_client_send and consumed by rest_client_await.
-  owns: [request_id, correlation_token, idempotency_token, pending_response_state]
-- name: InboundEvent
-  kind: inbound_signal_message
-  responsibility: Carries a validated server request, configured signal, source route, payload, and request metadata from HTTP handler state to rest_server_await.
-  owns: [event_payload, event_signal]
-- name: RestEventSource
-  kind: fan_in_source
-  responsibility: Names one server queue or route-filtered event stream that rest_await_event can read with configured signal, route, timeout, and stopped-source policies.
-  owns: [source_filter, stopped_source_policy]
-  references: [RestServer, Endpoint, InboundEvent]
-- name: LifecycleControlEndpoint
-  kind: inbound_control_route
-  responsibility: Validates fixed or allowlisted signal enqueue requests and publishes declared lifecycle events for MachineSpec.
-  owns: [control_request_validation, control_signal_mapping]
-  references: [Endpoint, InboundEvent, MachineSpec]
-- name: MachineRequestBinding
-  kind: inbound_machine_route
-  responsibility: Validates one inbound HTTP request and starts one short-lived MachineSpec execution with configured request input and response mapping.
-  owns: [request_to_machine_mapping, terminal_response_selection]
-  references: [Endpoint, MachineSpec, ToolDef, RequestEvent]
-- name: RequestEvent
-  kind: grammar_input
-  responsibility: Carries validated request fields and request metadata into a request-scoped machine sentence.
-  owns: [validated_payload, request_metadata, correlation_id]
-- name: ResponseWord
-  kind: response_boundary_word
-  responsibility: Produces structured output that the machine_request binding maps to HTTP status, headers, content type, and body.
-  owns: [response_output_contract, response_signal]
-  references: [ToolDef, MachineSpec]
-- name: LifecycleControlWord
-  kind: profile_selected_lifecycle_vocabulary
-  responsibility: Executes lifecycle behavior such as exit_agent after MachineSpec routes a validated REST event to that word.
-  owns: [lifecycle_side_effects, lifecycle_undo_contract]
-  references: [ToolDef, MachineSpec]
-- name: RestToolState
-  kind: command_domain_state
-  responsibility: Tracks shared REST clients, shared REST servers, async requests, inbound queues, active streams, route ownership, and shutdown status.
-  owns: [rest_command_state]
-- name: ToolDef
-  kind: declaration_contract
-  responsibility: Declares each REST tool word, its runtime contract, and its lifecycle contract.
-  references: [RestDefinition]
-- name: MachineSpec
-  kind: declarative_program
-  responsibility: Composes REST words into visible sync and async workflows through states, signals, and transition actions.
-  references: [ToolDef]
-```
+| name | kind | responsibility | owns | not_responsible_for | references |
+| --- | --- | --- | --- | --- | --- |
+| RestDefinition | declarative_boundary_program | Defines shared REST clients and servers, including their resources, operations, endpoints, mappings, limits, auth references, and side effects. | [rest_authority, rest_vocabulary] | [MachineSpec sequencing, model-provider semantics, arbitrary runtime URLs] |  |
+| RestClient | outbound_actor_config | Names an upstream service and binds auth, base endpoint policy, network policy, and operation definitions for outbound HTTP calls. | [outbound_authority] |  | [Operation, Resource, OpenAPIImport] |
+| RestServer | inbound_actor_config | Names a server address, route set, endpoint bindings, queue policy, stream policy, and shutdown behavior for inbound HTTP traffic. | [listener_authority, server_state] |  | [Endpoint, InboundEvent, RestToolState] |
+| Resource | rest_domain_object | Groups resource-shaped operations that read, create, set, or delete stored upstream state. | [resource_identity, resource_operation_names] |  |  |
+| Operation | outbound_rest_action | Defines one configured outbound HTTP action with method, path template, request binding, response mapping, status mapping, retry policy, and side-effect contract. | [operation_id, outbound_status_mapping] |  |  |
+| Endpoint | inbound_rest_route | Defines one configured route with method, path template, request validation, endpoint binding kind, response mapping, and allowed signal behavior. | [route_id, inbound_validation] |  |  |
+| RequestBinding | parameter_mapping | Maps runtime values from explicit tool input, previous Result output, or command state into declared path, query, header, and body fields. | [runtime_parameter_contract] |  |  |
+| ResponseMapping | output_mapping | Maps HTTP status, headers, and body into Result output, domain signals, error output, resource metadata, request IDs, and redacted diagnostics. | [result_shape, signal_mapping] |  |  |
+| OpenAPIImport | source_adapter | Loads OpenAPI 3 operations, paths, request schemas, and response schemas into the same internal RestDefinition model as hand-authored YAML. | [source_document_reference] |  |  |
+| AsyncRequest | outbound_pending_state | Records an accepted outbound submission created by rest_client_send and consumed by rest_client_await. | [request_id, correlation_token, idempotency_token, pending_response_state] |  |  |
+| InboundEvent | inbound_signal_message | Carries a validated server request, configured signal, source route, payload, and request metadata from HTTP handler state to rest_server_await. | [event_payload, event_signal] |  |  |
+| RestEventSource | fan_in_source | Names one server queue or route-filtered event stream that rest_await_event can read with configured signal, route, timeout, and stopped-source policies. | [source_filter, stopped_source_policy] |  | [RestServer, Endpoint, InboundEvent] |
+| LifecycleControlEndpoint | inbound_control_route | Validates fixed or allowlisted signal enqueue requests and publishes declared lifecycle events for MachineSpec. | [control_request_validation, control_signal_mapping] |  | [Endpoint, InboundEvent, MachineSpec] |
+| MachineRequestBinding | inbound_machine_route | Validates one inbound HTTP request and starts one short-lived MachineSpec execution with configured request input and response mapping. | [request_to_machine_mapping, terminal_response_selection] |  | [Endpoint, MachineSpec, ToolDef, RequestEvent] |
+| RequestEvent | grammar_input | Carries validated request fields and request metadata into a request-scoped machine sentence. | [validated_payload, request_metadata, correlation_id] |  |  |
+| ResponseWord | response_boundary_word | Produces structured output that the machine_request binding maps to HTTP status, headers, content type, and body. | [response_output_contract, response_signal] |  | [ToolDef, MachineSpec] |
+| LifecycleControlWord | profile_selected_lifecycle_vocabulary | Executes lifecycle behavior such as exit_agent after MachineSpec routes a validated REST event to that word. | [lifecycle_side_effects, lifecycle_undo_contract] |  | [ToolDef, MachineSpec] |
+| RestToolState | command_domain_state | Tracks shared REST clients, shared REST servers, async requests, inbound queues, active streams, route ownership, and shutdown status. | [rest_command_state] |  |  |
+| ToolDef | declaration_contract | Declares each REST tool word, its runtime contract, and its lifecycle contract. |  |  | [RestDefinition] |
+| MachineSpec | declarative_program | Composes REST words into visible sync and async workflows through states, signals, and transition actions. |  |  | [ToolDef] |
 
 <!-- field: tool_words -->
 ## Tool words

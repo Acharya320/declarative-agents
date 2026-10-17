@@ -362,11 +362,9 @@ scenario_pipeline: |
 
 These SRDs live in the agent-core corpus, not this one; they are platform dependencies rather than in-corpus depends_on (GH-2310).
 
-<!-- field: platform_dependencies -->
+<!-- field: platform_dependencies | form: "typed table" -->
 ## Platform dependencies
 
-```yaml
-- srd_id: srd006-yaml-machine-config
-  provider: agent-core
-  symbols_used: [R5]
-```
+| srd_id | provider | symbols_used |
+| --- | --- | --- |
+| srd006-yaml-machine-config | agent-core | [R5] |

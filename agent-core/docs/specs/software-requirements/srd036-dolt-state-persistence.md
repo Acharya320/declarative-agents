@@ -347,15 +347,13 @@ Revert(run_id, step_index) resets the run branch to the target commit for DB-onl
 - R6.5
 - R6.6
 
-<!-- field: test_trace_plan -->
+<!-- field: test_trace_plan | form: "typed table" -->
 ## Test trace plan
 
-```yaml
-- test_suite: test-rel02.0-lifecycle
-  covers: [AC1, AC2, AC4, AC5, AC6]
-- test_suite: test-rel07.0-command-state
-  covers: [AC3]
-```
+| test_suite | covers |
+| --- | --- |
+| test-rel02.0-lifecycle | [AC1, AC2, AC4, AC5, AC6] |
+| test-rel07.0-command-state | [AC3] |
 
 <!-- field: reference_model -->
 ## Reference model

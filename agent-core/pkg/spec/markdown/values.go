@@ -23,7 +23,25 @@ var nestedKey = regexp.MustCompile(`^- ([a-z_][a-z0-9_]*):(?: (.*))?$`)
 // a keyed or outline field by its declared conversion, an empty list or table
 // as nothing, and every other value by its own shape. A declared field whose
 // value does not print in its declared shape is an error, not a fallback.
-func (r *Declaration) renderField(key string, value *yaml.Node) ([]string, error) {
+func (r *Declaration) renderField(key string, value *yaml.Node) ([]string, string, error) {
+	lines, err := r.renderUntypedForm(key, value)
+	if err != nil {
+		return nil, "", err
+	}
+	field, typed := r.Fields[key]
+	if (typed && field.Shape != "") || classifyContent(strings.Join(lines, "\n")) != shapeYAML {
+		return lines, "", nil
+	}
+	if form, typedLines, ok := typedFormFor(value); ok {
+		return typedLines, form, nil
+	}
+	return lines, "", nil
+}
+
+// renderUntypedForm converts a field's value without a typed form: by its
+// declared conversion, or by the first simple shape that holds it, else as
+// a fenced yaml block.
+func (r *Declaration) renderUntypedForm(key string, value *yaml.Node) ([]string, error) {
 	field, typed := r.Fields[key]
 	switch {
 	case typed && field.Code != "":
@@ -44,6 +62,29 @@ func (r *Declaration) renderField(key string, value *yaml.Node) ([]string, error
 		return nil, fmt.Errorf("value prints as %s, declared %s", shape, field.Shape)
 	}
 	return lines, nil
+}
+
+// parseFieldForm reads a field in the typed form its marker names, or as an
+// untyped field when it names none.
+func (r *Declaration) parseFieldForm(key, form, text string) (*yaml.Node, error) {
+	if form != "" {
+		return parseTyped(form, text)
+	}
+	return r.parseField(key, text)
+}
+
+// markerForm returns the typed form a field marker names, unquoted.
+func markerForm(m Marker) string {
+	for _, a := range m.Attrs {
+		if a.Key == attrForm {
+			var form string
+			if err := json.Unmarshal([]byte(a.Value), &form); err == nil {
+				return form
+			}
+			return a.Value
+		}
+	}
+	return ""
 }
 
 // parseField reads a field's Markdown back into the value renderField wrote.

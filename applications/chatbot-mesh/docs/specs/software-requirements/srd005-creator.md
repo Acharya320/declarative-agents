@@ -250,23 +250,15 @@ The creator exposes no browser-facing surface and stays the sole caller of the a
 
 agent-core runtime contracts this agent builds on. External references, owned by agent-core, not part of this application's corpus.
 
-<!-- field: platform_dependencies -->
+<!-- field: platform_dependencies | form: "typed table" -->
 ## Platform dependencies
 
-```yaml
-- srd_id: srd030-machine-request-rest-binding
-  provider: agent-core
-  symbols_used: [R1]
-- srd_id: srd033-monitor-rest-api
-  provider: agent-core
-  symbols_used: [R4]
-- srd_id: srd034-external-agent-profiles
-  provider: agent-core
-  symbols_used: [R2]
-- srd_id: srd028-rest-client-tools
-  provider: agent-core
-  symbols_used: [V30]
-```
+| srd_id | provider | symbols_used |
+| --- | --- | --- |
+| srd030-machine-request-rest-binding | agent-core | [R1] |
+| srd033-monitor-rest-api | agent-core | [R4] |
+| srd034-external-agent-profiles | agent-core | [R2] |
+| srd028-rest-client-tools | agent-core | [V30] |
 
 <!-- field: implementation_status -->
 ## Implementation status

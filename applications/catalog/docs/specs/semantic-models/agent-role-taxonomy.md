@@ -507,90 +507,14 @@ Pointer-only records: these application-specific roles are not reusable applicat
 
 Conformance grammar fixtures, not roles (GH-328). Their only executors are the conformance tests and the monitor/control mage integration target; they prove REST boundary words, control signals, and checkpoint/suspend/resume vocabulary at runtime. They live under testdata/conformance/, outside the agents/ role catalog. Application profiles may embed the same runtime vocabulary without promoting these standalone fixtures to library roles.
 
-<!-- field: conformance_fixtures -->
+<!-- field: conformance_fixtures | form: "typed table" -->
 ## Conformance fixtures
 
-```yaml
-- id: rest
-  title: REST boundary sample
-  profile_path: testdata/conformance/rest/profile.yaml
-  actor_boundary: configured HTTP clients and servers
-  inputs:
-    - REST definitions
-    - OpenAPI import data
-    - inbound webhook event
-  selected_tool_families:
-    - REST client
-    - REST async client
-    - REST server
-  runtime_dependencies:
-    - agent-core REST runtime
-    - profile-owned rest.yaml
-  outputs:
-    - response signals
-    - async completion
-    - webhook event signal
-    - listener lifecycle status
-  outcomes:
-    - Succeeded
-    - Failed
-  checks:
-    - Confirm REST authority lives in rest.yaml.
-    - Confirm server launch, await, and stop are explicit machine states.
-- id: control
-  title: REST lifecycle control profile
-  profile_path: testdata/conformance/control/profile.yaml
-  actor_boundary: lifecycle supervisor
-  inputs:
-    - REST control request
-  selected_tool_families:
-    - control REST
-    - exit_agent
-  runtime_dependencies:
-    - agent-core REST runtime
-    - agent-core lifecycle vocabulary
-  outputs:
-    - selected control signal
-    - AgentExited signal
-    - terminal status
-  outcomes:
-    - Succeeded
-    - Failed
-  checks:
-    - Confirm HTTP handlers enqueue signals only.
-    - Confirm MachineSpec routes ExitRequested to exit_agent.
-    - Trace monitor/control status with rel07.0-uc005-monitor-control-profile-boundary.
-- id: lifecycle
-  title: Checkpoint, rollback, and approval profiles
-  profile_path: testdata/conformance/lifecycle/*/profile.yaml
-  actor_boundary: operator, checkpoint store, and workspace
-  inputs:
-    - checkpoint ID
-    - target iteration
-    - approval signal
-  selected_tool_families:
-    - checkpoint_history
-    - checkpoint_rollback
-    - suspend
-    - done
-  runtime_dependencies:
-    - agent-core lifecycle ports
-    - checkpoint store
-    - receipt-backed rollback (opaque persisted receipts, receipt-walk Undo)
-  outputs:
-    - history report
-    - rewritten checkpoint
-    - suspended checkpoint
-    - approved or rejected terminal state
-  outcomes:
-    - Done
-    - Succeeded
-    - Rejected
-    - Failed
-  checks:
-    - Confirm lifecycle behavior is expressed as machine actions.
-    - Confirm approval uses resume signals instead of hidden CLI branches.
-```
+| id | title | profile_path | actor_boundary | inputs | selected_tool_families | runtime_dependencies | outputs | outcomes | checks |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| rest | REST boundary sample | testdata/conformance/rest/profile.yaml | configured HTTP clients and servers | [REST definitions, OpenAPI import data, inbound webhook event] | [REST client, REST async client, REST server] | [agent-core REST runtime, profile-owned rest.yaml] | [response signals, async completion, webhook event signal, listener lifecycle status] | [Succeeded, Failed] | [Confirm REST authority lives in rest.yaml., "Confirm server launch, await, and stop are explicit machine states."] |
+| control | REST lifecycle control profile | testdata/conformance/control/profile.yaml | lifecycle supervisor | [REST control request] | [control REST, exit_agent] | [agent-core REST runtime, agent-core lifecycle vocabulary] | [selected control signal, AgentExited signal, terminal status] | [Succeeded, Failed] | [Confirm HTTP handlers enqueue signals only., Confirm MachineSpec routes ExitRequested to exit_agent., Trace monitor/control status with rel07.0-uc005-monitor-control-profile-boundary.] |
+| lifecycle | Checkpoint, rollback, and approval profiles | testdata/conformance/lifecycle/*/profile.yaml | operator, checkpoint store, and workspace | [checkpoint ID, target iteration, approval signal] | [checkpoint_history, checkpoint_rollback, suspend, done] | [agent-core lifecycle ports, checkpoint store, "receipt-backed rollback (opaque persisted receipts, receipt-walk Undo)"] | [history report, rewritten checkpoint, suspended checkpoint, approved or rejected terminal state] | [Done, Succeeded, Rejected, Failed] | [Confirm lifecycle behavior is expressed as machine actions., Confirm approval uses resume signals instead of hidden CLI branches.] |
 
 <!-- field: taxonomy_rules -->
 ## Taxonomy rules

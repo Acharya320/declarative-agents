@@ -280,17 +280,13 @@ Agent mode is the default and deploys no contrib collector or collector-metrics 
 - R6.4
 - R6.5
 
-<!-- field: platform_dependencies -->
+<!-- field: platform_dependencies | form: "typed table" -->
 ## Platform dependencies
 
-```yaml
-- srd_id: srd042-otlp-receiver-tools
-  provider: agent-core
-  symbols_used: [R1, R2, R3, R4, R5, R6, R7, R8]
-- srd_id: srd008-telemetry
-  provider: agent-core
-  symbols_used: [R9]
-```
+| srd_id | provider | symbols_used |
+| --- | --- | --- |
+| srd042-otlp-receiver-tools | agent-core | [R1, R2, R3, R4, R5, R6, R7, R8] |
+| srd008-telemetry | agent-core | [R9] |
 
 <!-- field: implementation_status -->
 ## Implementation status

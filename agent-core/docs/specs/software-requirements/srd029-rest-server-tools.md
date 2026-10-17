@@ -470,39 +470,15 @@ Registration SHALL reject rest_server_await or rest_await_event when any signal 
 - Generating Go server code from OpenAPI documents.
 - Replacing existing bench UI behavior in this issue.
 
-<!-- field: tool_words -->
+<!-- field: tool_words | form: "typed table" -->
 ## Tool words
 
-```yaml
-- name: rest_server_launch
-  input: server name, address, route set, endpoint bindings, schemas, limits, shutdown policy.
-  output: server name, bound address, route count, binding kinds, correlation metadata.
-  signals: [ServerLaunched, CommandError]
-  side_effects: [network_listen, server_state]
-  errors: [config_decode, bind_failed, route_conflict, schema_invalid]
-  undo: boundary compensation through rest_server_stop when launch owns the listener.
-- name: rest_server_await
-  input: server name, accepted event sources, optional route filters, timeout, queue read policy.
-  output: event source, route, method, signal, validated payload, request ID, redacted diagnostics.
-  signals: [configured_event_signal, AwaitTimedOut, ServerStopped, CommandError]
-  side_effects: [server_queue_consume, command_state]
-  errors: [missing_server, await_timeout, queue_closed, payload_decode]
-  undo: noop unless implementation supports returning an event to the queue.
-- name: rest_await_event
-  input: server names, route filters, allowed signals, timeout, queue read policy, stopped-source behavior.
-  output: selected source, route, method, signal, validated payload, request ID, correlation metadata, redacted diagnostics.
-  signals: [configured_event_signal, AwaitTimedOut, ServerStopped, CommandError]
-  side_effects: [server_queue_consume, command_state]
-  errors: [missing_source, await_timeout, queue_closed, payload_decode, source_stopped]
-  undo: noop unless implementation supports returning an event to the source queue.
-- name: rest_server_stop
-  input: server name, shutdown timeout, drain policy, listener ownership policy.
-  output: server name, address, drained event count, dropped event count, shutdown status.
-  signals: [ServerStopped, CommandError]
-  side_effects: [network_listener_shutdown, server_state]
-  errors: [missing_server, shutdown_failed, drain_failed]
-  undo: noop; relaunch is a separate MachineSpec action.
-```
+| name | input | output | signals | side_effects | errors | undo |
+| --- | --- | --- | --- | --- | --- | --- |
+| rest_server_launch | server name, address, route set, endpoint bindings, schemas, limits, shutdown policy. | server name, bound address, route count, binding kinds, correlation metadata. | [ServerLaunched, CommandError] | [network_listen, server_state] | [config_decode, bind_failed, route_conflict, schema_invalid] | boundary compensation through rest_server_stop when launch owns the listener. |
+| rest_server_await | server name, accepted event sources, optional route filters, timeout, queue read policy. | event source, route, method, signal, validated payload, request ID, redacted diagnostics. | [configured_event_signal, AwaitTimedOut, ServerStopped, CommandError] | [server_queue_consume, command_state] | [missing_server, await_timeout, queue_closed, payload_decode] | noop unless implementation supports returning an event to the queue. |
+| rest_await_event | server names, route filters, allowed signals, timeout, queue read policy, stopped-source behavior. | selected source, route, method, signal, validated payload, request ID, correlation metadata, redacted diagnostics. | [configured_event_signal, AwaitTimedOut, ServerStopped, CommandError] | [server_queue_consume, command_state] | [missing_source, await_timeout, queue_closed, payload_decode, source_stopped] | noop unless implementation supports returning an event to the source queue. |
+| rest_server_stop | server name, shutdown timeout, drain policy, listener ownership policy. | server name, address, drained event count, dropped event count, shutdown status. | [ServerStopped, CommandError] | [network_listener_shutdown, server_state] | [missing_server, shutdown_failed, drain_failed] | noop; relaunch is a separate MachineSpec action. |
 
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria

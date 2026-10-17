@@ -18,11 +18,18 @@ func recipeWith(extra string) string {
 // fieldSection returns the Markdown under a field's heading, up to the next
 // marker.
 func fieldSection(md, field string) string {
-	_, after, found := strings.Cut(md, "<!-- field: "+field+" -->\n")
-	if !found {
+	start := -1
+	for _, open := range []string{"<!-- field: " + field + " -->\n", "<!-- field: " + field + " | "} {
+		if i := strings.Index(md, open); i >= 0 {
+			start = i
+			break
+		}
+	}
+	if start < 0 {
 		return ""
 	}
-	_, body, _ := strings.Cut(after, "\n")
+	_, after, _ := strings.Cut(md[start:], "\n") // past the marker
+	_, body, _ := strings.Cut(after, "\n")       // past the heading
 	if end := strings.Index(body, "<!-- "); end >= 0 {
 		body = body[:end]
 	}

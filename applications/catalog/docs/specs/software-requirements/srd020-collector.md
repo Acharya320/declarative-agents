@@ -442,20 +442,12 @@ implemented:
 
 These SRDs live in the agent-core corpus, not this one; they are platform dependencies rather than in-corpus depends_on (GH-2310).
 
-<!-- field: platform_dependencies -->
+<!-- field: platform_dependencies | form: "typed table" -->
 ## Platform dependencies
 
-```yaml
-- srd_id: srd042-otlp-receiver-tools
-  provider: agent-core
-  symbols_used: [otlp_receiver_launch, await_spans, spool_spans, relay_spans, otlp_receiver_stop, durable object-bucket spool storage (R10), object-backed query read with storage status (R11)]
-- srd_id: srd044-spool-query-tools
-  provider: agent-core
-  symbols_used: [spool_list_traces, spool_get_trace]
-- srd_id: srd059-objectstore-tools
-  provider: agent-core
-  symbols_used: [declaration-bound object_delete_prefix with bounded verification and external audit (R5)]
-- srd_id: srd045-span-analytics-tools
-  provider: agent-core
-  symbols_used: [spool_span_heatmap, spool_span_group_by, spool_span_breakdown]
-```
+| srd_id | provider | symbols_used |
+| --- | --- | --- |
+| srd042-otlp-receiver-tools | agent-core | [otlp_receiver_launch, await_spans, spool_spans, relay_spans, otlp_receiver_stop, durable object-bucket spool storage (R10), object-backed query read with storage status (R11)] |
+| srd044-spool-query-tools | agent-core | [spool_list_traces, spool_get_trace] |
+| srd059-objectstore-tools | agent-core | [declaration-bound object_delete_prefix with bounded verification and external audit (R5)] |
+| srd045-span-analytics-tools | agent-core | [spool_span_heatmap, spool_span_group_by, spool_span_breakdown] |

@@ -28,42 +28,18 @@ supporting:
     - docs/specs/semantic-models/rest-tool-language.md
 ```
 
-<!-- field: primary_entities -->
+<!-- field: primary_entities | form: "typed table" -->
 ## Primary entities
 
-```yaml
-- name: MachineRequestEndpoint
-  kind: inbound_rest_route
-  responsibility: Defines the route that accepts one HTTP request and starts one configured request machine run.
-  owns: [route_identity, request_validation, response_policy]
-  references: [MachineRequestBinding]
-- name: MachineRequestBinding
-  kind: rest_server_binding
-  responsibility: Maps accepted HTTP requests to short-lived MachineSpec executions.
-  owns: [request_to_machine_mapping, timeout_policy, error_mapping]
-  references: [MachineSpec, ToolDef, ResponseWord]
-- name: RequestEvent
-  kind: grammar_input
-  responsibility: Carries validated HTTP input, request metadata, and correlation data into the machine sentence.
-  owns: [validated_payload, request_metadata]
-- name: RequestMachine
-  kind: short_lived_declarative_program
-  responsibility: Handles one request through configured states, signals, and tool words.
-  owns: [request_sentence]
-  references: [MachineSpec, Registry, ToolDef]
-- name: ResponseWord
-  kind: machine_to_http_bridge
-  responsibility: Produces structured response output that maps to HTTP status, headers, body, and content type.
-  owns: [response_shape, response_signal]
-- name: ResponseSelection
-  kind: terminal_mapping
-  responsibility: Selects which terminal signal or response word output becomes the HTTP response.
-  owns: [status_mapping, header_mapping, body_mapping, error_mapping]
-- name: RequestTrace
-  kind: observability_record
-  responsibility: Correlates the HTTP request, machine run, terminal state, terminal signal, and response mapping.
-  owns: [request_id, correlation_id, run_summary]
-```
+| name | kind | responsibility | owns | references |
+| --- | --- | --- | --- | --- |
+| MachineRequestEndpoint | inbound_rest_route | Defines the route that accepts one HTTP request and starts one configured request machine run. | [route_identity, request_validation, response_policy] | [MachineRequestBinding] |
+| MachineRequestBinding | rest_server_binding | Maps accepted HTTP requests to short-lived MachineSpec executions. | [request_to_machine_mapping, timeout_policy, error_mapping] | [MachineSpec, ToolDef, ResponseWord] |
+| RequestEvent | grammar_input | Carries validated HTTP input, request metadata, and correlation data into the machine sentence. | [validated_payload, request_metadata] |  |
+| RequestMachine | short_lived_declarative_program | Handles one request through configured states, signals, and tool words. | [request_sentence] | [MachineSpec, Registry, ToolDef] |
+| ResponseWord | machine_to_http_bridge | Produces structured response output that maps to HTTP status, headers, body, and content type. | [response_shape, response_signal] |  |
+| ResponseSelection | terminal_mapping | Selects which terminal signal or response word output becomes the HTTP response. | [status_mapping, header_mapping, body_mapping, error_mapping] |  |
+| RequestTrace | observability_record | Correlates the HTTP request, machine run, terminal state, terminal signal, and response mapping. | [request_id, correlation_id, run_summary] |  |
 
 <!-- field: language_model -->
 ## Language model

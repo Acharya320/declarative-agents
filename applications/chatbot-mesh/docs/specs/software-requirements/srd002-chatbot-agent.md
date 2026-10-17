@@ -290,20 +290,14 @@ The provisioning panel (R5.1) delegates a user's provisioning intent to the prov
 
 agent-core runtime contracts this agent builds on. External references, owned by agent-core, not part of this application's corpus.
 
-<!-- field: platform_dependencies -->
+<!-- field: platform_dependencies | form: "typed table" -->
 ## Platform dependencies
 
-```yaml
-- srd_id: srd030-machine-request-rest-binding
-  provider: agent-core
-  symbols_used: [R1]
-- srd_id: srd033-monitor-rest-api
-  provider: agent-core
-  symbols_used: [R1]
-- srd_id: srd038-command-state-store
-  provider: agent-core
-  symbols_used: [R1, R2]
-```
+| srd_id | provider | symbols_used |
+| --- | --- | --- |
+| srd030-machine-request-rest-binding | agent-core | [R1] |
+| srd033-monitor-rest-api | agent-core | [R1] |
+| srd038-command-state-store | agent-core | [R1, R2] |
 
 <!-- field: implementation_status -->
 ## Implementation status

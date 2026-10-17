@@ -30,38 +30,24 @@ catalog-owned browser interface, and requests clean shutdown through the
 catalog-owned declarative lifecycle-exit client. The application
 reports composition only and contributes no canonical agents.
 
-<!-- field: capabilities -->
+<!-- field: capabilities | form: "typed table" -->
 ### Capabilities
 
-```yaml
-- id: runnable_module
-  status: implemented
-- id: managed_service
-  status: partial
-  services: [documentation-curator, Go present]
-  live_observation_status: dependency_gated
-- id: packaged
-  status: implemented
-  realized_in: "02.0"
-- id: helm_managed
-  status: implemented
-  realized_in: "02.0"
-- id: kind_demo
-  status: implemented
-  realized_in: "03.0"
-```
+| id | status | services | live_observation_status | realized_in |
+| --- | --- | --- | --- | --- |
+| runnable_module | implemented |  |  |  |
+| managed_service | partial | [documentation-curator, Go present] | dependency_gated |  |
+| packaged | implemented |  |  | "02.0" |
+| helm_managed | implemented |  |  | "02.0" |
+| kind_demo | implemented |  |  | "03.0" |
 
-<!-- field: shared_requirements -->
+<!-- field: shared_requirements | form: "typed table" -->
 ### Shared requirements
 
-```yaml
-- owner: applications
-  id: srd001-application-module-contract
-  requirements: [R1, R2, R3, R4, R5, R6]
-- owner: applications
-  id: srd002-managed-application-services
-  requirements: [R1, R2, R3]
-```
+| owner | id | requirements |
+| --- | --- | --- |
+| applications | srd001-application-module-contract | [R1, R2, R3, R4, R5, R6] |
+| applications | srd002-managed-application-services | [R1, R2, R3] |
 
 <!-- field: external_requirements -->
 ### External requirements
@@ -85,39 +71,20 @@ reports composition only and contributes no canonical agents.
 | --- | --- | --- | --- |
 | test-rel00.0-guided-agent-architecture | Deterministic command and contract tests plus dependency-gated launch and exit evidence. | partial | dependency_gated |
 
-<!-- field: evidence -->
+<!-- field: evidence | form: "typed table" -->
 ### Evidence
 
-```yaml
-- command: go test ./magefiles
-  proves: Exact run and presentation commands, working directories, root resolution, trace reciprocity, and failure messages.
-- command: mage run
-  status: dependency_gated
-  proves_when_run: The canonical catalog profile starts through agent-core with explicit profile, directory, and development core-root arguments.
-- command: mage presentation
-  status: dependency_gated
-  proves_when_run: The pinned Go present tool serves agent-architecture.slide from the application root.
-- command: mage audit
-  proves: Required documents, reciprocal traces, portable paths, canonical references, and stale-path exclusions satisfy the application contract.
-- command: mage stats
-  proves: Valid composition-only JSON reports agents_contributed as zero and omits an agents section.
-- command: mage audit
-  working_directory: repository root
-  evidence_path: magefiles/build.go auditParticipants and magefiles/example_modules_test.go TestApplicationModulesParticipateInAudit
-  proves: Root audit dispatches applications/agent-architecture.
-- command: mage test
-  working_directory: repository root
-  evidence_path: magefiles/example_modules_test.go TestTestSubModulesDispatchesApplicationModules
-  proves: Root tests dispatch the demo's Go tests.
-- command: mage stats
-  working_directory: repository root
-  evidence_path: magefiles/build.go statsParticipants and magefiles/stats_test.go TestSumAgentsTotals
-  proves: Root stats accepts the composition-only application section without double-counting the curator.
-- command: go test ./magefiles -run '^Test(ApplicationModulesParticipateInAudit|KnowledgeManager|Orchestration|ReleaseTags|StatsParticipants|SumAgentsTotals|TestSubModulesDispatchesApplicationModules)'
-  working_directory: repository root
-  evidence_path: magefiles/example_modules_test.go, magefiles/stats_test.go, and magefiles/tag_test.go
-  proves: Stable root audit, test, stats, and release participation.
-```
+| command | status | proves_when_run | working_directory | evidence_path | proves |
+| --- | --- | --- | --- | --- | --- |
+| go test ./magefiles |  |  |  |  | Exact run and presentation commands, working directories, root resolution, trace reciprocity, and failure messages. |
+| mage run | dependency_gated | The canonical catalog profile starts through agent-core with explicit profile, directory, and development core-root arguments. |  |  |  |
+| mage presentation | dependency_gated | The pinned Go present tool serves agent-architecture.slide from the application root. |  |  |  |
+| mage audit |  |  |  |  | Required documents, reciprocal traces, portable paths, canonical references, and stale-path exclusions satisfy the application contract. |
+| mage stats |  |  |  |  | Valid composition-only JSON reports agents_contributed as zero and omits an agents section. |
+| mage audit |  |  | repository root | magefiles/build.go auditParticipants and magefiles/example_modules_test.go TestApplicationModulesParticipateInAudit | Root audit dispatches applications/agent-architecture. |
+| mage test |  |  | repository root | magefiles/example_modules_test.go TestTestSubModulesDispatchesApplicationModules | Root tests dispatch the demo's Go tests. |
+| mage stats |  |  | repository root | magefiles/build.go statsParticipants and magefiles/stats_test.go TestSumAgentsTotals | Root stats accepts the composition-only application section without double-counting the curator. |
+| go test ./magefiles -run '^Test(ApplicationModulesParticipateInAudit\|KnowledgeManager\|Orchestration\|ReleaseTags\|StatsParticipants\|SumAgentsTotals\|TestSubModulesDispatchesApplicationModules)' |  |  | repository root | magefiles/example_modules_test.go, magefiles/stats_test.go, and magefiles/tag_test.go | Stable root audit, test, stats, and release participation. |
 
 <!-- field: evidence_boundary -->
 ### Evidence boundary
@@ -184,14 +151,12 @@ the collector UI remains in its bounded role package.
 | packaged | implemented |
 | helm_managed | implemented |
 
-<!-- field: shared_requirements -->
+<!-- field: shared_requirements | form: "typed table" -->
 ### Shared requirements
 
-```yaml
-- owner: applications
-  id: srd002-managed-application-services
-  requirements: [R4, R5]
-```
+| owner | id | requirements |
+| --- | --- | --- |
+| applications | srd002-managed-application-services | [R4, R5] |
 
 <!-- field: application_srds -->
 ### Application srds
@@ -247,14 +212,12 @@ prerequisite is unavailable.
 | --- | --- |
 | kind_demo | implemented |
 
-<!-- field: shared_requirements -->
+<!-- field: shared_requirements | form: "typed table" -->
 ### Shared requirements
 
-```yaml
-- owner: applications
-  id: srd002-managed-application-services
-  requirements: [R6]
-```
+| owner | id | requirements |
+| --- | --- | --- |
+| applications | srd002-managed-application-services | [R6] |
 
 <!-- field: application_srds -->
 ### Application srds

@@ -257,19 +257,12 @@ Child process outcomes are mapped to parent machine signals without duplicating 
 - R5.4
 - R5.5
 
-<!-- field: implementation_follow_up -->
+<!-- field: implementation_follow_up | form: "typed table" -->
 ## Implementation follow up
 
-```yaml
-- issue: agent-core-94su.5
-  title: Remove legacy child-agent config paths
-  packages:
-    - internal/support/execute
-    - internal/tools/catalog
-    - internal/tools/control
-    - internal/planning/pipeline
-    - external profile child-launch declarations
-```
+| issue | title | packages |
+| --- | --- | --- |
+| agent-core-94su.5 | Remove legacy child-agent config paths | [internal/support/execute, internal/tools/catalog, internal/tools/control, internal/planning/pipeline, external profile child-launch declarations] |
 
 <!-- field: related_documents -->
 ## Related documents

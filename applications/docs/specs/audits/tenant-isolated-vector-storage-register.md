@@ -124,48 +124,28 @@ application_removal:
 | authenticated-chroma-gateway | A platform gateway authenticates workload identity, maps immutable application/corpus/embedding coordinates, enforces quotas, and hides Chroma. | feasible at gateway | feasible only if every request and administrative path is forced through the gateway | Gateway schema can enforce dimensions/provider/model version. | Requires new accounting and admission controls. | Requires new application-data authority and purge/backup contracts. | Gateway metadata and Chroma data need one consistent snapshot protocol. | Local can prove routing/identity but not workload-identity denial. | high; new platform service, catalog API, credentials, and all consumer adapters | rejected for this release; reconsider only with measured multi-application demand |
 | postgres-pgvector | Shared PostgreSQL/pgvector with database roles and row-level security. | native database credentials or workload-identity proxy | roles and RLS can enforce application/corpus rows | explicit relational keys and dimension-constrained columns | database roles plus provider resource controls | row/schema deletion can be application-scoped but needs the same purge authority decision | mature database snapshot/restore, with a larger shared failure domain | PostgreSQL is portable; cloud identity/proxy remains provider-specific | high; rewrite Chroma adapters and revalidate ranking/query behavior | rejected; capability exceeds current demand |
 
-<!-- field: findings -->
+<!-- field: findings | form: "typed table" -->
 ## Findings
 
-```yaml
-- id: F1
-  severity: decision
-  finding: Current Chroma cannot provide authenticated application isolation in the shipped topology.
-  evidence: No auth/token/tenant configuration exists in rag-units.yaml; rag-server receives only CHROMA_URL, CHROMA_HOST, collection, and embedding model.
-- id: F2
-  severity: decision
-  finding: Collection names and Kubernetes namespaces are not sufficient authorization for one shared endpoint.
-  evidence: A direct shared Chroma candidate has no request identity to compare against the selected collection.
-- id: F3
-  severity: measured
-  finding: The current single seeded Chroma workload is small (3m CPU, 11Mi memory, 188416 data bytes), so consolidation has no demonstrated capacity benefit.
-- id: F4
-  severity: lifecycle
-  finding: Sharing would introduce unresolved backup, retention, purge, quota, and noisy-neighbor authorities that do not exist in the current per-application contract.
-- id: F5
-  severity: compatibility
-  finding: Retrieval selection, ranking, prompting, and answer policy can remain unchanged only behind an adapter; a direct engine migration is not behavior-neutral.
-- id: F6
-  severity: scope
-  finding: Only Chatbot Mesh currently deploys a vector engine among the three first-party applications; there is no measured cross-application consolidation target.
-```
+| id | severity | finding | evidence |
+| --- | --- | --- | --- |
+| F1 | decision | Current Chroma cannot provide authenticated application isolation in the shipped topology. | No auth/token/tenant configuration exists in rag-units.yaml; rag-server receives only CHROMA_URL, CHROMA_HOST, collection, and embedding model. |
+| F2 | decision | Collection names and Kubernetes namespaces are not sufficient authorization for one shared endpoint. | A direct shared Chroma candidate has no request identity to compare against the selected collection. |
+| F3 | measured | The current single seeded Chroma workload is small (3m CPU, 11Mi memory, 188416 data bytes), so consolidation has no demonstrated capacity benefit. |  |
+| F4 | lifecycle | Sharing would introduce unresolved backup, retention, purge, quota, and noisy-neighbor authorities that do not exist in the current per-application contract. |  |
+| F5 | compatibility | Retrieval selection, ranking, prompting, and answer policy can remain unchanged only behind an adapter; a direct engine migration is not behavior-neutral. |  |
+| F6 | scope | Only Chatbot Mesh currently deploys a vector engine among the three first-party applications; there is no measured cross-application consolidation target. |  |
 
-<!-- field: threat_model -->
+<!-- field: threat_model | form: "typed table" -->
 ## Threat model
 
-```yaml
-- threat: cross-application read/write or collection-name guessing
-  per_application_disposition: No shared endpoint; enforce cloud network/credential isolation separately.
-  shared_disposition: Direct Chroma rejected; a gateway or RLS-capable engine would be mandatory.
-- threat: credential theft
-  disposition: Scope credentials to one application and rotate at the platform binding; no shared administrator credential in application pods.
-- threat: incompatible vectors
-  disposition: Keep corpus, collection, provider, model version, and dimensions as independent immutable coordinates.
-- threat: purge mistake
-  disposition: Vector purge remains application authority and is not inferred from namespace or collection naming.
-- threat: noisy-neighbor exhaustion
-  disposition: Per-application requests/limits and PVCs preserve attribution; shared candidates require explicit quotas before adoption.
-```
+| threat | per_application_disposition | shared_disposition | disposition |
+| --- | --- | --- | --- |
+| cross-application read/write or collection-name guessing | No shared endpoint; enforce cloud network/credential isolation separately. | Direct Chroma rejected; a gateway or RLS-capable engine would be mandatory. |  |
+| credential theft |  |  | Scope credentials to one application and rotate at the platform binding; no shared administrator credential in application pods. |
+| incompatible vectors |  |  | Keep corpus, collection, provider, model version, and dimensions as independent immutable coordinates. |
+| purge mistake |  |  | Vector purge remains application authority and is not inferred from namespace or collection naming. |
+| noisy-neighbor exhaustion |  |  | Per-application requests/limits and PVCs preserve attribution; shared candidates require explicit quotas before adoption. |
 
 <!-- field: authority -->
 ## Authority

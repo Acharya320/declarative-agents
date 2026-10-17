@@ -1141,12 +1141,10 @@ by rebinding --library providers, and a new provider needs no Go.
 | --- | --- | --- |
 | test-rel22.0-provider-libraries | Formal tests for the dialect loader, load failures, library rebinding, adapter parity, credentials, parser precedence, stage fragments, adoption, and the synthetic provider. | implemented |
 
-<!-- field: follow_up -->
+<!-- field: follow_up | form: "scalar" -->
 ### Follow up
 
-```yaml
 null
-```
 
 <!-- field: proof -->
 ### Proof
@@ -1198,12 +1196,10 @@ consumer migrates when it chooses.
 | --- | --- | --- |
 | test-rel23.0-provider-failure-signals | Formal tests for mapped statuses, the transport rule, the faults that stay CommandError, the default-off path, and the declared-emits agreement. | implemented |
 
-<!-- field: follow_up -->
+<!-- field: follow_up | form: "scalar" -->
 ### Follow up
 
-```yaml
 null
-```
 
 <!-- field: proof -->
 ### Proof

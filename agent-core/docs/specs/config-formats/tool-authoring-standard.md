@@ -191,32 +191,18 @@ authoring_rules:
     - "The engine and checkpoint adapters treat receipts as opaque; only the originating tool decodes its receipt."
 ```
 
-<!-- field: authoring_workflow -->
+<!-- field: authoring_workflow | form: "typed table" -->
 ## Authoring workflow
 
-```yaml
-- step: 1
-  name: choose_category
-  instruction: "Classify the tool as word, stateful_internal, boundary, or legacy sentence."
-- step: 2
-  name: write_problem_and_non_goals
-  instruction: "Explain why the word exists and what it intentionally does not do."
-- step: 3
-  name: define_io
-  instruction: "Declare parameters and output.schema before implementation."
-- step: 4
-  name: declare_signals
-  instruction: "List emits and make sure named machine actions have transitions for those signals."
-- step: 5
-  name: declare_effects_and_undo
-  instruction: "List side effects and reversibility, and define the receipt the tool encodes on Execute plus the receipt-consuming Undo strategy that reverses the effect."
-- step: 6
-  name: document_relationships
-  instruction: "List before/after neighbors and overlapping tools."
-- step: 7
-  name: add_tests
-  instruction: "Test success, domain failure, command error, side effects, and important undo/reversibility behavior."
-```
+| step | name | instruction |
+| --- | --- | --- |
+| 1 | choose_category | Classify the tool as word, stateful_internal, boundary, or legacy sentence. |
+| 2 | write_problem_and_non_goals | Explain why the word exists and what it intentionally does not do. |
+| 3 | define_io | Declare parameters and output.schema before implementation. |
+| 4 | declare_signals | List emits and make sure named machine actions have transitions for those signals. |
+| 5 | declare_effects_and_undo | List side effects and reversibility, and define the receipt the tool encodes on Execute plus the receipt-consuming Undo strategy that reverses the effect. |
+| 6 | document_relationships | List before/after neighbors and overlapping tools. |
+| 7 | add_tests | Test success, domain failure, command error, side effects, and important undo/reversibility behavior. |
 
 <!-- field: declaration_placement -->
 ## Declaration placement

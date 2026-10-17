@@ -461,15 +461,13 @@ Stable run/step/revision references resolve authoritative conversation JSON afte
 - R8.6
 - R8.7
 
-<!-- field: test_trace_plan -->
+<!-- field: test_trace_plan | form: "typed table" -->
 ## Test trace plan
 
-```yaml
-- test_suite: test-rel02.0-lifecycle
-  covers: [AC1, AC2, AC3, AC4, AC5, AC6, AC8]
-- test_suite: test-rel07.0-command-state
-  covers: [AC7]
-```
+| test_suite | covers |
+| --- | --- |
+| test-rel02.0-lifecycle | [AC1, AC2, AC3, AC4, AC5, AC6, AC8] |
+| test-rel07.0-command-state | [AC7] |
 
 <!-- field: related_documents -->
 ## Related documents
