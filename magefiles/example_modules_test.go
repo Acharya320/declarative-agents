@@ -110,6 +110,7 @@ func TestOrchestrationUsesStableApplicationPaths(t *testing.T) {
 		"applications/catalog",
 		"design-patterns",
 		"application-dsl-spec",
+		"operator",
 	}
 	if !reflect.DeepEqual(subModules, wantSubModules) {
 		t.Fatalf("subModules = %#v, want %#v", subModules, wantSubModules)

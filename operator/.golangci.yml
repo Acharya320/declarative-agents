@@ -1,0 +1,57 @@
+# Copyright (c) 2026 Nokia
+# SPDX-License-Identifier: BSD-3-Clause
+# Pins the linter set for `mage lint` (golangci-lint run ./...) so the release
+# gate is reproducible for a given golangci-lint major version. With
+# default: none the enabled set is explicit here, so a future release changing
+# its default linters cannot silently change the gate verdict.
+#
+# This is the v2 config schema and is not readable by golangci-lint v1. The
+# linter set is pinned here; the binary major version is not, so `mage lint`
+# preflights it (checkGolangciLintVersion) and fails with install guidance when
+# the installed major version does not match the version below.
+version: "2"
+
+linters:
+  default: none
+  enable:
+    - errcheck      # every error is handled or intentionally discarded (go-style)
+    - forbidigo     # runtime and build configuration must not come from process env
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+
+  settings:
+    forbidigo:
+      analyze-types: true
+      forbid:
+        - pattern: ^os\.Getenv$
+          msg: use explicit configuration instead of os.Getenv
+        - pattern: ^os\.LookupEnv$
+          msg: use explicit configuration instead of os.LookupEnv
+        - pattern: ^os\.Setenv$
+          msg: pass environment on the child command instead of os.Setenv
+
+  exclusions:
+    rules:
+      # Tests may stage process environment for child and re-exec helpers.
+      - path: _test\.go$
+        linters:
+          - forbidigo
+
+# Report every issue. The golangci-lint defaults (max-same-issues: 3,
+# max-issues-per-linter: 50) cap output, so identical-message findings such as
+# unchecked f.Close rotate between runs and the reported set is both incomplete
+# and non-deterministic. Zero disables the caps so the gate is complete and
+# reproducible.
+# gofmt is a formatter in the v2 schema, so it is declared here rather than in
+# linters.enable, where it would be ignored. magefiles/format_test.go is the gate
+# that fails a build, because mage lint is not part of the release recipe
+# (GH-1477).
+formatters:
+  enable:
+    - gofmt
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
