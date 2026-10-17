@@ -66,6 +66,7 @@ Use named rows and t.Run for repeated cases.
 <!-- field: example -->
 #### Example
 
+```go
 tests := []struct {
   name string
   input string
@@ -79,6 +80,7 @@ for _, tc := range tests {
     require.Equal(t, tc.want, transform(tc.input))
   })
 }
+```
 
 <!-- field: parallelism -->
 ### Parallelism

@@ -21,26 +21,45 @@ explicit capability and observable evidence.
 - G3: Bind kind demos to ENG01 by reference without widening its scope.
 - G4: Give the Agent Architecture a contract it can cite selectively.
 
-<!-- field: capability_classes | form: "tree" -->
+<!-- field: capability_classes -->
 ## Capability classes
 
-- managed_service:
-  - definition:
-    The application owns one or more long-running processes or listeners whose
-    lifecycle an operator or another application component manages.
-- packaged:
-  - definition:
-    The application produces a deterministic distributable artifact, such as
-    a profile bundle, archive, image, or chart package.
-- helm_managed:
-  - definition:
-    The application ships a Helm chart as an installation and lifecycle
-    surface. This capability implies packaged.
-- kind_demo:
-  - definition:
-    The application ships a kind-based integration proof or operator demo.
-    This capability normally accompanies helm_managed and is governed by
-    ENG01.
+<!-- field: managed_service -->
+### Managed service
+
+<!-- field: definition -->
+#### Definition
+
+The application owns one or more long-running processes or listeners whose
+lifecycle an operator or another application component manages.
+
+<!-- field: packaged -->
+### Packaged
+
+<!-- field: definition -->
+#### Definition
+
+The application produces a deterministic distributable artifact, such as
+a profile bundle, archive, image, or chart package.
+
+<!-- field: helm_managed -->
+### Helm managed
+
+<!-- field: definition -->
+#### Definition
+
+The application ships a Helm chart as an installation and lifecycle
+surface. This capability implies packaged.
+
+<!-- field: kind_demo -->
+### Kind demo
+
+<!-- field: definition -->
+#### Definition
+
+The application ships a kind-based integration proof or operator demo.
+This capability normally accompanies helm_managed and is governed by
+ENG01.
 
 <!-- req: R1 -->
 ## R1 - Managed-service lifecycle

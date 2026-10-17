@@ -193,24 +193,44 @@ A bounded kind install of the validated archive brings the curator and collector
 
 - [R3](#r3---live-kind-smoke)
 
-<!-- field: external_contracts | form: "tree" -->
+<!-- field: external_contracts -->
 ## External contracts
 
-1. - id: srd002-managed-application-services
-   - owner: applications
-   - symbols_used:
-     1. R4
-     1. R5
-     1. R6
-   - usage:
-     This document supplies the packaged, helm_managed, and kind_demo evidence
-     the shared capability contract requires, citing R4 through R6 rather than
-     copying them.
-1. - id: srd011-knowledge-manager
-   - owner: applications/catalog
-   - usage:
-     Defines the canonical documentation-curator profile, catalog-owned user
-     interface, and lifecycle outcomes the chart deploys by reference.
+<!-- external_contract: srd002-managed-application-services -->
+### srd002-managed-application-services
+
+<!-- field: owner -->
+#### Owner
+
+applications
+
+<!-- field: symbols_used -->
+#### Symbols used
+
+- R4
+- R5
+- R6
+
+<!-- field: usage -->
+#### Usage
+
+This document supplies the packaged, helm_managed, and kind_demo evidence
+the shared capability contract requires, citing R4 through R6 rather than
+copying them.
+
+<!-- external_contract: srd011-knowledge-manager -->
+### srd011-knowledge-manager
+
+<!-- field: owner -->
+#### Owner
+
+applications/catalog
+
+<!-- field: usage -->
+#### Usage
+
+Defines the canonical documentation-curator profile, catalog-owned user
+interface, and lifecycle outcomes the chart deploys by reference.
 
 <!-- field: implementation_status -->
 ## Implementation status

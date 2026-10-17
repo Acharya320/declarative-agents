@@ -55,6 +55,9 @@ func (r *Declaration) checkMapping() error {
 		case m.DeriveID != "" && (m.DeriveID != deriveSlug || m.Title == ""):
 			return fmt.Errorf("nodes.%s.yaml.derive_id: only slug, from a title", name)
 		}
+		if flat := r.Nodes[name].Flat; flat != "" && (flat != flatTable || m.Records != recordsList) {
+			return fmt.Errorf("nodes.%s.flat: only table, on a kind with list records", name)
+		}
 	}
 	if err := r.checkSlots(); err != nil {
 		return err

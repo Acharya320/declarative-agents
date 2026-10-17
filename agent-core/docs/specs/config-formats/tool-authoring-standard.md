@@ -22,45 +22,76 @@ A tool is a word, not a sentence. "read_file", "record_oracle_result", and
 run tests, parse traces, and write metrics" is a sentence and belongs in
 machine.yaml as a sequence of tool actions.
 
-<!-- field: tool_categories | form: "tree" -->
+<!-- field: tool_categories -->
 ## Tool categories
 
-- word:
-  - meaning:
-    A single deterministic verb. A word does one thing and can be composed
-    freely by a state machine or, when externally visible, by LLM $tool
-    dispatch.
-  - examples:
-    1. read
-    1. write
-    1. record_oracle_result
-    1. collect_trace_tokens
-- stateful_internal:
-  - meaning:
-    A single internal verb that mutates agent or domain state instead of
-    filesystem state. It is hidden from the LLM and invoked by machine
-    transitions.
-  - examples:
-    1. parse_response
-    1. record_point_failure
-    1. parse_suite_config
-- boundary:
-  - meaning:
-    A tool that intentionally crosses a program, process, model, human,
-    or nested-machine boundary. Boundary tools are allowed when the boundary
-    is the vocabulary word, but they require especially explicit contracts.
-  - examples:
-    1. invoke_llm
-    1. run_point
-    1. self_invoke
-    1. rest_await_event
-- sentence:
-  - meaning:
-    A workflow hidden behind one tool name. Sentence tools are migration
-    targets. New tools should not use this category except to mark legacy
-    compatibility behavior while it is being decomposed.
-  - examples:
-    1. deprecated compatibility aggregators
+<!-- field: word -->
+### Word
+
+<!-- field: meaning -->
+#### Meaning
+
+A single deterministic verb. A word does one thing and can be composed
+freely by a state machine or, when externally visible, by LLM $tool
+dispatch.
+
+<!-- field: examples -->
+#### Examples
+
+- read
+- write
+- record_oracle_result
+- collect_trace_tokens
+
+<!-- field: stateful_internal -->
+### Stateful internal
+
+<!-- field: meaning -->
+#### Meaning
+
+A single internal verb that mutates agent or domain state instead of
+filesystem state. It is hidden from the LLM and invoked by machine
+transitions.
+
+<!-- field: examples -->
+#### Examples
+
+- parse_response
+- record_point_failure
+- parse_suite_config
+
+<!-- field: boundary -->
+### Boundary
+
+<!-- field: meaning -->
+#### Meaning
+
+A tool that intentionally crosses a program, process, model, human,
+or nested-machine boundary. Boundary tools are allowed when the boundary
+is the vocabulary word, but they require especially explicit contracts.
+
+<!-- field: examples -->
+#### Examples
+
+- invoke_llm
+- run_point
+- self_invoke
+- rest_await_event
+
+<!-- field: sentence -->
+### Sentence
+
+<!-- field: meaning -->
+#### Meaning
+
+A workflow hidden behind one tool name. Sentence tools are migration
+targets. New tools should not use this category except to mark legacy
+compatibility behavior while it is being decomposed.
+
+<!-- field: examples -->
+#### Examples
+
+- deprecated compatibility aggregators
 
 <!-- field: good_tool_rules -->
 ## Good tool rules

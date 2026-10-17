@@ -65,15 +65,11 @@ shared agent-core runtime image remains profile-free.
 | srd003-critic | applications/catalog | Critic Functional Block | ../../catalog/docs/specs/software-requirements/srd003-critic.md | The critic-gate stage uses its suite, point, oracle, report, and terminal-outcome contract. |
 | srd004-planner | applications/catalog | Planner Functional Block | ../../catalog/docs/specs/software-requirements/srd004-planner.md | The planner-delegation stage uses its requirement traversal, task materialization, child-profile execution, and validation contract. |
 
-<!-- field: config_format_index | form: "empty list" -->
+<!-- field: config_format_index -->
 ## Config format index
 
-None
-
-<!-- field: semantic_model_index | form: "empty list" -->
+<!-- field: semantic_model_index -->
 ## Semantic model index
-
-None
 
 <!-- field: use_case_index -->
 ## Use case index
@@ -103,13 +99,21 @@ None
 | [test-rel07.0-collector-agent-tracing](specs/test-suites/test-rel07.0-collector-agent-tracing.md) | Canonical Collector Agent Tracing Suite | "07.0" | 5 | [[rel07.0-uc001-collector-agent-tracing](specs/use-cases/rel07.0-uc001-collector-agent-tracing.md)] | docs/specs/test-suites/test-rel07.0-collector-agent-tracing.md |
 | [test-rel08.0-applier](specs/test-suites/test-rel08.0-applier.md) | Test Suite for Release 08.0 Declarative Applier Agent | "08.0" | 5 | [[rel08.0-uc001-declarative-applier](specs/use-cases/rel08.0-uc001-declarative-applier.md)] | docs/specs/test-suites/test-rel08.0-applier.md |
 
-<!-- field: coverage_gaps | form: "tree" -->
+<!-- field: coverage_gaps -->
 ## Coverage gaps
 
-1. - id: kubernetes-deployment
-   - status: partial
-   - description:
-     The one-container-per-agent Helm topology is implemented. Strict values
-     schema, packaged-chart validation, and bounded single-node kind evidence
-     are implemented. Multi-node and production operational evidence remain
-     outside this application.
+<!-- coverage_gap: kubernetes-deployment -->
+### kubernetes-deployment
+
+<!-- field: status -->
+#### Status
+
+partial
+
+<!-- field: description -->
+#### Description
+
+The one-container-per-agent Helm topology is implemented. Strict values
+schema, packaged-chart validation, and bounded single-node kind evidence
+are implemented. Multi-node and production operational evidence remain
+outside this application.

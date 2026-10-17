@@ -146,6 +146,11 @@ func (p *printer) member(level int, parent, key string, value *yaml.Node) error 
 		return fmt.Errorf("%s: no field is declared at level %d under %s", key, level, parent)
 	}
 	if kind, ok := p.d.fieldRecords(level, key); ok && p.d.recordsFit(kind, value) {
+		if p.d.Nodes[kind].Flat == flatTable {
+			if lines, form, ok := p.d.flatTable(slot, key, value); ok {
+				return p.field(level, slot, key, value, lines, form)
+			}
+		}
 		p.block(Marker{Tag: tagField, Value: key}.String(), strings.Repeat("#", level)+" "+p.d.fieldHeading(key))
 		return p.records(kind, value)
 	}
@@ -156,11 +161,31 @@ func (p *printer) member(level int, parent, key string, value *yaml.Node) error 
 	if err != nil {
 		return fmt.Errorf("field %s: %w", key, err)
 	}
+	return p.field(level, slot, key, value, lines, form)
+}
+
+// flatTable renders a list of records as a table when every record is
+// flat: the plain table for string records, the typed table otherwise. A
+// list some record of which holds structure or a paragraph prints no table
+// and reports false (GH-2674).
+func (r *Declaration) flatTable(slot, key string, value *yaml.Node) ([]string, string, bool) {
+	lines, form, err := r.renderField(slot, key, value)
+	if err != nil {
+		return nil, "", false
+	}
+	table := form == formTypedTable || (form == "" && classifyContent(strings.Join(lines, "\n")) == shapeTable)
+	return lines, form, table
+}
+
+// field prints a field's marker, heading, and rendered lines, linking its
+// references and reporting a fenced yaml block.
+func (p *printer) field(level int, slot, key string, value *yaml.Node, lines []string, form string) error {
 	if field, typed := p.d.ruleFor(slot, key); typed {
 		lines = p.links.linkLines(field, lines)
 	}
-	if form == "" && classifyContent(strings.Join(lines, "\n")) == shapeYAML {
-		p.fences = append(p.fences, Fence{Field: key, Reason: fenceReason(value)})
+	if rule, typed := p.d.ruleFor(slot, key); form == "" && (!typed || rule.Code == "") &&
+		classifyContent(strings.Join(lines, "\n")) == shapeYAML {
+		p.fences = append(p.fences, Fence{Field: key, Reason: fenceReason(value)}) // a code field's fence is its form
 	}
 	marker := Marker{Tag: tagField, Value: key}
 	if form != "" {

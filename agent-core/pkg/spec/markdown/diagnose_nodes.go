@@ -191,6 +191,14 @@ func (d *diagnosis) checkAttributes(node *dnode, m Marker) {
 				d.add("attribute-shape", node.markerLine, "form as one of "+strings.Join(typedForms, ", "), a.Value,
 					"eng10 typed forms", `write form: "scalar", "typed table", "tree", "empty list", or "empty map"`)
 			}
+			if rule, typed := d.rules.ruleFor(node.kind, node.id); typed && (rule.Code != "" || rule.Shape != "") {
+				declared := rule.Shape
+				if rule.Code != "" {
+					declared = "one ```" + rule.Code + " fence"
+				}
+				d.add("attribute-shape", node.markerLine, node.id+" as "+declared+", with no form", "form: "+a.Value,
+					"fields."+node.id, "drop the form attribute and write "+node.id+" as "+declared)
+			}
 			continue
 		}
 		if !contains(allowed, a.Key) {

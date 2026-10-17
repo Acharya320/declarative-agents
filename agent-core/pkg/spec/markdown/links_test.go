@@ -45,7 +45,7 @@ traces:
   - R2
   - R9
   - not a reference
-  - "[R1](https://example.com)"
+  - "[See the budget](https://example.com)"
 use_case: other-doc
 touchpoints:
   - id: T1
@@ -95,7 +95,7 @@ func TestSamePageReferencesLink(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, want := range []string{
-		"- [R1](#r1---budget)\n- [R2](#r2)\n- R9\n- not a reference\n- [R1](https://example.com)\n",
+		"- [R1](#r1---budget)\n- [R2](#r2)\n- R9\n- not a reference\n- [See the budget](https://example.com)\n",
 		"## Use case\n\nother-doc\n", // no index: other documents stay text
 		"| T1 | other-doc AC1, AC2 | why |",
 	} {
@@ -112,16 +112,18 @@ func TestSamePageReferencesLink(t *testing.T) {
 	}
 }
 
-// TestUnlinkReadsBackOnlyGeneratedLinks keeps a link whose target does not
-// agree with its text.
-func TestUnlinkReadsBackOnlyGeneratedLinks(t *testing.T) {
+// TestUnlinkReadsBackReferenceLabels reads a link back as its label when
+// the label is a reference, whatever the target, and keeps a link around
+// other text (GH-2678).
+func TestUnlinkReadsBackReferenceLabels(t *testing.T) {
 	for in, want := range map[string]string{
 		"[R1.1](#r11)": "R1.1",
 		"[srd005-agentic-loop](../software-requirements/srd005-agentic-loop.md) [AC5](../software-requirements/srd005-agentic-loop.md#ac5)": "srd005-agentic-loop AC5",
-		"[R1.1](#ac2)": "[R1.1](#ac2)",
+		"[R1.1](#ac2)": "R1.1",
 		"[cfg-runtime-contract](../config-formats/runtime-contract.md)": "cfg-runtime-contract",
-		"[srd005-agentic-loop](https://example.com/srd005.md)":          "[srd005-agentic-loop](https://example.com/srd005.md)",
-		"[see this](#r11)": "[see this](#r11)",
+		"[srd005-agentic-loop](https://example.com/srd005.md)":          "srd005-agentic-loop",
+		"[srd005-agentic-loop AC5](x.md)":                               "srd005-agentic-loop AC5",
+		"[see this](#r11)":                                              "[see this](#r11)",
 	} {
 		if got := unlink(in); got != want {
 			t.Errorf("unlink(%q) = %q, want %q", in, got, want)

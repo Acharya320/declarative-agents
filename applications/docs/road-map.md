@@ -19,13 +19,6 @@ evidence.
 - srd001-application-module-contract
 - srd002-managed-application-services
 
-<!-- field: use_cases -->
-### Use cases
-
-| id | summary | status |
-| --- | --- | --- |
-| [rel00.0-uc001-application-contract-conformance](specs/use-cases/rel00.0-uc001-application-contract-conformance.md) | Verify baseline and declared capability conformance through structural and application-owned evidence. | implemented |
-
 <!-- field: applicability -->
 ### Applicability
 
@@ -54,12 +47,12 @@ Only applications that ship a Helm chart.
 
 Only applications that ship a kind integration or demo; ENG01 applies.
 
-<!-- field: test_suites -->
-### Test suites
+<!-- field: use_cases -->
+### Use cases
 
 | id | summary | status |
 | --- | --- | --- |
-| [test-rel00.0-application-contract-conformance](specs/test-suites/test-rel00.0-application-contract-conformance.md) | Parse shared YAML, verify reciprocal traces, run root orchestration/accounting tests, and invoke current application evidence. | implemented |
+| [rel00.0-uc001-application-contract-conformance](specs/use-cases/rel00.0-uc001-application-contract-conformance.md) | Verify baseline and declared capability conformance through structural and application-owned evidence. | implemented |
 
 <!-- field: current_applications | form: "typed table" -->
 ### Current applications
@@ -70,36 +63,29 @@ Only applications that ship a kind integration or demo; ENG01 applies.
 | applications/coding-agent | composition-only | implemented |  |  |  |  |  |
 | applications/agent-architecture | composition-only | implemented | partial | dependency_gated | planned | planned | planned |
 
-<!-- field: implementation_evidence | form: "tree" -->
+<!-- field: test_suites -->
+### Test suites
+
+| id | summary | status |
+| --- | --- | --- |
+| [test-rel00.0-application-contract-conformance](specs/test-suites/test-rel00.0-application-contract-conformance.md) | Parse shared YAML, verify reciprocal traces, run root orchestration/accounting tests, and invoke current application evidence. | implemented |
+
+<!-- field: implementation_evidence -->
 ### Implementation evidence
 
-1. - path: magefiles/example_modules_test.go
-   - proves: Runnable application paths and root audit, test, and stats participation are executable checks.
-1. - path: magefiles/stats_test.go
-   - proves: Root agent totals sum canonical agents sections and ignore composition-only sections.
-1. - path: applications/coding-agent/magefiles/stats_test.go
-   - proves: A composition-only application reports references without contributing duplicate agents.
-1. - path: applications/chatbot-mesh/magefiles/agent_stats_test.go
-   - proves: An agent-owning application separates local implementations from canonical wrappers.
-1. - path: applications/chatbot-mesh/magefiles/magefile.go
-   - proves: The chatbot-mesh application owns an executable audit gate.
-1. - path: applications/coding-agent/magefiles/magefile.go
-   - proves: The coding-agent application owns an executable audit gate.
-1. - path: applications/agent-architecture/magefiles/magefile.go
-   - proves: The demo owns executable audit and composition-only stats targets.
-1. - path: applications/agent-architecture/magefiles/magefile_test.go
-   - proves:
-     The demo's runnable composition, canonical reference, reciprocal
-     traces, and zero-agent accounting have deterministic tests; its live
-     managed-service observations remain dependency-gated.
-1. - path: magefiles/build.go
-   - proves: Root audit, test, stats, and release lists register all three runnable applications.
-1. - path: magefiles/stats_test.go
-   - proves:
-     Root accounting accepts the demo's application section without an
-     agents section and retains 15 canonical agents.
-1. - path: docs/engineering/eng01-kind-test-demo-rig.md
-   - proves: kind-demo obligations have one referenced engineering contract.
+| path | proves |
+| --- | --- |
+| magefiles/example_modules_test.go | Runnable application paths and root audit, test, and stats participation are executable checks. |
+| magefiles/stats_test.go | Root agent totals sum canonical agents sections and ignore composition-only sections. |
+| applications/coding-agent/magefiles/stats_test.go | A composition-only application reports references without contributing duplicate agents. |
+| applications/chatbot-mesh/magefiles/agent_stats_test.go | An agent-owning application separates local implementations from canonical wrappers. |
+| applications/chatbot-mesh/magefiles/magefile.go | The chatbot-mesh application owns an executable audit gate. |
+| applications/coding-agent/magefiles/magefile.go | The coding-agent application owns an executable audit gate. |
+| applications/agent-architecture/magefiles/magefile.go | The demo owns executable audit and composition-only stats targets. |
+| applications/agent-architecture/magefiles/magefile_test.go | The demo's runnable composition, canonical reference, reciprocal traces, and zero-agent accounting have deterministic tests; its live managed-service observations remain dependency-gated. |
+| magefiles/build.go | Root audit, test, stats, and release lists register all three runnable applications. |
+| magefiles/stats_test.go | Root accounting accepts the demo's application section without an agents section and retains 15 canonical agents. |
+| docs/engineering/eng01-kind-test-demo-rig.md | kind-demo obligations have one referenced engineering contract. |
 
 <!-- field: non_runnable_modules -->
 ### Non runnable modules
@@ -116,36 +102,85 @@ authority while preserving canonical implementation ownership. The shared
 semantic model lands first; executable binding governance and profile
 migrations follow without rewriting historical releases.
 
-<!-- field: dependencies | form: "tree" -->
+<!-- field: dependencies -->
 ### Dependencies
 
-1. - id: catalog-release-07.1
-   - status: in-progress
-   - reason: Preserve and update incomplete per-family boundary evidence during migration.
-1. - id: catalog-release-11.0
-   - status: in-progress
-   - reason: Preserve assembler-rig evidence while resolving its canonical-name collision.
-1. - id: gh-1076-semantic-model
-   - status: implemented
-   - reason: Defines pinned role authority, classifications, inheritance, and aliases.
-1. - id: gh-1074-binding-validation
-   - status: implemented
-   - reason:
-     Deterministic root-audit and catalog-conformance tests validate profile
-     inventory, classifications, role/sub-role bindings, inheritance,
-     aliases, repeated bindings, and canonical-name collisions.
+<!-- dependency: catalog-release-07.1 -->
+#### catalog-release-07.1
 
-<!-- field: use_cases | form: "tree" -->
+<!-- field: status -->
+##### Status
+
+in-progress
+
+<!-- field: reason -->
+##### Reason
+
+Preserve and update incomplete per-family boundary evidence during migration.
+
+<!-- dependency: catalog-release-11.0 -->
+#### catalog-release-11.0
+
+<!-- field: status -->
+##### Status
+
+in-progress
+
+<!-- field: reason -->
+##### Reason
+
+Preserve assembler-rig evidence while resolving its canonical-name collision.
+
+<!-- dependency: gh-1076-semantic-model -->
+#### gh-1076-semantic-model
+
+<!-- field: status -->
+##### Status
+
+implemented
+
+<!-- field: reason -->
+##### Reason
+
+Defines pinned role authority, classifications, inheritance, and aliases.
+
+<!-- dependency: gh-1074-binding-validation -->
+#### gh-1074-binding-validation
+
+<!-- field: status -->
+##### Status
+
+implemented
+
+<!-- field: reason -->
+##### Reason
+
+Deterministic root-audit and catalog-conformance tests validate profile
+inventory, classifications, role/sub-role bindings, inheritance,
+aliases, repeated bindings, and canonical-name collisions.
+
+<!-- field: use_cases -->
 ### Use cases
 
-1. - id: rel12.0-uc001-agent-role-realization-alignment
-   - summary:
-     Classify each shipped profile, validate many-to-many role bindings and
-     wrapper inheritance, and migrate incompatible canonical-name collisions
-     through versioned aliases.
-   - status: implemented
-   - semantic_models:
-     1. sm-agent-role-realizations
+<!-- use_case_entry: rel12.0-uc001-agent-role-realization-alignment -->
+#### rel12.0-uc001-agent-role-realization-alignment
+
+<!-- field: summary -->
+##### Summary
+
+Classify each shipped profile, validate many-to-many role bindings and
+wrapper inheritance, and migrate incompatible canonical-name collisions
+through versioned aliases.
+
+<!-- field: status -->
+##### Status
+
+implemented
+
+<!-- field: semantic_models -->
+##### Semantic models
+
+- [sm-agent-role-realizations](specs/semantic-models/agent-role-realizations.md)
 
 <!-- field: implementation_sequence -->
 ### Implementation sequence
@@ -173,30 +208,20 @@ agent-profiles/v0.20260727.0
 
 post-merge from clean main through mage tag
 
-<!-- field: implementation_evidence | form: "tree" -->
+<!-- field: implementation_evidence -->
 ### Implementation evidence
 
-1. - path: magefiles/agent_role_realizations_test.go
-   - proves:
-     All repository application profiles are discovered deterministically
-     and checked against the shared role, classification, binding,
-     inheritance, exclusion, path, and alias authority.
-1. - path: applications/catalog/conformance/family_inventory_test.go
-   - proves: Catalog family inventory consumes shared actor classifications instead of treating every family as a canonical role.
-1. - path: applications/catalog/conformance/membership_contract_test.go
-   - proves: Catalog test-time members and incompatible historical aliases retain their documented realization semantics.
-1. - path: magefiles/audit.go
-   - proves: Root mage audit executes the actor-role realization validator before module audits.
-1. - path: applications/catalog/docs/migrations/v0.20260727.0-agent-role-realization-alignment.md
-   - proves: Every rename has an old-to-new path or identity entry, compatibility mechanism and duration, consumer pin, and post-merge publication boundary.
-1. - path: applications/catalog/conformance/release_alignment_test.go
-   - proves: Exact release metadata, consumer pins, migration coverage, and scoped zero-hit policy are executable.
-1. - path: applications/coding-agent/magefiles/profiles_closure_test.go
-   - proves: The coding application pins the alignment release and packages every canonical transitive profile asset.
-1. - path: applications/chatbot-mesh/magefiles/helm_package_test.go
-   - proves: The chart records the catalog pin and its generated archive contains canonical renamed paths without stale coordinator artifacts.
-1. - path: magefiles/tag_test.go
-   - proves: The root release creates the exact canonical catalog and legacy compatibility pair atomically without feature-branch publication.
+| path | proves |
+| --- | --- |
+| magefiles/agent_role_realizations_test.go | All repository application profiles are discovered deterministically and checked against the shared role, classification, binding, inheritance, exclusion, path, and alias authority. |
+| applications/catalog/conformance/family_inventory_test.go | Catalog family inventory consumes shared actor classifications instead of treating every family as a canonical role. |
+| applications/catalog/conformance/membership_contract_test.go | Catalog test-time members and incompatible historical aliases retain their documented realization semantics. |
+| magefiles/audit.go | Root mage audit executes the actor-role realization validator before module audits. |
+| applications/catalog/docs/migrations/v0.20260727.0-agent-role-realization-alignment.md | Every rename has an old-to-new path or identity entry, compatibility mechanism and duration, consumer pin, and post-merge publication boundary. |
+| applications/catalog/conformance/release_alignment_test.go | Exact release metadata, consumer pins, migration coverage, and scoped zero-hit policy are executable. |
+| applications/coding-agent/magefiles/profiles_closure_test.go | The coding application pins the alignment release and packages every canonical transitive profile asset. |
+| applications/chatbot-mesh/magefiles/helm_package_test.go | The chart records the catalog pin and its generated archive contains canonical renamed paths without stale coordinator artifacts. |
+| magefiles/tag_test.go | The root release creates the exact canonical catalog and legacy compatibility pair atomically without feature-branch publication. |
 
 <!-- release: 13.0 | status: implemented -->
 ## 13.0 - Multi-agent application vision
@@ -215,26 +240,17 @@ shared capability contract.
 | gh-1076-semantic-model | implemented | Defines canonical roles as semantic interfaces and records actor/profile realizations. |
 | application-composition-pattern-language | implemented | Supplies the construction patterns referenced by the root guide. |
 
-<!-- field: implementation_evidence | form: "tree" -->
+<!-- field: implementation_evidence -->
 ### Implementation evidence
 
-1. - path: applications/docs/VISION.md
-   - proves:
-     The canonical vision records the multi-agent thesis, both operating
-     flows, human boundary, six-step construction sequence, retained
-     capability contract, and pinned conceptual-source provenance.
-1. - path: applications/README.md
-   - proves:
-     A root reader can determine why and when to use several actors and
-     follow the ordered scenario-to-evidence construction guide.
-1. - path: applications/docs/ARCHITECTURE.md
-   - proves: The project index assigns the revised VISION and README responsibilities and records implementation status.
-1. - path: applications/docs/SPECIFICATIONS.md
-   - proves: The foundation index names and summarizes the broadened canonical vision.
-1. - path: applications/docs/specs/semantic-models/agent-role-realizations.md
-   - proves: Canonical roles, actor/profile realizations, inheritance, and ownership boundaries remain machine-readable.
-1. - path: applications/docs/pattern-language.md
-   - proves: Canonical reuse, composition, package closure, profile-free runtime, wrappers, and workload boundaries have construction patterns.
+| path | proves |
+| --- | --- |
+| applications/docs/VISION.md | The canonical vision records the multi-agent thesis, both operating flows, human boundary, six-step construction sequence, retained capability contract, and pinned conceptual-source provenance. |
+| applications/README.md | A root reader can determine why and when to use several actors and follow the ordered scenario-to-evidence construction guide. |
+| applications/docs/ARCHITECTURE.md | The project index assigns the revised VISION and README responsibilities and records implementation status. |
+| applications/docs/SPECIFICATIONS.md | The foundation index names and summarizes the broadened canonical vision. |
+| applications/docs/specs/semantic-models/agent-role-realizations.md | Canonical roles, actor/profile realizations, inheritance, and ownership boundaries remain machine-readable. |
+| applications/docs/pattern-language.md | Canonical reuse, composition, package closure, profile-free runtime, wrappers, and workload boundaries have construction patterns. |
 
 <!-- release: 14.0 | status: implemented -->
 ## 14.0 - Application consistency and conformance
@@ -266,14 +282,22 @@ gh-1414-normalize-showcase-applications
 
 - srd003-application-consistency
 
-<!-- field: use_cases | form: "tree" -->
+<!-- field: use_cases -->
 ### Use cases
 
-1. - id: rel14.0-uc001-application-consistency
-   - summary:
-     Normalize and verify one showcase application while preserving
-     capability gating, ownership, and truthful audit-only or runnable status.
-   - status: implemented
+<!-- use_case_entry: rel14.0-uc001-application-consistency -->
+#### rel14.0-uc001-application-consistency
+
+<!-- field: summary -->
+##### Summary
+
+Normalize and verify one showcase application while preserving
+capability gating, ownership, and truthful audit-only or runnable status.
+
+<!-- field: status -->
+##### Status
+
+implemented
 
 <!-- field: implementation_sequence | form: "typed table" -->
 ### Implementation sequence
@@ -287,25 +311,40 @@ gh-1414-normalize-showcase-applications
 | 5 | Normalize Agent Architecture manifest, applier ownership, package/UI roots, and stale capability status. | implemented |
 | 6 | Run the full Release 14.0 suite and close only evidence-backed capability states. | implemented |
 
-<!-- field: test_suites | form: "tree" -->
+<!-- field: test_suites -->
 ### Test suites
 
-1. - id: test-rel14.0-application-consistency
-   - summary:
-     Parse and trace shared documents, then validate manifests, actor
-     grammar, package derivation, UI tokens, README/status agreement, the
-     three-application matrix, and root audit.
-   - status: implemented
-   - implemented_cases:
-     1. TC1
-     1. TC2
-     1. TC3
-     1. TC4
-     1. TC5
-     1. TC6
-     1. TC7
-     1. TC8
-   - planned_cases: []
+<!-- test_suite_entry: test-rel14.0-application-consistency -->
+#### test-rel14.0-application-consistency
+
+<!-- field: summary -->
+##### Summary
+
+Parse and trace shared documents, then validate manifests, actor
+grammar, package derivation, UI tokens, README/status agreement, the
+three-application matrix, and root audit.
+
+<!-- field: status -->
+##### Status
+
+implemented
+
+<!-- field: implemented_cases -->
+##### Implemented cases
+
+- TC1
+- TC2
+- TC3
+- TC4
+- TC5
+- TC6
+- TC7
+- TC8
+
+<!-- field: planned_cases | form: "empty list" -->
+##### Planned cases
+
+None
 
 <!-- field: current_application_evidence -->
 ### Current application evidence
@@ -434,14 +473,22 @@ gh-2154-declarative-ux
 
 - srd004-declarative-ux
 
-<!-- field: use_cases | form: "tree" -->
+<!-- field: use_cases -->
 ### Use cases
 
-1. - id: rel15.0-uc001-declarative-ux
-   - summary:
-     Compose an application UI from ui.yaml, kit panels, and domain panels,
-     and serve the observer UI from an embedded bundle.
-   - status: implemented
+<!-- use_case_entry: rel15.0-uc001-declarative-ux -->
+#### rel15.0-uc001-declarative-ux
+
+<!-- field: summary -->
+##### Summary
+
+Compose an application UI from ui.yaml, kit panels, and domain panels,
+and serve the observer UI from an embedded bundle.
+
+<!-- field: status -->
+##### Status
+
+implemented
 
 <!-- field: implementation_sequence | form: "typed table" -->
 ### Implementation sequence
@@ -455,26 +502,41 @@ gh-2154-declarative-ux
 | 5 | Validate ui.yaml version 2 and run the chatbot-mesh chatbot on the generic shell (GH-2159; GH-2270 to GH-2272). | implemented |
 | 6 | Migrate the remaining monorepo UIs, add the duplication sweep, and version the kit 1.0.0 (GH-2160; GH-2273 to GH-2275). | implemented |
 
-<!-- field: test_suites | form: "tree" -->
+<!-- field: test_suites -->
 ### Test suites
 
-1. - id: test-rel15.0-declarative-ux
-   - summary:
-     Trace the release documents, then verify the kit client, fixtures,
-     panels, shell, ui.yaml version 2, token ownership, embedded bundle,
-     and the absence of duplicated UI code.
-   - status: implemented
-   - implemented_cases:
-     1. TC1
-     1. TC2
-     1. TC3
-     1. TC4
-     1. TC5
-     1. TC6
-     1. TC7
-     1. TC8
-     1. TC9
-   - planned_cases: []
+<!-- test_suite_entry: test-rel15.0-declarative-ux -->
+#### test-rel15.0-declarative-ux
+
+<!-- field: summary -->
+##### Summary
+
+Trace the release documents, then verify the kit client, fixtures,
+panels, shell, ui.yaml version 2, token ownership, embedded bundle,
+and the absence of duplicated UI code.
+
+<!-- field: status -->
+##### Status
+
+implemented
+
+<!-- field: implemented_cases -->
+##### Implemented cases
+
+- TC1
+- TC2
+- TC3
+- TC4
+- TC5
+- TC6
+- TC7
+- TC8
+- TC9
+
+<!-- field: planned_cases | form: "empty list" -->
+##### Planned cases
+
+None
 
 <!-- field: implementation_evidence -->
 ### Implementation evidence
@@ -512,15 +574,23 @@ gh-2047-chart-conformance
 
 - srd005-chart-conformance
 
-<!-- field: use_cases | form: "tree" -->
+<!-- field: use_cases -->
 ### Use cases
 
-1. - id: rel16.0-uc001-chart-conformance
-   - summary:
-     An engineer adds a workload whose image floats, the audit fails
-     naming the chart, the overlay, the resource and the rule, and the
-     exception baseline carries what must stand.
-   - status: implemented
+<!-- use_case_entry: rel16.0-uc001-chart-conformance -->
+#### rel16.0-uc001-chart-conformance
+
+<!-- field: summary -->
+##### Summary
+
+An engineer adds a workload whose image floats, the audit fails
+naming the chart, the overlay, the resource and the rule, and the
+exception baseline carries what must stand.
+
+<!-- field: status -->
+##### Status
+
+implemented
 
 <!-- field: implementation_sequence | form: "typed table" -->
 ### Implementation sequence
@@ -531,27 +601,42 @@ gh-2047-chart-conformance
 | 2 | Add the chart conformance module, its exception baseline, and the root audit wiring (GH-2408). | implemented |
 | 3 | Pin the floating image tags and shrink the baseline (GH-2409). | implemented |
 
-<!-- field: test_suites | form: "tree" -->
+<!-- field: test_suites -->
 ### Test suites
 
-1. - id: test-rel16.0-chart-conformance
-   - summary:
-     Trace the release documents, then verify render coverage, each
-     numbered rule, the baseline's three behaviours, the shape of a
-     finding, and the pinning of the seeded violations.
-   - status: planned
-   - implemented_cases:
-     1. TC1
-     1. TC2
-     1. TC3
-     1. TC4
-     1. TC5
-     1. TC6
-     1. TC7
-     1. TC8
-     1. TC9
-     1. TC10
-   - planned_cases: []
+<!-- test_suite_entry: test-rel16.0-chart-conformance -->
+#### test-rel16.0-chart-conformance
+
+<!-- field: summary -->
+##### Summary
+
+Trace the release documents, then verify render coverage, each
+numbered rule, the baseline's three behaviours, the shape of a
+finding, and the pinning of the seeded violations.
+
+<!-- field: status -->
+##### Status
+
+planned
+
+<!-- field: implemented_cases -->
+##### Implemented cases
+
+- TC1
+- TC2
+- TC3
+- TC4
+- TC5
+- TC6
+- TC7
+- TC8
+- TC9
+- TC10
+
+<!-- field: planned_cases | form: "empty list" -->
+##### Planned cases
+
+None
 
 <!-- field: implementation_evidence | form: "typed table" -->
 ### Implementation evidence
@@ -595,14 +680,22 @@ gh-2049-pin-currency
 
 - srd006-pin-currency
 
-<!-- field: use_cases | form: "tree" -->
+<!-- field: use_cases -->
 ### Use cases
 
-1. - id: rel17.0-uc001-pin-currency
-   - summary:
-     An operator runs the bump target, reads which pins moved and which
-     aged, and edits the ones they choose to take.
-   - status: implemented
+<!-- use_case_entry: rel17.0-uc001-pin-currency -->
+#### rel17.0-uc001-pin-currency
+
+<!-- field: summary -->
+##### Summary
+
+An operator runs the bump target, reads which pins moved and which
+aged, and edits the ones they choose to take.
+
+<!-- field: status -->
+##### Status
+
+implemented
 
 <!-- field: implementation_sequence | form: "typed table" -->
 ### Implementation sequence
@@ -612,26 +705,41 @@ gh-2049-pin-currency
 | 1 | Add the ENG01 pin currency section and the bump verb, and specify srd006, the use case, the suite, and the index entries (GH-2415). | planned |
 | 2 | Add the pin survey, its registry client, the declared pin list, and the bump target (GH-2416). | implemented |
 
-<!-- field: test_suites | form: "tree" -->
+<!-- field: test_suites -->
 ### Test suites
 
-1. - id: test-rel17.0-pin-currency
-   - summary:
-     Trace the release documents, then verify the derived and declared
-     inventory, both verdicts, version comparison, the unknown case, and
-     that the target writes nothing.
-   - status: implemented
-   - implemented_cases:
-     1. TC1
-     1. TC2
-     1. TC3
-     1. TC4
-     1. TC5
-     1. TC6
-     1. TC7
-     1. TC8
-     1. TC9
-   - planned_cases: []
+<!-- test_suite_entry: test-rel17.0-pin-currency -->
+#### test-rel17.0-pin-currency
+
+<!-- field: summary -->
+##### Summary
+
+Trace the release documents, then verify the derived and declared
+inventory, both verdicts, version comparison, the unknown case, and
+that the target writes nothing.
+
+<!-- field: status -->
+##### Status
+
+implemented
+
+<!-- field: implemented_cases -->
+##### Implemented cases
+
+- TC1
+- TC2
+- TC3
+- TC4
+- TC5
+- TC6
+- TC7
+- TC8
+- TC9
+
+<!-- field: planned_cases | form: "empty list" -->
+##### Planned cases
+
+None
 
 <!-- field: implementation_evidence | form: "typed table" -->
 ### Implementation evidence
@@ -672,14 +780,22 @@ gh-2418-tag-verify
 
 - srd007-release-annotation
 
-<!-- field: use_cases | form: "tree" -->
+<!-- field: use_cases -->
 ### Use cases
 
-1. - id: rel18.0-uc001-release-annotation
-   - summary:
-     An operator about to push runs the check; a real summary passes
-     and a degenerate annotation is refused with the rule it broke.
-   - status: implemented
+<!-- use_case_entry: rel18.0-uc001-release-annotation -->
+#### rel18.0-uc001-release-annotation
+
+<!-- field: summary -->
+##### Summary
+
+An operator about to push runs the check; a real summary passes
+and a degenerate annotation is refused with the rule it broke.
+
+<!-- field: status -->
+##### Status
+
+implemented
 
 <!-- field: implementation_sequence | form: "typed table" -->
 ### Implementation sequence
@@ -689,23 +805,38 @@ gh-2418-tag-verify
 | 1 | Add the ENG01 release-annotation section and the tag:verify verb, and specify srd007, the use case, the suite, and the index entries (GH-2419). | planned |
 | 2 | Add the tag:verify target, its scratch-repository tests, and the runbook step (GH-2420). | implemented |
 
-<!-- field: test_suites | form: "tree" -->
+<!-- field: test_suites -->
 ### Test suites
 
-1. - id: test-rel18.0-release-annotation
-   - summary:
-     Trace the release documents, then verify each refusal by name,
-     reachability from main, that a run mutates nothing, and the
-     placement in the runbook and the skill.
-   - status: implemented
-   - implemented_cases:
-     1. TC1
-     1. TC2
-     1. TC3
-     1. TC4
-     1. TC5
-     1. TC6
-   - planned_cases: []
+<!-- test_suite_entry: test-rel18.0-release-annotation -->
+#### test-rel18.0-release-annotation
+
+<!-- field: summary -->
+##### Summary
+
+Trace the release documents, then verify each refusal by name,
+reachability from main, that a run mutates nothing, and the
+placement in the runbook and the skill.
+
+<!-- field: status -->
+##### Status
+
+implemented
+
+<!-- field: implemented_cases -->
+##### Implemented cases
+
+- TC1
+- TC2
+- TC3
+- TC4
+- TC5
+- TC6
+
+<!-- field: planned_cases | form: "empty list" -->
+##### Planned cases
+
+None
 
 <!-- field: implementation_evidence | form: "typed table" -->
 ### Implementation evidence
@@ -749,15 +880,23 @@ gh-2474-shared-platform
 
 - srd008-persistent-application-platform
 
-<!-- field: use_cases | form: "tree" -->
+<!-- field: use_cases -->
 ### Use cases
 
-1. - id: rel19.0-uc001-persistent-application-platform
-   - summary:
-     Run two applications on one platform, remove and redeploy one, and
-     prove that compute, retained data, and query availability follow
-     their separate lifecycle boundaries.
-   - status: implemented
+<!-- use_case_entry: rel19.0-uc001-persistent-application-platform -->
+#### rel19.0-uc001-persistent-application-platform
+
+<!-- field: summary -->
+##### Summary
+
+Run two applications on one platform, remove and redeploy one, and
+prove that compute, retained data, and query availability follow
+their separate lifecycle boundaries.
+
+<!-- field: status -->
+##### Status
+
+implemented
 
 <!-- field: implementation_sequence | form: "typed table" -->
 ### Implementation sequence
@@ -772,26 +911,41 @@ gh-2474-shared-platform
 | 6 | Add the manifest-driven magefiles/apprig lifecycle runner (GH-2479, split into GH-2492 deterministic core and GH-2493 live proofs/external fixture). | implemented | GH-2492 supplies the deterministic core; GH-2493 supplies live lifecycle, compensation, diagnosis, external-module, retained-history, and approved purge evidence. |
 | 7 | Migrate Chatbot Mesh, Coding Agent, and Agent Architecture (GH-2482, GH-2483, GH-2480). | implemented |  |
 
-<!-- field: test_suites | form: "tree" -->
+<!-- field: test_suites -->
 ### Test suites
 
-1. - id: test-rel19.0-persistent-application-platform
-   - summary:
-     Trace the release documents, then prove protocol paths,
-     two-application lifecycle, local/cloud parity, WAL-first immutable
-     objects, query restoration, failure isolation, and reusable runner
-     adoption.
-   - status: implemented
-   - implemented_cases:
-     1. TC1
-     1. TC2
-     1. TC3
-     1. TC4
-     1. TC5
-     1. TC6
-     1. TC7
-     1. TC8
-   - planned_cases: []
+<!-- test_suite_entry: test-rel19.0-persistent-application-platform -->
+#### test-rel19.0-persistent-application-platform
+
+<!-- field: summary -->
+##### Summary
+
+Trace the release documents, then prove protocol paths,
+two-application lifecycle, local/cloud parity, WAL-first immutable
+objects, query restoration, failure isolation, and reusable runner
+adoption.
+
+<!-- field: status -->
+##### Status
+
+implemented
+
+<!-- field: implemented_cases -->
+##### Implemented cases
+
+- TC1
+- TC2
+- TC3
+- TC4
+- TC5
+- TC6
+- TC7
+- TC8
+
+<!-- field: planned_cases | form: "empty list" -->
+##### Planned cases
+
+None
 
 <!-- field: implementation_evidence | form: "typed table" -->
 ### Implementation evidence

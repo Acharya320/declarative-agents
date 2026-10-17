@@ -519,32 +519,90 @@ in-cluster creator, orchestrator, or panel.
 <!-- field: project_structure -->
 ## Project structure
 
-<!-- field: application | form: "tree" -->
+<!-- field: application -->
 ### Application
 
-1. - path: agents/application.yaml
-   - role: App-specific composition references, compatible release declaration, checkout provenance, runtime mount, and configuration-surface inventory.
-1. - path: docs/
-   - role: Application-level design and specification corpus.
-1. - path: testdata/integration/
-   - role: Planned coding-loop fixtures owned by this application.
-1. - path: magefiles/profiles_closure.go
-   - role: Deterministic transitive library-profile closure assembly.
-1. - path: magefiles/profiles_deployment.go
-   - role: Role-specific closure publication and bounded ConfigMap partition metadata.
-1. - path: agents/
-   - role: Persistent planner, executor, and critic host profiles and remote request composition.
-1. - path: agents/role-server/
-   - role: Explicitly application-owned shared lifecycle wrapper used by the three serving actors.
-1. - path: agents/applier/
-   - role:
-     Standalone local composition wrapper over the canonical catalog applier.
-     Application-owned command bindings validate, apply, verify, and roll
-     back a decided coding-chart values patch.
-1. - path: helm/
-   - role: Implemented role-sharded deployment chart.
-1. - path: magefiles/
-   - role: Application packaging, audit, and staged integration targets.
+<!-- application_entry: agents/application.yaml -->
+#### agents/application.yaml
+
+<!-- field: role -->
+##### Role
+
+App-specific composition references, compatible release declaration, checkout provenance, runtime mount, and configuration-surface inventory.
+
+<!-- application_entry: docs/ -->
+#### docs/
+
+<!-- field: role -->
+##### Role
+
+Application-level design and specification corpus.
+
+<!-- application_entry: testdata/integration/ -->
+#### testdata/integration/
+
+<!-- field: role -->
+##### Role
+
+Planned coding-loop fixtures owned by this application.
+
+<!-- application_entry: magefiles/profiles_closure.go -->
+#### magefiles/profiles_closure.go
+
+<!-- field: role -->
+##### Role
+
+Deterministic transitive library-profile closure assembly.
+
+<!-- application_entry: magefiles/profiles_deployment.go -->
+#### magefiles/profiles_deployment.go
+
+<!-- field: role -->
+##### Role
+
+Role-specific closure publication and bounded ConfigMap partition metadata.
+
+<!-- application_entry: agents/ -->
+#### agents/
+
+<!-- field: role -->
+##### Role
+
+Persistent planner, executor, and critic host profiles and remote request composition.
+
+<!-- application_entry: agents/role-server/ -->
+#### agents/role-server/
+
+<!-- field: role -->
+##### Role
+
+Explicitly application-owned shared lifecycle wrapper used by the three serving actors.
+
+<!-- application_entry: agents/applier/ -->
+#### agents/applier/
+
+<!-- field: role -->
+##### Role
+
+Standalone local composition wrapper over the canonical catalog applier.
+Application-owned command bindings validate, apply, verify, and roll
+back a decided coding-chart values patch.
+
+<!-- application_entry: helm/ -->
+#### helm/
+
+<!-- field: role -->
+##### Role
+
+Implemented role-sharded deployment chart.
+
+<!-- application_entry: magefiles/ -->
+#### magefiles/
+
+<!-- field: role -->
+##### Role
+
+Application packaging, audit, and staged integration targets.
 
 <!-- field: library -->
 ### Library

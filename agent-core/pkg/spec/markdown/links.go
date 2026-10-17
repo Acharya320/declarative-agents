@@ -220,24 +220,20 @@ func relativePath(from, target string) string {
 	return strings.Join(append(up, toParts[i:]...), "/")
 }
 
-// unlink reads every reference link in text back as its text: a link whose
-// text is a document id and whose target is a relative Markdown file, or
-// whose text is an item and whose target holds an anchor starting with the
-// item's own. File names need not match ids (cfg-runtime-contract lives in
-// runtime-contract.md), so the converter owns the target and mage fmt
-// rewrites a stale one. Any other link stays as written.
+// unlink reads every reference link in text back as its label: a link whose
+// label is a document id, an item, or a document id with items is the
+// reference it names, whatever its target, because the converter owns the
+// target (file names need not match ids: cfg-runtime-contract lives in
+// runtime-contract.md). A link whose target is wrong therefore reads back
+// as the reference and prints with the right target, so the audit reports
+// it as not canonical and mage fmt repairs it (GH-2678). A link around any
+// other text stays as written.
 func unlink(text string) string {
 	if !strings.Contains(text, "](") {
 		return text
 	}
 	return markdownLink.ReplaceAllStringFunc(text, func(link string) string {
-		m := markdownLink.FindStringSubmatch(link)
-		label, target := m[1], m[2]
-		file, anchor, _ := strings.Cut(target, "#")
-		switch {
-		case idToken.MatchString(label) && anchor == "" && strings.HasSuffix(file, ".md") && !strings.Contains(file, "://"):
-			return label
-		case itemToken.MatchString(label) && anchor != "" && strings.HasPrefix(anchor, slug(label)):
+		if label := markdownLink.FindStringSubmatch(link)[1]; referenceValue.MatchString(label) {
 			return label
 		}
 		return link

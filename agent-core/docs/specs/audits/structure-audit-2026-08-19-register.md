@@ -687,79 +687,146 @@ build_test_support
 | applications/catalog/cmd/catalog-test-evidence/runner.go | 200 | retained_command_adapter | Go JSON evidence forwarding and stable compiled conformance test execution. |
 | applications/catalog/cmd/catalog-test-evidence/main.go | 18 | retained_entry_point | Process argv, error reporting, and exit status. |
 
-<!-- field: findings | form: "tree" -->
+<!-- field: findings -->
 ## Findings
 
-1. - id: cmd-agent-program-reconstruction
-   - issue: GH-1798
-   - rule: go-style package_layout.cmd
-   - evidence:
-     - file: agent-core/cmd/agent/program_ref.go
-     - functions:
-       1. augmentRollbackResources (lines 28-51)
-       1. definitionsForExecution (lines 53-77)
-       1. buildProgramRef (lines 96-116)
-       1. loadReferencedProgram (lines 118-143)
-       1. runtimeConfigForProfile (lines 145-159)
-       1. programAssetFiles (lines 161-190)
-       1. addDeclarationClosure (lines 192-222)
-       1. addProgramDirectory (lines 224-234)
-       1. mergeRESTCollections and mergeMap (lines 236-254)
-     - contract:
-       1. srd026-lifecycle-tools R3.5
-       1. srd026-lifecycle-tools R3.12
-     - reason:
-       Program closure hashing and verified originating-resource reconstruction
-       are catalog and lifecycle algorithms. addDeclarationClosure duplicates
-       the include walk already owned by internal/tools/catalog.
-   - destination:
-     1. internal/tools/catalog for asset closure and ProgramRef digest construction
-     1. internal/tools/lifecycle for checkpoint verification and originating ToolDef/REST reconstruction
-   - cmd_wiring_remaining:
-     1. adapt runtimeConfig and profile paths
-     1. select the checkpoint backend and rollback operator profile
-     1. register standard factories and call the catalog/lifecycle APIs
-   - tests:
-     1. cmd/agent TestAugmentRollbackResourcesLoadsVerifiedOriginatingProgram
-     1. cmd/agent TestAugmentRollbackResourcesRejectsLegacyCheckpointWithoutProgram
-     1. cmd/agent TestAugmentRollbackResourcesRejectsMissingReceiptBuilder
-     1. cmd/agent TestFreshRollbackRegistryTracesRepresentativeFamilies
-     1. cmd/agent TestFreshRollbackRegistryRestoresOriginatingFileTool
-     1. cmd/agent TestFreshRollbackRegistryReportsAliasedSelfInvokeReceipt
-1. - id: cmd-agent-monitor-policy-compilation
-   - issue: GH-1799
-   - rule: go-style package_layout.cmd
-   - evidence:
-     - file: agent-core/cmd/agent/runtime_config.go
-     - functions:
-       1. monitorRecorderConfig (lines 237-256)
-       1. monitorEnvelopePolicy (lines 258-286)
-       1. sortedSetValues (lines 288-297)
-       1. toolMetricBindings (lines 299-320)
-       1. toolMetricBinding (lines 322-356)
-       1. machineMetricLabelValues (lines 358-379)
-       1. metricAttributeAllowedValues (lines 381-404)
-     - contract:
-       1. srd032-tool-metrics-monitor-store R3.1
-       1. srd032-tool-metrics-monitor-store R3.2
-       1. srd032-tool-metrics-monitor-store R3.6
-       1. srd032-tool-metrics-monitor-store R3.8
-     - reason:
-       These functions interpret MachineSpec and ToolDef metric declarations
-       into RecorderConfig, MetricBinding, AttributePolicy, and EnvelopePolicy,
-       all types owned by internal/observability/monitor.
-   - destination:
-     1. internal/observability/monitor
-   - cmd_wiring_remaining:
-     1. detect REST monitor-view opt-in without creating a monitor-to-rest import cycle
-     1. allocate the process store and select the telemetry meter and run identity
-     1. pass Store and Recorder into REST dependencies and LoopParams
-   - tests:
-     1. cmd/agent TestMonitorRuntimeRejectsUnboundedToolAttributeSetup
-     1. cmd/agent TestMonitorRuntimeBindsDeclaredToolAndWorkflowAttributes
-     1. cmd/agent TestMonitorRuntimeOptInProfileSetsLoopRecorder
-     1. cmd/agent TestMonitorRuntimeRecordsDispatchMetricsInStore
-     1. cmd/agent TestMachineNameDrivesSpanAndMetricIdentity
+<!-- finding: cmd-agent-program-reconstruction -->
+### cmd-agent-program-reconstruction
+
+<!-- field: issue -->
+#### Issue
+
+GH-1798
+
+<!-- field: rule -->
+#### Rule
+
+go-style package_layout.cmd
+
+<!-- field: evidence -->
+#### Evidence
+
+<!-- field: file -->
+##### File
+
+agent-core/cmd/agent/program_ref.go
+
+<!-- field: functions -->
+##### Functions
+
+- augmentRollbackResources (lines 28-51)
+- definitionsForExecution (lines 53-77)
+- buildProgramRef (lines 96-116)
+- loadReferencedProgram (lines 118-143)
+- runtimeConfigForProfile (lines 145-159)
+- programAssetFiles (lines 161-190)
+- addDeclarationClosure (lines 192-222)
+- addProgramDirectory (lines 224-234)
+- mergeRESTCollections and mergeMap (lines 236-254)
+
+<!-- field: contract -->
+##### Contract
+
+- srd026-lifecycle-tools R3.5
+- srd026-lifecycle-tools R3.12
+
+<!-- field: reason -->
+##### Reason
+
+Program closure hashing and verified originating-resource reconstruction
+are catalog and lifecycle algorithms. addDeclarationClosure duplicates
+the include walk already owned by internal/tools/catalog.
+
+<!-- field: destination -->
+#### Destination
+
+- internal/tools/catalog for asset closure and ProgramRef digest construction
+- internal/tools/lifecycle for checkpoint verification and originating ToolDef/REST reconstruction
+
+<!-- field: cmd_wiring_remaining -->
+#### Cmd wiring remaining
+
+- adapt runtimeConfig and profile paths
+- select the checkpoint backend and rollback operator profile
+- register standard factories and call the catalog/lifecycle APIs
+
+<!-- field: tests -->
+#### Tests
+
+- cmd/agent TestAugmentRollbackResourcesLoadsVerifiedOriginatingProgram
+- cmd/agent TestAugmentRollbackResourcesRejectsLegacyCheckpointWithoutProgram
+- cmd/agent TestAugmentRollbackResourcesRejectsMissingReceiptBuilder
+- cmd/agent TestFreshRollbackRegistryTracesRepresentativeFamilies
+- cmd/agent TestFreshRollbackRegistryRestoresOriginatingFileTool
+- cmd/agent TestFreshRollbackRegistryReportsAliasedSelfInvokeReceipt
+
+<!-- finding: cmd-agent-monitor-policy-compilation -->
+### cmd-agent-monitor-policy-compilation
+
+<!-- field: issue -->
+#### Issue
+
+GH-1799
+
+<!-- field: rule -->
+#### Rule
+
+go-style package_layout.cmd
+
+<!-- field: evidence -->
+#### Evidence
+
+<!-- field: file -->
+##### File
+
+agent-core/cmd/agent/runtime_config.go
+
+<!-- field: functions -->
+##### Functions
+
+- monitorRecorderConfig (lines 237-256)
+- monitorEnvelopePolicy (lines 258-286)
+- sortedSetValues (lines 288-297)
+- toolMetricBindings (lines 299-320)
+- toolMetricBinding (lines 322-356)
+- machineMetricLabelValues (lines 358-379)
+- metricAttributeAllowedValues (lines 381-404)
+
+<!-- field: contract -->
+##### Contract
+
+- srd032-tool-metrics-monitor-store R3.1
+- srd032-tool-metrics-monitor-store R3.2
+- srd032-tool-metrics-monitor-store R3.6
+- srd032-tool-metrics-monitor-store R3.8
+
+<!-- field: reason -->
+##### Reason
+
+These functions interpret MachineSpec and ToolDef metric declarations
+into RecorderConfig, MetricBinding, AttributePolicy, and EnvelopePolicy,
+all types owned by internal/observability/monitor.
+
+<!-- field: destination -->
+#### Destination
+
+- internal/observability/monitor
+
+<!-- field: cmd_wiring_remaining -->
+#### Cmd wiring remaining
+
+- detect REST monitor-view opt-in without creating a monitor-to-rest import cycle
+- allocate the process store and select the telemetry meter and run identity
+- pass Store and Recorder into REST dependencies and LoopParams
+
+<!-- field: tests -->
+#### Tests
+
+- cmd/agent TestMonitorRuntimeRejectsUnboundedToolAttributeSetup
+- cmd/agent TestMonitorRuntimeBindsDeclaredToolAndWorkflowAttributes
+- cmd/agent TestMonitorRuntimeOptInProfileSetsLoopRecorder
+- cmd/agent TestMonitorRuntimeRecordsDispatchMetricsInStore
+- cmd/agent TestMachineNameDrivesSpanAndMetricIdentity
 
 <!-- field: rejected_candidates -->
 ## Rejected candidates

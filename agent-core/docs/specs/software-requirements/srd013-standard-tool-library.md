@@ -415,6 +415,17 @@ current
 - Spec audit commands live in internal/tools/validation.
 - Shared UndoMemento payloads, workspace restore payloads, and boundary compensation helpers move to internal/tools/undo.
 
+<!-- field: non_goals -->
+## Non-goals
+
+- Domain-specific tools (those are registered by individual agents).
+- Tool parameter validation beyond path confinement.
+- Retry or error recovery logic.
+- Full builtin declaration/factory contract (see srd022-builtin-tools).
+- Full CLI/exec declaration and argv mapping contract (see srd023-cli-exec-tools).
+- Agent-as-child-CLI invocation contract (see srd021-agent-cli-exec-tool).
+- Blocking input tool lifecycle contract (see srd024-blocking-input-tools).
+
 <!-- field: target_declaration_layout -->
 ## Target declaration layout
 
@@ -432,17 +443,6 @@ planned
 - all.yaml and agent-family bundles import grouped units for profiles, direct CLI startup, and tests.
 - Agent-local overrides remain under agents/<agent>/builtin.yaml and agents/<agent>/llm/*.yaml.
 - Agent tools.yaml files remain name-only selections.
-
-<!-- field: non_goals -->
-## Non-goals
-
-- Domain-specific tools (those are registered by individual agents).
-- Tool parameter validation beyond path confinement.
-- Retry or error recovery logic.
-- Full builtin declaration/factory contract (see srd022-builtin-tools).
-- Full CLI/exec declaration and argv mapping contract (see srd023-cli-exec-tools).
-- Agent-as-child-CLI invocation contract (see srd021-agent-cli-exec-tool).
-- Blocking input tool lifecycle contract (see srd024-blocking-input-tools).
 
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria

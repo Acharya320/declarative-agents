@@ -205,6 +205,7 @@ directory segment.
 <!-- field: docs_resource -->
 #### Docs resource
 
+```yaml
 config:
   resources:
     docs:
@@ -216,6 +217,7 @@ config:
       category_rules:
         - {pattern: road-map.md, category: release}
         - {pattern: "specs/software-requirements/**", category: srd}
+```
 
 <!-- field: schema -->
 ## Schema
@@ -635,44 +637,89 @@ tool's effects. This complements reversibility by naming the
 specific rollback mechanism and metadata the persisted
 UndoMemento captures.
 
-<!-- field: sub_fields | form: "tree" -->
+<!-- field: sub_fields -->
 #### Sub fields
 
-1. - field: strategy
-   - type: string
-   - description:
-     The undo strategy name. Known values: noop,
-     conversation_truncate, file_snapshot_restore, workspace_restore,
-     compensating_action, child_command_undo, and irreversible. Builtin
-     strategy names describe typed Undo implementations. Exec words are
-     restricted to noop, workspace_restore, compensating_action, or
-     irreversible because one shared interpreter executes their Undo.
-1. - field: description
-   - type: string
-   - description: Human-readable description of the rollback mechanism.
-1. - field: payload
-   - type: string
-   - description:
-     Memento payload type. When set to "boundary_compensation",
-     the UndoMemento carries a BoundaryCompensationPayload with
-     structured metadata about the external boundary crossed
-     (child process, issue system, nested machine, etc.).
-     Omitted for simple workspace_restore payloads.
-1. - field: captures
-   - type: "[]string"
-   - description:
-     Names of runtime parameter or structured-output values captured in
-     the UndoMemento payload. Generic exec words project these names into
-     receipt.captures; they are executable contract data, not comments.
-     Examples include
-     issue_id, child_run_id, workspace_paths, server_addr, and
-     suite_path.
-1. - field: requires
-   - type: "[]string"
-   - description:
-     Names of external context needed to perform the undo.
-     For example, ["approval_decision", "checkpoint_id"] for
-     a suspend tool that requires re-obtaining approval state.
+<!-- sub_field_entry: strategy -->
+##### strategy
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: description -->
+###### Description
+
+The undo strategy name. Known values: noop,
+conversation_truncate, file_snapshot_restore, workspace_restore,
+compensating_action, child_command_undo, and irreversible. Builtin
+strategy names describe typed Undo implementations. Exec words are
+restricted to noop, workspace_restore, compensating_action, or
+irreversible because one shared interpreter executes their Undo.
+
+<!-- sub_field_entry: description -->
+##### description
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: description -->
+###### Description
+
+Human-readable description of the rollback mechanism.
+
+<!-- sub_field_entry: payload -->
+##### payload
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: description -->
+###### Description
+
+Memento payload type. When set to "boundary_compensation",
+the UndoMemento carries a BoundaryCompensationPayload with
+structured metadata about the external boundary crossed
+(child process, issue system, nested machine, etc.).
+Omitted for simple workspace_restore payloads.
+
+<!-- sub_field_entry: captures -->
+##### captures
+
+<!-- field: type -->
+###### Type
+
+[]string
+
+<!-- field: description -->
+###### Description
+
+Names of runtime parameter or structured-output values captured in
+the UndoMemento payload. Generic exec words project these names into
+receipt.captures; they are executable contract data, not comments.
+Examples include
+issue_id, child_run_id, workspace_paths, server_addr, and
+suite_path.
+
+<!-- sub_field_entry: requires -->
+##### requires
+
+<!-- field: type -->
+###### Type
+
+[]string
+
+<!-- field: description -->
+###### Description
+
+Names of external context needed to perform the undo.
+For example, ["approval_decision", "checkpoint_id"] for
+a suspend tool that requires re-obtaining approval state.
 
 <!-- schema_entry: errors -->
 ### errors
@@ -732,28 +779,66 @@ Defines the planned shape of ToolDef metrics config. Metric declarations
 reserve vocabulary for follow-up monitor SRDs and code. They should be
 written only for values the tool can emit safely through a shared recorder.
 
-<!-- field: fields | form: "tree" -->
+<!-- field: fields -->
 ### Fields
 
-1. - field: instruments
-   - type: "[]object"
-   - required: false
-   - description:
-     Metric instruments emitted by the tool. Each item declares name, kind,
-     unit, description, value_source, and allowed attributes.
-1. - field: attributes
-   - type: "[]object"
-   - required: false
-   - description:
-     Shared attribute declarations for this tool. Attribute values must come
-     from trusted config, bounded runtime enums, or redacted low-cardinality
-     values allowed by the metric schema.
-1. - field: disabled
-   - type: bool
-   - required: false
-   - description:
-     Explicit opt-out for a tool that would otherwise receive standard
-     dispatch metrics from profile or runtime policy.
+<!-- field_entry: instruments -->
+#### instruments
+
+<!-- field: type -->
+##### Type
+
+[]object
+
+<!-- field: required | form: "scalar" -->
+##### Required
+
+false
+
+<!-- field: description -->
+##### Description
+
+Metric instruments emitted by the tool. Each item declares name, kind,
+unit, description, value_source, and allowed attributes.
+
+<!-- field_entry: attributes -->
+#### attributes
+
+<!-- field: type -->
+##### Type
+
+[]object
+
+<!-- field: required | form: "scalar" -->
+##### Required
+
+false
+
+<!-- field: description -->
+##### Description
+
+Shared attribute declarations for this tool. Attribute values must come
+from trusted config, bounded runtime enums, or redacted low-cardinality
+values allowed by the metric schema.
+
+<!-- field_entry: disabled -->
+#### disabled
+
+<!-- field: type -->
+##### Type
+
+bool
+
+<!-- field: required | form: "scalar" -->
+##### Required
+
+false
+
+<!-- field: description -->
+##### Description
+
+Explicit opt-out for a tool that would otherwise receive standard
+dispatch metrics from profile or runtime policy.
 
 <!-- field: instrument_fields -->
 ### Instrument fields
@@ -993,6 +1078,7 @@ Omit, hash, classify, or none. Defaults to omit for unsafe sources.
 <!-- field: example -->
 ### Example
 
+```yaml
 metrics:
   instruments:
     - name: rest_client_request_duration
@@ -1007,6 +1093,7 @@ metrics:
       cardinality: bounded
       allowed_values: [documentation_curator.documents]
       redaction: none
+```
 
 <!-- field: child_agent_config -->
 ## Child agent config
@@ -1017,16 +1104,28 @@ metrics:
 Defines config for builtin boundary tools that spawn another agent process.
 This applies to self_invoke and profile aliases such as invoke_executor.
 
-<!-- field: fields | form: "tree" -->
+<!-- field: fields -->
 ### Fields
 
-1. - field: profile
-   - type: string
-   - required: true
-   - description:
-     Path to the child agent profile YAML. The child process receives this
-     value as --profile. The profile owns the child's machine, tools.yaml,
-     tool_config_dirs, tool_declarations, and agent-local config.
+<!-- field_entry: profile -->
+#### profile
+
+<!-- field: type -->
+##### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+##### Required
+
+true
+
+<!-- field: description -->
+##### Description
+
+Path to the child agent profile YAML. The child process receives this
+value as --profile. The profile owns the child's machine, tools.yaml,
+tool_config_dirs, tool_declarations, and agent-local config.
 
 <!-- field: legacy_fields -->
 ### Legacy fields
@@ -1057,17 +1156,21 @@ drift.
 <!-- field: invoke_executor -->
 #### Invoke executor
 
+```yaml
 init: self_invoke
 config:
   profile: ${AGENT_CATALOG_ROOT}/generator/profile.yaml
+```
 
 <!-- field: self_invoke -->
 #### Self invoke
 
+```yaml
 config:
   profile: ${AGENT_CATALOG_ROOT}/generator/profile.yaml
   request_from: $from(request).path
   output_from: $from(request).output_dir
+```
 
 <!-- field: exec_fields -->
 ## Exec fields
@@ -1273,47 +1376,104 @@ A source extension can instead select a value from an earlier command-state
 entry. All extensions are stripped from the schema before it is sent to the
 LLM, so the model never sees CLI-level or command-state wiring details.
 
-<!-- field: fields | form: "tree" -->
+<!-- field: fields -->
 ### Fields
 
-1. - field: flag
-   - type: string
-   - description:
-     CLI flag mapping. The parameter value is passed as this flag
-     (e.g. "--path" causes the value to be passed as --path <value>).
-1. - field: positional
-   - type: bool
-   - description:
-     When true, the parameter value is passed as a positional
-     argument rather than a named flag.
-1. - field: bool_flag
-   - type: bool
-   - description:
-     Boolean flag marker. When true and the parameter value is
-     true, the CLI flag from the "flag" field is included in the
-     command (e.g. flag: "--all", bool_flag: true).
-1. - field: default
-   - type: string
-   - description:
-     Default value used when the LLM omits the parameter. Applied
-     before CLI argument construction.
-1. - field: position
-   - type: int
-   - description:
-     Positive ordering key for mapped arguments. Positioned mappings are
-     appended in ascending order after the tool's base args. Unpositioned
-     mappings follow in stable parameter-name order.
-1. - field: source
-   - type: string
-   - description:
-     Optional canonical $from(<label>).<dotted-path> selector. The exec
-     command resolves it from the injected command-state view before
-     subprocess launch. When omitted, the parameter keeps the existing
-     parameters.<name> lookup against the immediately previous Result.
-     A malformed selector fails declaration validation. An unresolved label
-     or path emits CommandError and prevents subprocess launch; it never
-     substitutes an empty value.
-   - example: $from(seed).parameters.directory
+<!-- field_entry: flag -->
+#### flag
+
+<!-- field: type -->
+##### Type
+
+string
+
+<!-- field: description -->
+##### Description
+
+CLI flag mapping. The parameter value is passed as this flag
+(e.g. "--path" causes the value to be passed as --path <value>).
+
+<!-- field_entry: positional -->
+#### positional
+
+<!-- field: type -->
+##### Type
+
+bool
+
+<!-- field: description -->
+##### Description
+
+When true, the parameter value is passed as a positional
+argument rather than a named flag.
+
+<!-- field_entry: bool_flag -->
+#### bool_flag
+
+<!-- field: type -->
+##### Type
+
+bool
+
+<!-- field: description -->
+##### Description
+
+Boolean flag marker. When true and the parameter value is
+true, the CLI flag from the "flag" field is included in the
+command (e.g. flag: "--all", bool_flag: true).
+
+<!-- field_entry: default -->
+#### default
+
+<!-- field: type -->
+##### Type
+
+string
+
+<!-- field: description -->
+##### Description
+
+Default value used when the LLM omits the parameter. Applied
+before CLI argument construction.
+
+<!-- field_entry: position -->
+#### position
+
+<!-- field: type -->
+##### Type
+
+int
+
+<!-- field: description -->
+##### Description
+
+Positive ordering key for mapped arguments. Positioned mappings are
+appended in ascending order after the tool's base args. Unpositioned
+mappings follow in stable parameter-name order.
+
+<!-- field_entry: source -->
+#### source
+
+<!-- field: type -->
+##### Type
+
+string
+
+<!-- field: description -->
+##### Description
+
+Optional canonical $from(<label>).<dotted-path> selector. The exec
+command resolves it from the injected command-state view before
+subprocess launch. When omitted, the parameter keeps the existing
+parameters.<name> lookup against the immediately previous Result.
+A malformed selector fails declaration validation. An unresolved label
+or path emits CommandError and prevents subprocess launch; it never
+substitutes an empty value.
+
+<!-- field: example -->
+##### Example
+
+$from(seed).parameters.directory
 
 <!-- field: declaration_files -->
 ## Declaration files
@@ -1361,75 +1521,110 @@ model name, provider, endpoint URL, and prompts. Each agent
 directory contains its own llm/ subdirectory with one file per
 model variant. See cfg-llm-config-format for details.
 
-<!-- field: fragment_files | form: "tree" -->
+<!-- field: fragment_files -->
 ## Fragment files
 
-- description:
-  A tool declaration file MAY be a fragment: a unit with declared, typed
-  parameters that another file expands with arguments
-  (srd052-declaration-fragments). The two file-level fields below sit
-  beside `unit` and `imports` (srd050). A fragment is only ever
-  expanded; listing one under `imports` is a load error. Substitution
-  replaces `$param(name)` inside scalar values only, never inside mapping
-  names or list structure, and the expanded document is decoded and
-  validated exactly as a hand-written file would be. Nothing generated is
-  committed. Arriving with GH-2081.
-- fields:
-  1. - field: params
-     - type: "[]param"
-     - required: false
-     - description:
-       Declares the fragment's parameters. Present together with exactly one
-       body (`tools` here). Each entry carries `name` and `type`, and
-       optionally `enum`, `default`, and `description`. `type` is one of
-       string, integer, number, boolean. A file with `params` and no body,
-       or a body with a `$param(` reference and no `params`, fails to load.
-  1. - field: expand
-     - type: "[]expansion"
-     - required: false
-     - description:
-       Expands fragments into this file's closure. Each entry carries
-       `fragment`, a path relative to this file under the import rules;
-       `args`, a mapping from parameter name to value; and optionally `as`,
-       a prefix applied as `<as>_` to every name the expansion produces
-       so one fragment can be expanded more than once. Every parameter
-       without a default must be supplied; an unknown argument, a wrong type,
-       or a value outside an enum fails naming this file, the fragment, and
-       the parameter.
-- example:
-  # units/embed-provider.yaml -- the fragment
-  unit: embed-provider
-  imports:
-  - ./types-core.yaml
-  params:
-  - name: provider
-    type: string
-    enum: [cohere, openai, ollama]
-  - name: model
-    type: string
-  tools:
-  - name: embed_query
-    type: builtin
-    init: rest_client_invoke
-    category: boundary
-    description: Embed the query with $param(provider) model $param(model).
-    config:
-      rest_ref: $param(provider)_api
-      operation: embed
+<!-- field: description -->
+### Description
 
-  # agents/rag/declarations.yaml -- the importer
-  unit: rag
-  imports:
-  - ../units/types-core.yaml
-  expand:
-  - fragment: ../units/embed-provider.yaml
-    as: cohere
-    args: {provider: cohere, model: embed-english-v3.0}
-  - fragment: ../units/embed-provider.yaml
-    as: openai
-    args: {provider: openai, model: text-embedding-3-small}
-  tools: []
-  # produces cohere_embed_query and openai_embed_query
+A tool declaration file can be a fragment: a unit with declared, typed
+parameters that another file expands with arguments
+(srd052-declaration-fragments). The two file-level fields below sit
+beside `unit` and `imports` (srd050). A fragment is only ever
+expanded; listing one under `imports` is a load error. Substitution
+replaces `$param(name)` inside scalar values only, never inside mapping
+names or list structure, and the expanded document is decoded and
+validated exactly as a hand-written file would be. Nothing generated is
+committed. Arriving with GH-2081.
+
+<!-- field: fields -->
+### Fields
+
+<!-- field_entry: params -->
+#### params
+
+<!-- field: type -->
+##### Type
+
+[]param
+
+<!-- field: required | form: "scalar" -->
+##### Required
+
+false
+
+<!-- field: description -->
+##### Description
+
+Declares the fragment's parameters. Present together with exactly one
+body (`tools` here). Each entry carries `name` and `type`, and
+optionally `enum`, `default`, and `description`. `type` is one of
+string, integer, number, boolean. A file with `params` and no body,
+or a body with a `$param(` reference and no `params`, fails to load.
+
+<!-- field_entry: expand -->
+#### expand
+
+<!-- field: type -->
+##### Type
+
+[]expansion
+
+<!-- field: required | form: "scalar" -->
+##### Required
+
+false
+
+<!-- field: description -->
+##### Description
+
+Expands fragments into this file's closure. Each entry carries
+`fragment`, a path relative to this file under the import rules;
+`args`, a mapping from parameter name to value; and optionally `as`,
+a prefix applied as `<as>_` to every name the expansion produces
+so one fragment can be expanded more than once. Every parameter
+without a default must be supplied; an unknown argument, a wrong type,
+or a value outside an enum fails naming this file, the fragment, and
+the parameter.
+
+<!-- field: example -->
+### Example
+
+```yaml
+# units/embed-provider.yaml -- the fragment
+unit: embed-provider
+imports:
+- ./types-core.yaml
+params:
+- name: provider
+  type: string
+  enum: [cohere, openai, ollama]
+- name: model
+  type: string
+tools:
+- name: embed_query
+  type: builtin
+  init: rest_client_invoke
+  category: boundary
+  description: Embed the query with $param(provider) model $param(model).
+  config:
+    rest_ref: $param(provider)_api
+    operation: embed
+
+# agents/rag/declarations.yaml -- the importer
+unit: rag
+imports:
+- ../units/types-core.yaml
+expand:
+- fragment: ../units/embed-provider.yaml
+  as: cohere
+  args: {provider: cohere, model: embed-english-v3.0}
+- fragment: ../units/embed-provider.yaml
+  as: openai
+  args: {provider: openai, model: text-embedding-3-small}
+tools: []
+# produces cohere_embed_query and openai_embed_query
+```
 
 <!-- field: library_imports -->
 ## Library imports

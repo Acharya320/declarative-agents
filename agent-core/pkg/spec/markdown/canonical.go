@@ -10,6 +10,25 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+// FirstDifference reports the first line where formatted differs from
+// data, one-based, with the line each holds, so a not-canonical finding
+// says what to change (GH-2678). It reports 0 when they are equal.
+func FirstDifference(data, formatted []byte) (line int, found, expected string) {
+	have, want := strings.Split(string(data), "\n"), strings.Split(string(formatted), "\n")
+	for i := 0; i < len(have) && i < len(want); i++ {
+		if have[i] != want[i] {
+			return i + 1, have[i], want[i]
+		}
+	}
+	switch { // one is a prefix of the other: an extra or missing line, a trailing newline included
+	case len(have) > len(want):
+		return len(want) + 1, have[len(want)], "the end of the document"
+	case len(want) > len(have):
+		return len(have) + 1, "the end of the document", want[len(have)]
+	}
+	return 0, "", ""
+}
+
 // Canonicalize returns a copy of a YAML document in the canonical form the
 // converter reads back (eng10, Comments and two-form fields), with one line
 // per change for the conversion report. Frontmatter keys come first; a

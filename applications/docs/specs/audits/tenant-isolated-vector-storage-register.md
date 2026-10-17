@@ -343,14 +343,14 @@ Vector retention across app:down is not specified today and must not be silently
 <!-- field: findings | form: "typed table" -->
 ## Findings
 
-| id | severity | finding | evidence |
+| id | severity | evidence | finding |
 | --- | --- | --- | --- |
-| F1 | decision | Current Chroma cannot provide authenticated application isolation in the shipped topology. | No auth/token/tenant configuration exists in rag-units.yaml; rag-server receives only CHROMA_URL, CHROMA_HOST, collection, and embedding model. |
-| F2 | decision | Collection names and Kubernetes namespaces are not sufficient authorization for one shared endpoint. | A direct shared Chroma candidate has no request identity to compare against the selected collection. |
-| F3 | measured | The current single seeded Chroma workload is small (3m CPU, 11Mi memory, 188416 data bytes), so consolidation has no demonstrated capacity benefit. |  |
-| F4 | lifecycle | Sharing would introduce unresolved backup, retention, purge, quota, and noisy-neighbor authorities that do not exist in the current per-application contract. |  |
-| F5 | compatibility | Retrieval selection, ranking, prompting, and answer policy can remain unchanged only behind an adapter; a direct engine migration is not behavior-neutral. |  |
-| F6 | scope | Only Chatbot Mesh currently deploys a vector engine among the three first-party applications; there is no measured cross-application consolidation target. |  |
+| F1 | decision | No auth/token/tenant configuration exists in rag-units.yaml; rag-server receives only CHROMA_URL, CHROMA_HOST, collection, and embedding model. | Current Chroma cannot provide authenticated application isolation in the shipped topology. |
+| F2 | decision | A direct shared Chroma candidate has no request identity to compare against the selected collection. | Collection names and Kubernetes namespaces are not sufficient authorization for one shared endpoint. |
+| F3 | measured |  | The current single seeded Chroma workload is small (3m CPU, 11Mi memory, 188416 data bytes), so consolidation has no demonstrated capacity benefit. |
+| F4 | lifecycle |  | Sharing would introduce unresolved backup, retention, purge, quota, and noisy-neighbor authorities that do not exist in the current per-application contract. |
+| F5 | compatibility |  | Retrieval selection, ranking, prompting, and answer policy can remain unchanged only behind an adapter; a direct engine migration is not behavior-neutral. |
+| F6 | scope |  | Only Chatbot Mesh currently deploys a vector engine among the three first-party applications; there is no measured cross-application consolidation target. |
 
 <!-- field: threat_model | form: "typed table" -->
 ## Threat model

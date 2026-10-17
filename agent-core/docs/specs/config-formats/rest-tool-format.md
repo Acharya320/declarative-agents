@@ -17,7 +17,7 @@ references named clients, servers, resources, operations, and endpoints.
 Runtime input supplies only declared request values.
 
 <!-- field: release_03_0_support -->
-## Release 03 0 support
+## Release 03.0 support
 
 <!-- field: implemented | form: "tree" -->
 ### Implemented
@@ -122,50 +122,41 @@ file, or a future REST-specific config directory. Each file contains one
 rest mapping. The runtime merges selected files through profile-owned
 declaration paths.
 
-<!-- field: fields | form: "tree" -->
+<!-- field: fields -->
 ### Fields
 
-1. - field: rest
-   - type: object
-   - required: true
-   - description: Root mapping for all REST definitions in the file.
-   - sub_fields:
-     1. - field: version
-        - type: string
-        - required: true
-        - description: Format version. Initial value is "v1".
-     1. - field: clients
-        - type: map[string]rest_client
-        - required: false
-        - description: Named outbound REST clients.
-     1. - field: servers
-        - type: map[string]rest_server
-        - required: false
-        - description: Named inbound REST servers.
-     1. - field: openapi
-        - type: map[string]openapi_import
-        - required: false
-        - description: Named OpenAPI 3 imports.
-     1. - field: auth
-        - type: map[string]auth_profile
-        - required: false
-        - description: Named authentication profiles referenced by clients, operations, or servers.
-     1. - field: limits
-        - type: map[string]limit_profile
-        - required: false
-        - description: Named timeout, size, redirect, and network limit profiles.
-     1. - field: retry_policies
-        - type: map[string]retry_policy
-        - required: false
-        - description: Named retry policies for outbound operations.
-     1. - field: response_mappings
-        - type: map[string]response_mapping
-        - required: false
-        - description: Reusable response mapping profiles.
-     1. - field: document_resources
-        - type: map[string]document_resource
-        - required: false
-        - description: Reserved target-format field for named filesystem-backed document resources. ValidateDefinition rejects this field. Knowledge Manager behavior uses profile-selected filesystem resource ToolDefs instead.
+<!-- field_entry: rest -->
+#### rest
+
+<!-- field: type -->
+##### Type
+
+object
+
+<!-- field: required | form: "scalar" -->
+##### Required
+
+true
+
+<!-- field: description -->
+##### Description
+
+Root mapping for all REST definitions in the file.
+
+<!-- field: sub_fields | form: "typed table" -->
+##### Sub fields
+
+| field | type | required | description |
+| --- | --- | --- | --- |
+| version | string | true | Format version. Initial value is "v1". |
+| clients | map[string]rest_client | false | Named outbound REST clients. |
+| servers | map[string]rest_server | false | Named inbound REST servers. |
+| openapi | map[string]openapi_import | false | Named OpenAPI 3 imports. |
+| auth | map[string]auth_profile | false | Named authentication profiles referenced by clients, operations, or servers. |
+| limits | map[string]limit_profile | false | Named timeout, size, redirect, and network limit profiles. |
+| retry_policies | map[string]retry_policy | false | Named retry policies for outbound operations. |
+| response_mappings | map[string]response_mapping | false | Reusable response mapping profiles. |
+| document_resources | map[string]document_resource | false | Reserved target-format field for named filesystem-backed document resources. ValidateDefinition rejects this field. Knowledge Manager behavior uses profile-selected filesystem resource ToolDefs instead. |
 
 <!-- field: rest_client -->
 ### REST client
@@ -198,123 +189,395 @@ declaration paths.
 <!-- field: operation -->
 ### Operation
 
-<!-- field: fields | form: "tree" -->
+<!-- field: fields -->
 #### Fields
 
-1. - field: openapi_operation_id
-   - type: string
-   - required: false
-   - description: Imported OpenAPI operation ID used to populate method, path, and schemas.
-1. - field: method
-   - type: string
-   - required: unless_openapi_operation_id
-   - description: HTTP method fixed by configuration or imported from OpenAPI.
-1. - field: path
-   - type: string
-   - required: unless_openapi_operation_id_or_resource_path
-   - description: Path template. Resource operations may inherit the resource path. Absolute URLs are rejected unless network policy allows them.
-1. - field: base_url_source
-   - type: string
-   - required: false
-   - description:
-     Optional command_state value that lets this trusted operation select
-     its base URL from a labeled prior command output. Omission preserves
-     the client's configured base_url.
-1. - field: base_url_selector
-   - type: string
-   - required: when_base_url_source_is_command_state
-   - description:
-     A $from(<label>).<path> selector resolving to an absolute HTTP or
-     HTTPS URL. This is operation configuration, not a runtime parameter;
-     input_mapping remains forbidden from setting transport authority.
-     Mutually exclusive with base_url_host_selector.
-1. - field: base_url_host_selector
-   - type: string
-   - required: false
-   - description:
-     A $from(<label>).<path> selector resolving to a bare host or IP, for a
-     target a prior step discovered as an address rather than a whole URL
-     (for example a pod address). The resolved value is composed with
-     base_url_scheme and base_url_port. A value carrying a scheme,
-     credential, port, path, query, fragment, whitespace, or control
-     character is rejected before network I/O. Mutually exclusive with
-     base_url_selector; requires base_url_source command_state.
-1. - field: base_url_scheme
-   - type: string
-   - required: false
-   - description:
-     Scheme for a host composed through base_url_host_selector. Accepts
-     http or https and defaults to http. Rejected without
-     base_url_host_selector.
-1. - field: base_url_port
-   - type: string
-   - required: false
-   - description:
-     Literal port for a host composed through base_url_host_selector. Must
-     be 1-65535 and is omitted when unset, leaving the scheme default.
-     Mutually exclusive with base_url_port_selector; rejected without
-     base_url_host_selector.
-1. - field: base_url_port_selector
-   - type: string
-   - required: false
-   - description:
-     A $from(<label>).<path> selector resolving the composed port per item,
-     for a fleet whose targets do not share one port (for example each
-     agent's own monitor port, published beside its address). Accepts a
-     string or a whole JSON number in 1-65535; another type, a fractional
-     or out-of-range value is rejected before network I/O. The composed
-     authority must still satisfy the client's limits.network.ports
-     allowlist, so configuration bounds the reachable ports and the
-     selector only chooses among them. Mutually exclusive with
-     base_url_port; rejected without base_url_host_selector.
-1. - field: allow_auth_on_selected_authority
-   - type: bool
-   - required: false
-   - description:
-     Explicitly permits configured credentials on an authority selected
-     through base_url_source. The default is false: authenticated
-     operations reject a selected authority that differs from the
-     configured client authority before network I/O.
-1. - field: params
-   - type: request_binding
-   - required: false
-   - description: Declared path, query, header, and body inputs.
-1. - field: body
-   - type: object
-   - required: false
-   - description: Request body template built from declared params.
-1. - field: success
-   - type: status_mapping
-   - required: true
-   - description: Successful HTTP status mapping and emitted signal.
-1. - field: failures
-   - type: "[]status_mapping"
-   - required: false
-   - description: Domain failure status mappings.
-1. - field: response_ref
-   - type: string
-   - required: false
-   - description: Reusable response mapping profile.
-1. - field: response
-   - type: response_mapping
-   - required: false
-   - description: Inline response mapping.
-1. - field: side_effects
-   - type: "[]object"
-   - required: true
-   - description: ToolDef-style side-effect declarations for the operation.
-1. - field: reversibility
-   - type: object
-   - required: true
-   - description: Reversible, compensatable, or irreversible classification.
-1. - field: compensation
-   - type: object
-   - required: false
-   - description: Configured compensating operation or cancellation path.
-1. - field: async
-   - type: async_client_config
-   - required: false
-   - description: Enables rest_client_send and rest_client_await for this operation.
+<!-- field_entry_deep: openapi_operation_id -->
+##### openapi_operation_id
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Imported OpenAPI operation ID used to populate method, path, and schemas.
+
+<!-- field_entry_deep: method -->
+##### method
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required -->
+###### Required
+
+unless_openapi_operation_id
+
+<!-- field: description -->
+###### Description
+
+HTTP method fixed by configuration or imported from OpenAPI.
+
+<!-- field_entry_deep: path -->
+##### path
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required -->
+###### Required
+
+unless_openapi_operation_id_or_resource_path
+
+<!-- field: description -->
+###### Description
+
+Path template. Resource operations may inherit the resource path. Absolute URLs are rejected unless network policy allows them.
+
+<!-- field_entry_deep: base_url_source -->
+##### base_url_source
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Optional command_state value that lets this trusted operation select
+its base URL from a labeled prior command output. Omission preserves
+the client's configured base_url.
+
+<!-- field_entry_deep: base_url_selector -->
+##### base_url_selector
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required -->
+###### Required
+
+when_base_url_source_is_command_state
+
+<!-- field: description -->
+###### Description
+
+A $from(<label>).<path> selector resolving to an absolute HTTP or
+HTTPS URL. This is operation configuration, not a runtime parameter;
+input_mapping remains forbidden from setting transport authority.
+Mutually exclusive with base_url_host_selector.
+
+<!-- field_entry_deep: base_url_host_selector -->
+##### base_url_host_selector
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+A $from(<label>).<path> selector resolving to a bare host or IP, for a
+target a prior step discovered as an address rather than a whole URL
+(for example a pod address). The resolved value is composed with
+base_url_scheme and base_url_port. A value carrying a scheme,
+credential, port, path, query, fragment, whitespace, or control
+character is rejected before network I/O. Mutually exclusive with
+base_url_selector; requires base_url_source command_state.
+
+<!-- field_entry_deep: base_url_scheme -->
+##### base_url_scheme
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Scheme for a host composed through base_url_host_selector. Accepts
+http or https and defaults to http. Rejected without
+base_url_host_selector.
+
+<!-- field_entry_deep: base_url_port -->
+##### base_url_port
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Literal port for a host composed through base_url_host_selector. Must
+be 1-65535 and is omitted when unset, leaving the scheme default.
+Mutually exclusive with base_url_port_selector; rejected without
+base_url_host_selector.
+
+<!-- field_entry_deep: base_url_port_selector -->
+##### base_url_port_selector
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+A $from(<label>).<path> selector resolving the composed port per item,
+for a fleet whose targets do not share one port (for example each
+agent's own monitor port, published beside its address). Accepts a
+string or a whole JSON number in 1-65535; another type, a fractional
+or out-of-range value is rejected before network I/O. The composed
+authority must still satisfy the client's limits.network.ports
+allowlist, so configuration bounds the reachable ports and the
+selector only chooses among them. Mutually exclusive with
+base_url_port; rejected without base_url_host_selector.
+
+<!-- field_entry_deep: allow_auth_on_selected_authority -->
+##### allow_auth_on_selected_authority
+
+<!-- field: type -->
+###### Type
+
+bool
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Explicitly permits configured credentials on an authority selected
+through base_url_source. The default is false: authenticated
+operations reject a selected authority that differs from the
+configured client authority before network I/O.
+
+<!-- field_entry_deep: params -->
+##### params
+
+<!-- field: type -->
+###### Type
+
+request_binding
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Declared path, query, header, and body inputs.
+
+<!-- field_entry_deep: body -->
+##### body
+
+<!-- field: type -->
+###### Type
+
+object
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Request body template built from declared params.
+
+<!-- field_entry_deep: success -->
+##### success
+
+<!-- field: type -->
+###### Type
+
+status_mapping
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+true
+
+<!-- field: description -->
+###### Description
+
+Successful HTTP status mapping and emitted signal.
+
+<!-- field_entry_deep: failures -->
+##### failures
+
+<!-- field: type -->
+###### Type
+
+[]status_mapping
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Domain failure status mappings.
+
+<!-- field_entry_deep: response_ref -->
+##### response_ref
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Reusable response mapping profile.
+
+<!-- field_entry_deep: response -->
+##### response
+
+<!-- field: type -->
+###### Type
+
+response_mapping
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Inline response mapping.
+
+<!-- field_entry_deep: side_effects -->
+##### side_effects
+
+<!-- field: type -->
+###### Type
+
+[]object
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+true
+
+<!-- field: description -->
+###### Description
+
+ToolDef-style side-effect declarations for the operation.
+
+<!-- field_entry_deep: reversibility -->
+##### reversibility
+
+<!-- field: type -->
+###### Type
+
+object
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+true
+
+<!-- field: description -->
+###### Description
+
+Reversible, compensatable, or irreversible classification.
+
+<!-- field_entry_deep: compensation -->
+##### compensation
+
+<!-- field: type -->
+###### Type
+
+object
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Configured compensating operation or cancellation path.
+
+<!-- field_entry_deep: async -->
+##### async
+
+<!-- field: type -->
+###### Type
+
+async_client_config
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Enables rest_client_send and rest_client_await for this operation.
 
 <!-- field: resource_operation -->
 ### Resource operation
@@ -566,24 +829,50 @@ REST definitions load with strict field checking; any field not listed here is r
 
 default_signal, response_word, and missing_response_stage were previously documented but never implemented; they are reserved and rejected at load (GH-486).
 
-<!-- field: fields | form: "tree" -->
+<!-- field: fields -->
 #### Fields
 
-1. - field: terminal_signals
-   - type: map[string]machine_request_terminal_response
-   - required: false
-   - description: HTTP response mapping by allowed terminal signal. Either this or terminal_states is required.
-1. - field: terminal_states
-   - type: map[string]machine_request_terminal_response
-   - required: false
-   - description:
-     HTTP response mapping by terminal machine state. Resolved before
-     terminal_signals when both are present, because many signals may reach
-     one terminal state and one signal may reach many. A request machine
-     built from exec words emits only ToolDone and ToolFailed, so state
-     keying is what lets it return a distinct response per outcome
-     (GH-615). Each key must be a terminal state of the request machine, or
-     the endpoint fails configuration validation.
+<!-- field_entry_deep: terminal_signals -->
+##### terminal_signals
+
+<!-- field: type -->
+###### Type
+
+map[string]machine_request_terminal_response
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+HTTP response mapping by allowed terminal signal. Either this or terminal_states is required.
+
+<!-- field_entry_deep: terminal_states -->
+##### terminal_states
+
+<!-- field: type -->
+###### Type
+
+map[string]machine_request_terminal_response
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+HTTP response mapping by terminal machine state. Resolved before
+terminal_signals when both are present, because many signals may reach
+one terminal state and one signal may reach many. A request machine
+built from exec words emits only ToolDone and ToolFailed, so state
+keying is what lets it return a distinct response per outcome
+(GH-615). Each key must be a terminal state of the request machine, or
+the endpoint fails configuration validation.
 
 <!-- field: machine_request_terminal_response -->
 ### Machine request terminal response
@@ -725,60 +1014,154 @@ REST definitions load this mapping with strict field checking. Runtime input sup
 <!-- field: request_binding -->
 ### Request binding
 
-<!-- field: fields | form: "tree" -->
+<!-- field: fields -->
 #### Fields
 
-1. - field: path
-   - type: map[string]json_schema
-   - required: false
-   - description: Path variables accepted from runtime input.
-1. - field: query
-   - type: map[string]json_schema
-   - required: false
-   - description: Query parameters accepted from runtime input.
-1. - field: headers
-   - type: map[string]json_schema
-   - required: false
-   - description: Header parameters accepted from runtime input.
-1. - field: body_schema
-   - type: json_schema
-   - required: false
-   - description: Schema for runtime body input.
-1. - field: body_source
-   - type: string
-   - required: false
-   - description:
-     Selects where declared runtime params come from. One of params
-     (default, explicit tool input), previous_result (select declared
-     params from the prior Result output through input_mapping),
-     command_state (select declared params from a labeled prior step in the
-     srd038 command-state store through input_mapping $from(...) selectors),
-     or none. body_source command_state is rejected only when no
-     command-state store is configured.
-1. - field: input_mapping
-   - type: map[string]string
-   - required: false
-   - description:
-     Map of declared-param-name to a selector. Under body_source
-     previous_result the selector is a $.-style path into the previous
-     Result output (for example embedding: $.mapped.embedding,
-     id: $.body.id, document: $.carried.doc). Under body_source
-     command_state the selector takes the $from(<label>).<dotted-path> form,
-     naming a prior step by command name or label (for example
-     embedding: $from(embed_query).mapped.embedding). After selection only
-     declared params reach the request builder, so the source output shape
-     does not violate the declared-only contract. Every target MUST be a
-     declared path, query, header, or body param; selectors MUST NOT name
-     method, URL, auth, redirect, or host.
-1. - field: carry_forward
-   - type: "[]string"
-   - required: false
-   - description:
-     Declared param names copied into this operation's Result output under a
-     carried key, so a later word can select them (for example
-     $.carried.document). Carry-forward threads data past an intermediate
-     word without a shared command-state store. Every entry MUST be a
-     declared param and MUST NOT name transport authority.
+<!-- field_entry_deep: path -->
+##### path
+
+<!-- field: type -->
+###### Type
+
+map[string]json_schema
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Path variables accepted from runtime input.
+
+<!-- field_entry_deep: query -->
+##### query
+
+<!-- field: type -->
+###### Type
+
+map[string]json_schema
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Query parameters accepted from runtime input.
+
+<!-- field_entry_deep: headers -->
+##### headers
+
+<!-- field: type -->
+###### Type
+
+map[string]json_schema
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Header parameters accepted from runtime input.
+
+<!-- field_entry_deep: body_schema -->
+##### body_schema
+
+<!-- field: type -->
+###### Type
+
+json_schema
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Schema for runtime body input.
+
+<!-- field_entry_deep: body_source -->
+##### body_source
+
+<!-- field: type -->
+###### Type
+
+string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Selects where declared runtime params come from. One of params
+(default, explicit tool input), previous_result (select declared
+params from the prior Result output through input_mapping),
+command_state (select declared params from a labeled prior step in the
+srd038 command-state store through input_mapping $from(...) selectors),
+or none. body_source command_state is rejected only when no
+command-state store is configured.
+
+<!-- field_entry_deep: input_mapping -->
+##### input_mapping
+
+<!-- field: type -->
+###### Type
+
+map[string]string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Map of declared-param-name to a selector. Under body_source
+previous_result the selector is a $.-style path into the previous
+Result output (for example embedding: $.mapped.embedding,
+id: $.body.id, document: $.carried.doc). Under body_source
+command_state the selector takes the $from(<label>).<dotted-path> form,
+naming a prior step by command name or label (for example
+embedding: $from(embed_query).mapped.embedding). After selection only
+declared params reach the request builder, so the source output shape
+does not violate the declared-only contract. Every target is a
+declared path, query, header, or body param; selectors do not name
+method, URL, auth, redirect, or host.
+
+<!-- field_entry_deep: carry_forward -->
+##### carry_forward
+
+<!-- field: type -->
+###### Type
+
+[]string
+
+<!-- field: required | form: "scalar" -->
+###### Required
+
+false
+
+<!-- field: description -->
+###### Description
+
+Declared param names copied into this operation's Result output under a
+carried key, so a later word can select them (for example
+$.carried.document). Carry-forward threads data past an intermediate
+word without a shared command-state store. Every entry is a
+declared param and does not name transport authority.
 
 <!-- field: response_mapping -->
 ### Response mapping
@@ -865,62 +1248,69 @@ schema data for validation and for OpenAPI schema interop.
 - additional_properties
 - description
 
-<!-- field: fragment_files | form: "tree" -->
+<!-- field: fragment_files -->
 ## Fragment files
 
-- description:
-  A REST definition file MAY be a fragment (srd052-declaration-fragments):
-  `params` beside the `rest` root declares typed parameters, and an
-  importing REST file's `expand` list applies the fragment with
-  arguments. The two fields sit beside `unit` and `imports` (srd050) and
-  follow the same rules as in cfg-tool-declaration-format: scalar-only
-  substitution of `$param(name)`, and the expanded definition compiled
-  through ValidateDefinition like a hand-written one. When `as` is given,
-  every name the fragment's `rest` body produces -- the clients, servers,
-  openapi, auth, limits, retry_policies, response_mappings, and
-  document_resources entries, and the operation and endpoint names nested
-  under clients and servers, which the closure holds unique -- is renamed
-  `<as>_<name>`, and the fragment's own references to those names
-  (`limits_ref`, `auth_ref`, `retry_ref`, `response_ref`,
-  `require_auth_ref`, `document_resources`, `bind`) follow, so each
-  expansion resolves on its own. A tool that reaches a produced endpoint
-  names the prefixed form, `routes: [alpha_exit]`. A reference to a name the fragment does
-  not declare is left for the importer's closure to supply. Landed with
-  GH-2082.
-- example:
-  # units/http-json-api.yaml -- the fragment
-  unit: http-json-api
-  params:
-  - name: service
-    type: string
-  - name: base_url
-    type: string
-  - name: timeout
-    type: string
-    default: 5s
-  rest:
-    version: v1
-    clients:
-      $param(service)_api:
-        base_url: $param(base_url)
-        limits: default
-    limits:
-      default:
-        connect_timeout: $param(timeout)
+<!-- field: description -->
+### Description
 
-  # agents/observer/rest.yaml -- the importer
-  unit: observer-rest
-  expand:
-  - fragment: ../units/http-json-api.yaml
-    as: metrics
-    args: {service: metrics, base_url: http://metrics:9090}
-  - fragment: ../units/http-json-api.yaml
-    as: traces
-    args: {service: traces, base_url: http://traces:4318, timeout: 2s}
-  rest:
-    version: v1
-  # produces clients metrics_metrics_api and traces_traces_api, each with
-  # its own limits profile metrics_default and traces_default
+A REST definition file can be a fragment (srd052-declaration-fragments):
+`params` beside the `rest` root declares typed parameters, and an
+importing REST file's `expand` list applies the fragment with
+arguments. The two fields sit beside `unit` and `imports` (srd050) and
+follow the same rules as in cfg-tool-declaration-format: scalar-only
+substitution of `$param(name)`, and the expanded definition compiled
+through ValidateDefinition like a hand-written one. When `as` is given,
+every name the fragment's `rest` body produces -- the clients, servers,
+openapi, auth, limits, retry_policies, response_mappings, and
+document_resources entries, and the operation and endpoint names nested
+under clients and servers, which the closure holds unique -- is renamed
+`<as>_<name>`, and the fragment's own references to those names
+(`limits_ref`, `auth_ref`, `retry_ref`, `response_ref`,
+`require_auth_ref`, `document_resources`, `bind`) follow, so each
+expansion resolves on its own. A tool that reaches a produced endpoint
+names the prefixed form, `routes: [alpha_exit]`. A reference to a name the fragment does
+not declare is left for the importer's closure to supply. Landed with
+GH-2082.
+
+<!-- field: example -->
+### Example
+
+```yaml
+# units/http-json-api.yaml -- the fragment
+unit: http-json-api
+params:
+- name: service
+  type: string
+- name: base_url
+  type: string
+- name: timeout
+  type: string
+  default: 5s
+rest:
+  version: v1
+  clients:
+    $param(service)_api:
+      base_url: $param(base_url)
+      limits: default
+  limits:
+    default:
+      connect_timeout: $param(timeout)
+
+# agents/observer/rest.yaml -- the importer
+unit: observer-rest
+expand:
+- fragment: ../units/http-json-api.yaml
+  as: metrics
+  args: {service: metrics, base_url: http://metrics:9090}
+- fragment: ../units/http-json-api.yaml
+  as: traces
+  args: {service: traces, base_url: http://traces:4318, timeout: 2s}
+rest:
+  version: v1
+# produces clients metrics_metrics_api and traces_traces_api, each with
+# its own limits profile metrics_default and traces_default
+```
 
 <!-- field: library_imports -->
 ## Library imports
@@ -961,485 +1351,519 @@ The first instance is the retrieval query client
 their route prefix and selectors, and import
 `/opt/agent-core/tools/units/types-retrieval.yaml` for QueryResult.
 
-<!-- field: format_examples | form: "tree" -->
+<!-- field: format_examples -->
 ## Format examples
 
-- hand_authored:
-  rest:
-    version: v1
-    auth:
-      github_app:
-        type: bearer
-        token_ref: github_token
-    limits:
-      public_api:
-        timeout: 30s
-        max_request_bytes: 65536
-        max_response_bytes: 1048576
-        redirect:
-          mode: same_host
-    retry_policies:
-      safe_reads:
-        attempts: 3
-        backoff: exponential
-        retry_status: [429, 500, 502, 503]
-    clients:
-      github:
-        base_url: https://api.github.com
-        auth_ref: github_app
-        limits_ref: public_api
-        resources:
-          issue:
-            path: /repos/{owner}/{repo}/issues/{number}
-            operations:
-              get:
-                method: GET
-                params:
-                  path:
-                    owner: {type: string}
-                    repo: {type: string}
-                    number: {type: integer}
-                success: {status: [200], signal: RESTResourceRead}
-                failures:
-                  - status: [404]
-                    signal: RESTMissing
-                response:
-                  output:
-                    title: $.title
-                    state: $.state
-                side_effects:
-                  - kind: external_api
-                    target: github.issue
-                    state: read_only
-                reversibility:
-                  classification: reversible
-                  undo: noop
-              set:
-                method: PATCH
-                params:
-                  path:
-                    owner: {type: string}
-                    repo: {type: string}
-                    number: {type: integer}
-                  body_schema:
-                    type: object
-                    properties:
-                      title: {type: string}
-                      state: {type: string}
-                success: {status: [200], signal: RESTResourceWritten}
-                side_effects:
-                  - kind: external_api
-                    target: github.issue
-                    state: issue_updated
-                reversibility:
-                  classification: compensatable
-                  undo: restore_previous_issue_fields
-        operations:
-          search_issues:
-            method: GET
-            path: /search/issues
-            params:
-              query:
-                q: {type: string}
-            success: {status: [200], signal: RESTResponded}
-            side_effects:
-              - kind: external_api
-                target: github.search
-                state: read_only
-            reversibility:
-              classification: reversible
-              undo: noop
-- openapi_backed:
-  rest:
-    version: v1
-    openapi:
-      payments:
-        path: ./openapi/payments.yaml
-        base_url: https://payments.internal
-        expose:
-          - getPayment
-          - createPayment
-          - cancelPayment
-        bind:
-          receivePaymentWebhook: payment_webhook
-        side_effects:
-          createPayment:
+<!-- field: hand_authored -->
+### Hand authored
+
+```yaml
+rest:
+  version: v1
+  auth:
+    github_app:
+      type: bearer
+      token_ref: github_token
+  limits:
+    public_api:
+      timeout: 30s
+      max_request_bytes: 65536
+      max_response_bytes: 1048576
+      redirect:
+        mode: same_host
+  retry_policies:
+    safe_reads:
+      attempts: 3
+      backoff: exponential
+      retry_status: [429, 500, 502, 503]
+  clients:
+    github:
+      base_url: https://api.github.com
+      auth_ref: github_app
+      limits_ref: public_api
+      resources:
+        issue:
+          path: /repos/{owner}/{repo}/issues/{number}
+          operations:
+            get:
+              method: GET
+              params:
+                path:
+                  owner: {type: string}
+                  repo: {type: string}
+                  number: {type: integer}
+              success: {status: [200], signal: RESTResourceRead}
+              failures:
+                - status: [404]
+                  signal: RESTMissing
+              response:
+                output:
+                  title: $.title
+                  state: $.state
+              side_effects:
+                - kind: external_api
+                  target: github.issue
+                  state: read_only
+              reversibility:
+                classification: reversible
+                undo: noop
+            set:
+              method: PATCH
+              params:
+                path:
+                  owner: {type: string}
+                  repo: {type: string}
+                  number: {type: integer}
+                body_schema:
+                  type: object
+                  properties:
+                    title: {type: string}
+                    state: {type: string}
+              success: {status: [200], signal: RESTResourceWritten}
+              side_effects:
+                - kind: external_api
+                  target: github.issue
+                  state: issue_updated
+              reversibility:
+                classification: compensatable
+                undo: restore_previous_issue_fields
+      operations:
+        search_issues:
+          method: GET
+          path: /search/issues
+          params:
+            query:
+              q: {type: string}
+          success: {status: [200], signal: RESTResponded}
+          side_effects:
+            - kind: external_api
+              target: github.search
+              state: read_only
+          reversibility:
+            classification: reversible
+            undo: noop
+```
+
+<!-- field: openapi_backed -->
+### OpenAPI backed
+
+```yaml
+rest:
+  version: v1
+  openapi:
+    payments:
+      path: ./openapi/payments.yaml
+      base_url: https://payments.internal
+      expose:
+        - getPayment
+        - createPayment
+        - cancelPayment
+      bind:
+        receivePaymentWebhook: payment_webhook
+      side_effects:
+        createPayment:
+          - kind: external_api
+            target: payments.payment
+            state: payment_created
+      reversibility:
+        createPayment:
+          classification: compensatable
+          undo: cancelPayment
+  clients:
+    payments:
+      base_url: https://payments.internal
+      operations:
+        create_payment:
+          openapi_operation_id: createPayment
+          success: {status: [202], signal: RESTAccepted}
+          async:
+            request_id: $.id
+            correlation: $.correlation_id
+            idempotency_token: "{{ params.order_id }}"
+            timeout: 2m
+            state_retention: consume
+          side_effects:
             - kind: external_api
               target: payments.payment
-              state: payment_created
-        reversibility:
-          createPayment:
+              state: payment_submitted
+          reversibility:
             classification: compensatable
             undo: cancelPayment
-    clients:
-      payments:
-        base_url: https://payments.internal
-        operations:
-          create_payment:
-            openapi_operation_id: createPayment
-            success: {status: [202], signal: RESTAccepted}
-            async:
-              request_id: $.id
-              correlation: $.correlation_id
-              idempotency_token: "{{ params.order_id }}"
-              timeout: 2m
-              state_retention: consume
-            side_effects:
-              - kind: external_api
-                target: payments.payment
-                state: payment_submitted
-            reversibility:
-              classification: compensatable
-              undo: cancelPayment
-    servers:
-      payments_webhooks:
-        address: 127.0.0.1:9090
-        queue:
-          name: payments
-          capacity: 128
-          overflow: reject
-        endpoints:
-          payment_webhook:
-            openapi_operation_id: receivePaymentWebhook
-            binding: emit_signal
-            signal: PaymentWebhookReceived
-            queue:
-              name: payments
-            response:
-              output:
-                accepted: "true"
-- previous_result_threading:
-  # An embedding word runs before a Chroma query word. The embed word carries
-  # the query text forward and yields a flat vector under mapped.embedding; the
-  # Chroma word selects that vector from the previous Result and renders it as
-  # a nested array through the single-token raw passthrough.
-  rest:
-    version: v1
-    clients:
-      ollama:
-        base_url: http://127.0.0.1:11434
-        operations:
-          embed_query:
-            method: POST
-            path: /api/embed
-            params:
-              body_schema:
-                type: object
-                required: [model, input]
-                properties:
-                  model: {type: string}
-                  input: {type: string}
-              carry_forward: [input]
-            success: {status: [200], signal: RESTResponded}
-            response:
-              output:
-                embedding: $.embedding
-            side_effects:
-              - kind: external_api
-                target: ollama.embed
-                state: read_only
-            reversibility:
-              classification: reversible
-              undo: noop
-      chroma:
-        base_url: http://127.0.0.1:8000
-        operations:
-          query_collection:
-            method: POST
-            path: /api/v2/tenants/default/databases/default/collections/{collection}/query
-            params:
-              path:
-                collection: {type: string}
-              body_schema:
-                type: object
-                required: [query_embeddings]
-                properties:
-                  query_embeddings: {type: array}
-                  n_results: {type: integer}
-              body_source: previous_result
-              input_mapping:
-                query_embeddings: $.mapped.embedding
-                collection: $.carried.input
-            body:
-              query_embeddings: ["{{ params.query_embeddings }}"]
-              n_results: 5
-            success: {status: [200], signal: RESTResponded}
-            side_effects:
-              - kind: external_api
-                target: chroma.collection
-                state: read_only
-            reversibility:
-              classification: reversible
-              undo: noop
-- command_state_threading:
-  # A three-word chain. embed_query (word 1) yields a flat vector under
-  # embedding and carries its input text forward. record_event (word 2) runs
-  # next. query_collection (word 3) reaches back past word 2 to word 1 by
-  # label through body_source command_state and $from(embed_query) selectors,
-  # so a non-adjacent output threads into its request body as a nested array.
-  rest:
-    version: v1
-    clients:
-      ollama:
-        base_url: http://127.0.0.1:11434
-        operations:
-          embed_query:
-            method: POST
-            path: /api/embed
-            params:
-              body_schema:
-                type: object
-                required: [model, input]
-                properties:
-                  model: {type: string}
-                  input: {type: string}
-              carry_forward: [input]
-            success: {status: [200], signal: RESTResponded}
-            response:
-              output:
-                embedding: $.embedding
-            side_effects:
-              - kind: external_api
-                target: ollama.embed
-                state: read_only
-            reversibility:
-              classification: reversible
-              undo: noop
-      audit:
-        base_url: http://127.0.0.1:9000
-        operations:
-          record_event:
-            method: POST
-            path: /api/events
-            params:
-              body_schema:
-                type: object
-                required: [event]
-                properties:
-                  event: {type: string}
-            body:
-              event: query_prepared
-            success: {status: [200], signal: RESTResponded}
-            side_effects:
-              - kind: external_api
-                target: audit.events
-                state: append_only
-            reversibility:
-              classification: reversible
-              undo: noop
-      chroma:
-        base_url: http://127.0.0.1:8000
-        operations:
-          query_collection:
-            method: POST
-            path: /api/v2/tenants/default/databases/default/collections/{collection}/query
-            params:
-              path:
-                collection: {type: string}
-              body_schema:
-                type: object
-                required: [query_embeddings]
-                properties:
-                  query_embeddings: {type: array}
-                  n_results: {type: integer}
-              body_source: command_state
-              input_mapping:
-                query_embeddings: $from(embed_query).mapped.embedding
-                collection: $from(embed_query).carried.input
-            body:
-              query_embeddings: ["{{ params.query_embeddings }}"]
-              n_results: 5
-            success: {status: [200], signal: RESTResponded}
-            side_effects:
-              - kind: external_api
-                target: chroma.collection
-                state: read_only
-            reversibility:
-              classification: reversible
-              undo: noop
-- lifecycle_control_fan_in:
-  rest:
-    version: v1
-    servers:
-      agent_control:
-        address: 127.0.0.1:19090
-        queue:
-          name: control
-          capacity: 64
-          overflow: reject
-        event_sources:
-          control_events:
-            routes: [exit, pause, rollback, inject]
-            signals: [AgentExitRequested, PauseRequested, RollbackRequested, InjectSignalRequested]
-            stopped_behavior: emit_server_stopped
-        endpoints:
-          exit:
-            method: POST
-            path: /api/lifecycle/exit
-            binding: lifecycle_control
-            lifecycle_control:
-              action: enqueue_signal
-              signal: AgentExitRequested
-              target_schema:
-                type: object
-                properties:
-                  reason: {type: string}
-                  status: {type: string}
-          pause:
-            method: POST
-            path: /api/lifecycle/pause
-            binding: lifecycle_control
-            lifecycle_control:
-              action: enqueue_signal
-              signal: PauseRequested
-          rollback:
-            method: POST
-            path: /api/lifecycle/rollback
-            binding: lifecycle_control
-            lifecycle_control:
-              action: enqueue_signal
-              signal: RollbackRequested
-              target_schema:
-                type: object
-                properties:
-                  target_iteration: {type: integer}
-          inject:
-            method: POST
-            path: /api/machine/inject
-            binding: lifecycle_control
-            lifecycle_control:
-              action: inject_signal
-              allowed_signals: [Approved, Rejected, PauseRequested]
-- tool_declarations:
-  tools:
-    - name: get_issue
-      type: builtin
-      init: rest_client_get
-      category: boundary
-      emits: [RESTResourceRead, RESTMissing, RESTDomainFailed, CommandError]
-      config:
-        rest_ref: github
-        resource: issue
-        operation: get
+  servers:
+    payments_webhooks:
+      address: 127.0.0.1:9090
+      queue:
+        name: payments
+        capacity: 128
+        overflow: reject
+      endpoints:
+        payment_webhook:
+          openapi_operation_id: receivePaymentWebhook
+          binding: emit_signal
+          signal: PaymentWebhookReceived
+          queue:
+            name: payments
+          response:
+            output:
+              accepted: "true"
+```
 
-    - name: create_payment
-      type: builtin
-      init: rest_client_send
-      category: boundary
-      emits: [RESTAccepted, CommandError]
-      config:
-        rest_ref: payments
-        operation: create_payment
+<!-- field: previous_result_threading -->
+### Previous result threading
 
-    - name: await_payment
-      type: builtin
-      init: rest_client_await
-      category: boundary
-      emits: [RESTResponded, RESTDomainFailed, RESTMissing, RESTAwaitTimedOut, CommandError]
-      config:
-        rest_ref: payments
-        operation: create_payment
+```yaml
+# An embedding word runs before a Chroma query word. The embed word carries
+# the query text forward and yields a flat vector under mapped.embedding; the
+# Chroma word selects that vector from the previous Result and renders it as
+# a nested array through the single-token raw passthrough.
+rest:
+  version: v1
+  clients:
+    ollama:
+      base_url: http://127.0.0.1:11434
+      operations:
+        embed_query:
+          method: POST
+          path: /api/embed
+          params:
+            body_schema:
+              type: object
+              required: [model, input]
+              properties:
+                model: {type: string}
+                input: {type: string}
+            carry_forward: [input]
+          success: {status: [200], signal: RESTResponded}
+          response:
+            output:
+              embedding: $.embedding
+          side_effects:
+            - kind: external_api
+              target: ollama.embed
+              state: read_only
+          reversibility:
+            classification: reversible
+            undo: noop
+    chroma:
+      base_url: http://127.0.0.1:8000
+      operations:
+        query_collection:
+          method: POST
+          path: /api/v2/tenants/default/databases/default/collections/{collection}/query
+          params:
+            path:
+              collection: {type: string}
+            body_schema:
+              type: object
+              required: [query_embeddings]
+              properties:
+                query_embeddings: {type: array}
+                n_results: {type: integer}
+            body_source: previous_result
+            input_mapping:
+              query_embeddings: $.mapped.embedding
+              collection: $.carried.input
+          body:
+            query_embeddings: ["{{ params.query_embeddings }}"]
+            n_results: 5
+          success: {status: [200], signal: RESTResponded}
+          side_effects:
+            - kind: external_api
+              target: chroma.collection
+              state: read_only
+          reversibility:
+            classification: reversible
+            undo: noop
+```
 
-    - name: launch_payment_webhooks
-      type: builtin
-      init: rest_server_launch
-      category: boundary
-      emits: [ServerLaunched, CommandError]
-      config:
-        rest_ref: payments_webhooks
+<!-- field: command_state_threading -->
+### Command state threading
 
-    - name: await_any_control_event
-      type: builtin
-      init: rest_await_event
-      category: boundary
-      emits: [AgentExitRequested, PauseRequested, RollbackRequested, InjectSignalRequested, AwaitTimedOut, ServerStopped, CommandError]
-      config:
-        sources:
-          - server: agent_control
-            routes: [exit, pause, rollback, inject]
-            signals: [AgentExitRequested, PauseRequested, RollbackRequested, InjectSignalRequested]
-        timeout: 30s
-        read_policy: first_available
-        stopped_behavior: emit_server_stopped
+```yaml
+# A three-word chain. embed_query (word 1) yields a flat vector under
+# embedding and carries its input text forward. record_event (word 2) runs
+# next. query_collection (word 3) reaches back past word 2 to word 1 by
+# label through body_source command_state and $from(embed_query) selectors,
+# so a non-adjacent output threads into its request body as a nested array.
+rest:
+  version: v1
+  clients:
+    ollama:
+      base_url: http://127.0.0.1:11434
+      operations:
+        embed_query:
+          method: POST
+          path: /api/embed
+          params:
+            body_schema:
+              type: object
+              required: [model, input]
+              properties:
+                model: {type: string}
+                input: {type: string}
+            carry_forward: [input]
+          success: {status: [200], signal: RESTResponded}
+          response:
+            output:
+              embedding: $.embedding
+          side_effects:
+            - kind: external_api
+              target: ollama.embed
+              state: read_only
+          reversibility:
+            classification: reversible
+            undo: noop
+    audit:
+      base_url: http://127.0.0.1:9000
+      operations:
+        record_event:
+          method: POST
+          path: /api/events
+          params:
+            body_schema:
+              type: object
+              required: [event]
+              properties:
+                event: {type: string}
+          body:
+            event: query_prepared
+          success: {status: [200], signal: RESTResponded}
+          side_effects:
+            - kind: external_api
+              target: audit.events
+              state: append_only
+          reversibility:
+            classification: reversible
+            undo: noop
+    chroma:
+      base_url: http://127.0.0.1:8000
+      operations:
+        query_collection:
+          method: POST
+          path: /api/v2/tenants/default/databases/default/collections/{collection}/query
+          params:
+            path:
+              collection: {type: string}
+            body_schema:
+              type: object
+              required: [query_embeddings]
+              properties:
+                query_embeddings: {type: array}
+                n_results: {type: integer}
+            body_source: command_state
+            input_mapping:
+              query_embeddings: $from(embed_query).mapped.embedding
+              collection: $from(embed_query).carried.input
+          body:
+            query_embeddings: ["{{ params.query_embeddings }}"]
+            n_results: 5
+          success: {status: [200], signal: RESTResponded}
+          side_effects:
+            - kind: external_api
+              target: chroma.collection
+              state: read_only
+          reversibility:
+            classification: reversible
+            undo: noop
+```
 
-    - name: exit_agent
-      type: builtin
-      init: exit_agent
-      category: boundary
-      emits: [AgentExited, CommandError]
-      config:
-        drain_policy: stop_servers
-- reserved_document_resource_target_format:
-  # Reserved target-format sketch. ValidateDefinition rejects
-  # rest.document_resources and machine_request.document_resources in release
-  # 03.0. Use profile-selected filesystem resource ToolDefs for current
-  # Knowledge Manager request machines.
-  rest:
-    version: v1
-    document_resources:
-      documentation_corpus:
-        root: docs
-        include: ["**/*.yaml", "**/*.yml", "**/*.md"]
-        extensions: [.yaml, .yml, .md]
-        response_modes: [raw_yaml, parsed_yaml, raw_markdown]
-        default_response_mode: parsed_yaml
-        max_bytes: 262144
-        symlinks: deny_escape
-        binary_policy: deny
-        category_rules:
-          - prefix: specs/software-requirements/
-            category: srd
-          - prefix: specs/semantic-models/
-            category: semantic-model
-          - prefix: specs/config-formats/
-            category: config-format
-        operations:
-          list:
-            type: list
-            success_signal: DocumentListReady
-          get:
-            type: get
-            success_signal: DocumentReady
-            not_found_signal: DocumentMissing
-            denied_signal: DocumentResourceDenied
-        ui:
-          label: Documentation
-          sidebar_grouping: category
-          actions: [doc_list, doc_get, doc_search]
-          asset_ref: ${AGENT_CATALOG_ROOT}/knowledge-manager/documentation-curator/ui
-    servers:
-      knowledge_manager:
-        address: 127.0.0.1:19191
-        endpoints:
-          get_documentation:
-            method: POST
-            path: /api/docs/query
-            binding: machine_request
+<!-- field: lifecycle_control_fan_in -->
+### Lifecycle control fan in
+
+```yaml
+rest:
+  version: v1
+  servers:
+    agent_control:
+      address: 127.0.0.1:19090
+      queue:
+        name: control
+        capacity: 64
+        overflow: reject
+      event_sources:
+        control_events:
+          routes: [exit, pause, rollback, inject]
+          signals: [AgentExitRequested, PauseRequested, RollbackRequested, InjectSignalRequested]
+          stopped_behavior: emit_server_stopped
+      endpoints:
+        exit:
+          method: POST
+          path: /api/lifecycle/exit
+          binding: lifecycle_control
+          lifecycle_control:
+            action: enqueue_signal
+            signal: AgentExitRequested
+            target_schema:
+              type: object
+              properties:
+                reason: {type: string}
+                status: {type: string}
+        pause:
+          method: POST
+          path: /api/lifecycle/pause
+          binding: lifecycle_control
+          lifecycle_control:
+            action: enqueue_signal
+            signal: PauseRequested
+        rollback:
+          method: POST
+          path: /api/lifecycle/rollback
+          binding: lifecycle_control
+          lifecycle_control:
+            action: enqueue_signal
+            signal: RollbackRequested
+            target_schema:
+              type: object
+              properties:
+                target_iteration: {type: integer}
+        inject:
+          method: POST
+          path: /api/machine/inject
+          binding: lifecycle_control
+          lifecycle_control:
+            action: inject_signal
+            allowed_signals: [Approved, Rejected, PauseRequested]
+```
+
+<!-- field: tool_declarations -->
+### Tool declarations
+
+```yaml
+tools:
+  - name: get_issue
+    type: builtin
+    init: rest_client_get
+    category: boundary
+    emits: [RESTResourceRead, RESTMissing, RESTDomainFailed, CommandError]
+    config:
+      rest_ref: github
+      resource: issue
+      operation: get
+
+  - name: create_payment
+    type: builtin
+    init: rest_client_send
+    category: boundary
+    emits: [RESTAccepted, CommandError]
+    config:
+      rest_ref: payments
+      operation: create_payment
+
+  - name: await_payment
+    type: builtin
+    init: rest_client_await
+    category: boundary
+    emits: [RESTResponded, RESTDomainFailed, RESTMissing, RESTAwaitTimedOut, CommandError]
+    config:
+      rest_ref: payments
+      operation: create_payment
+
+  - name: launch_payment_webhooks
+    type: builtin
+    init: rest_server_launch
+    category: boundary
+    emits: [ServerLaunched, CommandError]
+    config:
+      rest_ref: payments_webhooks
+
+  - name: await_any_control_event
+    type: builtin
+    init: rest_await_event
+    category: boundary
+    emits: [AgentExitRequested, PauseRequested, RollbackRequested, InjectSignalRequested, AwaitTimedOut, ServerStopped, CommandError]
+    config:
+      sources:
+        - server: agent_control
+          routes: [exit, pause, rollback, inject]
+          signals: [AgentExitRequested, PauseRequested, RollbackRequested, InjectSignalRequested]
+      timeout: 30s
+      read_policy: first_available
+      stopped_behavior: emit_server_stopped
+
+  - name: exit_agent
+    type: builtin
+    init: exit_agent
+    category: boundary
+    emits: [AgentExited, CommandError]
+    config:
+      drain_policy: stop_servers
+```
+
+<!-- field: reserved_document_resource_target_format -->
+### Reserved document resource target format
+
+```yaml
+# Reserved target-format sketch. ValidateDefinition rejects
+# rest.document_resources and machine_request.document_resources in release
+# 03.0. Use profile-selected filesystem resource ToolDefs for current
+# Knowledge Manager request machines.
+rest:
+  version: v1
+  document_resources:
+    documentation_corpus:
+      root: docs
+      include: ["**/*.yaml", "**/*.yml", "**/*.md"]
+      extensions: [.yaml, .yml, .md]
+      response_modes: [raw_yaml, parsed_yaml, raw_markdown]
+      default_response_mode: parsed_yaml
+      max_bytes: 262144
+      symlinks: deny_escape
+      binary_policy: deny
+      category_rules:
+        - prefix: specs/software-requirements/
+          category: srd
+        - prefix: specs/semantic-models/
+          category: semantic-model
+        - prefix: specs/config-formats/
+          category: config-format
+      operations:
+        list:
+          type: list
+          success_signal: DocumentListReady
+        get:
+          type: get
+          success_signal: DocumentReady
+          not_found_signal: DocumentMissing
+          denied_signal: DocumentResourceDenied
+      ui:
+        label: Documentation
+        sidebar_grouping: category
+        actions: [doc_list, doc_get, doc_search]
+        asset_ref: ${AGENT_CATALOG_ROOT}/knowledge-manager/documentation-curator/ui
+  servers:
+    knowledge_manager:
+      address: 127.0.0.1:19191
+      endpoints:
+        get_documentation:
+          method: POST
+          path: /api/docs/query
+          binding: machine_request
+          request:
+            body_schema:
+              type: object
+              required: [query]
+              properties:
+                query: {type: string}
+          machine_request:
+            profile: ${AGENT_CATALOG_ROOT}/knowledge-manager/documentation-curator/profile.yaml
+            document_resources: [documentation_corpus]
             request:
-              body_schema:
-                type: object
-                required: [query]
-                properties:
-                  query: {type: string}
-            machine_request:
-              profile: ${AGENT_CATALOG_ROOT}/knowledge-manager/documentation-curator/profile.yaml
-              document_resources: [documentation_corpus]
-              request:
-                body:
-                  query: $.query
-              response:
-                terminal_signals:
-                  DocumentationReady:
-                    status: 200
-                    content_type: application/json
-                    body:
-                      title: $.title
-                      body: $.body
-                  DocumentationMissing:
-                    status: 404
-                    body:
-                      error: $.message
-              timeout: 10s
+              body:
+                query: $.query
+            response:
+              terminal_signals:
+                DocumentationReady:
+                  status: 200
+                  content_type: application/json
+                  body:
+                    title: $.title
+                    body: $.body
+                DocumentationMissing:
+                  status: 404
+                  body:
+                    error: $.message
+            timeout: 10s
+```
 
 <!-- field: validation_rules -->
 ## Validation rules
@@ -1798,101 +2222,125 @@ signal_source validates and maps the complete request before invoking its inject
 
 monitor_view declared_machines is valid only on read_state and exposes the root plus distinct machine_request declarations from the trusted profile closure without request-machine run state.
 
-<!-- field: invalid_examples | form: "tree" -->
+<!-- field: invalid_examples -->
 ## Invalid examples
 
-- ambiguous_resource_operation:
-  # Resource operations cannot define RPC-style verbs.
-  rest:
-    version: v1
-    clients:
-      crm:
-        base_url: https://crm.example
-        resources:
-          account:
-            path: /accounts/{id}
-            operations:
-              approve:
-                method: POST
-                path: /accounts/{id}/approve
-                success: {status: [200], signal: RESTResponded}
-                side_effects:
-                  - kind: external_api
-                    target: crm.account
-                    state: approval_requested
-                reversibility:
-                  classification: compensatable
-                  undo: revokeApproval
+<!-- field: ambiguous_resource_operation -->
+### Ambiguous resource operation
 
-  invalid_because:
-    - approve is RPC-shaped and belongs under operations.
-    - Resource operation names are limited to get, set, create, and delete.
-- missing_schema_for_body:
-  # Body templates must reference declared runtime input.
-  rest:
-    version: v1
-    clients:
-      billing:
-        base_url: https://billing.example
-        operations:
-          create_invoice:
-            method: POST
-            path: /invoices
-            body:
-              customer: "{{ params.customer }}"
-            success: {status: [201], signal: RESTResourceWritten}
-            side_effects:
-              - kind: external_api
-                target: billing.invoice
-                state: invoice_created
-            reversibility:
-              classification: compensatable
-              undo: voidInvoice
+```yaml
+# Resource operations cannot define RPC-style verbs.
+rest:
+  version: v1
+  clients:
+    crm:
+      base_url: https://crm.example
+      resources:
+        account:
+          path: /accounts/{id}
+          operations:
+            approve:
+              method: POST
+              path: /accounts/{id}/approve
+              success: {status: [200], signal: RESTResponded}
+              side_effects:
+                - kind: external_api
+                  target: crm.account
+                  state: approval_requested
+              reversibility:
+                classification: compensatable
+                undo: revokeApproval
 
-  invalid_because:
-    - body references params.customer without a declared body_schema or request binding.
-- unsupported_auth:
-  # Auth types are limited to the supported set.
-  rest:
-    version: v1
-    auth:
-      cloud:
-        type: magic_signature
-        token_ref: cloud_token
+invalid_because:
+  - approve is RPC-shaped and belongs under operations.
+  - Resource operation names are limited to get, set, create, and delete.
+```
 
-  invalid_because:
-    - magic_signature is not a supported auth type.
-- duplicate_openapi_operation:
-  # Imported operation IDs must remain unique in one REST definition.
-  rest:
-    version: v1
-    openapi:
-      service_a:
-        path: ./service-a.yaml
-        expose: [createThing]
-      service_b:
-        path: ./service-b.yaml
-        expose: [createThing]
+<!-- field: missing_schema_for_body -->
+### Missing schema for body
 
-  invalid_because:
-    - createThing maps to two imported operations in the same REST definition scope.
-- unsafe_server_binding:
-  # Public listeners need an explicit network policy.
-  rest:
-    version: v1
-    servers:
-      public_control:
-        address: 0.0.0.0:8080
-        endpoints:
-          inject:
-            method: POST
-            path: /inject
-            binding: emit_dynamic_signal
-            allowed_signals: [Approved, Rejected]
+```yaml
+# Body templates must reference declared runtime input.
+rest:
+  version: v1
+  clients:
+    billing:
+      base_url: https://billing.example
+      operations:
+        create_invoice:
+          method: POST
+          path: /invoices
+          body:
+            customer: "{{ params.customer }}"
+          success: {status: [201], signal: RESTResourceWritten}
+          side_effects:
+            - kind: external_api
+              target: billing.invoice
+              state: invoice_created
+          reversibility:
+            classification: compensatable
+            undo: voidInvoice
 
-  invalid_because:
-    - Public listener binding needs explicit network policy.
-    - Dynamic signal endpoints need authentication or another configured boundary control.
+invalid_because:
+  - body references params.customer without a declared body_schema or request binding.
+```
+
+<!-- field: unsupported_auth -->
+### Unsupported auth
+
+```yaml
+# Auth types are limited to the supported set.
+rest:
+  version: v1
+  auth:
+    cloud:
+      type: magic_signature
+      token_ref: cloud_token
+
+invalid_because:
+  - magic_signature is not a supported auth type.
+```
+
+<!-- field: duplicate_openapi_operation -->
+### Duplicate OpenAPI operation
+
+```yaml
+# Imported operation IDs must remain unique in one REST definition.
+rest:
+  version: v1
+  openapi:
+    service_a:
+      path: ./service-a.yaml
+      expose: [createThing]
+    service_b:
+      path: ./service-b.yaml
+      expose: [createThing]
+
+invalid_because:
+  - createThing maps to two imported operations in the same REST definition scope.
+```
+
+<!-- field: unsafe_server_binding -->
+### Unsafe server binding
+
+```yaml
+# Public listeners need an explicit network policy.
+rest:
+  version: v1
+  servers:
+    public_control:
+      address: 0.0.0.0:8080
+      endpoints:
+        inject:
+          method: POST
+          path: /inject
+          binding: emit_dynamic_signal
+          allowed_signals: [Approved, Rejected]
+
+invalid_because:
+  - Public listener binding needs explicit network policy.
+  - Dynamic signal endpoints need authentication or another configured boundary control.
+```
 
 <!-- field: related_documents -->
 ## Related documents
