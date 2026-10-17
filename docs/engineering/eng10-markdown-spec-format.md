@@ -114,7 +114,7 @@ A node kind whose tag is field is a field slot: the place where fields open, one
 <!-- section: field-shapes -->
 ## Field shapes
 
-A field is a node opened by a field marker; its name is the marker value. A typed field declares where it may appear and the shape of its content. A field with no shape is passthrough: its content takes the form its value needs (Table 6). Passthrough does not mean undeclared: a slot that lists its fields admits only those, in that order (Declared fields and order). Table 3 lists the shapes.
+A field is a node opened by a field marker; its name is the marker value. A typed field declares where it may appear and the shape of its content. A field with no shape is passthrough: its content takes the form its value needs (Table 7). Passthrough does not mean undeclared: a slot that lists its fields admits only those, in that order (Declared fields and order). Table 3 lists the shapes.
 
 Table 3: Field shapes
 
@@ -141,7 +141,7 @@ How each YAML value becomes one of these shapes is the job of the YAML mapping, 
 
 The constitution declares every field a document holds, so the audit can check that each one is there and in its place (GH-2651). A field slot lists its fields in order (fields), and that list is both the slot's membership and its order. The document slot lists a type's top-level fields; a record's slot lists the fields its records carry; a slot under field:<name> lists the keys of that field's value, which print as nested fields.
 
-A nested field is a field like any other. It prints as a heading one level below its parent field, with a field marker naming its key, and its value converts by Table 6 under that heading: prose, a list, a table, a typed form, or nested fields again when a slot is declared under it. Records may sit under a nested field as they sit under a top-level one: a node kind whose parent is field:<name> holds the records of that field's value, a map keyed by id or a list, each record a heading titled by its id. A list of records whose content a table cannot hold, records with nested values or long text, is declared the same way: a record kind under the field, each record a tagged heading titled by its id, and a slot listing the fields its records carry, so the Markdown parses through its tags down to the data (GH-2663). A record kind belongs to its field at one level, so the same key can hold records in one place and text or a map in another, and a value that is not a list of the kind's records keeps its usual conversion. Headings stop at level 6. A field at level 6 holds its value in one form, a tree when it is structured, and that value's keys are data of the field rather than fields.
+A nested field is a field like any other. It prints as a heading one level below its parent field, with a field marker naming its key, and its value converts by Table 7 under that heading: prose, a list, a table, a typed form, or nested fields again when a slot is declared under it. Records may sit under a nested field as they sit under a top-level one: a node kind whose parent is field:<name> holds the records of that field's value, a map keyed by id or a list, each record a heading titled by its id. A list of records whose content a table cannot hold, records with nested values or long text, is declared the same way: a record kind under the field, each record a tagged heading titled by its id, and a slot listing the fields its records carry, so the Markdown parses through its tags down to the data (GH-2663). A record kind belongs to its field at one level, so the same key can hold records in one place and text or a map in another, and a value that is not a list of the kind's records keeps its usual conversion. Headings stop at level 6. A field at level 6 holds its value in one form, a tree when it is structured, and that value's keys are data of the field rather than fields.
 
 Two checks hold a document to its slots. A field a slot does not list is field-undeclared; the fix is to declare it in the slot, in its place, or to move the content into a declared field. A field that appears after a field its slot lists later is field-out-of-order; the fix is to move it. Both run only on slots that list their fields, so a type turned strict when its declaration listed them; every slot in design.yaml now lists its fields, and a test in agent-core/pkg/spec/markdown holds it to that (GH-2660), so a field a document adds without declaring it is a finding. A field rule's in names the slots the field may appear in, and every slot it names that lists fields lists it.
 
@@ -155,14 +155,33 @@ Table 4: A nested field, nested records, and an empty value
 | a field holding a list of flat records | `<!-- field: workspace_state \| form: "typed table" -->`, then \| command \| strategy \| receipt \| and one row per record | workspace_state: [{command: write, strategy: ..., receipt: ...}] |
 | a field whose value is an empty list | `<!-- field: declaration_mismatches \| form: "empty list" -->`, then the line None | declaration_mismatches: [] |
 
+<!-- section: reference-links -->
+## Reference links
+
+A field can hold references to requirements and documents: an acceptance criterion's traces, a test case's traces and use case, a use case's touchpoints, the index tables. A field rule that declares links (links: true, or link_columns naming a table's columns) renders each reference in its list items, its one-line value, or those columns as Markdown links, so a reader follows a trace instead of searching for it (GH-2665). Ids written inside prose stay text.
+
+A reference is a whole value: a document id, optionally followed by a space and items separated by a comma and a space (srd057-capability-profiles R1.1, R1.2), or a bare item of the same document (R1.1). An item is capital letters and digits with dotted parts (R1.1, AC5, S3). Each part links on its own: the document id to the document's file by a path relative to the referring document, and each item to that file's heading anchor; a bare item links to its anchor on the same page. A value with any other text, or a part whose target the converter does not know, stays text.
+
+An anchor is GitHub's: the heading text lowercased, every character but letters, digits, underscores, hyphens, and spaces dropped, spaces turned into hyphens, and a -1, -2 suffix for each repeat of the same anchor earlier on the page. R1.1 becomes #r11 and "R1 - Budget" becomes #r1---budget. An item's anchor is the one its heading takes in its document.
+
+Links are rendering only. The YAML tree holds the plain reference, and the parser reads a link back as its text when the text is a reference and the target agrees with it: the file's name is the document id and the anchor starts with the item's own anchor. A link the converter would not write, or one around other text, stays literal text. The parser needs nothing beyond the document, so the corpus loader and a lone document parse as before; the printer needs the corpus index, the ids, paths, and item anchors of every corpus document, to write cross-document links, and mage fmt, mage convert, and the canonical-form check all print with it, so a moved document's links follow it on the next mage fmt and a stale one is a not-canonical finding. Without the index the printer links same-page items only.
+
+Table 5: Reference links, one example each
+
+| Reference | Markdown | YAML |
+| --- | --- | --- |
+| a same-document item | `- [R1.1](#r11)` | traces: [R1.1] |
+| a document | `[rel00.0-uc001-domain-agent-integration](../use-cases/rel00.0-uc001-domain-agent-integration.md)` | use_case: rel00.0-uc001-domain-agent-integration |
+| a document and items | `[srd057-capability-profiles](../software-requirements/srd057-capability-profiles.md) [R1.1](../software-requirements/srd057-capability-profiles.md#r11), [R1.2](...#r12)` | target: srd057-capability-profiles R1.1, R1.2 |
+
 <!-- section: yaml-mapping -->
 ## YAML mapping
 
 One converter serves every document type (GH-2582, split on 2026-10-16). It maps a Markdown document to the yaml.Node tree its YAML form parses into, and back, driven only by the type's declaration. Every consumer that reads the YAML tree today reads the same tree from a Markdown document: the typed parsers (ParseSRD, ParseUseCase, ParseTestSuite, ParseRoadmap, ParseSpecIndex), the corpus charter's YAML-path checks, and the reference checks in magefiles. The typed models stay the one document model; Markdown is a second way to reach them.
 
-The rendering rules above say how a document looks. The YAML mapping says where each piece lives in the tree, and it sits beside them in the declaration. Frontmatter fields are top-level scalar keys of the same name. A field maps to the record key of its name, and its value converts by Table 6, a field with nested fields to a mapping holding them in document order; a field declaration may name the keyed or outline conversion (value), an outline's id and content keys, and the heading the field prints with. A node kind maps to records by the parts in Table 5, given in the yaml block of its declaration.
+The rendering rules above say how a document looks. The YAML mapping says where each piece lives in the tree, and it sits beside them in the declaration. Frontmatter fields are top-level scalar keys of the same name. A field maps to the record key of its name, and its value converts by Table 7, a field with nested fields to a mapping holding them in document order; a field declaration may name the keyed or outline conversion (value), an outline's id and content keys, and the heading the field prints with. A node kind maps to records by the parts in Table 6, given in the yaml block of its declaration.
 
-Table 5: YAML mapping of a node kind
+Table 6: YAML mapping of a node kind
 
 | Part | Meaning |
 | --- | --- |
@@ -175,7 +194,7 @@ Table 5: YAML mapping of a node kind
 
 Every other record key prints, in record order, under the field kind declared with the node kind as its parent, as SRD item fields sit under requirement items. A node kind whose records sit under a field names that field as its parent (field:acceptance_criteria); one whose records sit straight under a key, with no heading of their own, names the key in from and its parent node or the document as its parent, as requirement groups do.
 
-Table 6: Value conversions
+Table 7: Value conversions
 
 | YAML value | Markdown | Used for |
 | --- | --- | --- |
@@ -208,7 +227,7 @@ The keyed table form holds records keyed by id: a map of two or more records tha
 
 The tree form prints a map as a bullet list, one entry per key: `- key: value` for a scalar, or `- key:` followed by the nested value indented by two spaces. It prints a list as a numbered list, `1. value` for a scalar element, or `1.` followed by the nested value. Bullets mean map entries and numbers mean list elements, so the reader and the parser tell a list of maps from a map of lists without punctuation. A multi-line string prints after `- key:` as indented Markdown text, so a Mermaid diagram under a key draws, and it reads back verbatim with the indentation removed. An empty map or list inside a tree prints as {} or []. A field whose whole value is an empty list or map prints the line None, with form: empty list or form: empty map, so the reader sees a word and the parser restores the exact empty value.
 
-Table 7: Typed forms, one example each
+Table 8: Typed forms, one example each
 
 | Form | YAML value | Markdown |
 | --- | --- | --- |
@@ -229,9 +248,9 @@ The laws are stated on the node tree, with comments removed and after canonicali
 
 YAML comments do not survive conversion. The tracked corpus holds 270 non-license comment lines in 35 files of the structured types, and they fall into two groups. Some carry facts a reader needs, such as the note in four catalog SRDs that the agent-core SRDs they cite are platform dependencies. Others restate structure: 10 repeat the document title on its first line, and 26 are blank or divider lines. Neither group belongs in a marker, since the one-layer rule keeps markers for machine-only facts, and placing a free note inside a typed field would break its shape. The converter therefore reports every comment it does not carry, with file and line, and the corpus migration (GH-2584) turns each comment that states a fact into visible text in the same pull request, called out as a hand edit.
 
-Some fields are written in more than one YAML form, and one Markdown form cannot parse back to two. The converter canonicalizes each document in memory, once, before it prints, and reports every change it makes: frontmatter keys move first, a record holding only its id and content takes the keyed form, any other record keeps the record form with its keys in canonical order, map records written as a list become a map, a key whose records have no heading and which holds none is dropped, a non-text id becomes text, a record without an id derives one from its title where its mapping says so, and a keyed table row splits at its declared separator. We first planned a commit that rewrote the YAML into canonical form; it would have re-emitted every SRD through a YAML encoder just before the sunset deletes the YAML, so the canonical form exists only on the way to Markdown. The typed-model equality of the round-trip laws proves it changes no value. Table 8 counts the entries canonicalization touches.
+Some fields are written in more than one YAML form, and one Markdown form cannot parse back to two. The converter canonicalizes each document in memory, once, before it prints, and reports every change it makes: frontmatter keys move first, a record holding only its id and content takes the keyed form, any other record keeps the record form with its keys in canonical order, map records written as a list become a map, a key whose records have no heading and which holds none is dropped, a non-text id becomes text, a record without an id derives one from its title where its mapping says so, and a keyed table row splits at its declared separator. We first planned a commit that rewrote the YAML into canonical form; it would have re-emitted every SRD through a YAML encoder just before the sunset deletes the YAML, so the canonical form exists only on the way to Markdown. The typed-model equality of the round-trip laws proves it changes no value. Table 9 counts the entries canonicalization touches.
 
-Table 8: Fields canonicalized at conversion
+Table 9: Fields canonicalized at conversion
 
 | Field | Forms in the corpus | Entries normalized |
 | --- | --- | --- |
@@ -259,9 +278,9 @@ A converter assigns new numbers only where the YAML had none: 17 unnumbered use 
 <!-- section: diagnostics -->
 ## Diagnostics
 
-An agent authoring a document iterates write, audit, fix, so every failure is a named finding that says how to fix it. Diagnostics come in tiers, and the run collects every finding rather than stopping at the first. Table 9 gives the tiers.
+An agent authoring a document iterates write, audit, fix, so every failure is a named finding that says how to fix it. Diagnostics come in tiers, and the run collects every finding rather than stopping at the first. Table 10 gives the tiers.
 
-Table 9: Diagnostic tiers
+Table 10: Diagnostic tiers
 
 | Tier | Covers | Handling |
 | --- | --- | --- |
@@ -271,9 +290,9 @@ Table 9: Diagnostic tiers
 | 3 | shapes: field shapes, list item patterns, table columns, attribute shapes | named finding |
 | 4 | prose containment | named finding |
 
-Parsing stops at a finding of tiers 1 to 3; prose-containment findings come back with the parsed tree, since they concern wording rather than structure. Each finding carries its name, tier, file, line, what the rule expected, what the document has, the rule path inside design.yaml (document_types.<type>.markdown.<rule>), and a fix hint. The names are stable: tools and agents match on them, so renaming one is a breaking change. Table 10 is the complete catalog.
+Parsing stops at a finding of tiers 1 to 3; prose-containment findings come back with the parsed tree, since they concern wording rather than structure. Each finding carries its name, tier, file, line, what the rule expected, what the document has, the rule path inside design.yaml (document_types.<type>.markdown.<rule>), and a fix hint. The names are stable: tools and agents match on them, so renaming one is a breaking change. Table 11 is the complete catalog.
 
-Table 10: Finding catalog
+Table 11: Finding catalog
 
 | Tier | Name | Reported when |
 | --- | --- | --- |
@@ -329,9 +348,9 @@ The check reports what the corpus migration (GH-2584) rewrites. On the printed f
 <!-- section: rules-as-data -->
 ## Rules as data
 
-Every entry in document_types carries a markdown entry, and a test in agent-core/pkg/spec/markdown holds design.yaml to that. A structured type declares its rules there; a type that takes no rules says why in one line. Table 11 lists the types.
+Every entry in document_types carries a markdown entry, and a test in agent-core/pkg/spec/markdown holds design.yaml to that. A structured type declares its rules there; a type that takes no rules says why in one line. Table 12 lists the types.
 
-Table 11: Markdown declarations by document type
+Table 12: Markdown declarations by document type
 
 | Type | Location | Declaration |
 | --- | --- | --- |
@@ -361,11 +380,11 @@ Two types and one document stay outside the format by design. The corpus charter
 <!-- section: corpus-fit -->
 ## Corpus fit
 
-Every tracked document of every structured type round-trips under the round-trip laws: 369 documents, of which mage convert converts 368 (the design constitution stays YAML), from canonical YAML to Markdown and back to the same tree, with Markdown a fixed point of Format and the typed model unchanged where the type has one (TestEveryCorpusSRDRoundTrips and TestEveryCorpusDocumentRoundTrips in agent-core/pkg/spec/markdown). Table 12 gives the counts by type.
+Every tracked document of every structured type round-trips under the round-trip laws: 369 documents, of which mage convert converts 368 (the design constitution stays YAML), from canonical YAML to Markdown and back to the same tree, with Markdown a fixed point of Format and the typed model unchanged where the type has one (TestEveryCorpusSRDRoundTrips and TestEveryCorpusDocumentRoundTrips in agent-core/pkg/spec/markdown). Table 13 gives the counts by type.
 
 After the rendering work of GH-2638 the printer writes no fenced yaml block anywhere in the corpus, down from 1,715 in 229 documents. Of the values that printed as YAML, 1,572 fields now print in the tree form, 85 as typed tables, and 27 as scalars; the 61 test-suite commands print as bash fences, and 132 Mermaid blocks draw. One fenced yaml block remains by intent: a code example inside the text of agent-core ARCHITECTURE decision 5, which an earlier indented example would have turned into an untagged list. mage fmt reports any fallback fence the printer writes again.
 
-Table 12: Corpus fit of the declarations
+Table 13: Corpus fit of the declarations
 
 | Type | Documents | Round-trip | Prose-containment hits |
 | --- | --- | --- | --- |
