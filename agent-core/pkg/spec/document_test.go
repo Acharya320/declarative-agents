@@ -128,6 +128,9 @@ func TestFormatFindingsAreCollected(t *testing.T) {
 		byCheck[f.Check] = append(byCheck[f.Check], f)
 	}
 	require.Len(t, byCheck[checkNotCanonical], 1)
+	// The finding names the differing line, so it says what to change (GH-2678).
+	require.Contains(t, byCheck[checkNotCanonical][0].Message, "canonical form has")
+	require.Greater(t, byCheck[checkNotCanonical][0].Line, 1)
 	require.Equal(t, SRDSubdir+"/srd002-api.md", byCheck[checkNotCanonical][0].File)
 	require.NotEmpty(t, byCheck[checkMarkdownFormat])
 	require.Equal(t, "heading-untagged", byCheck[checkMarkdownFormat][0].CheckID)

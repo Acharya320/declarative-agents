@@ -29,8 +29,8 @@ func (r *Declaration) renderField(slot, key string, value *yaml.Node) ([]string,
 		return nil, "", err
 	}
 	field, typed := r.ruleFor(slot, key)
-	if (typed && field.Shape != "") || classifyContent(strings.Join(lines, "\n")) != shapeYAML {
-		return lines, "", nil
+	if (typed && (field.Shape != "" || field.Code != "")) || classifyContent(strings.Join(lines, "\n")) != shapeYAML {
+		return lines, "", nil // a declared shape or code fence is the field's form
 	}
 	if form, typedLines, ok := typedFormFor(value); ok {
 		return typedLines, form, nil

@@ -142,13 +142,18 @@ func (s *formatScan) checkMarkdown(path string) bool {
 	}
 	formatted, findings, err := d.FormatLinked(data, filepath.ToSlash(path), s.linkIndex())
 	loads := err == nil && formatted != nil
+	if err != nil && len(findings) == 0 {
+		s.add(Finding{Check: checkMarkdownFormat, Level: "error", File: s.relative(path), Line: 1,
+			Message: "document cannot be formatted: " + err.Error()})
+	}
 	for _, f := range findings {
 		s.add(Finding{Check: checkMarkdownFormat, CheckID: f.Name, Level: "error", File: s.relative(path), Line: f.Line,
 			Message: fmt.Sprintf("%s: expected %s, found %s [design.yaml %s]; %s", f.Name, f.Expected, f.Found, f.Rule, f.Hint)})
 	}
 	if loads && string(formatted) != string(data) {
-		s.add(Finding{Check: checkNotCanonical, Level: "error", File: s.relative(path), Line: 1,
-			Message: "document is not in canonical form; run mage fmt"})
+		line, found, expected := markdown.FirstDifference(data, formatted)
+		s.add(Finding{Check: checkNotCanonical, Level: "error", File: s.relative(path), Line: line,
+			Message: fmt.Sprintf("document is not in canonical form: line %d reads %q, canonical form has %q; run mage fmt", line, found, expected)})
 	}
 	return loads
 }
