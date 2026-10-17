@@ -375,7 +375,6 @@ document_types:
           content: prose
           unique_id: true
           yaml: {from: interfaces, records: list, id: name, content: summary}
-        interface_field: {tag: field, level: 4, parent: interface, heading: free, content: any}
         component:
           tag: component
           level: 3

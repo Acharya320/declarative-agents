@@ -143,7 +143,7 @@ The constitution declares every field a document holds, so the audit can check t
 
 A nested field is a field like any other. It prints as a heading one level below its parent field, with a field marker naming its key, and its value converts by Table 6 under that heading: prose, a list, a table, a typed form, or nested fields again when a slot is declared under it. Records may sit under a nested field as they sit under a top-level one: a node kind whose parent is field:<name> holds the records of that field's value, a map keyed by id or a list, each record a heading titled by its id. A list of records whose content a table cannot hold, records with nested values or long text, is declared the same way: a record kind under the field, each record a tagged heading titled by its id, and a slot listing the fields its records carry, so the Markdown parses through its tags down to the data (GH-2663). A record kind belongs to its field at one level, so the same key can hold records in one place and text or a map in another, and a value that is not a list of the kind's records keeps its usual conversion. Headings stop at level 6. A field at level 6 holds its value in one form, a tree when it is structured, and that value's keys are data of the field rather than fields.
 
-Two checks hold a document to its slots. A field a slot does not list is field-undeclared; the fix is to declare it in the slot, in its place, or to move the content into a declared field. A field that appears after a field its slot lists later is field-out-of-order; the fix is to move it. Both run only on slots that list their fields, so a type turns strict when its declaration lists them; once every slot in design.yaml lists its fields, the declaration check requires the list. A field rule's in names the slots the field may appear in, and every slot it names that lists fields lists it.
+Two checks hold a document to its slots. A field a slot does not list is field-undeclared; the fix is to declare it in the slot, in its place, or to move the content into a declared field. A field that appears after a field its slot lists later is field-out-of-order; the fix is to move it. Both run only on slots that list their fields, so a type turned strict when its declaration listed them; every slot in design.yaml now lists its fields, and a test in agent-core/pkg/spec/markdown holds it to that (GH-2660), so a field a document adds without declaring it is a finding. A field rule's in names the slots the field may appear in, and every slot it names that lists fields lists it.
 
 Table 4: A nested field, nested records, and an empty value
 
@@ -335,21 +335,21 @@ Table 11: Markdown declarations by document type
 
 | Type | Location | Declaration |
 | --- | --- | --- |
-| vision | docs/VISION.md | fields; success criteria as a keyed list |
-| architecture | docs/ARCHITECTURE.md | interface, component, and decision nodes; two tables |
-| specifications | docs/SPECIFICATIONS.md | overview; index tables pass through |
-| roadmap | docs/road-map.md | release nodes with a status attribute |
-| pattern_language | docs/pattern-language.md | pattern nodes requiring intent, problem, solution |
-| engineering_guideline | docs/engineering/engNN-short-name.md | titled section nodes |
-| srd | docs/specs/software-requirements/srdNNN-short-name.md | requirement groups, items, criteria |
-| use_case | docs/specs/use-cases/relNN.N-ucNNN-short-name.md | success criterion nodes; flow, touchpoint, and scenario fields |
-| test_suite | docs/specs/test-suites/test-relNN.N-short-name.md | test case nodes with visible traces |
-| audit_register | docs/specs/audits/name-register.md | required record fields |
+| vision | docs/VISION.md | fields; success criteria as a keyed list; 8 field slots listing 36 fields in order |
+| architecture | docs/ARCHITECTURE.md | interface, component, and decision nodes; two tables; overview architectures and package records; 26 field slots listing 158 fields in order |
+| specifications | docs/SPECIFICATIONS.md | overview; index tables pass through; 4 field slots listing 26 fields in order |
+| roadmap | docs/road-map.md | release nodes with a status attribute; 6 field slots listing 56 fields in order |
+| pattern_language | docs/pattern-language.md | pattern nodes requiring intent, problem, solution; 10 field slots listing 45 fields in order |
+| engineering_guideline | docs/engineering/engNN-short-name.md | titled section nodes; 1 field slots listing 2 fields in order |
+| srd | docs/specs/software-requirements/srdNNN-short-name.md | requirement groups, items, criteria; 18 field slots listing 114 fields in order |
+| use_case | docs/specs/use-cases/relNN.N-ucNNN-short-name.md | success criterion nodes; flow, touchpoint, and scenario fields; 6 field slots listing 59 fields in order |
+| test_suite | docs/specs/test-suites/test-relNN.N-short-name.md | test case nodes with visible traces; 5 field slots listing 69 fields in order |
+| audit_register | docs/specs/audits/name-register.md | required record fields; 24 field slots listing 130 fields in order |
 | audit_report | docs/specs/audits/name.md | none: native Markdown already |
-| semantic_model | docs/specs/semantic-models/name.md | purpose and list fields |
-| config_format | docs/specs/config-formats/name.md | purpose and list fields |
-| constitution | docs/constitutions/name.md | article nodes, the normative blocks |
-| migration | docs/migrations/name.md | lifecycle frontmatter; summary and evidence fields |
+| semantic_model | docs/specs/semantic-models/name.md | purpose and list fields; tool and role records; 37 field slots listing 294 fields in order |
+| config_format | docs/specs/config-formats/name.md | purpose and list fields; schema and validation-rule records; 96 field slots listing 409 fields in order |
+| constitution | docs/constitutions/name.md | article nodes, the normative blocks; 32 field slots listing 121 fields in order |
+| migration | docs/migrations/name.md | lifecycle frontmatter; summary and evidence fields; 8 field slots listing 42 fields in order |
 | guide | docs/guides/name.md | none: native Markdown already |
 | stats_baseline | docs/stats/name.json | none: generated JSON |
 | corpus_charter | docs/corpus-charter.yaml | none: stays YAML, an executable check plan |

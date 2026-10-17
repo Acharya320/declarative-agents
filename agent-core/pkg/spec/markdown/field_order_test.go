@@ -108,3 +108,17 @@ func TestSlotDeclarationChecks(t *testing.T) {
 		})
 	}
 }
+
+// TestEveryDesignSlotListsItsFields holds design.yaml to the declared-fields
+// law: every field slot lists its fields, so the order and undeclared-field
+// checks run on every document (GH-2660).
+func TestEveryDesignSlotListsItsFields(t *testing.T) {
+	for _, typ := range sortedKeys(repositoryDeclarations(t)) {
+		d := repositoryDeclarations(t)[typ]
+		for _, name := range sortedKeys(d.Nodes) {
+			if node := d.Nodes[name]; node.Tag == tagField && len(node.Fields) == 0 {
+				t.Errorf("document_types.%s.markdown.nodes.%s lists no fields", typ, name)
+			}
+		}
+	}
+}
