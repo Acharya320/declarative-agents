@@ -38,6 +38,17 @@ document_types:
           heading: id
           content: prose
           yaml: {from: criteria, records: map, content: text}
+        index_entry:
+          tag: index_entry
+          level: 3
+          parent: 'field:index'
+          heading: id
+          content: none
+          flat: table
+          yaml: {from: index, records: list, id: id}
+        index_entry_field: {tag: field, level: 4, parent: index_entry, heading: free, content: any}
+      fields:
+        index: {in: [document_field], link_columns: [id]}
 `
 
 const nestedPlan = `id: plan
@@ -223,5 +234,55 @@ func TestRecordFieldKeepsAStringList(t *testing.T) {
 	}
 	if !strings.Contains(md, "#### Packages\n\n- internal/a\n- internal/b\n") {
 		t.Errorf("string list did not print as a list\n%s", md)
+	}
+}
+
+// TestFlatTableKindPrintsTableOrRecords prints one record kind declared
+// flat: table as a linked table when every record is flat, as a typed table
+// when a value is not a string, and as tagged records when a record holds a
+// paragraph; a kind without flat always prints records (GH-2674).
+func TestFlatTableKindPrintsTableOrRecords(t *testing.T) {
+	d := nestedDeclaration(t)
+	indexes := LinkIndexes{}
+	indexes.Add("docs/specs/srd001-a.md", []byte("---\nid: srd001-a\ntitle: A\n---\n"))
+	for name, c := range map[string]struct{ yaml, want string }{
+		"flat strings": {"index:\n  - id: srd001-a\n    title: A\n  - id: srd002-b\n    title: B\n",
+			"<!-- field: index -->\n## Index\n\n| id | title |\n| --- | --- |\n| [srd001-a](specs/srd001-a.md) | A |\n| srd002-b | B |\n"},
+		"flat typed": {"index:\n  - id: srd001-a\n    cases: 3\n",
+			"<!-- field: index | form: \"typed table\" -->\n## Index\n\n| id | cases |\n| --- | --- |\n| [srd001-a](specs/srd001-a.md) | 3 |\n"},
+		"rich": {"index:\n  - id: srd001-a\n    title: A\n    summary: |\n      One line.\n\n      Another paragraph.\n  - id: srd002-b\n    title: B\n",
+			"<!-- field: index -->\n## Index\n\n<!-- index_entry: srd001-a -->\n### srd001-a\n\n<!-- field: title -->\n#### Title\n\nA\n\n<!-- field: summary -->\n#### Summary\n\nOne line.\n\nAnother paragraph.\n\n<!-- index_entry: srd002-b -->\n### srd002-b\n"},
+		"no flat on packages": {"overview:\n  layout:\n    packages:\n      - path: a/\n        responsibility: Short.\n",
+			"<!-- field: packages -->\n#### Packages\n\n<!-- package: a/ -->\n##### a/\n"},
+	} {
+		t.Run(name, func(t *testing.T) {
+			original := yamlDoc(t, "id: plan\ntitle: Plan\n"+c.yaml)
+			md, err := d.PrintLinked(original, "docs/plan.md", indexes.For("docs/plan.md"))
+			if err != nil {
+				t.Fatal(err)
+			}
+			if !strings.Contains(string(md), c.want) {
+				t.Fatalf("printed Markdown lacks %q\n%s", c.want, md)
+			}
+			back, findings, err := d.Parse(md, "docs/plans/plan.md")
+			if err != nil || len(findings) > 0 {
+				t.Fatalf("parse: %v %v\n%s", err, findings, md)
+			}
+			if diff := Diff(original, back); diff != "" {
+				t.Fatalf("round trip changed %s\n%s", diff, md)
+			}
+		})
+	}
+}
+
+func TestFlatIsOnlyTableOnListRecords(t *testing.T) {
+	for _, c := range []struct{ name, node, want string }{
+		{"on a map kind", "x: {tag: x, level: 2, parent: document, heading: id, content: none, flat: table, yaml: {from: xs, records: map}}", "list records"},
+		{"not table", "x: {tag: x, level: 2, parent: document, heading: id, content: none, flat: rows, yaml: {from: xs, records: list, id: id}}", "only table"},
+	} {
+		design := "document_types:\n  plan:\n    location: docs/plans/name.md\n    markdown:\n      frontmatter: {required: [id], allowed: [id]}\n      nodes:\n        " + c.node + "\n"
+		if _, err := LoadDeclarations([]byte(design)); err == nil || !strings.Contains(err.Error(), c.want) {
+			t.Errorf("%s: LoadDeclarations error = %v, want %q", c.name, err, c.want)
+		}
 	}
 }

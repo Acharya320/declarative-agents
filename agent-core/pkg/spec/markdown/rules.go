@@ -76,7 +76,15 @@ type nodeRule struct {
 	// Fields lists, in declared order, every field a field slot holds; a slot
 	// without the list admits any field in any order (GH-2654).
 	Fields []string `yaml:"fields"`
+	// Flat names how a list of records prints when every record is flat:
+	// "table" prints it as a table, with the field's link columns, and only a
+	// list some record of which holds structure or a paragraph prints as
+	// records (GH-2674).
+	Flat string `yaml:"flat"`
 }
+
+// flatTable is the one value Flat takes.
+const flatTable = "table"
 
 type fieldRule struct {
 	In          []string `yaml:"in"`
