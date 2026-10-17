@@ -42,6 +42,17 @@ func TestBootPlatformInstallsFakeGCS(t *testing.T) {
 	if strings.Contains(config, "- memory") {
 		t.Error("fake-gcs manifest still uses the memory backend arg; #2477 R3 requires filesystem durability")
 	}
+	// The image entrypoint is `fake-gcs-server -data /data`, which seeds objects
+	// from /data at startup. A filesystem root at /data re-ingests the store into
+	// itself on every boot, chaining .metadata names until one is too long (#2646).
+	for _, want := range []string{"-filesystem-root\n            - /storage\n", "{name: objects, mountPath: /storage}"} {
+		if !strings.Contains(config, want) {
+			t.Errorf("fake-gcs manifest lacks %q; the filesystem root must be /storage (#2646)", want)
+		}
+	}
+	if strings.Contains(config, "/data") {
+		t.Error("fake-gcs manifest names /data, the image's seed directory; the store must not be seeded from itself (#2646)")
+	}
 }
 
 func TestEnsurePlatformClusterReplacesLeftover(t *testing.T) {
