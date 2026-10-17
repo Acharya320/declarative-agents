@@ -53,68 +53,62 @@ declarations. Go packages provide reusable vocabulary and runtime services.
 <!-- field: vision_model_diagram -->
 ## Vision model diagram
 
-````yaml
-|
-    ```mermaid
-    flowchart TD
-      U[User task or scheduler] --> CFG[Configured Agent Program]
+```mermaid
+flowchart TD
+  U[User task or scheduler] --> CFG[Configured Agent Program]
 
-      subgraph Program[Agent Program]
-        M[MachineSpec: states, signals, transitions]
-        TS[Tool selection]
-        TD[ToolDef vocabulary contracts]
-        BOUNDARY[Boundary tool config and prompt]
-      end
+  subgraph Program[Agent Program]
+    M[MachineSpec: states, signals, transitions]
+    TS[Tool selection]
+    TD[ToolDef vocabulary contracts]
+    BOUNDARY[Boundary tool config and prompt]
+  end
 
-      M -->|names actions| TS
-      TS -->|selects| TD
-      CFG --> Program
-      Program --> R[Loop runtime interpreter]
-      R --> REG[Registry and Builders]
-      REG --> C[Command instance]
-      C -->|Result.Signal| R
-      R -->|next transition| M
+  M -->|names actions| TS
+  TS -->|selects| TD
+  CFG --> Program
+  Program --> R[Loop runtime interpreter]
+  R --> REG[Registry and Builders]
+  REG --> C[Command instance]
+  C -->|Result.Signal| R
+  R -->|next transition| M
 
-      TD --> LC[Lifecycle model: side effects, receipts, rollback]
-      C --> RCP[Tool-owned receipt]
-      LC --> RCP
-    ```
-````
+  TD --> LC[Lifecycle model: side effects, receipts, rollback]
+  C --> RCP[Tool-owned receipt]
+  LC --> RCP
+```
 
 <!-- field: tool_language_diagram -->
 ## Tool language diagram
 
-````yaml
-|
-    ```mermaid
-    flowchart LR
-      subgraph Vocabulary
-        A[ToolDef: read]
-        B[ToolDef: edit]
-        C[ToolDef: build]
-        D[Boundary ToolDef: invoke_llm]
-      end
+```mermaid
+flowchart LR
+  subgraph Vocabulary
+    A[ToolDef: read]
+    B[ToolDef: edit]
+    C[ToolDef: build]
+    D[Boundary ToolDef: invoke_llm]
+  end
 
-      subgraph Grammar
-        M[MachineSpec]
-        S1[Composing]
-        S2[Parsing]
-        S3[ValidatingBuild]
-        S4[ValidatingTest]
-      end
+  subgraph Grammar
+    M[MachineSpec]
+    S1[Composing]
+    S2[Parsing]
+    S3[ValidatingBuild]
+    S4[ValidatingTest]
+  end
 
-      M --> S1
-      S1 -->|LLMResponded| S2
-      S2 -->|ToolDone via selected word| S1
-      S2 -->|TaskCompleted| S3
-      S3 -->|ToolDone| S4
+  M --> S1
+  S1 -->|LLMResponded| S2
+  S2 -->|ToolDone via selected word| S1
+  S2 -->|TaskCompleted| S3
+  S3 -->|ToolDone| S4
 
-      A --> M
-      B --> M
-      C --> M
-      D --> M
-    ```
-````
+  A --> M
+  B --> M
+  C --> M
+  D --> M
+```
 
 <!-- field: what_this_does -->
 ## What this does
@@ -307,24 +301,22 @@ and lifecycle recovery benefit every agent that imports agent-core.
 - docs/specs/use-cases/rel03.0-uc007-machine-request-documentation-ux.md
 - docs/specs/test-suites/test-rel02.0-tool-contracts.md
 
-<!-- field: dependencies -->
+<!-- field: dependencies | form: "tree" -->
 ## Dependencies
 
-```yaml
-direct:
-    - go.opentelemetry.io/otel for attributes, trace, and metric APIs
-    - go.opentelemetry.io/otel/sdk for trace and metric providers
-    - go.opentelemetry.io/otel/exporters for OTLP gRPC and stdout exporters
-    - go.opentelemetry.io/proto/otlp for replay proto types
-    - google.golang.org/grpc for OTLP transport
-    - google.golang.org/protobuf for proto serialization
-    - gopkg.in/yaml.v3 for YAML parsing
-    - github.com/stretchr/testify for test assertions
-    - github.com/getkin/kin-openapi/openapi3 for OpenAPI 3 loading, resolution, and validation for REST tools
-    - database/sql (standard library) as the Database/Transaction/Scanner/Rows seam in internal/doltsql, shared by the Dolt checkpoint backend and Dolt boundary words, so internal/runtime/core never imports database/sql
-    - the Dolt SQL driver, registered by internal/doltsql and invoked from cmd/agent, as the default persistent checkpoint backend (Noop when persistence is disabled)
-indirect:
-    - github.com/dominikbraun/graph for spec dependency graphs
-    - github.com/google/uuid for trace IDs
-    - github.com/cenkalti/backoff/v5 for OTLP retry
-```
+- direct:
+  1. go.opentelemetry.io/otel for attributes, trace, and metric APIs
+  1. go.opentelemetry.io/otel/sdk for trace and metric providers
+  1. go.opentelemetry.io/otel/exporters for OTLP gRPC and stdout exporters
+  1. go.opentelemetry.io/proto/otlp for replay proto types
+  1. google.golang.org/grpc for OTLP transport
+  1. google.golang.org/protobuf for proto serialization
+  1. gopkg.in/yaml.v3 for YAML parsing
+  1. github.com/stretchr/testify for test assertions
+  1. github.com/getkin/kin-openapi/openapi3 for OpenAPI 3 loading, resolution, and validation for REST tools
+  1. database/sql (standard library) as the Database/Transaction/Scanner/Rows seam in internal/doltsql, shared by the Dolt checkpoint backend and Dolt boundary words, so internal/runtime/core never imports database/sql
+  1. the Dolt SQL driver, registered by internal/doltsql and invoked from cmd/agent, as the default persistent checkpoint backend (Noop when persistence is disabled)
+- indirect:
+  1. github.com/dominikbraun/graph for spec dependency graphs
+  1. github.com/google/uuid for trace IDs
+  1. github.com/cenkalti/backoff/v5 for OTLP retry

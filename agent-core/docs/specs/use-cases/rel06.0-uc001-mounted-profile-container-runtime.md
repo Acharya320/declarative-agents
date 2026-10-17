@@ -141,6 +141,6 @@ Missing mounted profile paths fail with a clear pre-loop diagnostic.
 - Rewriting Agent Core runtime packages during the profile migration.
 
 <!-- field: srd -->
-## Srd
+## SRD
 
 srd034-external-agent-profiles

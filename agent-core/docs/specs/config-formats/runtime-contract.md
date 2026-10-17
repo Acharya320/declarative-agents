@@ -36,104 +36,101 @@ for profile root or core install layout for cmd/agent.
 <!-- field: invocation -->
 ## Invocation
 
-```yaml
-|
-    Normal invocation. Replace /work/applications/catalog with your applications/catalog
-    checkout or bundle root.
-      agent --profile /work/applications/catalog/agents/<agent>/profile.yaml \
-            [--request <file>] [--output <dir>] \
-            [--directory <path>] [--dolt-dsn <dsn>] \
-            [--dolt-connection <name>=<dsn>] \
-            [--resume-checkpoint <id>] [--resume-signal <signal>] \
-            [--otel-log-file <file>] [--otel-otlp-endpoint <host:port>] \
-            [--otel-service-name <name>] [--telemetry-capture <off|delta|full>]
+Normal invocation. Replace /work/applications/catalog with your applications/catalog
+checkout or bundle root.
+  agent --profile /work/applications/catalog/agents/<agent>/profile.yaml \
+        [--request <file>] [--output <dir>] \
+        [--directory <path>] [--dolt-dsn <dsn>] \
+        [--dolt-connection <name>=<dsn>] \
+        [--resume-checkpoint <id>] [--resume-signal <signal>] \
+        [--otel-log-file <file>] [--otel-otlp-endpoint <host:port>] \
+        [--otel-service-name <name>] [--telemetry-capture <off|delta|full>]
 
-    Lifecycle profile invocations.
-      agent --profile /work/applications/catalog/testdata/conformance/lifecycle/history/profile.yaml \
-            --directory <workspace> \
-            --request requests/history.yaml
+Lifecycle profile invocations.
+  agent --profile /work/applications/catalog/testdata/conformance/lifecycle/history/profile.yaml \
+        --directory <workspace> \
+        --request requests/history.yaml
 
-      agent --profile /work/applications/catalog/testdata/conformance/lifecycle/rollback/profile.yaml \
-            --directory <workspace> \
-            --request requests/rollback.yaml
+  agent --profile /work/applications/catalog/testdata/conformance/lifecycle/rollback/profile.yaml \
+        --directory <workspace> \
+        --request requests/rollback.yaml
 
-    There is no lifecycle subcommand syntax. Profiles select history and rollback
-    behavior through machine, tool selection, and builtin declarations.
+There is no lifecycle subcommand syntax. Profiles select history and rollback
+behavior through machine, tool selection, and builtin declarations.
 
-    Agent identity flag.
-      --profile            Path to an agent profile YAML. The profile supplies
-                           machine and tool selection paths. It also supplies
-                           declarations, config directories, and optional directory.
-                           Relative paths resolve
-                           against the profile file's directory.
+Agent identity flag.
+  --profile            Path to an agent profile YAML. The profile supplies
+                       machine and tool selection paths. It also supplies
+                       declarations, config directories, and optional directory.
+                       Relative paths resolve
+                       against the profile file's directory.
 
-    Runtime data flags.
-      --request            Finite request file. On a non-resume run, cmd/agent
-                           reads the complete file as bytes and supplies those
-                           exact bytes as the initial Seed Result.Output.
-                           Evaluator suites, lifecycle history requests, rollback
-                           requests, and similar per-run data flow through this
-                           channel. An unreadable file is a startup error.
-      --output             Output directory for runtime artifacts.
-      --directory          Workspace root for file tools, exec tools, child
-                           agents, and workspace restore.
-      --dolt-dsn          MySQL-wire DSN to a running dolt sql-server for the
-                           persistent checkpoint backend. Without this flag,
-                           persistence uses NoopCheckpoint.
-      --dolt-connection    Named Dolt word DSN (NAME=DSN), independent of
-                           --dolt-dsn. Repeatable. ToolDef connection_ref
-                           names resolve through this map, not process
-                           environment.
-      --resume-checkpoint  Run id to Load before re-entering the loop.
-      --resume-signal      Signal used for the first resumed transition
-                           (default: Approved).
+Runtime data flags.
+  --request            Finite request file. On a non-resume run, cmd/agent
+                       reads the complete file as bytes and supplies those
+                       exact bytes as the initial Seed Result.Output.
+                       Evaluator suites, lifecycle history requests, rollback
+                       requests, and similar per-run data flow through this
+                       channel. An unreadable file is a startup error.
+  --output             Output directory for runtime artifacts.
+  --directory          Workspace root for file tools, exec tools, child
+                       agents, and workspace restore.
+  --dolt-dsn          MySQL-wire DSN to a running dolt sql-server for the
+                       persistent checkpoint backend. Without this flag,
+                       persistence uses NoopCheckpoint.
+  --dolt-connection    Named Dolt word DSN (NAME=DSN), independent of
+                       --dolt-dsn. Repeatable. ToolDef connection_ref
+                       names resolve through this map, not process
+                       environment.
+  --resume-checkpoint  Run id to Load before re-entering the loop.
+  --resume-signal      Signal used for the first resumed transition
+                       (default: Approved).
 
-    Request and resume precedence.
-      With --request and without --resume-checkpoint, the initial signal and
-      InitialResult.Signal are Seed and InitialResult.Output is the complete
-      request-file content. Without --request, bootstrap remains unchanged: the
-      loop starts with its ordinary Seed and empty initial output. With
-      --resume-checkpoint, loaded Position and Execution take precedence over a
-      request Seed; LoadResume replaces InitialResult with the resume signal and
-      "Resume from checkpoint". Supplying --request does not merge new bytes into
-      resumed state.
+Request and resume precedence.
+  With --request and without --resume-checkpoint, the initial signal and
+  InitialResult.Signal are Seed and InitialResult.Output is the complete
+  request-file content. Without --request, bootstrap remains unchanged: the
+  loop starts with its ordinary Seed and empty initial output. With
+  --resume-checkpoint, loaded Position and Execution take precedence over a
+  request Seed; LoadResume replaces InitialResult with the resume signal and
+  "Resume from checkpoint". Supplying --request does not merge new bytes into
+  resumed state.
 
-    Diagnostic flags.
-      --telemetry-capture  Content capture level for telemetry (default: off).
-                           off records no model or boundary-tool content. delta
-                           records bounded current-turn LLM input and output
-                           under repository-owned keys. full records verbose LLM
-                           and boundary-tool content under applicable semantic-
-                           convention and repository-owned keys.
-      --verbose-trace      Backward-compatible alias for
-                           --telemetry-capture=full. Combining it with explicit
-                           off or delta is an error; explicit full is accepted.
-      --otel-log-file      OTel trace output file.
-      --otel-otlp-endpoint OTLP gRPC endpoint for live trace and metric export.
-                           It composes with --otel-log-file for dual export.
-      --otel-service-name  Stable OpenTelemetry service.name. Scaled integration
-                           roles include their instance in this value.
-      --otel-parent-span   W3C traceparent for distributed tracing.
+Diagnostic flags.
+  --telemetry-capture  Content capture level for telemetry (default: off).
+                       off records no model or boundary-tool content. delta
+                       records bounded current-turn LLM input and output
+                       under repository-owned keys. full records verbose LLM
+                       and boundary-tool content under applicable semantic-
+                       convention and repository-owned keys.
+  --verbose-trace      Backward-compatible alias for
+                       --telemetry-capture=full. Combining it with explicit
+                       off or delta is an error; explicit full is accepted.
+  --otel-log-file      OTel trace output file.
+  --otel-otlp-endpoint OTLP gRPC endpoint for live trace and metric export.
+                       It composes with --otel-log-file for dual export.
+  --otel-service-name  Stable OpenTelemetry service.name. Scaled integration
+                       roles include their instance in this value.
+  --otel-parent-span   W3C traceparent for distributed tracing.
 
-    Removed configuration flags.
-      cmd/agent does not expose --machine, --tools, --tools-declaration,
-      --tool-config-dir, --profiles-dir, --input, --checkpoint,
-      --to-iteration, or --state-store-dir. Runtime surface is --profile plus
-      runtime data, --dolt-dsn, --dolt-connection, resume, and diagnostics.
+Removed configuration flags.
+  cmd/agent does not expose --machine, --tools, --tools-declaration,
+  --tool-config-dir, --profiles-dir, --input, --checkpoint,
+  --to-iteration, or --state-store-dir. Runtime surface is --profile plus
+  runtime data, --dolt-dsn, --dolt-connection, resume, and diagnostics.
 
-    Request files carry lifecycle data. Targets for history and rollback are
-    lifecycle tool input. A request file can name
-    checkpoint: <id|latest> and to_iteration: <n>.
-    Active lifecycle profile and ToolDef config decide how that request maps to
-    checkpoint_history or checkpoint_rollback config.
+Request files carry lifecycle data. Targets for history and rollback are
+lifecycle tool input. A request file can name
+checkpoint: <id|latest> and to_iteration: <n>.
+Active lifecycle profile and ToolDef config decide how that request maps to
+checkpoint_history or checkpoint_rollback config.
 
-    By default, lifecycle persistence is disabled. Without --dolt-dsn, cmd/agent
-    resolves NoopCheckpoint and records no durable checkpoint history. With
-    --dolt-dsn set, cmd/agent opens DoltCheckpoint through the database/sql seam
-    and persists runs through the srd035 checkpoint port (Save/Load) rather than
-    key/blob store paths. Use the DSN for shared operator storage, retained
-    artifacts, or tests that need durable state outside the process.
-```
+By default, lifecycle persistence is disabled. Without --dolt-dsn, cmd/agent
+resolves NoopCheckpoint and records no durable checkpoint history. With
+--dolt-dsn set, cmd/agent opens DoltCheckpoint through the database/sql seam
+and persists runs through the srd035 checkpoint port (Save/Load) rather than
+key/blob store paths. Use the DSN for shared operator storage, retained
+artifacts, or tests that need durable state outside the process.
 
 <!-- field: integration_telemetry -->
 ## Integration telemetry
@@ -204,107 +201,105 @@ and execute_tool spans identify a dispatch that was active at cancellation.
 The runtime does not print prompts, request bodies, environment values,
 provider URLs, or tool output as signal-handling diagnostics.
 
-<!-- field: startup_sequence -->
+<!-- field: startup_sequence | form: "tree" -->
 ## Startup sequence
 
-```yaml
-- step: 1
-  name: Apply profile
-  description: |
-    At startup, cmd/agent loads the AgentProfile and fills runtime
-    configuration from it. Profile data supplies machine and tool selection
-    files. It also supplies tool declarations, config directories, and
-    optional workspace directory.
-    Normal CLI startup does not expose machine, tool selection, or
-    declaration paths as choices.
-  implementation: catalog.LoadProfile, loadRuntimeConfig
-- step: 2
-  name: Load tool definitions
-  description: |
-    From the profile, cmd/agent loads explicit declaration files,
-    declaration directories, and name-only tool selection files. It then
-    computes the selected declaration set with SelectTools.
-    Registration receives []ToolDef.
-  implementation: catalog.LoadToolDeclarations, catalog.LoadToolDeclarationsFromDirs, catalog.LoadToolSelections, catalog.SelectTools
-- step: 3
-  name: Preserve tool-owned boundary config
-  description: |
-    Selected factories decode ToolDef config blocks. Boundary tools such as
-    invoke_llm own model, endpoint, and response_profile. They also own
-    prompt, timeout, manifest_state, and provider-specific settings. Model
-    clients are not created by cmd/agent as a startup step.
-  implementation: catalog.ToolDef, catalog.DecodeToolConfig
-- step: 4
-  name: Register tool factories
-  description: |
-    For each ToolDef, cmd/agent resolves and registers a Builder in the
-    core.Registry. BuiltinRegistry resolves builtin tools from the "init"
-    field. ExecBuilder wraps exec tools. Tool config from the
-    declaration YAML is passed to factories for parametrization.
-  implementation: registry.RegisterUnifiedTools
-- step: 5
-  name: Load machine and validate selected tool wiring
-  description: |
-    Before entering the loop, cmd/agent loads and validates the machine spec
-    from the resolved profile machine path. Every literal transition action
-    must name a ToolDef selected by the profile; empty actions and $tool are
-    the only exceptions. Validation also extracts budget defaults and checks
-    declared tool emits metadata for selected tools used as named transition
-    actions. Emitted signals must be declared by the machine. Each emitted
-    signal must also have a transition from the action target state unless
-    that target state is terminal.
-  implementation: core.LoadMachineSpec, catalog.ValidateMachineActions, catalog.ValidateToolEmits
-- step: 6
-  name: Configure the checkpoint port
-  description: |
-    Checkpoint persistence is opt-in through the srd035 checkpoint port
-    (Save(Position, Execution) / Load). When --dolt-dsn is set, cmd/agent
-    opens the srd036 Dolt adapter as the persistent backend. When --dolt-dsn
-    is absent, cmd/agent resolves NoopCheckpoint so disabled-mode behavior is
-    unchanged. The resolved Checkpoint is passed to LoopParams and to
-    lifecycle-aware builtin factories. History and rollback profiles use the
-    same backend and register checkpoint_history or checkpoint_rollback
-    through the normal builtin factory flow. The loop calls Save after each
-    dispatch cycle; the persisted Position carries the machine position and
-    the folded conversation snapshot, and the Execution carries the ordered
-    entries, each with the originating tool's opaque receipt. Resume requires
-    --resume-checkpoint plus a persistent backend and Loads Position and
-    Execution before re-entering the same machine. Persistent adapters also
-    expose optional narrow conversation-reference capabilities beside the
-    unchanged two-method Checkpoint port. Before each dispatch, invoke_llm
-    and reset_history can read the latest completed run/step/revision
-    reference. Fresh rollback commands resolve that opaque reference through
-    the target lifecycle checkpoint and decode only the returned conversation
-    JSON at the cmd/agent composition boundary. NoopCheckpoint reports the
-    capability unavailable. Request-local machine runners omit persistence
-    and receive no provider or resolver, so they emit no synthetic
-    llm.conversation.ref value.
-    Commands that mutate shared process-local state may implement the
-    domain-neutral SerialDispatchOnly capability. A parallel for_each rejects
-    the complete batch before execution when an item command implements it;
-    invoke_llm and reset_history are serial-only, while sequential for_each
-    continues to dispatch them normally.
-  implementation: core.Checkpoint, core.ResumeFromCheckpoint
-- step: 7
-  name: Run the loop
-  description: |
-    After startup, cmd/agent passes the already-loaded MachineSpec to core.Loop, and
-    core.Loop builds the transition table mapping (state, signal) pairs
-    to (next_state, Builder). Named actions are resolved from the registry;
-    $tool resolves to a dynamic dispatch function. Path-only callers may
-    still set MachineFile and let Loop load the spec itself, but the agent
-    binary's startup path owns the single read used for budget defaults,
-    emits validation, parse-error policy, and transition-table building.
-    Execution starts in the initial state with a Seed signal and runs the
-    finite state machine to completion. For non-resume CLI runs, --request
-    bytes are the initial Seed Result.Output; absence of --request preserves
-    the empty bootstrap output. Resume restores the checkpoint and replaces
-    that Seed result before re-entry. Each transition fires its action's
-    Builder.Build(result).Execute(), producing a new Result with a Signal
-    that drives the next transition. core.Loop terminates when a terminal
-    state is reached or a budget limit is exceeded.
-  implementation: core.Loop, core.LoopParams.MachineSpec, core.BuildTransitionTable
-```
+1. - step: 1
+   - name: Apply profile
+   - description:
+     At startup, cmd/agent loads the AgentProfile and fills runtime
+     configuration from it. Profile data supplies machine and tool selection
+     files. It also supplies tool declarations, config directories, and
+     optional workspace directory.
+     Normal CLI startup does not expose machine, tool selection, or
+     declaration paths as choices.
+   - implementation: catalog.LoadProfile, loadRuntimeConfig
+1. - step: 2
+   - name: Load tool definitions
+   - description:
+     From the profile, cmd/agent loads explicit declaration files,
+     declaration directories, and name-only tool selection files. It then
+     computes the selected declaration set with SelectTools.
+     Registration receives []ToolDef.
+   - implementation: catalog.LoadToolDeclarations, catalog.LoadToolDeclarationsFromDirs, catalog.LoadToolSelections, catalog.SelectTools
+1. - step: 3
+   - name: Preserve tool-owned boundary config
+   - description:
+     Selected factories decode ToolDef config blocks. Boundary tools such as
+     invoke_llm own model, endpoint, and response_profile. They also own
+     prompt, timeout, manifest_state, and provider-specific settings. Model
+     clients are not created by cmd/agent as a startup step.
+   - implementation: catalog.ToolDef, catalog.DecodeToolConfig
+1. - step: 4
+   - name: Register tool factories
+   - description:
+     For each ToolDef, cmd/agent resolves and registers a Builder in the
+     core.Registry. BuiltinRegistry resolves builtin tools from the "init"
+     field. ExecBuilder wraps exec tools. Tool config from the
+     declaration YAML is passed to factories for parametrization.
+   - implementation: registry.RegisterUnifiedTools
+1. - step: 5
+   - name: Load machine and validate selected tool wiring
+   - description:
+     Before entering the loop, cmd/agent loads and validates the machine spec
+     from the resolved profile machine path. Every literal transition action
+     must name a ToolDef selected by the profile; empty actions and $tool are
+     the only exceptions. Validation also extracts budget defaults and checks
+     declared tool emits metadata for selected tools used as named transition
+     actions. Emitted signals must be declared by the machine. Each emitted
+     signal must also have a transition from the action target state unless
+     that target state is terminal.
+   - implementation: core.LoadMachineSpec, catalog.ValidateMachineActions, catalog.ValidateToolEmits
+1. - step: 6
+   - name: Configure the checkpoint port
+   - description:
+     Checkpoint persistence is opt-in through the srd035 checkpoint port
+     (Save(Position, Execution) / Load). When --dolt-dsn is set, cmd/agent
+     opens the srd036 Dolt adapter as the persistent backend. When --dolt-dsn
+     is absent, cmd/agent resolves NoopCheckpoint so disabled-mode behavior is
+     unchanged. The resolved Checkpoint is passed to LoopParams and to
+     lifecycle-aware builtin factories. History and rollback profiles use the
+     same backend and register checkpoint_history or checkpoint_rollback
+     through the normal builtin factory flow. The loop calls Save after each
+     dispatch cycle; the persisted Position carries the machine position and
+     the folded conversation snapshot, and the Execution carries the ordered
+     entries, each with the originating tool's opaque receipt. Resume requires
+     --resume-checkpoint plus a persistent backend and Loads Position and
+     Execution before re-entering the same machine. Persistent adapters also
+     expose optional narrow conversation-reference capabilities beside the
+     unchanged two-method Checkpoint port. Before each dispatch, invoke_llm
+     and reset_history can read the latest completed run/step/revision
+     reference. Fresh rollback commands resolve that opaque reference through
+     the target lifecycle checkpoint and decode only the returned conversation
+     JSON at the cmd/agent composition boundary. NoopCheckpoint reports the
+     capability unavailable. Request-local machine runners omit persistence
+     and receive no provider or resolver, so they emit no synthetic
+     llm.conversation.ref value.
+     Commands that mutate shared process-local state may implement the
+     domain-neutral SerialDispatchOnly capability. A parallel for_each rejects
+     the complete batch before execution when an item command implements it;
+     invoke_llm and reset_history are serial-only, while sequential for_each
+     continues to dispatch them normally.
+   - implementation: core.Checkpoint, core.ResumeFromCheckpoint
+1. - step: 7
+   - name: Run the loop
+   - description:
+     After startup, cmd/agent passes the already-loaded MachineSpec to core.Loop, and
+     core.Loop builds the transition table mapping (state, signal) pairs
+     to (next_state, Builder). Named actions are resolved from the registry;
+     $tool resolves to a dynamic dispatch function. Path-only callers may
+     still set MachineFile and let Loop load the spec itself, but the agent
+     binary's startup path owns the single read used for budget defaults,
+     emits validation, parse-error policy, and transition-table building.
+     Execution starts in the initial state with a Seed signal and runs the
+     finite state machine to completion. For non-resume CLI runs, --request
+     bytes are the initial Seed Result.Output; absence of --request preserves
+     the empty bootstrap output. Resume restores the checkpoint and replaces
+     that Seed result before re-entry. Each transition fires its action's
+     Builder.Build(result).Execute(), producing a new Result with a Signal
+     that drives the next transition. core.Loop terminates when a terminal
+     state is reached or a budget limit is exceeded.
+   - implementation: core.Loop, core.LoopParams.MachineSpec, core.BuildTransitionTable
 
 <!-- field: tool_parametrization -->
 ## Tool parametrization
@@ -349,7 +344,7 @@ Model and provider selection comes from the selected boundary tool
 declaration, not from the agent binary.
 
 <!-- field: llm_parser_ownership -->
-## Llm parser ownership
+## LLM parser ownership
 
 LLM response parsing is boundary-tool configuration. A selected agent
 profile loads an invoke_llm ToolDef from <profile-root>/*/llm/*.yaml. That ToolDef
@@ -493,50 +488,47 @@ DoltCheckpoint adapter connected to the supplied DSN.
 <!-- field: config_file_layout -->
 ## Config file layout
 
-```yaml
-|
-    tools/
-      builtin/                # Individual shared builtin tool declarations
-      exec/                   # Individual shared exec tool declarations
-      builtin.yaml            # Legacy aggregate builtin declarations
-      exec.yaml               # Legacy aggregate exec declarations
-    <applications/catalog-checkout>/agents/
-      generator/
-        profile.yaml          # Preferred generator runtime entry point
-        machine.yaml          # Generator state machine and semantics
-        tools.yaml            # Tool selection (names only)
-        llm/                  # Per-model boundary tool configs
-      planner/
-        profile.yaml
-        machine.yaml          # Full planner with execution
-        machine-passthrough.yaml
-        machine-plan-only.yaml
-        tools.yaml
-        llm/
-      evaluator/
-        profile.yaml
-        machine.yaml          # Session-level eval orchestration and semantics
-        point.yaml            # Per-point eval pipeline and semantics
-        tools.yaml            # Session-level tool selection
-        tools-point.yaml      # Per-point tool selection loaded by run_point
-      bench/
-        profile.yaml
-        machine.yaml          # Generic REST lifecycle and evaluator dispatch
-        request-machine.yaml  # One short-lived API request workflow
-        rest.yaml             # Routes, action queue, and static assets
-        tools.yaml            # Generic REST, predicate, and self_invoke aliases
-        ui/                   # Profile-owned React source and dist
-      jurist/
-        profile.yaml
-        machine.yaml          # Spec validation pipeline and semantics
-        tools.yaml            # load_corpus + validate_specs + format_report
-      lifecycle/
-        history/profile.yaml  # Lifecycle history configured program
-        history.yaml          # History MachineSpec
-        rollback/profile.yaml # Lifecycle rollback configured program
-        rollback.yaml         # Rollback MachineSpec
-        tools.yaml            # checkpoint_history + checkpoint_rollback selection
-```
+tools/
+  builtin/                # Individual shared builtin tool declarations
+  exec/                   # Individual shared exec tool declarations
+  builtin.yaml            # Legacy aggregate builtin declarations
+  exec.yaml               # Legacy aggregate exec declarations
+<applications/catalog-checkout>/agents/
+  generator/
+    profile.yaml          # Preferred generator runtime entry point
+    machine.yaml          # Generator state machine and semantics
+    tools.yaml            # Tool selection (names only)
+    llm/                  # Per-model boundary tool configs
+  planner/
+    profile.yaml
+    machine.yaml          # Full planner with execution
+    machine-passthrough.yaml
+    machine-plan-only.yaml
+    tools.yaml
+    llm/
+  evaluator/
+    profile.yaml
+    machine.yaml          # Session-level eval orchestration and semantics
+    point.yaml            # Per-point eval pipeline and semantics
+    tools.yaml            # Session-level tool selection
+    tools-point.yaml      # Per-point tool selection loaded by run_point
+  bench/
+    profile.yaml
+    machine.yaml          # Generic REST lifecycle and evaluator dispatch
+    request-machine.yaml  # One short-lived API request workflow
+    rest.yaml             # Routes, action queue, and static assets
+    tools.yaml            # Generic REST, predicate, and self_invoke aliases
+    ui/                   # Profile-owned React source and dist
+  jurist/
+    profile.yaml
+    machine.yaml          # Spec validation pipeline and semantics
+    tools.yaml            # load_corpus + validate_specs + format_report
+  lifecycle/
+    history/profile.yaml  # Lifecycle history configured program
+    history.yaml          # History MachineSpec
+    rollback/profile.yaml # Lifecycle rollback configured program
+    rollback.yaml         # Rollback MachineSpec
+    tools.yaml            # checkpoint_history + checkpoint_rollback selection
 
 <!-- field: container_runtime_layout -->
 ## Container runtime layout
@@ -617,87 +609,110 @@ word-level undo metadata. If a policy depends on a specific workflow or state
 name, it should be a machine transition, machine metadata, or an internal word
 rather than a core.Loop branch.
 
-<!-- field: engine_policy_audit -->
+<!-- field: engine_policy_audit | form: "tree" -->
 ## Engine policy audit
 
-```yaml
-fixed_engine_invariants:
-    - item: State machine interpretation
-      symbols: [core.Loop, core.StateMachine.Step, core.BuildTransitionTable]
-      rationale: |
-        Engine code owns lookup, command dispatch, and routing on Result.Signal.
-        MachineSpec transitions and selected tools own agent behavior.
-    - item: Budget and cancellation safety
-      symbols: [core.Budget, core.BudgetExhausted, core.LoopHooks.BudgetExceeded]
-      rationale: |
-        Iteration, token, wall-clock, and opt-in extra budget checks are
-        universal runtime safety controls. BudgetExhausted is routed through
-        the grammar, while context cancellation terminates as StatusCancelled.
-    - item: Dispatch accounting
-      symbols: [core.Dispatch, core.RunEvent, core.Cost]
-      rationale: |
-        Panic recovery, command timeout, tracing, event recording, and cost
-        accumulation are interpreter responsibilities, not mode behavior.
-lifecycle_infrastructure:
-    - item: Pre-loop validation hook
-      symbols: [core.LoopHooks.ValidateParams]
-      rationale: |
-        Startup validation is infrastructure when it checks runtime wiring
-        before the registry freezes. Behavior-specific validation should remain
-        in machine/tool contract checks rather than become a new policy hook.
-    - item: Suspend checkpoints
-      symbols: [core.AwaitApproval, core.Checkpoint.Save]
-      rationale: |
-        A machine emits the lifecycle signal, then the runtime persists the
-        Position and Execution through the checkpoint port. The conversation is
-        folded into the typed snapshot rather than supplied by a separate hook.
-    - item: Resume seeding
-      symbols: [core.ResumeFromCheckpoint, core.LoopParams.InitialSignal, core.LoopParams.InitialRun]
-      rationale: |
-        Resume Loads Position and Execution through the checkpoint port and
-        re-enters the same machine without replaying bootstrap work. By default,
-        the resume signal is an approval-gate convention, not a separate agent
-        mode.
-    - item: Lifecycle history and rollback tools
-      symbols: [checkpoint_history, checkpoint_rollback, core.Checkpoint.Load, DoltCheckpoint.Revert]
-      rationale: |
-        Lifecycle profiles dispatch declared builtin tools. checkpoint_history
-        reads Dolt commit history through Load; checkpoint_rollback runs Dolt
-        Revert for DB state and then a reverse receipt walk for external effects.
-        The walk lives in the tool, not the engine, which never interprets a
-        receipt. Hidden CLI subcommands are transitional compatibility only.
-domain_policy_hooks:
-    - item: Terminal status mapping
-      symbols: [core.LoopHooks.TerminalStatus]
-      rationale: |
-        Default behavior maps common terminal states, but custom success/failure
-        interpretation is domain policy and should stay narrow.
-    - item: Task summary capture
-      symbols: [core.LoopHooks.TaskCompletedSignal]
-      rationale: |
-        Selecting which grammar signal copies Result.Output into the summary is
-        agent semantics. Long term this can move into machine metadata.
-    - item: Factory-family registration gates
-      symbols: [registerBuiltinFactories, registry.StandardFactoryCatalog]
-      rationale: |
-        Factory-family registration in cmd/agent uses a centralized
-        catalog selected by tool init names, not by mode names. This is
-        configuration infrastructure. ToolDef selection activates catalog
-        entries, while machine.yaml still defines the workflow.
-migration_candidates:
-    - item: Result accumulator mutation
-      symbols: [core.LoopHooks.OnResult]
-      rationale: |
-        OnResult can mutate the run accumulator outside visible grammar
-        transitions. It has no production cmd/agent use today and should remain
-        test-only or be replaced by explicit words/domain state when needed.
-    - item: Boundary tool manifest-state fallback
-      symbols: [manifest_state]
-      rationale: |
-        Composing is a generator-shaped fallback state name. Agent configs
-        should declare manifest_state explicitly so the universal runtime does
-        not encode a domain state name.
-```
+- fixed_engine_invariants:
+  1. - item: State machine interpretation
+     - symbols:
+       1. core.Loop
+       1. core.StateMachine.Step
+       1. core.BuildTransitionTable
+     - rationale:
+       Engine code owns lookup, command dispatch, and routing on Result.Signal.
+       MachineSpec transitions and selected tools own agent behavior.
+  1. - item: Budget and cancellation safety
+     - symbols:
+       1. core.Budget
+       1. core.BudgetExhausted
+       1. core.LoopHooks.BudgetExceeded
+     - rationale:
+       Iteration, token, wall-clock, and opt-in extra budget checks are
+       universal runtime safety controls. BudgetExhausted is routed through
+       the grammar, while context cancellation terminates as StatusCancelled.
+  1. - item: Dispatch accounting
+     - symbols:
+       1. core.Dispatch
+       1. core.RunEvent
+       1. core.Cost
+     - rationale:
+       Panic recovery, command timeout, tracing, event recording, and cost
+       accumulation are interpreter responsibilities, not mode behavior.
+- lifecycle_infrastructure:
+  1. - item: Pre-loop validation hook
+     - symbols:
+       1. core.LoopHooks.ValidateParams
+     - rationale:
+       Startup validation is infrastructure when it checks runtime wiring
+       before the registry freezes. Behavior-specific validation should remain
+       in machine/tool contract checks rather than become a new policy hook.
+  1. - item: Suspend checkpoints
+     - symbols:
+       1. core.AwaitApproval
+       1. core.Checkpoint.Save
+     - rationale:
+       A machine emits the lifecycle signal, then the runtime persists the
+       Position and Execution through the checkpoint port. The conversation is
+       folded into the typed snapshot rather than supplied by a separate hook.
+  1. - item: Resume seeding
+     - symbols:
+       1. core.ResumeFromCheckpoint
+       1. core.LoopParams.InitialSignal
+       1. core.LoopParams.InitialRun
+     - rationale:
+       Resume Loads Position and Execution through the checkpoint port and
+       re-enters the same machine without replaying bootstrap work. By default,
+       the resume signal is an approval-gate convention, not a separate agent
+       mode.
+  1. - item: Lifecycle history and rollback tools
+     - symbols:
+       1. checkpoint_history
+       1. checkpoint_rollback
+       1. core.Checkpoint.Load
+       1. DoltCheckpoint.Revert
+     - rationale:
+       Lifecycle profiles dispatch declared builtin tools. checkpoint_history
+       reads Dolt commit history through Load; checkpoint_rollback runs Dolt
+       Revert for DB state and then a reverse receipt walk for external effects.
+       The walk lives in the tool, not the engine, which never interprets a
+       receipt. Hidden CLI subcommands are transitional compatibility only.
+- domain_policy_hooks:
+  1. - item: Terminal status mapping
+     - symbols:
+       1. core.LoopHooks.TerminalStatus
+     - rationale:
+       Default behavior maps common terminal states, but custom success/failure
+       interpretation is domain policy and should stay narrow.
+  1. - item: Task summary capture
+     - symbols:
+       1. core.LoopHooks.TaskCompletedSignal
+     - rationale:
+       Selecting which grammar signal copies Result.Output into the summary is
+       agent semantics. Long term this can move into machine metadata.
+  1. - item: Factory-family registration gates
+     - symbols:
+       1. registerBuiltinFactories
+       1. registry.StandardFactoryCatalog
+     - rationale:
+       Factory-family registration in cmd/agent uses a centralized
+       catalog selected by tool init names, not by mode names. This is
+       configuration infrastructure. ToolDef selection activates catalog
+       entries, while machine.yaml still defines the workflow.
+- migration_candidates:
+  1. - item: Result accumulator mutation
+     - symbols:
+       1. core.LoopHooks.OnResult
+     - rationale:
+       OnResult can mutate the run accumulator outside visible grammar
+       transitions. It has no production cmd/agent use today and should remain
+       test-only or be replaced by explicit words/domain state when needed.
+  1. - item: Boundary tool manifest-state fallback
+     - symbols:
+       1. manifest_state
+     - rationale:
+       Composing is a generator-shaped fallback state name. Agent configs
+       should declare manifest_state explicitly so the universal runtime does
+       not encode a domain state name.
 
 <!-- field: historical_background -->
 ## Historical background

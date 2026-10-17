@@ -45,27 +45,23 @@ GH-1040
 
 mage audit
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-owner_root: repository_root
-artifacts:
-    - agent-core/docs/specs/software-requirements/srd043-application-catalog-layout.md
-    - agent-core/docs/specs/use-cases/rel99.0-uc002-application-catalog-migration.md
-    - agent-core/docs/specs/test-suites/test-rel99.0-application-catalog-migration.md
-```
+- owner_root: repository_root
+- artifacts:
+  1. agent-core/docs/specs/software-requirements/srd043-application-catalog-layout.md
+  1. agent-core/docs/specs/use-cases/rel99.0-uc002-application-catalog-migration.md
+  1. agent-core/docs/specs/test-suites/test-rel99.0-application-catalog-migration.md
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-yaml_parses: true
-artifacts_indexed: true
-child_issue_count: 14
-ownership_decisions_complete: true
-compatibility_decisions_complete: true
-```
+- yaml_parses: true
+- artifacts_indexed: true
+- child_issue_count: 14
+- ownership_decisions_complete: true
+- compatibility_decisions_complete: true
 
 <!-- field: evidence -->
 #### Evidence
@@ -108,24 +104,24 @@ mage audit
 
 root Mage module-list regression; go test ./... in applications/coding-agent and applications/chatbot-mesh
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-owner_root: repository_root
-historical_old_paths: [examples/coding-agent, examples/chatbot-mesh]
-new_paths: [applications/coding-agent, applications/chatbot-mesh]
-```
+- owner_root: repository_root
+- historical_old_paths:
+  1. examples/coding-agent
+  1. examples/chatbot-mesh
+- new_paths:
+  1. applications/coding-agent
+  1. applications/chatbot-mesh
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-old_active_source_paths_absent: true
-applications_discovered: true
-module_paths_updated: true
-relative_mage_replacements_valid: true
-```
+- old_active_source_paths_absent: true
+- applications_discovered: true
+- module_paths_updated: true
+- relative_mage_replacements_valid: true
 
 <!-- field: evidence -->
 #### Evidence
@@ -168,24 +164,23 @@ mage audit
 
 cd magefiles && go test ./...; mage integration:monitor; mage integration:ollamaRest; mage integration:ollamaMonitor; mage integration:dolt; mage integration:doltWord
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-owner_root: agent-core
-profile_source: agent-core/testdata/integration
-forbidden_inputs: [AGENT_CATALOG_ROOT, AGENT_PROFILES_ROOT, applications/catalog]
-```
+- owner_root: agent-core
+- profile_source: agent-core/testdata/integration
+- forbidden_inputs:
+  1. AGENT_CATALOG_ROOT
+  1. AGENT_PROFILES_ROOT
+  1. applications/catalog
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-core_profiles_loaded: true
-catalog_discovery_called: false
-live_skip_semantics_preserved: true
-process_cwd_changed: false
-```
+- core_profiles_loaded: true
+- catalog_discovery_called: false
+- live_skip_semantics_preserved: true
+- process_cwd_changed: false
 
 <!-- field: evidence -->
 #### Evidence
@@ -228,24 +223,22 @@ go test ./...
 
 mage audit
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-owner_root: agent-core
-catalog_present: false
-environment_unset: [AGENT_CATALOG_ROOT, AGENT_PROFILES_ROOT]
-```
+- owner_root: agent-core
+- catalog_present: false
+- environment_unset:
+  1. AGENT_CATALOG_ROOT
+  1. AGENT_PROFILES_ROOT
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-go_tests_pass: true
-audit_passes: true
-missing_catalog_skips: 0
-catalog_membership_assertions_in_core: false
-```
+- go_tests_pass: true
+- audit_passes: true
+- missing_catalog_skips: 0
+- catalog_membership_assertions_in_core: false
 
 <!-- field: evidence -->
 #### Evidence
@@ -288,25 +281,21 @@ go test ./...
 
 mage validate; mage conformance; mage integration:all
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-owner_root: applications/catalog
-old_path: agent-profiles
-new_path: applications/catalog
-```
+- owner_root: applications/catalog
+- old_path: agent-profiles
+- new_path: applications/catalog
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-complete_tree_moved: true
-old_active_source_path_absent: true
-internal_reorganization_performed: false
-catalog_gates_pass: true
-generated_dependency_trees_moved: false
-```
+- complete_tree_moved: true
+- old_active_source_path_absent: true
+- internal_reorganization_performed: false
+- catalog_gates_pass: true
+- generated_dependency_trees_moved: false
 
 <!-- field: evidence -->
 #### Evidence
@@ -349,33 +338,29 @@ mage audit
 
 focused internal/support/profiles and magefiles catalog-root tests
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-owner_root: agent-core
-cases:
-    - AGENT_CATALOG_ROOT_only
-    - AGENT_PROFILES_ROOT_only
-    - both_same_root
-    - both_conflicting_roots
-    - repository_discovery
-    - installed_runtime
-    - missing_catalog
-```
+- owner_root: agent-core
+- cases:
+  1. AGENT_CATALOG_ROOT_only
+  1. AGENT_PROFILES_ROOT_only
+  1. both_same_root
+  1. both_conflicting_roots
+  1. repository_discovery
+  1. installed_runtime
+  1. missing_catalog
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-canonical_env_authoritative: true
-legacy_only_supported_in_rel99: true
-same_dual_input_accepted: true
-conflicting_input_rejected: true
-absolute_root_resolved_once: true
-process_cwd_changed: false
-diagnostic_names_canonical_env: true
-```
+- canonical_env_authoritative: true
+- legacy_only_supported_in_rel99: true
+- same_dual_input_accepted: true
+- conflicting_input_rejected: true
+- absolute_root_resolved_once: true
+- process_cwd_changed: false
+- diagnostic_names_canonical_env: true
 
 <!-- field: evidence -->
 #### Evidence
@@ -416,27 +401,23 @@ mage audit
 
 root magefiles tests; mage audit; mage test; mage stats
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-owner_root: repository_root
-canonical_tag: applications/catalog/v0.YYYYMMDD.N
-compatibility_tag: agent-profiles/v0.YYYYMMDD.N
-```
+- owner_root: repository_root
+- canonical_tag: applications/catalog/v0.YYYYMMDD.N
+- compatibility_tag: agent-profiles/v0.YYYYMMDD.N
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-root_paths_use_applications: true
-child_processes_use_owner_roots: true
-catalog_gates_ordered: true
-application_uis_scanned: true
-catalog_and_application_stats_distinct: true
-v0_catalog_tags_share_commit: true
-release_fail_fast_preserved: true
-```
+- root_paths_use_applications: true
+- child_processes_use_owner_roots: true
+- catalog_gates_ordered: true
+- application_uis_scanned: true
+- catalog_and_application_stats_distinct: true
+- v0_catalog_tags_share_commit: true
+- release_fail_fast_preserved: true
 
 <!-- field: evidence -->
 #### Evidence
@@ -481,26 +462,24 @@ mage audit
 
 coding-agent magefiles tests; mage package; mage packageValidate; mage integration:codingLoop; mage integration:servingHealth
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-owner_root: applications/coding-agent
-catalog_root: applications/catalog
-runtime_mount: /profiles
-tag_prefixes: [applications/catalog/v0.*, agent-profiles/v0.*]
-```
+- owner_root: applications/coding-agent
+- catalog_root: applications/catalog
+- runtime_mount: /profiles
+- tag_prefixes:
+  1. applications/catalog/v0.*
+  1. agent-profiles/v0.*
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-catalog_closure_exact: true
-role_shards_preserved: true
-runtime_mount_preserved: true
-checkout_not_mislabeled_release: true
-process_cwd_changed: false
-```
+- catalog_closure_exact: true
+- role_shards_preserved: true
+- runtime_mount_preserved: true
+- checkout_not_mislabeled_release: true
+- process_cwd_changed: false
 
 <!-- field: evidence -->
 #### Evidence
@@ -545,25 +524,21 @@ mage audit
 
 chatbot-mesh magefiles tests; mage audit; mage helm:package; mage integration:rig; mage integration:helmSmoke
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-owner_root: applications/chatbot-mesh
-catalog_root: applications/catalog
-runtime_mount: /profiles
-```
+- owner_root: applications/chatbot-mesh
+- catalog_root: applications/catalog
+- runtime_mount: /profiles
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-reusable_blocks_from_catalog: true
-application_agents_remain_local: true
-helm_package_self_contained: true
-stats_ownership_distinct: true
-process_cwd_changed: false
-```
+- reusable_blocks_from_catalog: true
+- application_agents_remain_local: true
+- helm_package_self_contained: true
+- stats_ownership_distinct: true
+- process_cwd_changed: false
 
 <!-- field: evidence -->
 #### Evidence
@@ -607,22 +582,20 @@ go test ./...
 
 mage audit; mage integration:all
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-owner_root: agent-core
-environment_unset: [AGENT_CATALOG_ROOT, AGENT_PROFILES_ROOT]
-```
+- owner_root: agent-core
+- environment_unset:
+  1. AGENT_CATALOG_ROOT
+  1. AGENT_PROFILES_ROOT
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-catalog_discovery_called: false
-external_product_assertions: false
-core_profile_validation_preserved: true
-```
+- catalog_discovery_called: false
+- external_product_assertions: false
+- core_profile_validation_preserved: true
 
 <!-- field: evidence -->
 #### Evidence
@@ -663,22 +636,22 @@ cd magefiles && go test ./...
 
 mage audit; mage test
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-owner_root: repository_root
-modules: [agent-core, applications/catalog, applications/coding-agent, applications/chatbot-mesh]
-```
+- owner_root: repository_root
+- modules:
+  1. agent-core
+  1. applications/catalog
+  1. applications/coding-agent
+  1. applications/chatbot-mesh
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-current_module_paths_only: true
-application_vocabulary_only: true
-owner_root_dispatch: true
-```
+- current_module_paths_only: true
+- application_vocabulary_only: true
+- owner_root_dispatch: true
 
 <!-- field: evidence -->
 #### Evidence
@@ -719,23 +692,19 @@ go test ./...
 
 mage audit; mage integration:chroma; mage integration:rig; mage integration:embeddingExclusion
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-owner_root: applications/chatbot-mesh
-catalog_root: applications/catalog
-```
+- owner_root: applications/chatbot-mesh
+- catalog_root: applications/catalog
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-canonical_root_propagated: true
-legacy_alias_precedence_tested: true
-process_cwd_changed: false
-stale_source_labels: 0
-```
+- canonical_root_propagated: true
+- legacy_alias_precedence_tested: true
+- process_cwd_changed: false
+- stale_source_labels: 0
 
 <!-- field: evidence -->
 #### Evidence
@@ -777,21 +746,17 @@ go test ./...
 
 mage helm:package; mage integration:helmSmoke
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-owner_root: applications/chatbot-mesh
-```
+- owner_root: applications/chatbot-mesh
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-checkpoint_database_ready: true
-initialization_idempotent: true
-runtime_mounts_unchanged: true
-```
+- checkpoint_database_ready: true
+- initialization_idempotent: true
+- runtime_mounts_unchanged: true
 
 <!-- field: evidence -->
 #### Evidence
@@ -834,29 +799,27 @@ mage audit
 
 mage audit in repository root, agent-core, applications/catalog, applications/coding-agent, and applications/chatbot-mesh
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-owner_roots:
-    - repository_root
-    - agent-core
-    - applications/catalog
-    - applications/coding-agent
-    - applications/chatbot-mesh
-forbidden_active_source_paths: [examples/, top-level_agent-profiles/]
-```
+- owner_roots:
+  1. repository_root
+  1. agent-core
+  1. applications/catalog
+  1. applications/coding-agent
+  1. applications/chatbot-mesh
+- forbidden_active_source_paths:
+  1. examples/
+  1. top-level_agent-profiles/
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-tool_first_taxonomy_documented: true
-ownership_direction_documented: true
-migration_guide_complete: true
-stale_active_source_claims: 0
-commands_use_owner_root_or_explicit_root: true
-```
+- tool_first_taxonomy_documented: true
+- ownership_direction_documented: true
+- migration_guide_complete: true
+- stale_active_source_claims: 0
+- commands_use_owner_root_or_explicit_root: true
 
 <!-- field: evidence -->
 #### Evidence

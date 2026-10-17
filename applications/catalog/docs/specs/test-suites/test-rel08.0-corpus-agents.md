@@ -47,13 +47,11 @@ rel08.0-uc001-corpus-ingest
 
 go test ./conformance -run TestCorpusIngestListsTrustedCorpusBeforeModelControl
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-listing_corpus_precedes_model_control: true
-model_cannot_author_discovery_paths: true
-```
+- listing_corpus_precedes_model_control: true
+- model_cannot_author_discovery_paths: true
 
 <!-- field: traces -->
 #### Traces
@@ -74,16 +72,14 @@ rel08.0-uc001-corpus-ingest
 
 go test ./conformance -run TestCorpusIngestSelectsConfiguredEmbeddingProvider
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-ollama_embedding_operation_absent: true
-configured_provider_operation_selected: true
-provider_operation_names_globally_unique: true
-query_and_document_input_types_independent: true
-model_family_shared: true
-```
+- ollama_embedding_operation_absent: true
+- configured_provider_operation_selected: true
+- provider_operation_names_globally_unique: true
+- query_and_document_input_types_independent: true
+- model_family_shared: true
 
 <!-- field: traces -->
 #### Traces
@@ -105,18 +101,16 @@ rel08.0-uc001-corpus-ingest
 
 go test ./conformance -run TestCorpusIngestNormalizesProviderEmbeddings
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-ollama_flat_vector_preserved: true
-cohere_single_row_unwrapped: true
-chroma_add_wraps_exactly_once: true
-document_and_id_preserved: true
-invalid_row_fails_before_chroma_add: true
-chat_inference_uses_protocol_fixture: true
-live_ollama_required: false
-```
+- ollama_flat_vector_preserved: true
+- cohere_single_row_unwrapped: true
+- chroma_add_wraps_exactly_once: true
+- document_and_id_preserved: true
+- invalid_row_fails_before_chroma_add: true
+- chat_inference_uses_protocol_fixture: true
+- live_ollama_required: false
 
 <!-- field: traces -->
 #### Traces
@@ -139,15 +133,13 @@ rel08.0-uc002-corpus-query
 
 go test ./conformance -run TestCorpusReaderConformance
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-shipped_wrapper_executes: true
-provider_vector_reaches_chroma_query: true
-retrieved_identity_reaches_model: true
-grounded_answer_reaches_succeeded: true
-```
+- shipped_wrapper_executes: true
+- provider_vector_reaches_chroma_query: true
+- retrieved_identity_reaches_model: true
+- grounded_answer_reaches_succeeded: true
 
 <!-- field: traces -->
 #### Traces
@@ -169,13 +161,11 @@ rel08.0-uc002-corpus-query
 
 go test ./conformance -run TestCorpusReaderRESTFailureConformance
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-readiness_failure_reaches_failed: true
-embedding_does_not_run: true
-```
+- readiness_failure_reaches_failed: true
+- embedding_does_not_run: true
 
 <!-- field: traces -->
 #### Traces

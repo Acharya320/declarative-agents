@@ -62,25 +62,26 @@ mage integration:chatbot
 
 go test ./magefiles -run '^TestChatResponseDecodesTrace$'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-chatbot_profile: agents/chatbot/profile.yaml
-rag_clients: [rag0, rag1]
-monitored_agents: [chatbot, rag0, rag1]
-trace_backend: jaeger (query API through monitor_proxy)
-```
+- chatbot_profile: agents/chatbot/profile.yaml
+- rag_clients:
+  1. rag0
+  1. rag1
+- monitored_agents:
+  1. chatbot
+  1. rag0
+  1. rag1
+- trace_backend: jaeger (query API through monitor_proxy)
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-each_rag_server_joins_the_connected_trace: true
-shared_trace_id_across_agents: true
-rag_span_parented_under_chatbot_span: true
-waterfall_degrades_without_backend: true
-```
+- each_rag_server_joins_the_connected_trace: true
+- shared_trace_id_across_agents: true
+- rag_span_parented_under_chatbot_span: true
+- waterfall_degrades_without_backend: true
 
 <!-- field: traces -->
 #### Traces
@@ -113,28 +114,30 @@ rel02.0-uc001-observability
 
 mage integration:helmSmoke
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-shared_trace_backend: jaeger
-shared_metric_backend: prometheus
-expected_trace_services: [chatbot, rag0, rag0-chroma, apiserver, kubelet]
-expected_metrics: [agent_runtime]
-```
+- shared_trace_backend: jaeger
+- shared_metric_backend: prometheus
+- expected_trace_services:
+  1. chatbot
+  1. rag0
+  1. rag0-chroma
+  1. apiserver
+  1. kubelet
+- expected_metrics:
+  1. agent_runtime
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-file_and_otlp_dual_export: true
-run_identity_on_signals: true
-traces_queryable_after_cluster_teardown: true
-metrics_queryable_after_cluster_teardown: true
-production_chart_self_contained: true
-otel_logs_required: false
-native_ollama_server_trace_required: false
-```
+- file_and_otlp_dual_export: true
+- run_identity_on_signals: true
+- traces_queryable_after_cluster_teardown: true
+- metrics_queryable_after_cluster_teardown: true
+- production_chart_self_contained: true
+- otel_logs_required: false
+- native_ollama_server_trace_required: false
 
 <!-- field: traces -->
 #### Traces

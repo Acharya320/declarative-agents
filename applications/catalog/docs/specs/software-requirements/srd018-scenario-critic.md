@@ -311,62 +311,58 @@ A scenario passes only when all its validators pass, a failing run names the fai
 - R6.3
 - R6.4
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: one rig per test, no reuse, poor REST coverage"] --> Goals["Goals: Scenario Critic Functional Block"]
-      Goals --> R1["R1: Behavior model"]
-      Goals --> R2["R2: Scenario layout"]
-      Goals --> R3["R3: Discovery"]
-      Goals --> R4["R4: Dependency redirection"]
-      Goals --> R5["R5: Inputs, tools, dependencies"]
-      Goals --> R6["R6: Outputs and outcomes"]
-      R1 --> AC1["AC1: Deterministic composition pipeline"]
-      R2 --> AC2["AC2: Several tests per subject, as data"]
-      R3 --> AC3["AC3: Configurable-root discovery"]
-      R4 --> AC4["AC4: Mock redirection, behavior unchanged"]
-      R5 --> AC5["AC5: Inputs, tools, dependencies named"]
-      R6 --> AC6["AC6: Verdict, cause, terminal, budget"]
-    ```
-scenario_pipeline: |
-    ```mermaid
-    flowchart LR
-      Discover["DiscoverScenarios"] --> Next["NextScenario"]
-      Next --> Fixtures["Fixture array"]
-      Fixtures --> Mocks["for_each StartMock"]
-      Mocks --> Join["Join mock outcomes"]
-      Join --> Subject["StartSubject"]
-      Subject --> Probe["ProbingHealth: one REST GET"]
-      Probe -->|unavailable/error| Delay["WaitingToRetry: one delay"]
-      Delay -->|retry ready| Probe
-      Probe -->|healthy| Validate["for_each RunValidator"]
-      Validate --> VJoin["Join validator outcomes"]
-      VJoin --> Record["Record outcomes"]
-      Record --> Collect["CollectVerdict"]
-      Collect --> Children["List scenario children"]
-      Children --> Stop["for_each StopService"]
-      Stop --> TJoin["Join child stops"]
-      TJoin --> Next
-      Mocks -->|failure| Children
-      Subject -->|failure| Children
-      Delay -->|HealthTimeout| Children
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: one rig per test, no reuse, poor REST coverage"] --> Goals["Goals: Scenario Critic Functional Block"]
+    Goals --> R1["R1: Behavior model"]
+    Goals --> R2["R2: Scenario layout"]
+    Goals --> R3["R3: Discovery"]
+    Goals --> R4["R4: Dependency redirection"]
+    Goals --> R5["R5: Inputs, tools, dependencies"]
+    Goals --> R6["R6: Outputs and outcomes"]
+    R1 --> AC1["AC1: Deterministic composition pipeline"]
+    R2 --> AC2["AC2: Several tests per subject, as data"]
+    R3 --> AC3["AC3: Configurable-root discovery"]
+    R4 --> AC4["AC4: Mock redirection, behavior unchanged"]
+    R5 --> AC5["AC5: Inputs, tools, dependencies named"]
+    R6 --> AC6["AC6: Verdict, cause, terminal, budget"]
+  ```
+- scenario_pipeline:
+  ```mermaid
+  flowchart LR
+    Discover["DiscoverScenarios"] --> Next["NextScenario"]
+    Next --> Fixtures["Fixture array"]
+    Fixtures --> Mocks["for_each StartMock"]
+    Mocks --> Join["Join mock outcomes"]
+    Join --> Subject["StartSubject"]
+    Subject --> Probe["ProbingHealth: one REST GET"]
+    Probe -->|unavailable/error| Delay["WaitingToRetry: one delay"]
+    Delay -->|retry ready| Probe
+    Probe -->|healthy| Validate["for_each RunValidator"]
+    Validate --> VJoin["Join validator outcomes"]
+    VJoin --> Record["Record outcomes"]
+    Record --> Collect["CollectVerdict"]
+    Collect --> Children["List scenario children"]
+    Children --> Stop["for_each StopService"]
+    Stop --> TJoin["Join child stops"]
+    TJoin --> Next
+    Mocks -->|failure| Children
+    Subject -->|failure| Children
+    Delay -->|HealthTimeout| Children
+  ```
 
 <!-- field: platform_dependencies_note -->
 ## Platform dependencies note
 
 These SRDs live in the agent-core corpus, not this one; they are platform dependencies rather than in-corpus depends_on (GH-2310).
 
-<!-- field: platform_dependencies -->
+<!-- field: platform_dependencies | form: "typed table" -->
 ## Platform dependencies
 
-```yaml
-- srd_id: srd006-yaml-machine-config
-  provider: agent-core
-  symbols_used: [R5]
-```
+| srd_id | provider | symbols_used |
+| --- | --- | --- |
+| srd006-yaml-machine-config | agent-core | [R5] |

@@ -426,54 +426,50 @@ Generic trace and lifecycle requirements record request-scoped machine execution
 - docs/specs/config-formats/rest-tool-format.md
 - docs/ARCHITECTURE.md
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-implemented:
-    - internal/tools/rest implements the machine_request endpoint binding.
-    - agents/knowledge-manager/documentation-curator/rest.yaml routes document index, detail, config, source, search, validation, suggestion, approval, rejection, and reopen requests through documentation_curator machine_request endpoints.
-    - agents/knowledge-manager/documentation-curator/request-machine.yaml defines the short-lived request machine used by the generic REST server path.
-    - ProfileMachineRequestRunner loads request ToolDefs from trusted profile declaration roots, selects literal request MachineSpec action names, and limits dynamic-dispatch vocabulary to the trusted profile tools selection.
-    - ProfileMachineRequestRunner validates and preserves the loaded request MachineSpec iteration and command-timeout policy; it applies no nested runtime defaults.
-    - internal/tools/rest emits server, route, request machine, terminal signal, iteration, and run status trace fields in the generic machine_request response envelope.
-    - The profile host machine owns documentation_curator lifecycle through generic rest_server_launch and rest_server_stop words; no same-origin proxy or documentation-specific factory is linked into cmd/agent.
-    - The documentation browser resolves profile-owned request_machine_route values, and request-machine.yaml sequences atomic resource, exec, compose, predicate, jurist, and file-write words.
-    - Plain go test covers generic request-to-machine response behavior and trace evidence; applications/catalog conformance and integration tests cover the concrete application and listener lifecycle.
-    - Configured machine_request terminal response schemas are enforced before success responses; invalid terminal output maps to response_invalid error handling.
-    - Response mapping accepts terminal_states alongside terminal_signals and resolves state first, so an exec-driven request machine returns a distinct response per outcome; applications/chatbot-mesh executor apply maps Done, Rejected, RolledBack, and Failed to 200, 400, 500, and 500.
-    - "GH-786: machine_request exposes the trusted request seed as one InitialExecution entry named seed, so non-adjacent exec arguments resolve $from(seed).parameters.<field>."
-partial: []
-planned_follow_up: []
-```
+- implemented:
+  1. internal/tools/rest implements the machine_request endpoint binding.
+  1. agents/knowledge-manager/documentation-curator/rest.yaml routes document index, detail, config, source, search, validation, suggestion, approval, rejection, and reopen requests through documentation_curator machine_request endpoints.
+  1. agents/knowledge-manager/documentation-curator/request-machine.yaml defines the short-lived request machine used by the generic REST server path.
+  1. ProfileMachineRequestRunner loads request ToolDefs from trusted profile declaration roots, selects literal request MachineSpec action names, and limits dynamic-dispatch vocabulary to the trusted profile tools selection.
+  1. ProfileMachineRequestRunner validates and preserves the loaded request MachineSpec iteration and command-timeout policy; it applies no nested runtime defaults.
+  1. internal/tools/rest emits server, route, request machine, terminal signal, iteration, and run status trace fields in the generic machine_request response envelope.
+  1. The profile host machine owns documentation_curator lifecycle through generic rest_server_launch and rest_server_stop words; no same-origin proxy or documentation-specific factory is linked into cmd/agent.
+  1. The documentation browser resolves profile-owned request_machine_route values, and request-machine.yaml sequences atomic resource, exec, compose, predicate, jurist, and file-write words.
+  1. Plain go test covers generic request-to-machine response behavior and trace evidence; applications/catalog conformance and integration tests cover the concrete application and listener lifecycle.
+  1. Configured machine_request terminal response schemas are enforced before success responses; invalid terminal output maps to response_invalid error handling.
+  1. Response mapping accepts terminal_states alongside terminal_signals and resolves state first, so an exec-driven request machine returns a distinct response per outcome; applications/chatbot-mesh executor apply maps Done, Rejected, RolledBack, and Failed to 200, 400, 500, and 500.
+  1. "GH-786: machine_request exposes the trusted request seed as one InitialExecution entry named seed, so non-adjacent exec arguments resolve $from(seed).parameters.\u003cfield\u003e."
+- partial: []
+- planned_follow_up: []
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Agent Architecture requests need to enter Agent C..."] --> Goals["Goals: Machine Request REST Binding"]
-      Goals --> R1["R1: Binding scope"]
-      Goals --> R2["R2: Configured machine authority"]
-      Goals --> R3["R3: Request input mapping"]
-      Goals --> R4["R4: Response extraction"]
-      Goals --> R5["R5: Error and timeout mapping"]
-      Goals --> R6["R6: Trace and lifecycle behavior"]
-      AC1["AC1: The SRD defines machine_request as a REST server binding..."]
-      R1 --> AC1
-      AC2["AC2: The SRD states that direct Go handlers are not the compos..."]
-      R1 --> AC2
-      AC3["AC3: Configuration owns profile, machine, selected tools, init..."]
-      R2 --> AC3
-      AC4["AC4: Request input mapping validates HTTP fields, builds struc..."]
-      R3 --> AC4
-      AC5["AC5: Response extraction uses configured response words or ter..."]
-      R4 --> AC5
-      AC6["AC6: Error and timeout mapping cover validation, config, run,..."]
-      R5 --> AC6
-      AC7["AC7: Generic trace and lifecycle requirements record request-s..."]
-      R6 --> AC7
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Agent Architecture requests need to enter Agent C..."] --> Goals["Goals: Machine Request REST Binding"]
+    Goals --> R1["R1: Binding scope"]
+    Goals --> R2["R2: Configured machine authority"]
+    Goals --> R3["R3: Request input mapping"]
+    Goals --> R4["R4: Response extraction"]
+    Goals --> R5["R5: Error and timeout mapping"]
+    Goals --> R6["R6: Trace and lifecycle behavior"]
+    AC1["AC1: The SRD defines machine_request as a REST server binding..."]
+    R1 --> AC1
+    AC2["AC2: The SRD states that direct Go handlers are not the compos..."]
+    R1 --> AC2
+    AC3["AC3: Configuration owns profile, machine, selected tools, init..."]
+    R2 --> AC3
+    AC4["AC4: Request input mapping validates HTTP fields, builds struc..."]
+    R3 --> AC4
+    AC5["AC5: Response extraction uses configured response words or ter..."]
+    R4 --> AC5
+    AC6["AC6: Error and timeout mapping cover validation, config, run,..."]
+    R5 --> AC6
+    AC7["AC7: Generic trace and lifecycle requirements record request-s..."]
+    R6 --> AC7
+  ```

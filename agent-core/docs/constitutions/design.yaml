@@ -643,6 +643,7 @@ document_types:
         preconditions: {in: [document_field], shape: list}
         test_cases: {in: [document_field], shape: empty}
         needs_clarification: {in: [document_field], shape: table, columns: [id, question]}
+        command: {in: [case_field], code: bash}
       required_fields: [traces, preconditions, test_cases]
       exempt_status: [relocated, retired]
       attributes:

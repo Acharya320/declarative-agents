@@ -38,14 +38,12 @@ rel15.0-uc001-cohere-invoke
 
 go test ./internal/tools/llm -run 'Test(NewInvokeLLMBuilder_CohereNoProbe|InvokeLLMBuildsWithoutNetworkIO)'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-builder_created: true
-network_requests: 0
-credential_lookups: 0
-```
+- builder_created: true
+- network_requests: 0
+- credential_lookups: 0
 
 <!-- field: traces -->
 #### Traces
@@ -70,16 +68,20 @@ rel15.0-uc001-cohere-invoke
 
 go test ./internal/tools/llm -run TestProviderDialectParity/cohere
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-method_path: POST /v2/chat
-bearer_present: true
-request_fields: [model, messages, temperature, seed]
-forbidden_fields: [options, num_ctx]
-request_count: 1
-```
+- method_path: POST /v2/chat
+- bearer_present: true
+- request_fields:
+  1. model
+  1. messages
+  1. temperature
+  1. seed
+- forbidden_fields:
+  1. options
+  1. num_ctx
+- request_count: 1
 
 <!-- field: traces -->
 #### Traces
@@ -104,15 +106,15 @@ rel15.0-uc001-cohere-invoke
 
 go test ./internal/tools/llm ./internal/tools/llm/dialect -run 'Test(ProviderDialectParity|ExtractReplyJoinsSelectedTextAndReadsUsage)'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-content: joined ordered text blocks
-non_text_exposed: false
-token_fields: [TokensIn, TokensOut]
-missing_tokens_default_zero: true
-```
+- content: joined ordered text blocks
+- non_text_exposed: false
+- token_fields:
+  1. TokensIn
+  1. TokensOut
+- missing_tokens_default_zero: true
 
 <!-- field: traces -->
 #### Traces
@@ -136,15 +138,13 @@ rel15.0-uc001-cohere-invoke
 
 go test ./internal/tools/llm -run 'Test(InvokeLLM_CohereCommandError|DialectMissingCredentialFailsBeforeNetwork|DialectCredentialAbsentFromDiagnostics|ProviderDialectFailureKeepsCommandError)'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-errors_distinct: true
-credential_value_exposed: false
-retries: 0
-invoke_signal: CommandError
-```
+- errors_distinct: true
+- credential_value_exposed: false
+- retries: 0
+- invoke_signal: CommandError
 
 <!-- field: traces -->
 #### Traces
@@ -171,15 +171,13 @@ rel15.0-uc001-cohere-invoke
 
 go test ./internal/tools/llm -run TestInvokeLLMProviderSelection
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-omitted_provider: ollama
-omitted_provider_url: http://localhost:11434
-cohere_without_url_rejected: true
-unknown_provider_rejected: true
-```
+- omitted_provider: ollama
+- omitted_provider_url: http://localhost:11434
+- cohere_without_url_rejected: true
+- unknown_provider_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -205,14 +203,12 @@ rel15.0-uc001-cohere-invoke
 
 go test ./internal/model/llm -run TestCohereResponseProfile
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-named_resolution: cohere
-prefix_resolution: command-r7b-12-2024
-envelope_and_bare_json_extracted: true
-```
+- named_resolution: cohere
+- prefix_resolution: command-r7b-12-2024
+- envelope_and_bare_json_extracted: true
 
 <!-- field: traces -->
 #### Traces
@@ -237,15 +233,19 @@ rel15.0-uc001-cohere-invoke
 
 go test ./internal/tools/llm ./internal/observability/tracing ./internal/observability/telemetry/genai -run 'Test(InvokeLLMRunsTheDialectPipeline|ContextChildParentsOnTheCallerSpan|ProviderCohere)'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-provider: cohere
-attributes: [gen_ai.request.model, gen_ai.response.model, server.address, server.port, gen_ai.usage.input_tokens, gen_ai.usage.output_tokens]
-caller_parent_preserved: true
-error_type_recorded: true
-```
+- provider: cohere
+- attributes:
+  1. gen_ai.request.model
+  1. gen_ai.response.model
+  1. server.address
+  1. server.port
+  1. gen_ai.usage.input_tokens
+  1. gen_ai.usage.output_tokens
+- caller_parent_preserved: true
+- error_type_recorded: true
 
 <!-- field: traces -->
 #### Traces
@@ -269,13 +269,11 @@ rel15.0-uc001-cohere-invoke
 
 go test ./internal/tools/llm
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-existing_tests_pass: true
-ollama_wire_unchanged: true
-```
+- existing_tests_pass: true
+- ollama_wire_unchanged: true
 
 <!-- field: traces -->
 #### Traces

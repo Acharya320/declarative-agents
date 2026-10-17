@@ -415,34 +415,32 @@ Evaluator point and session durations have finite validated authorities, nested 
 - R6.5
 - R6.6
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Running reproducible benchmarks across multiple LLM p..."] --> Goals["Goals: Evaluation Harness Infrastructure"]
-      Goals --> R0["R0: Declarative boundary"]
-      Goals --> R1["R1: Suite configuration"]
-      Goals --> R2["R2: Evaluation session execution"]
-      Goals --> R3["R3: Evaluation tools"]
-      Goals --> R4["R4: Result analysis"]
-      Goals --> R5["R5: Trace and span utilities"]
-      Goals --> R6["R6: Bounded evaluator duration envelopes"]
-      AC1["AC1: The session state machine executes all grid points and pr..."]
-      R2 --> AC1
-      AC0["AC0: Suite YAML is documented and validated as evaluator tool..."]
-      R0 --> AC0
-      R1 --> AC0
-      AC2["AC2: Each evaluation point creates an isolated workspace with..."]
-      R3 --> AC2
-      AC3["AC3: ComputeModelStats and ComputeDetailed produce accurate st..."]
-      R4 --> AC3
-      R5 --> AC3
-      AC4["AC4: Classify assigns per-tool and overall convergence classes f..."]
-      R4 --> AC4
-      AC5["AC5: Evaluator point and session durations have finite validated..."]
-      R6 --> AC5
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Running reproducible benchmarks across multiple LLM p..."] --> Goals["Goals: Evaluation Harness Infrastructure"]
+    Goals --> R0["R0: Declarative boundary"]
+    Goals --> R1["R1: Suite configuration"]
+    Goals --> R2["R2: Evaluation session execution"]
+    Goals --> R3["R3: Evaluation tools"]
+    Goals --> R4["R4: Result analysis"]
+    Goals --> R5["R5: Trace and span utilities"]
+    Goals --> R6["R6: Bounded evaluator duration envelopes"]
+    AC1["AC1: The session state machine executes all grid points and pr..."]
+    R2 --> AC1
+    AC0["AC0: Suite YAML is documented and validated as evaluator tool..."]
+    R0 --> AC0
+    R1 --> AC0
+    AC2["AC2: Each evaluation point creates an isolated workspace with..."]
+    R3 --> AC2
+    AC3["AC3: ComputeModelStats and ComputeDetailed produce accurate st..."]
+    R4 --> AC3
+    R5 --> AC3
+    AC4["AC4: Classify assigns per-tool and overall convergence classes f..."]
+    R4 --> AC4
+    AC5["AC5: Evaluator point and session durations have finite validated..."]
+    R6 --> AC5
+  ```

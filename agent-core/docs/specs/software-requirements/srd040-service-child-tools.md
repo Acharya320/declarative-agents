@@ -209,102 +209,24 @@ start_service SHALL declare compensating undo that stops only the child named by
 - Scenario scheduling policy beyond one rig machine's sequential scenario loop; cross-scenario parallelism belongs to the caller.
 - Scheduling policy across detached children beyond a declared count bound; queueing or prioritising launches belongs to the caller.
 
-<!-- field: tool_words -->
+<!-- field: tool_words | form: "typed table" -->
 ## Tool words
 
-```yaml
-- name: init_scenario_session
-  input: configured scenario roots.
-  output: discovered scenario count and searched roots.
-  signals: [SessionSeeded, NoScenarios, CommandError]
-  side_effects: [scenario_session_seed]
-  errors: [scenario_discovery]
-  undo: irreversible; a new initialization replaces the session.
-- name: next_scenario
-  input: the seeded scenario session.
-  output: current subject, scenario, validators, fixtures, or exhaustion.
-  signals: [ScenarioReady, AllScenariosDone, CommandError]
-  side_effects: [scenario_cursor_advance]
-  errors: [scenario_manifest]
-  undo: irreversible; a consumed cursor position is not restored.
-- name: start_scenario_mock
-  input: current scenario and one fixture iterator binding.
-  output: mock identity, fixture, environment binding, base URL, and receipt.
-  signals: [MockStarted, CommandError]
-  side_effects: [child_process_start, scenario_session_update]
-  errors: [selector_resolution, address_allocation, spawn_failed]
-  undo: stop only the child identified by the dispatch receipt.
-- name: start_scenario_subject
-  input: current scenario, subject profile, and recorded mock addresses.
-  output: subject identity, profile, trusted base URL, health target, start time, and receipt.
-  signals: [SubjectStarted, CommandError]
-  side_effects: [child_process_start, scenario_session_update]
-  errors: [subject_profile, health_target, address_allocation, spawn_failed]
-  undo: stop only the child identified by the dispatch receipt.
-- name: run_scenario_validator
-  input: one validator iterator binding and the current subject URL.
-  output: validator terminal state, exit code, timeout state, and diagnostics.
-  signals: [ValidatorCompleted, ValidatorIncomplete, CommandError]
-  side_effects: [child_agent_execution]
-  errors: [selector_resolution, missing_subject, execution_failed]
-  undo: noop; a completed validator run cannot be unrun.
-- name: record_scenario_validators
-  input: the validator iterator's ordered join.
-  output: ordered validator outcomes and aggregate pass state.
-  signals: [ValidatorsRecorded, CommandError]
-  side_effects: [scenario_session_update]
-  errors: [selector_resolution, outcome_decode]
-  undo: irreversible; recorded outcomes remain in the scenario report.
-- name: collect_scenario_verdict
-  input: recorded validator outcomes or a declared forced-failure reason.
-  output: scenario identity, pass state, reason, and outcomes.
-  signals: [ScenarioPassed, ScenarioFailed]
-  side_effects: [scenario_session_update]
-  errors: [scenario_failed]
-  undo: irreversible; the verdict remains in the run report.
-- name: list_scenario_children
-  input: the current scenario session.
-  output: subject-first ordered child identities.
-  signals: [ScenarioChildrenListed, CommandError]
-  side_effects: [scenario_session_read]
-  errors: [missing_current_scenario]
-  undo: noop.
-- name: stop_service
-  input: one literal or selector-resolved tracked child identity.
-  output: child identity and stop result.
-  signals: [ServiceStopped, CommandError]
-  side_effects: [child_process_stop]
-  errors: [selector_resolution]
-  undo: noop; a stopped child is restarted only by a later scenario start.
-- name: stop_all_services
-  input: the shared bounded service state.
-  output: count and results for all children reaped.
-  signals: [AllServicesStopped]
-  side_effects: [child_process_stop]
-  errors: []
-  undo: irreversible; recovery does not restart children.
-- name: report_scenario_session
-  input: all scenario verdicts retained in the session.
-  output: aggregate pass state, verdicts, and first failure.
-  signals: [SessionPassed, SessionFailed]
-  side_effects: [scenario_session_read]
-  errors: [session_failed]
-  undo: noop.
-- name: start_service
-  input: a declared profile, an optional literal or selector-resolved service name, request, and output, a working directory, environment additions, and an optional max_running bound.
-  output: child identity, pid, address, base URL, start time, and receipt.
-  signals: [ServiceStarted, ServiceLimitReached, CommandError]
-  side_effects: [child_process_start]
-  errors: [selector_resolution, address_allocation, spawn_failed]
-  undo: stop only the child identified by the dispatch receipt.
-- name: list_services
-  input: the shared service state.
-  output: every tracked child with running or exited status, exit code, and start and finish times.
-  signals: [ChildrenListed]
-  side_effects: [service_state_read]
-  errors: []
-  undo: noop.
-```
+| name | input | output | signals | side_effects | errors | undo |
+| --- | --- | --- | --- | --- | --- | --- |
+| init_scenario_session | configured scenario roots. | discovered scenario count and searched roots. | [SessionSeeded, NoScenarios, CommandError] | [scenario_session_seed] | [scenario_discovery] | irreversible; a new initialization replaces the session. |
+| next_scenario | the seeded scenario session. | current subject, scenario, validators, fixtures, or exhaustion. | [ScenarioReady, AllScenariosDone, CommandError] | [scenario_cursor_advance] | [scenario_manifest] | irreversible; a consumed cursor position is not restored. |
+| start_scenario_mock | current scenario and one fixture iterator binding. | mock identity, fixture, environment binding, base URL, and receipt. | [MockStarted, CommandError] | [child_process_start, scenario_session_update] | [selector_resolution, address_allocation, spawn_failed] | stop only the child identified by the dispatch receipt. |
+| start_scenario_subject | current scenario, subject profile, and recorded mock addresses. | subject identity, profile, trusted base URL, health target, start time, and receipt. | [SubjectStarted, CommandError] | [child_process_start, scenario_session_update] | [subject_profile, health_target, address_allocation, spawn_failed] | stop only the child identified by the dispatch receipt. |
+| run_scenario_validator | one validator iterator binding and the current subject URL. | validator terminal state, exit code, timeout state, and diagnostics. | [ValidatorCompleted, ValidatorIncomplete, CommandError] | [child_agent_execution] | [selector_resolution, missing_subject, execution_failed] | noop; a completed validator run cannot be unrun. |
+| record_scenario_validators | the validator iterator's ordered join. | ordered validator outcomes and aggregate pass state. | [ValidatorsRecorded, CommandError] | [scenario_session_update] | [selector_resolution, outcome_decode] | irreversible; recorded outcomes remain in the scenario report. |
+| collect_scenario_verdict | recorded validator outcomes or a declared forced-failure reason. | scenario identity, pass state, reason, and outcomes. | [ScenarioPassed, ScenarioFailed] | [scenario_session_update] | [scenario_failed] | irreversible; the verdict remains in the run report. |
+| list_scenario_children | the current scenario session. | subject-first ordered child identities. | [ScenarioChildrenListed, CommandError] | [scenario_session_read] | [missing_current_scenario] | noop. |
+| stop_service | one literal or selector-resolved tracked child identity. | child identity and stop result. | [ServiceStopped, CommandError] | [child_process_stop] | [selector_resolution] | noop; a stopped child is restarted only by a later scenario start. |
+| stop_all_services | the shared bounded service state. | count and results for all children reaped. | [AllServicesStopped] | [child_process_stop] | [] | irreversible; recovery does not restart children. |
+| report_scenario_session | all scenario verdicts retained in the session. | aggregate pass state, verdicts, and first failure. | [SessionPassed, SessionFailed] | [scenario_session_read] | [session_failed] | noop. |
+| start_service | a declared profile, an optional literal or selector-resolved service name, request, and output, a working directory, environment additions, and an optional max_running bound. | child identity, pid, address, base URL, start time, and receipt. | [ServiceStarted, ServiceLimitReached, CommandError] | [child_process_start] | [selector_resolution, address_allocation, spawn_failed] | stop only the child identified by the dispatch receipt. |
+| list_services | the shared service state. | every tracked child with running or exited status, exit code, and start and finish times. | [ChildrenListed] | [service_state_read] | [] | noop. |
 
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
@@ -393,13 +315,11 @@ start_service returns before its child exits, list_services shows the child runn
 - R7.4
 - R7.5
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-implemented:
-    - GH-2197 adds start_service and list_services and shares the host service state with machine_request runs (R7); the bound is reserved under the state lock, so concurrent request runs cannot overshoot it.
-    - GH-2188 gives the snake_case start_service fields and address_env their json tags, so a declaration decoded by the strict JSON config decoder loads.
-planned:
-    - GH-2188 is the first consumer, launching bench experiments as detached critic children behind a request capability.
-```
+- implemented:
+  1. GH-2197 adds start_service and list_services and shares the host service state with machine_request runs (R7); the bound is reserved under the state lock, so concurrent request runs cannot overshoot it.
+  1. GH-2188 gives the snake_case start_service fields and address_env their json tags, so a declaration decoded by the strict JSON config decoder loads.
+- planned:
+  1. GH-2188 is the first consumer, launching bench experiments as detached critic children behind a request capability.

@@ -36,14 +36,12 @@ rel24.0-uc001-objectstore-tools
 
 go test ./internal/tools/objectstore/... -run 'TestObjectRoundTrip'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-write_then_read_returns_the_text: true
-list_by_prefix_names_the_keys: true
-both_schemes_behave_identically: true
-```
+- write_then_read_returns_the_text: true
+- list_by_prefix_names_the_keys: true
+- both_schemes_behave_identically: true
 
 <!-- field: traces -->
 #### Traces
@@ -67,14 +65,12 @@ rel24.0-uc001-objectstore-tools
 
 go test ./internal/tools/objectstore/... -run 'TestObjectWriteUndo'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-prior_bytes_restored: true
-created_key_deleted: true
-receipt_survives_redecode: true
-```
+- prior_bytes_restored: true
+- created_key_deleted: true
+- receipt_survives_redecode: true
 
 <!-- field: traces -->
 #### Traces
@@ -98,14 +94,12 @@ rel24.0-uc001-objectstore-tools
 
 go test ./internal/tools/objectstore/... -run 'TestBucketSelection'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-scheme_selects_driver: true
-unknown_scheme_named: true
-missing_bucket_url_named: true
-```
+- scheme_selects_driver: true
+- unknown_scheme_named: true
+- missing_bucket_url_named: true
 
 <!-- field: traces -->
 #### Traces
@@ -129,13 +123,11 @@ rel24.0-uc001-objectstore-tools
 
 go test ./internal/tools/objectstore/... -run 'TestExplicitEndpoint'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-endpoint_reaches_the_configured_server: true
-decoy_environment_ignored: true
-```
+- endpoint_reaches_the_configured_server: true
+- decoy_environment_ignored: true
 
 <!-- field: traces -->
 #### Traces
@@ -159,13 +151,11 @@ rel24.0-uc001-objectstore-tools
 
 go test ./cmd/agent/... -run 'TestBuiltinFactoryCatalogCoversSelectedActiveInits'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-inits_covered: true
-default_surface_unchanged: true
-```
+- inits_covered: true
+- default_surface_unchanged: true
 
 <!-- field: traces -->
 #### Traces
@@ -189,14 +179,12 @@ rel24.0-uc001-objectstore-tools
 
 mage test
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-completeness_baseline_empty: true
-reach_test_sees_the_words: true
-rollback_policy_accepts_strategy: true
-```
+- completeness_baseline_empty: true
+- reach_test_sees_the_words: true
+- rollback_policy_accepts_strategy: true
 
 <!-- field: traces -->
 #### Traces
@@ -220,15 +208,13 @@ rel24.0-uc001-objectstore-tools
 
 go test ./internal/tools/objectstore/... -run 'TestObjectstoreAgainstFakeGCS'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-end_to_end_roundtrip: true
-undo_both_directions: true
-skip_names_docker: true
-image_pinned_by_digest: true
-```
+- end_to_end_roundtrip: true
+- undo_both_directions: true
+- skip_names_docker: true
+- image_pinned_by_digest: true
 
 <!-- field: traces -->
 #### Traces
@@ -252,16 +238,14 @@ rel24.0-uc001-objectstore-tools
 
 go test ./internal/tools/objectstore/... -run 'TestDeletePrefix'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-request_storage_authority_ignored: true
-peer_prefix_unchanged: true
-over_budget_refused_without_delete: true
-post_delete_remaining_zero: true
-external_audit_written: true
-```
+- request_storage_authority_ignored: true
+- peer_prefix_unchanged: true
+- over_budget_refused_without_delete: true
+- post_delete_remaining_zero: true
+- external_audit_written: true
 
 <!-- field: traces -->
 #### Traces

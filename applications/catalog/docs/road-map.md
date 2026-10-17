@@ -217,21 +217,14 @@ terminal outcomes for its family and traces to the family SRD.
 - docs/specs/test-suites/test-rel07.1-profile-boundaries.md validates the three boundary use cases against the family SRD acceptance criteria.
 - docs/specs/test-suites/test-rel07.1-profile-conformance.md records the executable per-family conformance suite that runs each family through the agent-core CLI and asserts on captured OpenTelemetry traces. Every case runs the shipped profile.yaml wrapper (or a named shipped variant), copying it only to patch harness-controlled fields; the generator and rest families additionally run their shipped variants and carry an ungated load-and-wiring companion. Coverage is annotated per family and per variant (shipped-behavioral vs load-and-wiring).
 
-<!-- field: use_cases -->
+<!-- field: use_cases | form: "typed table" -->
 ### Use cases
 
-```yaml
-- id: rel07.1-uc001-specification-critic-profile-boundary
-  historical_aliases: [rel07.1-uc001-jurist-profile-boundary]
-  summary: Specification-critic deterministic, LLM-free charter validation boundary.
-  status: specified
-- id: rel07.1-uc002-lifecycle-profile-boundary
-  summary: Lifecycle history, rollback, and approval machine-action boundary.
-  status: specified
-- id: rel07.1-uc003-rest-profile-boundary
-  summary: REST client and server boundary words and the ollama-* variant.
-  status: specified
-```
+| id | historical_aliases | summary | status |
+| --- | --- | --- | --- |
+| rel07.1-uc001-specification-critic-profile-boundary | [rel07.1-uc001-jurist-profile-boundary] | Specification-critic deterministic, LLM-free charter validation boundary. | specified |
+| rel07.1-uc002-lifecycle-profile-boundary |  | Lifecycle history, rollback, and approval machine-action boundary. | specified |
+| rel07.1-uc003-rest-profile-boundary |  | REST client and server boundary words and the ollama-* variant. | specified |
 
 <!-- field: test_suites -->
 ### Test suites
@@ -658,14 +651,15 @@ teardown.
 | gh-678 | Add the scenario-session layer in agent-core (split from gh-669). | done |
 | gh-1072 | Rename the concrete test rig to scenario-critic and retain a time-bounded compatibility wrapper. | done |
 
-<!-- field: historical_aliases -->
+<!-- field: historical_aliases | form: "tree" -->
 ### Historical aliases
 
-```yaml
-srds: [srd018-assembler]
-use_cases: [rel11.0-uc001-assembler-scenario-run]
-test_suites: [test-rel11.0-assembler-rig]
-```
+- srds:
+  1. srd018-assembler
+- use_cases:
+  1. rel11.0-uc001-assembler-scenario-run
+- test_suites:
+  1. test-rel11.0-assembler-rig
 
 <!-- field: srds -->
 ### Srds
@@ -694,15 +688,13 @@ test_suites: [test-rel11.0-assembler-rig]
 - mage validate
 - mage rig
 
-<!-- field: success_markers -->
+<!-- field: success_markers | form: "tree" -->
 ### Success markers
 
-```yaml
-- Adding a test means adding files under a tests/ directory, never editing the scenario critic.
-- One mock profile serves every dependency; response content lives in scenario fixtures.
-- Scenarios run with no live Chroma, Ollama, Docker, or Kubernetes.
-- The rig can fail: a wrong expectation reaches Failed and names the failing validator.
-```
+1. Adding a test means adding files under a tests/ directory, never editing the scenario critic.
+1. One mock profile serves every dependency; response content lives in scenario fixtures.
+1. Scenarios run with no live Chroma, Ollama, Docker, or Kubernetes.
+1. - "The rig can fail": a wrong expectation reaches Failed and names the failing validator.
 
 <!-- release: 12.0 | status: release-ready -->
 ## 12.0 - Agent role-realization naming alignment
@@ -799,20 +791,18 @@ Collector family promotion
 
 - agent-core release 12.0 (spool query builtins)
 
-<!-- field: planned_work -->
+<!-- field: planned_work | form: "typed table" -->
 ### Planned work
 
-```yaml
-- {gh: 1145, title: "Promote the collector agent to a canonical catalog family", estimated_loc: "300 YAML, 250 test"}
-```
+| gh | title | estimated_loc |
+| --- | --- | --- |
+| 1145 | Promote the collector agent to a canonical catalog family | 300 YAML, 250 test |
 
-<!-- field: specification -->
+<!-- field: specification | form: "tree" -->
 ### Specification
 
-```yaml
-srd: srd020-collector
-status: implemented
-```
+- srd: srd020-collector
+- status: implemented
 
 <!-- field: use_cases -->
 ### Use cases
@@ -821,15 +811,12 @@ status: implemented
 | --- | --- | --- |
 | rel13.0-uc001-collector-family | A standalone collector receives, spools, and shuts down in spool mode | implemented |
 
-<!-- field: test_suites -->
+<!-- field: test_suites | form: "typed table" -->
 ### Test suites
 
-```yaml
-- id: test-rel13.0-collector
-  title: Collector family conformance
-  cases: 5
-  status: implemented
-```
+| id | title | cases | status |
+| --- | --- | --- | --- |
+| test-rel13.0-collector | Collector family conformance | 5 | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -851,24 +838,22 @@ Served collector trace UI
 
 - catalog release 13.0 (collector family and shipped ui/)
 
-<!-- field: planned_work -->
+<!-- field: planned_work | form: "typed table" -->
 ### Planned work
 
-```yaml
-- {gh: 1236, title: "Specify the served collector trace UI", estimated_loc: "0 (documentation)"}
-- {gh: 1237, title: "Collector serves ui/dist via static_assets on the query listener", estimated_loc: "50 YAML, 150 test"}
-- {gh: 1254, title: "Serve the collector UI from the coding-agent chart", estimated_loc: "120"}
-- {gh: 1255, title: "Serve the collector UI from the agent-architecture chart", estimated_loc: "120"}
-- {gh: 1256, title: "Serve the collector UI from the chatbot-mesh chart (dedicated ConfigMap, writable metrics spool)", estimated_loc: "160"}
-```
+| gh | title | estimated_loc |
+| --- | --- | --- |
+| 1236 | Specify the served collector trace UI | 0 (documentation) |
+| 1237 | Collector serves ui/dist via static_assets on the query listener | 50 YAML, 150 test |
+| 1254 | Serve the collector UI from the coding-agent chart | "120" |
+| 1255 | Serve the collector UI from the agent-architecture chart | "120" |
+| 1256 | Serve the collector UI from the chatbot-mesh chart (dedicated ConfigMap, writable metrics spool) | "160" |
 
-<!-- field: specification -->
+<!-- field: specification | form: "tree" -->
 ### Specification
 
-```yaml
-srd: srd020-collector
-status: implemented
-```
+- srd: srd020-collector
+- status: implemented
 
 <!-- field: use_cases -->
 ### Use cases
@@ -877,15 +862,12 @@ status: implemented
 | --- | --- | --- |
 | rel14.0-uc001-served-trace-ui | The collector serves its own trace UI at the query origin | implemented |
 
-<!-- field: test_suites -->
+<!-- field: test_suites | form: "typed table" -->
 ### Test suites
 
-```yaml
-- id: test-rel14.0-served-ui
-  title: Served collector trace UI
-  cases: 5
-  status: implemented
-```
+| id | title | cases | status |
+| --- | --- | --- | --- |
+| test-rel14.0-served-ui | Served collector trace UI | 5 | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -913,22 +895,20 @@ Collector Explore panel
 - agent-core release 13.0 (span-analytics builtins)
 - catalog release 14.0 (served collector UI)
 
-<!-- field: planned_work -->
+<!-- field: planned_work | form: "typed table" -->
 ### Planned work
 
-```yaml
-- {gh: 1239, title: "Specify span-analytics tools and the collector Explore surface", estimated_loc: "0 (documentation)"}
-- {gh: 1241, title: "Collector Explore query routes: /query/spans/stats and /query/spans/breakdown", estimated_loc: "200 YAML, 250 test"}
-- {gh: 1242, title: "Collector UI Explore page with heatmap drag-select and TraceDetail links", estimated_loc: "500 TS/TSX"}
-```
+| gh | title | estimated_loc |
+| --- | --- | --- |
+| 1239 | Specify span-analytics tools and the collector Explore surface | 0 (documentation) |
+| 1241 | "Collector Explore query routes: /query/spans/stats and /query/spans/breakdown" | 200 YAML, 250 test |
+| 1242 | Collector UI Explore page with heatmap drag-select and TraceDetail links | 500 TS/TSX |
 
-<!-- field: specification -->
+<!-- field: specification | form: "tree" -->
 ### Specification
 
-```yaml
-srd: srd020-collector
-status: implemented
-```
+- srd: srd020-collector
+- status: implemented
 
 <!-- field: use_cases -->
 ### Use cases
@@ -937,15 +917,12 @@ status: implemented
 | --- | --- | --- |
 | rel15.0-uc001-explore-panel | An operator narrows a latency band to a responsible attribute and lands on a trace | implemented |
 
-<!-- field: test_suites -->
+<!-- field: test_suites | form: "typed table" -->
 ### Test suites
 
-```yaml
-- id: test-rel15.0-explore
-  title: Collector Explore panel
-  cases: 6
-  status: implemented
-```
+| id | title | cases | status |
+| --- | --- | --- | --- |
+| test-rel15.0-explore | Collector Explore panel | 6 | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -969,20 +946,18 @@ Canonical applier family
 - applications Release 14.0 application consistency contract
 - manifest-derived closure and normalized application actor trees
 
-<!-- field: planned_work -->
+<!-- field: planned_work | form: "typed table" -->
 ### Planned work
 
-```yaml
-- {gh: 1420, title: "Promote one canonical applier family and migrate application wrappers", estimated_loc: "600 canonical production, 500 test"}
-```
+| gh | title | estimated_loc |
+| --- | --- | --- |
+| 1420 | Promote one canonical applier family and migrate application wrappers | 600 canonical production, 500 test |
 
-<!-- field: specification -->
+<!-- field: specification | form: "tree" -->
 ### Specification
 
-```yaml
-srd: srd022-applier
-status: implemented
-```
+- srd: srd022-applier
+- status: implemented
 
 <!-- field: migration -->
 ### Migration
@@ -1033,22 +1008,20 @@ Rig doctor root-cause analyst
 - Release 13.0 collector family (spool trace query words)
 - repository-root kind rig failure-evidence capture (eng01)
 
-<!-- field: planned_work -->
+<!-- field: planned_work | form: "typed table" -->
 ### Planned work
 
-```yaml
-- {gh: 2286, title: "Specify the rig-doctor: srd023, use case, test suite, eng01 diagnose verb", estimated_loc: "0 (documentation)"}
-- {gh: 2287, title: "Rig evidence capture with manifest and mage diagnose (capture only)", estimated_loc: "180 production"}
-- {gh: 2288, title: "rig-doctor profile on root-cause-analyst, registration, and diagnose wiring", estimated_loc: "350 production and test"}
-```
+| gh | title | estimated_loc |
+| --- | --- | --- |
+| 2286 | "Specify the rig-doctor: srd023, use case, test suite, eng01 diagnose verb" | 0 (documentation) |
+| 2287 | Rig evidence capture with manifest and mage diagnose (capture only) | 180 production |
+| 2288 | rig-doctor profile on root-cause-analyst, registration, and diagnose wiring | 350 production and test |
 
-<!-- field: specification -->
+<!-- field: specification | form: "tree" -->
 ### Specification
 
-```yaml
-srd: srd023-rig-doctor
-status: implemented
-```
+- srd: srd023-rig-doctor
+- status: implemented
 
 <!-- field: use_cases -->
 ### Use cases
@@ -1057,15 +1030,12 @@ status: implemented
 | --- | --- | --- |
 | rel17.0-uc001-rig-doctor | An operator runs mage diagnose after a failed scenario and reads a cited diagnosis | implemented |
 
-<!-- field: test_suites -->
+<!-- field: test_suites | form: "typed table" -->
 ### Test suites
 
-```yaml
-- id: test-rel17.0-rig-doctor
-  title: Rig doctor root-cause analyst conformance
-  cases: 12
-  status: implemented
-```
+| id | title | cases | status |
+| --- | --- | --- | --- |
+| test-rel17.0-rig-doctor | Rig doctor root-cause analyst conformance | 12 | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -1098,23 +1068,21 @@ Host-side deployer
 - Release 16.0 canonical applier family
 - Release 17.0 rig-doctor mage-target agent harness
 
-<!-- field: planned_work -->
+<!-- field: planned_work | form: "typed table" -->
 ### Planned work
 
-```yaml
-- {gh: 2300, title: "Specify the host-side deployer: srd022 R6, rel18.0 use case, test suite, road map", estimated_loc: "0 (documentation)"}
-- {gh: 2301, title: "Catalog applier deploy and undeploy machines with standalone conformance", estimated_loc: "200 YAML and 260 test"}
-- {gh: 2302, title: "Host-side deploy declaration rendering and the kindrig deploy harness", estimated_loc: "250 production and 240 test"}
-- {gh: 2304, title: "Migrate coding-agent demo:up to mage deploy and add mage undeploy", estimated_loc: "180 production and 140 test"}
-```
+| gh | title | estimated_loc |
+| --- | --- | --- |
+| 2300 | "Specify the host-side deployer: srd022 R6, rel18.0 use case, test suite, road map" | 0 (documentation) |
+| 2301 | Catalog applier deploy and undeploy machines with standalone conformance | 200 YAML and 260 test |
+| 2302 | Host-side deploy declaration rendering and the kindrig deploy harness | 250 production and 240 test |
+| 2304 | Migrate coding-agent demo:up to mage deploy and add mage undeploy | 180 production and 140 test |
 
-<!-- field: specification -->
+<!-- field: specification | form: "tree" -->
 ### Specification
 
-```yaml
-srd: srd022-applier
-status: implemented
-```
+- srd: srd022-applier
+- status: implemented
 
 <!-- field: use_cases -->
 ### Use cases
@@ -1123,15 +1091,12 @@ status: implemented
 | --- | --- | --- |
 | rel18.0-uc001-host-side-deploy | An operator runs mage deploy and the applier's deploy machine installs the release | implemented |
 
-<!-- field: test_suites -->
+<!-- field: test_suites | form: "typed table" -->
 ### Test suites
 
-```yaml
-- id: test-rel18.0-host-side-deploy
-  title: Host-side deployer conformance
-  cases: 11
-  status: implemented
-```
+| id | title | cases | status |
+| --- | --- | --- | --- |
+| test-rel18.0-host-side-deploy | Host-side deployer conformance | 11 | implemented |
 
 <!-- field: proof -->
 ### Proof
@@ -1165,20 +1130,18 @@ Observer family promotion
 
 - chatbot-mesh release 08.0 (the fleet observer this family generalizes)
 
-<!-- field: planned_work -->
+<!-- field: planned_work | form: "typed table" -->
 ### Planned work
 
-```yaml
-- {gh: 1247, title: "Specify the cross-application fleet observer (catalog promotion + per-application adoption)", estimated_loc: "0 (documentation)"}
-```
+| gh | title | estimated_loc |
+| --- | --- | --- |
+| 1247 | Specify the cross-application fleet observer (catalog promotion + per-application adoption) | 0 (documentation) |
 
-<!-- field: specification -->
+<!-- field: specification | form: "tree" -->
 ### Specification
 
-```yaml
-srd: srd021-observer
-status: planned
-```
+- srd: srd021-observer
+- status: planned
 
 <!-- field: use_cases -->
 ### Use cases
@@ -1187,15 +1150,12 @@ status: planned
 | --- | --- | --- |
 | rel99.0-uc001-observer-family | The observer is a catalog-owned family adopted across applications | planned |
 
-<!-- field: test_suites -->
+<!-- field: test_suites | form: "typed table" -->
 ### Test suites
 
-```yaml
-- id: test-rel99.0-observer
-  title: Observer family promotion
-  cases: 3
-  status: planned
-```
+| id | title | cases | status |
+| --- | --- | --- | --- |
+| test-rel99.0-observer | Observer family promotion | 3 | planned |
 
 <!-- field: proof -->
 ### Proof

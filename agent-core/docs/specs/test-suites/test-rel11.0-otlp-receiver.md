@@ -40,27 +40,27 @@ rel11.0-uc001-otlp-receiver-await
 
 go test ./internal/tools/otlp -run TestReceiverExportAwait
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-queue_capacity: 2
-overflow_policy: reject
-batches:
-    - services: [chatbot, rag0]
-      spans: 3
-```
+- queue_capacity: 2
+- overflow_policy: reject
+- batches:
+  1. - services:
+       1. chatbot
+       1. rag0
+     - spans: 3
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-launch_signal: ReceiverLaunched
-await_signal: SpansReceived
-batch_count: 1
-span_count: 3
-services: [chatbot, rag0]
-```
+- launch_signal: ReceiverLaunched
+- await_signal: SpansReceived
+- batch_count: 1
+- span_count: 3
+- services:
+  1. chatbot
+  1. rag0
 
 <!-- field: traces -->
 #### Traces
@@ -86,24 +86,23 @@ rel11.0-uc001-otlp-receiver-await
 
 go test ./internal/tools/otlp -run TestReceiverOverflowPolicies
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-queue_capacity: 1
-policies: [reject, drop_oldest, drop_newest]
-concurrent_exporters: 8
-```
+- queue_capacity: 1
+- policies:
+  1. reject
+  1. drop_oldest
+  1. drop_newest
+- concurrent_exporters: 8
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-queue_depth_max: 1
-reject: incoming batch reported rejected
-drop_oldest: newest batch awaits
-drop_newest: oldest batch awaits
-```
+- queue_depth_max: 1
+- reject: incoming batch reported rejected
+- drop_oldest: newest batch awaits
+- drop_newest: oldest batch awaits
 
 <!-- field: traces -->
 #### Traces
@@ -130,24 +129,20 @@ rel11.0-uc001-otlp-receiver-await
 
 go test ./internal/tools/otlp -run TestSpoolStdoutTraceAndRotation
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-max_files: 3
-max_bytes: one complete batch plus one byte
-batches: 3
-```
+- max_files: 3
+- max_bytes: one complete batch plus one byte
+- batches: 3
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-parse_errors: 0
-retained_files_max: 3
-identity: unchanged
-partial_lines: 0
-```
+- parse_errors: 0
+- retained_files_max: 3
+- identity: unchanged
+- partial_lines: 0
 
 <!-- field: traces -->
 #### Traces
@@ -172,22 +167,20 @@ rel11.0-uc001-otlp-receiver-await
 
 go test ./internal/tools/otlp -run 'Test(SpoolFactoriesRejectByteCap|RotateRejectsSingleGeneration)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-max_bytes: positive
-max_files: [0, 1]
-```
+- max_bytes: positive
+- max_files:
+  1. 0
+  1. 1
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-load_rejected: true
-accepted_evidence_retained: true
-error_names_max_bytes_and_max_files: true
-```
+- load_rejected: true
+- accepted_evidence_retained: true
+- error_names_max_bytes_and_max_files: true
 
 <!-- field: traces -->
 #### Traces
@@ -212,23 +205,21 @@ rel11.0-uc001-otlp-receiver-await
 
 go test ./internal/tools/otlp -run 'TestRelay(PreservesBatch|ReportsPartialRejection)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-upstreams: [accept_all, reject_one]
-batch_source: declared command-state selector
-```
+- upstreams:
+  1. accept_all
+  1. reject_one
+- batch_source: declared command-state selector
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-accept_all_signal: SpansRelayed
-request_fields: protobuf-equal
-reject_one_signal: CommandError
-spool_after_rejection: unchanged
-```
+- accept_all_signal: SpansRelayed
+- request_fields: protobuf-equal
+- reject_one_signal: CommandError
+- spool_after_rejection: unchanged
 
 <!-- field: traces -->
 #### Traces
@@ -254,23 +245,25 @@ rel11.0-uc001-otlp-receiver-await
 
 go test ./internal/tools/otlp -run 'TestReceiverStop(UnblocksAndReleases|AppliesDrainPolicy)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-blocked_awaiters: 4
-drain_policies: [preserve, drop]
-```
+- blocked_awaiters: 4
+- drain_policies:
+  1. preserve
+  1. drop
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-await_signals: [ReceiverStopped, ReceiverStopped, ReceiverStopped, ReceiverStopped]
-rebind: succeeds
-repeated_stop: ReceiverStopped
-leaked_goroutines: 0
-```
+- await_signals:
+  1. ReceiverStopped
+  1. ReceiverStopped
+  1. ReceiverStopped
+  1. ReceiverStopped
+- rebind: succeeds
+- repeated_stop: ReceiverStopped
+- leaked_goroutines: 0
 
 <!-- field: traces -->
 #### Traces
@@ -302,22 +295,20 @@ spans enter the queue while collector lifecycle spans remain in the file.
 This deployment constraint is specified by srd042 R7.1 and is not package
 test evidence.
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-equivalent_endpoints:
-    - ["0.0.0.0:4317", "127.0.0.1:4317"]
-    - ["[::]:4317", "[::1]:4317"]
-collector_telemetry: file_only
-```
+- equivalent_endpoints:
+  1. 1. 0.0.0.0:4317
+     1. 127.0.0.1:4317
+  1. 1. "[::]:4317"
+     1. "[::1]:4317"
+- collector_telemetry: file_only
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-static_loop: registration failure
-```
+- static_loop: registration failure
 
 <!-- field: traces -->
 #### Traces
@@ -350,22 +341,21 @@ metrics backend once the collector agent retains both signals. The
 logs-absence and backend-independence are scope assertions specified by
 srd042 R8/R9, not package test evidence.
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-protocols: [trace, metric, log]
-```
+- protocols:
+  1. trace
+  1. metric
+  1. log
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-trace: accepted
-metric: accepted
-log: not_declared
-metrics_backend: none_required
-```
+- trace: accepted
+- metric: accepted
+- log: not_declared
+- metrics_backend: none_required
 
 <!-- field: traces -->
 #### Traces
@@ -391,24 +381,20 @@ rel11.0-uc001-otlp-receiver-await
 
 go test ./internal/tools/otlp -run TestSpoolMetricsRoundTripAndRotation
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-max_files: 3
-max_bytes: one complete batch plus one byte
-batches: 3
-```
+- max_files: 3
+- max_bytes: one complete batch plus one byte
+- batches: 3
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-record_name: dispatch_count
-record_type: Sum
-data_point_count: 2
-partial_lines: 0
-```
+- record_name: dispatch_count
+- record_type: Sum
+- data_point_count: 2
+- partial_lines: 0
 
 <!-- field: traces -->
 #### Traces
@@ -436,29 +422,37 @@ rel11.0-uc001-otlp-receiver-await
 
 go test ./internal/tools/otlp -run 'TestSpool(ListMetricsSummaries|GetMetric(ByName|Pagination|SeedCapsAndFinalPage|OffsetPastEndIsEmpty))'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-metrics:
-    - {name: dispatch_count, services: [chatbot, rag0], data_points: [3, 2]}
-    - {name: dss_rows, services: [dolt], data_points: [1]}
-```
+- metrics:
+  1. - name: dispatch_count
+     - services:
+       1. chatbot
+       1. rag0
+     - data_points:
+       1. 3
+       1. 2
+  1. - name: dss_rows
+     - services:
+       1. dolt
+     - data_points:
+       1. 1
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-list_total: 2
-dispatch_count_records: 2
-dispatch_count_data_points: 5
-detail_page_size_capped: true
-final_and_empty_pages_bounded: true
-dispatch_count_services: [chatbot, rag0]
-dispatch_count_resource:
-    service.name: chatbot
-    test.run.id: run-detail-42
-```
+- list_total: 2
+- dispatch_count_records: 2
+- dispatch_count_data_points: 5
+- detail_page_size_capped: true
+- final_and_empty_pages_bounded: true
+- dispatch_count_services:
+  1. chatbot
+  1. rag0
+- dispatch_count_resource:
+  - service.name: chatbot
+  - test.run.id: run-detail-42
 
 <!-- field: traces -->
 #### Traces

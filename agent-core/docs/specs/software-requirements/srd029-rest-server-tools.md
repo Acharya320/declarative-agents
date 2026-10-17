@@ -470,39 +470,15 @@ Registration SHALL reject rest_server_await or rest_await_event when any signal 
 - Generating Go server code from OpenAPI documents.
 - Replacing existing bench UI behavior in this issue.
 
-<!-- field: tool_words -->
+<!-- field: tool_words | form: "typed table" -->
 ## Tool words
 
-```yaml
-- name: rest_server_launch
-  input: server name, address, route set, endpoint bindings, schemas, limits, shutdown policy.
-  output: server name, bound address, route count, binding kinds, correlation metadata.
-  signals: [ServerLaunched, CommandError]
-  side_effects: [network_listen, server_state]
-  errors: [config_decode, bind_failed, route_conflict, schema_invalid]
-  undo: boundary compensation through rest_server_stop when launch owns the listener.
-- name: rest_server_await
-  input: server name, accepted event sources, optional route filters, timeout, queue read policy.
-  output: event source, route, method, signal, validated payload, request ID, redacted diagnostics.
-  signals: [configured_event_signal, AwaitTimedOut, ServerStopped, CommandError]
-  side_effects: [server_queue_consume, command_state]
-  errors: [missing_server, await_timeout, queue_closed, payload_decode]
-  undo: noop unless implementation supports returning an event to the queue.
-- name: rest_await_event
-  input: server names, route filters, allowed signals, timeout, queue read policy, stopped-source behavior.
-  output: selected source, route, method, signal, validated payload, request ID, correlation metadata, redacted diagnostics.
-  signals: [configured_event_signal, AwaitTimedOut, ServerStopped, CommandError]
-  side_effects: [server_queue_consume, command_state]
-  errors: [missing_source, await_timeout, queue_closed, payload_decode, source_stopped]
-  undo: noop unless implementation supports returning an event to the source queue.
-- name: rest_server_stop
-  input: server name, shutdown timeout, drain policy, listener ownership policy.
-  output: server name, address, drained event count, dropped event count, shutdown status.
-  signals: [ServerStopped, CommandError]
-  side_effects: [network_listener_shutdown, server_state]
-  errors: [missing_server, shutdown_failed, drain_failed]
-  undo: noop; relaunch is a separate MachineSpec action.
-```
+| name | input | output | signals | side_effects | errors | undo |
+| --- | --- | --- | --- | --- | --- | --- |
+| rest_server_launch | server name, address, route set, endpoint bindings, schemas, limits, shutdown policy. | server name, bound address, route count, binding kinds, correlation metadata. | [ServerLaunched, CommandError] | [network_listen, server_state] | [config_decode, bind_failed, route_conflict, schema_invalid] | boundary compensation through rest_server_stop when launch owns the listener. |
+| rest_server_await | server name, accepted event sources, optional route filters, timeout, queue read policy. | event source, route, method, signal, validated payload, request ID, redacted diagnostics. | [configured_event_signal, AwaitTimedOut, ServerStopped, CommandError] | [server_queue_consume, command_state] | [missing_server, await_timeout, queue_closed, payload_decode] | noop unless implementation supports returning an event to the queue. |
+| rest_await_event | server names, route filters, allowed signals, timeout, queue read policy, stopped-source behavior. | selected source, route, method, signal, validated payload, request ID, correlation metadata, redacted diagnostics. | [configured_event_signal, AwaitTimedOut, ServerStopped, CommandError] | [server_queue_consume, command_state] | [missing_source, await_timeout, queue_closed, payload_decode, source_stopped] | noop unless implementation supports returning an event to the source queue. |
+| rest_server_stop | server name, shutdown timeout, drain policy, listener ownership policy. | server name, address, drained event count, dropped event count, shutdown status. | [ServerStopped, CommandError] | [network_listener_shutdown, server_state] | [missing_server, shutdown_failed, drain_failed] | noop; relaunch is a separate MachineSpec action. |
 
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
@@ -691,62 +667,58 @@ Server event queues expose named sources for rest_await_event, stopped-source be
 - docs/guides/boundary-tools-and-async.md
 - docs/guides/rest-tool.md
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-implemented:
-    - internal/tools/rest server state and server tool commands for launch, await, generic rest_await_event fan-in, stop, machine_request, monitor views, invoke_handler, stream_events, health, and static metadata.
-    - tools/builtin/rest server tool declarations and release 03.0 fixtures.
-    - OpenAPI operation ID binding for request and response schema import into configured endpoints.
-    - Plain Go tests for launch, await, fan-in filters, timeout, stopped-source signals, stop, shutdown policy validation, stream shutdown unblocking, validation failures, redaction, invoke_handler, stream_events, machine_request, and Knowledge Manager conformance.
-    - OpenAPI server binding preserves configured response mapping, machine_request, monitor view, queue, signal, and allowed_signals while importing method, path, request schema, and response schema.
-    - Queue overflow behavior supports reject, drop_oldest, and drop_newest. Unsupported shutdown queue controls are rejected during ValidateDefinition.
-    - Modeled lifecycle_control endpoints (R5.8, R11.4, R11.6): ValidateDefinition accepts enqueue_signal with a configured signal or inject_signal with an allowlist, validates any target selector, and enqueues the lifecycle request event for MachineSpec routing without running a lifecycle operation directly (proven by TestRESTServer_LifecycleControlEnqueuesSignals). Configured emit_signal control routes that MachineSpec routes to exit_agent remain as an alternative used by current control profiles.
-    - GH-2208 selects endpoints by path specificity then method (R6.8) and rejects same-method, same-shape endpoint pairs at load (R6.9). Before it, selection ignored the method, so a second endpoint on one path was unreachable and answered 405.
-partial:
-    - R10 read_policy supports only the default first_available behavior; priority_order, round_robin, and other values are rejected during ToolDef factory validation (TestRESTServer_ControlQueueAndReadPolicyConformance).
-```
+- implemented:
+  1. internal/tools/rest server state and server tool commands for launch, await, generic rest_await_event fan-in, stop, machine_request, monitor views, invoke_handler, stream_events, health, and static metadata.
+  1. tools/builtin/rest server tool declarations and release 03.0 fixtures.
+  1. OpenAPI operation ID binding for request and response schema import into configured endpoints.
+  1. Plain Go tests for launch, await, fan-in filters, timeout, stopped-source signals, stop, shutdown policy validation, stream shutdown unblocking, validation failures, redaction, invoke_handler, stream_events, machine_request, and Knowledge Manager conformance.
+  1. OpenAPI server binding preserves configured response mapping, machine_request, monitor view, queue, signal, and allowed_signals while importing method, path, request schema, and response schema.
+  1. Queue overflow behavior supports reject, drop_oldest, and drop_newest. Unsupported shutdown queue controls are rejected during ValidateDefinition.
+  1. - "Modeled lifecycle_control endpoints (R5.8, R11.4, R11.6)": ValidateDefinition accepts enqueue_signal with a configured signal or inject_signal with an allowlist, validates any target selector, and enqueues the lifecycle request event for MachineSpec routing without running a lifecycle operation directly (proven by TestRESTServer_LifecycleControlEnqueuesSignals). Configured emit_signal control routes that MachineSpec routes to exit_agent remain as an alternative used by current control profiles.
+  1. GH-2208 selects endpoints by path specificity then method (R6.8) and rejects same-method, same-shape endpoint pairs at load (R6.9). Before it, selection ignored the method, so a second endpoint on one path was unreachable and answered 405.
+- partial:
+  1. R10 read_policy supports only the default first_available behavior; priority_order, round_robin, and other values are rejected during ToolDef factory validation (TestRESTServer_ControlQueueAndReadPolicyConformance).
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Agent profiles need a declarative way to expose inbou..."] --> Goals["Goals: REST Server Tools"]
-      Goals --> R1["R1: Server tool scope"]
-      Goals --> R2["R2: rest_server_launch"]
-      Goals --> R3["R3: rest_server_await"]
-      Goals --> R4["R4: rest_server_stop"]
-      Goals --> R5["R5: Endpoint binding kinds"]
-      Goals --> R6["R6: Request validation and responses"]
-      Goals --> R7["R7: Lifecycle and shared server state"]
-      Goals --> R8["R8: OpenAPI server binding"]
-      Goals --> R9["R9: Observability and redaction"]
-      Goals --> R10["R10: Errors and recovery"]
-      Goals --> R11["R11: Event aggregation sources and lifecycle control"]
-      AC1["AC1: REST server tools are documented as first-class boundary..."]
-      R1 --> AC1
-      AC2["AC2: rest_server_launch requirements define inputs, outputs, s..."]
-      R2 --> AC2
-      AC3["AC3: rest_server_await requirements define blocking event rece..."]
-      R3 --> AC3
-      AC4["AC4: rest_server_stop requirements define graceful shutdown, d..."]
-      R4 --> AC4
-      AC5["AC5: Endpoint binding requirements cover emit_signal, emit_dyn..."]
-      R5 --> AC5
-      AC6["AC6: Inbound HTTP requests become grammar-visible signals or s..."]
-      R6 --> AC6
-      AC7["AC7: Server lifecycle requirements cover shared server state,..."]
-      R7 --> AC7
-      AC8["AC8: OpenAPI operation IDs can bind configured server handlers..."]
-      R8 --> AC8
-      AC9["AC9: Observability, redaction, metric, error, and recovery req..."]
-      R9 --> AC9
-      R10 --> AC9
-      AC10["AC10: Server event queues expose named sources for rest_await_e..."]
-      R11 --> AC10
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Agent profiles need a declarative way to expose inbou..."] --> Goals["Goals: REST Server Tools"]
+    Goals --> R1["R1: Server tool scope"]
+    Goals --> R2["R2: rest_server_launch"]
+    Goals --> R3["R3: rest_server_await"]
+    Goals --> R4["R4: rest_server_stop"]
+    Goals --> R5["R5: Endpoint binding kinds"]
+    Goals --> R6["R6: Request validation and responses"]
+    Goals --> R7["R7: Lifecycle and shared server state"]
+    Goals --> R8["R8: OpenAPI server binding"]
+    Goals --> R9["R9: Observability and redaction"]
+    Goals --> R10["R10: Errors and recovery"]
+    Goals --> R11["R11: Event aggregation sources and lifecycle control"]
+    AC1["AC1: REST server tools are documented as first-class boundary..."]
+    R1 --> AC1
+    AC2["AC2: rest_server_launch requirements define inputs, outputs, s..."]
+    R2 --> AC2
+    AC3["AC3: rest_server_await requirements define blocking event rece..."]
+    R3 --> AC3
+    AC4["AC4: rest_server_stop requirements define graceful shutdown, d..."]
+    R4 --> AC4
+    AC5["AC5: Endpoint binding requirements cover emit_signal, emit_dyn..."]
+    R5 --> AC5
+    AC6["AC6: Inbound HTTP requests become grammar-visible signals or s..."]
+    R6 --> AC6
+    AC7["AC7: Server lifecycle requirements cover shared server state,..."]
+    R7 --> AC7
+    AC8["AC8: OpenAPI operation IDs can bind configured server handlers..."]
+    R8 --> AC8
+    AC9["AC9: Observability, redaction, metric, error, and recovery req..."]
+    R9 --> AC9
+    R10 --> AC9
+    AC10["AC10: Server event queues expose named sources for rest_await_e..."]
+    R11 --> AC10
+  ```

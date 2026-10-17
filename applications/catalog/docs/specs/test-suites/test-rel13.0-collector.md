@@ -39,22 +39,29 @@ rel13.0-uc001-collector-family
 
 go test ./conformance -run TestCollectorSpoolModeConformance
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-collector_mode: spool (default)
-relay_endpoint: unset
-```
+- collector_mode: spool (default)
+- relay_endpoint: unset
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-exit_code: 0
-terminal_state: Done
-tool_spans_present: [otlp_receiver_launch, launch_collector_control, launch_collector_monitor, launch_collector_query, await_spans, await_collector_control, exit_agent, otlp_receiver_stop, stop_collector_query, stop_collector_monitor, stop_collector_control]
-```
+- exit_code: 0
+- terminal_state: Done
+- tool_spans_present:
+  1. otlp_receiver_launch
+  1. launch_collector_control
+  1. launch_collector_monitor
+  1. launch_collector_query
+  1. await_spans
+  1. await_collector_control
+  1. exit_agent
+  1. otlp_receiver_stop
+  1. stop_collector_query
+  1. stop_collector_monitor
+  1. stop_collector_control
 
 <!-- field: traces -->
 #### Traces
@@ -80,20 +87,16 @@ rel13.0-uc001-collector-family
 
 go test ./conformance -run TestCollectorQueryEmptySpool
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-spool: absent (no batch received)
-```
+- spool: absent (no batch received)
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-status: 200
-total: 0
-```
+- status: 200
+- total: 0
 
 <!-- field: traces -->
 #### Traces
@@ -120,22 +123,18 @@ rel13.0-uc001-collector-family
 
 go test ./conformance -run TestCollectorDefaultEnvironmentBoot
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-collector_mode: spool (default)
-relay_endpoint: unset
-profile: shipped, unpatched
-```
+- collector_mode: spool (default)
+- relay_endpoint: unset
+- profile: shipped, unpatched
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-exit_code: 0
-terminal_state: Done
-```
+- exit_code: 0
+- terminal_state: Done
 
 <!-- field: traces -->
 #### Traces
@@ -160,20 +159,30 @@ rel13.0-uc001-collector-family
 
 go test ./conformance -run TestCollectorQueryResponseContract
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-spool: seeded two-trace fixture
-```
+- spool: seeded two-trace fixture
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-summary_keys: [duration_ms, root_service, root_span_name, span_count, start_time, trace_id]
-span_keys: [attributes, end_time, name, parent_span_id, service, span_id, start_time, status]
-```
+- summary_keys:
+  1. duration_ms
+  1. root_service
+  1. root_span_name
+  1. span_count
+  1. start_time
+  1. trace_id
+- span_keys:
+  1. attributes
+  1. end_time
+  1. name
+  1. parent_span_id
+  1. service
+  1. span_id
+  1. start_time
+  1. status
 
 <!-- field: traces -->
 #### Traces
@@ -199,22 +208,18 @@ rel13.0-uc001-collector-family
 
 go test ./conformance -run TestCollectorMonitorServesNoSpanPayloads
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-spool: seeded with 2 traces (3 spans)
-monitor_views: machine, machines, tools/declared, state, tools, metrics, events
-```
+- spool: seeded with 2 traces (3 spans)
+- monitor_views: machine, machines, tools/declared, state, tools, metrics, events
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-monitor_status: 200
-span_content_in_monitor: none
-query_returns_traces: true
-```
+- monitor_status: 200
+- span_content_in_monitor: none
+- query_returns_traces: true
 
 <!-- field: traces -->
 #### Traces
@@ -240,23 +245,19 @@ rel13.0-uc001-collector-family
 
 go test ./conformance -run TestCollectorQueryListTraces
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-spool: seeded with 2 traces (3 spans)
-page_size: 1
-```
+- spool: seeded with 2 traces (3 spans)
+- page_size: 1
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-status: 200
-total: 2
-page_size: 1
-traces_returned: 1
-```
+- status: 200
+- total: 2
+- page_size: 1
+- traces_returned: 1
 
 <!-- field: traces -->
 #### Traces
@@ -282,22 +283,18 @@ rel13.0-uc001-collector-family
 
 go test ./conformance -run TestCollectorQueryGetTrace
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-spool: seeded with 2 traces (3 spans)
-trace_id: trace-aaa
-```
+- spool: seeded with 2 traces (3 spans)
+- trace_id: trace-aaa
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-status: 200
-trace_id: trace-aaa
-span_count: 2
-```
+- status: 200
+- trace_id: trace-aaa
+- span_count: 2
 
 <!-- field: traces -->
 #### Traces
@@ -323,20 +320,16 @@ rel13.0-uc001-collector-family
 
 go test ./conformance -run TestDesignTokensImportsResolveCanonical/collector
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-canonical: applications/ui-kit/src/tokens.css
-consumer: agents/collector/ui/src/App.css
-```
+- canonical: applications/ui-kit/src/tokens.css
+- consumer: agents/collector/ui/src/App.css
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-drift: none
-```
+- drift: none
 
 <!-- field: traces -->
 #### Traces
@@ -360,19 +353,15 @@ rel13.0-uc001-collector-family
 
 cd ../.. && mage uiDist
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-ui_dir: agents/collector/ui
-```
+- ui_dir: agents/collector/ui
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-dist_diff: none
-```
+- dist_diff: none
 
 <!-- field: traces -->
 #### Traces
@@ -398,14 +387,12 @@ rel13.0-uc001-collector-family
 
 cd ../../../../agent-core && go test ./internal/tools/otlp
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-filesystem_default_unchanged: true
-purge_authority: app:purge
-automatic_teardown_deletion: false
-```
+- filesystem_default_unchanged: true
+- purge_authority: app:purge
+- automatic_teardown_deletion: false
 
 <!-- field: traces -->
 #### Traces
@@ -428,13 +415,11 @@ rel13.0-uc001-collector-family
 
 go test ./conformance -run TestCollectorUIStorageStatusContract
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-partial_is_not_empty_healthy: true
-unavailable_is_not_complete: true
-```
+- partial_is_not_empty_healthy: true
+- unavailable_is_not_complete: true
 
 <!-- field: traces -->
 #### Traces
@@ -460,14 +445,12 @@ rel13.0-uc001-collector-family
 
 go test ./conformance -run TestApplicationPurgeRefusesThenDeletesOnlyRenderedPrefix
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-refused_before_storage: true
-peer_prefix_unchanged: true
-external_audit_remaining: 0
-```
+- refused_before_storage: true
+- peer_prefix_unchanged: true
+- external_audit_remaining: 0
 
 <!-- field: traces -->
 #### Traces

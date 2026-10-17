@@ -31,13 +31,10 @@ Developer benchmarking model performance
 <!-- field: trigger -->
 ## Trigger
 
-```yaml
-|
-    A developer running the benchmark profile runs:
-      agent --profile "$AGENT_CATALOG_ROOT/evaluator/profile.yaml" \
-            --request testdata/integration/uc002-evaluator-benchmark/suite.yaml \
-            --output eval-results
-```
+A developer running the benchmark profile runs:
+  agent --profile "$AGENT_CATALOG_ROOT/evaluator/profile.yaml" \
+        --request testdata/integration/uc002-evaluator-benchmark/suite.yaml \
+        --output eval-results
 
 <!-- field: preconditions -->
 ## Preconditions

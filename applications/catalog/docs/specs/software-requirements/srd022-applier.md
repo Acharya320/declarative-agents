@@ -261,11 +261,9 @@ A guard test scans every rendered deploy argv and fails when a placeholder chart
 - R6.6
 - R6.7
 
-<!-- field: platform_dependencies -->
+<!-- field: platform_dependencies | form: "typed table" -->
 ## Platform dependencies
 
-```yaml
-- srd_id: srd003-application-consistency
-  provider: applications
-  symbols_used: [R2, R4, R5, R7]
-```
+| srd_id | provider | symbols_used |
+| --- | --- | --- |
+| srd003-application-consistency | applications | [R2, R4, R5, R7] |

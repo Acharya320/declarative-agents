@@ -42,36 +42,32 @@ rel05.0-uc001-qwen-monitor-token-progress
 
 mage integration:ollamaMonitor
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-model_family: qwen3
-prompt: List the local Ollama models available on this machine.
-monitor_routes:
-    - /monitor/state
-    - /monitor/metrics
-    - /monitor/control/exit
-token_metrics:
-    - llm.prompt_tokens
-    - llm.completion_tokens
-binding: isolated_loopback_address
-```
+- model_family: qwen3
+- prompt: List the local Ollama models available on this machine.
+- monitor_routes:
+  1. /monitor/state
+  1. /monitor/metrics
+  1. /monitor/control/exit
+- token_metrics:
+  1. llm.prompt_tokens
+  1. llm.completion_tokens
+- binding: isolated_loopback_address
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-request_prompt_passed_as_file: true
-startup_exit_preempts_readiness_timeout: true
-monitor_launch_non_blocking: true
-qwen_flow_continues_after_server_launched: true
-token_metric_present: true
-token_metric_total_increases: true
-process_running_while_polled: true
-control_exit_stops_monitor: true
-terminal_status_succeeded: true
-```
+- request_prompt_passed_as_file: true
+- startup_exit_preempts_readiness_timeout: true
+- monitor_launch_non_blocking: true
+- qwen_flow_continues_after_server_launched: true
+- token_metric_present: true
+- token_metric_total_increases: true
+- process_running_while_polled: true
+- control_exit_stops_monitor: true
+- terminal_status_succeeded: true
 
 <!-- field: traces -->
 #### Traces

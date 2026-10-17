@@ -374,13 +374,12 @@ Word and checkpoint databases are independently configured and cannot share one 
 - R7.5
 - R7.6
 
-<!-- field: test_trace_plan -->
+<!-- field: test_trace_plan | form: "typed table" -->
 ## Test trace plan
 
-```yaml
-- test_suite: test-rel14.0-agent-input-and-dolt
-  covers: [AC1, AC2, AC3, AC4, AC5, AC6, AC7]
-```
+| test_suite | covers |
+| --- | --- |
+| test-rel14.0-agent-input-and-dolt | [AC1, AC2, AC3, AC4, AC5, AC6, AC7] |
 
 <!-- field: related_documents -->
 ## Related documents
@@ -390,12 +389,10 @@ Word and checkpoint databases are independently configured and cannot share one 
 - docs/specs/software-requirements/srd027-rest-tool-runtime.md
 - docs/guides/rest-tool.md
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-specified:
-    - Trusted operation config, provision/query/write contracts, commit semantics, checkpoint separation, and real-Dolt proof obligations.
-implemented:
-    - "GH-1732: runtime words, declarations, unit tests, and mage integration:doltWord real-Dolt gate."
-```
+- specified:
+  1. Trusted operation config, provision/query/write contracts, commit semantics, checkpoint separation, and real-Dolt proof obligations.
+- implemented:
+  1. "GH-1732: runtime words, declarations, unit tests, and mage integration:doltWord real-Dolt gate."

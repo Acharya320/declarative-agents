@@ -32,90 +32,80 @@ alongside its requirement groups, and every acceptance criterion is covered by a
 test case. Every SRD is indexed and placed in ARCHITECTURE, every use case targets
 its SRDs through touchpoints, and every test suite traces its use case.
 
-<!-- field: role_alignment_index -->
+<!-- field: role_alignment_index | form: "tree" -->
 ## Role alignment index
 
-```yaml
-authority: ../../docs/specs/semantic-models/agent-role-realizations.md#bindings.chatbot_mesh
-architecture: docs/ARCHITECTURE.md#role_realization_alignment
-rule: Actors assume roles; profile, wrapper, Helm workload, and values-selected instance names are realization identities, not canonical role definitions.
-decisions:
-    - {current_actor: chatbot, canonical_role_sub_role: "Planner / Intent Handler; Executor / Workflow Orchestrator; Knowledge Manager / Recommendation Generator", retained_or_proposed_name: chatbot, evidence: srd002, migration_impact: none}
-    - {current_actor: rag-server, canonical_role_sub_role: "Knowledge Manager / Recommendation Generator", retained_or_proposed_name: rag-server, evidence: srd001, migration_impact: none}
-    - {current_actor: corpus-ingest, canonical_role_sub_role: "inherited Knowledge Manager / Ontology Manager", retained_or_proposed_name: corpus-ingest, evidence: "srd001 ingest boundary and wrapper profile", migration_impact: none}
-    - {current_actor: provisioning-workflow-orchestrator, canonical_role_sub_role: "Executor / Workflow Orchestrator; not Coordinator", retained_or_proposed_name: provisioning-workflow-orchestrator, evidence: srd004, migration_impact: GH-1077}
-    - {current_actor: creator, canonical_role_sub_role: "Creator / Instance Manager; Agent Owner / Agent Lifecycle Manager", retained_or_proposed_name: creator, evidence: srd005, migration_impact: none}
-    - {current_actor: applier, canonical_role_sub_role: "Executor / Actuation Agent and Change Manager", retained_or_proposed_name: applier, evidence: srd006, migration_impact: documentation-only}
-    - {current_actor: collector, canonical_role_sub_role: "Monitor / Telemetry Collector", retained_or_proposed_name: collector, evidence: srd007, migration_impact: none}
-    - {current_actor: observer, canonical_role_sub_role: "Monitor / Fleet Observer", retained_or_proposed_name: observer, evidence: srd008, migration_impact: none}
-deployment_evidence:
-    - helm/templates/chatbot.yaml
-    - helm/templates/rag-units.yaml
-    - helm/templates/provisioning-workflow-orchestrator.yaml
-    - helm/templates/creator.yaml
-    - helm/templates/applier.yaml
-    - helm/templates/collector.yaml
-    - helm/templates/observer.yaml
-```
+- authority: ../../docs/specs/semantic-models/agent-role-realizations.md#bindings.chatbot_mesh
+- architecture: docs/ARCHITECTURE.md#role_realization_alignment
+- rule: Actors assume roles; profile, wrapper, Helm workload, and values-selected instance names are realization identities, not canonical role definitions.
+- decisions:
+  1. - current_actor: chatbot
+     - canonical_role_sub_role: Planner / Intent Handler; Executor / Workflow Orchestrator; Knowledge Manager / Recommendation Generator
+     - retained_or_proposed_name: chatbot
+     - evidence: srd002
+     - migration_impact: none
+  1. - current_actor: rag-server
+     - canonical_role_sub_role: Knowledge Manager / Recommendation Generator
+     - retained_or_proposed_name: rag-server
+     - evidence: srd001
+     - migration_impact: none
+  1. - current_actor: corpus-ingest
+     - canonical_role_sub_role: inherited Knowledge Manager / Ontology Manager
+     - retained_or_proposed_name: corpus-ingest
+     - evidence: srd001 ingest boundary and wrapper profile
+     - migration_impact: none
+  1. - current_actor: provisioning-workflow-orchestrator
+     - canonical_role_sub_role: Executor / Workflow Orchestrator; not Coordinator
+     - retained_or_proposed_name: provisioning-workflow-orchestrator
+     - evidence: srd004
+     - migration_impact: GH-1077
+  1. - current_actor: creator
+     - canonical_role_sub_role: Creator / Instance Manager; Agent Owner / Agent Lifecycle Manager
+     - retained_or_proposed_name: creator
+     - evidence: srd005
+     - migration_impact: none
+  1. - current_actor: applier
+     - canonical_role_sub_role: Executor / Actuation Agent and Change Manager
+     - retained_or_proposed_name: applier
+     - evidence: srd006
+     - migration_impact: documentation-only
+  1. - current_actor: collector
+     - canonical_role_sub_role: Monitor / Telemetry Collector
+     - retained_or_proposed_name: collector
+     - evidence: srd007
+     - migration_impact: none
+  1. - current_actor: observer
+     - canonical_role_sub_role: Monitor / Fleet Observer
+     - retained_or_proposed_name: observer
+     - evidence: srd008
+     - migration_impact: none
+- deployment_evidence:
+  1. helm/templates/chatbot.yaml
+  1. helm/templates/rag-units.yaml
+  1. helm/templates/provisioning-workflow-orchestrator.yaml
+  1. helm/templates/creator.yaml
+  1. helm/templates/applier.yaml
+  1. helm/templates/collector.yaml
+  1. helm/templates/observer.yaml
 
-<!-- field: roadmap_summary -->
+<!-- field: roadmap_summary | form: "typed table" -->
 ## Roadmap summary
 
-```yaml
-- version: "00.0"
-  name: RAG server and single-RAG chatbot turn
-  use_cases_done: 2
-  use_cases_total: 2
-  status: implemented
-- version: "01.0"
-  name: Tier selection and multi-RAG fan-out
-  use_cases_done: 1
-  use_cases_total: 1
-  status: implemented
-- version: "02.0"
-  name: Observability
-  use_cases_done: 1
-  use_cases_total: 1
-  status: implemented
-- version: "03.0"
-  name: Mesh deployment and tiered swap
-  use_cases_done: 1
-  use_cases_total: 1
-  status: implemented
-- version: "04.0"
-  name: In-cluster LLM tier
-  use_cases_done: 1
-  use_cases_total: 1
-  status: implemented
-- version: "05.0"
-  name: Control plane
-  use_cases_done: 0
-  use_cases_total: 1
-  status: partial
-- version: "06.0"
-  name: Declarative applier agent
-  use_cases_done: 1
-  use_cases_total: 1
-  status: implemented
-- version: "07.0"
-  name: Declarative collector agent
-  use_cases_done: 0
-  use_cases_total: 1
-  status: partial
-- version: "08.0"
-  name: Fleet observer agent
-  use_cases_done: 0
-  use_cases_total: 1
-  status: planned
-- version: "09.0"
-  name: Canonical collector and Jaeger retirement
-  use_cases_done: 1
-  use_cases_total: 1
-  status: done
-```
+| version | name | use_cases_done | use_cases_total | status |
+| --- | --- | --- | --- | --- |
+| "00.0" | RAG server and single-RAG chatbot turn | 2 | 2 | implemented |
+| "01.0" | Tier selection and multi-RAG fan-out | 1 | 1 | implemented |
+| "02.0" | Observability | 1 | 1 | implemented |
+| "03.0" | Mesh deployment and tiered swap | 1 | 1 | implemented |
+| "04.0" | In-cluster LLM tier | 1 | 1 | implemented |
+| "05.0" | Control plane | 0 | 1 | partial |
+| "06.0" | Declarative applier agent | 1 | 1 | implemented |
+| "07.0" | Declarative collector agent | 0 | 1 | partial |
+| "08.0" | Fleet observer agent | 0 | 1 | planned |
+| "09.0" | Canonical collector and Jaeger retirement | 1 | 1 | done |
 
 <!-- field: srd_index -->
-## Srd index
+## SRD index
 
 | id | title | summary | path |
 | --- | --- | --- | --- |
@@ -144,56 +134,20 @@ deployment_evidence:
 | rel07.0-uc001-collector-ingress | The collector agent retains and relays an attributable trace batch | 07.0 | partial | test-rel07.0-collector | docs/specs/use-cases/rel07.0-uc001-collector-ingress.md |
 | rel08.0-uc001-mesh-observer | The observer agent discovers the mesh and shows a fleet view | 08.0 | implemented | test-rel08.0-observer | docs/specs/use-cases/rel08.0-uc001-mesh-observer.md |
 
-<!-- field: test_suite_index -->
+<!-- field: test_suite_index | form: "typed table" -->
 ## Test suite index
 
-```yaml
-- id: test-rel00.0-chatbot-mesh
-  title: Test Suite for Release 00.0 RAG Server and Single-RAG Chatbot Turn
-  release: "00.0"
-  traces: [rel00.0-uc001-rag-server-query, rel00.0-uc002-chatbot-turn]
-  path: docs/specs/test-suites/test-rel00.0-chatbot-mesh.md
-- id: test-rel01.0-routing-fanout
-  title: Test Suite for Release 01.0 Source Routing, Tier Selection, and Multi-RAG Fan-Out
-  release: "01.0"
-  traces: [rel01.0-uc001-routed-fanout]
-  path: docs/specs/test-suites/test-rel01.0-routing-fanout.md
-- id: test-rel02.0-observability
-  title: Test Suite for Release 02.0 Observability
-  release: "02.0"
-  traces: [rel02.0-uc001-observability]
-  path: docs/specs/test-suites/test-rel02.0-observability.md
-- id: test-rel03.0-mesh-deployment
-  title: Test Suite for Release 03.0 Mesh Deployment and Tiered Swap
-  release: "03.0"
-  traces: [rel03.0-uc001-mesh-deployment]
-  path: docs/specs/test-suites/test-rel03.0-mesh-deployment.md
-- id: test-rel04.0-llm-tier
-  title: Test Suite for Release 04.0 In-Cluster LLM Tier
-  release: "04.0"
-  traces: [rel04.0-uc001-in-cluster-llm-tier]
-  path: docs/specs/test-suites/test-rel04.0-llm-tier.md
-- id: test-rel05.0-control-plane
-  title: Test Suite for Release 05.0 Control Plane
-  release: "05.0"
-  traces: [rel05.0-uc001-control-plane-provisioning]
-  path: docs/specs/test-suites/test-rel05.0-control-plane.md
-- id: test-rel06.0-applier
-  title: Test Suite for Release 06.0 Declarative Applier Agent
-  release: "06.0"
-  traces: [rel06.0-uc001-declarative-applier]
-  path: docs/specs/test-suites/test-rel06.0-applier.md
-- id: test-rel07.0-collector
-  title: Test Suite for Release 07.0 Collector Agent
-  release: "07.0"
-  traces: [rel07.0-uc001-collector-ingress]
-  path: docs/specs/test-suites/test-rel07.0-collector.md
-- id: test-rel08.0-observer
-  title: Test Suite for Release 08.0 Observer Agent
-  release: "08.0"
-  traces: [rel08.0-uc001-mesh-observer]
-  path: docs/specs/test-suites/test-rel08.0-observer.md
-```
+| id | title | release | traces | path |
+| --- | --- | --- | --- | --- |
+| test-rel00.0-chatbot-mesh | Test Suite for Release 00.0 RAG Server and Single-RAG Chatbot Turn | "00.0" | [rel00.0-uc001-rag-server-query, rel00.0-uc002-chatbot-turn] | docs/specs/test-suites/test-rel00.0-chatbot-mesh.md |
+| test-rel01.0-routing-fanout | Test Suite for Release 01.0 Source Routing, Tier Selection, and Multi-RAG Fan-Out | "01.0" | [rel01.0-uc001-routed-fanout] | docs/specs/test-suites/test-rel01.0-routing-fanout.md |
+| test-rel02.0-observability | Test Suite for Release 02.0 Observability | "02.0" | [rel02.0-uc001-observability] | docs/specs/test-suites/test-rel02.0-observability.md |
+| test-rel03.0-mesh-deployment | Test Suite for Release 03.0 Mesh Deployment and Tiered Swap | "03.0" | [rel03.0-uc001-mesh-deployment] | docs/specs/test-suites/test-rel03.0-mesh-deployment.md |
+| test-rel04.0-llm-tier | Test Suite for Release 04.0 In-Cluster LLM Tier | "04.0" | [rel04.0-uc001-in-cluster-llm-tier] | docs/specs/test-suites/test-rel04.0-llm-tier.md |
+| test-rel05.0-control-plane | Test Suite for Release 05.0 Control Plane | "05.0" | [rel05.0-uc001-control-plane-provisioning] | docs/specs/test-suites/test-rel05.0-control-plane.md |
+| test-rel06.0-applier | Test Suite for Release 06.0 Declarative Applier Agent | "06.0" | [rel06.0-uc001-declarative-applier] | docs/specs/test-suites/test-rel06.0-applier.md |
+| test-rel07.0-collector | Test Suite for Release 07.0 Collector Agent | "07.0" | [rel07.0-uc001-collector-ingress] | docs/specs/test-suites/test-rel07.0-collector.md |
+| test-rel08.0-observer | Test Suite for Release 08.0 Observer Agent | "08.0" | [rel08.0-uc001-mesh-observer] | docs/specs/test-suites/test-rel08.0-observer.md |
 
 <!-- field: foundation_document_index -->
 ## Foundation document index
@@ -205,12 +159,10 @@ deployment_evidence:
 | chatbot-mesh-example-roadmap | Chatbot Mesh Example Road Map | Release plan and implementation status for the application. | docs/road-map.md |
 | chatbot-mesh-how-it-works | How the Chatbot Mesh Works | Operator and developer guide to the application flow. | docs/guides/how-it-works.md |
 
-<!-- field: config_format_index -->
+<!-- field: config_format_index | form: "scalar" -->
 ## Config format index
 
-```yaml
 []
-```
 
 <!-- field: semantic_model_index -->
 ## Semantic model index

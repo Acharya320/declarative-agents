@@ -39,24 +39,20 @@ rel12.0-uc001-spool-query
 
 go test ./internal/tools/otlp -run TestListTracesAcrossActiveAndRotated
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-rotated_file_spans: 1
-active_file_spans: 2
-traces: 2
-```
+- rotated_file_spans: 1
+- active_file_spans: 2
+- traces: 2
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: TracesListed
-total: 2
-first_trace_span_count: 2
-skipped_lines: 0
-```
+- signal: TracesListed
+- total: 2
+- first_trace_span_count: 2
+- skipped_lines: 0
 
 <!-- field: traces -->
 #### Traces
@@ -81,23 +77,19 @@ rel12.0-uc001-spool-query
 
 go test ./internal/tools/otlp -run TestListTracesPagination
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-total_traces: 5
-page_size: 2
-offset: 1
-```
+- total_traces: 5
+- page_size: 2
+- offset: 1
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: TracesListed
-total: 5
-returned: 2
-```
+- signal: TracesListed
+- total: 5
+- returned: 2
 
 <!-- field: traces -->
 #### Traces
@@ -121,21 +113,17 @@ rel12.0-uc001-spool-query
 
 go test ./internal/tools/otlp -run TestListTracesPageSizeCap
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-page_size: 50
-max_page_size: 5
-```
+- page_size: 50
+- max_page_size: 5
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: TracesListed
-effective_page_size: 5
-```
+- signal: TracesListed
+- effective_page_size: 5
 
 <!-- field: traces -->
 #### Traces
@@ -158,20 +146,16 @@ rel12.0-uc001-spool-query
 
 go test ./internal/tools/otlp -run TestListTracesEmptySpool
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-spool_exists: false
-```
+- spool_exists: false
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: TracesListed
-total: 0
-```
+- signal: TracesListed
+- total: 0
 
 <!-- field: traces -->
 #### Traces
@@ -195,22 +179,18 @@ rel12.0-uc001-spool-query
 
 go test ./internal/tools/otlp -run TestListTracesMalformedLineTolerance
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-malformed_lines: 2
-valid_spans: 1
-```
+- malformed_lines: 2
+- valid_spans: 1
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: TracesListed
-total: 1
-skipped_lines: 2
-```
+- signal: TracesListed
+- total: 1
+- skipped_lines: 2
 
 <!-- field: traces -->
 #### Traces
@@ -234,24 +214,20 @@ rel12.0-uc001-spool-query
 
 go test ./internal/tools/otlp -run TestGetTraceReturnsSpanDetails
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-total_spans: 3
-traces: 2
-query_trace: t1
-```
+- total_spans: 3
+- traces: 2
+- query_trace: t1
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: TraceRetrieved
-span_count: 2
-first_span_name: root
-first_span_parent: ""
-```
+- signal: TraceRetrieved
+- span_count: 2
+- first_span_name: root
+- first_span_parent: ""
 
 <!-- field: traces -->
 #### Traces
@@ -275,22 +251,18 @@ rel12.0-uc001-spool-query
 
 go test ./internal/tools/otlp -run TestGetTraceAcrossRotatedFiles
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-rotated_spans: 1
-active_spans: 1
-same_trace: true
-```
+- rotated_spans: 1
+- active_spans: 1
+- same_trace: true
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: TraceRetrieved
-span_count: 2
-```
+- signal: TraceRetrieved
+- span_count: 2
 
 <!-- field: traces -->
 #### Traces
@@ -314,20 +286,16 @@ rel12.0-uc001-spool-query
 
 go test ./internal/tools/otlp -run TestGetTraceUnknownTraceID
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-query_trace: nonexistent
-```
+- query_trace: nonexistent
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: TraceRetrieved
-span_count: 0
-```
+- signal: TraceRetrieved
+- span_count: 0
 
 <!-- field: traces -->
 #### Traces
@@ -350,19 +318,15 @@ rel12.0-uc001-spool-query
 
 go test ./internal/tools/otlp -run TestGetTraceEmptyTraceIDError
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-trace_id: ""
-```
+- trace_id: ""
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: CommandError
-```
+- signal: CommandError
 
 <!-- field: traces -->
 #### Traces
@@ -384,19 +348,15 @@ rel12.0-uc001-spool-query
 
 go test ./internal/tools/otlp -run TestListTracesEmptyPathError
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-path: ""
-```
+- path: ""
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: CommandError
-```
+- signal: CommandError
 
 <!-- field: traces -->
 #### Traces

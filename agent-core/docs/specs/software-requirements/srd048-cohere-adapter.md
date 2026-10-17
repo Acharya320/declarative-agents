@@ -313,22 +313,20 @@ Cohere spans expose provider, request and response model, server authority, usag
 - R6.6
 - R6.7
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-current: |
-    Superseded by srd058-provider-libraries R5.2. The compiled adapter in
-    internal/model/llm/cohere was removed after a capture-fixture parity run
-    (GH-2240). Cohere v2 chat is now the tools/providers/cohere library: its
-    chat-dialect.yaml declares the request, the text-block join, usage, the
-    failure map, and the COHERE_API_KEY bearer reference that R3 requires, and
-    invoke_llm reads it through the dialect client. provider: cohere resolves
-    to that dialect. R1.5 holds: embed and rerank stay REST-declared, now as the
-    library's fragments. The wire, credential, normalization, failure, and
-    tracing contracts are held by internal/tools/llm tests against the
-    captured adapter requests in testdata/parity.
-```
+- current:
+  Superseded by srd058-provider-libraries R5.2. The compiled adapter in
+  internal/model/llm/cohere was removed after a capture-fixture parity run
+  (GH-2240). Cohere v2 chat is now the tools/providers/cohere library: its
+  chat-dialect.yaml declares the request, the text-block join, usage, the
+  failure map, and the COHERE_API_KEY bearer reference that R3 requires, and
+  invoke_llm reads it through the dialect client. provider: cohere resolves
+  to that dialect. R1.5 holds: embed and rerank stay REST-declared, now as the
+  library's fragments. The wire, credential, normalization, failure, and
+  tracing contracts are held by internal/tools/llm tests against the
+  captured adapter requests in testdata/parity.
 
 <!-- field: related_documents -->
 ## Related documents
@@ -338,25 +336,23 @@ current: |
 - rel15.0-uc001-cohere-invoke
 - test-rel15.0-cohere-invoke
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      P[Ollama-only invoke_llm] --> G[Cohere adapter goals]
-      G --> R1[Adapter boundary]
-      G --> R2[v2 request]
-      G --> R3[Credential boundary]
-      G --> R4[Response normalization]
-      G --> R5[Provider selection]
-      G --> R6[Errors and observability]
-      R1 --> AC1
-      R2 --> AC1
-      R3 --> AC2
-      R4 --> AC3
-      R5 --> AC4
-      R6 --> AC5
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    P[Ollama-only invoke_llm] --> G[Cohere adapter goals]
+    G --> R1[Adapter boundary]
+    G --> R2[v2 request]
+    G --> R3[Credential boundary]
+    G --> R4[Response normalization]
+    G --> R5[Provider selection]
+    G --> R6[Errors and observability]
+    R1 --> AC1
+    R2 --> AC1
+    R3 --> AC2
+    R4 --> AC3
+    R5 --> AC4
+    R6 --> AC5
+  ```

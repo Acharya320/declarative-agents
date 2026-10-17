@@ -36,14 +36,12 @@ rel23.0-uc001-provider-failure-signals
 
 go test ./internal/tools/llm/... -run 'TestInvokeLLMEmitsMappedProviderFailure'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-unavailable_signal: ProviderUnavailable
-throttled_signal: ProviderThrottled
-unauthorized_signal: ProviderUnauthorized
-```
+- unavailable_signal: ProviderUnavailable
+- throttled_signal: ProviderThrottled
+- unauthorized_signal: ProviderUnauthorized
 
 <!-- field: traces -->
 #### Traces
@@ -67,13 +65,11 @@ rel23.0-uc001-provider-failure-signals
 
 go test ./internal/tools/llm/... -run 'TestInvokeLLMEmitsUnavailableOnTransportFailure'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-refused_connection_signal: ProviderUnavailable
-deadline_exceeded_signal: ProviderUnavailable
-```
+- refused_connection_signal: ProviderUnavailable
+- deadline_exceeded_signal: ProviderUnavailable
 
 <!-- field: traces -->
 #### Traces
@@ -97,14 +93,12 @@ rel23.0-uc001-provider-failure-signals
 
 go test ./internal/tools/llm/... -run 'TestInvokeLLMKeepsCommandErrorForUnclassifiedFailures'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-unmapped_status_signal: CommandError
-credential_fault_signal: CommandError
-decode_fault_signal: CommandError
-```
+- unmapped_status_signal: CommandError
+- credential_fault_signal: CommandError
+- decode_fault_signal: CommandError
 
 <!-- field: traces -->
 #### Traces
@@ -128,12 +122,10 @@ rel23.0-uc001-provider-failure-signals
 
 go test ./internal/tools/llm/... -run 'TestInvokeLLMDefaultsToCommandError'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-every_signal: CommandError
-```
+- every_signal: CommandError
 
 <!-- field: traces -->
 #### Traces
@@ -157,12 +149,10 @@ rel23.0-uc001-provider-failure-signals
 
 cd ../applications/catalog && mage bootSmoke
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-profiles_boot: true
-```
+- profiles_boot: true
 
 <!-- field: traces -->
 #### Traces
@@ -185,14 +175,12 @@ rel23.0-uc001-provider-failure-signals
 
 go test ./internal/tools/catalog/... -run 'TestProviderFailureOptInRequiresDeclaredEmits'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-load_fails: true
-message_names_word: true
-message_names_missing_signals: true
-```
+- load_fails: true
+- message_names_word: true
+- message_names_missing_signals: true
 
 <!-- field: traces -->
 #### Traces

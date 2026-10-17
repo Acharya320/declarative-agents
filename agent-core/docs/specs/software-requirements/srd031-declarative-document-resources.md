@@ -336,48 +336,44 @@ Resource operation requirements define list and get behavior, optional higher-le
 - docs/VISION.md
 - docs/ARCHITECTURE.md
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-implemented:
-    - agents/knowledge-manager/documentation-curator/request-machine.yaml selects reusable filesystem list_resource and read_resource words for the documentation corpus.
-    - Profile-declared find words expose recursive traversal; internal/tools/filesystem list_resource validates and shapes their paths while read_resource performs bounded reads.
-    - agents/knowledge-manager/documentation-curator owns the Knowledge Manager UI assets, request machine, REST route configuration, and action placement.
-    - Generic Go tests verify document resource config and machine_request trace metadata; applications/catalog owns the concrete browser proof for index, document detail, raw YAML, rendered HTML, and nested document path evidence.
-reserved:
-    - Top-level rest.document_resources and machine_request.document_resources are typed target-format fields. ValidateDefinition rejects both with explicit reserved-field errors. Current request machines use profile-selected filesystem resource ToolDefs until generic REST document resource loading is implemented.
-planned_follow_up: []
-```
+- implemented:
+  1. agents/knowledge-manager/documentation-curator/request-machine.yaml selects reusable filesystem list_resource and read_resource words for the documentation corpus.
+  1. Profile-declared find words expose recursive traversal; internal/tools/filesystem list_resource validates and shapes their paths while read_resource performs bounded reads.
+  1. agents/knowledge-manager/documentation-curator owns the Knowledge Manager UI assets, request machine, REST route configuration, and action placement.
+  1. Generic Go tests verify document resource config and machine_request trace metadata; applications/catalog owns the concrete browser proof for index, document detail, raw YAML, rendered HTML, and nested document path evidence.
+- reserved:
+  1. Top-level rest.document_resources and machine_request.document_resources are typed target-format fields. ValidateDefinition rejects both with explicit reserved-field errors. Current request machines use profile-selected filesystem resource ToolDefs until generic REST document resource loading is implemented.
+- planned_follow_up: []
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Knowledge Manager needs configured REST and machine_r..."] --> Goals["Goals: Declarative Document Resources"]
-      Goals --> R1["R1: Resource binding scope"]
-      Goals --> R2["R2: Corpus authority"]
-      Goals --> R3["R3: Path safety"]
-      Goals --> R4["R4: Resource operations"]
-      Goals --> R5["R5: Response modes"]
-      Goals --> R6["R6: UI actor configuration"]
-      AC1["AC1: The SRD defines declarative document resources that conne..."]
-      R1 --> AC1
-      AC2["AC2: The SRD states that direct Go documentation handlers are..."]
-      R1 --> AC2
-      R6 --> AC2
-      AC3["AC3: Corpus authority requirements cover roots, include patter..."]
-      R2 --> AC3
-      AC4["AC4: Path safety requirements cover normalization, traversal d..."]
-      R3 --> AC4
-      AC5["AC5: Response mode requirements cover raw YAML, parsed YAML, r..."]
-      R5 --> AC5
-      AC6["AC6: UI actor configuration requirements distinguish profile-o..."]
-      R6 --> AC6
-      AC7["AC7: Resource operation requirements define list and get behav..."]
-      R4 --> AC7
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Knowledge Manager needs configured REST and machine_r..."] --> Goals["Goals: Declarative Document Resources"]
+    Goals --> R1["R1: Resource binding scope"]
+    Goals --> R2["R2: Corpus authority"]
+    Goals --> R3["R3: Path safety"]
+    Goals --> R4["R4: Resource operations"]
+    Goals --> R5["R5: Response modes"]
+    Goals --> R6["R6: UI actor configuration"]
+    AC1["AC1: The SRD defines declarative document resources that conne..."]
+    R1 --> AC1
+    AC2["AC2: The SRD states that direct Go documentation handlers are..."]
+    R1 --> AC2
+    R6 --> AC2
+    AC3["AC3: Corpus authority requirements cover roots, include patter..."]
+    R2 --> AC3
+    AC4["AC4: Path safety requirements cover normalization, traversal d..."]
+    R3 --> AC4
+    AC5["AC5: Response mode requirements cover raw YAML, parsed YAML, r..."]
+    R5 --> AC5
+    AC6["AC6: UI actor configuration requirements distinguish profile-o..."]
+    R6 --> AC6
+    AC7["AC7: Resource operation requirements define list and get behav..."]
+    R4 --> AC7
+  ```

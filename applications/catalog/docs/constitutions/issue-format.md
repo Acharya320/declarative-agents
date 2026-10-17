@@ -73,48 +73,44 @@ runtime capability. Profiles configure behavior. agent-core executes it.
 - move
 - delete
 
-<!-- field: requirement_numbering -->
+<!-- field: requirement_numbering | form: "tree" -->
 ## Requirement numbering
 
-```yaml
-requirements: R1, R2, R3
-acceptance_criteria: AC1, AC2, AC3
-```
+- requirements: R1, R2, R3
+- acceptance_criteria: AC1, AC2, AC3
 
-<!-- field: issue_templates -->
+<!-- field: issue_templates | form: "tree" -->
 ## Issue templates
 
-```yaml
-documentation: |
-    deliverable_type: documentation
-    required_reading:
-      - docs/VISION.md
-      - docs/ARCHITECTURE.md
-    files:
-      - path: docs/path.yaml
-        action: create
-    requirements:
-      - id: R1
-        text: Define the document purpose and ownership boundary.
-    acceptance_criteria:
-      - id: AC1
-        text: The document parses as YAML and is indexed when applicable.
-migration: |
-    deliverable_type: migration
-    required_reading:
-      - docs/ARCHITECTURE.md
-      - ../../agent-core/path/to/source
-    files:
-      - path: agents/name/
-        action: create
-    requirements:
-      - id: R1
-        text: Move profile-owned files into the target path.
-    acceptance_criteria:
-      - id: AC1
-        text: The migrated profile loads from the demo.yaml catalog_root without
-          developer-specific absolute paths.
-```
+- documentation:
+  deliverable_type: documentation
+  required_reading:
+    - docs/VISION.md
+    - docs/ARCHITECTURE.md
+  files:
+    - path: docs/path.yaml
+      action: create
+  requirements:
+    - id: R1
+      text: Define the document purpose and ownership boundary.
+  acceptance_criteria:
+    - id: AC1
+      text: The document parses as YAML and is indexed when applicable.
+- migration:
+  deliverable_type: migration
+  required_reading:
+    - docs/ARCHITECTURE.md
+    - ../../agent-core/path/to/source
+  files:
+    - path: agents/name/
+      action: create
+  requirements:
+    - id: R1
+      text: Move profile-owned files into the target path.
+  acceptance_criteria:
+    - id: AC1
+      text: The migrated profile loads from the demo.yaml catalog_root without
+        developer-specific absolute paths.
 
 <!-- field: validation_notes -->
 ## Validation notes

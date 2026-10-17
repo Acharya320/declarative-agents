@@ -52,118 +52,121 @@ docs. Integration targets run when the issue changes profile behavior,
 machine routing, evaluator flow, bench behavior, lifecycle operations, or
 model-boundary config.
 
-<!-- field: go_test_style -->
+<!-- field: go_test_style | form: "tree" -->
 ## Go test style
 
-```yaml
-table_driven_tests:
-    rule: Use named rows and t.Run for repeated cases.
-    example: "tests := []struct {\n  name string\n  input string\n  want string\n}{\n  {name: \"empty\", input: \"\", want: \"\"},\n}\nfor _, tc := range tests {\n  t.Run(tc.name, func(t *testing.T) {\n    t.Parallel()\n    require.Equal(t, tc.want, transform(tc.input))\n  })\n}\n"
-parallelism:
-    use_t_parallel_when:
-        - The test uses only local values.
-        - The test writes only to its own t.TempDir.
-        - The test does not mutate global state.
-        - The test does not call os.Chdir.
-    do_not_parallelize_when:
-        - The test changes process working directory.
-        - The test mutates environment variables without isolated cleanup.
-        - The test uses shared package state.
-        - The test binds a fixed network port.
-helpers:
-    rules:
-        - Every helper calls t.Helper() first.
-        - Helpers create clear failure messages.
-        - Shared fixtures should be read-only.
-        - Use t.Cleanup for temporary process or filesystem state.
-assertions:
-    rules:
-        - Use require for setup failures and fatal preconditions.
-        - Use assert for independent checks after setup succeeds.
-        - Check error messages when the contract promises specific context.
-```
+- table_driven_tests:
+  - rule: Use named rows and t.Run for repeated cases.
+  - example:
+    tests := []struct {
+      name string
+      input string
+      want string
+    }{
+      {name: "empty", input: "", want: ""},
+    }
+    for _, tc := range tests {
+      t.Run(tc.name, func(t *testing.T) {
+        t.Parallel()
+        require.Equal(t, tc.want, transform(tc.input))
+      })
+    }
+- parallelism:
+  - use_t_parallel_when:
+    1. The test uses only local values.
+    1. The test writes only to its own t.TempDir.
+    1. The test does not mutate global state.
+    1. The test does not call os.Chdir.
+  - do_not_parallelize_when:
+    1. The test changes process working directory.
+    1. The test mutates environment variables without isolated cleanup.
+    1. The test uses shared package state.
+    1. The test binds a fixed network port.
+- helpers:
+  - rules:
+    1. Every helper calls t.Helper() first.
+    1. Helpers create clear failure messages.
+    1. Shared fixtures should be read-only.
+    1. Use t.Cleanup for temporary process or filesystem state.
+- assertions:
+  - rules:
+    1. Use require for setup failures and fatal preconditions.
+    1. Use assert for independent checks after setup succeeds.
+    1. Check error messages when the contract promises specific context.
 
-<!-- field: yaml_test_suites -->
-## Yaml test suites
+<!-- field: yaml_test_suites | form: "tree" -->
+## YAML test suites
 
-```yaml
-required_fields:
-    - id
-    - title
-    - release
-    - traces
-    - preconditions
-    - test_cases
-test_case_fields:
-    - use_case
-    - name
-    - go_test
-    - inputs
-    - expected
-    - traces
-trace_formats:
-    srd_acceptance: srdNNN-name ACN
-    srd_requirement: srdNNN-name RN.N
-    use_case_success: relNN.N-ucNNN-name SN
-```
+- required_fields:
+  1. id
+  1. title
+  1. release
+  1. traces
+  1. preconditions
+  1. test_cases
+- test_case_fields:
+  1. use_case
+  1. name
+  1. go_test
+  1. inputs
+  1. expected
+  1. traces
+- trace_formats:
+  - srd_acceptance: srdNNN-name ACN
+  - srd_requirement: srdNNN-name RN.N
+  - use_case_success: relNN.N-ucNNN-name SN
 
-<!-- field: mage_targets -->
+<!-- field: mage_targets | form: "tree" -->
 ## Mage targets
 
-```yaml
-unit: go test ./...
-build: go build ./...
-vet: go vet ./...
-lint: mage lint
-audit: mage audit
-integration:
-    - mage integration:monitor
-    - mage integration:ollamaRest
-    - mage integration:ollamaMonitor
-    - mage integration:dolt
-    - mage integration:doltWord
-    - mage integration:all
-```
+- unit: go test ./...
+- build: go build ./...
+- vet: go vet ./...
+- lint: mage lint
+- audit: mage audit
+- integration:
+  1. mage integration:monitor
+  1. mage integration:ollamaRest
+  1. mage integration:ollamaMonitor
+  1. mage integration:dolt
+  1. mage integration:doltWord
+  1. mage integration:all
 
-<!-- field: quality_gates -->
+<!-- field: quality_gates | form: "tree" -->
 ## Quality gates
 
-```yaml
-code:
-    - go build ./...
-    - go vet ./...
-    - mage lint
-    - go test ./...
-documentation:
-    - mage audit
-    - bash .cursor/skills/de-ai/scripts/detect-lexical.sh <touched-doc>
-    - python3 .cursor/skills/de-ai/scripts/detect-structural.py <touched-doc>
-```
+- code:
+  1. go build ./...
+  1. go vet ./...
+  1. mage lint
+  1. go test ./...
+- documentation:
+  1. mage audit
+  1. bash .cursor/skills/de-ai/scripts/detect-lexical.sh <touched-doc>
+  1. python3 .cursor/skills/de-ai/scripts/detect-structural.py <touched-doc>
 
-<!-- field: documentation_de_ai_scope -->
+<!-- field: documentation_de_ai_scope | form: "tree" -->
 ## Documentation de ai scope
 
-```yaml
-lexical: Full touched-document lexical scans are blocking for documentation issues.
-structural: |
-    Structural scans are blocking for touched prose blocks in Markdown and YAML
-    block scalars when they report suspicious or likely-ai prose that can be
-    rewritten without changing formal meaning.
+- lexical: Full touched-document lexical scans are blocking for documentation issues.
+- structural:
+  Structural scans are blocking for touched prose blocks in Markdown and YAML
+  block scalars when they report suspicious or likely-ai prose that can be
+  rewritten without changing formal meaning.
 
-    Formal reference docs may keep whole-file structural warnings caused by
-    required YAML shape. Required lists, field inventories, trace matrices, and
-    examples can trigger those metrics. Compact status sections may show the
-    same pattern. Accept residual warnings about list density and punctuation
-    density when lexical scans are clean.
-    The same exception covers inline inventories, parenthetical text, and
-    paragraph length when three focused rewrite passes would make the reference
-    less precise.
-close_comment: Record any accepted formal-document residuals in the issue stats comment.
-config_or_profile:
-    - mage audit
-    - go test ./...
-    - relevant mage integration target when profile behavior changes
-```
+  Formal reference docs may keep whole-file structural warnings caused by
+  required YAML shape. Required lists, field inventories, trace matrices, and
+  examples can trigger those metrics. Compact status sections may show the
+  same pattern. Accept residual warnings about list density and punctuation
+  density when lexical scans are clean.
+  The same exception covers inline inventories, parenthetical text, and
+  paragraph length when three focused rewrite passes would make the reference
+  less precise.
+- close_comment: Record any accepted formal-document residuals in the issue stats comment.
+- config_or_profile:
+  1. mage audit
+  1. go test ./...
+  1. relevant mage integration target when profile behavior changes
 
 <!-- field: coverage_notes -->
 ## Coverage notes

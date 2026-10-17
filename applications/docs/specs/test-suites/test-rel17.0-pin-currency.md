@@ -7,12 +7,10 @@ status: implemented
 <!-- Copyright (c) 2026 Nokia -->
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
 
-<!-- field: test_case_count -->
+<!-- field: test_case_count | form: "scalar" -->
 ## Test case count
 
-```yaml
 9
-```
 
 <!-- field: overview -->
 ## Overview
@@ -47,7 +45,7 @@ suite fail on somebody else's release day.
 ### Release 17.0 documents parse and trace reciprocally
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC1
 
@@ -64,97 +62,94 @@ executable_structural
 <!-- field: command -->
 #### Command
 
-```yaml
-|
-    python3 - <<'PY'
-    from pathlib import Path
-    import subprocess
-    import yaml
+```bash
+python3 - <<'PY'
+from pathlib import Path
+import subprocess
+import yaml
 
-    root = Path("applications/docs")
-    paths = {
-        "srd": root / "specs/software-requirements/srd006-pin-currency.md",
-        "use_case": root / "specs/use-cases/rel17.0-uc001-pin-currency.md",
-        "suite": root / "specs/test-suites/test-rel17.0-pin-currency.md",
-        "index": root / "SPECIFICATIONS.md",
-        "roadmap": root / "road-map.md",
-        "guideline": Path("docs/engineering/eng01-kind-test-demo-rig.md"),
-    }
-    def load(path):
-        # A corpus document is Markdown; mage specYAML prints the YAML tree
-        # its declaration parses it into (GH-2627).
-        out = subprocess.run(["mage", "specYAML", str(path)], cwd="agent-core",
-                             check=True, capture_output=True, text=True).stdout
-        return yaml.safe_load(out)
+root = Path("applications/docs")
+paths = {
+    "srd": root / "specs/software-requirements/srd006-pin-currency.md",
+    "use_case": root / "specs/use-cases/rel17.0-uc001-pin-currency.md",
+    "suite": root / "specs/test-suites/test-rel17.0-pin-currency.md",
+    "index": root / "SPECIFICATIONS.md",
+    "roadmap": root / "road-map.md",
+    "guideline": Path("docs/engineering/eng01-kind-test-demo-rig.md"),
+}
+def load(path):
+    # A corpus document is Markdown; mage specYAML prints the YAML tree
+    # its declaration parses it into (GH-2627).
+    out = subprocess.run(["mage", "specYAML", str(path)], cwd="agent-core",
+                         check=True, capture_output=True, text=True).stdout
+    return yaml.safe_load(out)
 
-    docs = {name: load(path) for name, path in paths.items()}
-    required = {
-        "srd": {"id", "title", "problem", "goals", "requirements",
-                "non_goals", "acceptance_criteria"},
-        "use_case": {"id", "title", "summary", "actor", "trigger", "flow",
-                     "touchpoints", "success_criteria", "out_of_scope"},
-        "suite": {"id", "title", "release", "traces", "preconditions",
-                  "test_cases"},
-        "guideline": {"id", "title", "introduction", "sections", "references"},
-    }
-    for name, fields in required.items():
-        assert not fields - set(docs[name]), (name, fields - set(docs[name]))
+docs = {name: load(path) for name, path in paths.items()}
+required = {
+    "srd": {"id", "title", "problem", "goals", "requirements",
+            "non_goals", "acceptance_criteria"},
+    "use_case": {"id", "title", "summary", "actor", "trigger", "flow",
+                 "touchpoints", "success_criteria", "out_of_scope"},
+    "suite": {"id", "title", "release", "traces", "preconditions",
+              "test_cases"},
+    "guideline": {"id", "title", "introduction", "sections", "references"},
+}
+for name, fields in required.items():
+    assert not fields - set(docs[name]), (name, fields - set(docs[name]))
 
-    srd, use_case, suite = docs["srd"], docs["use_case"], docs["suite"]
-    assert use_case["test_suite"] == suite["id"]
-    assert use_case["id"] in suite["traces"]
-    assert use_case["id"] in srd["use_case_traces"]
-    assert suite["id"] in srd["test_suite_traces"]
+srd, use_case, suite = docs["srd"], docs["use_case"], docs["suite"]
+assert use_case["test_suite"] == suite["id"]
+assert use_case["id"] in suite["traces"]
+assert use_case["id"] in srd["use_case_traces"]
+assert suite["id"] in srd["test_suite_traces"]
 
-    item_ids = {
-        item["id"]
-        for group in srd["requirements"].values()
-        for item in group["items"]
-    }
-    ac_traces = {t for ac in srd["acceptance_criteria"] for t in ac["traces"]}
-    assert item_ids <= ac_traces, sorted(item_ids - ac_traces)
-    ac_ids = {ac["id"] for ac in srd["acceptance_criteria"]}
-    case_traces = {
-        t.rsplit(" ", 1)[-1]
-        for case in suite["test_cases"]
-        for t in case.get("traces", [])
-        if t.startswith(srd["id"] + " ")
-    }
-    assert ac_ids <= case_traces, sorted(ac_ids - case_traces)
-    assert len(suite["test_cases"]) == suite["test_case_count"]
+item_ids = {
+    item["id"]
+    for group in srd["requirements"].values()
+    for item in group["items"]
+}
+ac_traces = {t for ac in srd["acceptance_criteria"] for t in ac["traces"]}
+assert item_ids <= ac_traces, sorted(item_ids - ac_traces)
+ac_ids = {ac["id"] for ac in srd["acceptance_criteria"]}
+case_traces = {
+    t.rsplit(" ", 1)[-1]
+    for case in suite["test_cases"]
+    for t in case.get("traces", [])
+    if t.startswith(srd["id"] + " ")
+}
+assert ac_ids <= case_traces, sorted(ac_ids - case_traces)
+assert len(suite["test_cases"]) == suite["test_case_count"]
 
-    titles = [section["title"] for section in docs["guideline"]["sections"]]
-    assert "Pin currency" in titles, titles
-    verbs = next(s for s in docs["guideline"]["sections"]
-                 if s["title"] == "Standard mage verbs")["content"]
-    assert "| bump |" in verbs, "the root verb table does not carry bump"
-    currency = next(s for s in docs["guideline"]["sections"]
-                    if s["title"] == "Pin currency")["content"]
-    assert srd["id"] in currency
+titles = [section["title"] for section in docs["guideline"]["sections"]]
+assert "Pin currency" in titles, titles
+verbs = next(s for s in docs["guideline"]["sections"]
+             if s["title"] == "Standard mage verbs")["content"]
+assert "| bump |" in verbs, "the root verb table does not carry bump"
+currency = next(s for s in docs["guideline"]["sections"]
+                if s["title"] == "Pin currency")["content"]
+assert srd["id"] in currency
 
-    index = docs["index"]
-    assert any(e["id"] == srd["id"] for e in index["srd_index"])
-    assert any(e["id"] == use_case["id"] for e in index["use_case_index"])
-    assert any(e["id"] == suite["id"] for e in index["test_suite_index"])
-    assert any(e["version"] == "17.0" for e in index["roadmap_summary"])
-    release = next(r for r in docs["roadmap"]["releases"] if r["version"] == "17.0")
-    assert any(e["id"] == use_case["id"] for e in release["use_cases"])
-    assert any(e["id"] == suite["id"] for e in release["test_suites"])
-    print("validated Release 17.0 pin currency trace closure")
-    PY
+index = docs["index"]
+assert any(e["id"] == srd["id"] for e in index["srd_index"])
+assert any(e["id"] == use_case["id"] for e in index["use_case_index"])
+assert any(e["id"] == suite["id"] for e in index["test_suite_index"])
+assert any(e["version"] == "17.0" for e in index["roadmap_summary"])
+release = next(r for r in docs["roadmap"]["releases"] if r["version"] == "17.0")
+assert any(e["id"] == use_case["id"] for e in release["use_cases"])
+assert any(e["id"] == suite["id"] for e in release["test_suites"])
+print("validated Release 17.0 pin currency trace closure")
+PY
 ```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-yaml_parses: true
-design_constitution_fields_present: true
-requirement_to_acceptance_criterion_closure: true
-reciprocal_srd_use_case_suite_traces: true
-guideline_carries_the_section_and_the_verb: true
-specification_and_roadmap_indexes_present: true
-```
+- yaml_parses: true
+- design_constitution_fields_present: true
+- requirement_to_acceptance_criterion_closure: true
+- reciprocal_srd_use_case_suite_traces: true
+- guideline_carries_the_section_and_the_verb: true
+- specification_and_roadmap_indexes_present: true
 
 <!-- field: traces -->
 #### Traces
@@ -166,7 +161,7 @@ specification_and_roadmap_indexes_present: true
 ### The inventory derives chart pins and declares the rest
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC2
 
@@ -188,17 +183,17 @@ GH-2416
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./pinsurvey/... .
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-chart_pins_read_from_rendered_charts: true
-chart_pins_not_restated_in_any_list: true
-declared_list_covers_kindrig_node_image_and_smoke_registry: true
-every_declared_entry_names_file_and_symbol: true
-```
+- chart_pins_read_from_rendered_charts: true
+- chart_pins_not_restated_in_any_list: true
+- declared_list_covers_kindrig_node_image_and_smoke_registry: true
+- every_declared_entry_names_file_and_symbol: true
 
 <!-- field: traces -->
 #### Traces
@@ -210,7 +205,7 @@ every_declared_entry_names_file_and_symbol: true
 ### A declared entry that no longer describes its location fails
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC3
 
@@ -232,15 +227,15 @@ GH-2416
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestDeclaredPins
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-moved_or_renamed_pin_fails_the_test: true
-failure_names_the_entry_and_the_location: true
-```
+- moved_or_renamed_pin_fails_the_test: true
+- failure_names_the_entry_and_the_location: true
 
 <!-- field: traces -->
 #### Traces
@@ -252,7 +247,7 @@ failure_names_the_entry_and_the_location: true
 ### A re-pushed tag is reported as moved, ahead of staleness
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC4
 
@@ -274,16 +269,16 @@ GH-2416
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./pinsurvey/...
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-digest_mismatch_reported_as_moved: true
-report_lists_moved_before_behind: true
-both_digests_named: true
-```
+- digest_mismatch_reported_as_moved: true
+- report_lists_moved_before_behind: true
+- both_digests_named: true
 
 <!-- field: traces -->
 #### Traces
@@ -295,7 +290,7 @@ both_digests_named: true
 ### A newer release is reported with both versions
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC5
 
@@ -317,16 +312,16 @@ GH-2416
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./pinsurvey/...
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-newer_tag_reported_as_behind: true
-pinned_and_newest_versions_named: true
-tag_list_pagination_followed: true
-```
+- newer_tag_reported_as_behind: true
+- pinned_and_newest_versions_named: true
+- tag_list_pagination_followed: true
 
 <!-- field: traces -->
 #### Traces
@@ -338,7 +333,7 @@ tag_list_pagination_followed: true
 ### Version comparison applies to semantic versions only
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC6
 
@@ -360,16 +355,16 @@ GH-2416
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./pinsurvey/...
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-v_prefixed_and_bare_semver_compared: true
-non_version_tag_compared_on_integrity_alone: true
-prerelease_does_not_count_as_newer: true
-```
+- v_prefixed_and_bare_semver_compared: true
+- non_version_tag_compared_on_integrity_alone: true
+- prerelease_does_not_count_as_newer: true
 
 <!-- field: traces -->
 #### Traces
@@ -381,7 +376,7 @@ prerelease_does_not_count_as_newer: true
 ### An unreachable registry reports unknown, never current
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC7
 
@@ -403,17 +398,17 @@ GH-2416
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./pinsurvey/...
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-registry_error_reported_as_unknown: true
-absent_tag_reported_as_unknown: true
-unknown_not_counted_among_current: true
-reason_named_in_the_finding: true
-```
+- registry_error_reported_as_unknown: true
+- absent_tag_reported_as_unknown: true
+- unknown_not_counted_among_current: true
+- reason_named_in_the_finding: true
 
 <!-- field: traces -->
 #### Traces
@@ -425,7 +420,7 @@ reason_named_in_the_finding: true
 ### The target reports and writes nothing
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC8
 
@@ -447,17 +442,17 @@ GH-2416
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestBump
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-working_tree_unchanged_across_a_run: true
-exit_zero_with_moved_and_behind_pins: true
-audit_does_not_invoke_the_target: true
-no_test_reaches_the_network: true
-```
+- working_tree_unchanged_across_a_run: true
+- exit_zero_with_moved_and_behind_pins: true
+- audit_does_not_invoke_the_target: true
+- no_test_reaches_the_network: true
 
 <!-- field: traces -->
 #### Traces
@@ -469,7 +464,7 @@ no_test_reaches_the_network: true
 ### Authentication and reference parsing reach the real registries
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC9
 
@@ -491,17 +486,17 @@ GH-2416
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./pinsurvey/...
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-unauthenticated_request_succeeds_where_allowed: true
-challenge_then_token_then_retry: true
-bare_repository_resolves_under_library: true
-finding_names_location_recorded_and_upstream_values: true
-```
+- unauthenticated_request_succeeds_where_allowed: true
+- challenge_then_token_then_retry: true
+- bare_repository_resolves_under_library: true
+- finding_names_location_recorded_and_upstream_values: true
 
 <!-- field: traces -->
 #### Traces

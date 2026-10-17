@@ -39,14 +39,12 @@ rel16.0-uc001-pipeline-word
 
 go test ./internal/tools/pipeline -run TestPipelineChainsStagesAndEmitsTheConfiguredSignal
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: CandidatesComposed
-output: final stage's rendered JSON document
-interior_signals_visible: false
-```
+- signal: CandidatesComposed
+- output: final stage's rendered JSON document
+- interior_signals_visible: false
 
 <!-- field: traces -->
 #### Traces
@@ -71,13 +69,11 @@ rel16.0-uc001-pipeline-word
 
 go test ./internal/tools/pipeline -run TestPipelineStagesReadPriorStepsThroughTheInjectedView
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-from_selector_resolved: true
-current_value_resolved: true
-```
+- from_selector_resolved: true
+- current_value_resolved: true
 
 <!-- field: traces -->
 #### Traces
@@ -104,13 +100,11 @@ rel16.0-uc001-pipeline-word
 
 go test ./internal/tools/pipeline -run TestPipelineMisconfigurationFailsRegistration
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-registration_errors: 4
-errors_name_stage: true
-```
+- registration_errors: 4
+- errors_name_stage: true
 
 <!-- field: traces -->
 #### Traces
@@ -136,15 +130,13 @@ rel16.0-uc001-pipeline-word
 
 go test ./internal/tools/pipeline -run TestPipelineStageFailureNamesTheStageAndDegradationFlowsThrough
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-failure_signal: CommandError
-failure_names_stage: true
-later_stages_ran: false
-degraded_signal: configured signal
-```
+- failure_signal: CommandError
+- failure_names_stage: true
+- later_stages_ran: false
+- degraded_signal: configured signal
 
 <!-- field: traces -->
 #### Traces
@@ -169,13 +161,13 @@ rel16.0-uc001-pipeline-word
 
 go test ./internal/tools/registry ./internal/tools/pipeline -run 'Test(SelectedBuiltinInitsCoSelectPipelineStages|StandardFactoryCatalogSelectsEveryRegisteredInit)'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-pipeline_selected: true
-stage_inits_selected: [render_each, parse_structured]
-```
+- pipeline_selected: true
+- stage_inits_selected:
+  1. render_each
+  1. parse_structured
 
 <!-- field: traces -->
 #### Traces

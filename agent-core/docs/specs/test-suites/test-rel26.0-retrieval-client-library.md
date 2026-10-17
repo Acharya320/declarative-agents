@@ -35,14 +35,12 @@ rel26.0-uc001-retrieval-client-library
 
 go test ./internal/tools/rest/... -run 'TestRetrievalQueryClientFragment'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-path_follows_route_prefix: true
-output_carries_five_fields: true
-missing_argument_names_parameter: true
-```
+- path_follows_route_prefix: true
+- output_carries_five_fields: true
+- missing_argument_names_parameter: true
 
 <!-- field: traces -->
 #### Traces
@@ -66,14 +64,12 @@ rel26.0-uc001-retrieval-client-library
 
 go test ./internal/tools/rest/... -run 'TestRetrievalQueryClientFragment'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-status_200_signal: QueryResponded
-status_400_signal: QueryRejected
-side_effect: external_api read_only
-```
+- status_200_signal: QueryResponded
+- status_400_signal: QueryRejected
+- side_effect: external_api read_only
 
 <!-- field: traces -->
 #### Traces
@@ -97,13 +93,11 @@ rel26.0-uc001-retrieval-client-library
 
 go test ./internal/tools/rest/... ./internal/load/... -run 'TestRetrievalQueryClientFragment|TestLoadClosureResolvesTheShippedQueryResult'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-loads_without_declared_root: true
-no_field_beyond_core_request: true
-```
+- loads_without_declared_root: true
+- no_field_beyond_core_request: true
 
 <!-- field: traces -->
 #### Traces
@@ -127,14 +121,12 @@ rel26.0-uc001-retrieval-client-library
 
 mage audit
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-local_query_operations: 0
-chat_behavior_unchanged: true
-metadatas_returned: true
-```
+- local_query_operations: 0
+- chat_behavior_unchanged: true
+- metadatas_returned: true
 
 <!-- field: traces -->
 #### Traces

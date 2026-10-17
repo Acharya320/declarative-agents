@@ -63,6 +63,7 @@ document_types:
         suppliers: {in: [document_field], shape: table, columns: [name, city]}
         steps: {in: [document_field], shape: empty}
         checks: {in: [step_field], shape: list}
+        method: {in: [document_field], code: bash}
       required_fields: [description, steps]
       attributes: {minutes: integer, tags: list}
 `
@@ -192,7 +193,8 @@ func TestEachConversionPrintsItsShape(t *testing.T) {
 		{"outline nested items", "timeline:\n  - id: T1\n    text: Boil.\n    owner: cook\n    checks: [a, b]\n",
 			"- T1: Boil.\n  - owner: cook\n  - checks:\n    - a\n    - b"},
 		{"record table", "suppliers:\n  - {name: Market, city: Paris}\n", "| name | city |"},
-		{"fenced yaml", "notes:\n  deep: {a: 1}\n", "```yaml"},
+		{"tree", "notes:\n  deep: {a: 1}\n", "<!-- field: notes | form: \"tree\" -->\n## Notes\n\n- deep:\n  - a: 1"},
+		{"fenced yaml", "notes:\n  body: \"\\nopens with a blank line\\nsecond\"\n", "```yaml"},
 		{"list records under a field", "", "<!-- step: S1 -->\n### S1"},
 		{"map records", "courses:\n  C1:\n    title: Starter\n", "<!-- course: C1 -->\n## C1 - Starter"},
 		{"keyed records", "courses:\n  C1:\n    dishes:\n      - C1.1: Bread.\n", "<!-- dish: C1.1 -->\n### C1.1\n\nBread."},

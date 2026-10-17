@@ -137,19 +137,17 @@ Runtime-state-reader outputs and terminal outcomes are checkable by mounted exec
 - R3.1
 - R3.2
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Runtime-state reader needs a distinct adapter contract..."] --> Goals["Goals: Runtime State Reader Functional Block"]
-      Goals --> R1["R1: Behavior model"]
-      Goals --> R2["R2: Inputs, tools, and runtime dependencies"]
-      Goals --> R3["R3: Outputs and outcomes"]
-      R1 --> AC1["AC1: Infrastructure adapter with control shutdown"]
-      R2 --> AC2["AC2: Inputs, tools, dependencies named"]
-      R3 --> AC3["AC3: Outputs and outcomes checkable"]
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Runtime-state reader needs a distinct adapter contract..."] --> Goals["Goals: Runtime State Reader Functional Block"]
+    Goals --> R1["R1: Behavior model"]
+    Goals --> R2["R2: Inputs, tools, and runtime dependencies"]
+    Goals --> R3["R3: Outputs and outcomes"]
+    R1 --> AC1["AC1: Infrastructure adapter with control shutdown"]
+    R2 --> AC2["AC2: Inputs, tools, dependencies named"]
+    R3 --> AC3["AC3: Outputs and outcomes checkable"]
+  ```

@@ -35,13 +35,11 @@ rel17.0-uc001-declaration-imports
 
 go test ./internal/tools/catalog ./internal/tools/rest/definition -run TestDeclarationImportChain
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-canonical_sources_read_once: true
-traversal: first-discovery depth-first postorder
-```
+- canonical_sources_read_once: true
+- traversal: first-discovery depth-first postorder
 
 <!-- field: traces -->
 #### Traces
@@ -64,13 +62,11 @@ rel17.0-uc001-declaration-imports
 
 go test ./internal/tools/catalog -run TestToolDeclarationImportFailures
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-every_error_names_unit_and_path: true
-imported_collision_precedes_override: true
-```
+- every_error_names_unit_and_path: true
+- imported_collision_precedes_override: true
 
 <!-- field: traces -->
 #### Traces
@@ -93,13 +89,11 @@ rel17.0-uc001-declaration-imports
 
 go test ./internal/tools/catalog -run TestToolDeclarationLocalOverride
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-target_count: 1
-provenance: local unit
-```
+- target_count: 1
+- provenance: local unit
 
 <!-- field: traces -->
 #### Traces
@@ -122,13 +116,11 @@ rel17.0-uc001-declaration-imports
 
 go test ./internal/tools/rest/definition -run TestRESTDeclarationImports
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-all_families_merged: true
-openapi_base: declaring source
-```
+- all_families_merged: true
+- openapi_base: declaring source
 
 <!-- field: traces -->
 #### Traces
@@ -151,13 +143,11 @@ rel17.0-uc001-declaration-imports
 
 go test ./internal/load -run TestDeclarationImportUsedness
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-used_edges_accepted: true
-unused_error_order: importer then imported unit then path
-```
+- used_edges_accepted: true
+- unused_error_order: importer then imported unit then path
 
 <!-- field: traces -->
 #### Traces
@@ -180,13 +170,11 @@ rel17.0-uc001-declaration-imports
 
 go test ./internal/tools/catalog ./internal/load -run TestLegacyIncludesCompatibility
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-warnings_per_canonical_includer: 1
-mixed_closure_rejected: true
-```
+- warnings_per_canonical_includer: 1
+- mixed_closure_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -209,13 +197,11 @@ rel17.0-uc001-declaration-imports
 
 go test ./cmd/agent ./internal/load -run 'TestDeclarationImportEntryPaths|TestControlImportsDump'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-diagnostic_implementations: 1
-normalized_control_dump_equal: true
-```
+- diagnostic_implementations: 1
+- normalized_control_dump_equal: true
 
 <!-- field: traces -->
 #### Traces

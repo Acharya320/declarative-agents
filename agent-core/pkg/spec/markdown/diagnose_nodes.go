@@ -51,6 +51,9 @@ func (d *diagnosis) heading(b Block, level int, heading string) {
 	d.finishFrom(level)
 	node := &dnode{kind: kind, tag: m.Tag, id: m.Value, level: level, line: line,
 		markerLine: markerLine, fields: map[string]bool{}}
+	if m.Tag == tagField {
+		node.form = markerForm(m)
+	}
 	d.counts[kind]++
 	d.checkNode(node, m, heading)
 	d.stack[level] = node
@@ -148,6 +151,13 @@ func (d *diagnosis) checkField(node *dnode) {
 func (d *diagnosis) checkAttributes(node *dnode, m Marker) {
 	allowed := d.rules.Nodes[node.kind].Attributes
 	for _, a := range m.Attrs {
+		if node.tag == tagField && a.Key == attrForm {
+			if form := markerForm(m); form != formScalar && form != formTypedTable && form != formTree {
+				d.add("attribute-shape", node.markerLine, "form as scalar, typed table, or tree", a.Value,
+					"eng10 typed forms", `write form: "scalar", "typed table", or "tree"`)
+			}
+			continue
+		}
 		if !contains(allowed, a.Key) {
 			d.add("marker-unknown-attribute", node.markerLine, "an attribute "+node.kind+" declares", a.Key,
 				"nodes."+node.kind+".attributes", suggest(a.Key, allowed))
@@ -229,6 +239,13 @@ func (d *diagnosis) checkShape(node *dnode) {
 	if shape == shapeEmpty && (field.Shape == shapeList || field.Shape == shapeTable) {
 		return // a list or table with no entries
 	}
+	if field.Code != "" {
+		if !codeFieldReadable(field.Code, content) {
+			d.add("field-shape-mismatch", line, node.id+" as one "+field.Code+" fence", shape,
+				"fields."+node.id+".code", "write "+node.id+" as one ```"+field.Code+" fenced block")
+		}
+		return
+	}
 	if shape != field.Shape && (field.Shape != shapeProse || shape != shapeYAML) {
 		d.add("field-shape-mismatch", line, node.id+" as "+field.Shape, shape, "fields."+node.id+".shape",
 			"write "+node.id+" as "+field.Shape)
@@ -271,8 +288,10 @@ func (d *diagnosis) contentText(node *dnode) string {
 
 // proseContainment reports RFC 2119 keywords in paragraphs and lists outside
 // any req-tagged block; code blocks are not prose.
+// A typed form holds data, as the fenced yaml block it replaced did, so
+// containment reads neither (eng10, prose containment; GH-2642).
 func (d *diagnosis) proseContainment(node *dnode) {
-	if d.rules.keywordRegexp == nil {
+	if d.rules.keywordRegexp == nil || node.form != "" {
 		return
 	}
 	for _, b := range node.content {

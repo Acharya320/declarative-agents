@@ -35,26 +35,15 @@ root release.
 - Root Mage orchestration and Go tests are available.
 - The candidate declares runnable_module and any implemented optional capabilities in its architecture.
 
-<!-- field: current_candidates -->
+<!-- field: current_candidates | form: "typed table" -->
 ## Current candidates
 
-```yaml
-- path: applications/chatbot-mesh
-  ownership: agent-owning
-- path: applications/coding-agent
-  ownership: composition-only
-- path: applications/agent-architecture
-  ownership: composition-only
-  runnable_module_status: implemented
-  managed_service_status: partial
-  live_managed_service_evidence: dependency_gated
-  packaged_status: planned
-  helm_managed_status: planned
-  kind_demo_status: planned
-- path: applications/catalog
-  classification: reusable catalog
-  runnable: false
-```
+| path | ownership | runnable_module_status | managed_service_status | live_managed_service_evidence | packaged_status | helm_managed_status | kind_demo_status | classification | runnable |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| applications/chatbot-mesh | agent-owning |  |  |  |  |  |  |  |  |
+| applications/coding-agent | composition-only |  |  |  |  |  |  |  |  |
+| applications/agent-architecture | composition-only | implemented | partial | dependency_gated | planned | planned | planned |  |  |
+| applications/catalog |  |  |  |  |  |  |  | reusable catalog | false |
 
 <!-- field: flow -->
 ## Flow

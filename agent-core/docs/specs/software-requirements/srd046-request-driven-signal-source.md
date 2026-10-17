@@ -322,13 +322,12 @@ Structured traces and errors cover every source outcome, ownership is always rel
 - R6.4
 - R6.5
 
-<!-- field: test_trace_plan -->
+<!-- field: test_trace_plan | form: "typed table" -->
 ## Test trace plan
 
-```yaml
-- test_suite: test-rel14.0-agent-input-and-dolt
-  covers: [AC1, AC2, AC3, AC4, AC5, AC6]
-```
+| test_suite | covers |
+| --- | --- |
+| test-rel14.0-agent-input-and-dolt | [AC1, AC2, AC3, AC4, AC5, AC6] |
 
 <!-- field: related_documents -->
 ## Related documents
@@ -338,14 +337,12 @@ Structured traces and errors cover every source outcome, ownership is always rel
 - docs/specs/semantic-models/machine-request-http.md
 - docs/guides/rest-tool.md
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-specified:
-    - Signal-source envelope, trusted mapping, atomic admission outcomes, ordinary machine execution, lifecycle semantics, and compatibility proof.
-implemented:
-    - "GH-1742: transport-neutral SignalEnvelope, admission ownership, ordinary Loop execution, checkpoint behavior, and lifecycle outcomes."
-    - "GH-1741: strict REST signal_source definition, request mapping, response policy, redaction, and trace behavior."
-    - "GH-1743: profile-detected model-free serving, per-RunID in-memory or Dolt checkpoints, host state restoration, owned server shutdown, core-owned fixtures, and mock-model runOrResume regression."
-```
+- specified:
+  1. Signal-source envelope, trusted mapping, atomic admission outcomes, ordinary machine execution, lifecycle semantics, and compatibility proof.
+- implemented:
+  1. "GH-1742: transport-neutral SignalEnvelope, admission ownership, ordinary Loop execution, checkpoint behavior, and lifecycle outcomes."
+  1. "GH-1741: strict REST signal_source definition, request mapping, response policy, redaction, and trace behavior."
+  1. "GH-1743: profile-detected model-free serving, per-RunID in-memory or Dolt checkpoints, host state restoration, owned server shutdown, core-owned fixtures, and mock-model runOrResume regression."

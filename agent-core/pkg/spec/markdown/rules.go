@@ -85,6 +85,7 @@ type fieldRule struct {
 	ID          string   `yaml:"id"`      // outline: the record key holding the id
 	ContentKey  string   `yaml:"content"` // outline: the record key holding the text
 	Split       string   `yaml:"split"`   // table: separator of a keyed "<id>: <a><split><b>" row
+	Code        string   `yaml:"code"`    // a string printed in one fence of this language
 }
 
 // LoadDeclarations reads every document type in design.yaml whose markdown

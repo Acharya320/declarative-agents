@@ -7,12 +7,10 @@ status: implemented
 <!-- Copyright (c) 2026 Nokia -->
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
 
-<!-- field: test_case_count -->
+<!-- field: test_case_count | form: "scalar" -->
 ## Test case count
 
-```yaml
 12
-```
 
 <!-- field: overview -->
 ## Overview
@@ -48,7 +46,7 @@ audit.
 ### Release 16.0 documents parse and trace reciprocally
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC1
 
@@ -65,96 +63,93 @@ executable_structural
 <!-- field: command -->
 #### Command
 
-```yaml
-|
-    python3 - <<'PY'
-    from pathlib import Path
-    import subprocess
-    import yaml
+```bash
+python3 - <<'PY'
+from pathlib import Path
+import subprocess
+import yaml
 
-    root = Path("applications/docs")
-    paths = {
-        "srd": root / "specs/software-requirements/srd005-chart-conformance.md",
-        "use_case": root / "specs/use-cases/rel16.0-uc001-chart-conformance.md",
-        "suite": root / "specs/test-suites/test-rel16.0-chart-conformance.md",
-        "index": root / "SPECIFICATIONS.md",
-        "roadmap": root / "road-map.md",
-        "guideline": Path("docs/engineering/eng01-kind-test-demo-rig.md"),
-    }
-    def load(path):
-        # A corpus document is Markdown; mage specYAML prints the YAML tree
-        # its declaration parses it into (GH-2627).
-        out = subprocess.run(["mage", "specYAML", str(path)], cwd="agent-core",
-                             check=True, capture_output=True, text=True).stdout
-        return yaml.safe_load(out)
+root = Path("applications/docs")
+paths = {
+    "srd": root / "specs/software-requirements/srd005-chart-conformance.md",
+    "use_case": root / "specs/use-cases/rel16.0-uc001-chart-conformance.md",
+    "suite": root / "specs/test-suites/test-rel16.0-chart-conformance.md",
+    "index": root / "SPECIFICATIONS.md",
+    "roadmap": root / "road-map.md",
+    "guideline": Path("docs/engineering/eng01-kind-test-demo-rig.md"),
+}
+def load(path):
+    # A corpus document is Markdown; mage specYAML prints the YAML tree
+    # its declaration parses it into (GH-2627).
+    out = subprocess.run(["mage", "specYAML", str(path)], cwd="agent-core",
+                         check=True, capture_output=True, text=True).stdout
+    return yaml.safe_load(out)
 
-    docs = {name: load(path) for name, path in paths.items()}
-    required = {
-        "srd": {"id", "title", "problem", "goals", "requirements",
-                "non_goals", "acceptance_criteria"},
-        "use_case": {"id", "title", "summary", "actor", "trigger", "flow",
-                     "touchpoints", "success_criteria", "out_of_scope"},
-        "suite": {"id", "title", "release", "traces", "preconditions",
-                  "test_cases"},
-        "guideline": {"id", "title", "introduction", "sections", "references"},
-    }
-    for name, fields in required.items():
-        assert not fields - set(docs[name]), (name, fields - set(docs[name]))
+docs = {name: load(path) for name, path in paths.items()}
+required = {
+    "srd": {"id", "title", "problem", "goals", "requirements",
+            "non_goals", "acceptance_criteria"},
+    "use_case": {"id", "title", "summary", "actor", "trigger", "flow",
+                 "touchpoints", "success_criteria", "out_of_scope"},
+    "suite": {"id", "title", "release", "traces", "preconditions",
+              "test_cases"},
+    "guideline": {"id", "title", "introduction", "sections", "references"},
+}
+for name, fields in required.items():
+    assert not fields - set(docs[name]), (name, fields - set(docs[name]))
 
-    srd, use_case, suite = docs["srd"], docs["use_case"], docs["suite"]
-    assert use_case["test_suite"] == suite["id"]
-    assert use_case["id"] in suite["traces"]
-    assert use_case["id"] in srd["use_case_traces"]
-    assert suite["id"] in srd["test_suite_traces"]
+srd, use_case, suite = docs["srd"], docs["use_case"], docs["suite"]
+assert use_case["test_suite"] == suite["id"]
+assert use_case["id"] in suite["traces"]
+assert use_case["id"] in srd["use_case_traces"]
+assert suite["id"] in srd["test_suite_traces"]
 
-    item_ids = {
-        item["id"]
-        for group in srd["requirements"].values()
-        for item in group["items"]
-    }
-    ac_traces = {t for ac in srd["acceptance_criteria"] for t in ac["traces"]}
-    assert item_ids <= ac_traces, sorted(item_ids - ac_traces)
-    ac_ids = {ac["id"] for ac in srd["acceptance_criteria"]}
-    case_traces = {
-        t.rsplit(" ", 1)[-1]
-        for case in suite["test_cases"]
-        for t in case.get("traces", [])
-        if t.startswith(srd["id"] + " ")
-    }
-    assert ac_ids <= case_traces, sorted(ac_ids - case_traces)
-    assert len(suite["test_cases"]) == suite["test_case_count"]
+item_ids = {
+    item["id"]
+    for group in srd["requirements"].values()
+    for item in group["items"]
+}
+ac_traces = {t for ac in srd["acceptance_criteria"] for t in ac["traces"]}
+assert item_ids <= ac_traces, sorted(item_ids - ac_traces)
+ac_ids = {ac["id"] for ac in srd["acceptance_criteria"]}
+case_traces = {
+    t.rsplit(" ", 1)[-1]
+    for case in suite["test_cases"]
+    for t in case.get("traces", [])
+    if t.startswith(srd["id"] + " ")
+}
+assert ac_ids <= case_traces, sorted(ac_ids - case_traces)
+assert len(suite["test_cases"]) == suite["test_case_count"]
 
-    titles = [section["title"] for section in docs["guideline"]["sections"]]
-    assert "Chart conformance rules" in titles, titles
-    rules = next(s for s in docs["guideline"]["sections"]
-                 if s["title"] == "Chart conformance rules")["content"]
-    for rule in ("C1", "C2", "C3", "C4", "C5", "C6", "C7"):
-        assert f"| {rule} |" in rules, rule
-    assert srd["id"] in rules
+titles = [section["title"] for section in docs["guideline"]["sections"]]
+assert "Chart conformance rules" in titles, titles
+rules = next(s for s in docs["guideline"]["sections"]
+             if s["title"] == "Chart conformance rules")["content"]
+for rule in ("C1", "C2", "C3", "C4", "C5", "C6", "C7"):
+    assert f"| {rule} |" in rules, rule
+assert srd["id"] in rules
 
-    index = docs["index"]
-    assert any(e["id"] == srd["id"] for e in index["srd_index"])
-    assert any(e["id"] == use_case["id"] for e in index["use_case_index"])
-    assert any(e["id"] == suite["id"] for e in index["test_suite_index"])
-    assert any(e["version"] == "16.0" for e in index["roadmap_summary"])
-    release = next(r for r in docs["roadmap"]["releases"] if r["version"] == "16.0")
-    assert any(e["id"] == use_case["id"] for e in release["use_cases"])
-    assert any(e["id"] == suite["id"] for e in release["test_suites"])
-    print("validated Release 16.0 chart conformance trace closure")
-    PY
+index = docs["index"]
+assert any(e["id"] == srd["id"] for e in index["srd_index"])
+assert any(e["id"] == use_case["id"] for e in index["use_case_index"])
+assert any(e["id"] == suite["id"] for e in index["test_suite_index"])
+assert any(e["version"] == "16.0" for e in index["roadmap_summary"])
+release = next(r for r in docs["roadmap"]["releases"] if r["version"] == "16.0")
+assert any(e["id"] == use_case["id"] for e in release["use_cases"])
+assert any(e["id"] == suite["id"] for e in release["test_suites"])
+print("validated Release 16.0 chart conformance trace closure")
+PY
 ```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-yaml_parses: true
-design_constitution_fields_present: true
-requirement_to_acceptance_criterion_closure: true
-reciprocal_srd_use_case_suite_traces: true
-guideline_carries_every_numbered_rule: true
-specification_and_roadmap_indexes_present: true
-```
+- yaml_parses: true
+- design_constitution_fields_present: true
+- requirement_to_acceptance_criterion_closure: true
+- reciprocal_srd_use_case_suite_traces: true
+- guideline_carries_every_numbered_rule: true
+- specification_and_roadmap_indexes_present: true
 
 <!-- field: traces -->
 #### Traces
@@ -166,7 +161,7 @@ specification_and_roadmap_indexes_present: true
 ### Every chart renders under its defaults and every checked-in overlay
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC2
 
@@ -188,18 +183,18 @@ GH-2408
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestChartConformance
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-every_application_chart_rendered: true
-library_chart_vendored_before_render: true
-overlays_discovered_not_hardcoded: true
-defaults_render_checked_alongside_overlays: true
-non_values_files_in_ci_not_treated_as_overlays: true
-```
+- every_application_chart_rendered: true
+- library_chart_vendored_before_render: true
+- overlays_discovered_not_hardcoded: true
+- defaults_render_checked_alongside_overlays: true
+- non_values_files_in_ci_not_treated_as_overlays: true
 
 <!-- field: traces -->
 #### Traces
@@ -211,7 +206,7 @@ non_values_files_in_ci_not_treated_as_overlays: true
 ### A floating tag fails the gate
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC3
 
@@ -233,16 +228,16 @@ GH-2408
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestChartConformance
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-latest_tag_reported: true
-absent_tag_reported: true
-floating_tag_in_defaults_reported: true
-```
+- latest_tag_reported: true
+- absent_tag_reported: true
+- floating_tag_in_defaults_reported: true
 
 <!-- field: traces -->
 #### Traces
@@ -254,7 +249,7 @@ floating_tag_in_defaults_reported: true
 ### Third-party images need digests and repository images need commit tags
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC4
 
@@ -276,16 +271,16 @@ GH-2408
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestChartConformance
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-third_party_image_without_digest_reported: true
-repository_image_classified_by_prefix: true
-repository_image_not_required_to_carry_digest: true
-```
+- third_party_image_without_digest_reported: true
+- repository_image_classified_by_prefix: true
+- repository_image_not_required_to_carry_digest: true
 
 <!-- field: traces -->
 #### Traces
@@ -297,7 +292,7 @@ repository_image_not_required_to_carry_digest: true
 ### Pull policy and service type stay inside what kind provides
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC5
 
@@ -319,16 +314,16 @@ GH-2408
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestChartConformance
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-image_pull_policy_always_reported: true
-load_balancer_service_reported: true
-switched_off_load_balancer_not_reported: true
-```
+- image_pull_policy_always_reported: true
+- load_balancer_service_reported: true
+- switched_off_load_balancer_not_reported: true
 
 <!-- field: traces -->
 #### Traces
@@ -340,7 +335,7 @@ switched_off_load_balancer_not_reported: true
 ### A selected workload declares readiness
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC6
 
@@ -362,16 +357,16 @@ GH-2408
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestChartConformance
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-service_selector_resolved_to_workload: true
-workload_without_readiness_probe_reported: true
-unselected_workload_not_required_to_declare_one: true
-```
+- service_selector_resolved_to_workload: true
+- workload_without_readiness_probe_reported: true
+- unselected_workload_not_required_to_declare_one: true
 
 <!-- field: traces -->
 #### Traces
@@ -383,7 +378,7 @@ unselected_workload_not_required_to_declare_one: true
 ### Kind configurations pin the node image by version and digest
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC7
 
@@ -405,16 +400,16 @@ GH-2408
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestChartConformance
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-every_checked_in_kind_configuration_read: true
-node_image_without_digest_reported: true
-node_image_without_version_reported: true
-```
+- every_checked_in_kind_configuration_read: true
+- node_image_without_digest_reported: true
+- node_image_without_version_reported: true
 
 <!-- field: traces -->
 #### Traces
@@ -426,7 +421,7 @@ node_image_without_version_reported: true
 ### The exception baseline suspends, refuses, and expires
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC8
 
@@ -448,18 +443,18 @@ GH-2408
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestChartConformance
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-listed_violation_does_not_fail: true
-unlisted_violation_fails: true
-entry_whose_violation_no_longer_reproduces_fails: true
-gate_writes_no_edit_to_the_baseline: true
-entry_missing_issue_or_reason_rejected: true
-```
+- listed_violation_does_not_fail: true
+- unlisted_violation_fails: true
+- entry_whose_violation_no_longer_reproduces_fails: true
+- gate_writes_no_edit_to_the_baseline: true
+- entry_missing_issue_or_reason_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -471,7 +466,7 @@ entry_missing_issue_or_reason_rejected: true
 ### A finding names chart, overlay, resource, value, and rule
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC9
 
@@ -493,18 +488,18 @@ GH-2408
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test . -run TestChartConformance
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-message_names_chart: true
-message_names_overlay: true
-message_names_resource_kind_and_name: true
-message_names_offending_value: true
-message_names_requirement_id: true
-```
+- message_names_chart: true
+- message_names_overlay: true
+- message_names_resource_kind_and_name: true
+- message_names_offending_value: true
+- message_names_requirement_id: true
 
 <!-- field: traces -->
 #### Traces
@@ -516,7 +511,7 @@ message_names_requirement_id: true
 ### The seeded violations are pinned and the baseline holds no floating tag
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC10
 
@@ -538,18 +533,18 @@ GH-2409
 <!-- field: command -->
 #### Command
 
+```bash
 mage audit
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-ollama_pinned_in_both_charts: true
-dolt_pinned: true
-remaining_third_party_images_carry_digests: true
-baseline_holds_no_floating_tag_entry: true
-demo_comes_up_on_the_pinned_images: true
-```
+- ollama_pinned_in_both_charts: true
+- dolt_pinned: true
+- remaining_third_party_images_carry_digests: true
+- baseline_holds_no_floating_tag_entry: true
+- demo_comes_up_on_the_pinned_images: true
 
 <!-- field: traces -->
 #### Traces
@@ -563,7 +558,7 @@ demo_comes_up_on_the_pinned_images: true
 ### Image references match the grammar and prohibited aliases fail
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC11
 
@@ -585,20 +580,20 @@ GH-2512
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./chartconf -run 'TestImageReferenceGrammar|TestConformingRenderProducesNoFinding'
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-canonical_local_roles_accepted: true
-fully_qualified_upstream_accepted: true
-kindrig_alias_reported: true
-local_tag_reported: true
-untyped_hex_local_tag_reported: true
-smoke_repository_reported: true
-short_third_party_name_reported: true
-```
+- canonical_local_roles_accepted: true
+- fully_qualified_upstream_accepted: true
+- kindrig_alias_reported: true
+- local_tag_reported: true
+- untyped_hex_local_tag_reported: true
+- smoke_repository_reported: true
+- short_third_party_name_reported: true
 
 <!-- field: traces -->
 #### Traces
@@ -611,7 +606,7 @@ short_third_party_name_reported: true
 ### The applier Role covers every kind its chart renders
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC12
 
@@ -633,17 +628,17 @@ GH-2533
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./chartconf -run 'TestApplierRole|TestReadOnlyApplier|TestPluralResource' && go test . -run TestChartConformance
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-missing_rendered_kind_reported: true
-write_without_read_reported: true
-read_only_applier_not_checked: true
-shipped_charts_have_no_uncovered_kind: true
-```
+- missing_rendered_kind_reported: true
+- write_without_read_reported: true
+- read_only_applier_not_checked: true
+- shipped_charts_have_no_uncovered_kind: true
 
 <!-- field: traces -->
 #### Traces

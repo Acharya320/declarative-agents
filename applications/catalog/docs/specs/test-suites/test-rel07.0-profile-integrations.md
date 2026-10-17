@@ -60,9 +60,7 @@ rel07.0-uc001-documentation-curator-profile-ux
 <!-- field: follow_up_issue -->
 #### Follow up issue
 
-```yaml
-"#107"
-```
+#107
 
 <!-- field: integration_target -->
 #### Integration target
@@ -74,32 +72,33 @@ mage integration:documentationCurator
 
 go test ./magefiles -run 'TestPrepareDocumentationCuratorIntegration(WritesEphemeralProfile|CleansUpAfterFailure)|TestDocumentationActionEndpointsUseMachineRequestBinding|TestDocumentationPatchDecisionClientsMapMissingPatches'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profile: agents/knowledge-manager/documentation-curator/profile.yaml
-ux_config: agents/knowledge-manager/documentation-curator/ui/ux.yaml
-request_machine: agents/knowledge-manager/documentation-curator/request-machine.yaml
-fixture_docs: testdata/integration/rel07-documentation-curator/
-```
+- profile: agents/knowledge-manager/documentation-curator/profile.yaml
+- ux_config: agents/knowledge-manager/documentation-curator/ui/ux.yaml
+- request_machine: agents/knowledge-manager/documentation-curator/request-machine.yaml
+- fixture_docs: testdata/integration/rel07-documentation-curator/
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-terminal_signal: DocumentDetailReady
-action_terminal_signal: RESTResponded
-missing_patch_terminal_signal: RESTMissing
-legacy_action_envelope_used: false
-trace_fields: [server, route, machine, terminal_signal, status]
-lifecycle_signal: ExitRequested
-terminal_state: Done
-listener_released: true
-runtime_state_root: temporary integration workspace
-release_checkout_clean: true
-target_owner: applications/catalog
-```
+- terminal_signal: DocumentDetailReady
+- action_terminal_signal: RESTResponded
+- missing_patch_terminal_signal: RESTMissing
+- legacy_action_envelope_used: false
+- trace_fields:
+  1. server
+  1. route
+  1. machine
+  1. terminal_signal
+  1. status
+- lifecycle_signal: ExitRequested
+- terminal_state: Done
+- listener_released: true
+- runtime_state_root: temporary integration workspace
+- release_checkout_clean: true
+- target_owner: applications/catalog
 
 <!-- field: traces -->
 #### Traces
@@ -129,36 +128,30 @@ rel07.0-uc002-evaluator-generator-profile-boundary
 <!-- field: follow_up_issue -->
 #### Follow up issue
 
-```yaml
-"#108"
-```
+#108
 
 <!-- field: replacement_target -->
 #### Replacement target
 
 applications/coding-agent mage integration:criticGate
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-evaluator_profile: agents/critic/profile.yaml
-subject_profile: agents/executor/profile.yaml
-suite: testdata/integration/rel07-evaluator-generator/suite.yaml
-expected_summary: testdata/integration/rel07-evaluator-generator/expected/summary.yaml
-output_dir: temporary evaluator results directory
-```
+- evaluator_profile: agents/critic/profile.yaml
+- subject_profile: agents/executor/profile.yaml
+- suite: testdata/integration/rel07-evaluator-generator/suite.yaml
+- expected_summary: testdata/integration/rel07-evaluator-generator/expected/summary.yaml
+- output_dir: temporary evaluator results directory
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-child_profile: generator
-point_status_recorded: true
-session_summary_recorded: true
-oracle_accounting_recorded: true
-target_owner: applications/coding-agent
-```
+- child_profile: generator
+- point_status_recorded: true
+- session_summary_recorded: true
+- oracle_accounting_recorded: true
+- target_owner: applications/coding-agent
 
 <!-- field: traces -->
 #### Traces
@@ -185,9 +178,7 @@ rel07.0-uc003-planner-generator-profile-boundary
 <!-- field: follow_up_issue -->
 #### Follow up issue
 
-```yaml
-"#109"
-```
+#109
 
 <!-- field: replacement_target -->
 #### Replacement target
@@ -199,27 +190,23 @@ applications/coding-agent mage integration:plannerDelegation
 
 application-live
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-planner_profile: agents/planner/profile.yaml
-child_profile: agents/executor/profile.yaml
-graph_fixture: testdata/integration/rel07-planner-generator/graph.yaml
-workspace: testdata/integration/rel07-planner-generator/workspace
-expected_terminal_state: testdata/integration/rel07-planner-generator/expected/terminal-state.yaml
-```
+- planner_profile: agents/planner/profile.yaml
+- child_profile: agents/executor/profile.yaml
+- graph_fixture: testdata/integration/rel07-planner-generator/graph.yaml
+- workspace: testdata/integration/rel07-planner-generator/workspace
+- expected_terminal_state: testdata/integration/rel07-planner-generator/expected/terminal-state.yaml
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-materialized_task_count: 1
-child_profile: generator
-graph_terminal_state_recorded: true
-child_run_outcome_recorded: true
-target_owner: applications/coding-agent
-```
+- materialized_task_count: 1
+- child_profile: generator
+- graph_terminal_state_recorded: true
+- child_run_outcome_recorded: true
+- target_owner: applications/coding-agent
 
 <!-- field: traces -->
 #### Traces
@@ -245,9 +232,7 @@ rel07.0-uc004-bench-evaluator-profile-boundary
 <!-- field: follow_up_issue -->
 #### Follow up issue
 
-```yaml
-"#110"
-```
+#110
 
 <!-- field: integration_target -->
 #### Integration target
@@ -259,28 +244,24 @@ mage integration:benchEvaluator
 
 go test ./conformance -run TestBenchConformance
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-bench_profile: agents/bench/profile.yaml
-critic_profile: agents/critic/profile.yaml
-launch_action: 'POST /api/v1/experiments {"suite":"suites/basic.yaml","output_dir":"eval-results"}'
-```
+- bench_profile: agents/bench/profile.yaml
+- critic_profile: agents/critic/profile.yaml
+- launch_action: POST /api/v1/experiments {"suite":"suites/basic.yaml","output_dir":"eval-results"}
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-human_action_received: true
-launch_returns_handle: true
-overlapping_runs: true
-runs_listed: true
-critic_profile_dispatched: true
-real_rest_machine_path_executed: true
-shipped_profile_trace_observed: true
-target_owner: applications/catalog
-```
+- human_action_received: true
+- launch_returns_handle: true
+- overlapping_runs: true
+- runs_listed: true
+- critic_profile_dispatched: true
+- real_rest_machine_path_executed: true
+- shipped_profile_trace_observed: true
+- target_owner: applications/catalog
 
 <!-- field: traces -->
 #### Traces
@@ -309,9 +290,7 @@ rel07.0-uc005-monitor-control-profile-boundary
 <!-- field: follow_up_issue -->
 #### Follow up issue
 
-```yaml
-"#111"
-```
+#111
 
 <!-- field: integration_target -->
 #### Integration target
@@ -323,25 +302,21 @@ mage integration:monitorControl
 
 go test ./magefiles -run TestCollectMonitorControlEvidenceRecordsRoutesAndLifecycleBoundary
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-runtime_state_reader_profile: agents/runtime-state-reader/profile.yaml
-control_profile: testdata/conformance/control/profile.yaml
-expected_evidence: testdata/integration/rel07-monitor-control/expected/evidence.yaml
-```
+- runtime_state_reader_profile: agents/runtime-state-reader/profile.yaml
+- control_profile: testdata/conformance/control/profile.yaml
+- expected_evidence: testdata/integration/rel07-monitor-control/expected/evidence.yaml
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-monitor_state_exposed: true
-lifecycle_signal_routed: true
-monitor_stop_transition_declared: true
-http_handlers_enqueue_only: true
-target_owner: applications/catalog
-```
+- monitor_state_exposed: true
+- lifecycle_signal_routed: true
+- monitor_stop_transition_declared: true
+- http_handlers_enqueue_only: true
+- target_owner: applications/catalog
 
 <!-- field: traces -->
 #### Traces

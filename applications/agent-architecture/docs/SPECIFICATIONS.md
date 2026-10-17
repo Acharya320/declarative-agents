@@ -36,36 +36,16 @@ cite srd002 R4 through R6; the application owns srd001-helm-deployment and
 srd002-applier for their local topology, package, schema, smoke, and actuation
 requirements.
 
-<!-- field: roadmap_summary -->
+<!-- field: roadmap_summary | form: "typed table" -->
 ## Roadmap summary
 
-```yaml
-- version: "00.0"
-  name: Guided Knowledge Manager presentation
-  use_cases_done: 0
-  use_cases_total: 1
-  status: partial
-- version: "01.0"
-  name: Demo trace collection
-  use_cases_done: 1
-  use_cases_total: 1
-  status: implemented
-- version: "02.0"
-  name: Packaged chart render and validation
-  use_cases_done: 0
-  use_cases_total: 1
-  status: planned
-- version: "03.0"
-  name: Live Helm smoke
-  use_cases_done: 0
-  use_cases_total: 1
-  status: planned
-- version: "04.0"
-  name: Declarative applier agent
-  use_cases_done: 0
-  use_cases_total: 1
-  status: planned
-```
+| version | name | use_cases_done | use_cases_total | status |
+| --- | --- | --- | --- | --- |
+| "00.0" | Guided Knowledge Manager presentation | 0 | 1 | partial |
+| "01.0" | Demo trace collection | 1 | 1 | implemented |
+| "02.0" | Packaged chart render and validation | 0 | 1 | planned |
+| "03.0" | Live Helm smoke | 0 | 1 | planned |
+| "04.0" | Declarative applier agent | 0 | 1 | planned |
 
 <!-- field: foundation_document_index -->
 ## Foundation document index
@@ -77,66 +57,72 @@ requirements.
 | agent-architecture-roadmap | Agent Architecture Application Road Map | Release 00.0 contract, implemented deterministic evidence, and dependency-gated live observations. | docs/road-map.md |
 
 <!-- field: srd_index -->
-## Srd index
+## SRD index
 
 | id | title | status | path |
 | --- | --- | --- | --- |
 | srd001-helm-deployment | Agent Architecture Helm Deployment | planned | docs/specs/software-requirements/srd001-helm-deployment.md |
 | srd002-applier | Declarative Applier Agent | implemented | docs/specs/software-requirements/srd002-applier.md |
 
-<!-- field: external_requirement_references -->
+<!-- field: external_requirement_references | form: "tree" -->
 ## External requirement references
 
-```yaml
-- id: srd001-application-module-contract
-  owner: applications
-  path: ../docs/specs/software-requirements/srd001-application-module-contract.md
-  requirements: [R1, R2, R3, R4, R5, R6]
-  usage: |
-    Governs runnable-module identity, canonical references, local
-    documentation, Mage participation, and composition-only accounting.
-    This application supplies local paths and evidence without copying those
-    requirements.
-- id: srd002-managed-application-services
-  owner: applications
-  path: ../docs/specs/software-requirements/srd002-managed-application-services.md
-  requirements: [R1, R2, R3, R4, R5, R6]
-  applies_to:
-    - documentation-curator server launched by this application
-    - Go present server
-    - planned chart, package, and kind deployment
-  usage: |
-    Governs lifecycle, control and operator verbs, telemetry, and
-    configuration for both Release 00.0 managed services (R1 through R3). The
-    planned deployment cites the package (R4), Helm (R5), and kind (R6) groups,
-    supplying their evidence through srd001-helm-deployment.
-- id: srd011-knowledge-manager
-  owner: applications/catalog
-  path: ../catalog/docs/specs/software-requirements/srd011-knowledge-manager.md
-  usage: |
-    Defines the canonical documentation-curator profile, catalog-owned UI and
-    resources, agent-core runtime dependencies, and lifecycle outcomes.
-- id: rel07.0-uc001-documentation-curator-profile-ux
-  owner: applications/catalog
-  path: ../catalog/docs/specs/use-cases/rel07.0-uc001-documentation-curator-profile-ux.md
-  usage: |
-    Proves the catalog profile's browser, action-route, and lifecycle behavior.
-    Release 00.0 composes that behavior into a guided presentation.
-```
+1. - id: srd001-application-module-contract
+   - owner: applications
+   - path: ../docs/specs/software-requirements/srd001-application-module-contract.md
+   - requirements:
+     1. R1
+     1. R2
+     1. R3
+     1. R4
+     1. R5
+     1. R6
+   - usage:
+     Governs runnable-module identity, canonical references, local
+     documentation, Mage participation, and composition-only accounting.
+     This application supplies local paths and evidence without copying those
+     requirements.
+1. - id: srd002-managed-application-services
+   - owner: applications
+   - path: ../docs/specs/software-requirements/srd002-managed-application-services.md
+   - requirements:
+     1. R1
+     1. R2
+     1. R3
+     1. R4
+     1. R5
+     1. R6
+   - applies_to:
+     1. documentation-curator server launched by this application
+     1. Go present server
+     1. planned chart, package, and kind deployment
+   - usage:
+     Governs lifecycle, control and operator verbs, telemetry, and
+     configuration for both Release 00.0 managed services (R1 through R3). The
+     planned deployment cites the package (R4), Helm (R5), and kind (R6) groups,
+     supplying their evidence through srd001-helm-deployment.
+1. - id: srd011-knowledge-manager
+   - owner: applications/catalog
+   - path: ../catalog/docs/specs/software-requirements/srd011-knowledge-manager.md
+   - usage:
+     Defines the canonical documentation-curator profile, catalog-owned UI and
+     resources, agent-core runtime dependencies, and lifecycle outcomes.
+1. - id: rel07.0-uc001-documentation-curator-profile-ux
+   - owner: applications/catalog
+   - path: ../catalog/docs/specs/use-cases/rel07.0-uc001-documentation-curator-profile-ux.md
+   - usage:
+     Proves the catalog profile's browser, action-route, and lifecycle behavior.
+     Release 00.0 composes that behavior into a guided presentation.
 
-<!-- field: config_format_index -->
+<!-- field: config_format_index | form: "scalar" -->
 ## Config format index
 
-```yaml
 []
-```
 
-<!-- field: semantic_model_index -->
+<!-- field: semantic_model_index | form: "scalar" -->
 ## Semantic model index
 
-```yaml
 []
-```
 
 <!-- field: use_case_index -->
 ## Use case index
@@ -149,70 +135,33 @@ requirements.
 | rel03.0-uc001-live-helm-smoke | Prove the Packaged Agent Architecture Chart on Kind | 03.0 | planned | test-rel03.0-live-helm-smoke | docs/specs/use-cases/rel03.0-uc001-live-helm-smoke.md |
 | rel04.0-uc001-declarative-applier | The Applier Agent Validates, Applies, and Verifies an Agent Architecture Values Change | 04.0 | planned | test-rel04.0-declarative-applier | docs/specs/use-cases/rel04.0-uc001-declarative-applier.md |
 
-<!-- field: test_suite_index -->
+<!-- field: test_suite_index | form: "typed table" -->
 ## Test suite index
 
-```yaml
-- id: test-rel00.0-guided-agent-architecture
-  title: Test Suite for Release 00.0 Guided Agent Architecture
-  release: "00.0"
-  status: partial
-  test_case_count: 5
-  traces:
-    - rel00.0-uc001-guided-agent-architecture
-  path: docs/specs/test-suites/test-rel00.0-guided-agent-architecture.md
-- id: test-rel01.0-demo-trace-collection
-  title: Test Suite for Release 01.0 Demo Trace Collection
-  release: "01.0"
-  status: implemented
-  test_case_count: 3
-  traces:
-    - rel01.0-uc001-demo-trace-collection
-  path: docs/specs/test-suites/test-rel01.0-demo-trace-collection.md
-- id: test-rel02.0-render-packaged-chart
-  title: Test Suite for Release 02.0 Packaged Chart Render and Validation
-  release: "02.0"
-  status: planned
-  test_case_count: 4
-  traces:
-    - rel02.0-uc001-render-packaged-chart
-  path: docs/specs/test-suites/test-rel02.0-render-packaged-chart.md
-- id: test-rel03.0-live-helm-smoke
-  title: Test Suite for Release 03.0 Live Helm Smoke
-  release: "03.0"
-  status: planned
-  test_case_count: 4
-  traces:
-    - rel03.0-uc001-live-helm-smoke
-  path: docs/specs/test-suites/test-rel03.0-live-helm-smoke.md
-- id: test-rel04.0-declarative-applier
-  title: Test Suite for Release 04.0 Declarative Applier Agent
-  release: "04.0"
-  status: planned
-  test_case_count: 5
-  traces:
-    - rel04.0-uc001-declarative-applier
-  path: docs/specs/test-suites/test-rel04.0-declarative-applier.md
-```
+| id | title | release | status | test_case_count | traces | path |
+| --- | --- | --- | --- | --- | --- | --- |
+| test-rel00.0-guided-agent-architecture | Test Suite for Release 00.0 Guided Agent Architecture | "00.0" | partial | 5 | [rel00.0-uc001-guided-agent-architecture] | docs/specs/test-suites/test-rel00.0-guided-agent-architecture.md |
+| test-rel01.0-demo-trace-collection | Test Suite for Release 01.0 Demo Trace Collection | "01.0" | implemented | 3 | [rel01.0-uc001-demo-trace-collection] | docs/specs/test-suites/test-rel01.0-demo-trace-collection.md |
+| test-rel02.0-render-packaged-chart | Test Suite for Release 02.0 Packaged Chart Render and Validation | "02.0" | planned | 4 | [rel02.0-uc001-render-packaged-chart] | docs/specs/test-suites/test-rel02.0-render-packaged-chart.md |
+| test-rel03.0-live-helm-smoke | Test Suite for Release 03.0 Live Helm Smoke | "03.0" | planned | 4 | [rel03.0-uc001-live-helm-smoke] | docs/specs/test-suites/test-rel03.0-live-helm-smoke.md |
+| test-rel04.0-declarative-applier | Test Suite for Release 04.0 Declarative Applier Agent | "04.0" | planned | 5 | [rel04.0-uc001-declarative-applier] | docs/specs/test-suites/test-rel04.0-declarative-applier.md |
 
-<!-- field: coverage_gaps -->
+<!-- field: coverage_gaps | form: "tree" -->
 ## Coverage gaps
 
-```yaml
-- id: live-browser-observation
-  status: dependency_gated
-  description: |
-    Deterministic tests validate commands, configuration, reciprocal traces,
-    root dispatch, and accounting without starting servers. Live launch,
-    browser rendering, role readiness, exit, and listener-release evidence
-    requires available ports, a buildable agent-core checkout, and operator
-    execution. Command construction is not live-service proof.
-- id: kubernetes-deployment
-  status: implemented
-  description: |
-    The chart, profile-closure package, values schema, kind smoke, and applier
-    are implemented through srd001-helm-deployment and srd002-applier use
-    cases and test suites. Package, Helm, kind, and canonical-applier wrapper
-    evidence is executable; live runs retain their documented host
-    prerequisite gates.
-```
+1. - id: live-browser-observation
+   - status: dependency_gated
+   - description:
+     Deterministic tests validate commands, configuration, reciprocal traces,
+     root dispatch, and accounting without starting servers. Live launch,
+     browser rendering, role readiness, exit, and listener-release evidence
+     requires available ports, a buildable agent-core checkout, and operator
+     execution. Command construction is not live-service proof.
+1. - id: kubernetes-deployment
+   - status: implemented
+   - description:
+     The chart, profile-closure package, values schema, kind smoke, and applier
+     are implemented through srd001-helm-deployment and srd002-applier use
+     cases and test suites. Package, Helm, kind, and canonical-applier wrapper
+     evidence is executable; live runs retain their documented host
+     prerequisite gates.

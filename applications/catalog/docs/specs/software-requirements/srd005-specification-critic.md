@@ -147,19 +147,17 @@ Specification-critic outputs, provenance-rich findings, and terminal outcomes ar
 - R3.2
 - R3.3
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Specification-critic family needs its own requirements..."] --> Goals["Goals: Specification Critic Functional Block"]
-      Goals --> R1["R1: Behavior model"]
-      Goals --> R2["R2: Inputs, tools, and responsibilities"]
-      Goals --> R3["R3: Outputs and outcomes"]
-      R1 --> AC1["AC1: Deterministic LLM-free validator"]
-      R2 --> AC2["AC2: Inputs, tools, responsibilities named"]
-      R3 --> AC3["AC3: Outputs and findings checkable"]
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Specification-critic family needs its own requirements..."] --> Goals["Goals: Specification Critic Functional Block"]
+    Goals --> R1["R1: Behavior model"]
+    Goals --> R2["R2: Inputs, tools, and responsibilities"]
+    Goals --> R3["R3: Outputs and outcomes"]
+    R1 --> AC1["AC1: Deterministic LLM-free validator"]
+    R2 --> AC2["AC2: Inputs, tools, responsibilities named"]
+    R3 --> AC3["AC3: Outputs and findings checkable"]
+  ```

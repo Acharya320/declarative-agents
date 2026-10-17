@@ -7,12 +7,10 @@ status: planned
 <!-- Copyright (c) 2026 Nokia -->
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
 
-<!-- field: test_case_count -->
+<!-- field: test_case_count | form: "scalar" -->
 ## Test case count
 
-```yaml
 8
-```
 
 <!-- field: overview -->
 ## Overview
@@ -51,7 +49,7 @@ IAM policy fixture is executable without cloud access.
 ### Release 19.0 documents parse and trace reciprocally
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC1
 
@@ -73,108 +71,105 @@ GH-2476
 <!-- field: command -->
 #### Command
 
-```yaml
-|
-    python3 - <<'PY'
-    from pathlib import Path
-    import subprocess
-    import yaml
+```bash
+python3 - <<'PY'
+from pathlib import Path
+import subprocess
+import yaml
 
-    root = Path("applications/docs")
-    paths = {
-        "srd": root / "specs/software-requirements/srd008-persistent-application-platform.md",
-        "use_case": root / "specs/use-cases/rel19.0-uc001-persistent-application-platform.md",
-        "suite": root / "specs/test-suites/test-rel19.0-persistent-application-platform.md",
-        "index": root / "SPECIFICATIONS.md",
-        "roadmap": root / "road-map.md",
-        "architecture": root / "ARCHITECTURE.md",
-        "pattern": root / "pattern-language.md",
-        "eng01": Path("docs/engineering/eng01-kind-test-demo-rig.md"),
-        "eng08": Path("docs/engineering/eng08-gcp-demo-rig.md"),
-    }
-    def load(path):
-        # A corpus document is Markdown; mage specYAML prints the YAML tree
-        # its declaration parses it into (GH-2627).
-        out = subprocess.run(["mage", "specYAML", str(path)], cwd="agent-core",
-                             check=True, capture_output=True, text=True).stdout
-        return yaml.safe_load(out)
+root = Path("applications/docs")
+paths = {
+    "srd": root / "specs/software-requirements/srd008-persistent-application-platform.md",
+    "use_case": root / "specs/use-cases/rel19.0-uc001-persistent-application-platform.md",
+    "suite": root / "specs/test-suites/test-rel19.0-persistent-application-platform.md",
+    "index": root / "SPECIFICATIONS.md",
+    "roadmap": root / "road-map.md",
+    "architecture": root / "ARCHITECTURE.md",
+    "pattern": root / "pattern-language.md",
+    "eng01": Path("docs/engineering/eng01-kind-test-demo-rig.md"),
+    "eng08": Path("docs/engineering/eng08-gcp-demo-rig.md"),
+}
+def load(path):
+    # A corpus document is Markdown; mage specYAML prints the YAML tree
+    # its declaration parses it into (GH-2627).
+    out = subprocess.run(["mage", "specYAML", str(path)], cwd="agent-core",
+                         check=True, capture_output=True, text=True).stdout
+    return yaml.safe_load(out)
 
-    docs = {name: load(path) for name, path in paths.items()}
-    required = {
-        "srd": {"id", "title", "problem", "goals", "requirements",
-                "non_goals", "acceptance_criteria"},
-        "use_case": {"id", "title", "summary", "actor", "trigger", "flow",
-                     "touchpoints", "success_criteria", "out_of_scope"},
-        "suite": {"id", "title", "release", "traces", "preconditions",
-                  "test_cases"},
-        "architecture": {"id", "title", "overview", "interfaces",
-                         "components", "design_decisions",
-                         "technology_choices", "project_structure",
-                         "implementation_status", "related_documents"},
-        "eng01": {"id", "title", "introduction", "sections", "references"},
-        "eng08": {"id", "title", "introduction", "sections", "references"},
-    }
-    for name, fields in required.items():
-        assert not fields - set(docs[name]), (name, fields - set(docs[name]))
+docs = {name: load(path) for name, path in paths.items()}
+required = {
+    "srd": {"id", "title", "problem", "goals", "requirements",
+            "non_goals", "acceptance_criteria"},
+    "use_case": {"id", "title", "summary", "actor", "trigger", "flow",
+                 "touchpoints", "success_criteria", "out_of_scope"},
+    "suite": {"id", "title", "release", "traces", "preconditions",
+              "test_cases"},
+    "architecture": {"id", "title", "overview", "interfaces",
+                     "components", "design_decisions",
+                     "technology_choices", "project_structure",
+                     "implementation_status", "related_documents"},
+    "eng01": {"id", "title", "introduction", "sections", "references"},
+    "eng08": {"id", "title", "introduction", "sections", "references"},
+}
+for name, fields in required.items():
+    assert not fields - set(docs[name]), (name, fields - set(docs[name]))
 
-    srd, use_case, suite = docs["srd"], docs["use_case"], docs["suite"]
-    assert use_case["test_suite"] == suite["id"]
-    assert use_case["id"] in suite["traces"]
-    assert use_case["id"] in srd["use_case_traces"]
-    assert suite["id"] in srd["test_suite_traces"]
+srd, use_case, suite = docs["srd"], docs["use_case"], docs["suite"]
+assert use_case["test_suite"] == suite["id"]
+assert use_case["id"] in suite["traces"]
+assert use_case["id"] in srd["use_case_traces"]
+assert suite["id"] in srd["test_suite_traces"]
 
-    item_ids = {
-        item["id"]
-        for group in srd["requirements"].values()
-        for item in group["items"]
-    }
-    ac_traces = {trace for ac in srd["acceptance_criteria"]
-                 for trace in ac["traces"]}
-    assert item_ids <= ac_traces, sorted(item_ids - ac_traces)
-    ac_ids = {ac["id"] for ac in srd["acceptance_criteria"]}
-    case_traces = {
-        trace.rsplit(" ", 1)[-1]
-        for case in suite["test_cases"]
-        for trace in case.get("traces", [])
-        if trace.startswith(srd["id"] + " ")
-    }
-    assert ac_ids <= case_traces, sorted(ac_ids - case_traces)
-    assert len(suite["test_cases"]) == suite["test_case_count"]
+item_ids = {
+    item["id"]
+    for group in srd["requirements"].values()
+    for item in group["items"]
+}
+ac_traces = {trace for ac in srd["acceptance_criteria"]
+             for trace in ac["traces"]}
+assert item_ids <= ac_traces, sorted(item_ids - ac_traces)
+ac_ids = {ac["id"] for ac in srd["acceptance_criteria"]}
+case_traces = {
+    trace.rsplit(" ", 1)[-1]
+    for case in suite["test_cases"]
+    for trace in case.get("traces", [])
+    if trace.startswith(srd["id"] + " ")
+}
+assert ac_ids <= case_traces, sorted(ac_ids - case_traces)
+assert len(suite["test_cases"]) == suite["test_case_count"]
 
-    index = docs["index"]
-    assert any(e["id"] == srd["id"] for e in index["srd_index"])
-    assert any(e["id"] == use_case["id"] for e in index["use_case_index"])
-    assert any(e["id"] == suite["id"] for e in index["test_suite_index"])
-    assert any(e["version"] == "19.0" for e in index["roadmap_summary"])
-    release = next(r for r in docs["roadmap"]["releases"]
-                   if r["version"] == "19.0")
-    assert any(e["id"] == use_case["id"] for e in release["use_cases"])
-    assert any(e["id"] == suite["id"] for e in release["test_suites"])
+index = docs["index"]
+assert any(e["id"] == srd["id"] for e in index["srd_index"])
+assert any(e["id"] == use_case["id"] for e in index["use_case_index"])
+assert any(e["id"] == suite["id"] for e in index["test_suite_index"])
+assert any(e["version"] == "19.0" for e in index["roadmap_summary"])
+release = next(r for r in docs["roadmap"]["releases"]
+               if r["version"] == "19.0")
+assert any(e["id"] == use_case["id"] for e in release["use_cases"])
+assert any(e["id"] == suite["id"] for e in release["test_suites"])
 
-    eng01 = "\n".join(s["content"] for s in docs["eng01"]["sections"])
-    eng08 = "\n".join(s["content"] for s in docs["eng08"]["sections"])
-    for term in ("app:down", "app:purge", "platform:reset",
-                 "application-specific bucket", "apprig"):
-        assert term in eng01, term
-    for term in ("workload identity", "bucket IAM", "application-specific bucket"):
-        assert term in eng08, term
-    pattern_ids = {p["id"] for p in docs["pattern"]["patterns"]}
-    assert "persistent-application-platform" in pattern_ids
-    print("validated Release 19.0 persistent platform trace closure")
-    PY
+eng01 = "\n".join(s["content"] for s in docs["eng01"]["sections"])
+eng08 = "\n".join(s["content"] for s in docs["eng08"]["sections"])
+for term in ("app:down", "app:purge", "platform:reset",
+             "application-specific bucket", "apprig"):
+    assert term in eng01, term
+for term in ("workload identity", "bucket IAM", "application-specific bucket"):
+    assert term in eng08, term
+pattern_ids = {p["id"] for p in docs["pattern"]["patterns"]}
+assert "persistent-application-platform" in pattern_ids
+print("validated Release 19.0 persistent platform trace closure")
+PY
 ```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-yaml_parses: true
-design_constitution_fields_present: true
-requirement_to_acceptance_criterion_closure: true
-reciprocal_srd_use_case_suite_traces: true
-guideline_contract_terms_present: true
-specification_and_roadmap_indexes_present: true
-```
+- yaml_parses: true
+- design_constitution_fields_present: true
+- requirement_to_acceptance_criterion_closure: true
+- reciprocal_srd_use_case_suite_traces: true
+- guideline_contract_terms_present: true
+- specification_and_roadmap_indexes_present: true
 
 <!-- field: traces -->
 #### Traces
@@ -186,7 +181,7 @@ specification_and_roadmap_indexes_present: true
 ### Two applications use distinct external, internal, OTLP, object, and vector paths
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC2
 
@@ -212,22 +207,22 @@ integration
 <!-- field: command -->
 #### Command
 
+```bash
 mage platform:up
 mage app:up agent-architecture
 mage app:up coding-agent
 mage app:up chatbot-mesh
 kubectl --context kind-da-platform get ns -l app.kubernetes.io/managed-by=apprig
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-shared_traefik_routes_both_applications: true
-internal_rest_uses_service_dns: true
-otlp_targets_each_application_collector: true
-object_clients_use_distinct_application_buckets: true
-vector_clients_do_not_traverse_traefik: true
-```
+- shared_traefik_routes_both_applications: true
+- internal_rest_uses_service_dns: true
+- otlp_targets_each_application_collector: true
+- object_clients_use_distinct_application_buckets: true
+- vector_clients_do_not_traverse_traefik: true
 
 <!-- field: traces -->
 #### Traces
@@ -239,7 +234,7 @@ vector_clients_do_not_traverse_traefik: true
 ### Application and platform lifecycle preserve data until explicit deletion
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC3
 
@@ -264,21 +259,21 @@ integration
 <!-- field: command -->
 #### Command
 
+```bash
 mage integration:applicationLifecycle
 mage app:down chatbot-mesh
 mage app:purge chatbot-mesh purge:chatbot-mesh
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-two_applications_run_concurrently: true
-app_down_removes_only_selected_compute: true
-app_purge_deletes_only_selected_bucket_data: true
-platform_down_preserves_local_host_path: true
-platform_reset_deletes_local_host_path: true
-cloud_cluster_recreation_preserves_buckets: true
-```
+- two_applications_run_concurrently: true
+- app_down_removes_only_selected_compute: true
+- app_purge_deletes_only_selected_bucket_data: true
+- platform_down_preserves_local_host_path: true
+- platform_reset_deletes_local_host_path: true
+- cloud_cluster_recreation_preserves_buckets: true
 
 <!-- field: traces -->
 #### Traces
@@ -290,7 +285,7 @@ cloud_cluster_recreation_preserves_buckets: true
 ### Local and cloud overlays preserve one application declaration contract
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC4
 
@@ -313,19 +308,19 @@ structural_and_cloud_integration
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./gcprig -run TestFirstPartyApplicationBucketIAMIsolation
 cd ../applications/chatbot-mesh && go test ./magefiles -run TestGcpDeployOverridesShape
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-application_declarations_are_identical: true
-local_fake_gcs_uses_stable_filesystem_backend: true
-cloud_uses_ambient_workload_identity: true
-cloud_bucket_iam_denies_cross_application_access: true
-local_claims_no_adversarial_tenant_authorization: true
-```
+- application_declarations_are_identical: true
+- local_fake_gcs_uses_stable_filesystem_backend: true
+- cloud_uses_ambient_workload_identity: true
+- cloud_bucket_iam_denies_cross_application_access: true
+- local_claims_no_adversarial_tenant_authorization: true
 
 <!-- field: traces -->
 #### Traces
@@ -337,7 +332,7 @@ local_claims_no_adversarial_tenant_authorization: true
 ### Collector WAL fixes immutable object identity before upload
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC5
 
@@ -360,19 +355,19 @@ go_test_and_integration
 <!-- field: command -->
 #### Command
 
+```bash
 cd agent-core && go test ./internal/tools/otlp -run 'Test(Object|WAL)'
 cd ../applications/agent-architecture && mage integration:collectorWALRestart
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-wal_precedes_first_upload_attempt: true
-retries_reuse_key_and_batch_identity: true
-envelope_contains_every_required_field: true
-identical_duplicate_is_idempotent: true
-conflicting_existing_key_is_not_overwritten: true
-```
+- wal_precedes_first_upload_attempt: true
+- retries_reuse_key_and_batch_identity: true
+- envelope_contains_every_required_field: true
+- identical_duplicate_is_idempotent: true
+- conflicting_existing_key_is_not_overwritten: true
 
 <!-- field: traces -->
 #### Traces
@@ -384,7 +379,7 @@ conflicting_existing_key_is_not_overwritten: true
 ### Query access disappears with compute and returns after collector redeployment
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC6
 
@@ -406,20 +401,20 @@ GH-2478
 <!-- field: command -->
 #### Command
 
+```bash
 mage app:down agent-architecture
 mage app:up agent-architecture
 curl -fsS 'http://telemetry.agent-architecture.localhost/query/traces?page_size=1'
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-running_collector_queries_only_its_application: true
-retained_objects_survive_app_down: true
-query_api_is_unavailable_after_app_down: true
-redeployed_collector_restores_history: true
-batch_identity_and_checksum_are_unchanged: true
-```
+- running_collector_queries_only_its_application: true
+- retained_objects_survive_app_down: true
+- query_api_is_unavailable_after_app_down: true
+- redeployed_collector_restores_history: true
+- batch_identity_and_checksum_are_unchanged: true
 
 <!-- field: traces -->
 #### Traces
@@ -431,7 +426,7 @@ batch_identity_and_checksum_are_unchanged: true
 ### Rig modes and the reusable application runner have one owner
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC7
 
@@ -453,20 +448,20 @@ GH-2479
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./apprig ./kindrig
 cd .. && mage integration:applicationLifecycle
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-persistent_platform_is_canonical_application_mode: true
-owned_cluster_is_limited_to_cluster_mutation: true
-host_otlp_is_integration_evidence_not_query_authority: true
-two_first_party_applications_use_apprig: true
-downstream_verbs_are_thin: true
-no_second_composition_inventory_exists: true
-```
+- persistent_platform_is_canonical_application_mode: true
+- owned_cluster_is_limited_to_cluster_mutation: true
+- host_otlp_is_integration_evidence_not_query_authority: true
+- two_first_party_applications_use_apprig: true
+- downstream_verbs_are_thin: true
+- no_second_composition_inventory_exists: true
 
 <!-- field: traces -->
 #### Traces
@@ -478,7 +473,7 @@ no_second_composition_inventory_exists: true
 ### Application failures remain isolated and shared failures identify the platform
 
 <!-- field: id -->
-#### Id
+#### ID
 
 TC8
 
@@ -502,20 +497,20 @@ integration
 <!-- field: command -->
 #### Command
 
+```bash
 cd magefiles && go test ./kindrig -run 'TestPlatformHealth|TestDownPlatform'
 cd ../agent-core && go test ./internal/tools/otlp -run 'TestObjectSpool'
 cd ../applications/catalog && go test ./conformance -run TestApplicationPurge
+```
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-application_failure_leaves_peer_running: true
-collector_failure_leaves_peer_queryable: true
-purge_failure_never_selects_peer_bucket: true
-platform_service_failure_is_classified_as_shared: true
-diagnosis_names_owner_and_retained_data_state: true
-```
+- application_failure_leaves_peer_running: true
+- collector_failure_leaves_peer_queryable: true
+- purge_failure_never_selects_peer_bucket: true
+- platform_service_failure_is_classified_as_shared: true
+- diagnosis_names_owner_and_retained_data_state: true
 
 <!-- field: traces -->
 #### Traces

@@ -37,13 +37,11 @@ rel20.0-uc001-machine-templates
 
 go test ./internal/runtime/core -run 'TestMachineTemplateInstanceEqualsTheHandWrittenMachine|TestMachineTemplateBodyHoldsNoParamsUnitOrImports'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-loads: true
-nested_params_rejected: true
-```
+- loads: true
+- nested_params_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -67,15 +65,13 @@ rel20.0-uc001-machine-templates
 
 go test ./internal/runtime/core -run 'TestMachineInstanceCarriesOnlyItsHeader'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-extra_field_error_names_field_and_instance: true
-as_rejected: true
-second_entry_rejected: true
-name_and_purpose_replace_template: true
-```
+- extra_field_error_names_field_and_instance: true
+- as_rejected: true
+- second_entry_rejected: true
+- name_and_purpose_replace_template: true
 
 <!-- field: traces -->
 #### Traces
@@ -99,14 +95,12 @@ rel20.0-uc001-machine-templates
 
 go test ./internal/runtime/core -run 'TestMachineTemplateSplicesItsStagesRelativeToItself|TestMachineTemplateCannotNestOrBeLoadedAsAMachine|TestMachineInstanceCarriesOnlyItsHeader'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-stage_inside_template_spliced: true
-template_in_template_rejected: true
-stage_beside_template_rejected: true
-```
+- stage_inside_template_spliced: true
+- template_in_template_rejected: true
+- stage_beside_template_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -130,12 +124,10 @@ rel20.0-uc001-machine-templates
 
 go test ./internal/runtime/core ./internal/load -run 'TestMachineTemplateCannotNestOrBeLoadedAsAMachine|TestLoadClosureRefusesAProfileNamingAMachineTemplate'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-error_names_referrer_and_template: true
-```
+- error_names_referrer_and_template: true
 
 <!-- field: traces -->
 #### Traces
@@ -159,14 +151,12 @@ rel20.0-uc001-machine-templates
 
 go test ./internal/runtime/core -run 'TestMachineTemplateFaultsNameTemplateAndInstance|TestMachineTemplateSplicesItsStagesRelativeToItself'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-argument_faults_match_srd052: true
-reference_in_action_name_substituted: true
-reference_in_stage_args_substituted: true
-```
+- argument_faults_match_srd052: true
+- reference_in_action_name_substituted: true
+- reference_in_stage_args_substituted: true
 
 <!-- field: traces -->
 #### Traces
@@ -190,13 +180,11 @@ rel20.0-uc001-machine-templates
 
 go test ./internal/runtime/core ./pkg/profilestage -run 'TestMachineTemplateSplicesItsStagesRelativeToItself|TestStageFollowsMachineTemplateEdges'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-instance_fragment_relative_to_instance: true
-stage_path_relative_to_template: true
-```
+- instance_fragment_relative_to_instance: true
+- stage_path_relative_to_template: true
 
 <!-- field: traces -->
 #### Traces
@@ -220,14 +208,12 @@ rel20.0-uc001-machine-templates
 
 go test ./internal/runtime/core -run 'TestExpandTargetBodyKindSelectsReplaceOrSplice|TestMachineTemplateSplicesItsStagesRelativeToItself'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-machine_body_replaces: true
-stage_body_splices: true
-other_body_error_names_target_and_kind: true
-```
+- machine_body_replaces: true
+- stage_body_splices: true
+- other_body_error_names_target_and_kind: true
 
 <!-- field: traces -->
 #### Traces
@@ -251,15 +237,13 @@ rel20.0-uc001-machine-templates
 
 go test ./internal/runtime/core -run 'TestMachineTemplateInstanceEqualsTheHandWrittenMachine|TestMachineTemplateFaultsNameTemplateAndInstance'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-parsed_specs_equal_except_name: true
-structural_checks_apply: true
-required_policy_applies: true
-no_generated_file_written: true
-```
+- parsed_specs_equal_except_name: true
+- structural_checks_apply: true
+- required_policy_applies: true
+- no_generated_file_written: true
 
 <!-- field: traces -->
 #### Traces
@@ -283,14 +267,12 @@ rel20.0-uc001-machine-templates
 
 go test ./internal/runtime/core ./cmd/agent -run 'TestMachineTemplateFaultsNameTemplateAndInstance|TestStartupWiringFaultNamesTemplateAndInstance'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-error_names_template_path: true
-error_names_instance_path: true
-leftover_reference_line_points_into_template: true
-```
+- error_names_template_path: true
+- error_names_instance_path: true
+- leftover_reference_line_points_into_template: true
 
 <!-- field: traces -->
 #### Traces
@@ -314,13 +296,11 @@ rel20.0-uc001-machine-templates
 
 go test ./internal/load -run 'TestLoadClosureCarriesTheMachineTemplate'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-files_include_instance_template_stages: true
-digest_changes: true
-```
+- files_include_instance_template_stages: true
+- digest_changes: true
 
 <!-- field: traces -->
 #### Traces
@@ -344,14 +324,12 @@ rel20.0-uc001-machine-templates
 
 go test ./internal/load ./cmd/agent -run 'TestLoadClosureCarriesTheMachineTemplate|TestDumpGolden'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-machine_section: expanded machine
-expansion_kinds: "machine, stage"
-two_dumps_identical: true
-```
+- machine_section: expanded machine
+- expansion_kinds: machine, stage
+- two_dumps_identical: true
 
 <!-- field: traces -->
 #### Traces
@@ -375,12 +353,10 @@ rel20.0-uc001-machine-templates
 
 go test ./pkg/profilestage -run 'TestStageFollowsMachineTemplateEdges'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-staged_tree_loads_without_checkout: true
-```
+- staged_tree_loads_without_checkout: true
 
 <!-- field: traces -->
 #### Traces
@@ -404,13 +380,11 @@ rel20.0-uc002-agent-blueprints
 
 go test ./internal/tools/catalog -run 'TestBlueprintInstanceLoads'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-loads: true
-every_profile_field_accepted: true
-```
+- loads: true
+- every_profile_field_accepted: true
 
 <!-- field: traces -->
 #### Traces
@@ -434,14 +408,12 @@ rel20.0-uc002-agent-blueprints
 
 go test ./internal/tools/catalog -run 'TestBlueprintInstanceOverridesReplaceWholesale|TestBlueprintEntryRejectsAs'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-list_replaced_not_merged: true
-scalar_replaced: true
-as_rejected: true
-```
+- list_replaced_not_merged: true
+- scalar_replaced: true
+- as_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -465,13 +437,11 @@ rel20.0-uc002-agent-blueprints
 
 go test ./internal/tools/catalog ./internal/tools/rest/definition ./cmd/agent -run 'TestBlueprintCannotNest|TestBlueprintNamedAsProfileFails|TestMachineRequestNamingBlueprintFails'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-nesting_rejected: true
-error_names_referrer_and_blueprint: true
-```
+- nesting_rejected: true
+- error_names_referrer_and_blueprint: true
 
 <!-- field: traces -->
 #### Traces
@@ -495,13 +465,11 @@ rel20.0-uc002-agent-blueprints
 
 go test ./internal/tools/catalog -run 'TestBlueprintArgumentFaults'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-argument_faults_match_srd052: true
-body_decoded_after_substitution: true
-```
+- argument_faults_match_srd052: true
+- body_decoded_after_substitution: true
 
 <!-- field: traces -->
 #### Traces
@@ -525,14 +493,12 @@ rel20.0-uc002-agent-blueprints
 
 go test ./internal/tools/catalog -run 'TestBlueprintPathsResolveAgainstTheirFiles'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-blueprint_relative_to_blueprint: true
-override_relative_to_instance: true
-install_prefix_mapped_in_both: true
-```
+- blueprint_relative_to_blueprint: true
+- override_relative_to_instance: true
+- install_prefix_mapped_in_both: true
 
 <!-- field: traces -->
 #### Traces
@@ -556,14 +522,12 @@ rel20.0-uc002-agent-blueprints
 
 go test ./internal/tools/catalog ./internal/load -run 'TestBlueprintMachineMappingExpandsTemplate'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-template_expanded_without_instance_file: true
-arguments_pass_through: true
-instances_differ_by_argument: true
-```
+- template_expanded_without_instance_file: true
+- arguments_pass_through: true
+- instances_differ_by_argument: true
 
 <!-- field: traces -->
 #### Traces
@@ -587,12 +551,10 @@ rel20.0-uc002-agent-blueprints
 
 go test ./internal/tools/catalog -run 'TestResolvedBlueprintProfileRequiresMachineAndTools'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-error_names_instance_and_blueprint: true
-```
+- error_names_instance_and_blueprint: true
 
 <!-- field: traces -->
 #### Traces
@@ -616,14 +578,12 @@ rel20.0-uc002-agent-blueprints
 
 go test ./internal/load -run 'TestBlueprintInstanceProgramIdentity'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-identity_profile: instance path
-digest_changes_with_blueprint: true
-digest_changes_with_template: true
-```
+- identity_profile: instance path
+- digest_changes_with_blueprint: true
+- digest_changes_with_template: true
 
 <!-- field: traces -->
 #### Traces
@@ -647,14 +607,12 @@ rel20.0-uc002-agent-blueprints
 
 go test ./internal/load ./cmd/agent -run 'TestLoadClosureDumpsBlueprintExpansion|TestDumpGolden'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-profile_section: resolved instance
-expansion_kind: profile
-two_dumps_identical: true
-```
+- profile_section: resolved instance
+- expansion_kind: profile
+- two_dumps_identical: true
 
 <!-- field: traces -->
 #### Traces
@@ -678,12 +636,10 @@ rel20.0-uc002-agent-blueprints
 
 go test ./pkg/profilestage -run 'TestStageFollowsBlueprintEdges'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-staged_tree_loads_without_checkout: true
-```
+- staged_tree_loads_without_checkout: true
 
 <!-- field: traces -->
 #### Traces
@@ -707,13 +663,11 @@ rel20.0-uc002-agent-blueprints
 
 go test ./pkg/profileaudit -run 'TestInspectResolvesBlueprintChildProfile'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-child_resolved: true
-child_wiring_checked: true
-```
+- child_resolved: true
+- child_wiring_checked: true
 
 <!-- field: traces -->
 #### Traces

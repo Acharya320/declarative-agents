@@ -260,19 +260,17 @@ The synthetic third-provider conformance suite passes with zero Go and zero agen
 - srd050-declaration-imports
 - srd051-declaration-types
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-complete:
-    - GH-2238 implements the chat dialect loader (R2.1, R2.2 checks), config.dialect as a closure, dump, and staging edge (R1.2, R1.3 load failure, R2.3), and the provider type unit (R1.4).
-    - GH-2239 implements invoke_llm as a template method over the dialect, dialect beside provider, library parser profiles, and call-time credentials (R3.1 to R3.5).
-    - GH-2240 ships the Ollama and Cohere libraries (R5.1) and the capture parity run the adapters retired on.
-    - GH-2241 removes the compiled adapters (R5.2); provider values resolve to the shipped dialects, and the monorepo declarations use dialect with the providers root declared by their profiles (R1.1, R3.2).
-    - GH-2242 publishes the embed and rerank stage fragments and their words (R4.1).
-    - GH-2243 adopts them in catalog corpus-ingest and corpus-reader and replaces both duplicated Ollama embed blocks (R4.2).
-    - GH-2245 adopts the embed-query stage in the chatbot-mesh chatbot request machine, so no hand-written provider embedding remains in the monorepo. It also makes a machine_request load its request profile's declarations under that profile's library roots and --library overrides, and counts the words a closure's request machines run as used, since the agent serves those requests from its own REST collection (srd052 R3.1).
-    - GH-2244 adds the synthetic OpenAI-shaped library and its conformance suite (R5.3).
-    - GH-2248 reads a suite profile's model label under the profile's library roots, and makes the loader adopt a legacy provider value as the shipped dialect, so that dialect is a closure file, in the program identity and the dump (R2.3, R3.2).
-    - GH-2246 lets selectors index arrays (srd038 R2.20), so the synthetic library also ships embed fragments that read $.data.0.embedding, and its embeddings pass the stage words with no Go.
-```
+- complete:
+  1. GH-2238 implements the chat dialect loader (R2.1, R2.2 checks), config.dialect as a closure, dump, and staging edge (R1.2, R1.3 load failure, R2.3), and the provider type unit (R1.4).
+  1. GH-2239 implements invoke_llm as a template method over the dialect, dialect beside provider, library parser profiles, and call-time credentials (R3.1 to R3.5).
+  1. GH-2240 ships the Ollama and Cohere libraries (R5.1) and the capture parity run the adapters retired on.
+  1. GH-2241 removes the compiled adapters (R5.2); provider values resolve to the shipped dialects, and the monorepo declarations use dialect with the providers root declared by their profiles (R1.1, R3.2).
+  1. GH-2242 publishes the embed and rerank stage fragments and their words (R4.1).
+  1. GH-2243 adopts them in catalog corpus-ingest and corpus-reader and replaces both duplicated Ollama embed blocks (R4.2).
+  1. GH-2245 adopts the embed-query stage in the chatbot-mesh chatbot request machine, so no hand-written provider embedding remains in the monorepo. It also makes a machine_request load its request profile's declarations under that profile's library roots and --library overrides, and counts the words a closure's request machines run as used, since the agent serves those requests from its own REST collection (srd052 R3.1).
+  1. GH-2244 adds the synthetic OpenAI-shaped library and its conformance suite (R5.3).
+  1. GH-2248 reads a suite profile's model label under the profile's library roots, and makes the loader adopt a legacy provider value as the shipped dialect, so that dialect is a closure file, in the program identity and the dump (R2.3, R3.2).
+  1. GH-2246 lets selectors index arrays (srd038 R2.20), so the synthetic library also ships embed fragments that read $.data.0.embedding, and its embeddings pass the stage words with no Go.

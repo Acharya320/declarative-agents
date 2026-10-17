@@ -17,29 +17,30 @@ is release rel05.0. Release rel06.0 replaces the standard-library Go provisionin
 surface with the applier (srd006), a declarative agent that binds the helm and
 kubectl CLIs in its container.
 
-<!-- field: role_alignment -->
+<!-- field: role_alignment | form: "tree" -->
 ## Role alignment
 
-```yaml
-status: specified
-implemented_decisions:
-    - Retain `chatbot` as a descriptive multi-role actor with Planner, Executor, and Knowledge Manager bindings.
-    - Retain `rag-server` as a descriptive Knowledge Manager / Recommendation Generator realization.
-    - Retain the mesh `corpus-ingest` wrapper with its inherited catalog Knowledge Manager / Ontology Manager binding.
-    - Bind `creator` to Creator / Instance Manager and Agent Owner / Agent Lifecycle Manager and retain the compatible name.
-    - Bind `applier` to Executor / Actuation Agent and Change Manager; Applier is not a canonical role.
-    - Bind `collector` to Monitor / Telemetry Collector and distinguish its profile-backed workload from contrib metrics infrastructure.
-    - Treat all Helm names as deployment identities inheriting profile bindings, not as semantic role names.
-implemented_migrations:
-    - issue: GH-1077
-      current_actor: provisioning-workflow-orchestrator
-      implemented_responsibility: Sequence optional ingest and rollout requests through the creator.
-      canonical_role_sub_role: Executor / Workflow Orchestrator; not Coordinator.
-      retained_or_proposed_name: provisioning-workflow-orchestrator
-      authority_boundary: No implemented synchronization, conflict-resolution, negotiation, consensus, deployment, or child-process authority.
-      evidence: [agents/provisioning-workflow-orchestrator/request-machine.yaml, helm/templates/provisioning-workflow-orchestrator.yaml, srd004]
-      migration_impact: Profile, Helm, SRD, integration, packaging, release, and compatibility paths move together.
-```
+- status: specified
+- implemented_decisions:
+  1. Retain `chatbot` as a descriptive multi-role actor with Planner, Executor, and Knowledge Manager bindings.
+  1. Retain `rag-server` as a descriptive Knowledge Manager / Recommendation Generator realization.
+  1. Retain the mesh `corpus-ingest` wrapper with its inherited catalog Knowledge Manager / Ontology Manager binding.
+  1. Bind `creator` to Creator / Instance Manager and Agent Owner / Agent Lifecycle Manager and retain the compatible name.
+  1. Bind `applier` to Executor / Actuation Agent and Change Manager; Applier is not a canonical role.
+  1. Bind `collector` to Monitor / Telemetry Collector and distinguish its profile-backed workload from contrib metrics infrastructure.
+  1. Treat all Helm names as deployment identities inheriting profile bindings, not as semantic role names.
+- implemented_migrations:
+  1. - issue: GH-1077
+     - current_actor: provisioning-workflow-orchestrator
+     - implemented_responsibility: Sequence optional ingest and rollout requests through the creator.
+     - canonical_role_sub_role: Executor / Workflow Orchestrator; not Coordinator.
+     - retained_or_proposed_name: provisioning-workflow-orchestrator
+     - authority_boundary: No implemented synchronization, conflict-resolution, negotiation, consensus, deployment, or child-process authority.
+     - evidence:
+       1. agents/provisioning-workflow-orchestrator/request-machine.yaml
+       1. helm/templates/provisioning-workflow-orchestrator.yaml
+       1. srd004
+     - migration_impact: Profile, Helm, SRD, integration, packaging, release, and compatibility paths move together.
 
 <!-- release: 00.0 | status: implemented -->
 ## 00.0 - RAG server and single-RAG chatbot turn

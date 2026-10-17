@@ -77,26 +77,24 @@ mage integration:applier
 
 TestAssertApplierCallsRejectsMissingAndForbidden, TestApplierAuthorityProblemRejectsTransportAuthority, TestApplierScenariosCoverEveryTerminal, TestFakeScriptsClassifyTheDeclaredInvocations
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-valid_patch: add a RAG source through a values-plane patch
-invalid_patch: a patch violating the chart values schema
-agents: [creator, applier]
-```
+- valid_patch: add a RAG source through a values-plane patch
+- invalid_patch: a patch violating the chart values schema
+- agents:
+  1. creator
+  1. applier
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-invalid_patch_rejected_by_schema_dry_run_no_rollout: true
-valid_patch_applied_as_values_file_reuse_values_atomic: true
-no_per_field_set_construction: true
-rollout_verified_via_kubectl_rollout_status: true
-apply_or_verify_failure_rolls_back: true
-patch_carries_no_endpoint_or_credential: true
-```
+- invalid_patch_rejected_by_schema_dry_run_no_rollout: true
+- valid_patch_applied_as_values_file_reuse_values_atomic: true
+- no_per_field_set_construction: true
+- rollout_verified_via_kubectl_rollout_status: true
+- apply_or_verify_failure_rolls_back: true
+- patch_carries_no_endpoint_or_credential: true
 
 <!-- field: traces -->
 #### Traces
@@ -146,22 +144,18 @@ mage test (magefiles/applier_schema_test.go, GH-732)
 
 TestChartSchemaAcceptsAConformingPatch, TestChartSchemaRejectsANonConformingPatch, TestChartSchemaConstrainsTheRAGUnitName
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-conforming: testdata/integration/applier-values/conforming.yaml
-non_conforming: testdata/integration/applier-values/non-conforming.yaml
-```
+- conforming: testdata/integration/applier-values/conforming.yaml
+- non_conforming: testdata/integration/applier-values/non-conforming.yaml
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-conforming_patch_renders: true
-non_conforming_patch_rejected_by_name_and_pattern: true
-rag_unit_name_constrained_to_a_dns_label: true
-```
+- conforming_patch_renders: true
+- non_conforming_patch_rejected_by_name_and_pattern: true
+- rag_unit_name_constrained_to_a_dns_label: true
 
 <!-- field: traces -->
 #### Traces
@@ -198,21 +192,17 @@ mage test (magefiles/applier_chart_test.go, GH-733)
 
 TestApplierServiceTargetsItsDeployment, TestApplierMountsEveryProfileItStarts, TestApplierRendersItsWholeSurface
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-rendered_chart: staged chart with applier.enabled
-```
+- rendered_chart: staged chart with applier.enabled
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-service_targets_the_deployment_pods: true
-every_started_profile_is_projected: true
-whole_applier_object_set_renders: true
-```
+- service_targets_the_deployment_pods: true
+- every_started_profile_is_projected: true
+- whole_applier_object_set_renders: true
 
 <!-- field: traces -->
 #### Traces
@@ -255,29 +245,25 @@ mage test (magefiles/applier_live_infrastructure_test.go, GH-872)
 
 TestApplierLiveInfrastructureHealthy, TestApplierLiveInfrastructureClassifiesHostAPIFailure, TestApplierLiveInfrastructureClassifiesPodAPIFailure, TestApplierLiveInitialReadinessFailureCollectsDiagnostics, TestApplierLiveDiagnosticsAreBoundedAndKeepFailures, TestApplierLiveDiagnosticsIncludeInitPreviousAndOrderedBootstrapEvidence, TestApplierLiveApplyFailureClassification
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-healthy: host and applier-pod readyz probes answer ok
-host_failure: host Kubernetes API probe fails
-pod_failure: in-pod Kubernetes API probe fails after the host probe succeeds
-diagnostics: timed-out and failed command-runner responses
-```
+- healthy: host and applier-pod readyz probes answer ok
+- host_failure: host Kubernetes API probe fails
+- pod_failure: in-pod Kubernetes API probe fails after the host probe succeeds
+- diagnostics: timed-out and failed command-runner responses
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-healthy_paths_reach_semantic_assertions: true
-host_api_failure_classified_as_infrastructure: true
-pod_network_or_api_failure_classified_as_infrastructure: true
-initial_readiness_failure_captures_bootstrap_evidence: true
-diagnostics_have_one_overall_deadline: true
-init_current_and_previous_logs_are_retained: true
-healthy_recheck_preserves_semantic_failure: true
-unhealthy_recheck_does_not_claim_live_success: true
-```
+- healthy_paths_reach_semantic_assertions: true
+- host_api_failure_classified_as_infrastructure: true
+- pod_network_or_api_failure_classified_as_infrastructure: true
+- initial_readiness_failure_captures_bootstrap_evidence: true
+- diagnostics_have_one_overall_deadline: true
+- init_current_and_previous_logs_are_retained: true
+- healthy_recheck_preserves_semantic_failure: true
+- unhealthy_recheck_does_not_claim_live_success: true
 
 <!-- field: traces -->
 #### Traces
@@ -349,30 +335,26 @@ rel06.0-uc001-declarative-applier
 
 mage integration:applierLive (GH-735, GH-751)
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-cluster: kind with the agent-core runtime and the pinned CLI donor loaded
-patch: testdata/integration/applier-values/conforming.yaml
-rollback_trigger: testdata/integration/applier-values/rollback-trigger.yaml
-rejected: testdata/integration/applier-values/non-conforming.yaml
-```
+- cluster: kind with the agent-core runtime and the pinned CLI donor loaded
+- patch: testdata/integration/applier-values/conforming.yaml
+- rollback_trigger: testdata/integration/applier-values/rollback-trigger.yaml
+- rejected: testdata/integration/applier-values/non-conforming.yaml
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-revision_one_release_secret_asserted_before_readiness: true
-failed_owned_bootstrap_retains_evidence_before_delete: true
-leftover_cluster_replaced_before_scenario: true
-real_helm_upgrade_changes_the_release: true
-post_upgrade_verify_failure_reaches_rolled_back: true
-real_helm_rollback_restores_prior_computed_values: true
-chatbot_deployment_recovers_after_rollback: true
-rollout_endpoint_reports_complete_with_real_counts: true
-non_conforming_patch_rejected_on_the_cluster: true
-```
+- revision_one_release_secret_asserted_before_readiness: true
+- failed_owned_bootstrap_retains_evidence_before_delete: true
+- leftover_cluster_replaced_before_scenario: true
+- real_helm_upgrade_changes_the_release: true
+- post_upgrade_verify_failure_reaches_rolled_back: true
+- real_helm_rollback_restores_prior_computed_values: true
+- chatbot_deployment_recovers_after_rollback: true
+- rollout_endpoint_reports_complete_with_real_counts: true
+- non_conforming_patch_rejected_on_the_cluster: true
 
 <!-- field: traces -->
 #### Traces
@@ -412,24 +394,20 @@ mage test (magefiles/applier_rollout_test.go, magefiles/provisioning_workflow_or
 
 TestApplierRolloutMachineSeparatesBrokenRead, TestApplierRolloutEndpointMapsThreeOutcomes, TestApplierRolloutTerminalMappingsAgree, TestApplierRolloutCountsWordContract, TestApplierRolloutCountsRenderJSON, TestRolloutCountsSurviveTheCreatorHop, TestRolloutCountsSurviveTheProvisioningWorkflowOrchestratorHop, TestPanelRolloutInterfaceMatchesWhatIsServed
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-declared_config: the applier, creator, and provisioning-workflow-orchestrator profiles and the panel's provisioningApi.ts
-deployment_shapes: rolled out, no replica ready yet, freshly created with no revision annotation
-```
+- declared_config: the applier, creator, and provisioning-workflow-orchestrator profiles and the panel's provisioningApi.ts
+- deployment_shapes: rolled out, no replica ready yet, freshly created with no revision annotation
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-unreadable_deployment_returns_gateway_error_not_a_phase: true
-complete_and_progressing_remain_distinguishable: true
-both_phases_carry_ready_desired_revision: true
-counts_survive_the_creator_and_provisioning_workflow_orchestrator_hops: true
-panel_interface_declares_exactly_what_is_served: true
-```
+- unreadable_deployment_returns_gateway_error_not_a_phase: true
+- complete_and_progressing_remain_distinguishable: true
+- both_phases_carry_ready_desired_revision: true
+- counts_survive_the_creator_and_provisioning_workflow_orchestrator_hops: true
+- panel_interface_declares_exactly_what_is_served: true
 
 <!-- field: traces -->
 #### Traces
@@ -465,22 +443,18 @@ mage test (magefiles/provisioning_route_render_test.go, GH-681)
 
 TestProvisioningIngressRoutesToTheProvisioningWorkflowOrchestrator, TestApplierApplyStaysCreatorOnly, TestProvisioningWorkflowOrchestratorAdmitsOnlyTheIngressControllerOnIntent, TestNoProvisioningRouteWithoutTheControlPlane
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-rendered_chart: default values with applier.enabled and networkPolicy.enabled
-```
+- rendered_chart: default values with applier.enabled and networkPolicy.enabled
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-provisioning_ingress_backend: provisioning-workflow-orchestrator Service
-applier_apply_ingress_from: creator-labelled pods only
-provisioning_workflow_orchestrator_policy_admits_ingress_controller_on_intent_port: true
-provisioning_workflow_orchestrator_monitor_and_control_not_ingress_reachable: true
-```
+- provisioning_ingress_backend: provisioning-workflow-orchestrator Service
+- applier_apply_ingress_from: creator-labelled pods only
+- provisioning_workflow_orchestrator_policy_admits_ingress_controller_on_intent_port: true
+- provisioning_workflow_orchestrator_monitor_and_control_not_ingress_reachable: true
 
 <!-- field: traces -->
 #### Traces
@@ -527,30 +501,26 @@ rel06.0-uc001-declarative-applier
 
 mage integration:policyProof (GH-682)
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-cluster: kind Kubernetes 1.36.1 with compatible, locally loaded Calico v3.32.1
-positive: request through the ingress to the provisioning-workflow-orchestrator intent surface
-negative: request to the applier apply port from a non-creator pod
-```
+- cluster: kind Kubernetes 1.36.1 with compatible, locally loaded Calico v3.32.1
+- positive: request through the ingress to the provisioning-workflow-orchestrator intent surface
+- negative: request to the applier apply port from a non-creator pod
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-network_policy_enforcement_asserted_active: true
-cni_images_digest_pinned_and_loaded_before_manifest_apply: true
-policy_probe_image_digest_pinned_locally_loaded_and_never_pulled: true
-failed_owned_bootstrap_captures_kube_system_evidence_before_delete: true
-leftover_policy_cluster_recreated_and_bootstrapped: true
-browser_route_reaches_provisioning-workflow-orchestrator: true
-applier_apply_refuses_non_creator: true
-creator_instance_port_not_ingress_reachable: true
-provisioning_workflow_orchestrator_reaches_creator_instance: true
-creator_reaches_applier_apply: true
-```
+- network_policy_enforcement_asserted_active: true
+- cni_images_digest_pinned_and_loaded_before_manifest_apply: true
+- policy_probe_image_digest_pinned_locally_loaded_and_never_pulled: true
+- failed_owned_bootstrap_captures_kube_system_evidence_before_delete: true
+- leftover_policy_cluster_recreated_and_bootstrapped: true
+- browser_route_reaches_provisioning-workflow-orchestrator: true
+- applier_apply_refuses_non_creator: true
+- creator_instance_port_not_ingress_reachable: true
+- provisioning_workflow_orchestrator_reaches_creator_instance: true
+- creator_reaches_applier_apply: true
 
 <!-- field: traces -->
 #### Traces

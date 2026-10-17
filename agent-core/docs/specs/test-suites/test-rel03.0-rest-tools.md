@@ -53,27 +53,23 @@ rel03.0-uc001-rest-client-sync
 
 TestRESTConfig_LoadsToolDefinitions
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-config: rest_client_and_server_minimal
-declarations:
-    - rest_client_get
-    - rest_client_set
-    - rest_server_launch
-```
+- config: rest_client_and_server_minimal
+- declarations:
+  1. rest_client_get
+  1. rest_client_set
+  1. rest_server_launch
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-definitions_loaded: true
-tooldefs_category_boundary: true
-tooldefs_reference_named_rest_config: true
-arbitrary_url_from_tool_input_allowed: false
-package_layout: internal/tools/rest
-```
+- definitions_loaded: true
+- tooldefs_category_boundary: true
+- tooldefs_reference_named_rest_config: true
+- arbitrary_url_from_tool_input_allowed: false
+- package_layout: internal/tools/rest
 
 <!-- field: traces -->
 #### Traces
@@ -111,26 +107,28 @@ rel03.0-uc001-rest-client-sync
 
 TestRESTClient_SyncResourceWords
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-client: github_like_issue_client
-operations: [get_issue, set_issue]
-server_responses: [read_ok, update_ok, missing, domain_failed]
-```
+- client: github_like_issue_client
+- operations:
+  1. get_issue
+  1. set_issue
+- server_responses:
+  1. read_ok
+  1. update_ok
+  1. missing
+  1. domain_failed
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-get_signal: RESTResourceRead
-set_signal: RESTResourceWritten
-missing_signal: RESTMissing
-domain_failure_signal: RESTDomainFailed
-command_error_signal: CommandError
-output_contains_status_and_operation: true
-```
+- get_signal: RESTResourceRead
+- set_signal: RESTResourceWritten
+- missing_signal: RESTMissing
+- domain_failure_signal: RESTDomainFailed
+- command_error_signal: CommandError
+- output_contains_status_and_operation: true
 
 <!-- field: traces -->
 #### Traces
@@ -159,28 +157,24 @@ rel03.0-uc001-rest-client-sync
 
 TestRESTClient_RejectsAuthorityOverride
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-operation: get_issue
-forbidden_runtime_fields:
-    - method
-    - url
-    - auth_ref
-    - redirect_policy
-    - host
-```
+- operation: get_issue
+- forbidden_runtime_fields:
+  1. method
+  1. url
+  1. auth_ref
+  1. redirect_policy
+  1. host
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: CommandError
-failure_stage: schema_validation
-request_sent: false
-diagnostic_redacted: true
-```
+- signal: CommandError
+- failure_stage: schema_validation
+- request_sent: false
+- diagnostic_redacted: true
 
 <!-- field: traces -->
 #### Traces
@@ -210,26 +204,22 @@ rel03.0-uc001-rest-client-sync
 
 TestRESTClient_CommandStateSelectsTrustedBaseURL
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-configured_base_url: http://127.0.0.1:1
-base_url_source: command_state
-base_url_selector: $from(start_subject).base_url
-operation_path: /healthz
-```
+- configured_base_url: http://127.0.0.1:1
+- base_url_source: command_state
+- base_url_selector: $from(start_subject).base_url
+- operation_path: /healthz
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-selected_authority_reported: true
-static_target_default_unchanged: true
-unsafe_target_rejected_before_io: true
-credential_scope_default_deny: true
-runtime_authority_override_rejected: true
-```
+- selected_authority_reported: true
+- static_target_default_unchanged: true
+- unsafe_target_rejected_before_io: true
+- credential_scope_default_deny: true
+- runtime_authority_override_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -261,27 +251,23 @@ rel03.0-uc001-rest-client-sync
 
 TestRESTClient_HostSelectorComposesSelectedAuthority
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-configured_base_url: http://127.0.0.1:1
-base_url_source: command_state
-base_url_host_selector: $from(discover_pods).ip
-base_url_scheme: http
-operation_path: /monitor/state
-```
+- configured_base_url: http://127.0.0.1:1
+- base_url_source: command_state
+- base_url_host_selector: $from(discover_pods).ip
+- base_url_scheme: http
+- operation_path: /monitor/state
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-composed_authority_reported: true
-unsafe_host_rejected_before_io: true
-both_selector_forms_rejected: true
-invalid_scheme_or_port_rejected_at_load: true
-ipv6_literal_bracketed: true
-```
+- composed_authority_reported: true
+- unsafe_host_rejected_before_io: true
+- both_selector_forms_rejected: true
+- invalid_scheme_or_port_rejected_at_load: true
+- ipv6_literal_bracketed: true
 
 <!-- field: traces -->
 #### Traces
@@ -313,26 +299,22 @@ rel03.0-uc001-rest-client-sync
 
 TestRESTClient_PortSelectorResolvesPerItemPort
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-base_url_source: command_state
-base_url_host_selector: $from(discover_pods).ip
-base_url_port_selector: $from(discover_pods).port
-operation_path: /monitor/state
-```
+- base_url_source: command_state
+- base_url_host_selector: $from(discover_pods).ip
+- base_url_port_selector: $from(discover_pods).port
+- operation_path: /monitor/state
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-string_and_number_ports_resolve: true
-per_item_authority_reported: true
-port_outside_allowlist_refused: true
-malformed_port_rejected_before_io: true
-both_port_forms_rejected_at_load: true
-```
+- string_and_number_ports_resolve: true
+- per_item_authority_reported: true
+- port_outside_allowlist_refused: true
+- malformed_port_rejected_before_io: true
+- both_port_forms_rejected_at_load: true
 
 <!-- field: traces -->
 #### Traces
@@ -365,34 +347,31 @@ rel03.0-uc001-rest-client-sync
 
 TestRESTClient_ThreadsPreviousResultParams
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-producer_operation: embed_query
-consumer_operation: query_collection
-body_source: previous_result
-input_mapping:
-    query_embeddings: $.mapped.embedding
-    collection: $.carried.input
-carry_forward: [input]
-rejection_cases:
-    - undeclared_input_mapping_target
-    - command_state_body_source
-    - transport_authority_override
-```
+- producer_operation: embed_query
+- consumer_operation: query_collection
+- body_source: previous_result
+- input_mapping:
+  - query_embeddings: $.mapped.embedding
+  - collection: $.carried.input
+- carry_forward:
+  1. input
+- rejection_cases:
+  1. undeclared_input_mapping_target
+  1. command_state_body_source
+  1. transport_authority_override
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-selection_presents_only_declared_params: true
-not_declared_error: false
-carry_forward_under_carried_key: true
-undeclared_target_rejected: true
-command_state_body_source_rejected: true
-transport_authority_override_rejected: true
-```
+- selection_presents_only_declared_params: true
+- not_declared_error: false
+- carry_forward_under_carried_key: true
+- undeclared_target_rejected: true
+- command_state_body_source_rejected: true
+- transport_authority_override_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -419,23 +398,20 @@ rel03.0-uc001-rest-client-sync
 
 TestRESTClient_ChainThreadsVectorIntoQueryBody
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-producer_operation: embed_query
-consumer_operation: query_collection
-body_template:
-    query_embeddings: ["{{ params.query_embeddings }}"]
-```
+- producer_operation: embed_query
+- consumer_operation: query_collection
+- body_template:
+  - query_embeddings:
+    1. "{{ params.query_embeddings }}"
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-vector_threaded_into_body: true
-query_embeddings_rendered_as_nested_array: true
-```
+- vector_threaded_into_body: true
+- query_embeddings_rendered_as_nested_array: true
 
 <!-- field: traces -->
 #### Traces
@@ -461,31 +437,27 @@ rel03.0-uc001-rest-client-sync
 
 TestRESTClient_ResolvesAuthCredentialRefs
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-auth_profiles:
-    - basic
-    - bearer
-    - header_token
-    - query_token
-credential_refs:
-    - github_token
-    - user_ref
-    - password_ref
-```
+- auth_profiles:
+  1. basic
+  1. bearer
+  1. header_token
+  1. query_token
+- credential_refs:
+  1. github_token
+  1. user_ref
+  1. password_ref
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-resolved_credentials_sent: true
-literal_refs_sent: false
-result_output_contains_secret: false
-missing_ref_go_test: TestRESTClient_MissingCredentialReferenceFailsAuthResolution
-missing_ref_failure_stage: auth_resolution
-```
+- resolved_credentials_sent: true
+- literal_refs_sent: false
+- result_output_contains_secret: false
+- missing_ref_go_test: TestRESTClient_MissingCredentialReferenceFailsAuthResolution
+- missing_ref_failure_stage: auth_resolution
 
 <!-- field: traces -->
 #### Traces
@@ -514,26 +486,22 @@ rel03.0-uc001-rest-client-sync
 
 TestRESTClient_RedirectAllowlistPolicy
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-redirect_mode: allowlist
-request_limit: max_request_bytes
-response_limit: max_response_bytes
-size_limit_go_test: TestRESTClient_RequestAndResponseSizeLimits
-```
+- redirect_mode: allowlist
+- request_limit: max_request_bytes
+- response_limit: max_response_bytes
+- size_limit_go_test: TestRESTClient_RequestAndResponseSizeLimits
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-allowed_redirect_succeeds: true
-blocked_redirect_signal: CommandError
-oversized_request_sent: false
-oversized_response_failure_stage: size_limit
-oversized_response_content_returned: false
-```
+- allowed_redirect_succeeds: true
+- blocked_redirect_signal: CommandError
+- oversized_request_sent: false
+- oversized_response_failure_stage: size_limit
+- oversized_response_content_returned: false
 
 <!-- field: traces -->
 #### Traces
@@ -564,27 +532,23 @@ rel03.0-uc001-rest-client-sync
 
 TestRESTClient_MutatingOperationsRequireEffects
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-operations:
-    - rest_client_create
-    - rest_client_set
-    - rest_client_delete
-    - rest_client_invoke
-invalid_case: missing_reversibility
-```
+- operations:
+  1. rest_client_create
+  1. rest_client_set
+  1. rest_client_delete
+  1. rest_client_invoke
+- invalid_case: missing_reversibility
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-valid_mutations_accepted: true
-missing_reversibility_rejected: true
-irreversible_requires_confirmation: true
-compensation_metadata_captured: true
-```
+- valid_mutations_accepted: true
+- missing_reversibility_rejected: true
+- irreversible_requires_confirmation: true
+- compensation_metadata_captured: true
 
 <!-- field: traces -->
 #### Traces
@@ -614,28 +578,24 @@ rel03.0-uc002-rest-client-async
 
 TestRESTClient_SendRecordsAsyncRequest
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-operation: create_payment
-async_config:
-    request_id: $.id
-    idempotency_token: "{{ params.order_id }}"
-    state_retention: consume
-```
+- operation: create_payment
+- async_config:
+  - request_id: $.id
+  - idempotency_token: "{{ params.order_id }}"
+  - state_retention: consume
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: RESTAccepted
-request_state_written: true
-request_id_present: true
-idempotency_metadata_present: true
-submission_response_waited_for: true
-compensation_receipt_present: true
-```
+- signal: RESTAccepted
+- request_state_written: true
+- request_id_present: true
+- idempotency_metadata_present: true
+- submission_response_waited_for: true
+- compensation_receipt_present: true
 
 <!-- field: traces -->
 #### Traces
@@ -666,30 +626,26 @@ rel03.0-uc002-rest-client-async
 
 TestRESTClient_AwaitAsyncRequest
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-request_state: pending_payment
-outcomes:
-    - responded
-    - domain_failed
-    - missing
-    - timed_out
-    - async_state_missing
-```
+- request_state: pending_payment
+- outcomes:
+  1. responded
+  1. domain_failed
+  1. missing
+  1. timed_out
+  1. async_state_missing
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-responded_signal: RESTResponded
-domain_failed_signal: RESTDomainFailed
-missing_signal: RESTMissing
-timeout_signal: RESTAwaitTimedOut
-missing_state_signal: CommandError
-state_retention_applied: true
-```
+- responded_signal: RESTResponded
+- domain_failed_signal: RESTDomainFailed
+- missing_signal: RESTMissing
+- timeout_signal: RESTAwaitTimedOut
+- missing_state_signal: CommandError
+- state_retention_applied: true
 
 <!-- field: traces -->
 #### Traces
@@ -718,24 +674,20 @@ rel03.0-uc002-rest-client-async
 
 TestRESTClient_AsyncRetryPolicyValidation
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-operation: create_payment
-retry_policy: retry_on_429
-invalid_case: retry_without_idempotency
-```
+- operation: create_payment
+- retry_policy: retry_on_429
+- invalid_case: retry_without_idempotency
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-safe_retry_accepted: true
-unsafe_retry_rejected: true
-retry_count_traced: true
-idempotency_token_redacted: true
-```
+- safe_retry_accepted: true
+- unsafe_retry_rejected: true
+- retry_count_traced: true
+- idempotency_token_redacted: true
 
 <!-- field: traces -->
 #### Traces
@@ -766,33 +718,29 @@ rel03.0-uc001-rest-client-sync
 
 go test ./pkg/profileaudit -run TestInspectRESTRetryAggregate
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-retry_cases:
-    - one_attempt
-    - fixed_below_envelope
-    - exponential_capped_below_envelope
-    - aggregate_equal_to_envelope
-    - aggregate_above_envelope
-    - missing_retry_policy
-    - non_positive_attempts
-    - malformed_delay
-    - duration_overflow
-```
+- retry_cases:
+  1. one_attempt
+  1. fixed_below_envelope
+  1. exponential_capped_below_envelope
+  1. aggregate_equal_to_envelope
+  1. aggregate_above_envelope
+  1. missing_retry_policy
+  1. non_positive_attempts
+  1. malformed_delay
+  1. duration_overflow
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-network_requests_sent: 0
-aggregate_matches_runtime_backoff: true
-deterministic_client_policy_evidence: true
-equal_and_larger_rejected: true
-invalid_and_overflowing_policy_rejected: true
-await_submission_aggregate_applied: false
-```
+- network_requests_sent: 0
+- aggregate_matches_runtime_backoff: true
+- deterministic_client_policy_evidence: true
+- equal_and_larger_rejected: true
+- invalid_and_overflowing_policy_rejected: true
+- await_submission_aggregate_applied: false
 
 <!-- field: traces -->
 #### Traces
@@ -820,16 +768,14 @@ rel03.0-uc002-rest-client-async
 
 go test ./internal/tools/rest/client -run 'TestRESTClient(DispatchCancellation|CancelledMutation|ExecuteRetains)'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-in_flight_request_aborted: true
-retry_wait_aborted: true
-context_worker_joined: true
-non_idempotent_outcome: indeterminate
-legacy_execute_compatible: true
-```
+- in_flight_request_aborted: true
+- retry_wait_aborted: true
+- context_worker_joined: true
+- non_idempotent_outcome: indeterminate
+- legacy_execute_compatible: true
 
 <!-- field: traces -->
 #### Traces
@@ -855,28 +801,24 @@ rel03.0-uc003-rest-server-signals
 
 TestRESTServer_LaunchRegistersRoutes
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-server: control_api
-address: 127.0.0.1:0
-endpoints:
-    - approve
-    - reject
-    - pause
-```
+- server: control_api
+- address: 127.0.0.1:0
+- endpoints:
+  1. approve
+  1. reject
+  1. pause
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: ServerLaunched
-route_count: 3
-shared_server_state_written: true
-network_listen_side_effect_declared: true
-blocks_for_inbound_request: false
-```
+- signal: ServerLaunched
+- route_count: 3
+- shared_server_state_written: true
+- network_listen_side_effect_declared: true
+- blocks_for_inbound_request: false
 
 <!-- field: traces -->
 #### Traces
@@ -903,31 +845,27 @@ rel03.0-uc003-rest-server-signals
 
 TestRESTServer_AwaitInboundSignals
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-server: control_api
-endpoint_bindings:
-    - emit_signal
-    - emit_dynamic_signal
-queued_events:
-    - Approved
-    - Rejected
-    - PauseRequested
-    - DomainEventReceived
-```
+- server: control_api
+- endpoint_bindings:
+  1. emit_signal
+  1. emit_dynamic_signal
+- queued_events:
+  1. Approved
+  1. Rejected
+  1. PauseRequested
+  1. DomainEventReceived
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-approved_route_visible: true
-rejected_route_visible: true
-pause_route_visible: true
-domain_event_route_visible: true
-invalid_request_enqueued: false
-```
+- approved_route_visible: true
+- rejected_route_visible: true
+- pause_route_visible: true
+- domain_event_route_visible: true
+- invalid_request_enqueued: false
 
 <!-- field: traces -->
 #### Traces
@@ -956,28 +894,24 @@ rel03.0-uc003-rest-server-signals
 
 TestRESTAwaitEvent_MultiSourceFanIn
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-servers:
-    - control_api
-    - domain_webhooks
-queued_events:
-    - server: control_api
-      signal: Approved
-    - server: domain_webhooks
-      signal: DomainEventReceived
-```
+- servers:
+  1. control_api
+  1. domain_webhooks
+- queued_events:
+  1. - server: control_api
+     - signal: Approved
+  1. - server: domain_webhooks
+     - signal: DomainEventReceived
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-selected_event_returned_once: true
-output_contains_source_and_route: true
-hidden_workflow_action_selected: false
-```
+- selected_event_returned_once: true
+- output_contains_source_and_route: true
+- hidden_workflow_action_selected: false
 
 <!-- field: traces -->
 #### Traces
@@ -1008,29 +942,30 @@ rel03.0-uc008-rest-await-any-fan-in
 
 TestRESTAwaitEvent_FactoryBuildsStagedFanIn
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-initial_servers:
-    - control_api
-    - domain_webhooks
-later_server: audit_webhooks
-first_await_sources: [control_api, domain_webhooks]
-second_await_sources: [control_api, domain_webhooks, audit_webhooks]
-factory_init: rest_await_event
-```
+- initial_servers:
+  1. control_api
+  1. domain_webhooks
+- later_server: audit_webhooks
+- first_await_sources:
+  1. control_api
+  1. domain_webhooks
+- second_await_sources:
+  1. control_api
+  1. domain_webhooks
+  1. audit_webhooks
+- factory_init: rest_await_event
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-first_selected_event_returned_once: true
-third_server_launch_is_visible_transition: true
-second_selected_event_returned_once: true
-second_await_includes_later_source: true
-hidden_workflow_action_selected: false
-```
+- first_selected_event_returned_once: true
+- third_server_launch_is_visible_transition: true
+- second_selected_event_returned_once: true
+- second_await_includes_later_source: true
+- hidden_workflow_action_selected: false
 
 <!-- field: traces -->
 #### Traces
@@ -1060,29 +995,29 @@ rel03.0-uc003-rest-server-signals
 
 TestRESTAwaitEvent_SourceFiltersPreserveUnrelatedEvents
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-sources:
-    - server: control_api
-      routes: [approve, reject]
-      signals: [Approved, Rejected]
-queued_events:
-    - route: pause
-      signal: PauseRequested
-    - route: approve
-      signal: Approved
-```
+- sources:
+  1. - server: control_api
+     - routes:
+       1. approve
+       1. reject
+     - signals:
+       1. Approved
+       1. Rejected
+- queued_events:
+  1. - route: pause
+     - signal: PauseRequested
+  1. - route: approve
+     - signal: Approved
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-disallowed_route_selected: false
-allowed_signal_selected: Approved
-filter_diagnostics_reported: true
-```
+- disallowed_route_selected: false
+- allowed_signal_selected: Approved
+- filter_diagnostics_reported: true
 
 <!-- field: traces -->
 #### Traces
@@ -1108,25 +1043,23 @@ rel03.0-uc003-rest-server-signals
 
 TestRESTAwaitEvent_Timeout
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-sources:
-    - server: control_api
-      routes: [approve]
-      signals: [Approved]
-timeout: 10ms
-```
+- sources:
+  1. - server: control_api
+     - routes:
+       1. approve
+     - signals:
+       1. Approved
+- timeout: 10ms
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: AwaitTimedOut
-matching_event_consumed: false
-hidden_workflow_action_selected: false
-```
+- signal: AwaitTimedOut
+- matching_event_consumed: false
+- hidden_workflow_action_selected: false
 
 <!-- field: traces -->
 #### Traces
@@ -1151,25 +1084,21 @@ rel03.0-uc003-rest-server-signals
 
 TestRESTAwaitEvent_ServerStopped
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-stopped_behaviors:
-    - ignore
-    - emit_server_stopped
-    - command_error
-```
+- stopped_behaviors:
+  1. ignore
+  1. emit_server_stopped
+  1. command_error
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-ignore_continues_to_other_sources: true
-emit_server_stopped_signal: ServerStopped
-command_error_signal: CommandError
-command_error_go_test: TestRESTAwaitEvent_StoppedSourceCommandError
-```
+- ignore_continues_to_other_sources: true
+- emit_server_stopped_signal: ServerStopped
+- command_error_signal: CommandError
+- command_error_go_test: TestRESTAwaitEvent_StoppedSourceCommandError
 
 <!-- field: traces -->
 #### Traces
@@ -1198,37 +1127,33 @@ rel03.0-uc003-rest-server-signals
 
 TestRESTLifecycleControl_ExitAgentSignal
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-endpoint: POST /api/lifecycle/exit
-payload:
-    reason: operator requested shutdown
-    status: success
-machine_route:
-    signal: ExitRequested
-    action: exit_agent
-```
+- endpoint: POST /api/lifecycle/exit
+- payload:
+  - reason: operator requested shutdown
+  - status: success
+- machine_route:
+  - signal: ExitRequested
+  - action: exit_agent
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-handler_executed_exit_directly: false
-await_signal: ExitRequested
-exit_agent_action_visible: true
-exit_result_signal: AgentExited
-exit_output_json: true
-exit_output_reason_from_event: true
-exit_output_status_from_event: true
-control_profile_terminal_state: Succeeded
-run_status_cancelled: false
-deferred_shutdown_after_loop_return: true
-control_profile_go_test: TestControlProfileExitReachesSucceededBeforeDeferredShutdown
-payload_go_test: TestExitAgentUsesRuntimeEventPayload
-profile_owned_exit_tracer: applications/catalog documentation-curator suite
-```
+- handler_executed_exit_directly: false
+- await_signal: ExitRequested
+- exit_agent_action_visible: true
+- exit_result_signal: AgentExited
+- exit_output_json: true
+- exit_output_reason_from_event: true
+- exit_output_status_from_event: true
+- control_profile_terminal_state: Succeeded
+- run_status_cancelled: false
+- deferred_shutdown_after_loop_return: true
+- control_profile_go_test: TestControlProfileExitReachesSucceededBeforeDeferredShutdown
+- payload_go_test: TestExitAgentUsesRuntimeEventPayload
+- profile_owned_exit_tracer: applications/catalog documentation-curator suite
 
 <!-- field: traces -->
 #### Traces
@@ -1256,30 +1181,31 @@ rel03.0-uc003-rest-server-signals
 
 TestRESTServer_StopDrainsAndUnblocks, TestRESTServer_ShutdownConfigValidation, TestRESTServer_StreamEventsUnblocksOnStop
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-server: control_api
-drain_policies: [drain, drain_then_stop]
-rejected_drain_policies: [reject_new, drop_queued, fail_queued]
-pending_events: 2
-awaiting_call: true
-active_stream: true
-```
+- server: control_api
+- drain_policies:
+  1. drain
+  1. drain_then_stop
+- rejected_drain_policies:
+  1. reject_new
+  1. drop_queued
+  1. fail_queued
+- pending_events: 2
+- awaiting_call: true
+- active_stream: true
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: ServerStopped
-drained_event_count: 2
-listener_closed: true
-await_unblocked: true
-stream_unblocked: true
-unsupported_shutdown_fields_rejected: true
-dropped_events_reported: true
-```
+- signal: ServerStopped
+- drained_event_count: 2
+- listener_closed: true
+- await_unblocked: true
+- stream_unblocked: true
+- unsupported_shutdown_fields_rejected: true
+- dropped_events_reported: true
 
 <!-- field: traces -->
 #### Traces
@@ -1309,26 +1235,25 @@ rel03.0-uc003-rest-server-signals
 
 TestMachineRequestTerminalStateSeparatesClientAndServerErrors, TestMachineRequestTerminalStateOutranksSignal, TestMachineRequestFallsBackToSignalMapping
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-machine: apply-shaped, terminal states Done, Rejected, Failed
-words: exec-shaped, emitting only ToolDone or ToolFailed
-response_map: {Done: 200, Rejected: 400, Failed: 500}
-```
+- machine: apply-shaped, terminal states Done, Rejected, Failed
+- words: exec-shaped, emitting only ToolDone or ToolFailed
+- response_map:
+  - Done: 200
+  - Rejected: 400
+  - Failed: 500
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-validate_reject_status: 400
-apply_failure_status: 500
-success_status: 200
-failures_share_terminal_signal: true
-terminal_state_outranks_terminal_signal: true
-signal_only_config_unchanged: true
-```
+- validate_reject_status: 400
+- apply_failure_status: 500
+- success_status: 200
+- failures_share_terminal_signal: true
+- terminal_state_outranks_terminal_signal: true
+- signal_only_config_unchanged: true
 
 <!-- field: traces -->
 #### Traces
@@ -1354,24 +1279,20 @@ rel03.0-uc003-rest-server-signals
 
 TestValidateMachineResponsesRejectsNonTerminalState, TestMachineRequestEndpointAcceptsEitherResponseMap, TestMachineRequestUnmappedTerminalNamesBothKeys
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-non_terminal_state_mapping: Applying
-empty_response_map: true
-unmapped_terminal: Rejected
-```
+- non_terminal_state_mapping: Applying
+- empty_response_map: true
+- unmapped_terminal: Rejected
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-non_terminal_state_rejected_at_load: true
-either_map_accepted: true
-neither_map_rejected: true
-diagnostic_names_state_and_signal: true
-```
+- non_terminal_state_rejected_at_load: true
+- either_map_accepted: true
+- neither_map_rejected: true
+- diagnostic_names_state_and_signal: true
 
 <!-- field: traces -->
 #### Traces
@@ -1395,28 +1316,24 @@ rel03.0-uc003-rest-server-signals
 
 TestRESTServer_RequestValidationFailures
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-invalid_requests:
-    - wrong_method
-    - schema_invalid
-    - body_too_large
-    - queue_full
-    - handler_failed
-```
+- invalid_requests:
+  1. wrong_method
+  1. schema_invalid
+  1. body_too_large
+  1. queue_full
+  1. handler_failed
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-grammar_event_enqueued: false
-configured_http_status_returned: true
-queue_overflow_reported: true
-handler_failure_signal_or_response_declared: true
-diagnostics_redacted: true
-```
+- grammar_event_enqueued: false
+- configured_http_status_returned: true
+- queue_overflow_reported: true
+- handler_failure_signal_or_response_declared: true
+- diagnostics_redacted: true
 
 <!-- field: traces -->
 #### Traces
@@ -1446,25 +1363,34 @@ rel03.0-uc003-rest-server-signals
 
 go test ./internal/tools/rest -run 'TestRESTServer_SelectsSamePathEndpointByMethod|TestRESTDefinition_RejectsSameMethodOnSamePath'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-endpoints: ["GET /api/items", "POST /api/items", "POST /api/chat", "GET /{path...}"]
-requests: [GET /api/items, POST /api/items, PUT /api/items, GET /api/chat, GET /anything/else]
-```
+- endpoints:
+  1. GET /api/items
+  1. POST /api/items
+  1. POST /api/chat
+  1. GET /{path...}
+- requests:
+  1. GET /api/items
+  1. POST /api/items
+  1. PUT /api/items
+  1. GET /api/chat
+  1. GET /anything/else
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-get_items_status: 200
-post_items_signal: ItemCreated
-put_items: {status: 405, allow: "GET, POST"}
-get_chat: {status: 405, allow: POST}
-catch_all_status: 200
-duplicate_method_and_shape_rejected: true
-```
+- get_items_status: 200
+- post_items_signal: ItemCreated
+- put_items:
+  - status: 405
+  - allow: GET, POST
+- get_chat:
+  - status: 405
+  - allow: POST
+- catch_all_status: 200
+- duplicate_method_and_shape_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -1491,30 +1417,26 @@ rel03.0-uc003-rest-server-signals
 
 TestRESTServer_RejectsUndeclaredQueryAndHeader
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-invalid_requests:
-    - undeclared_query
-    - undeclared_header
-    - schema_invalid_path
-    - schema_invalid_header
-redaction_go_tests:
-    - TestRESTServer_RedactsAwaitAndStreamOutput
-    - TestRESTServer_RedactsHandlerResponses
-```
+- invalid_requests:
+  1. undeclared_query
+  1. undeclared_header
+  1. schema_invalid_path
+  1. schema_invalid_header
+- redaction_go_tests:
+  1. TestRESTServer_RedactsAwaitAndStreamOutput
+  1. TestRESTServer_RedactsHandlerResponses
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-invalid_request_status: 400
-invalid_request_enqueued: false
-await_output_redacted: true
-stream_output_redacted: true
-handler_response_redacted: true
-```
+- invalid_request_status: 400
+- invalid_request_enqueued: false
+- await_output_redacted: true
+- stream_output_redacted: true
+- handler_response_redacted: true
 
 <!-- field: traces -->
 #### Traces
@@ -1543,26 +1465,22 @@ rel03.0-uc003-rest-server-signals
 
 TestRESTServer_InvokeHandlerBindings
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-endpoint_bindings:
-    - invoke_handler
-valid_request: handler_response
-signal_request: handler_signal
-invalid_request: handler_not_configured
-```
+- endpoint_bindings:
+  1. invoke_handler
+- valid_request: handler_response
+- signal_request: handler_signal
+- invalid_request: handler_not_configured
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-mapped_response_returned: true
-declared_signal_enqueued: true
-unconfigured_handler_fails: true
-hidden_workflow_action_selected: false
-```
+- mapped_response_returned: true
+- declared_signal_enqueued: true
+- unconfigured_handler_fails: true
+- hidden_workflow_action_selected: false
 
 <!-- field: traces -->
 #### Traces
@@ -1589,25 +1507,21 @@ rel03.0-uc003-rest-server-signals
 
 TestRESTServer_StreamEvents
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-endpoint_bindings:
-    - emit_signal
-    - stream_events
-queued_event: Approved
-```
+- endpoint_bindings:
+  1. emit_signal
+  1. stream_events
+- queued_event: Approved
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-content_type: text/event-stream
-streamed_signal: Approved
-streamed_route: approve
-hidden_workflow_action_selected: false
-```
+- content_type: text/event-stream
+- streamed_signal: Approved
+- streamed_route: approve
+- hidden_workflow_action_selected: false
 
 <!-- field: traces -->
 #### Traces
@@ -1634,30 +1548,26 @@ rel03.0-uc004-openapi-import
 
 TestRESTOpenAPI_ImportAllowlist
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-openapi_document: payments_openapi
-expose:
-    - getPayment
-    - createPayment
-tooldefs:
-    - get_payment
-    - create_payment
-```
+- openapi_document: payments_openapi
+- expose:
+  1. getPayment
+  1. createPayment
+- tooldefs:
+  1. get_payment
+  1. create_payment
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-imported_operations:
-    - getPayment
-    - createPayment
-unlisted_operation_imported: false
-tooldefs_explicit: true
-generated_go_code: false
-```
+- imported_operations:
+  1. getPayment
+  1. createPayment
+- unlisted_operation_imported: false
+- tooldefs_explicit: true
+- generated_go_code: false
 
 <!-- field: traces -->
 #### Traces
@@ -1686,26 +1596,22 @@ rel03.0-uc004-openapi-import
 
 TestRESTOpenAPI_ServerBindMap
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-openapi_document: payments_openapi
-bind:
-    receivePaymentWebhook: payment_webhook
-endpoint_binding: emit_signal
-```
+- openapi_document: payments_openapi
+- bind:
+  - receivePaymentWebhook: payment_webhook
+- endpoint_binding: emit_signal
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-endpoint_bound: payment_webhook
-request_schema_compiled: true
-response_schema_compiled: true
-server_tooldef_explicit: true
-generated_server_code: false
-```
+- endpoint_bound: payment_webhook
+- request_schema_compiled: true
+- response_schema_compiled: true
+- server_tooldef_explicit: true
+- generated_server_code: false
 
 <!-- field: traces -->
 #### Traces
@@ -1732,26 +1638,22 @@ rel03.0-uc004-openapi-import
 
 TestRESTOpenAPI_InvalidOperationIDs
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-invalid_imports:
-    - missing_operation_id
-    - duplicate_operation_id
-    - incompatible_server_binding
-```
+- invalid_imports:
+  1. missing_operation_id
+  1. duplicate_operation_id
+  1. incompatible_server_binding
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-import_rejected: true
-source_document_reported: true
-operation_identity_reported: true
-schema_location_reported_when_available: true
-no_partial_tooldefs_registered: true
-```
+- import_rejected: true
+- source_document_reported: true
+- operation_identity_reported: true
+- schema_location_reported_when_available: true
+- no_partial_tooldefs_registered: true
 
 <!-- field: traces -->
 #### Traces
@@ -1783,31 +1685,27 @@ rel03.0-uc005-ollama-openapi-model-listing
 
 mage integration:ollamaRest
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profile: ${AGENT_CATALOG_ROOT}/rest/ollama-profile.yaml
-model_family: qwen3
-openapi_document: rest/openapi/ollama.yaml
-operation_id: listOllamaModels
-tool_name: ollama_list_models
-live_endpoint: http://127.0.0.1:11434/api/tags
-prompt: List the local Ollama models available on this machine.
-```
+- profile: ${AGENT_CATALOG_ROOT}/rest/ollama-profile.yaml
+- model_family: qwen3
+- openapi_document: rest/openapi/ollama.yaml
+- operation_id: listOllamaModels
+- tool_name: ollama_list_models
+- live_endpoint: http://127.0.0.1:11434/api/tags
+- prompt: List the local Ollama models available on this machine.
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-selected_tool_manifest_contains:
-    - ollama_list_models
-selected_tool_manifest_excludes_mutating_ollama_tools: true
-rest_tool_invoked: true
-rest_operation_called: listOllamaModels
-final_answer_contains_api_model_names: true
-final_answer_excludes_absent_model_names: true
-```
+- selected_tool_manifest_contains:
+  1. ollama_list_models
+- selected_tool_manifest_excludes_mutating_ollama_tools: true
+- rest_tool_invoked: true
+- rest_operation_called: listOllamaModels
+- final_answer_contains_api_model_names: true
+- final_answer_excludes_absent_model_names: true
 
 <!-- field: traces -->
 #### Traces
@@ -1842,32 +1740,28 @@ rel03.0-uc006-documentation-curator
 
 mage integration:documentationCurator
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profile_owner: applications/catalog
-profile: agents/knowledge-manager/documentation-curator/profile.yaml
-builtin_tool: launch_curator_http
-rest_tools:
-    - doc_list
-    - doc_get
-    - doc_search
-    - doc_validate
-    - doc_suggest_changes
-    - doc_patch_approve
-    - doc_patch_reject
-```
+- profile_owner: applications/catalog
+- profile: agents/knowledge-manager/documentation-curator/profile.yaml
+- builtin_tool: launch_curator_http
+- rest_tools:
+  1. doc_list
+  1. doc_get
+  1. doc_search
+  1. doc_validate
+  1. doc_suggest_changes
+  1. doc_patch_approve
+  1. doc_patch_reject
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-profile_loads: true
-documentation_factory_registered: true
-rest_tooldefs_selected: true
-core_concrete_profile_required: false
-```
+- profile_loads: true
+- documentation_factory_registered: true
+- rest_tooldefs_selected: true
+- core_concrete_profile_required: false
 
 <!-- field: traces -->
 #### Traces
@@ -1895,25 +1789,21 @@ rel03.0-uc006-documentation-curator
 
 mage integration:documentationCurator
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-server_package: internal/tools/rest
-docs_fixture: temporary_docs_root
-route_prefix: /api/v1/docs
-```
+- server_package: internal/tools/rest
+- docs_fixture: temporary_docs_root
+- route_prefix: /api/v1/docs
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-docs_list_returned: true
-docs_detail_returned: true
-spa_fallback_returned: true
-bench_route_delegation: false
-concrete_profile_required: false
-```
+- docs_list_returned: true
+- docs_detail_returned: true
+- spa_fallback_returned: true
+- bench_route_delegation: false
+- concrete_profile_required: false
 
 <!-- field: traces -->
 #### Traces
@@ -1942,30 +1832,26 @@ rel03.0-uc006-documentation-curator
 
 mage integration:documentationCurator
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-routes:
-    - POST /api/v1/docs/search
-    - POST /api/v1/docs/validate
-    - POST /api/v1/docs/suggestions
-    - POST /api/v1/docs/patches/{patch_id}/approve
-docs_fixture: temporary_docs_root
-strict_validation: true
-```
+- routes:
+  1. POST /api/v1/docs/search
+  1. POST /api/v1/docs/validate
+  1. POST /api/v1/docs/suggestions
+  1. POST /api/v1/docs/patches/{patch_id}/approve
+- docs_fixture: temporary_docs_root
+- strict_validation: true
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-search_results_returned: true
-validation_findings_structured: true
-suggestion_status: pending_review
-approval_recorded: true
-documentation_write_applied: false
-concrete_profile_required: false
-```
+- search_results_returned: true
+- validation_findings_structured: true
+- suggestion_status: pending_review
+- approval_recorded: true
+- documentation_write_applied: false
+- concrete_profile_required: false
 
 <!-- field: traces -->
 #### Traces
@@ -1995,41 +1881,37 @@ rel03.0-uc006-documentation-curator
 
 mage integration:documentationCurator
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profile_owner: applications/catalog
-profile: agents/knowledge-manager/documentation-curator/profile.yaml
-listener: 127.0.0.1:18081
-frontend_builds:
-    - ../applications/catalog/agents/bench/ui
-    - ../applications/catalog/agents/knowledge-manager/documentation-curator/ui/docs
-bench_route_test: TestDocsAPIRoutesAreNotMounted
-lifecycle_exit_endpoint: POST /api/lifecycle/exit
-```
+- profile_owner: applications/catalog
+- profile: agents/knowledge-manager/documentation-curator/profile.yaml
+- listener: 127.0.0.1:18081
+- frontend_builds:
+  1. ../applications/catalog/agents/bench/ui
+  1. ../applications/catalog/agents/knowledge-manager/documentation-curator/ui/docs
+- bench_route_test: TestDocsAPIRoutesAreNotMounted
+- lifecycle_exit_endpoint: POST /api/lifecycle/exit
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-documentation_health_ok: true
-documentation_index_returned: true
-validation_endpoint_returned: true
-suggestion_endpoint_returned: true
-spa_route_returned_html: true
-bench_docs_routes_absent: true
-lifecycle_exit_requested: true
-terminal_state_output_succeeded: true
-run_result_output_succeeded: true
-cancelled_output_absent: true
-documentation_listener_released: true
-control_listener_released: true
-documentation_host_stop_go_test: TestKnowledgeManagerConformance
-launch_curator_http_undo: rest_server_stop
-clean_shutdown: true
-core_concrete_profile_required: false
-```
+- documentation_health_ok: true
+- documentation_index_returned: true
+- validation_endpoint_returned: true
+- suggestion_endpoint_returned: true
+- spa_route_returned_html: true
+- bench_docs_routes_absent: true
+- lifecycle_exit_requested: true
+- terminal_state_output_succeeded: true
+- run_result_output_succeeded: true
+- cancelled_output_absent: true
+- documentation_listener_released: true
+- control_listener_released: true
+- documentation_host_stop_go_test: TestKnowledgeManagerConformance
+- launch_curator_http_undo: rest_server_stop
+- clean_shutdown: true
+- core_concrete_profile_required: false
 
 <!-- field: traces -->
 #### Traces
@@ -2063,29 +1945,25 @@ rel03.0-uc007-machine-request-documentation-ux
 
 mage integration:documentationCurator
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profile_owner: applications/catalog
-profile: agents/knowledge-manager/documentation-curator/profile.yaml
-browser_harness: Puppeteer
-entry_point: Integration.DocumentationCurator
-integration_target: mage integration:documentationCurator
-page_url: http://127.0.0.1:18081/
-```
+- profile_owner: applications/catalog
+- profile: agents/knowledge-manager/documentation-curator/profile.yaml
+- browser_harness: Puppeteer
+- entry_point: Integration.DocumentationCurator
+- integration_target: mage integration:documentationCurator
+- page_url: http://127.0.0.1:18081/
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-page_loaded: true
-profile_ui_assets_served: true
-bench_route_delegation: false
-screenshot_on_failure: true
-console_log_captured_on_failure: true
-core_concrete_profile_required: false
-```
+- page_loaded: true
+- profile_ui_assets_served: true
+- bench_route_delegation: false
+- screenshot_on_failure: true
+- console_log_captured_on_failure: true
+- core_concrete_profile_required: false
 
 <!-- field: traces -->
 #### Traces
@@ -2110,28 +1988,24 @@ rel03.0-uc007-machine-request-documentation-ux
 
 mage integration:documentationCurator
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-browser_request: GET or POST document index endpoint configured as machine_request
-document_resource: documentation_corpus
-expected_document: SPECIFICATIONS.md
-```
+- browser_request: GET or POST document index endpoint configured as machine_request
+- document_resource: documentation_corpus
+- expected_document: SPECIFICATIONS.md
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-index_response_ok: true
-sidebar_contains_specifications: true
-request_run_count: 1
-terminal_signal: DocumentIndexReady
-machine_request_trace_required: true
-generic_rest_route_used: documentation_curator.documents
-direct_docs_handler_restored_fails: true
-document_resource_root: docs
-```
+- index_response_ok: true
+- sidebar_contains_specifications: true
+- request_run_count: 1
+- terminal_signal: DocumentIndexReady
+- machine_request_trace_required: true
+- generic_rest_route_used: documentation_curator.documents
+- direct_docs_handler_restored_fails: true
+- document_resource_root: docs
 
 <!-- field: traces -->
 #### Traces
@@ -2159,31 +2033,29 @@ rel03.0-uc007-machine-request-documentation-ux
 
 mage integration:documentationCurator
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-selected_document: SPECIFICATIONS.md
-nested_index_document: specs/use-cases/rel03.0-uc007-machine-request-documentation-ux.md
-response_modes: [raw_yaml, parsed_yaml]
-blocked_paths:
-    - ../go.mod
-    - cmd/agent/main.go
-```
+- selected_document: SPECIFICATIONS.md
+- nested_index_document: specs/use-cases/rel03.0-uc007-machine-request-documentation-ux.md
+- response_modes:
+  1. raw_yaml
+  1. parsed_yaml
+- blocked_paths:
+  1. ../go.mod
+  1. cmd/agent/main.go
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-raw_yaml_returned: true
-nested_document_path_listed: true
-parsed_content_returned: true
-rendered_title_visible: true
-terminal_signal: DocumentDetailReady
-generic_rest_route_used: documentation_curator.document
-traversal_request_denied: true
-disallowed_extension_denied: true
-```
+- raw_yaml_returned: true
+- nested_document_path_listed: true
+- parsed_content_returned: true
+- rendered_title_visible: true
+- terminal_signal: DocumentDetailReady
+- generic_rest_route_used: documentation_curator.document
+- traversal_request_denied: true
+- disallowed_extension_denied: true
 
 <!-- field: traces -->
 #### Traces
@@ -2212,27 +2084,23 @@ rel03.0-uc007-machine-request-documentation-ux
 
 mage integration:documentationCurator
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-selected_document: SPECIFICATIONS.md
-rendered_selectors:
-    - .doc-viewer
-    - .doc-raw-section
-raw_text_contains: "id: agent-core-specifications"
-```
+- selected_document: SPECIFICATIONS.md
+- rendered_selectors:
+  1. .doc-viewer
+  1. .doc-raw-section
+- raw_text_contains: "id: agent-core-specifications"
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-rendered_html_visible: true
-raw_yaml_visible: true
-parsed_fields_match_raw_document: true
-browser_observed_detail_response_trace: true
-browser_console_errors: 0
-```
+- rendered_html_visible: true
+- raw_yaml_visible: true
+- parsed_fields_match_raw_document: true
+- browser_observed_detail_response_trace: true
+- browser_console_errors: 0
 
 <!-- field: traces -->
 #### Traces
@@ -2260,29 +2128,25 @@ rel03.0-uc007-machine-request-documentation-ux
 
 mage integration:documentationCurator
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-requests:
-    - document_index
-    - document_detail
-failure_artifacts_dir: testdata/integration/rel03-rest-tools/artifacts/uc007
-```
+- requests:
+  1. document_index
+  1. document_detail
+- failure_artifacts_dir: testdata/integration/rel03-rest-tools/artifacts/uc007
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-request_ids_present: true
-machine_names_present: true
-terminal_signals_present: true
-run_result_summaries_present: true
-generic_server_route_present: true
-captured_responses_recorded_on_failure: true
-network_log_captured: true
-screenshot_path_reported_on_failure: true
-```
+- request_ids_present: true
+- machine_names_present: true
+- terminal_signals_present: true
+- run_result_summaries_present: true
+- generic_server_route_present: true
+- captured_responses_recorded_on_failure: true
+- network_log_captured: true
+- screenshot_path_reported_on_failure: true
 
 <!-- field: traces -->
 #### Traces
@@ -2311,32 +2175,28 @@ rel03.0-uc007-machine-request-documentation-ux
 
 go test ./internal/tools/rest -run 'TestRESTServerMachineRequestConformanceLoadsConfiguredMachineFile|TestProfileMachineRequestRunnerUsesDeclaredMachinePolicy|TestProfileMachineRequestRunnerEnforcesDeclaredCommandTimeout|TestProfileMachineRequestRunnerRejectsInvalidConfig'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-conformance_env: none
-fixture_owner: agent-core
-machine: generic machine_request fixture
-endpoint_path: /api/v1/docs/{path...}
-```
+- conformance_env: none
+- fixture_owner: agent-core
+- machine: generic machine_request fixture
+- endpoint_path: /api/v1/docs/{path...}
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-configured_request_machine_loaded: true
-injected_machine_spec_required: false
-nested_path_captured: true
-terminal_signal_mapped: DocumentDetailReady
-fixture_declaration_roots_used: true
-request_machine_actions_select_tools: true
-declared_iteration_budget_preserved: true
-declared_command_timeout_preserved_and_enforced: true
-omitted_request_machine_policy_rejected: true
-generic_trace_envelope_go_test: TestRESTServerMachineRequestTraceEnvelope
-generic_trace_contains_server_route_machine: true
-```
+- configured_request_machine_loaded: true
+- injected_machine_spec_required: false
+- nested_path_captured: true
+- terminal_signal_mapped: DocumentDetailReady
+- fixture_declaration_roots_used: true
+- request_machine_actions_select_tools: true
+- declared_iteration_budget_preserved: true
+- declared_command_timeout_preserved_and_enforced: true
+- omitted_request_machine_policy_rejected: true
+- generic_trace_envelope_go_test: TestRESTServerMachineRequestTraceEnvelope
+- generic_trace_contains_server_route_machine: true
 
 <!-- field: traces -->
 #### Traces
@@ -2367,31 +2227,27 @@ rel03.0-uc007-machine-request-documentation-ux
 
 mage integration:documentationCurator
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-conformance_env: none
-routes:
-    - GET /api/v1/docs
-    - GET /api/v1/docs/{path...}
-request_machine: documentation-curator-request
-```
+- conformance_env: none
+- routes:
+  1. GET /api/v1/docs
+  1. GET /api/v1/docs/{path...}
+- request_machine: documentation-curator-request
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-generic_rest_route_used: true
-docs_specific_runner_used: false
-route_trace_present: true
-machine_name_present: true
-terminal_signal_present: true
-run_summary_present: true
-current_conformance_gate: none
-always_on_go_test: TestStandaloneServerConformanceUsesRESTMachineRequestRoutes
-browser_profile_tracer_owner: applications/catalog
-```
+- generic_rest_route_used: true
+- docs_specific_runner_used: false
+- route_trace_present: true
+- machine_name_present: true
+- terminal_signal_present: true
+- run_summary_present: true
+- current_conformance_gate: none
+- always_on_go_test: TestStandaloneServerConformanceUsesRESTMachineRequestRoutes
+- browser_profile_tracer_owner: applications/catalog
 
 <!-- field: traces -->
 #### Traces
@@ -2425,39 +2281,35 @@ rel03.0-uc007-machine-request-documentation-ux
 
 mage integration:documentationCurator
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-configured_routes:
-    - POST /api/v1/actions/validate
-    - POST /api/v1/actions/suggest
-    - POST /api/v1/actions/patches/{patch_id}/approve
-    - POST /api/v1/actions/patches/{patch_id}/reject
-removed_route: POST /api/v1/actions
-request_machine: documentation-curator-request
-```
+- configured_routes:
+  1. POST /api/v1/actions/validate
+  1. POST /api/v1/actions/suggest
+  1. POST /api/v1/actions/patches/{patch_id}/approve
+  1. POST /api/v1/actions/patches/{patch_id}/reject
+- removed_route: POST /api/v1/actions
+- request_machine: documentation-curator-request
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-private_action_registry_used: false
-direct_command_execute_used: false
-legacy_action_envelope_status: 404
-validation_terminal_signal: RESTResponded
-suggestion_terminal_signal: RESTAccepted
-approval_terminal_signal: RESTResponded
-rejection_terminal_signal: RESTResponded
-missing_patch_terminal_signal: RESTMissing
-missing_patch_status: 404
-missing_patch_error: patch_missing
-patch_store_survives_action_runs: true
-action_trace_present: true
-profile_wiring_test: TestDocumentationActionEndpointsUseMachineRequestBinding
-profile_ux_test: TestDocumentationUXActionsUseRequestMachineRoutes
-browser_validation_trace: validate_action
-```
+- private_action_registry_used: false
+- direct_command_execute_used: false
+- legacy_action_envelope_status: 404
+- validation_terminal_signal: RESTResponded
+- suggestion_terminal_signal: RESTAccepted
+- approval_terminal_signal: RESTResponded
+- rejection_terminal_signal: RESTResponded
+- missing_patch_terminal_signal: RESTMissing
+- missing_patch_status: 404
+- missing_patch_error: patch_missing
+- patch_store_survives_action_runs: true
+- action_trace_present: true
+- profile_wiring_test: TestDocumentationActionEndpointsUseMachineRequestBinding
+- profile_ux_test: TestDocumentationUXActionsUseRequestMachineRoutes
+- browser_validation_trace: validate_action
 
 <!-- field: traces -->
 #### Traces
@@ -2485,33 +2337,29 @@ rel03.0-uc001-rest-client-sync
 
 TestRESTTools_TracingRedactionAndErrors
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-failures:
-    - auth_resolution
-    - network_io
-    - timeout
-    - response_mapping
-    - route_validation
-    - shutdown_failed
-redaction_selectors:
-    - headers.authorization
-    - query.token
-    - body.secret
-```
+- failures:
+  1. auth_resolution
+  1. network_io
+  1. timeout
+  1. response_mapping
+  1. route_validation
+  1. shutdown_failed
+- redaction_selectors:
+  1. headers.authorization
+  1. query.token
+  1. body.secret
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-traces_include_operation_or_route: true
-traces_include_status_and_timing: true
-failure_stage_reported: true
-secrets_redacted: true
-verbose_body_capture_requires_config: true
-```
+- traces_include_operation_or_route: true
+- traces_include_status_and_timing: true
+- failure_stage_reported: true
+- secrets_redacted: true
+- verbose_body_capture_requires_config: true
 
 <!-- field: traces -->
 #### Traces
@@ -2540,25 +2388,29 @@ rel03.0-uc003-rest-server-signals
 
 TestRESTServer_ControlQueueAndReadPolicyConformance
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-endpoint_bindings: [lifecycle_control, emit_signal]
-queue_policies: [reject, drop_oldest, drop_newest]
-supported_read_policies: [first_available]
-rejected_read_policies: [priority_order, round_robin]
-```
+- endpoint_bindings:
+  1. lifecycle_control
+  1. emit_signal
+- queue_policies:
+  1. reject
+  1. drop_oldest
+  1. drop_newest
+- supported_read_policies:
+  1. first_available
+- rejected_read_policies:
+  1. priority_order
+  1. round_robin
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-lifecycle_handlers_execute_directly: false
-lifecycle_events_enqueued: true
-configured_queue_policy_honored: true
-unsupported_queue_drain_and_read_policies_rejected: true
-```
+- lifecycle_handlers_execute_directly: false
+- lifecycle_events_enqueued: true
+- configured_queue_policy_honored: true
+- unsupported_queue_drain_and_read_policies_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -2586,25 +2438,23 @@ rel03.0-uc001-rest-client-sync
 
 TestRESTClient_CIDRAllowlistPolicy, TestRESTClient_ResponseSchemaAndDomainErrorOutput, TestRESTClient_AsyncCorrelationAndIdempotencyHeader, TestRESTClient_AwaitOperationReferenceValidation
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-evidence: TestRESTClient_SafetyAndAsyncConformance
-network_policy: cidr_allowlist
-response_schema: configured
-async_selectors: [request_id, correlation]
-```
+- evidence: TestRESTClient_SafetyAndAsyncConformance
+- network_policy: cidr_allowlist
+- response_schema: configured
+- async_selectors:
+  1. request_id
+  1. correlation
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-cidr_allowlist_enforced: true
-invalid_response_schema_success_signal: false
-domain_error_code_in_output: true
-await_operation_rejected: true
-```
+- cidr_allowlist_enforced: true
+- invalid_response_schema_success_signal: false
+- domain_error_code_in_output: true
+- await_operation_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -2633,28 +2483,24 @@ rel03.0-uc004-openapi-import
 
 TestRESTOpenAPI_ServerBindPreservesEndpointConfig
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-evidence: TestRESTOpenAPI_ServerBindPreservesEndpointConfig
-endpoint_fields:
-    - response
-    - machine_request
-    - monitor_view
-    - queue
-    - signal
-    - allowed_signals
-```
+- evidence: TestRESTOpenAPI_ServerBindPreservesEndpointConfig
+- endpoint_fields:
+  1. response
+  1. machine_request
+  1. monitor_view
+  1. queue
+  1. signal
+  1. allowed_signals
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-configured_fields_preserved: true
-openapi_method_path_schema_imported: true
-incompatible_operation_ids_rejected: true
-```
+- configured_fields_preserved: true
+- openapi_method_path_schema_imported: true
+- incompatible_operation_ids_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -2681,25 +2527,25 @@ rel03.0-uc001-rest-client-sync
 
 TestRESTClient_CompensationUndoMemento, TestRESTClient_CompensationExecutorRunsFromReceipt
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-evidence: TestRESTClient_CompensationUndoMemento
-execution_evidence: TestRESTClient_CompensationExecutorRunsFromReceipt
-operations: [rest_client_get, rest_client_create, rest_client_set, rest_client_delete]
-```
+- evidence: TestRESTClient_CompensationUndoMemento
+- execution_evidence: TestRESTClient_CompensationExecutorRunsFromReceipt
+- operations:
+  1. rest_client_get
+  1. rest_client_create
+  1. rest_client_set
+  1. rest_client_delete
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-read_undo_noop: true
-mutating_undo_noop: false
-compensation_payload_valid: true
-compensation_execution_succeeds: true
-metadata_contains_operation_resource_and_idempotency: true
-```
+- read_undo_noop: true
+- mutating_undo_noop: false
+- compensation_payload_valid: true
+- compensation_execution_succeeds: true
+- metadata_contains_operation_resource_and_idempotency: true
 
 <!-- field: traces -->
 #### Traces
@@ -2726,23 +2572,19 @@ rel03.0-uc007-machine-request-documentation-ux
 
 TestRESTServerMachineRequestTerminalResponseSchema
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-evidence: TestRESTServerMachineRequestTerminalResponseSchema
-terminal_signal: DocumentationReady
-response_schema: configured
-```
+- evidence: TestRESTServerMachineRequestTerminalResponseSchema
+- terminal_signal: DocumentationReady
+- response_schema: configured
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-invalid_response_schema_success: false
-failure_stage: response_invalid
-diagnostic_redacted: true
-```
+- invalid_response_schema_success: false
+- failure_stage: response_invalid
+- diagnostic_redacted: true
 
 <!-- field: traces -->
 #### Traces
@@ -2768,23 +2610,19 @@ rel03.0-uc007-machine-request-documentation-ux
 
 TestRESTDocumentResourcesConfigConformance
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-evidence: TestRESTDocumentResourcesConfigConformance
-document_resource: documentation_corpus
-request_machine: generic machine_request fixture
-```
+- evidence: TestRESTDocumentResourcesConfigConformance
+- document_resource: documentation_corpus
+- request_machine: generic machine_request fixture
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-unknown_document_resources_silently_ignored: false
-current_profile_resource_words_still_work: true
-validation_error_names_field_when_unsupported: true
-```
+- unknown_document_resources_silently_ignored: false
+- current_profile_resource_words_still_work: true
+- validation_error_names_field_when_unsupported: true
 
 <!-- field: traces -->
 #### Traces
@@ -2812,24 +2650,22 @@ rel03.0-uc003-rest-server-signals
 
 TestStaticAssets_BundleServesEmbeddedIndexWithSPAFallback, TestStaticAssets_ServesDeclaredConfigAsUIConfigJSON, TestStaticAssets_UIConfigWithoutDeclarationFallsThrough, TestValidateDefinition_staticAssetsRejectsInvalidConfigs
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-bundle: observer
-config: {title: Chatbot Mesh observer, fleet_endpoint: /monitor/fleet}
-```
+- bundle: observer
+- config:
+  - title: Chatbot Mesh observer
+  - fleet_endpoint: /monitor/fleet
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-bundle_index_served: true
-spa_fallback_to_bundle_index: true
-ui_config_json_equals_declared_map: true
-root_and_bundle_together_rejected: true
-unknown_bundle_rejected_with_known_names: true
-```
+- bundle_index_served: true
+- spa_fallback_to_bundle_index: true
+- ui_config_json_equals_declared_map: true
+- root_and_bundle_together_rejected: true
+- unknown_bundle_rejected_with_known_names: true
 
 <!-- field: traces -->
 #### Traces

@@ -156,26 +156,22 @@ The specification names coding-agent, agent-architecture, and the chatbot-mesh a
 - srd008-observer-agent
 - srd020-collector
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-planned:
-    - "The generalized catalog observer profile, tools, declarations, REST definitions, and UX, promoted from applications/chatbot-mesh/agents/observer."
-    - "bindings.catalog and per-application deployment_realizations rows in agent-role-realizations.md, added when the catalog observer profile and per-application workloads exist."
-    - "Coding-agent and agent-architecture adoption of the family against their release selectors; chatbot-mesh observer rebinding to the catalog family."
-```
+- planned:
+  1. The generalized catalog observer profile, tools, declarations, REST definitions, and UX, promoted from applications/chatbot-mesh/agents/observer.
+  1. bindings.catalog and per-application deployment_realizations rows in agent-role-realizations.md, added when the catalog observer profile and per-application workloads exist.
+  1. Coding-agent and agent-architecture adoption of the family against their release selectors; chatbot-mesh observer rebinding to the catalog family.
 
 <!-- field: platform_dependencies_note -->
 ## Platform dependencies note
 
 These SRDs live in the agent-core corpus, not this one; they are platform dependencies rather than in-corpus depends_on (GH-2310).
 
-<!-- field: platform_dependencies -->
+<!-- field: platform_dependencies | form: "typed table" -->
 ## Platform dependencies
 
-```yaml
-- srd_id: srd033-monitor
-  provider: agent-core
-  symbols_used: [monitor read-state views, REST client get, REST server launch/await/stop]
-```
+| srd_id | provider | symbols_used |
+| --- | --- | --- |
+| srd033-monitor | agent-core | [monitor read-state views, REST client get, REST server launch/await/stop] |

@@ -40,28 +40,51 @@ rel10.0-uc001-value-predicate-branch
 
 go test ./internal/tools/control -run TestValuePredicateOperators
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-comparisons:
-    - {left: "5", op: eq, right: "5", expect: satisfied}
-    - {left: "5", op: eq, right: "6", expect: unsatisfied}
-    - {left: "5", op: ne, right: "6", expect: satisfied}
-    - {left: "5", op: lt, right: "5", expect: unsatisfied}
-    - {left: "4", op: lt, right: "5", expect: satisfied}
-    - {left: "5", op: lte, right: "5", expect: satisfied}
-    - {left: "5", op: gt, right: "5", expect: unsatisfied}
-    - {left: "6", op: gt, right: "5", expect: satisfied}
-    - {left: "5", op: gte, right: "5", expect: satisfied}
-```
+- comparisons:
+  1. - left: "5"
+     - op: eq
+     - right: "5"
+     - expect: satisfied
+  1. - left: "5"
+     - op: eq
+     - right: "6"
+     - expect: unsatisfied
+  1. - left: "5"
+     - op: ne
+     - right: "6"
+     - expect: satisfied
+  1. - left: "5"
+     - op: lt
+     - right: "5"
+     - expect: unsatisfied
+  1. - left: "4"
+     - op: lt
+     - right: "5"
+     - expect: satisfied
+  1. - left: "5"
+     - op: lte
+     - right: "5"
+     - expect: satisfied
+  1. - left: "5"
+     - op: gt
+     - right: "5"
+     - expect: unsatisfied
+  1. - left: "6"
+     - op: gt
+     - right: "5"
+     - expect: satisfied
+  1. - left: "5"
+     - op: gte
+     - right: "5"
+     - expect: satisfied
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-every_comparison: emits the configured signal for its expected outcome
-```
+- every_comparison: emits the configured signal for its expected outcome
 
 <!-- field: traces -->
 #### Traces
@@ -87,23 +110,27 @@ rel10.0-uc001-value-predicate-branch
 
 go test ./internal/tools/control -run TestValuePredicateEmptiness
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-empty_values: ["", [], {}, null]
-non_empty_values: ["0", "false", [0], {"a": 1}]
-right_operand: absent
-```
+- empty_values:
+  1. ""
+  1. []
+  1. {}
+  1. null
+- non_empty_values:
+  1. "0"
+  1. "false"
+  1. 1. 0
+  1. - a: 1
+- right_operand: absent
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-empty_values: emit the satisfied signal under empty
-non_empty_values: emit the satisfied signal under non_empty
-registration: succeeds with no right operand
-```
+- empty_values: emit the satisfied signal under empty
+- non_empty_values: emit the satisfied signal under non_empty
+- registration: succeeds with no right operand
 
 <!-- field: traces -->
 #### Traces
@@ -130,21 +157,25 @@ rel10.0-uc001-value-predicate-branch
 
 go test ./internal/tools/control -run TestValuePredicateNumericCoercion
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-numeric: {left: "10", op: gt, right: "6", operand_type: default}
-lexicographic: {left: "10", op: gt, right: "6", operand_type: string}
-```
+- numeric:
+  - left: "10"
+  - op: gt
+  - right: "6"
+  - operand_type: default
+- lexicographic:
+  - left: "10"
+  - op: gt
+  - right: "6"
+  - operand_type: string
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-numeric: satisfied
-lexicographic: unsatisfied
-```
+- numeric: satisfied
+- lexicographic: unsatisfied
 
 <!-- field: traces -->
 #### Traces
@@ -171,22 +202,22 @@ rel10.0-uc001-value-predicate-branch
 
 go test ./internal/tools/control -run TestValuePredicateUnresolvedOperandIsAFault
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-unresolved_selector: a selector naming a path absent from the previous Result
-uncoercible: {left: "not-a-number", op: gt, right: "0", operand_type: number}
-```
+- unresolved_selector: a selector naming a path absent from the previous Result
+- uncoercible:
+  - left: not-a-number
+  - op: gt
+  - right: "0"
+  - operand_type: number
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: CommandError
-never: the configured unsatisfied signal
-output: names the operand that could not be resolved or coerced
-```
+- signal: CommandError
+- never: the configured unsatisfied signal
+- output: names the operand that could not be resolved or coerced
 
 <!-- field: traces -->
 #### Traces
@@ -211,21 +242,20 @@ rel10.0-uc001-value-predicate-branch
 
 go test ./internal/tools/control -run TestValuePredicateRegistrationRejectsMalformedConfig
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-unknown_operator: {op: "approximately"}
-missing_signal: {satisfied: "Ok", unsatisfied: absent}
-```
+- unknown_operator:
+  - op: approximately
+- missing_signal:
+  - satisfied: Ok
+  - unsatisfied: absent
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-registration: fails
-error: names the tool and the offending field
-```
+- registration: fails
+- error: names the tool and the offending field
 
 <!-- field: traces -->
 #### Traces
@@ -251,21 +281,19 @@ rel10.0-uc001-value-predicate-branch
 
 go test ./internal/tools/control -run TestValuePredicateDrivesTwoTransitions
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-machine: one state dispatching the predicate, routing each configured signal to its own next state
-values: [a value that satisfies, a value that does not]
-```
+- machine: one state dispatching the predicate, routing each configured signal to its own next state
+- values:
+  1. a value that satisfies
+  1. a value that does not
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-transitions: the two values reach the two different next states
-side_effects: none recorded; undo is a noop
-```
+- transitions: the two values reach the two different next states
+- side_effects: none recorded; undo is a noop
 
 <!-- field: traces -->
 #### Traces
@@ -294,23 +322,19 @@ rel10.0-uc001-value-predicate-branch
 
 go test ./internal/tools/control -run TestValuePredicateComparesAcrossAnInterveningWord
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-before_step: "count_before, output {mapped:{count:'4'}}"
-after_previous_result: "{mapped:{count:'6'}} and {mapped:{count:'4'}}"
-comparison: "$.mapped.count gt $from(count_before).mapped.count"
-```
+- before_step: count_before, output {mapped:{count:'4'}}
+- after_previous_result: "{mapped:{count:'6'}} and {mapped:{count:'4'}}"
+- comparison: $.mapped.count gt $from(count_before).mapped.count
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-grew: satisfied
-unchanged: unsatisfied
-both_operands_from_earlier_steps: satisfied
-```
+- grew: satisfied
+- unchanged: unsatisfied
+- both_operands_from_earlier_steps: satisfied
 
 <!-- field: traces -->
 #### Traces
@@ -336,23 +360,19 @@ rel10.0-uc001-value-predicate-branch
 
 go test ./internal/tools/control -run TestValuePredicateUnreachableLabelIsAFault
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-no_such_label: "$from(count_before).mapped.count with only other_step recorded"
-missing_path: "$from(count_before).mapped.count with count_before output {mapped:{}}"
-no_view: "$from(count_before).mapped.count with no command-state view"
-```
+- no_such_label: $from(count_before).mapped.count with only other_step recorded
+- missing_path: $from(count_before).mapped.count with count_before output {mapped:{}}
+- no_view: $from(count_before).mapped.count with no command-state view
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-signal: CommandError
-never: the configured unsatisfied signal
-output: explains which operand could not be reached
-```
+- signal: CommandError
+- never: the configured unsatisfied signal
+- output: explains which operand could not be reached
 
 <!-- field: traces -->
 #### Traces

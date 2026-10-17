@@ -12,18 +12,19 @@ depends_on:
 <!-- Copyright (c) 2026 Nokia -->
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
 
-<!-- field: role_realization_decision -->
+<!-- field: role_realization_decision | form: "tree" -->
 ## Role realization decision
 
-```yaml
-current_actor: provisioning-workflow-orchestrator
-implemented_responsibility: Sequence an optional corpus-ingest request followed by a values rollout request through the creator and aggregate the terminal result.
-canonical_role_sub_role: Executor / Workflow Orchestrator; explicitly not Coordinator.
-retained_or_proposed_name: Use `provisioning-workflow-orchestrator`; implemented in GH-1077.
-authority_boundary: Holds no deployment API, child-process, synchronization, conflict-resolution, negotiation, or consensus authority.
-evidence: [agents/provisioning-workflow-orchestrator/request-machine.yaml, agents/provisioning-workflow-orchestrator/rest.yaml, helm/templates/provisioning-workflow-orchestrator.yaml]
-migration_impact: GH-1077 migrated profile and directory names, Helm objects and policies, SRD004 and references, integrations, packaging closure, release artifacts, and compatibility metadata together.
-```
+- current_actor: provisioning-workflow-orchestrator
+- implemented_responsibility: Sequence an optional corpus-ingest request followed by a values rollout request through the creator and aggregate the terminal result.
+- canonical_role_sub_role: Executor / Workflow Orchestrator; explicitly not Coordinator.
+- retained_or_proposed_name: Use `provisioning-workflow-orchestrator`; implemented in GH-1077.
+- authority_boundary: Holds no deployment API, child-process, synchronization, conflict-resolution, negotiation, or consensus authority.
+- evidence:
+  1. agents/provisioning-workflow-orchestrator/request-machine.yaml
+  1. agents/provisioning-workflow-orchestrator/rest.yaml
+  1. helm/templates/provisioning-workflow-orchestrator.yaml
+- migration_impact: GH-1077 migrated profile and directory names, Helm objects and policies, SRD004 and references, integrations, packaging closure, release artifacts, and compatibility metadata together.
 
 <!-- field: context -->
 ## Context
@@ -261,62 +262,50 @@ The turn-path, LCM-mechanics, and in-process-mutation boundaries are stated as n
 
 agent-core runtime contracts this agent builds on. External references, owned by agent-core, not part of this application's corpus.
 
-<!-- field: platform_dependencies -->
+<!-- field: platform_dependencies | form: "typed table" -->
 ## Platform dependencies
 
-```yaml
-- srd_id: srd030-machine-request-rest-binding
-  provider: agent-core
-  symbols_used: [R1]
-- srd_id: srd033-monitor-rest-api
-  provider: agent-core
-  symbols_used: [R1]
-- srd_id: srd028-rest-client-tools
-  provider: agent-core
-  symbols_used: [V30]
-```
+| srd_id | provider | symbols_used |
+| --- | --- | --- |
+| srd030-machine-request-rest-binding | agent-core | [R1] |
+| srd033-monitor-rest-api | agent-core | [R1] |
+| srd028-rest-client-tools | agent-core | [V30] |
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-implemented:
-    - >-
-      The provisioning-workflow-orchestrator profile (agents/provisioning-workflow-orchestrator) and its intent endpoint, ingestion and reconfiguration workflow machines, and declared creator clients. mage integration:controlPlane proves the values-only path through the real provisioning-workflow-orchestrator and creator against a recording fake deployment API. The ingest path delegates to the creator's implemented corpus-ingest child endpoint and checks the returned count. These paths have independent evidence; no live integration yet joins ingest, rollout, and a grounded turn from the newly added source.
-planned:
-    - >-
-      R3.3 concurrent-intent serialization or rejection. The shipped request machine contains only ingest and rollout sequencing and no lock, conflict, negotiation, synchronization, or consensus state; planned behavior does not confer a canonical Coordinator binding.
-```
+- implemented:
+  1. The provisioning-workflow-orchestrator profile (agents/provisioning-workflow-orchestrator) and its intent endpoint, ingestion and reconfiguration workflow machines, and declared creator clients. mage integration:controlPlane proves the values-only path through the real provisioning-workflow-orchestrator and creator against a recording fake deployment API. The ingest path delegates to the creator's implemented corpus-ingest child endpoint and checks the returned count. These paths have independent evidence; no live integration yet joins ingest, rollout, and a grounded turn from the newly added source.
+- planned:
+  1. R3.3 concurrent-intent serialization or rejection. The shipped request machine contains only ingest and rollout sequencing and no lock, conflict, negotiation, synchronization, or consensus state; planned behavior does not confer a canonical Coordinator binding.
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: A provisioning intent is a workflow, not one values edit"] --> Goals["Goals: Provisioning Workflow Orchestrator Agent Functional Block"]
-      Goals --> R1["R1: Provisioning-intent boundary"]
-      Goals --> R2["R2: Ingestion workflow"]
-      Goals --> R3["R3: Reconfiguration workflow"]
-      Goals --> R4["R4: Delegation boundary"]
-      Goals --> R5["R5: Non-goals"]
-      R1 --> AC1["AC1: intent endpoint + status aggregation, no agent endpoint"]
-      R2 --> AC2["AC2: sequence ingest via creator, verify counts"]
-      R3 --> AC3["AC3: sole values decision, rollout via creator, conflict resolution"]
-      R4 --> AC4["AC4: every instance op delegated to the creator"]
-      R5 --> AC5["AC5: not the turn path, not LCM, not in-process mutation"]
-    ```
-control_plane: |
-    ```mermaid
-    flowchart LR
-      User["User"] --> Chatbot["Chatbot (UX, srd002)"]
-      Chatbot -->|provisioning intent| Provisioning Workflow Orchestrator["Provisioning Workflow Orchestrator (srd004)"]
-      Provisioning Workflow Orchestrator -->|instance requests| Creator["Creator (srd005)"]
-      Creator -->|values edit + rollout| DeployAPI["Deployment API (srd003 R4)"]
-      Provisioning Workflow Orchestrator -->|status| Chatbot
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: A provisioning intent is a workflow, not one values edit"] --> Goals["Goals: Provisioning Workflow Orchestrator Agent Functional Block"]
+    Goals --> R1["R1: Provisioning-intent boundary"]
+    Goals --> R2["R2: Ingestion workflow"]
+    Goals --> R3["R3: Reconfiguration workflow"]
+    Goals --> R4["R4: Delegation boundary"]
+    Goals --> R5["R5: Non-goals"]
+    R1 --> AC1["AC1: intent endpoint + status aggregation, no agent endpoint"]
+    R2 --> AC2["AC2: sequence ingest via creator, verify counts"]
+    R3 --> AC3["AC3: sole values decision, rollout via creator, conflict resolution"]
+    R4 --> AC4["AC4: every instance op delegated to the creator"]
+    R5 --> AC5["AC5: not the turn path, not LCM, not in-process mutation"]
+  ```
+- control_plane:
+  ```mermaid
+  flowchart LR
+    User["User"] --> Chatbot["Chatbot (UX, srd002)"]
+    Chatbot -->|provisioning intent| Provisioning Workflow Orchestrator["Provisioning Workflow Orchestrator (srd004)"]
+    Provisioning Workflow Orchestrator -->|instance requests| Creator["Creator (srd005)"]
+    Creator -->|values edit + rollout| DeployAPI["Deployment API (srd003 R4)"]
+    Provisioning Workflow Orchestrator -->|status| Chatbot
+  ```
 
 <!-- field: non_goals -->
 ## Non-goals

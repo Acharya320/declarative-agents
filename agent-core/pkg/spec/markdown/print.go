@@ -19,11 +19,16 @@ import (
 // branch depends on the document type: the declaration and its YAML mapping
 // decide everything.
 func (d *Declaration) Print(doc *yaml.Node) ([]byte, error) {
+	out, _, err := d.PrintReport(doc)
+	return out, err
+}
+
+func (p *printer) document(doc *yaml.Node) ([]byte, error) {
+	d := p.d
 	root, license := documentRoot(doc)
 	if root == nil || root.Kind != yaml.MappingNode {
 		return nil, errors.New("print: the document is not a mapping")
 	}
-	p := &printer{d: d}
 	if err := p.frontmatter(root); err != nil {
 		return nil, err
 	}
@@ -41,8 +46,39 @@ func (d *Declaration) Print(doc *yaml.Node) ([]byte, error) {
 }
 
 type printer struct {
-	d     *Declaration
-	lines []string
+	d      *Declaration
+	lines  []string
+	fences []Fence
+}
+
+// Fence names a value the printer still wrote as a fenced yaml block, the
+// reported last resort (eng10), and why no other rendering held it.
+type Fence struct {
+	Field  string
+	Reason string
+}
+
+func (f Fence) String() string { return f.Field + ": " + f.Reason }
+
+// PrintReport prints a document like Print and also returns every value it
+// wrote as a fenced yaml block (GH-2643).
+func (d *Declaration) PrintReport(doc *yaml.Node) ([]byte, []Fence, error) {
+	p := &printer{d: d}
+	out, err := p.document(doc)
+	return out, p.fences, err
+}
+
+// Fences reports the fenced yaml blocks a Markdown document prints with.
+func (d *Declaration) Fences(data []byte, source string) ([]Fence, error) {
+	doc, findings, err := d.Parse(data, source)
+	if err != nil {
+		return nil, err
+	}
+	if doc == nil {
+		return nil, fmt.Errorf("%s: %d finding(s)", source, len(findings))
+	}
+	_, fences, err := d.PrintReport(doc)
+	return fences, err
 }
 
 // block appends lines as one Markdown block, a blank line after the last.
@@ -87,14 +123,22 @@ func (p *printer) member(level int, parent, key string, value *yaml.Node) error 
 	if _, ok := p.d.fieldKind(level, parent); !ok {
 		return fmt.Errorf("%s: no field is declared at level %d under %s", key, level, parent)
 	}
-	p.block(Marker{Tag: tagField, Value: key}.String(), strings.Repeat("#", level)+" "+p.d.fieldHeading(key))
 	if kind, ok := p.d.fieldRecords(key); ok {
+		p.block(Marker{Tag: tagField, Value: key}.String(), strings.Repeat("#", level)+" "+p.d.fieldHeading(key))
 		return p.records(kind, value)
 	}
-	lines, err := p.d.renderField(key, value)
+	lines, form, err := p.d.renderField(key, value)
 	if err != nil {
 		return fmt.Errorf("field %s: %w", key, err)
 	}
+	if form == "" && classifyContent(strings.Join(lines, "\n")) == shapeYAML {
+		p.fences = append(p.fences, Fence{Field: key, Reason: fenceReason(value)})
+	}
+	marker := Marker{Tag: tagField, Value: key}
+	if form != "" {
+		marker.Attrs = []Attr{{Key: attrForm, Value: jsonString(form)}}
+	}
+	p.block(marker.String(), strings.Repeat("#", level)+" "+p.d.fieldHeading(key))
 	if len(lines) > 0 {
 		p.block(lines...)
 	}
@@ -149,6 +193,9 @@ func (p *printer) record(kind, id string, record *yaml.Node) error {
 		if err != nil {
 			return fmt.Errorf("%s %s: %w", kind, id, err)
 		}
+		if classifyContent(strings.Join(lines, "\n")) == shapeYAML {
+			p.fences = append(p.fences, Fence{Field: kind + " " + id, Reason: "node text that would break the document structure"})
+		}
 		p.block(lines...)
 	}
 	for i := 0; i+1 < len(record.Content); i += 2 {
@@ -168,7 +215,7 @@ func (p *printer) record(kind, id string, record *yaml.Node) error {
 // fenced yaml block.
 func contentLines(content *yaml.Node, anyContent bool) ([]string, error) {
 	switch {
-	case isString(content) && proseSafe(content.Value):
+	case isString(content) && (proseSafe(content.Value) || proseTextSafe(content.Value)):
 		return proseLines(content.Value), nil
 	case anyContent && isString(content) && rawSafe(content.Value):
 		return proseLines(content.Value), nil
@@ -195,6 +242,25 @@ func rawSafe(text string) bool {
 		}
 	}
 	return len(blocks) > 0 && spanText(lines, blocks[0].Start, blocks[len(blocks)-1].End) == trimmed
+}
+
+// fieldTextSafe reports a field's text that reads back as itself: raw-safe,
+// and not a lone list or table, which would read back as a list or a table.
+// Fenced blocks such as Mermaid, block quotes, and indented lines stay in the
+// text, so they render (GH-2640).
+func fieldTextSafe(text string) bool {
+	return rawSafe(text) && classifyContent(strings.TrimRight(text, "\n")) == shapeProse
+}
+
+// proseTextSafe reports prose node text that reads back as itself and keeps
+// the prose content rule: raw-safe, with no untagged list or table.
+func proseTextSafe(text string) bool {
+	if !rawSafe(text) {
+		return false
+	}
+	blocks, _ := topLevelBlocks([]byte(strings.TrimRight(text, "\n")))
+	_, _, structured := containsStructure(blocks)
+	return !structured
 }
 
 func recordMarker(rule nodeRule, id string, record *yaml.Node) (Marker, error) {

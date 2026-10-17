@@ -257,48 +257,39 @@ Child process outcomes are mapped to parent machine signals without duplicating 
 - R5.4
 - R5.5
 
-<!-- field: implementation_follow_up -->
+<!-- field: implementation_follow_up | form: "typed table" -->
 ## Implementation follow up
 
-```yaml
-- issue: agent-core-94su.5
-  title: Remove legacy child-agent config paths
-  packages:
-    - internal/support/execute
-    - internal/tools/catalog
-    - internal/tools/control
-    - internal/planning/pipeline
-    - external profile child-launch declarations
-```
+| issue | title | packages |
+| --- | --- | --- |
+| agent-core-94su.5 | Remove legacy child-agent config paths | [internal/support/execute, internal/tools/catalog, internal/tools/control, internal/planning/pipeline, external profile child-launch declarations] |
 
 <!-- field: related_documents -->
 ## Related documents
 
 - cfg-tool-authoring-standard
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: The agent binary can run any configured program by re..."] --> Goals["Goals: Agent CLI as an Exec Tool"]
-      Goals --> R0["R0: Tool authoring standard"]
-      Goals --> R1["R1: Agent exec tool declaration"]
-      Goals --> R2["R2: Declarative child program selection"]
-      Goals --> R3["R3: Trace and process propagation"]
-      Goals --> R4["R4: Result mapping"]
-      Goals --> R5["R5: Migration from bespoke subprocess paths"]
-      AC1["AC1: An agent exec tool declaration can represent profile plus..."]
-      R0 --> AC1
-      R1 --> AC1
-      AC2["AC2: Child program selection is driven by profile YAML, allowi..."]
-      R2 --> AC2
-      AC3["AC3: Child agent execution propagates trace context, observes..."]
-      R3 --> AC3
-      AC4["AC4: Child process outcomes are mapped to parent machine signa..."]
-      R4 --> AC4
-      R5 --> AC4
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: The agent binary can run any configured program by re..."] --> Goals["Goals: Agent CLI as an Exec Tool"]
+    Goals --> R0["R0: Tool authoring standard"]
+    Goals --> R1["R1: Agent exec tool declaration"]
+    Goals --> R2["R2: Declarative child program selection"]
+    Goals --> R3["R3: Trace and process propagation"]
+    Goals --> R4["R4: Result mapping"]
+    Goals --> R5["R5: Migration from bespoke subprocess paths"]
+    AC1["AC1: An agent exec tool declaration can represent profile plus..."]
+    R0 --> AC1
+    R1 --> AC1
+    AC2["AC2: Child program selection is driven by profile YAML, allowi..."]
+    R2 --> AC2
+    AC3["AC3: Child agent execution propagates trace context, observes..."]
+    R3 --> AC3
+    AC4["AC4: Child process outcomes are mapped to parent machine signa..."]
+    R4 --> AC4
+    R5 --> AC4
+  ```

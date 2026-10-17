@@ -52,27 +52,23 @@ TestMonitorReleaseProfileProof
 
 mage integration:monitor
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profile: ${AGENT_CATALOG_ROOT}/agents/runtime-state-reader/profile.yaml
-```
+- profile: ${AGENT_CATALOG_ROOT}/agents/runtime-state-reader/profile.yaml
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-cmd_agent_monitor_recorder_wired: true
-live_store_used_by_rest: true
-specialized_rest_live_store_test: TestMonitorREST_FactoryUsesLiveMonitorState
-openapi_output_present: true
-otel_metrics_exported: true
-workflow_labels_present: true
-declared_machines_root_count: 1
-bound_address_discovered_from_launch_output: true
-external_runtime_state_reader_path_used: true
-```
+- cmd_agent_monitor_recorder_wired: true
+- live_store_used_by_rest: true
+- specialized_rest_live_store_test: TestMonitorREST_FactoryUsesLiveMonitorState
+- openapi_output_present: true
+- otel_metrics_exported: true
+- workflow_labels_present: true
+- declared_machines_root_count: 1
+- bound_address_discovered_from_launch_output: true
+- external_runtime_state_reader_path_used: true
 
 <!-- field: traces -->
 #### Traces
@@ -122,34 +118,30 @@ TestMonitorCLIProfileServesUntilControlExit
 
 mage integration:monitor
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profile: ${AGENT_CATALOG_ROOT}/monitor/profile.yaml
-query_routes:
-    - /monitor/state
-    - /monitor/metrics
-    - /monitor/machines
-control_route: /monitor/control/exit
-binding: isolated_loopback_address
-discovery: rest_server_launch_output_address
-```
+- profile: ${AGENT_CATALOG_ROOT}/monitor/profile.yaml
+- query_routes:
+  1. /monitor/state
+  1. /monitor/metrics
+  1. /monitor/machines
+- control_route: /monitor/control/exit
+- binding: isolated_loopback_address
+- discovery: rest_server_launch_output_address
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-process_running_after_server_launch: true
-monitor_state_query_succeeds: true
-monitor_metrics_query_succeeds: true
-declared_machines_root_count: 1
-control_exit_stops_listener: true
-terminal_status_succeeded: true
-avoids_shared_fixed_port: true
-bound_address_discovered: true
-stock_or_equivalent_profile_owned_path: true
-```
+- process_running_after_server_launch: true
+- monitor_state_query_succeeds: true
+- monitor_metrics_query_succeeds: true
+- declared_machines_root_count: 1
+- control_exit_stops_listener: true
+- terminal_status_succeeded: true
+- avoids_shared_fixed_port: true
+- bound_address_discovered: true
+- stock_or_equivalent_profile_owned_path: true
 
 <!-- field: traces -->
 #### Traces
@@ -176,26 +168,22 @@ rel04.0-uc001-configurable-tool-metrics
 
 go test ./internal/observability/monitor ./internal/runtime/core -run 'Test(MonitorStore_BoundedSnapshot|Dispatch_RecordsBoundedMonitorErrors)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-limits:
-    events: 3
-    samples: 4
-    errors: 2
-sample_count: 8
-```
+- limits:
+  - events: 3
+  - samples: 4
+  - errors: 2
+- sample_count: 8
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-snapshot_bounded: true
-failed_dispatch_recorded: true
-reads_execute_tools: false
-reads_workspace_files: false
-```
+- snapshot_bounded: true
+- failed_dispatch_recorded: true
+- reads_execute_tools: false
+- reads_workspace_files: false
 
 <!-- field: traces -->
 #### Traces
@@ -222,23 +210,35 @@ rel04.0-uc001-configurable-tool-metrics
 
 TestToolMetricsRecorder_OwnershipBoundaries
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-standard_context: [run_id, agent_name, tool_name, state, signal, status, duration, workflow_labels]
-specialized_samples: [files_written, bytes_changed]
-```
+- standard_context:
+  1. run_id
+  1. agent_name
+  1. tool_name
+  1. state
+  1. signal
+  1. status
+  1. duration
+  1. workflow_labels
+- specialized_samples:
+  1. files_written
+  1. bytes_changed
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-runtime_context_recorded: true
-specialized_samples_recorded: true
-specialized_envelope_present: [run_id, state, signal, status, tool_name, workflow_labels]
-direct_exporter_write_allowed: false
-```
+- runtime_context_recorded: true
+- specialized_samples_recorded: true
+- specialized_envelope_present:
+  1. run_id
+  1. state
+  1. signal
+  1. status
+  1. tool_name
+  1. workflow_labels
+- direct_exporter_write_allowed: false
 
 <!-- field: traces -->
 #### Traces
@@ -264,26 +264,22 @@ rel04.0-uc001-configurable-tool-metrics
 
 TestMonitorMetricConfig_RejectsUnsafeLabels
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-invalid_sources:
-    - raw_prompt
-    - full_tool_output
-    - arbitrary_url
-    - request_id
-    - timestamp
-```
+- invalid_sources:
+  1. raw_prompt
+  1. full_tool_output
+  1. arbitrary_url
+  1. request_id
+  1. timestamp
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-validation_failed: true
-recording_started: false
-diagnostic_identifies_field: true
-```
+- validation_failed: true
+- recording_started: false
+- diagnostic_identifies_field: true
 
 <!-- field: traces -->
 #### Traces
@@ -309,22 +305,20 @@ rel04.0-uc001-configurable-tool-metrics
 
 TestMonitorOTelExport_NormalizedSamples, TestMonitorOTelExport_FailureRecordsDiagnosticAndPreservesSample, TestDispatch_MetricExportFailurePreservesCommandResult
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-instruments: [dispatch_duration, dispatch_count]
-exporter_failure: true
-```
+- instruments:
+  1. dispatch_duration
+  1. dispatch_count
+- exporter_failure: true
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-resource_identity_matches_trace: true
-diagnostics_recorded: true
-command_signal_changed: false
-```
+- resource_identity_matches_trace: true
+- diagnostics_recorded: true
+- command_signal_changed: false
 
 <!-- field: traces -->
 #### Traces
@@ -349,21 +343,17 @@ rel04.0-uc001-configurable-tool-metrics
 
 TestMonitorDisabledMode_NoStoreAllocation
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-monitor_configured: false
-```
+- monitor_configured: false
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-monitor_store_allocated: false
-recorder_noop: true
-existing_behavior_preserved: true
-```
+- monitor_store_allocated: false
+- recorder_noop: true
+- existing_behavior_preserved: true
 
 <!-- field: traces -->
 #### Traces
@@ -389,22 +379,23 @@ rel04.0-uc002-monitor-rest-api
 
 TestMonitorREST_ReadOnlyCachedState
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-routes: [machine_spec, current_state, tools, metrics, events]
-monitor_store_seeded: true
-```
+- routes:
+  1. machine_spec
+  1. current_state
+  1. tools
+  1. metrics
+  1. events
+- monitor_store_seeded: true
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-all_routes_return_cached_state: true
-tools_executed: false
-machine_actions_dispatched: false
-```
+- all_routes_return_cached_state: true
+- tools_executed: false
+- machine_actions_dispatched: false
 
 <!-- field: traces -->
 #### Traces
@@ -433,52 +424,54 @@ rel04.0-uc002-monitor-rest-api
 
 TestMonitorREST_OpenAPIRedaction
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-endpoints: [machine_spec, current_state, tool_metrics, aggregate_metrics, event_stream, control_exit]
-```
+- endpoints:
+  1. machine_spec
+  1. current_state
+  1. tool_metrics
+  1. aggregate_metrics
+  1. event_stream
+  1. control_exit
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-operation_ids_stable: true
-unsafe_fields_absent: true
-control_exit_documented: true
-generated_go_server_code: false
-event_stream_content_type: text/event-stream
-lower_snake_case_schema_fields: true
-shallow_all_object_scalar_schemas_absent: true
-monitor_state_schema:
-    run_id: string
-    status: string
-    state: string
-    signal: string
-    iteration: integer
-    updated_at: string_date_time
-    diagnostics: array_of_objects
-    errors: array_of_objects
-monitor_metrics_schema:
-    tools: object_map
-    metrics: object_map
-    schemas: object_map
-    recent_samples: array_of_objects
-    sample_value: number
-    timestamp: string_date_time
-monitor_events_schema:
-    recent_events: array_of_objects
-    iteration: integer
-    duration_ms: number
-    tokens_in: integer
-    tokens_out: integer
-    timestamp: string_date_time
-monitor_control_exit_schema:
-    request_reason: string
-    accepted: boolean
-    signal: string
-```
+- operation_ids_stable: true
+- unsafe_fields_absent: true
+- control_exit_documented: true
+- generated_go_server_code: false
+- event_stream_content_type: text/event-stream
+- lower_snake_case_schema_fields: true
+- shallow_all_object_scalar_schemas_absent: true
+- monitor_state_schema:
+  - run_id: string
+  - status: string
+  - state: string
+  - signal: string
+  - iteration: integer
+  - updated_at: string_date_time
+  - diagnostics: array_of_objects
+  - errors: array_of_objects
+- monitor_metrics_schema:
+  - tools: object_map
+  - metrics: object_map
+  - schemas: object_map
+  - recent_samples: array_of_objects
+  - sample_value: number
+  - timestamp: string_date_time
+- monitor_events_schema:
+  - recent_events: array_of_objects
+  - iteration: integer
+  - duration_ms: number
+  - tokens_in: integer
+  - tokens_out: integer
+  - timestamp: string_date_time
+- monitor_control_exit_schema:
+  - request_reason: string
+  - accepted: boolean
+  - signal: string
 
 <!-- field: traces -->
 #### Traces
@@ -506,30 +499,29 @@ rel04.0-uc002-monitor-rest-api
 
 TestMonitorREST_SnapshotEndpoints
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-requested_views:
-    - machine_spec
-    - current_state
-    - tools
-    - per_tool_metrics
-    - aggregate_metrics
-    - recent_events
-```
+- requested_views:
+  1. machine_spec
+  1. current_state
+  1. tools
+  1. per_tool_metrics
+  1. aggregate_metrics
+  1. recent_events
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-views_present: true
-labels_safe: true
-source_is_monitor_store: true
-lower_snake_case_fields: true
-go_struct_field_names_absent: [RunID, ToolName, UpdatedAt]
-openapi_schema_matches_payload_fields: true
-```
+- views_present: true
+- labels_safe: true
+- source_is_monitor_store: true
+- lower_snake_case_fields: true
+- go_struct_field_names_absent:
+  1. RunID
+  1. ToolName
+  1. UpdatedAt
+- openapi_schema_matches_payload_fields: true
 
 <!-- field: traces -->
 #### Traces
@@ -556,27 +548,27 @@ rel04.0-uc002-monitor-rest-api
 
 TestParseMachineSpec_PreservesPresentationMetadata
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-view_tags:
-    - {tag: intake, label: Intake}
-    - {tag: answer, label: Answer composition}
-state_tags:
-    AwaitingRequest: [intake]
-    Composing: [answer]
-```
+- view_tags:
+  1. - tag: intake
+     - label: Intake
+  1. - tag: answer
+     - label: Answer composition
+- state_tags:
+  - AwaitingRequest:
+    1. intake
+  - Composing:
+    1. answer
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-view_tag_order_preserved: true
-state_tag_order_preserved: true
-transition_semantics_unchanged: true
-generic_unknown_field_bag_absent: true
-```
+- view_tag_order_preserved: true
+- state_tag_order_preserved: true
+- transition_semantics_unchanged: true
+- generic_unknown_field_bag_absent: true
 
 <!-- field: traces -->
 #### Traces
@@ -608,35 +600,45 @@ rel04.0-uc002-monitor-rest-api
 
 TestMonitorREST_DeclaredMachines
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-endpoint:
-    method: GET
-    path: /monitor/machines
-    binding: read_state
-    monitor_view: declared_machines
-profile_declarations:
-    root: supervisor
-    machine_request_references: [chatbot-turn, rag-query, chatbot-turn]
-```
+- endpoint:
+  - method: GET
+  - path: /monitor/machines
+  - binding: read_state
+  - monitor_view: declared_machines
+- profile_declarations:
+  - root: supervisor
+  - machine_request_references:
+    1. chatbot-turn
+    1. rag-query
+    1. chatbot-turn
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-machine_names: [supervisor, chatbot-turn, rag-query]
-duplicate_resolved_paths_collapsed: true
-root_only_profile_count: 1
-response_fields: [name, initial_state, states, signals, terminal_states, transitions]
-optional_presentation_fields: [view_tags, states.tags]
-request_machine_run_state_absent: true
-machine_spec_root_projection_unchanged: true
-openapi_type_accurate: true
-tools_executed: false
-machine_actions_dispatched: false
-```
+- machine_names:
+  1. supervisor
+  1. chatbot-turn
+  1. rag-query
+- duplicate_resolved_paths_collapsed: true
+- root_only_profile_count: 1
+- response_fields:
+  1. name
+  1. initial_state
+  1. states
+  1. signals
+  1. terminal_states
+  1. transitions
+- optional_presentation_fields:
+  1. view_tags
+  1. states.tags
+- request_machine_run_state_absent: true
+- machine_spec_root_projection_unchanged: true
+- openapi_type_accurate: true
+- tools_executed: false
+- machine_actions_dispatched: false
 
 <!-- field: traces -->
 #### Traces
@@ -673,33 +675,35 @@ rel04.0-uc002-monitor-rest-api
 
 TestMonitorREST_DeclaredTools
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-endpoint:
-    method: GET
-    path: /monitor/tools/declared
-    binding: read_state
-    monitor_view: declared_tools
-profile_declarations:
-    root_files: [shared.yaml]
-    machine_request_files: [request-tools.yaml, shared.yaml]
-```
+- endpoint:
+  - method: GET
+  - path: /monitor/tools/declared
+  - binding: read_state
+  - monitor_view: declared_tools
+- profile_declarations:
+  - root_files:
+    1. shared.yaml
+  - machine_request_files:
+    1. request-tools.yaml
+    1. shared.yaml
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-word_names: [invoke_llm, read, zeta_tool]
-unknown_fields_preserved: true
-shared_file_words_contributed_once: true
-duplicate_word_name_keeps_first: true
-registration_state_absent: true
-resolved_credentials_absent: true
-registered_tools_view_unchanged: true
-tools_executed: false
-```
+- word_names:
+  1. invoke_llm
+  1. read
+  1. zeta_tool
+- unknown_fields_preserved: true
+- shared_file_words_contributed_once: true
+- duplicate_word_name_keeps_first: true
+- registration_state_absent: true
+- resolved_credentials_absent: true
+- registered_tools_view_unchanged: true
+- tools_executed: false
 
 <!-- field: traces -->
 #### Traces
@@ -727,25 +731,26 @@ rel04.0-uc002-monitor-rest-api
 
 TestMonitorREST_EventStreamCachedUpdates
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-subscribers: 2
-store_updates: [state_change, metric_sample, diagnostic]
-```
+- subscribers: 2
+- store_updates:
+  1. state_change
+  1. metric_sample
+  1. diagnostic
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-frames_from_cached_updates: true
-event_names: [run_event, metric_sample]
-frame_payloads_are_json: true
-frame_payload_shape_matches_cached_views: true
-workflow_signals_created: false
-disconnect_changes_agent_state: false
-```
+- frames_from_cached_updates: true
+- event_names:
+  1. run_event
+  1. metric_sample
+- frame_payloads_are_json: true
+- frame_payload_shape_matches_cached_views: true
+- workflow_signals_created: false
+- disconnect_changes_agent_state: false
 
 <!-- field: traces -->
 #### Traces
@@ -771,22 +776,20 @@ rel04.0-uc002-monitor-rest-api
 
 TestMonitorREST_FailureDoesNotMutateState
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-failures: [handler_failed, redaction_failed]
-```
+- failures:
+  1. handler_failed
+  1. redaction_failed
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-structured_error: true
-command_signal_changed: false
-monitor_store_mutated: false
-machine_state_changed: false
-```
+- structured_error: true
+- command_signal_changed: false
+- monitor_store_mutated: false
+- machine_state_changed: false
 
 <!-- field: traces -->
 #### Traces
@@ -812,25 +815,30 @@ should be absent, and the handler should read only, executing no tools.
 
 rel04.0-uc002-monitor-rest-api
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-declared_labels: [polled_fleet_step, list_mesh_deployments, unrecorded_label]
-recorded_labels: [polled_fleet_step, list_mesh_deployments]
-```
+- declared_labels:
+  1. polled_fleet_step
+  1. list_mesh_deployments
+  1. unrecorded_label
+- recorded_labels:
+  1. polled_fleet_step
+  1. list_mesh_deployments
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-response_keyed_by_declared_labels: true
-entry_carries_declared_output: true
-entry_carries_run_envelope: [state, signal, iteration, updated_at]
-unrecorded_label_absent_entry: true
-receipts_absent: true
-tools_executed: false
-```
+- response_keyed_by_declared_labels: true
+- entry_carries_declared_output: true
+- entry_carries_run_envelope:
+  1. state
+  1. signal
+  1. iteration
+  1. updated_at
+- unrecorded_label_absent_entry: true
+- receipts_absent: true
+- tools_executed: false
 
 <!-- field: traces -->
 #### Traces
@@ -854,27 +862,23 @@ command_state endpoint with a non-empty labels allowlist should load.
 
 rel04.0-uc002-monitor-rest-api
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-rejected:
-    - command_state_without_labels
-    - command_state_with_empty_labels
-    - current_state_with_labels
-accepted:
-    - command_state_with_nonempty_labels
-```
+- rejected:
+  1. command_state_without_labels
+  1. command_state_with_empty_labels
+  1. current_state_with_labels
+- accepted:
+  1. command_state_with_nonempty_labels
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-command_state_without_labels_rejected: true
-empty_labels_rejected: true
-labels_on_other_view_rejected: true
-valid_command_state_loads: true
-```
+- command_state_without_labels_rejected: true
+- empty_labels_rejected: true
+- labels_on_other_view_rejected: true
+- valid_command_state_loads: true
 
 <!-- field: traces -->
 #### Traces
@@ -898,24 +902,23 @@ explicit unavailable marker rather than failing the whole response.
 
 rel04.0-uc002-monitor-rest-api
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-entry_states: [output_omitted, unversioned_legacy, oversized_output]
-limits_ref_bounded: true
-```
+- entry_states:
+  1. output_omitted
+  1. unversioned_legacy
+  1. oversized_output
+- limits_ref_bounded: true
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-omitted_output_unavailable_entry: true
-legacy_output_unavailable_entry: true
-oversized_output_unavailable_marker: true
-raw_output_exposed: false
-whole_response_failed: false
-```
+- omitted_output_unavailable_entry: true
+- legacy_output_unavailable_entry: true
+- oversized_output_unavailable_marker: true
+- raw_output_exposed: false
+- whole_response_failed: false
 
 <!-- field: traces -->
 #### Traces

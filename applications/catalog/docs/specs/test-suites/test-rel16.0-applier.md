@@ -31,7 +31,7 @@ release: "16.0"
 rel16.0-uc001-applier-family
 
 <!-- field: id -->
-#### Id
+#### ID
 
 applier-catalog-closure
 
@@ -65,7 +65,7 @@ mage validate
 rel16.0-uc001-applier-family
 
 <!-- field: id -->
-#### Id
+#### ID
 
 applier-machine-contract
 
@@ -106,7 +106,7 @@ go test ./conformance -run '^TestCanonicalApplier'
 rel16.0-uc001-applier-family
 
 <!-- field: id -->
-#### Id
+#### ID
 
 applier-wrapper-ownership
 
@@ -143,7 +143,7 @@ go test ./conformance -run '^TestApplierPromotion'
 rel16.0-uc001-applier-family
 
 <!-- field: id -->
-#### Id
+#### ID
 
 applier-consumers
 
@@ -185,7 +185,7 @@ mage audit
 rel16.0-uc001-applier-family
 
 <!-- field: id -->
-#### Id
+#### ID
 
 applier-statistics
 

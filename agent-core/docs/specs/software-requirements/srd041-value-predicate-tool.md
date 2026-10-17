@@ -301,40 +301,34 @@ The word records no side effect, reverses as a noop, and mutates no command stat
 
 - cfg-tool-authoring-standard
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-implemented:
-    - >-
-      The predicate word (internal/tools/control), its declaration (tools/builtin/value-predicate.yaml), and its factory registration under the control family shipped for release rel10.0 with GH-770. Operands resolve through the existing selector primitive against the previous Result, and config is validated at registration so an unknown operator or a missing signal name never reaches a run. GH-773 made successful comparison output a JSON object whose raw operands and outcome remain selectable after the predicate becomes the terminal word.
-planned:
-    - >-
-      Mapping the chatbot-mesh creator's successful corpus-ingest response count from the predicate's left field. The profile already uses this word to reject a run that wrote nothing; adopting the newly selectable field in that response is a separate profile change.
-```
+- implemented:
+  1. The predicate word (internal/tools/control), its declaration (tools/builtin/value-predicate.yaml), and its factory registration under the control family shipped for release rel10.0 with GH-770. Operands resolve through the existing selector primitive against the previous Result, and config is validated at registration so an unknown operator or a missing signal name never reaches a run. GH-773 made successful comparison output a JSON object whose raw operands and outcome remain selectable after the predicate becomes the terminal word.
+- planned:
+  1. Mapping the chatbot-mesh creator's successful corpus-ingest response count from the predicate's left field. The profile already uses this word to reject a run that wrote nothing; adopting the newly selectable field in that response is a separate profile change.
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: A machine branches on signals, so branching on a value needs a word that emits one"] --> Goals["Goals: Value Predicate Tool"]
-      Goals --> R0["R0: Tool authoring standard"]
-      Goals --> R1["R1: Declaration and configuration"]
-      Goals --> R2["R2: Operators"]
-      Goals --> R3["R3: Operand typing and coercion"]
-      Goals --> R4["R4: Signals and failure separation"]
-      Goals --> R5["R5: Purity"]
-      R0 --> AC1["AC1: a machine branches on a value through a declared word"]
-      R1 --> AC1
-      R4 --> AC1
-      R2 --> AC2["AC2: every operator decides correctly at its boundary"]
-      R3 --> AC3["AC3: a string-typed count compares numerically"]
-      R3 --> AC4["AC4: a broken selector is a fault, not a branch"]
-      R4 --> AC4
-      R1 --> AC5["AC5: misconfiguration fails registration"]
-      R5 --> AC6["AC6: the word is pure"]
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: A machine branches on signals, so branching on a value needs a word that emits one"] --> Goals["Goals: Value Predicate Tool"]
+    Goals --> R0["R0: Tool authoring standard"]
+    Goals --> R1["R1: Declaration and configuration"]
+    Goals --> R2["R2: Operators"]
+    Goals --> R3["R3: Operand typing and coercion"]
+    Goals --> R4["R4: Signals and failure separation"]
+    Goals --> R5["R5: Purity"]
+    R0 --> AC1["AC1: a machine branches on a value through a declared word"]
+    R1 --> AC1
+    R4 --> AC1
+    R2 --> AC2["AC2: every operator decides correctly at its boundary"]
+    R3 --> AC3["AC3: a string-typed count compares numerically"]
+    R3 --> AC4["AC4: a broken selector is a fault, not a branch"]
+    R4 --> AC4
+    R1 --> AC5["AC5: misconfiguration fails registration"]
+    R5 --> AC6["AC6: the word is pure"]
+  ```

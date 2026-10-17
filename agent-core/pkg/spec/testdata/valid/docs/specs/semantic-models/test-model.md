@@ -10,13 +10,11 @@ title: Test Semantic Model
 
 A test semantic model for corpus validation.
 
-<!-- field: requirements_source -->
+<!-- field: requirements_source | form: "tree" -->
 ## Requirements source
 
-```yaml
-canonical:
-    - docs/specs/software-requirements/srd001-auth.md
-```
+- canonical:
+  1. docs/specs/software-requirements/srd001-auth.md
 
 <!-- field: related_documents -->
 ## Related documents

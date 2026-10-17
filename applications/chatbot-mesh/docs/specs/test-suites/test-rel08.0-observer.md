@@ -36,15 +36,13 @@ rel08.0-uc001-mesh-observer
 
 mage audit
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-profile_loads: true
-machine_validates: true
-rest_definitions_validate: true
-boot_smoke_passes: true
-```
+- profile_loads: true
+- machine_validates: true
+- rest_definitions_validate: true
+- boot_smoke_passes: true
 
 <!-- field: traces -->
 #### Traces
@@ -73,16 +71,14 @@ rel08.0-uc001-mesh-observer
 
 mage demo:up
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-chatbot_discovered: true
-rag_server_discovered: true
-discovery_by_label_selector: true
-infrastructure_pods_excluded: true
-membership_follows_pod_churn: true
-```
+- chatbot_discovered: true
+- rag_server_discovered: true
+- discovery_by_label_selector: true
+- infrastructure_pods_excluded: true
+- membership_follows_pod_churn: true
 
 <!-- field: traces -->
 #### Traces
@@ -111,16 +107,14 @@ rel08.0-uc001-mesh-observer
 
 mage integration:observer
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-four_join_labels_served: true
-one_request_per_dispatch: true
-degraded_discovery_does_not_fail_cycle: true
-per_item_counts_consistent: true
-clean_lifecycle_exit: true
-```
+- four_join_labels_served: true
+- one_request_per_dispatch: true
+- degraded_discovery_does_not_fail_cycle: true
+- per_item_counts_consistent: true
+- clean_lifecycle_exit: true
 
 <!-- field: traces -->
 #### Traces
@@ -147,18 +141,16 @@ rel08.0-uc001-mesh-observer
 
 mage integration:helmSmoke
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-machine_spec_returned: true
-current_state_returned: true
-tools_returned: true
-events_returned: true
-unreachable_agent_degraded: true
-one_item_per_discovered_pod: true
-per_pod_monitor_port_resolved: true
-```
+- machine_spec_returned: true
+- current_state_returned: true
+- tools_returned: true
+- events_returned: true
+- unreachable_agent_degraded: true
+- one_item_per_discovered_pod: true
+- per_pod_monitor_port_resolved: true
 
 <!-- field: traces -->
 #### Traces
@@ -186,16 +178,14 @@ rel08.0-uc001-mesh-observer
 
 cd ../ui-kit && npm test
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-card_per_pod: true
-machine_tools_state_events_mapped: true
-pod_name_keys_resource_lookup: true
-failed_state_read_renders_unreachable: true
-absent_joins_degrade_to_empty: true
-```
+- card_per_pod: true
+- machine_tools_state_events_mapped: true
+- pod_name_keys_resource_lookup: true
+- failed_state_read_renders_unreachable: true
+- absent_joins_degrade_to_empty: true
 
 <!-- field: traces -->
 #### Traces
@@ -226,14 +216,12 @@ rel08.0-uc001-mesh-observer
 
 mage demo:up
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-ux_reachable: true
-auto_refresh: true
-served_from_embedded_bundle: true
-```
+- ux_reachable: true
+- auto_refresh: true
+- served_from_embedded_bundle: true
 
 <!-- field: traces -->
 #### Traces
@@ -265,17 +253,15 @@ rel08.0-uc001-mesh-observer
 
 go test ./magefiles -run 'TestObserver(UIRouteAndPackageContract|MonitorRestCoGeneratedForCluster|ChartDeliversNoUIFiles|MonitorEndpoints)'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-declaration_files_only: true
-bundle_binding_with_config: true
-monitor_proxy_covers_ui_agents: true
-no_trace_proxy: true
-cluster_upstreams_are_services: true
-no_chart_ui_delivery: true
-```
+- declaration_files_only: true
+- bundle_binding_with_config: true
+- monitor_proxy_covers_ui_agents: true
+- no_trace_proxy: true
+- cluster_upstreams_are_services: true
+- no_chart_ui_delivery: true
 
 <!-- field: traces -->
 #### Traces
@@ -298,15 +284,13 @@ rel08.0-uc001-mesh-observer
 
 go test ./magefiles -run TestObserverRBACRender
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-role_not_cluster_role: true
-verbs_get_list_only: true
-resources_pods_services_deployments_podmetrics: true
-namespace_scoped: true
-```
+- role_not_cluster_role: true
+- verbs_get_list_only: true
+- resources_pods_services_deployments_podmetrics: true
+- namespace_scoped: true
 
 <!-- field: traces -->
 #### Traces
@@ -334,15 +318,13 @@ mage demo:up
 
 cd ../ui-kit && npm test
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-deployments_discovered: true
-services_discovered: true
-pods_grouped_by_deployment: true
-no_new_environment_variable: true
-```
+- deployments_discovered: true
+- services_discovered: true
+- pods_grouped_by_deployment: true
+- no_new_environment_variable: true
 
 <!-- field: traces -->
 #### Traces
@@ -374,14 +356,12 @@ mage integration:helmSmoke
 
 cd ../ui-kit && npm test
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-cpu_and_memory_per_pod: true
-metrics_unavailable_state_when_absent: true
-discovery_unaffected_by_metrics_failure: true
-```
+- cpu_and_memory_per_pod: true
+- metrics_unavailable_state_when_absent: true
+- discovery_unaffected_by_metrics_failure: true
 
 <!-- field: traces -->
 #### Traces
@@ -404,14 +384,12 @@ rel08.0-uc001-mesh-observer
 
 mage integration:observer
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-discovery_stopped: true
-monitor_stopped: true
-terminal_state_done: true
-```
+- discovery_stopped: true
+- monitor_stopped: true
+- terminal_state_done: true
 
 <!-- field: traces -->
 #### Traces
@@ -443,16 +421,14 @@ rel08.0-uc001-mesh-observer
 
 mage integration:helmSwap
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-chatbot_state_advanced: true
-chatbot_answer_path_event: true
-rag_query_proven: true
-rag_query_event_or_trace_after_eviction: true
-both_agents_reachable: true
-```
+- chatbot_state_advanced: true
+- chatbot_answer_path_event: true
+- rag_query_proven: true
+- rag_query_event_or_trace_after_eviction: true
+- both_agents_reachable: true
 
 <!-- field: traces -->
 #### Traces

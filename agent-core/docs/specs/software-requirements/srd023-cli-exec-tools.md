@@ -335,37 +335,33 @@ Resolved env values SHALL NOT be added to trace attributes, metric attributes, o
 
 Existing argv-only and stdin-only declarations SHALL retain their prior execution and output behavior.
 
-<!-- field: package_ownership -->
+<!-- field: package_ownership | form: "tree" -->
 ## Package ownership
 
-```yaml
-status: planned
-notes:
-    - Exec ToolDef schema and declaration selection move to internal/tools/catalog.
-    - ExecBuilder, ExecCmd, parameter extraction, argv construction, env expansion, precondition checks, output caps, and subprocess result mapping move to internal/tools/exec.
-    - Exec undo memento payload helpers use internal/tools/undo.
-    - internal/tools/stl exposes only thin aliases or wrappers during migration and is not the long-term exec implementation package.
-```
+- status: planned
+- notes:
+  1. Exec ToolDef schema and declaration selection move to internal/tools/catalog.
+  1. ExecBuilder, ExecCmd, parameter extraction, argv construction, env expansion, precondition checks, output caps, and subprocess result mapping move to internal/tools/exec.
+  1. Exec undo memento payload helpers use internal/tools/undo.
+  1. internal/tools/stl exposes only thin aliases or wrappers during migration and is not the long-term exec implementation package.
 
-<!-- field: declaration_layout -->
+<!-- field: declaration_layout | form: "tree" -->
 ## Declaration layout
 
-```yaml
-status: planned
-shared_groups:
-    - tools/exec/go/
-    - tools/exec/workspace/
-    - tools/exec/git/
-    - tools/exec/issues/
-compatibility_bundles:
-    - tools/exec.yaml
-    - tools/exec/all.yaml
-rules:
-    - Shared groups own reusable exec identity, argv mapping, output caps, side effects, undo, and emits.
-    - tools/exec.yaml remains a compatibility bundle while existing startup paths migrate.
-    - tools/exec/all.yaml is the planned explicit full exec bundle.
-    - Agent tools.yaml files keep selecting exec tools by name only.
-```
+- status: planned
+- shared_groups:
+  1. tools/exec/go/
+  1. tools/exec/workspace/
+  1. tools/exec/git/
+  1. tools/exec/issues/
+- compatibility_bundles:
+  1. tools/exec.yaml
+  1. tools/exec/all.yaml
+- rules:
+  1. Shared groups own reusable exec identity, argv mapping, output caps, side effects, undo, and emits.
+  1. tools/exec.yaml remains a compatibility bundle while existing startup paths migrate.
+  1. tools/exec/all.yaml is the planned explicit full exec bundle.
+  1. Agent tools.yaml files keep selecting exec tools by name only.
 
 <!-- field: non_goals -->
 ## Non-goals
@@ -516,36 +512,34 @@ An exec word overlays KEY=VALUE environment entries expanded from resolved param
 
 - cfg-tool-authoring-standard
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Declarative state machines need to invoke external CL..."] --> Goals["Goals: CLI and Exec Tool Declarations"]
-      Goals --> R0["R0: Tool authoring standard"]
-      Goals --> R1["R1: Exec declaration schema"]
-      Goals --> R2["R2: Parameter-to-argv mapping"]
-      Goals --> R3["R3: Subprocess execution"]
-      Goals --> R4["R4: Declaration loading and selection"]
-      Goals --> R5["R5: Relationship to builtin tools"]
-      Goals --> R6["R6: Command-state stdin"]
-      Goals --> R7["R7: Command-state environment"]
-      AC1["AC1: Exec declarations support name, type, binary, args, dir,..."]
-      R0 --> AC1
-      R1 --> AC1
-      AC2["AC2: Parameter mapping converts JSON tool parameters into argv..."]
-      R2 --> AC2
-      AC3["AC3: Exec tools run subprocesses in the correct directory, cap..."]
-      R3 --> AC3
-      AC4["AC4: Declaration includes and declaration+selection loading su..."]
-      R4 --> AC4
-      AC5["AC5: Architecture guidance prefers exec tools for external CLI..."]
-      R5 --> AC5
-      AC6["AC6: A structured-output producer can feed a selected redacted..."]
-      R6 --> AC6
-      AC7["AC7: An exec word overlays KEY=VALUE environment entries..."]
-      R7 --> AC7
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Declarative state machines need to invoke external CL..."] --> Goals["Goals: CLI and Exec Tool Declarations"]
+    Goals --> R0["R0: Tool authoring standard"]
+    Goals --> R1["R1: Exec declaration schema"]
+    Goals --> R2["R2: Parameter-to-argv mapping"]
+    Goals --> R3["R3: Subprocess execution"]
+    Goals --> R4["R4: Declaration loading and selection"]
+    Goals --> R5["R5: Relationship to builtin tools"]
+    Goals --> R6["R6: Command-state stdin"]
+    Goals --> R7["R7: Command-state environment"]
+    AC1["AC1: Exec declarations support name, type, binary, args, dir,..."]
+    R0 --> AC1
+    R1 --> AC1
+    AC2["AC2: Parameter mapping converts JSON tool parameters into argv..."]
+    R2 --> AC2
+    AC3["AC3: Exec tools run subprocesses in the correct directory, cap..."]
+    R3 --> AC3
+    AC4["AC4: Declaration includes and declaration+selection loading su..."]
+    R4 --> AC4
+    AC5["AC5: Architecture guidance prefers exec tools for external CLI..."]
+    R5 --> AC5
+    AC6["AC6: A structured-output producer can feed a selected redacted..."]
+    R6 --> AC6
+    AC7["AC7: An exec word overlays KEY=VALUE environment entries..."]
+    R7 --> AC7
+  ```

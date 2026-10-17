@@ -34,18 +34,15 @@ Operator running an agent-core runtime with external profiles.
 <!-- field: trigger -->
 ## Trigger
 
-```yaml
-|
-    An operator runs an installed agent-core image or local agent binary with a
-    profile path supplied from applications/catalog:
+An operator runs an installed agent-core image or local agent binary with a
+profile path supplied from applications/catalog:
 
-      agent --profile "agents/executor/profile.yaml" \
-            --directory <workspace>
+  agent --profile "agents/executor/profile.yaml" \
+        --directory <workspace>
 
-    Container callers use the same contract with /profiles:
+Container callers use the same contract with /profiles:
 
-      agent --profile /profiles/agents/specification-critic/profile.yaml --directory /work
-```
+  agent --profile /profiles/agents/specification-critic/profile.yaml --directory /work
 
 <!-- field: preconditions -->
 ## Preconditions

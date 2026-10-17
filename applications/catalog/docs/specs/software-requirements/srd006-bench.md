@@ -170,19 +170,17 @@ The agent executable carries no bench package, HTTP server, action channel, or c
 
 - R2.4
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Bench family needs its own requirements..."] --> Goals["Goals: Bench Functional Block"]
-      Goals --> R1["R1: Behavior model"]
-      Goals --> R2["R2: Inputs, tools, and runtime dependencies"]
-      Goals --> R3["R3: Outputs and outcomes"]
-      R1 --> AC1["AC1: Human-operated launcher delegating to critic"]
-      R2 --> AC2["AC2: Inputs, tools, dependencies named"]
-      R3 --> AC3["AC3: Outputs and outcomes checkable"]
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Bench family needs its own requirements..."] --> Goals["Goals: Bench Functional Block"]
+    Goals --> R1["R1: Behavior model"]
+    Goals --> R2["R2: Inputs, tools, and runtime dependencies"]
+    Goals --> R3["R3: Outputs and outcomes"]
+    R1 --> AC1["AC1: Human-operated launcher delegating to critic"]
+    R2 --> AC2["AC2: Inputs, tools, dependencies named"]
+    R3 --> AC3["AC3: Outputs and outcomes checkable"]
+  ```

@@ -19,56 +19,20 @@ compatible with the declared catalog `v0.*` release, records its
 revision, and assembles the transitive profile closure before deployment. The
 shared agent-core runtime image remains profile-free.
 
-<!-- field: roadmap_summary -->
+<!-- field: roadmap_summary | form: "typed table" -->
 ## Roadmap summary
 
-```yaml
-- version: "01.0"
-  name: Planner, executor, and critic coding loop
-  use_cases_done: 1
-  use_cases_total: 1
-  status: implemented
-- version: "02.0"
-  name: Persistent remote coding request
-  use_cases_done: 1
-  use_cases_total: 1
-  status: implemented
-- version: "03.0"
-  name: Role-specific deployment profile package
-  use_cases_done: 1
-  use_cases_total: 1
-  status: implemented
-- version: "04.0"
-  name: Core Helm topology
-  use_cases_done: 1
-  use_cases_total: 1
-  status: implemented
-- version: "05.0"
-  name: Helm values and package validation
-  use_cases_done: 1
-  use_cases_total: 1
-  status: implemented
-- version: "06.0"
-  name: Packaged-chart live Helm smoke
-  use_cases_done: 1
-  use_cases_total: 1
-  status: implemented
-- version: "07.0"
-  name: Canonical collector agent tracing
-  use_cases_done: 1
-  use_cases_total: 1
-  status: implemented
-- version: "08.0"
-  name: Declarative applier agent
-  use_cases_done: 1
-  use_cases_total: 1
-  status: implemented
-- version: "99.0"
-  name: Fleet observer adoption
-  use_cases_done: 0
-  use_cases_total: 0
-  status: planned
-```
+| version | name | use_cases_done | use_cases_total | status |
+| --- | --- | --- | --- | --- |
+| "01.0" | Planner, executor, and critic coding loop | 1 | 1 | implemented |
+| "02.0" | Persistent remote coding request | 1 | 1 | implemented |
+| "03.0" | Role-specific deployment profile package | 1 | 1 | implemented |
+| "04.0" | Core Helm topology | 1 | 1 | implemented |
+| "05.0" | Helm values and package validation | 1 | 1 | implemented |
+| "06.0" | Packaged-chart live Helm smoke | 1 | 1 | implemented |
+| "07.0" | Canonical collector agent tracing | 1 | 1 | implemented |
+| "08.0" | Declarative applier agent | 1 | 1 | implemented |
+| "99.0" | Fleet observer adoption | 0 | 0 | planned |
 
 <!-- field: foundation_document_index -->
 ## Foundation document index
@@ -81,7 +45,7 @@ shared agent-core runtime image remains profile-free.
 | coding-agent-deployment-guide | Coding-Agent Deployment and Operations | Packaged chart prerequisites, configuration, verification, troubleshooting, security, rollback, and teardown. | docs/guides/deployment.md |
 
 <!-- field: srd_index -->
-## Srd index
+## SRD index
 
 | id | title | status | path |
 | --- | --- | --- | --- |
@@ -93,7 +57,7 @@ shared agent-core runtime image remains profile-free.
 | srd006-applier | Declarative Applier Agent | implemented | docs/specs/software-requirements/srd006-applier.md |
 
 <!-- field: library_srd_references -->
-## Library srd references
+## Library SRD references
 
 | id | owner | title | path | usage |
 | --- | --- | --- | --- | --- |
@@ -101,19 +65,15 @@ shared agent-core runtime image remains profile-free.
 | srd003-critic | applications/catalog | Critic Functional Block | ../../catalog/docs/specs/software-requirements/srd003-critic.md | The critic-gate stage uses its suite, point, oracle, report, and terminal-outcome contract. |
 | srd004-planner | applications/catalog | Planner Functional Block | ../../catalog/docs/specs/software-requirements/srd004-planner.md | The planner-delegation stage uses its requirement traversal, task materialization, child-profile execution, and validation contract. |
 
-<!-- field: config_format_index -->
+<!-- field: config_format_index | form: "scalar" -->
 ## Config format index
 
-```yaml
 []
-```
 
-<!-- field: semantic_model_index -->
+<!-- field: semantic_model_index | form: "scalar" -->
 ## Semantic model index
 
-```yaml
 []
-```
 
 <!-- field: use_case_index -->
 ## Use case index
@@ -129,69 +89,27 @@ shared agent-core runtime image remains profile-free.
 | rel07.0-uc001-collector-agent-tracing | Trace the Packaged Topology Through the Canonical Collector Agent | 07.0 | implemented | test-rel07.0-collector-agent-tracing | docs/specs/use-cases/rel07.0-uc001-collector-agent-tracing.md |
 | rel08.0-uc001-declarative-applier | The Applier Agent Validates, Applies, and Verifies a Coding-Chart Values Change | 08.0 | implemented | test-rel08.0-applier | docs/specs/use-cases/rel08.0-uc001-declarative-applier.md |
 
-<!-- field: test_suite_index -->
+<!-- field: test_suite_index | form: "typed table" -->
 ## Test suite index
 
-```yaml
-- id: test-rel01.0-coding-loop
-  title: Test Suite for Release 01.0 Coding Loop
-  release: "01.0"
-  test_case_count: 3
-  traces: [rel01.0-uc001-coding-loop]
-  path: docs/specs/test-suites/test-rel01.0-coding-loop.md
-- id: test-rel02.0-serving-contract
-  title: Persistent Coding-Agent Serving Contract Suite
-  release: "02.0"
-  test_case_count: 2
-  traces: [rel02.0-uc001-remote-coding-request]
-  path: docs/specs/test-suites/test-rel02.0-serving-contract.md
-- id: test-rel03.0-deployment-profile-package
-  title: Role-Specific Deployment Profile Package Suite
-  release: "03.0"
-  test_case_count: 4
-  traces: [rel03.0-uc001-package-serving-profiles]
-  path: docs/specs/test-suites/test-rel03.0-deployment-profile-package.md
-- id: test-rel04.0-helm-topology
-  title: Core Coding-Agent Helm Topology Suite
-  release: "04.0"
-  test_case_count: 4
-  traces: [rel04.0-uc001-render-helm-topology]
-  path: docs/specs/test-suites/test-rel04.0-helm-topology.md
-- id: test-rel05.0-helm-package-validation
-  title: Helm Values and Package Validation Suite
-  release: "05.0"
-  test_case_count: 4
-  traces: [rel05.0-uc001-package-validated-chart]
-  path: docs/specs/test-suites/test-rel05.0-helm-package-validation.md
-- id: test-rel06.0-live-helm-smoke
-  title: Packaged-Chart Live Helm Smoke Suite
-  release: "06.0"
-  test_case_count: 4
-  traces: [rel06.0-uc001-live-helm-smoke]
-  path: docs/specs/test-suites/test-rel06.0-live-helm-smoke.md
-- id: test-rel07.0-collector-agent-tracing
-  title: Canonical Collector Agent Tracing Suite
-  release: "07.0"
-  test_case_count: 5
-  traces: [rel07.0-uc001-collector-agent-tracing]
-  path: docs/specs/test-suites/test-rel07.0-collector-agent-tracing.md
-- id: test-rel08.0-applier
-  title: Test Suite for Release 08.0 Declarative Applier Agent
-  release: "08.0"
-  test_case_count: 5
-  traces: [rel08.0-uc001-declarative-applier]
-  path: docs/specs/test-suites/test-rel08.0-applier.md
-```
+| id | title | release | test_case_count | traces | path |
+| --- | --- | --- | --- | --- | --- |
+| test-rel01.0-coding-loop | Test Suite for Release 01.0 Coding Loop | "01.0" | 3 | [rel01.0-uc001-coding-loop] | docs/specs/test-suites/test-rel01.0-coding-loop.md |
+| test-rel02.0-serving-contract | Persistent Coding-Agent Serving Contract Suite | "02.0" | 2 | [rel02.0-uc001-remote-coding-request] | docs/specs/test-suites/test-rel02.0-serving-contract.md |
+| test-rel03.0-deployment-profile-package | Role-Specific Deployment Profile Package Suite | "03.0" | 4 | [rel03.0-uc001-package-serving-profiles] | docs/specs/test-suites/test-rel03.0-deployment-profile-package.md |
+| test-rel04.0-helm-topology | Core Coding-Agent Helm Topology Suite | "04.0" | 4 | [rel04.0-uc001-render-helm-topology] | docs/specs/test-suites/test-rel04.0-helm-topology.md |
+| test-rel05.0-helm-package-validation | Helm Values and Package Validation Suite | "05.0" | 4 | [rel05.0-uc001-package-validated-chart] | docs/specs/test-suites/test-rel05.0-helm-package-validation.md |
+| test-rel06.0-live-helm-smoke | Packaged-Chart Live Helm Smoke Suite | "06.0" | 4 | [rel06.0-uc001-live-helm-smoke] | docs/specs/test-suites/test-rel06.0-live-helm-smoke.md |
+| test-rel07.0-collector-agent-tracing | Canonical Collector Agent Tracing Suite | "07.0" | 5 | [rel07.0-uc001-collector-agent-tracing] | docs/specs/test-suites/test-rel07.0-collector-agent-tracing.md |
+| test-rel08.0-applier | Test Suite for Release 08.0 Declarative Applier Agent | "08.0" | 5 | [rel08.0-uc001-declarative-applier] | docs/specs/test-suites/test-rel08.0-applier.md |
 
-<!-- field: coverage_gaps -->
+<!-- field: coverage_gaps | form: "tree" -->
 ## Coverage gaps
 
-```yaml
-- id: kubernetes-deployment
-  status: partial
-  description: |
-    The one-container-per-agent Helm topology is implemented. Strict values
-    schema, packaged-chart validation, and bounded single-node kind evidence
-    are implemented. Multi-node and production operational evidence remain
-    outside this application.
-```
+1. - id: kubernetes-deployment
+   - status: partial
+   - description:
+     The one-container-per-agent Helm topology is implemented. Strict values
+     schema, packaged-chart validation, and bounded single-node kind evidence
+     are implemented. Multi-node and production operational evidence remain
+     outside this application.

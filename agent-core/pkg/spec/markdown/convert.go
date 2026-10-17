@@ -25,6 +25,7 @@ type Report struct {
 	Comments   []string
 	Whitespace []string
 	Findings   []Finding
+	Fences     []Fence // values still printed as fenced yaml, with why
 }
 
 // Lines prints the report, one line per entry, under the source path.
@@ -33,7 +34,7 @@ func (r Report) Lines() []string {
 	for _, group := range []struct {
 		label   string
 		entries []string
-	}{{"canonical", r.Changes}, {"comment dropped", r.Comments}, {"whitespace", r.Whitespace}} {
+	}{{"canonical", r.Changes}, {"comment dropped", r.Comments}, {"whitespace", r.Whitespace}, {"yaml fence", fenceStrings(r.Fences)}} {
 		for _, entry := range group.entries {
 			lines = append(lines, "  "+group.label+": "+entry)
 		}
@@ -73,7 +74,8 @@ func (d *Declaration) ConvertYAML(data []byte, source string) ([]byte, Report, e
 	report.Comments = droppedComments(&doc)
 	canonical, changes := d.Canonicalize(&doc)
 	report.Changes = changes
-	md, err := d.Print(canonical)
+	md, fences, err := d.PrintReport(canonical)
+	report.Fences = fences
 	if err != nil {
 		return nil, report, fmt.Errorf("%s: %w", source, err)
 	}
@@ -185,4 +187,12 @@ func ConvertFile(path string, data []byte) (string, error) {
 		return "", err
 	}
 	return report.Target, os.WriteFile(report.Target, md, 0o644)
+}
+
+func fenceStrings(fences []Fence) []string {
+	out := make([]string, len(fences))
+	for i, f := range fences {
+		out[i] = f.String()
+	}
+	return out
 }

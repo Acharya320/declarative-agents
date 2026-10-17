@@ -41,21 +41,19 @@ rel14.0-uc001-request-driven-signal
 
 go test ./cmd/agent -run 'TestRequestSignalSource_(ModelFreeProfile|ModelRunOrResumeRegression)'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profiles: [model_free_http, mock_model]
-```
+- profiles:
+  1. model_free_http
+  1. mock_model
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-model_free_client_constructions: 0
-model_free_succeeds: true
-mock_model_succeeds: true
-```
+- model_free_client_constructions: 0
+- model_free_succeeds: true
+- mock_model_succeeds: true
 
 <!-- field: traces -->
 #### Traces
@@ -84,22 +82,22 @@ rel14.0-uc001-request-driven-signal
 
 go test ./internal/tools/rest -run TestRequestSignalSource_TrustedMapping
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-mappings: {create: WorkRequested}
-invalid: [unknown_discriminator, raw_signal, wrong_payload_type]
-```
+- mappings:
+  - create: WorkRequested
+- invalid:
+  1. unknown_discriminator
+  1. raw_signal
+  1. wrong_payload_type
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-valid_signal: WorkRequested
-invalid_runs_created: 0
-sensitive_values_exposed: false
-```
+- valid_signal: WorkRequested
+- invalid_runs_created: 0
+- sensitive_values_exposed: false
 
 <!-- field: traces -->
 #### Traces
@@ -125,20 +123,26 @@ rel14.0-uc001-request-driven-signal
 
 go test ./internal/runtime/core -run TestSignalAdmission_Outcomes
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-cases: [accepted, unknown, no_transition, stale_state, active_owner]
-```
+- cases:
+  1. accepted
+  1. unknown
+  1. no_transition
+  1. stale_state
+  1. active_owner
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-outcomes: [accepted, refused_undeclared, refused_conflict, refused_conflict, refused_conflict]
-refused_mutations: 0
-```
+- outcomes:
+  1. accepted
+  1. refused_undeclared
+  1. refused_conflict
+  1. refused_conflict
+  1. refused_conflict
+- refused_mutations: 0
 
 <!-- field: traces -->
 #### Traces
@@ -165,22 +169,22 @@ rel14.0-uc001-request-driven-signal
 
 go test ./cmd/agent -run TestRequestSignalSource_OrdinaryLoopPath
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-terminals: [Succeeded, Failed]
-```
+- terminals:
+  1. Succeeded
+  1. Failed
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-admission: accepted
-ordinary_run_events: true
-run_statuses: [succeeded, failed]
-conflict_http_status: 409
-```
+- admission: accepted
+- ordinary_run_events: true
+- run_statuses:
+  1. succeeded
+  1. failed
+- conflict_http_status: 409
 
 <!-- field: traces -->
 #### Traces
@@ -207,22 +211,23 @@ rel14.0-uc001-request-driven-signal
 
 go test ./cmd/agent -run TestRequestSignalSource_SuspendResume
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-requests: [start, continue]
-backends: [in_memory, dolt, noop]
-```
+- requests:
+  1. start
+  1. continue
+- backends:
+  1. in_memory
+  1. dolt
+  1. noop
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-accepted_source_entries: 2
-replayed_requests: 0
-noop_refused: true
-```
+- accepted_source_entries: 2
+- replayed_requests: 0
+- noop_refused: true
 
 <!-- field: traces -->
 #### Traces
@@ -248,20 +253,22 @@ rel14.0-uc001-request-driven-signal
 
 go test ./internal/runtime/core ./internal/tools/rest -run TestSignalSource_ReleasesOwnership
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-exits: [success, suspended, command_error, cancelled, timeout, checkpoint_error]
-```
+- exits:
+  1. success
+  1. suspended
+  1. command_error
+  1. cancelled
+  1. timeout
+  1. checkpoint_error
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-ownership_released: 6
-sensitive_trace_values: 0
-```
+- ownership_released: 6
+- sensitive_trace_values: 0
 
 <!-- field: traces -->
 #### Traces
@@ -287,21 +294,25 @@ rel14.0-uc002-dolt-boundary-word
 
 go test ./internal/tools/dolt ./internal/tools/catalog -run 'TestDoltDeclarations|TestDecodeConfigStrictAndValid|TestPrepareConfigRejectsUnsafeStatements|TestFactoriesStrictlySeparateOperationKinds'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-kinds: [provision, query, write]
-invalid: [unknown_field, kind_mismatch, multi_statement, undeclared_placeholder, runtime_sql]
-```
+- kinds:
+  1. provision
+  1. query
+  1. write
+- invalid:
+  1. unknown_field
+  1. kind_mismatch
+  1. multi_statement
+  1. undeclared_placeholder
+  1. runtime_sql
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-factories_registered: 3
-invalid_rejected: 5
-```
+- factories_registered: 3
+- invalid_rejected: 5
 
 <!-- field: traces -->
 #### Traces
@@ -329,23 +340,19 @@ rel14.0-uc002-dolt-boundary-word
 
 mage integration:doltWord
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-database_exists: false
-provision_runs: 2
-```
+- database_exists: false
+- provision_runs: 2
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-database_created: true
-schema_applied: true
-schema_commits: 1
-incompatible_schema_commits: 0
-```
+- database_created: true
+- schema_applied: true
+- schema_commits: 1
+- incompatible_schema_commits: 0
 
 <!-- field: traces -->
 #### Traces
@@ -371,23 +378,22 @@ rel14.0-uc002-dolt-boundary-word
 
 mage integration:doltWord
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-params: {status: open}
-limits: [rows, bytes]
-```
+- params:
+  - status: open
+- limits:
+  1. rows
+  1. bytes
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-bound_value_used: true
-structured_rows: true
-truncation_deterministic: true
-commits_added: 0
-```
+- bound_value_used: true
+- structured_rows: true
+- truncation_deterministic: true
+- commits_added: 0
 
 <!-- field: traces -->
 #### Traces
@@ -414,23 +420,21 @@ rel14.0-uc002-dolt-boundary-word
 
 mage integration:doltWord
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-operations: [insert_one, update_zero]
-commit_on_no_change: false
-```
+- operations:
+  1. insert_one
+  1. update_zero
+- commit_on_no_change: false
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-insert_commits: 1
-message_matches_template: true
-hash_matches_history: true
-zero_row_commits: 0
-```
+- insert_commits: 1
+- message_matches_template: true
+- hash_matches_history: true
+- zero_row_commits: 0
 
 <!-- field: traces -->
 #### Traces
@@ -457,21 +461,22 @@ rel14.0-uc002-dolt-boundary-word
 
 mage integration:doltWord
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-forbidden_fields: [sql, connection, database, schema, commit_message]
-failure: constraint_violation
-```
+- forbidden_fields:
+  1. sql
+  1. connection
+  1. database
+  1. schema
+  1. commit_message
+- failure: constraint_violation
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-refused_before_execution: 5
-failed_write_commits: 0
-```
+- refused_before_execution: 5
+- failed_write_commits: 0
 
 <!-- field: traces -->
 #### Traces
@@ -498,22 +503,21 @@ rel14.0-uc002-dolt-boundary-word
 
 mage integration:doltWord
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-valid_databases: [agent_domain, agent_checkpoint]
-invalid_databases: [shared]
-```
+- valid_databases:
+  1. agent_domain
+  1. agent_checkpoint
+- invalid_databases:
+  1. shared
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-separate_databases_succeed: true
-shared_database_rejected: true
-cross_table_access: false
-```
+- separate_databases_succeed: true
+- shared_database_rejected: true
+- cross_table_access: false
 
 <!-- field: traces -->
 #### Traces
@@ -540,22 +544,26 @@ rel14.0-uc002-dolt-boundary-word
 
 go test ./internal/tools/dolt -run 'TestWriteStagesAndCommitsExactlyOnceWithTrustedMessage|TestWriteNoChangeAndFailuresNeverCreateCommit|TestRuntimeRejectsAuthorityAndCancellationBeforeOpening'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-stages: [connection_resolution, statement_execute, stage, commit, timeout]
-reversibility: [noop, compensatable, irreversible]
-```
+- stages:
+  1. connection_resolution
+  1. statement_execute
+  1. stage
+  1. commit
+  1. timeout
+- reversibility:
+  1. noop
+  1. compensatable
+  1. irreversible
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-errors_staged: true
-receipt_opaque_to_core: true
-sensitive_trace_values: 0
-```
+- errors_staged: true
+- receipt_opaque_to_core: true
+- sensitive_trace_values: 0
 
 <!-- field: traces -->
 #### Traces

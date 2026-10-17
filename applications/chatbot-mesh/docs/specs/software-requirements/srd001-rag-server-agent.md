@@ -5,18 +5,19 @@ title: RAG Server Agent Functional Block
 <!-- Copyright (c) 2026 Nokia -->
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
 
-<!-- field: role_realization_decision -->
+<!-- field: role_realization_decision | form: "tree" -->
 ## Role realization decision
 
-```yaml
-current_actor: rag-server
-implemented_responsibility: Serve one configured corpus through a persistent vector-in retrieval boundary and return ranked chunks with embedding metadata.
-canonical_role_sub_role: Knowledge Manager / Recommendation Generator.
-retained_or_proposed_name: Retain `rag-server` as a descriptive serving actor.
-authority_boundary: Reads one declared Chroma collection; it does not ingest, answer, manage another agent, or choose transport authority.
-evidence: [agents/rag-server/profile.yaml, agents/rag-server/request-machine.yaml, srd001 R1-R4]
-migration_impact: None; each values-named Helm RAG unit is a deployment instance that inherits this binding.
-```
+- current_actor: rag-server
+- implemented_responsibility: Serve one configured corpus through a persistent vector-in retrieval boundary and return ranked chunks with embedding metadata.
+- canonical_role_sub_role: Knowledge Manager / Recommendation Generator.
+- retained_or_proposed_name: Retain `rag-server` as a descriptive serving actor.
+- authority_boundary: Reads one declared Chroma collection; it does not ingest, answer, manage another agent, or choose transport authority.
+- evidence:
+  1. agents/rag-server/profile.yaml
+  1. agents/rag-server/request-machine.yaml
+  1. srd001 R1-R4
+- migration_impact: None; each values-named Helm RAG unit is a deployment instance that inherits this binding.
 
 <!-- field: context -->
 ## Context
@@ -229,20 +230,14 @@ The optional text-in fallback is specified as declarable for standalone use and 
 
 agent-core runtime contracts this agent builds on. External references, owned by agent-core, not part of this application's corpus.
 
-<!-- field: platform_dependencies -->
+<!-- field: platform_dependencies | form: "typed table" -->
 ## Platform dependencies
 
-```yaml
-- srd_id: srd030-machine-request-rest-binding
-  provider: agent-core
-  symbols_used: [R1]
-- srd_id: srd033-monitor-rest-api
-  provider: agent-core
-  symbols_used: [R1]
-- srd_id: srd028-rest-client-tools
-  provider: agent-core
-  symbols_used: [R12]
-```
+| srd_id | provider | symbols_used |
+| --- | --- | --- |
+| srd030-machine-request-rest-binding | agent-core | [R1] |
+| srd033-monitor-rest-api | agent-core | [R1] |
+| srd028-rest-client-tools | agent-core | [R12] |
 
 <!-- field: related_agents -->
 ## Related agents
@@ -251,35 +246,29 @@ agent-core runtime contracts this agent builds on. External references, owned by
 | --- | --- |
 | corpus-ingest | The in-example seed agent that loads the served Chroma collection. The RAG server serves what corpus-ingest ingests and does not alter its loading behavior; the served collection is an external precondition. |
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-done:
-    - >-
-      The rag-server agent implements the persistent vector-in query service: a machine_request query endpoint over the Chroma reader chain, monitor and control servers, query_embeddings in, chunks with embedding-model metadata out, and wrong-dimension vectors mapped to a 400. Verified end to end against a live Chroma and hermetically against a mock Chroma by the application-local rag-query-critic Critic / Output Evaluator realization. The query scenario remains configuration under agents/rag-server/tests/query, not part of the actor's role identity.
-planned:
-    - >-
-      The optional text-in fallback (R5). Request-supplied n_results is now threaded from the query request through command state into the Chroma query (bounded at minimum 1); the ragServer tracer asserts the returned chunk cardinality honors it.
-```
+- done:
+  1. "The rag-server agent implements the persistent vector-in query service: a machine_request query endpoint over the Chroma reader chain, monitor and control servers, query_embeddings in, chunks with embedding-model metadata out, and wrong-dimension vectors mapped to a 400. Verified end to end against a live Chroma and hermetically against a mock Chroma by the application-local rag-query-critic Critic / Output Evaluator realization. The query scenario remains configuration under agents/rag-server/tests/query, not part of the actor's role identity."
+- planned:
+  1. The optional text-in fallback (R5). Request-supplied n_results is now threaded from the query request through command state into the Chroma query (bounded at minimum 1); the ragServer tracer asserts the returned chunk cardinality honors it.
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Persistent vector-in RAG service without rewriting the reader or answering in it"] --> Goals["Goals: RAG Server Agent Functional Block"]
-      Goals --> R1["R1: Service shape"]
-      Goals --> R2["R2: Vector-in query contract"]
-      Goals --> R3["R3: One agent, one corpus"]
-      Goals --> R4["R4: Ingest boundary"]
-      Goals --> R5["R5: Optional text-in fallback"]
-      R1 --> AC1["AC1: machine_request query endpoint + monitor/control servers"]
-      R2 --> AC2["AC2: query_embeddings in, chunks + embedding-model metadata out"]
-      R3 --> AC3["AC3: one corpus per agent, N sources = N instances"]
-      R4 --> AC4["AC4: corpus-ingest seed unchanged; serving only"]
-      R5 --> AC5["AC5: text-in fallback declarable, disabled in mesh"]
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Persistent vector-in RAG service without rewriting the reader or answering in it"] --> Goals["Goals: RAG Server Agent Functional Block"]
+    Goals --> R1["R1: Service shape"]
+    Goals --> R2["R2: Vector-in query contract"]
+    Goals --> R3["R3: One agent, one corpus"]
+    Goals --> R4["R4: Ingest boundary"]
+    Goals --> R5["R5: Optional text-in fallback"]
+    R1 --> AC1["AC1: machine_request query endpoint + monitor/control servers"]
+    R2 --> AC2["AC2: query_embeddings in, chunks + embedding-model metadata out"]
+    R3 --> AC3["AC3: one corpus per agent, N sources = N instances"]
+    R4 --> AC4["AC4: corpus-ingest seed unchanged; serving only"]
+    R5 --> AC5["AC5: text-in fallback declarable, disabled in mesh"]
+  ```

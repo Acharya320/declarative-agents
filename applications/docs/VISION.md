@@ -86,120 +86,112 @@ module. It keeps reusable behavior canonical, makes application ownership and
 root orchestration explicit, and avoids copying an existing topology as a
 default.
 
-<!-- field: multi_agent_system_thesis -->
+<!-- field: multi_agent_system_thesis | form: "tree" -->
 ## Multi agent system thesis
 
-```yaml
-responsibility_test: |
-    Start from scenario responsibilities, not an agent count. Separate actors
-    only where independent authority, failure isolation, scaling, or lifecycle
-    is required. Co-locate tightly coupled work when another boundary would add
-    no corresponding control or operating benefit.
-role_realization: |
-    Use the canonical roles in sm-agent-role-realizations as semantic
-    interfaces. Bind each application actor or profile to the roles it actually
-    performs. A role may have many realizations, and one descriptive actor may
-    bind several roles; neither case changes the canonical role catalog.
-topology: |
-    Cover the responsibilities required by the scenario, which may include
-    intent, policy, planning, coordination, actuation, assurance, feedback,
-    knowledge, lifecycle, observability, and exceptional human decisions.
-    Allocate and connect them according to the scenario rather than imposing a
-    universal control plane, role count, or deployment shape.
-```
+- responsibility_test:
+  Start from scenario responsibilities, not an agent count. Separate actors
+  only where independent authority, failure isolation, scaling, or lifecycle
+  is required. Co-locate tightly coupled work when another boundary would add
+  no corresponding control or operating benefit.
+- role_realization:
+  Use the canonical roles in sm-agent-role-realizations as semantic
+  interfaces. Bind each application actor or profile to the roles it actually
+  performs. A role may have many realizations, and one descriptive actor may
+  bind several roles; neither case changes the canonical role catalog.
+- topology:
+  Cover the responsibilities required by the scenario, which may include
+  intent, policy, planning, coordination, actuation, assurance, feedback,
+  knowledge, lifecycle, observability, and exceptional human decisions.
+  Allocate and connect them according to the scenario rather than imposing a
+  universal control plane, role count, or deployment shape.
 
-<!-- field: operational_flows -->
+<!-- field: operational_flows | form: "tree" -->
 ## Operational flows
 
-```yaml
-intent_to_actuation: |
-    A human, external system, or application actor supplies intent. Declared
-    policy constrains planning; coordination turns the accepted plan into
-    bounded work; an authorized actor performs actuation. The trace preserves
-    the originating intent and decisions across actor boundaries.
-observation_to_feedback: |
-    Runtime and environment observations feed monitoring and assurance.
-    Analysis and evaluation compare outcomes with intent and policy, then return
-    feedback for re-planning, remediation, knowledge updates, or escalation.
-human_governance_boundary: |
-    Humans own intent and policy authority and remain available for exceptions,
-    approvals, intervention, and accountability. An application must expose
-    where autonomous authority ends and which conditions require a human
-    decision; adding agents does not remove that boundary.
-```
+- intent_to_actuation:
+  A human, external system, or application actor supplies intent. Declared
+  policy constrains planning; coordination turns the accepted plan into
+  bounded work; an authorized actor performs actuation. The trace preserves
+  the originating intent and decisions across actor boundaries.
+- observation_to_feedback:
+  Runtime and environment observations feed monitoring and assurance.
+  Analysis and evaluation compare outcomes with intent and policy, then return
+  feedback for re-planning, remediation, knowledge updates, or escalation.
+- human_governance_boundary:
+  Humans own intent and policy authority and remain available for exceptions,
+  approvals, intervention, and accountability. An application must expose
+  where autonomous authority ends and which conditions require a human
+  decision; adding agents does not remove that boundary.
 
-<!-- field: construction_sequence -->
+<!-- field: construction_sequence | form: "tree" -->
 ## Construction sequence
 
-```yaml
-- step: 1
-  name: Define scenarios and evidence
-  guidance: |
-    State the initiating intent, expected outcome, operating constraints,
-    exceptional human decisions, and the end-to-end observations that will
-    prove the outcome.
-- step: 2
-  name: Allocate roles and authority
-  guidance: |
-    Map scenario responsibilities to canonical role interfaces. Group them
-    into actors, splitting only for justified authority, failure, scaling, or
-    lifecycle boundaries. Record each realization in the shared semantic
-    model when it is shipped.
-- step: 3
-  name: Reuse canonical programs
-  guidance: |
-    Select independently useful profiles from applications/catalog by
-    canonical path. Keep one canonical implementation owner, and create a
-    thin application wrapper only for local endpoints, configuration,
-    serving, or packaging.
-- step: 4
-  name: Declare composition
-  guidance: |
-    Let the application own actor relationships, sequencing, boundary tools,
-    topology, policy attachment, configuration authority, and human
-    touchpoints. agent-core continues to interpret one profile at a time.
-- step: 5
-  name: Close the package
-  guidance: |
-    For packaged applications, resolve every direct profile and transitive
-    machine, declaration, tool, REST, child-profile, and configuration
-    reference at package time. Record source provenance and mount the verified
-    closure into a profile-free runtime image.
-- step: 6
-  name: Prove the scenario
-  guidance: |
-    Add structural checks and application-owned end-to-end evidence for the
-    real actor boundaries, authority, failure paths, telemetry, terminal
-    outcome, and applicable capability claims. Register the module in root
-    audit, test, stats, and release orchestration as required.
-```
+1. - step: 1
+   - name: Define scenarios and evidence
+   - guidance:
+     State the initiating intent, expected outcome, operating constraints,
+     exceptional human decisions, and the end-to-end observations that will
+     prove the outcome.
+1. - step: 2
+   - name: Allocate roles and authority
+   - guidance:
+     Map scenario responsibilities to canonical role interfaces. Group them
+     into actors, splitting only for justified authority, failure, scaling, or
+     lifecycle boundaries. Record each realization in the shared semantic
+     model when it is shipped.
+1. - step: 3
+   - name: Reuse canonical programs
+   - guidance:
+     Select independently useful profiles from applications/catalog by
+     canonical path. Keep one canonical implementation owner, and create a
+     thin application wrapper only for local endpoints, configuration,
+     serving, or packaging.
+1. - step: 4
+   - name: Declare composition
+   - guidance:
+     Let the application own actor relationships, sequencing, boundary tools,
+     topology, policy attachment, configuration authority, and human
+     touchpoints. agent-core continues to interpret one profile at a time.
+1. - step: 5
+   - name: Close the package
+   - guidance:
+     For packaged applications, resolve every direct profile and transitive
+     machine, declaration, tool, REST, child-profile, and configuration
+     reference at package time. Record source provenance and mount the verified
+     closure into a profile-free runtime image.
+1. - step: 6
+   - name: Prove the scenario
+   - guidance:
+     Add structural checks and application-owned end-to-end evidence for the
+     real actor boundaries, authority, failure paths, telemetry, terminal
+     outcome, and applicable capability claims. Register the module in root
+     audit, test, stats, and release orchestration as required.
 
-<!-- field: source_provenance -->
+<!-- field: source_provenance | form: "tree" -->
 ## Source provenance
 
-```yaml
-repository: https://gitlabe1.ext.net.nokia.com/architecture/self-evolving-networks.git
-revision: 779a654fcfd3e5418991cb154a6cb3cc894be6ae
-source_documents:
-    - agentic-framework/reference-architecture/overview/01-introduction.md
-    - agentic-framework/reference-architecture/overview/02-design-principles.md
-    - agentic-framework/reference-architecture/agent-view/01-introduction.md
-    - agentic-framework/reference-architecture/agent-view/02-agent-roles.md
-    - agentic-framework/reference-architecture/agent-view/03-role-catalog.md
-    - agentic-framework/reference-architecture/agent-view/04-activity-catalog.md
-    - agentic-framework/reference-architecture/functional-view/02-functional-architecture.md
-    - agentic-framework/self-evolving-vision/from-code-to-configuration/01-introduction.md
-    - agentic-framework/self-evolving-vision/from-code-to-configuration/04-integration-without-integration.md
-authority_boundary: |
-    The pinned reference architecture supplies conceptual vocabulary for roles,
-    activities, flows, governance, and architecture views. It does not impose
-    implementation requirements on this repository. This VISION and its linked
-    architecture, semantic model, pattern language, SRDs, application profiles,
-    packaging rules, and executable evidence remain authoritative here.
-portability: |
-    Provenance uses repository-relative source paths. Validation and builds must
-    not depend on a developer-local checkout or absolute filesystem path.
-```
+- repository: https://gitlabe1.ext.net.nokia.com/architecture/self-evolving-networks.git
+- revision: 779a654fcfd3e5418991cb154a6cb3cc894be6ae
+- source_documents:
+  1. agentic-framework/reference-architecture/overview/01-introduction.md
+  1. agentic-framework/reference-architecture/overview/02-design-principles.md
+  1. agentic-framework/reference-architecture/agent-view/01-introduction.md
+  1. agentic-framework/reference-architecture/agent-view/02-agent-roles.md
+  1. agentic-framework/reference-architecture/agent-view/03-role-catalog.md
+  1. agentic-framework/reference-architecture/agent-view/04-activity-catalog.md
+  1. agentic-framework/reference-architecture/functional-view/02-functional-architecture.md
+  1. agentic-framework/self-evolving-vision/from-code-to-configuration/01-introduction.md
+  1. agentic-framework/self-evolving-vision/from-code-to-configuration/04-integration-without-integration.md
+- authority_boundary:
+  The pinned reference architecture supplies conceptual vocabulary for roles,
+  activities, flows, governance, and architecture views. It does not impose
+  implementation requirements on this repository. This VISION and its linked
+  architecture, semantic model, pattern language, SRDs, application profiles,
+  packaging rules, and executable evidence remain authoritative here.
+- portability:
+  Provenance uses repository-relative source paths. Validation and builds must
+  not depend on a developer-local checkout or absolute filesystem path.
 
 <!-- field: success_criteria -->
 ## Success criteria

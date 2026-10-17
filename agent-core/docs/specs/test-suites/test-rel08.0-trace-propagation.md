@@ -38,22 +38,18 @@ rel08.0-uc001-http-trace-propagation
 
 go test ./internal/tools/rest/client -run TestRESTClient_InjectsTraceparentFromActiveSpan
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-active_span: recording
-span_tracestate: present
-```
+- active_span: recording
+- span_tracestate: present
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-traceparent_header_present: true
-traceparent_matches_active_span: true
-tracestate_header_present: true
-```
+- traceparent_header_present: true
+- traceparent_matches_active_span: true
+- tracestate_header_present: true
 
 <!-- field: traces -->
 #### Traces
@@ -78,22 +74,21 @@ rel08.0-uc001-http-trace-propagation
 
 go test ./internal/tools/rest/client -run TestRESTClient_TraceparentUniformAndOmittedWithoutSpan
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-operations: [get, invoke, send]
-active_span: none
-```
+- operations:
+  1. get
+  1. invoke
+  1. send
+- active_span: none
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-injected_on_all_operations: true
-no_authoring_surface: true
-header_absent_without_span: true
-```
+- injected_on_all_operations: true
+- no_authoring_surface: true
+- header_absent_without_span: true
 
 <!-- field: traces -->
 #### Traces
@@ -118,21 +113,17 @@ rel08.0-uc001-http-trace-propagation
 
 go test ./internal/tools/rest -run TestRESTServer_ExtractsTraceparentParentsMachineRequestSpan
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-incoming_traceparent: "00-<trace>-<span>-01"
-```
+- incoming_traceparent: 00-<trace>-<span>-01
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-server_span_parent_is_remote: true
-machine_request_span_parented: true
-same_trace_id_as_client: true
-```
+- server_span_parent_is_remote: true
+- machine_request_span_parented: true
+- same_trace_id_as_client: true
 
 <!-- field: traces -->
 #### Traces
@@ -157,23 +148,19 @@ rel08.0-uc001-http-trace-propagation
 
 go test ./internal/tools/rest -run TestRESTServer_TraceparentFallbackToNewRoot
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-cases:
-    - {traceparent: absent}
-    - {traceparent: "not-a-traceparent"}
-```
+- cases:
+  1. - traceparent: absent
+  1. - traceparent: not-a-traceparent
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-new_root_span: true
-request_succeeds: true
-no_error: true
-```
+- new_root_span: true
+- request_succeeds: true
+- no_error: true
 
 <!-- field: traces -->
 #### Traces
@@ -198,21 +185,17 @@ rel08.0-uc001-http-trace-propagation
 
 go test ./internal/tools/rest -run '^TestParseParentSpanRoundTripAndEmptyInput$'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-traceparent: formatted remote SpanContext
-```
+- traceparent: formatted remote SpanContext
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-parsed_trace_id_preserved: true
-parsed_span_id_preserved: true
-empty_input_has_no_parent: true
-```
+- parsed_trace_id_preserved: true
+- parsed_span_id_preserved: true
+- empty_input_has_no_parent: true
 
 <!-- field: traces -->
 #### Traces
@@ -235,23 +218,19 @@ rel08.0-uc001-http-trace-propagation
 
 go test ./internal/support/execute -run '^TestRunAgent.*OTelParent'
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-child_launch: subprocess with --otel-parent-span
-```
+- child_launch: subprocess with --otel-parent-span
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-child_parented_on_caller: true
-child_span_exported: true
-missing_parent_emits_root: true
-malformed_parent_reports_diagnostic: true
-child_failure_preserves_stderr: true
-```
+- child_parented_on_caller: true
+- child_span_exported: true
+- missing_parent_emits_root: true
+- malformed_parent_reports_diagnostic: true
+- child_failure_preserves_stderr: true
 
 <!-- field: traces -->
 #### Traces

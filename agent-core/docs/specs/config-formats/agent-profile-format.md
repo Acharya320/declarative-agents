@@ -20,82 +20,79 @@ internal/tools/catalog/profile.go and the startup narrative in
 cfg-runtime-contract. Release 20.0 adds blueprints and their instances
 (srd055), which change the format, so the format is written down here.
 
-<!-- field: schema -->
+<!-- field: schema | form: "tree" -->
 ## Schema
 
-```yaml
-- field: name
-  type: string
-  required: false
-  description: |
-    The agent's name. Required on a blueprint instance (srd055 R1.2).
-- field: machine
-  type: string or mapping
-  required: true
-  description: |
-    Path to the agent's machine file, which may be a machine template
-    instance (srd054 R1.2). Inside a blueprint body it MAY instead be a
-    mapping carrying `fragment` and `args` that names a machine template
-    directly (srd055 R2.3). A path to a machine template itself is a load
-    error (srd054 R1.4).
-- field: tools
-  type: "[]string"
-  required: true
-  description: Tool selection files (cfg-tool-selection-format). At least one entry.
-- field: tool_declarations
-  type: "[]string"
-  required: false
-  description: Tool declaration files and units (cfg-tool-declaration-format).
-- field: tool_config_dirs
-  type: "[]string"
-  required: false
-  description: Directories whose declaration files are loaded as tool declarations.
-- field: rest_definitions
-  type: "[]string"
-  required: false
-  description: REST definition files and units (cfg-rest-tool-format).
-- field: rest_config_dirs
-  type: "[]string"
-  required: false
-  description: Directories whose files are loaded as REST definitions.
-- field: directory
-  type: string
-  required: false
-  description: Default workspace directory; `--directory` overrides it.
-- field: libraries
-  type: "map[string]string"
-  required: false
-  description: |
-    Named library roots (srd056-unit-libraries R2). Each name is a lowercase
-    kebab root name other than `agent-core`; each value is a directory,
-    resolved against this file's directory. An import under `/opt/<name>/`
-    anywhere in this profile's closure maps to that directory, and
-    `--library <name>=<path>` overrides it for one run. Roots are scoped to
-    this profile's closure; a child-agent profile declares its own.
-- field: unit
-  type: string
-  required: false
-  description: Unit name of a blueprint, or optionally of a blueprint instance.
-- field: params
-  type: "[]param"
-  required: false
-  description: |
-    Present only on a blueprint, with the entry format of srd052 R1.1. A
-    file carrying `params` is a blueprint and is not itself a profile.
-- field: profile
-  type: mapping
-  required: false
-  description: |
-    A blueprint's body: the fields above, with `$param(name)` references in
-    scalar values (srd055 R1.1).
-- field: expand
-  type: "[]expansion"
-  required: false
-  description: |
-    On a blueprint instance, exactly one entry carrying `fragment` and
-    `args` whose target has a `profile` body. `as` is not permitted
-    (srd055 R1.2).
-```
+1. - field: name
+   - type: string
+   - required: false
+   - description: The agent's name. Required on a blueprint instance (srd055 R1.2).
+1. - field: machine
+   - type: string or mapping
+   - required: true
+   - description:
+     Path to the agent's machine file, which may be a machine template
+     instance (srd054 R1.2). Inside a blueprint body it MAY instead be a
+     mapping carrying `fragment` and `args` that names a machine template
+     directly (srd055 R2.3). A path to a machine template itself is a load
+     error (srd054 R1.4).
+1. - field: tools
+   - type: "[]string"
+   - required: true
+   - description: Tool selection files (cfg-tool-selection-format). At least one entry.
+1. - field: tool_declarations
+   - type: "[]string"
+   - required: false
+   - description: Tool declaration files and units (cfg-tool-declaration-format).
+1. - field: tool_config_dirs
+   - type: "[]string"
+   - required: false
+   - description: Directories whose declaration files are loaded as tool declarations.
+1. - field: rest_definitions
+   - type: "[]string"
+   - required: false
+   - description: REST definition files and units (cfg-rest-tool-format).
+1. - field: rest_config_dirs
+   - type: "[]string"
+   - required: false
+   - description: Directories whose files are loaded as REST definitions.
+1. - field: directory
+   - type: string
+   - required: false
+   - description: Default workspace directory; `--directory` overrides it.
+1. - field: libraries
+   - type: map[string]string
+   - required: false
+   - description:
+     Named library roots (srd056-unit-libraries R2). Each name is a lowercase
+     kebab root name other than `agent-core`; each value is a directory,
+     resolved against this file's directory. An import under `/opt/<name>/`
+     anywhere in this profile's closure maps to that directory, and
+     `--library <name>=<path>` overrides it for one run. Roots are scoped to
+     this profile's closure; a child-agent profile declares its own.
+1. - field: unit
+   - type: string
+   - required: false
+   - description: Unit name of a blueprint, or optionally of a blueprint instance.
+1. - field: params
+   - type: "[]param"
+   - required: false
+   - description:
+     Present only on a blueprint, with the entry format of srd052 R1.1. A
+     file carrying `params` is a blueprint and is not itself a profile.
+1. - field: profile
+   - type: mapping
+   - required: false
+   - description:
+     A blueprint's body: the fields above, with `$param(name)` references in
+     scalar values (srd055 R1.1).
+1. - field: expand
+   - type: "[]expansion"
+   - required: false
+   - description:
+     On a blueprint instance, exactly one entry carrying `fragment` and
+     `args` whose target has a `profile` body. `as` is not permitted
+     (srd055 R1.2).
 
 <!-- field: path_resolution -->
 ## Path resolution
@@ -112,43 +109,40 @@ absolute path is used as written.
 <!-- field: blueprints -->
 ## Blueprints
 
-```yaml
-|
-    A blueprint declares an agent once with typed parameters:
+A blueprint declares an agent once with typed parameters:
 
-      unit: serve-agent-blueprint
-      params:
-        - {name: agent, type: string}
-        - {name: server, type: string}
-      profile:
-        name: $param(agent)
-        machine:
-          fragment: /opt/agent-core/tools/machines/serve-machine-template.yaml
-          args: {server: $param(server)}
-        tools:
-          - ../$param(agent)/tools.yaml
-        rest_definitions:
-          - ../$param(agent)/rest.yaml
+  unit: serve-agent-blueprint
+  params:
+    - {name: agent, type: string}
+    - {name: server, type: string}
+  profile:
+    name: $param(agent)
+    machine:
+      fragment: /opt/agent-core/tools/machines/serve-machine-template.yaml
+      args: {server: $param(server)}
+    tools:
+      - ../$param(agent)/tools.yaml
+    rest_definitions:
+      - ../$param(agent)/rest.yaml
 
-    and each agent's profile.yaml expands it, carrying a name, the
-    arguments, and any field that differs:
+and each agent's profile.yaml expands it, carrying a name, the
+arguments, and any field that differs:
 
-      name: rag-server
-      expand:
-        - fragment: ../units/serve-agent-blueprint.yaml
-          args: {agent: rag-server, server: rag}
-      tool_declarations:
-        - declarations.yaml
+  name: rag-server
+  expand:
+    - fragment: ../units/serve-agent-blueprint.yaml
+      args: {agent: rag-server, server: rag}
+  tool_declarations:
+    - declarations.yaml
 
-    A field present on the instance replaces the blueprint's field wholesale; a
-    list is replaced, never merged. The resolved profile is validated as a
-    hand-written profile is, its program identity is the instance path, and its
-    digest covers the blueprint and every template it reaches (srd055 R3). A
-    blueprint named by `--profile`, a child-agent reference, or a
-    `machine_request` binding is a load error (srd055 R1.3). The fragment path
-    in the machine mapping above is an install-prefix path, which maps through
-    the install root as every profile path does (srd055 R2.2).
-```
+A field present on the instance replaces the blueprint's field wholesale; a
+list is replaced, never merged. The resolved profile is validated as a
+hand-written profile is, its program identity is the instance path, and its
+digest covers the blueprint and every template it reaches (srd055 R3). A
+blueprint named by `--profile`, a child-agent reference, or a
+`machine_request` binding is a load error (srd055 R1.3). The fragment path
+in the machine mapping above is an install-prefix path, which maps through
+the install root as every profile path does (srd055 R2.2).
 
 <!-- field: related_documents -->
 ## Related documents

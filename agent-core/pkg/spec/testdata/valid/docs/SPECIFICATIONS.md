@@ -14,45 +14,35 @@ SRD release assignments.
 - 00.0: srd001-auth (authentication), srd002-api (REST API)
 - 00.1: srd003-storage (data persistence)
 
-<!-- field: foundation_document_index -->
+<!-- field: foundation_document_index | form: "scalar" -->
 ## Foundation document index
 
-```yaml
 []
-```
 
-<!-- field: config_format_index -->
+<!-- field: config_format_index | form: "scalar" -->
 ## Config format index
 
-```yaml
 []
-```
 
-<!-- field: semantic_model_index -->
+<!-- field: semantic_model_index | form: "scalar" -->
 ## Semantic model index
 
-```yaml
 []
-```
 
 <!-- field: coverage_gaps -->
 ## Coverage gaps
 
 None known.
 
-<!-- field: roadmap_summary -->
+<!-- field: roadmap_summary | form: "typed table" -->
 ## Roadmap summary
 
-```yaml
-- version: "00.0"
-  name: Foundation
-  use_cases_done: 0
-  use_cases_total: 1
-  status: open
-```
+| version | name | use_cases_done | use_cases_total | status |
+| --- | --- | --- | --- | --- |
+| "00.0" | Foundation | 0 | 1 | open |
 
 <!-- field: srd_index -->
-## Srd index
+## SRD index
 
 | id | title | summary | path |
 | --- | --- | --- | --- |
@@ -67,15 +57,9 @@ None known.
 | --- | --- | --- | --- | --- | --- |
 | rel00.0-uc001-login | Login flow | 00.0 | open | test-rel00.0 | docs/specs/use-cases/rel00.0-uc001-login.md |
 
-<!-- field: test_suite_index -->
+<!-- field: test_suite_index | form: "typed table" -->
 ## Test suite index
 
-```yaml
-- id: test-rel00.0
-  title: Release 00.0 Tests
-  release: "00.0"
-  test_case_count: 2
-  traces:
-    - rel00.0-uc001-login
-  path: docs/specs/test-suites/test-rel00.0.md
-```
+| id | title | release | test_case_count | traces | path |
+| --- | --- | --- | --- | --- | --- |
+| test-rel00.0 | Release 00.0 Tests | "00.0" | 2 | [rel00.0-uc001-login] | docs/specs/test-suites/test-rel00.0.md |

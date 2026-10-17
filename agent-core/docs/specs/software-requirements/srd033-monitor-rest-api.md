@@ -455,56 +455,54 @@ The view SHALL serve no secret material; a declaration references credentials by
 
 OpenAPI SHALL describe declared_tools as an array of objects with a required name and additional authored properties under R2.7 through R2.10.
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-current: |
-    internal/tools/rest supports monitor_view on read_state, static_metadata,
-    and stream_events endpoints. agents/runtime-state-reader defines a profile-owned REST
-    server with machine, state, tools, metrics, events, event stream, OpenAPI,
-    and control exit routes. The checked-in monitor REST configuration binds
-    127.0.0.1:0, so the launch output address is the supervisor discovery
-    source. Tests cover cached-state reads, OpenAPI redaction, snapshot
-    endpoint response shape, event stream frames, observational failure
-    behavior, and profile-owned control endpoint documentation. The external
-    runtime-state-reader profile uses the same REST server launch path as other configured server
-    tools, so there is no separate monitor server stack.
-    A supervisor can call /monitor/metrics after launch and see samples from
-    the same run, not a seeded fixture. The real CLI proof generates an
-    isolated loopback listener while preserving the checked-in operator profile
-    path and discovering the bound address from profile-owned launch output.
-    TestMonitorReleaseProfileProof and mage integration:monitor prove the path
-    through cmd/agent with the live store.
-remaining: |
-    /monitor/openapi currently documents monitor routes and redacts unsafe
-    fields. Precise JSON Schema generation for scalar fields, arrays, maps,
-    timestamps, and nested objects remains follow-up work. The generated schema
-    must reject shallow all-object descriptions for runtime scalar fields.
+- current:
+  internal/tools/rest supports monitor_view on read_state, static_metadata,
+  and stream_events endpoints. agents/runtime-state-reader defines a profile-owned REST
+  server with machine, state, tools, metrics, events, event stream, OpenAPI,
+  and control exit routes. The checked-in monitor REST configuration binds
+  127.0.0.1:0, so the launch output address is the supervisor discovery
+  source. Tests cover cached-state reads, OpenAPI redaction, snapshot
+  endpoint response shape, event stream frames, observational failure
+  behavior, and profile-owned control endpoint documentation. The external
+  runtime-state-reader profile uses the same REST server launch path as other configured server
+  tools, so there is no separate monitor server stack.
+  A supervisor can call /monitor/metrics after launch and see samples from
+  the same run, not a seeded fixture. The real CLI proof generates an
+  isolated loopback listener while preserving the checked-in operator profile
+  path and discovering the bound address from profile-owned launch output.
+  TestMonitorReleaseProfileProof and mage integration:monitor prove the path
+  through cmd/agent with the live store.
+- remaining:
+  /monitor/openapi currently documents monitor routes and redacts unsafe
+  fields. Precise JSON Schema generation for scalar fields, arrays, maps,
+  timestamps, and nested objects remains follow-up work. The generated schema
+  must reject shallow all-object descriptions for runtime scalar fields.
 
-    Residual product boundaries remain unchanged: monitor readers are
-    profile-owned, read cached state only, and do not provide durable metric
-    history.
+  Residual product boundaries remain unchanged: monitor readers are
+  profile-owned, read cached state only, and do not provide durable metric
+  history.
 
-    The command_state view (R7) is specified and pending implementation under
-    GH-1297: a read_state endpoint declaring monitor_view command_state and a
-    labels allowlist exposes the redaction-cleared declared output of the named
-    steps through the srd038 CommandStateView. The fleet observer of
-    GH-1270 is its first consumer.
+  The command_state view (R7) is specified and pending implementation under
+  GH-1297: a read_state endpoint declaring monitor_view command_state and a
+  labels allowlist exposes the redaction-cleared declared output of the named
+  steps through the srd038 CommandStateView. The fleet observer of
+  GH-1270 is its first consumer.
 
-    The declared_machines runtime view (R8) retains named presentation
-    metadata and collects the root plus the distinct machine_request machines
-    from the trusted profile closure without exposing live request-machine
-    state. Shipped monitor profiles declare the conventional
-    GET /monitor/machines route.
+  The declared_machines runtime view (R8) retains named presentation
+  metadata and collects the root plus the distinct machine_request machines
+  from the trusted profile closure without exposing live request-machine
+  state. Shipped monitor profiles declare the conventional
+  GET /monitor/machines route.
 
-    The declared_tools runtime view (R9) serves the closure's tool
-    declarations as authored, loaded once beside the declared machines, so a
-    fleet surface renders a request machine's words -- description and
-    configuration -- from the pod that runs them rather than from a shipped
-    copy. Shipped monitor profiles declare the conventional
-    GET /monitor/tools/declared route.
-```
+  The declared_tools runtime view (R9) serves the closure's tool
+  declarations as authored, loaded once beside the declared machines, so a
+  fleet surface renders a request machine's words -- description and
+  configuration -- from the pod that runs them rather than from a shipped
+  copy. Shipped monitor profiles declare the conventional
+  GET /monitor/tools/declared route.
 
 <!-- field: non_goals -->
 ## Non-goals
@@ -736,39 +734,37 @@ The declared_tools view returns every word the profile closure declares, as auth
 - cfg-rest-tool-format
 - docs/guides/boundary-tools-and-async.md
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Embedded monitor state is useful only if profiles can..."] --> Goals["Goals: Monitor REST API"]
-      Goals --> R1["R1: API scope and authority"]
-      Goals --> R2["R2: OpenAPI contract"]
-      Goals --> R3["R3: Snapshot endpoints"]
-      Goals --> R4["R4: Event streams"]
-      Goals --> R5["R5: Redaction and failure behavior"]
-      Goals --> R6["R6: Serving lifecycle"]
-      Goals --> R7["R7: Command-state view"]
-      Goals --> R8["R8: Declared machine collection"]
-      AC1["AC1: API scope requirements define read-only cached monitor en..."]
-      R1 --> AC1
-      AC2["AC2: OpenAPI requirements cover configured endpoint descriptio..."]
-      R2 --> AC2
-      AC3["AC3: Snapshot endpoint requirements cover machine spec, curren..."]
-      R3 --> AC3
-      AC4["AC4: Event stream requirements expose cached monitor updates w..."]
-      R4 --> AC4
-      AC5["AC5: Redaction and failure requirements preserve monitor safet..."]
-      R5 --> AC5
-      AC6["AC6: Serving lifecycle requirements keep runtime-state-reader queryable..."]
-      R6 --> AC6
-      AC7["AC7: Command-state view exposes redaction-cleared declared out..."]
-      R7 --> AC7
-      AC8["AC8: Declared machines preserve the profile collection and pre..."]
-      R8 --> AC8
-      AC9["AC9: Declared tools serve the closure's words as authored"]
-      R9 --> AC9
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Embedded monitor state is useful only if profiles can..."] --> Goals["Goals: Monitor REST API"]
+    Goals --> R1["R1: API scope and authority"]
+    Goals --> R2["R2: OpenAPI contract"]
+    Goals --> R3["R3: Snapshot endpoints"]
+    Goals --> R4["R4: Event streams"]
+    Goals --> R5["R5: Redaction and failure behavior"]
+    Goals --> R6["R6: Serving lifecycle"]
+    Goals --> R7["R7: Command-state view"]
+    Goals --> R8["R8: Declared machine collection"]
+    AC1["AC1: API scope requirements define read-only cached monitor en..."]
+    R1 --> AC1
+    AC2["AC2: OpenAPI requirements cover configured endpoint descriptio..."]
+    R2 --> AC2
+    AC3["AC3: Snapshot endpoint requirements cover machine spec, curren..."]
+    R3 --> AC3
+    AC4["AC4: Event stream requirements expose cached monitor updates w..."]
+    R4 --> AC4
+    AC5["AC5: Redaction and failure requirements preserve monitor safet..."]
+    R5 --> AC5
+    AC6["AC6: Serving lifecycle requirements keep runtime-state-reader queryable..."]
+    R6 --> AC6
+    AC7["AC7: Command-state view exposes redaction-cleared declared out..."]
+    R7 --> AC7
+    AC8["AC8: Declared machines preserve the profile collection and pre..."]
+    R8 --> AC8
+    AC9["AC9: Declared tools serve the closure's words as authored"]
+    R9 --> AC9
+  ```

@@ -554,60 +554,18 @@ The composed port SHALL come from either a declared base_url_port literal or a b
 - Replacing MachineSpec sequencing with hidden REST client workflows.
 - Requiring a curl executable for REST client words without full srd027/srd028 parity and runtime-image provisioning.
 
-<!-- field: tool_words -->
+<!-- field: tool_words | form: "typed table" -->
 ## Tool words
 
-```yaml
-- name: rest_client_get
-  input: declared path, query, header parameters, and optional previous Result source.
-  output: resource payload, status code, headers, resource ID, version metadata, operation ID.
-  signals: [RESTResourceRead, RESTMissing, RESTDomainFailed, CommandError]
-  side_effects: [external_api_read]
-  errors: [operation_lookup, schema_invalid, auth_resolution, network_io, timeout, response_mapping]
-  undo: noop.
-- name: rest_client_set
-  input: declared path, query, header, and body parameters for an existing resource.
-  output: written resource payload or summary, status code, resource ID, version metadata, operation ID.
-  signals: [RESTResourceWritten, RESTMissing, RESTDomainFailed, CommandError]
-  side_effects: [external_api_write]
-  errors: [operation_lookup, schema_invalid, request_rendering, auth_resolution, network_io, timeout, status_mapping]
-  undo: previous-state restore or compensating action when configured; otherwise noop with irreversible or compensatable contract.
-- name: rest_client_create
-  input: declared path, query, header, and body parameters for a new resource.
-  output: created resource payload or summary, status code, resource ID, location header, operation ID.
-  signals: [RESTResourceWritten, RESTDomainFailed, CommandError]
-  side_effects: [external_api_write]
-  errors: [operation_lookup, schema_invalid, request_rendering, auth_resolution, network_io, timeout, status_mapping]
-  undo: configured delete or deactivate compensation when resource ID is available.
-- name: rest_client_delete
-  input: declared path, query, header, and optional body parameters for a resource delete or deactivate operation.
-  output: delete summary, status code, resource ID, operation ID.
-  signals: [RESTResourceWritten, RESTMissing, RESTDomainFailed, CommandError]
-  side_effects: [external_api_write]
-  errors: [operation_lookup, schema_invalid, auth_resolution, network_io, timeout, status_mapping]
-  undo: configured restore or recreate compensation when prior state is available.
-- name: rest_client_invoke
-  input: declared operation parameters for an RPC-shaped REST operation.
-  output: mapped response payload, status code, operation ID, domain outcome.
-  signals: [RESTResponded, RESTAccepted, RESTDomainFailed, RESTMissing, CommandError]
-  side_effects: [external_api_read, external_api_write]
-  errors: [operation_lookup, schema_invalid, request_rendering, auth_resolution, network_io, timeout, response_mapping]
-  undo: noop unless a compensating action is configured.
-- name: rest_client_send
-  input: declared operation parameters for an async REST operation.
-  output: request ID, operation ID, idempotency token, submitted payload summary, correlation metadata.
-  signals: [RESTAccepted, CommandError]
-  side_effects: [external_api_call, command_state]
-  errors: [operation_lookup, schema_invalid, request_rendering, auth_resolution, network_io, timeout]
-  undo: cancel or compensate when configured; otherwise record request metadata for audit.
-- name: rest_client_await
-  input: request ID, correlation token, operation state selector, timeout, and response mapping.
-  output: final response payload, status code, request ID, operation ID, retry and timing metadata.
-  signals: [RESTResponded, RESTDomainFailed, RESTMissing, RESTAwaitTimedOut, CommandError]
-  side_effects: [command_state]
-  errors: [async_state_missing, timeout, network_io, response_mapping, status_mapping]
-  undo: noop unless await mutates command state that can be restored.
-```
+| name | input | output | signals | side_effects | errors | undo |
+| --- | --- | --- | --- | --- | --- | --- |
+| rest_client_get | declared path, query, header parameters, and optional previous Result source. | resource payload, status code, headers, resource ID, version metadata, operation ID. | [RESTResourceRead, RESTMissing, RESTDomainFailed, CommandError] | [external_api_read] | [operation_lookup, schema_invalid, auth_resolution, network_io, timeout, response_mapping] | noop. |
+| rest_client_set | declared path, query, header, and body parameters for an existing resource. | written resource payload or summary, status code, resource ID, version metadata, operation ID. | [RESTResourceWritten, RESTMissing, RESTDomainFailed, CommandError] | [external_api_write] | [operation_lookup, schema_invalid, request_rendering, auth_resolution, network_io, timeout, status_mapping] | previous-state restore or compensating action when configured; otherwise noop with irreversible or compensatable contract. |
+| rest_client_create | declared path, query, header, and body parameters for a new resource. | created resource payload or summary, status code, resource ID, location header, operation ID. | [RESTResourceWritten, RESTDomainFailed, CommandError] | [external_api_write] | [operation_lookup, schema_invalid, request_rendering, auth_resolution, network_io, timeout, status_mapping] | configured delete or deactivate compensation when resource ID is available. |
+| rest_client_delete | declared path, query, header, and optional body parameters for a resource delete or deactivate operation. | delete summary, status code, resource ID, operation ID. | [RESTResourceWritten, RESTMissing, RESTDomainFailed, CommandError] | [external_api_write] | [operation_lookup, schema_invalid, auth_resolution, network_io, timeout, status_mapping] | configured restore or recreate compensation when prior state is available. |
+| rest_client_invoke | declared operation parameters for an RPC-shaped REST operation. | mapped response payload, status code, operation ID, domain outcome. | [RESTResponded, RESTAccepted, RESTDomainFailed, RESTMissing, CommandError] | [external_api_read, external_api_write] | [operation_lookup, schema_invalid, request_rendering, auth_resolution, network_io, timeout, response_mapping] | noop unless a compensating action is configured. |
+| rest_client_send | declared operation parameters for an async REST operation. | request ID, operation ID, idempotency token, submitted payload summary, correlation metadata. | [RESTAccepted, CommandError] | [external_api_call, command_state] | [operation_lookup, schema_invalid, request_rendering, auth_resolution, network_io, timeout] | cancel or compensate when configured; otherwise record request metadata for audit. |
+| rest_client_await | request ID, correlation token, operation state selector, timeout, and response mapping. | final response payload, status code, request ID, operation ID, retry and timing metadata. | [RESTResponded, RESTDomainFailed, RESTMissing, RESTAwaitTimedOut, CommandError] | [command_state] | [async_state_missing, timeout, network_io, response_mapping, status_mapping] | noop unless await mutates command state that can be restored. |
 
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
@@ -875,88 +833,82 @@ A trusted REST operation resolves the composed authority's port per item through
 - docs/specs/semantic-models/tool-language.md
 - docs/guides/rest-tool.md
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-implemented:
-    - internal/tools/rest client commands for synchronous resource words, RPC-shaped invoke, async send, and async await.
-    - tools/builtin/rest client tool declarations and release 03.0 fixtures.
-    - Resource operation definitions loaded from YAML and OpenAPI imports.
-    - Config-bound method, path, host, auth, redirect, size-limit, request schema, response mapping, redaction, and status-signal behavior.
-    - Async request state indexed by request_id with idempotency and correlation metadata recorded in accepted output.
-    - CIDR allowlists are enforced while scheme, host, and port validation remains intact.
-    - Response bodies are validated against configured response schemas before success signals, and domain_error_code is included in structured output when configured.
-    - Async await can select stored completion by correlation token. Readiness polling is declared as one-shot REST probes separated by lifecycle delay states; await_operation is rejected with migration guidance.
-    - Idempotency metadata is emitted on configured outbound async requests, and retry validation requires idempotency for mutating operations when configured.
-    - Mutating REST client commands capture boundary compensation undo mementos with request, resource, idempotency, and compensation metadata. Read-only operations remain noop.
-    - Persisted checkpoint rollback can execute boundary compensation when a caller supplies the core CompensationExecutor. internal/tools/rest provides a CompensationExecutor that decodes REST boundary mementos, resolves the configured compensation operation from trusted definitions, filters runtime parameters to declared inputs, and executes through the REST client path.
-    - TestRESTClient_CompensationExecutorRunsConfiguredOperation, TestRESTClient_CompensationExecutorReportsMissingOperation, TestRollbackCheckpointExecutesBoundaryCompensation, and TestRollbackCheckpointReportsMissingBoundaryCompensationExecutor cover REST compensation execution and bounded failure reporting.
-    - Previous-Result parameter threading (R12): body_source previous_result consumption through request_binding.input_mapping selects declared params from the prior Result output; request_binding.carry_forward copies declared inputs into the Result output under a carried key; validateRequestBinding enforces the R12.4 rejections (undeclared targets, transport-authority overrides). Covered by TestRESTClient_ThreadsPreviousResultParams, TestRESTClient_ChainThreadsVectorIntoQueryBody, TestRESTClient_CarryForwardEchoesDeclaredInputs, and TestRESTClient_RejectsPreviousResultThreadingMisuse.
-    - >-
-      Composed command-state targets (R14.6): an operation may declare base_url_host_selector with base_url_scheme and base_url_port, and client_target.go composes scheme://host[:port] from the resolved bare host before the unchanged R14.3/R14.4 validation. validateSelectedBaseURLTarget keeps the two selector forms mutually exclusive and rejects an unsupported scheme or an out-of-range port at load. IPv6 literals are bracketed. Covered by TestRESTClient_HostSelectorComposesSelectedAuthority, TestRESTClient_HostSelectorRejectsUnsafeValuesBeforeIO, TestResolveOperationBaseURLComposesAuthority, and TestRESTClient_HostSelectorRejectionTable.
-    - >-
-      Per-item composed ports (R14.7): base_url_port_selector resolves the composed authority's port from command state for a fleet whose targets do not share one port, accepting a label string or a whole JSON number. resolvedBaseURLPort and selectedPortString range-check the value before composition, validateComposedPort keeps the literal and selector forms mutually exclusive at load, and the composed authority still passes the client's network ports allowlist, so configuration bounds the reachable ports. Covered by TestRESTClient_PortSelectorResolvesPerItemPort and TestRESTClient_PortSelectorRejectsUnusablePorts.
-    - Command-state parameter threading (R13): body_source command_state consumption through request_binding.input_mapping $from(<label>).<path> selectors resolved against the injected core CommandStateView (clientCmd implements core.CommandStateAware). selectCommandStateParams looks up the labeled step's output, decodes it, and walks the dotted path; a miss returns a typed error naming the label. validateBodySource accepts command_state; validateRequestBinding enforces V32 (a $from selector only under command_state, a $. selector only under previous_result) plus the R12.4 declared-target and transport-authority rejections; the no-store rejection is enforced at runtime (R13.5). previous_result threading is unchanged. Covered by TestRESTClient_CommandStateThreadsNonAdjacentStep, TestRESTClient_CommandStateDuplicateLabelMostRecentWins, TestRESTClient_CommandStateMissNamesLabel, TestRESTClient_CommandStateNoViewConfiguredRejected, and TestRESTClient_CommandStateRejectionTable.
-partial:
-    - Lifecycle profile wiring must still choose when to inject a REST CompensationExecutor into checkpoint rollback. Profile injection stays outside the REST client tool contract.
-```
+- implemented:
+  1. internal/tools/rest client commands for synchronous resource words, RPC-shaped invoke, async send, and async await.
+  1. tools/builtin/rest client tool declarations and release 03.0 fixtures.
+  1. Resource operation definitions loaded from YAML and OpenAPI imports.
+  1. Config-bound method, path, host, auth, redirect, size-limit, request schema, response mapping, redaction, and status-signal behavior.
+  1. Async request state indexed by request_id with idempotency and correlation metadata recorded in accepted output.
+  1. CIDR allowlists are enforced while scheme, host, and port validation remains intact.
+  1. Response bodies are validated against configured response schemas before success signals, and domain_error_code is included in structured output when configured.
+  1. Async await can select stored completion by correlation token. Readiness polling is declared as one-shot REST probes separated by lifecycle delay states; await_operation is rejected with migration guidance.
+  1. Idempotency metadata is emitted on configured outbound async requests, and retry validation requires idempotency for mutating operations when configured.
+  1. Mutating REST client commands capture boundary compensation undo mementos with request, resource, idempotency, and compensation metadata. Read-only operations remain noop.
+  1. Persisted checkpoint rollback can execute boundary compensation when a caller supplies the core CompensationExecutor. internal/tools/rest provides a CompensationExecutor that decodes REST boundary mementos, resolves the configured compensation operation from trusted definitions, filters runtime parameters to declared inputs, and executes through the REST client path.
+  1. TestRESTClient_CompensationExecutorRunsConfiguredOperation, TestRESTClient_CompensationExecutorReportsMissingOperation, TestRollbackCheckpointExecutesBoundaryCompensation, and TestRollbackCheckpointReportsMissingBoundaryCompensationExecutor cover REST compensation execution and bounded failure reporting.
+  1. - "Previous-Result parameter threading (R12)": body_source previous_result consumption through request_binding.input_mapping selects declared params from the prior Result output; request_binding.carry_forward copies declared inputs into the Result output under a carried key; validateRequestBinding enforces the R12.4 rejections (undeclared targets, transport-authority overrides). Covered by TestRESTClient_ThreadsPreviousResultParams, TestRESTClient_ChainThreadsVectorIntoQueryBody, TestRESTClient_CarryForwardEchoesDeclaredInputs, and TestRESTClient_RejectsPreviousResultThreadingMisuse.
+  1. "Composed command-state targets (R14.6): an operation may declare base_url_host_selector with base_url_scheme and base_url_port, and client_target.go composes scheme://host[:port] from the resolved bare host before the unchanged R14.3/R14.4 validation. validateSelectedBaseURLTarget keeps the two selector forms mutually exclusive and rejects an unsupported scheme or an out-of-range port at load. IPv6 literals are bracketed. Covered by TestRESTClient_HostSelectorComposesSelectedAuthority, TestRESTClient_HostSelectorRejectsUnsafeValuesBeforeIO, TestResolveOperationBaseURLComposesAuthority, and TestRESTClient_HostSelectorRejectionTable."
+  1. "Per-item composed ports (R14.7): base_url_port_selector resolves the composed authority's port from command state for a fleet whose targets do not share one port, accepting a label string or a whole JSON number. resolvedBaseURLPort and selectedPortString range-check the value before composition, validateComposedPort keeps the literal and selector forms mutually exclusive at load, and the composed authority still passes the client's network ports allowlist, so configuration bounds the reachable ports. Covered by TestRESTClient_PortSelectorResolvesPerItemPort and TestRESTClient_PortSelectorRejectsUnusablePorts."
+  1. - "Command-state parameter threading (R13)": body_source command_state consumption through request_binding.input_mapping $from(<label>).<path> selectors resolved against the injected core CommandStateView (clientCmd implements core.CommandStateAware). selectCommandStateParams looks up the labeled step's output, decodes it, and walks the dotted path; a miss returns a typed error naming the label. validateBodySource accepts command_state; validateRequestBinding enforces V32 (a $from selector only under command_state, a $. selector only under previous_result) plus the R12.4 declared-target and transport-authority rejections; the no-store rejection is enforced at runtime (R13.5). previous_result threading is unchanged. Covered by TestRESTClient_CommandStateThreadsNonAdjacentStep, TestRESTClient_CommandStateDuplicateLabelMostRecentWins, TestRESTClient_CommandStateMissNamesLabel, TestRESTClient_CommandStateNoViewConfiguredRejected, and TestRESTClient_CommandStateRejectionTable.
+- partial:
+  1. Lifecycle profile wiring must still choose when to inject a REST CompensationExecutor into checkpoint rollback. Profile injection stays outside the REST client tool contract.
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Agent profiles need outbound REST tools that are decl..."] --> Goals["Goals: REST Client Tools"]
-      Goals --> R1["R1: Client tool scope"]
-      Goals --> R2["R2: Config-bound operation authority"]
-      Goals --> R3["R3: Resource-oriented words"]
-      Goals --> R4["R4: rest_client_invoke"]
-      Goals --> R5["R5: Asynchronous client words"]
-      Goals --> R6["R6: Result signals"]
-      Goals --> R7["R7: Response shaping and output"]
-      Goals --> R8["R8: Idempotency and retries"]
-      Goals --> R9["R9: Metrics, tracing, and redaction"]
-      Goals --> R10["R10: Undo and compensation"]
-      Goals --> R11["R11: Errors and recovery"]
-      Goals --> R12["R12: Previous-Result parameter threading"]
-      Goals --> R13["R13: Command-state parameter threading"]
-      AC1["AC1: REST client tools are documented as first-class boundary..."]
-      R1 --> AC1
-      R2 --> AC1
-      AC2["AC2: Tool config fixes client, resource, operation, transport..."]
-      R2 --> AC2
-      AC3["AC3: Resource-oriented get, set, create, and delete words are..."]
-      R3 --> AC3
-      R10 --> AC3
-      AC4["AC4: rest_client_invoke is reserved for RPC-shaped endpoints a..."]
-      R4 --> AC4
-      R10 --> AC4
-      AC5["AC5: Async send and await requirements define request state, r..."]
-      R5 --> AC5
-      R10 --> AC5
-      AC6["AC6: Result signal requirements distinguish resource reads, wr..."]
-      R6 --> AC6
-      R11 --> AC6
-      AC7["AC7: Response shaping maps status, headers, body, resource met..."]
-      R7 --> AC7
-      AC8["AC8: Idempotency, retry, metrics, tracing, and redaction requi..."]
-      R8 --> AC8
-      R9 --> AC8
-      R10 --> AC8
-      AC9["AC9: Error and recovery requirements distinguish domain failur..."]
-      R11 --> AC9
-      AC10["AC10: Each planned client tool word lists inputs, outputs, sign..."]
-      R3 --> AC10
-      R4 --> AC10
-      R5 --> AC10
-      R10 --> AC10
-      AC11["AC11: A REST client operation with body_source previous_result..."]
-      R12 --> AC11
-      R2 --> AC11
-      AC12["AC12: A REST client operation with body_source command_state..."]
-      R13 --> AC12
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Agent profiles need outbound REST tools that are decl..."] --> Goals["Goals: REST Client Tools"]
+    Goals --> R1["R1: Client tool scope"]
+    Goals --> R2["R2: Config-bound operation authority"]
+    Goals --> R3["R3: Resource-oriented words"]
+    Goals --> R4["R4: rest_client_invoke"]
+    Goals --> R5["R5: Asynchronous client words"]
+    Goals --> R6["R6: Result signals"]
+    Goals --> R7["R7: Response shaping and output"]
+    Goals --> R8["R8: Idempotency and retries"]
+    Goals --> R9["R9: Metrics, tracing, and redaction"]
+    Goals --> R10["R10: Undo and compensation"]
+    Goals --> R11["R11: Errors and recovery"]
+    Goals --> R12["R12: Previous-Result parameter threading"]
+    Goals --> R13["R13: Command-state parameter threading"]
+    AC1["AC1: REST client tools are documented as first-class boundary..."]
+    R1 --> AC1
+    R2 --> AC1
+    AC2["AC2: Tool config fixes client, resource, operation, transport..."]
+    R2 --> AC2
+    AC3["AC3: Resource-oriented get, set, create, and delete words are..."]
+    R3 --> AC3
+    R10 --> AC3
+    AC4["AC4: rest_client_invoke is reserved for RPC-shaped endpoints a..."]
+    R4 --> AC4
+    R10 --> AC4
+    AC5["AC5: Async send and await requirements define request state, r..."]
+    R5 --> AC5
+    R10 --> AC5
+    AC6["AC6: Result signal requirements distinguish resource reads, wr..."]
+    R6 --> AC6
+    R11 --> AC6
+    AC7["AC7: Response shaping maps status, headers, body, resource met..."]
+    R7 --> AC7
+    AC8["AC8: Idempotency, retry, metrics, tracing, and redaction requi..."]
+    R8 --> AC8
+    R9 --> AC8
+    R10 --> AC8
+    AC9["AC9: Error and recovery requirements distinguish domain failur..."]
+    R11 --> AC9
+    AC10["AC10: Each planned client tool word lists inputs, outputs, sign..."]
+    R3 --> AC10
+    R4 --> AC10
+    R5 --> AC10
+    R10 --> AC10
+    AC11["AC11: A REST client operation with body_source previous_result..."]
+    R12 --> AC11
+    R2 --> AC11
+    AC12["AC12: A REST client operation with body_source command_state..."]
+    R13 --> AC12
+  ```

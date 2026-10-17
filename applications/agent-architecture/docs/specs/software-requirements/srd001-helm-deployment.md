@@ -186,67 +186,63 @@ A bounded kind install of the validated archive brings the curator and collector
 
 - R3
 
-<!-- field: external_contracts -->
+<!-- field: external_contracts | form: "tree" -->
 ## External contracts
 
-```yaml
-- id: srd002-managed-application-services
-  owner: applications
-  symbols_used: [R4, R5, R6]
-  usage: |
-    This document supplies the packaged, helm_managed, and kind_demo evidence
-    the shared capability contract requires, citing R4 through R6 rather than
-    copying them.
-- id: srd011-knowledge-manager
-  owner: applications/catalog
-  usage: |
-    Defines the canonical documentation-curator profile, catalog-owned user
-    interface, and lifecycle outcomes the chart deploys by reference.
-```
+1. - id: srd002-managed-application-services
+   - owner: applications
+   - symbols_used:
+     1. R4
+     1. R5
+     1. R6
+   - usage:
+     This document supplies the packaged, helm_managed, and kind_demo evidence
+     the shared capability contract requires, citing R4 through R6 rather than
+     copying them.
+1. - id: srd011-knowledge-manager
+   - owner: applications/catalog
+   - usage:
+     Defines the canonical documentation-curator profile, catalog-owned user
+     interface, and lifecycle outcomes the chart deploys by reference.
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-implemented: []
-planned:
-    - >-
-      The chart -- the curator and collector Deployments and Services on the shared agent-core image, the mounted-closure ConfigMaps, the curatorUI.shards references to the out-of-release UI shard ConfigMaps, the lifecycle probes, and the curator-to-collector OTLP wiring -- the mage preparation and package targets that stage and checksum the catalog-owned closures, the deploy/test tooling that provisions the curator UI shard ConfigMaps out-of-release, the values.schema.json and template guards, the self-contained archive validation, and the bounded kind smoke target. The code lands in later sub-issues of the release; this document and its use cases and test suites land first.
-```
+- implemented: []
+- planned:
+  1. The chart -- the curator and collector Deployments and Services on the shared agent-core image, the mounted-closure ConfigMaps, the curatorUI.shards references to the out-of-release UI shard ConfigMaps, the lifecycle probes, and the curator-to-collector OTLP wiring -- the mage preparation and package targets that stage and checksum the catalog-owned closures, the deploy/test tooling that provisions the curator UI shard ConfigMaps out-of-release, the values.schema.json and template guards, the self-contained archive validation, and the bounded kind smoke target. The code lands in later sub-issues of the release; this document and its use cases and test suites land first.
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: the demo has no Kubernetes surface, packaged artifact, or cluster proof"] --> Goals["Goals: Agent Architecture Helm Deployment"]
-      Goals --> R1["R1: Deployed topology"]
-      Goals --> R2["R2: Package and values validation"]
-      Goals --> R3["R3: Live kind smoke"]
-      R1 --> AC1["AC1: curator and collector workloads render truthfully"]
-      R2 --> AC2["AC2: closures staged and checksum-validated"]
-      R2 --> AC3["AC3: schema, guards, and self-contained archive"]
-      R3 --> AC4["AC4: bounded kind install serves and exits cleanly"]
-    ```
-deployed_topology: |
-    ```mermaid
-    flowchart LR
-      OP[Operator or CI] -->|helm install| CHART[Packaged chart]
-      CHART --> CURATOR[Curator Deployment and Service]
-      CHART --> COLLECTOR[Collector Deployment and Service]
-      IMAGE[Shared agent-core image] --> CURATOR
-      IMAGE --> COLLECTOR
-      CLOSURE[Mounted canonical profile closures] --> CURATOR
-      CLOSURE --> COLLECTOR
-      TOOLING[Deploy/test tooling kubectl] -->|out-of-release| UISHARDS[Curator UI ConfigMap shards]
-      UISHARDS --> CURATOR
-      CURATOR -->|OTLP| COLLECTOR
-      OP -->|browser| CURATOR
-      OP -->|query surface| COLLECTOR
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: the demo has no Kubernetes surface, packaged artifact, or cluster proof"] --> Goals["Goals: Agent Architecture Helm Deployment"]
+    Goals --> R1["R1: Deployed topology"]
+    Goals --> R2["R2: Package and values validation"]
+    Goals --> R3["R3: Live kind smoke"]
+    R1 --> AC1["AC1: curator and collector workloads render truthfully"]
+    R2 --> AC2["AC2: closures staged and checksum-validated"]
+    R2 --> AC3["AC3: schema, guards, and self-contained archive"]
+    R3 --> AC4["AC4: bounded kind install serves and exits cleanly"]
+  ```
+- deployed_topology:
+  ```mermaid
+  flowchart LR
+    OP[Operator or CI] -->|helm install| CHART[Packaged chart]
+    CHART --> CURATOR[Curator Deployment and Service]
+    CHART --> COLLECTOR[Collector Deployment and Service]
+    IMAGE[Shared agent-core image] --> CURATOR
+    IMAGE --> COLLECTOR
+    CLOSURE[Mounted canonical profile closures] --> CURATOR
+    CLOSURE --> COLLECTOR
+    TOOLING[Deploy/test tooling kubectl] -->|out-of-release| UISHARDS[Curator UI ConfigMap shards]
+    UISHARDS --> CURATOR
+    CURATOR -->|OTLP| COLLECTOR
+    OP -->|browser| CURATOR
+    OP -->|query surface| COLLECTOR
+  ```
 
 <!-- field: non_goals -->
 ## Non-goals

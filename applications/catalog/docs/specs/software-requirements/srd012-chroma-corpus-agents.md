@@ -288,42 +288,36 @@ Corpus outputs and terminal outcomes are checkable by profile validation or the 
 - R6.1
 - R6.2
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Chroma corpus family needs its own requirements..."] --> Goals["Goals: Chroma Corpus Agents Functional Block"]
-      Goals --> R1["R1: Behavior model"]
-      Goals --> R2["R2: REST vocabulary"]
-      Goals --> R3["R3: Provider-embedding threading"]
-      Goals --> R4["R4: Inputs, tools, and runtime dependencies"]
-      Goals --> R5["R5: Lifecycle precondition and persistence"]
-      Goals --> R6["R6: Outputs and outcomes"]
-      R1 --> AC1["AC1: Configured boundary words and machine steps"]
-      R2 --> AC2["AC2: REST vocabulary named"]
-      R3 --> AC3["AC3: Threading contract via srd028 R12"]
-      R4 --> AC4["AC4: Inputs, tools, authority named"]
-      R5 --> AC5["AC5: Lifecycle and persistence checkable"]
-      R6 --> AC6["AC6: Outcomes checkable"]
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Chroma corpus family needs its own requirements..."] --> Goals["Goals: Chroma Corpus Agents Functional Block"]
+    Goals --> R1["R1: Behavior model"]
+    Goals --> R2["R2: REST vocabulary"]
+    Goals --> R3["R3: Provider-embedding threading"]
+    Goals --> R4["R4: Inputs, tools, and runtime dependencies"]
+    Goals --> R5["R5: Lifecycle precondition and persistence"]
+    Goals --> R6["R6: Outputs and outcomes"]
+    R1 --> AC1["AC1: Configured boundary words and machine steps"]
+    R2 --> AC2["AC2: REST vocabulary named"]
+    R3 --> AC3["AC3: Threading contract via srd028 R12"]
+    R4 --> AC4["AC4: Inputs, tools, authority named"]
+    R5 --> AC5["AC5: Lifecycle and persistence checkable"]
+    R6 --> AC6["AC6: Outcomes checkable"]
+  ```
 
 <!-- field: platform_dependencies_note -->
 ## Platform dependencies note
 
 These SRDs live in the agent-core corpus, not this one; they are platform dependencies rather than in-corpus depends_on (GH-2310).
 
-<!-- field: platform_dependencies -->
+<!-- field: platform_dependencies | form: "typed table" -->
 ## Platform dependencies
 
-```yaml
-- srd_id: srd028-rest-client-tools
-  provider: agent-core
-  symbols_used: [R12]
-- srd_id: srd022-builtin-tools
-  provider: agent-core
-  symbols_used: [R7.12]
-```
+| srd_id | provider | symbols_used |
+| --- | --- | --- |
+| srd028-rest-client-tools | agent-core | [R12] |
+| srd022-builtin-tools | agent-core | [R7.12] |

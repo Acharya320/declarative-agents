@@ -34,233 +34,234 @@ a receipt; only the originating tool decodes it. The validator checks receipt
 presence for reversible state-mutating tools; receipt sufficiency is each
 tool's own round-trip test.
 
-<!-- field: noop_contract -->
+<!-- field: noop_contract | form: "tree" -->
 ## Noop contract
 
-```yaml
-signal: ToolDone
-receipt: empty
-output: "undo: no-op"
-command_name: "the command being undone"
-```
+- signal: ToolDone
+- receipt: empty
+- output: "undo: no-op"
+- command_name: the command being undone
 
-<!-- field: reversibility_kinds -->
+<!-- field: reversibility_kinds | form: "tree" -->
 ## Reversibility kinds
 
-```yaml
-reversible: The receipt holds enough for the tool's Undo to fully reverse the effect (prior content, snapshot, or a managed commit hash).
-compensatable: The receipt holds metadata for operator or higher-level compensation; external audit history, subprocess behavior, or human/model decisions cannot be erased.
-irreversible: No receipt can reverse the effect; the tool requires confirmation and the reverse walk skips and logs it.
-```
+- reversible: The receipt holds enough for the tool's Undo to fully reverse the effect (prior content, snapshot, or a managed commit hash).
+- compensatable: The receipt holds metadata for operator or higher-level compensation; external audit history, subprocess behavior, or human/model decisions cannot be erased.
+- irreversible: No receipt can reverse the effect; the tool requires confirmation and the reverse walk skips and logs it.
 
-<!-- field: compensation_boundaries -->
+<!-- field: compensation_boundaries | form: "tree" -->
 ## Compensation boundaries
 
-```yaml
-description: |
-    These commands encode compensatable receipts. Rollback can preserve the
-    child run, artifact, issue, workspace, or approval metadata needed for
-    operator or higher-level compensation, but it does not pretend external
-    audit history, subprocess behavior, or human/model decisions can be erased.
-commands:
-    - command: create_tracker_issue
-      receipt_payload: configured_tracker_issue_id
-    - command: self_invoke
-      receipt_payload: child_run_id_machine_tools_and_trace_artifact
-    - command: run_agent
-      receipt_payload: point_context_workspace_and_artifact_paths
-    - command: run_point
-      receipt_payload: eval_session_snapshot_and_nested_machine
-    - command: suspend
-      receipt_payload: approval_reason_and_checkpoint_requirement
-```
+- description:
+  These commands encode compensatable receipts. Rollback can preserve the
+  child run, artifact, issue, workspace, or approval metadata needed for
+  operator or higher-level compensation, but it does not pretend external
+  audit history, subprocess behavior, or human/model decisions can be erased.
+- commands:
+  1. - command: create_tracker_issue
+     - receipt_payload: configured_tracker_issue_id
+  1. - command: self_invoke
+     - receipt_payload: child_run_id_machine_tools_and_trace_artifact
+  1. - command: run_agent
+     - receipt_payload: point_context_workspace_and_artifact_paths
+  1. - command: run_point
+     - receipt_payload: eval_session_snapshot_and_nested_machine
+  1. - command: suspend
+     - receipt_payload: approval_reason_and_checkpoint_requirement
 
-<!-- field: expected_noop_long_term -->
+<!-- field: expected_noop_long_term | form: "tree" -->
 ## Expected noop long term
 
-```yaml
-- read
-- find
-- list_files
-- done
-- project_planner_context
-- capture_planner_failure
-- nudge_reread
-- format_report
-- summarize_point_results
-- report_suite_summary
-- read_only_exec_tools:
-    - build
-    - vet
-    - lint
-    - test
-    - workspace_status
-    - rev_parse
-    - diff_stat
-    - log_oneline
-    - issue_list
-- FailedParamCmd
-- failCmd
-```
+1. read
+1. find
+1. list_files
+1. done
+1. project_planner_context
+1. capture_planner_failure
+1. nudge_reread
+1. format_report
+1. summarize_point_results
+1. report_suite_summary
+1. - read_only_exec_tools:
+     1. build
+     1. vet
+     1. lint
+     1. test
+     1. workspace_status
+     1. rev_parse
+     1. diff_stat
+     1. log_oneline
+     1. issue_list
+1. FailedParamCmd
+1. failCmd
 
-<!-- field: receipt_undo -->
+<!-- field: receipt_undo | form: "tree" -->
 ## Receipt undo
 
-```yaml
-conversation_and_retry_state:
-    - command: invoke_llm
-      strategy: conversation_truncate
-      receipt: reversible_conversation_snapshot
-    - command: reset_history
-      strategy: conversation_restore
-      receipt: reversible_conversation_snapshot
-    - command: parse_response
-      strategy: parse_retry_counter_restore_when_tracker_enabled
-      receipt: reversible_parse_retry_counter_snapshot
-    - command: report_parse_error
-      strategy: parse_retry_counter_restore_when_tracker_enabled
-      receipt: reversible_parse_retry_counter_snapshot
-planner_state:
-    - command: load_graph
-      strategy: pipeline_state_restore
-      receipt: reversible_pipeline_snapshot
-    - command: extract_task
-      strategy: pipeline_state_restore
-      receipt: reversible_pipeline_snapshot
-    - command: select_all_ready
-      strategy: pipeline_state_restore
-      receipt: reversible_pipeline_snapshot
-    - command: seed_passthrough_plan
-      strategy: pipeline_state_restore
-      receipt: reversible_pipeline_snapshot
-    - command: mark_nodes_planning
-      strategy: pipeline_state_restore
-      receipt: reversible_pipeline_snapshot
-    - command: parse_plan
-      strategy: pipeline_state_restore
-      receipt: reversible_pipeline_snapshot
-    - command: record_tracker_issue
-      strategy: pipeline_state_restore
-      receipt: reversible_pipeline_snapshot
-    - command: mark_task_done
-      strategy: pipeline_state_restore
-      receipt: reversible_pipeline_snapshot
-    - command: mark_task_failed
-      strategy: pipeline_state_restore
-      receipt: reversible_pipeline_snapshot
-workspace_state:
-    - command: write
-      strategy: file_snapshot_restore
-      receipt: reversible_prior_content_or_commit_hash
-    - command: edit
-      strategy: file_snapshot_restore
-      receipt: reversible_prior_content_or_commit_hash
-    - command: copy_dir
-      strategy: tool_owned_commit_restore
-      receipt: reversible_commit_hash
-    - command: make_dir
-      strategy: tool_owned_commit_restore
-      receipt: reversible_commit_hash
-    - command: git_init
-      strategy: tool_owned_commit_restore
-      receipt: reversible_commit_hash
-    - command: stage_all
-      strategy: tool_owned_commit_restore
-      receipt: reversible_commit_hash
-    - command: commit
-      strategy: compensating_action
-      receipt: compensatable_boundary_compensation
-    - command: issue_create
-      strategy: compensating_action
-      receipt: compensatable_boundary_compensation
-    - command: issue_close
-      strategy: compensating_action
-      receipt: compensatable_boundary_compensation
-evaluator_state:
-    - command: parse_suite_config
-      strategy: evaluator_session_restore
-      receipt: reversible_eval_session_snapshot
-    - command: discover_suite_samples
-      strategy: evaluator_session_restore
-      receipt: reversible_eval_session_snapshot
-    - command: expand_eval_grid
-      strategy: evaluator_session_restore
-      receipt: reversible_eval_session_snapshot
-    - command: init_eval_session
-      strategy: owned_artifact_removal_and_evaluator_session_restore
-      receipt: reversible_eval_session_snapshot_and_owned_artifact_paths
-    - command: materialize_eval_points
-      strategy: noop
-      receipt: none_read_only_projection
-    - command: run_point
-      strategy: compensating_action
-      receipt: compensatable_eval_session_snapshot_and_boundary_compensation
-    - command: report_session
-      strategy: evaluator_session_restore
-      receipt: reversible_eval_session_snapshot
-    - command: create_point_dir
-      strategy: owned_artifact_removal_and_point_context_restore
-      receipt: reversible_point_context_snapshot_and_owned_artifact_paths
-    - command: sample_docs
-      strategy: noop
-      receipt: none_read_only_projection
-    - command: dump_config
-      strategy: owned_artifact_removal_and_point_context_restore
-      receipt: reversible_point_context_snapshot_and_owned_artifact_paths
-    - command: collect_metrics
-      strategy: owned_artifact_removal_and_point_context_restore
-      receipt: reversible_point_context_snapshot_and_owned_artifact_paths
-    - command: record_point_failure
-      strategy: point_context_restore
-      receipt: reversible_point_context_snapshot
-    - command: record_oracle_result
-      strategy: point_context_restore
-      receipt: reversible_point_context_snapshot
-    - command: record_agent_commit
-      strategy: point_context_restore
-      receipt: reversible_point_context_snapshot
-    - command: collect_trace_tokens
-      strategy: point_context_restore
-      receipt: reversible_point_context_snapshot
-    - command: check_agent_version
-      strategy: point_context_restore
-      receipt: reversible_point_context_snapshot
-validation_state:
-    - command: load_corpus
-      strategy: validation_state_restore
-      receipt: reversible_validation_state_snapshot
-    - command: validate_specs
-      strategy: validation_state_restore
-      receipt: reversible_validation_state_snapshot
-boundary_compensation:
-    - command: suspend
-      strategy: resume_or_checkpoint_rollback
-      receipt: compensatable_boundary_compensation
-      captures: [reason, checkpoint_required]
-    - command: create_tracker_issue
-      strategy: close_or_delete_created_issue
-      receipt: compensatable_boundary_compensation
-      captures: [issue_id]
-    - command: self_invoke
-      strategy: child_agent_workspace_restore
-      receipt: compensatable_boundary_compensation
-      captures: [child_run_id, child_machine, child_tools, trace_artifact]
-    - command: run_point
-      strategy: nested_machine_rollback
-      receipt: compensatable_eval_session_snapshot_and_boundary_compensation
-      captures: [eval_session_snapshot, nested_machine_history, child_machine]
-    - command: run_agent
-      strategy: point_workspace_restore_and_child_process_compensation
-      receipt: compensatable_boundary_compensation
-      captures: [point_context_snapshot, workspace_paths, artifact_paths]
-```
+- conversation_and_retry_state:
+  1. - command: invoke_llm
+     - strategy: conversation_truncate
+     - receipt: reversible_conversation_snapshot
+  1. - command: reset_history
+     - strategy: conversation_restore
+     - receipt: reversible_conversation_snapshot
+  1. - command: parse_response
+     - strategy: parse_retry_counter_restore_when_tracker_enabled
+     - receipt: reversible_parse_retry_counter_snapshot
+  1. - command: report_parse_error
+     - strategy: parse_retry_counter_restore_when_tracker_enabled
+     - receipt: reversible_parse_retry_counter_snapshot
+- planner_state:
+  1. - command: load_graph
+     - strategy: pipeline_state_restore
+     - receipt: reversible_pipeline_snapshot
+  1. - command: extract_task
+     - strategy: pipeline_state_restore
+     - receipt: reversible_pipeline_snapshot
+  1. - command: select_all_ready
+     - strategy: pipeline_state_restore
+     - receipt: reversible_pipeline_snapshot
+  1. - command: seed_passthrough_plan
+     - strategy: pipeline_state_restore
+     - receipt: reversible_pipeline_snapshot
+  1. - command: mark_nodes_planning
+     - strategy: pipeline_state_restore
+     - receipt: reversible_pipeline_snapshot
+  1. - command: parse_plan
+     - strategy: pipeline_state_restore
+     - receipt: reversible_pipeline_snapshot
+  1. - command: record_tracker_issue
+     - strategy: pipeline_state_restore
+     - receipt: reversible_pipeline_snapshot
+  1. - command: mark_task_done
+     - strategy: pipeline_state_restore
+     - receipt: reversible_pipeline_snapshot
+  1. - command: mark_task_failed
+     - strategy: pipeline_state_restore
+     - receipt: reversible_pipeline_snapshot
+- workspace_state:
+  1. - command: write
+     - strategy: file_snapshot_restore
+     - receipt: reversible_prior_content_or_commit_hash
+  1. - command: edit
+     - strategy: file_snapshot_restore
+     - receipt: reversible_prior_content_or_commit_hash
+  1. - command: copy_dir
+     - strategy: tool_owned_commit_restore
+     - receipt: reversible_commit_hash
+  1. - command: make_dir
+     - strategy: tool_owned_commit_restore
+     - receipt: reversible_commit_hash
+  1. - command: git_init
+     - strategy: tool_owned_commit_restore
+     - receipt: reversible_commit_hash
+  1. - command: stage_all
+     - strategy: tool_owned_commit_restore
+     - receipt: reversible_commit_hash
+  1. - command: commit
+     - strategy: compensating_action
+     - receipt: compensatable_boundary_compensation
+  1. - command: issue_create
+     - strategy: compensating_action
+     - receipt: compensatable_boundary_compensation
+  1. - command: issue_close
+     - strategy: compensating_action
+     - receipt: compensatable_boundary_compensation
+- evaluator_state:
+  1. - command: parse_suite_config
+     - strategy: evaluator_session_restore
+     - receipt: reversible_eval_session_snapshot
+  1. - command: discover_suite_samples
+     - strategy: evaluator_session_restore
+     - receipt: reversible_eval_session_snapshot
+  1. - command: expand_eval_grid
+     - strategy: evaluator_session_restore
+     - receipt: reversible_eval_session_snapshot
+  1. - command: init_eval_session
+     - strategy: owned_artifact_removal_and_evaluator_session_restore
+     - receipt: reversible_eval_session_snapshot_and_owned_artifact_paths
+  1. - command: materialize_eval_points
+     - strategy: noop
+     - receipt: none_read_only_projection
+  1. - command: run_point
+     - strategy: compensating_action
+     - receipt: compensatable_eval_session_snapshot_and_boundary_compensation
+  1. - command: report_session
+     - strategy: evaluator_session_restore
+     - receipt: reversible_eval_session_snapshot
+  1. - command: create_point_dir
+     - strategy: owned_artifact_removal_and_point_context_restore
+     - receipt: reversible_point_context_snapshot_and_owned_artifact_paths
+  1. - command: sample_docs
+     - strategy: noop
+     - receipt: none_read_only_projection
+  1. - command: dump_config
+     - strategy: owned_artifact_removal_and_point_context_restore
+     - receipt: reversible_point_context_snapshot_and_owned_artifact_paths
+  1. - command: collect_metrics
+     - strategy: owned_artifact_removal_and_point_context_restore
+     - receipt: reversible_point_context_snapshot_and_owned_artifact_paths
+  1. - command: record_point_failure
+     - strategy: point_context_restore
+     - receipt: reversible_point_context_snapshot
+  1. - command: record_oracle_result
+     - strategy: point_context_restore
+     - receipt: reversible_point_context_snapshot
+  1. - command: record_agent_commit
+     - strategy: point_context_restore
+     - receipt: reversible_point_context_snapshot
+  1. - command: collect_trace_tokens
+     - strategy: point_context_restore
+     - receipt: reversible_point_context_snapshot
+  1. - command: check_agent_version
+     - strategy: point_context_restore
+     - receipt: reversible_point_context_snapshot
+- validation_state:
+  1. - command: load_corpus
+     - strategy: validation_state_restore
+     - receipt: reversible_validation_state_snapshot
+  1. - command: validate_specs
+     - strategy: validation_state_restore
+     - receipt: reversible_validation_state_snapshot
+- boundary_compensation:
+  1. - command: suspend
+     - strategy: resume_or_checkpoint_rollback
+     - receipt: compensatable_boundary_compensation
+     - captures:
+       1. reason
+       1. checkpoint_required
+  1. - command: create_tracker_issue
+     - strategy: close_or_delete_created_issue
+     - receipt: compensatable_boundary_compensation
+     - captures:
+       1. issue_id
+  1. - command: self_invoke
+     - strategy: child_agent_workspace_restore
+     - receipt: compensatable_boundary_compensation
+     - captures:
+       1. child_run_id
+       1. child_machine
+       1. child_tools
+       1. trace_artifact
+  1. - command: run_point
+     - strategy: nested_machine_rollback
+     - receipt: compensatable_eval_session_snapshot_and_boundary_compensation
+     - captures:
+       1. eval_session_snapshot
+       1. nested_machine_history
+       1. child_machine
+  1. - command: run_agent
+     - strategy: point_workspace_restore_and_child_process_compensation
+     - receipt: compensatable_boundary_compensation
+     - captures:
+       1. point_context_snapshot
+       1. workspace_paths
+       1. artifact_paths
 
-<!-- field: declaration_mismatches -->
+<!-- field: declaration_mismatches | form: "scalar" -->
 ## Declaration mismatches
 
-```yaml
 []
-```
 
 <!-- field: related_documents -->
 ## Related documents

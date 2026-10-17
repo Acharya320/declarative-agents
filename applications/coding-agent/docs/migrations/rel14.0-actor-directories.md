@@ -15,49 +15,41 @@ Release 14 moves every application-owned coding actor directly below
 agents/<actor>/ and makes agents/application.yaml the package and deployment
 authority. The shared lifecycle wrapper is explicitly named role-server.
 
-<!-- field: historical_source_layout -->
+<!-- field: historical_source_layout | form: "tree" -->
 ## Historical source layout
 
-```yaml
-status: removed
-path: applications/coding-agent/agents/serving/
-note: |
-    This path is historical documentation only. No profile, package, Helm
-    template, fixture, or runtime lookup resolves it.
-```
+- status: removed
+- path: applications/coding-agent/agents/serving/
+- note:
+  This path is historical documentation only. No profile, package, Helm
+  template, fixture, or runtime lookup resolves it.
 
-<!-- field: current_source_layout -->
+<!-- field: current_source_layout | form: "tree" -->
 ## Current source layout
 
-```yaml
-shared_wrapper: applications/coding-agent/agents/role-server/
-actors:
-    - applications/coding-agent/agents/planner/
-    - applications/coding-agent/agents/executor/
-    - applications/coding-agent/agents/critic/
-    - applications/coding-agent/agents/applier/
-```
+- shared_wrapper: applications/coding-agent/agents/role-server/
+- actors:
+  1. applications/coding-agent/agents/planner/
+  1. applications/coding-agent/agents/executor/
+  1. applications/coding-agent/agents/critic/
+  1. applications/coding-agent/agents/applier/
 
-<!-- field: runtime_paths -->
+<!-- field: runtime_paths | form: "tree" -->
 ## Runtime paths
 
-```yaml
-planner: applications/coding-agent/planner/profile.yaml
-executor: applications/coding-agent/executor/profile.yaml
-critic: applications/coding-agent/critic/profile.yaml
-applier: applications/coding-agent/applier/profile.yaml
-shared_wrapper: applications/coding-agent/role-server/
-```
+- planner: applications/coding-agent/planner/profile.yaml
+- executor: applications/coding-agent/executor/profile.yaml
+- critic: applications/coding-agent/critic/profile.yaml
+- applier: applications/coding-agent/applier/profile.yaml
+- shared_wrapper: applications/coding-agent/role-server/
 
-<!-- field: compatibility -->
+<!-- field: compatibility | form: "tree" -->
 ## Compatibility
 
-```yaml
-source_paths: breaking
-runtime_contract: preserved
-aliases: none
-guidance: |
-    Source consumers must use the normalized actor paths. Released profile
-    packages remain self-contained; no source-tree compatibility alias is
-    shipped, preventing duplicate active actor trees.
-```
+- source_paths: breaking
+- runtime_contract: preserved
+- aliases: none
+- guidance:
+  Source consumers must use the normalized actor paths. Released profile
+  packages remain self-contained; no source-tree compatibility alias is
+  shipped, preventing duplicate active actor trees.

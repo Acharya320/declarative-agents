@@ -31,14 +31,12 @@ Both mode overlays load the same profile and every action, signal, declaration, 
 
 rel07.0-uc001-collector-ingress
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-test_mode: spool without relay dependency
-relay_mode: spool precedes relay
-hidden_transport_policy: false
-```
+- test_mode: spool without relay dependency
+- relay_mode: spool precedes relay
+- hidden_transport_policy: false
 
 <!-- field: traces -->
 #### Traces
@@ -63,16 +61,14 @@ rel07.0-uc001-collector-ingress
 
 mage integration:helmSmoke
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-trace_id_match: true
-span_id_match: true
-parent_id_match: true
-service_and_run_identity_match: true
-complete_ndjson_lines: true
-```
+- trace_id_match: true
+- span_id_match: true
+- parent_id_match: true
+- service_and_run_identity_match: true
+- complete_ndjson_lines: true
 
 <!-- field: traces -->
 #### Traces
@@ -100,14 +96,12 @@ mage integration:rig
 
 go test ./magefiles -run '^TestCollectorIntakeFilterScenario$'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-positive_filter_decision: true
-spooled_span_count: 2
-service_identity_preserved: collector-rig-fixture
-```
+- positive_filter_decision: true
+- spooled_span_count: 2
+- service_identity_preserved: collector-rig-fixture
 
 <!-- field: traces -->
 #### Traces
@@ -135,14 +129,12 @@ mage integration:rig
 
 go test ./magefiles -run '^TestCollectorLifecycleRebindAndTerminalState$'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-blocked_await_released: true
-all_addresses_rebind: true
-final_monitor_state_bounded: true
-```
+- blocked_await_released: true
+- all_addresses_rebind: true
+- final_monitor_state_bounded: true
 
 <!-- field: traces -->
 #### Traces
@@ -165,14 +157,12 @@ rel07.0-uc001-collector-ingress
 
 mage integration:helmSmoke
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-client_batch_received: true
-collector_batch_received: false
-equivalent_self_endpoint_rejected: true
-```
+- client_batch_received: true
+- collector_batch_received: false
+- equivalent_self_endpoint_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -200,18 +190,16 @@ mage integration:helmSmoke
 
 go test ./magefiles -run '^TestCollectorDefaultRenderStaysSelfContained$|^TestCollectorKindOverlayExportsMetricsDirectlyAndTracesLocally$'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-trace_ingress: collector_agent
-production_metric_ingress: collector_agent
-integration_metric_ingress: persistent_host_collector
-trace_relay: collector_agent_declared_relay
-agent_metrics_available: true
-dolt_metrics_available: false
-combined_health_required: true
-```
+- trace_ingress: collector_agent
+- production_metric_ingress: collector_agent
+- integration_metric_ingress: persistent_host_collector
+- trace_relay: collector_agent_declared_relay
+- agent_metrics_available: true
+- dolt_metrics_available: false
+- combined_health_required: true
 
 <!-- field: traces -->
 #### Traces
@@ -235,14 +223,12 @@ rel07.0-uc001-collector-ingress
 
 mage integration:observabilityEvidence
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-trace_evidence_retained: true
-metric_evidence_retained: true
-run_identity_filterable: true
-```
+- trace_evidence_retained: true
+- metric_evidence_retained: true
+- run_identity_filterable: true
 
 <!-- field: traces -->
 #### Traces

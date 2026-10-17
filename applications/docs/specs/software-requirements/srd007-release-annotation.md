@@ -27,15 +27,13 @@ purpose.
 - G3: Mutate nothing, so verification can run any number of times at any point.
 - G4: Place the check where every release path passes: the runbook and the release skill, after annotation and before push.
 
-<!-- field: applicability -->
+<!-- field: applicability | form: "tree" -->
 ## Applicability
 
-```yaml
-baseline: |
-    R1 through R4 apply to every tag on the v0 release line. The check runs
-    on demand against one named tag; it gates no build and joins no audit.
-capability_gates: {}
-```
+- baseline:
+  R1 through R4 apply to every tag on the v0 release line. The check runs
+  on demand against one named tag; it gates no build and joins no audit.
+- capability_gates: {}
 
 <!-- req: R1 -->
 ## R1 - The tag is an annotated object

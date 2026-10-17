@@ -10,58 +10,44 @@ title: Coding Loop Greet Fixture
 
 One portable requirement used by the coding application integration stages.
 
-<!-- field: roadmap_summary -->
+<!-- field: roadmap_summary | form: "typed table" -->
 ## Roadmap summary
 
-```yaml
-- version: "01.0"
-  name: Greeting
-  use_cases_done: 0
-  use_cases_total: 0
-  status: open
-```
+| version | name | use_cases_done | use_cases_total | status |
+| --- | --- | --- | --- | --- |
+| "01.0" | Greeting | 0 | 0 | open |
 
 <!-- field: srd_index -->
-## Srd index
+## SRD index
 
 | id | title | summary | path |
 | --- | --- | --- | --- |
 | srd001-greet | Greeting Function | Implement the fixture greeting. | docs/specs/software-requirements/srd001-greet.md |
 
-<!-- field: use_case_index -->
+<!-- field: use_case_index | form: "scalar" -->
 ## Use case index
 
-```yaml
 []
-```
 
-<!-- field: test_suite_index -->
+<!-- field: test_suite_index | form: "scalar" -->
 ## Test suite index
 
-```yaml
 []
-```
 
-<!-- field: foundation_document_index -->
+<!-- field: foundation_document_index | form: "scalar" -->
 ## Foundation document index
 
-```yaml
 []
-```
 
-<!-- field: config_format_index -->
+<!-- field: config_format_index | form: "scalar" -->
 ## Config format index
 
-```yaml
 []
-```
 
-<!-- field: semantic_model_index -->
+<!-- field: semantic_model_index | form: "scalar" -->
 ## Semantic model index
 
-```yaml
 []
-```
 
 <!-- field: coverage_gaps -->
 ## Coverage gaps

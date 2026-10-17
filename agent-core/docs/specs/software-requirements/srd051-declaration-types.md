@@ -356,21 +356,19 @@ A boundary tool declaring a signature that names only its signals, an output sch
 - srd006-yaml-machine-config
 - srd038-command-state-store
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-complete:
-    - GH-2000 implements the type registry, the closed-subset check, and reference resolution.
-    - GH-2001 loads type units into the closure, accepts references in tool schemas, and adds the dump types section.
-    - GH-2006 through GH-2025 sign every word and response declaration in the repository.
-    - GH-2009 promotes R6.12, so an unsigned word fails the corpus audit.
-    - GH-2064 and GH-2065 type the boundary REST labels from the runtime result, which is what R6.12 exempts a boundary tool from restating.
-    - GH-2026 makes the unit segment a namespace (R1.4, R4.3), so catalog-types-core declares Text and Comparison under the names they describe.
-    - GH-2023 promotes R6.13, so the authoring checks in internal/tools/catalog and the corpus audit in pkg/spec agree about relationships.
-    - GH-2110 adds R6.14 and R6.15, lists unsigned and uncategorized tools in the declaration legacy gate, and signs every boundary and stateful_internal tool in coding-agent, agent-architecture, catalog, chatbot-mesh, and agent-core, deleting their descriptive prose; repository ceremony fell from 8,097 to 3,507 lines.
-    - GH-2150 folds the 20 catalog executor and critic model variants into one invoke_llm fragment carrying the boundary contract, deletes the unloaded critic session.yaml, and promotes R6.14 in the corpus audit, leaving no untyped or uncategorized entry in the legacy gate.
-    - GH-2069 promoted R1.5 after establishing that an application could not reach agent-core's units, because the repository and the image place the two trees at different relative distances; srd056 amends R1.5 so a library-root path reaches them in both.
-planned:
-    - GH-2118 implements R1.5 as amended by srd056 and deletes the application copies of agent-core type units.
-```
+- complete:
+  1. GH-2000 implements the type registry, the closed-subset check, and reference resolution.
+  1. GH-2001 loads type units into the closure, accepts references in tool schemas, and adds the dump types section.
+  1. GH-2006 through GH-2025 sign every word and response declaration in the repository.
+  1. GH-2009 promotes R6.12, so an unsigned word fails the corpus audit.
+  1. GH-2064 and GH-2065 type the boundary REST labels from the runtime result, which is what R6.12 exempts a boundary tool from restating.
+  1. GH-2026 makes the unit segment a namespace (R1.4, R4.3), so catalog-types-core declares Text and Comparison under the names they describe.
+  1. GH-2023 promotes R6.13, so the authoring checks in internal/tools/catalog and the corpus audit in pkg/spec agree about relationships.
+  1. GH-2110 adds R6.14 and R6.15, lists unsigned and uncategorized tools in the declaration legacy gate, and signs every boundary and stateful_internal tool in coding-agent, agent-architecture, catalog, chatbot-mesh, and agent-core, deleting their descriptive prose; repository ceremony fell from 8,097 to 3,507 lines.
+  1. GH-2150 folds the 20 catalog executor and critic model variants into one invoke_llm fragment carrying the boundary contract, deletes the unloaded critic session.yaml, and promotes R6.14 in the corpus audit, leaving no untyped or uncategorized entry in the legacy gate.
+  1. GH-2069 promoted R1.5 after establishing that an application could not reach agent-core's units, because the repository and the image place the two trees at different relative distances; srd056 amends R1.5 so a library-root path reaches them in both.
+- planned:
+  1. GH-2118 implements R1.5 as amended by srd056 and deletes the application copies of agent-core type units.

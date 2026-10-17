@@ -61,6 +61,7 @@ type frame struct {
 	holder    *yaml.Node // the mapping a field belongs to
 	container *yaml.Node // the list or map a record belongs to
 	blocks    []Block
+	form      string // a field's typed form, from its marker
 }
 
 type reader struct {
@@ -126,7 +127,9 @@ func (rd *reader) heading(level int, heading string) error {
 // openFrame starts a field or a record frame for the marker's tag.
 func (rd *reader) openFrame(level int, kind string, m Marker, heading string) (*frame, error) {
 	if m.Tag == tagField {
-		return rd.openField(level, m.Value), nil
+		f := rd.openField(level, m.Value)
+		f.form = markerForm(m)
+		return f, nil
 	}
 	return rd.openRecord(level, kind, m, heading)
 }
@@ -238,7 +241,7 @@ func (rd *reader) close(f *frame) error {
 		if _, records := rd.d.fieldRecords(f.key); records {
 			return nil
 		}
-		value, err := rd.d.parseField(f.key, text)
+		value, err := rd.d.parseFieldForm(f.key, f.form, text)
 		if err != nil {
 			return fmt.Errorf("field %s: %w", f.key, err)
 		}

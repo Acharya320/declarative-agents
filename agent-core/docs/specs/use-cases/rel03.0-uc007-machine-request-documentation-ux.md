@@ -158,7 +158,7 @@ applications/catalog
 agents/knowledge-manager/documentation-curator/machine.yaml
 
 <!-- field: rest_definitions -->
-## Rest definitions
+## REST definitions
 
 agents/knowledge-manager/documentation-curator/rest.yaml
 

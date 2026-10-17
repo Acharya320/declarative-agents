@@ -47,7 +47,7 @@ disabled-token security defaults.
 rel02.0-uc001-render-packaged-chart
 
 <!-- field: id -->
-#### Id
+#### ID
 
 render_topology
 
@@ -56,22 +56,20 @@ render_topology
 
 mage helm:template (default and CI values)
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-values: [default, ci]
-```
+- values:
+  1. default
+  1. ci
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-one_curator_and_one_collector_workload: true
-profile_free_image_with_mounted_closures: true
-truthful_lifecycle_probes: true
-hardened_pod_security: true
-```
+- one_curator_and_one_collector_workload: true
+- profile_free_image_with_mounted_closures: true
+- truthful_lifecycle_probes: true
+- hardened_pod_security: true
 
 <!-- field: traces -->
 #### Traces
@@ -94,7 +92,7 @@ ConfigMap partitions before staging.
 rel02.0-uc001-render-packaged-chart
 
 <!-- field: id -->
-#### Id
+#### ID
 
 stage_and_checksum
 
@@ -103,20 +101,22 @@ stage_and_checksum
 
 mage helm:prepare with tamper fixtures
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-tamper_cases: [stale_role, unknown_field, missing_file, extra_file, checksum_mismatch, oversized_partition]
-```
+- tamper_cases:
+  1. stale_role
+  1. unknown_field
+  1. missing_file
+  1. extra_file
+  1. checksum_mismatch
+  1. oversized_partition
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-closures_staged_from_catalog: true
-tamper_cases_rejected_before_staging: true
-```
+- closures_staged_from_catalog: true
+- tamper_cases_rejected_before_staging: true
 
 <!-- field: traces -->
 #### Traces
@@ -140,7 +140,7 @@ checkout present.
 rel02.0-uc001-render-packaged-chart
 
 <!-- field: id -->
-#### Id
+#### ID
 
 schema_and_archive
 
@@ -149,23 +149,25 @@ schema_and_archive
 
 mage helm:package with schema fixtures
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-valid_fixtures: [default, ci]
-invalid_fixtures: [unknown_key, bad_port, bad_replica, missing_endpoint]
-```
+- valid_fixtures:
+  1. default
+  1. ci
+- invalid_fixtures:
+  1. unknown_key
+  1. bad_port
+  1. bad_replica
+  1. missing_endpoint
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-valid_fixtures_render: true
-invalid_fixtures_rejected_by_path: true
-guards_hold_under_schema_bypass: true
-archive_renders_without_source_checkout: true
-```
+- valid_fixtures_render: true
+- invalid_fixtures_rejected_by_path: true
+- guards_hold_under_schema_bypass: true
+- archive_renders_without_source_checkout: true
 
 <!-- field: traces -->
 #### Traces
@@ -187,7 +189,7 @@ coherent under default and CI values.
 rel02.0-uc001-render-packaged-chart
 
 <!-- field: id -->
-#### Id
+#### ID
 
 trace_wiring
 
@@ -196,20 +198,18 @@ trace_wiring
 
 mage helm:template (telemetry assertions)
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-values: [default, ci]
-```
+- values:
+  1. default
+  1. ci
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-curator_exports_to_collector_service: true
-collector_receiver_and_query_render: true
-```
+- curator_exports_to_collector_service: true
+- collector_receiver_and_query_render: true
 
 <!-- field: traces -->
 #### Traces

@@ -371,14 +371,12 @@ A control-imports profile validates and its canonical dump equals the control pr
 - srd056-unit-libraries
 - test-rel17.0-declaration-imports
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-implemented:
-    - The single closure loader, immutable source inventory, canonical dump, and strict YAML decoder are the compiler foundation.
-planned:
-    - GH-1977 implements tool units and imports.
-    - GH-1976 implements REST units and imports.
-    - GH-1978 enforces closure usedness and adds the control-imports proof.
-```
+- implemented:
+  1. The single closure loader, immutable source inventory, canonical dump, and strict YAML decoder are the compiler foundation.
+- planned:
+  1. GH-1977 implements tool units and imports.
+  1. GH-1976 implements REST units and imports.
+  1. GH-1978 enforces closure usedness and adds the control-imports proof.

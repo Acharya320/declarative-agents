@@ -31,14 +31,12 @@ and scoped zero-hit policies. Tag publication remains a post-merge operation.
 
 go test ./conformance -run 'Test(CatalogMembershipUsesSharedRealizationAndAliasAuthority|AlignmentMigrationReleaseAndConsumerPins)'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-every_rename_mapped: true
-v0_duration_and_v1_removal_recorded: true
-wrappers_reference_canonical_assets: true
-```
+- every_rename_mapped: true
+- v0_duration_and_v1_removal_recorded: true
+- wrappers_reference_canonical_assets: true
 
 <!-- field: traces -->
 #### Traces
@@ -54,14 +52,12 @@ wrappers_reference_canonical_assets: true
 
 cd ../../magefiles && go test . -run 'Test(AlignmentReleaseCreatesExactCatalogCompatibilityPair|GitCreateTagSetIsAtomicOnConflict|CreateReleaseTagRejectsNonMainBranch)'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-root_canonical_and_legacy_tags_share_exact_suffix: true
-tag_set_is_atomic: true
-feature_branch_publication_rejected: true
-```
+- root_canonical_and_legacy_tags_share_exact_suffix: true
+- tag_set_is_atomic: true
+- feature_branch_publication_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -81,14 +77,12 @@ cd ../coding-agent && go test ./magefiles
 
 cd ../coding-agent && mage audit
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-exact_compatible_release: applications/catalog/v0.20260727.0
-closure_contains_every_canonical_reference: true
-checkout_does_not_claim_release_provenance: true
-```
+- exact_compatible_release: applications/catalog/v0.20260727.0
+- closure_contains_every_canonical_reference: true
+- checkout_does_not_claim_release_provenance: true
 
 <!-- field: traces -->
 #### Traces
@@ -108,16 +102,14 @@ cd ../chatbot-mesh && go test ./magefiles
 
 cd ../chatbot-mesh && mage helm:package
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-exact_catalog_annotation: applications/catalog/v0.20260727.0
-canonical_profile_paths_staged: true
-old_coordinator_paths_absent: true
-generated_source_inventory_has_no_drift: true
-staged_and_archived_charts_lint_and_render: true
-```
+- exact_catalog_annotation: applications/catalog/v0.20260727.0
+- canonical_profile_paths_staged: true
+- old_coordinator_paths_absent: true
+- generated_source_inventory_has_no_drift: true
+- staged_and_archived_charts_lint_and_render: true
 
 <!-- field: traces -->
 #### Traces
@@ -132,14 +124,12 @@ staged_and_archived_charts_lint_and_render: true
 
 go test ./conformance -run 'Test(NoActiveAssemblerPathConsumers|NoActiveMonitorProfilePathConsumers|NoActiveJuristProfilePathConsumers|AlignmentHasNoStaleActiveRuntimeIdentities)'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-stale_active_paths: 0
-stale_active_runtime_identities: 0
-compatibility_and_history_allowlists_exact: true
-```
+- stale_active_paths: 0
+- stale_active_runtime_identities: 0
+- compatibility_and_history_allowlists_exact: true
 
 <!-- field: traces -->
 #### Traces

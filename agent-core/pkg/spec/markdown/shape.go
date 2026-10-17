@@ -26,7 +26,7 @@ const (
 // renderNode returns the Markdown lines for a field value.
 func renderNode(node *yaml.Node) ([]string, error) {
 	switch {
-	case isString(node) && proseSafe(node.Value):
+	case isString(node) && (proseSafe(node.Value) || fieldTextSafe(node.Value)):
 		return proseLines(node.Value), nil
 	case isStringList(node) && listSafe(node):
 		return listLines(node), nil

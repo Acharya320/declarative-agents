@@ -35,14 +35,12 @@ rel20.0-uc003-unit-libraries
 
 go test ./internal/load ./internal/tools/catalog ./internal/support/corepath -run 'TestLoadClosureRejectsAnAbsoluteImportOutsideALibraryRoot|TestToolFragmentOutsideALibraryRootIsRejected|TestImportTargetResolvesRelativeAndLibraryRootedPaths'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-relative_accepted: true
-rooted_accepted: true
-other_absolute_rejected_with_srd050_wording: true
-```
+- relative_accepted: true
+- rooted_accepted: true
+- other_absolute_rejected_with_srd050_wording: true
 
 <!-- field: traces -->
 #### Traces
@@ -66,14 +64,12 @@ rel20.0-uc003-unit-libraries
 
 go test ./internal/tools/catalog ./internal/tools/rest/definition ./internal/runtime/core ./internal/load -run 'TestToolImportsAndFragmentsResolveUnderTheAgentCoreLibrary|TestRESTImportsAndFragmentsResolveUnderTheAgentCoreLibrary|TestLoadMachineClosureSplicesAStageFromTheAgentCoreLibrary|TestProfileDeclaresLibraryRootsAndMapsItsOwnPaths|TestLoadClosureRejectsAnAbsoluteImportOutsideALibraryRoot'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-each_form_resolves: true
-profile_absolute_path_accepted: true
-import_absolute_path_rejected: true
-```
+- each_form_resolves: true
+- profile_absolute_path_accepted: true
+- import_absolute_path_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -97,13 +93,11 @@ rel20.0-uc003-unit-libraries
 
 go test ./internal/support/corepath ./internal/load ./internal/tools/catalog ./internal/tools/rest/definition ./internal/runtime/core -run 'TestImportTargetResolvesRelativeAndLibraryRootedPaths|TestLoadClosureImportsAUnitFromTheAgentCoreLibrary|TestToolImportsAndFragmentsResolveUnderTheAgentCoreLibrary|TestRESTImportsAndFragmentsResolveUnderTheAgentCoreLibrary|TestLoadMachineClosureSplicesAStageFromTheAgentCoreLibrary'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-mapped_with_install_root: true
-used_as_written_without: true
-```
+- mapped_with_install_root: true
+- used_as_written_without: true
 
 <!-- field: traces -->
 #### Traces
@@ -127,14 +121,12 @@ rel20.0-uc003-unit-libraries
 
 go test ./internal/tools/catalog ./internal/load -run 'TestProfileDeclaresLibraryRootsAndMapsItsOwnPaths|TestLoadClosureResolvesADeclaredLibraryRoot|TestLoadClosureRejectsAReservedOrMalformedRootName'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-import_maps_to_declared_directory: true
-agent_core_name_rejected: true
-malformed_name_rejected: true
-```
+- import_maps_to_declared_directory: true
+- agent_core_name_rejected: true
+- malformed_name_rejected: true
 
 <!-- field: traces -->
 #### Traces
@@ -158,13 +150,11 @@ rel20.0-uc003-unit-libraries
 
 go test ./cmd/agent ./internal/load -run 'TestLibraryFlagOverridesADeclaredRootOnly|TestLoadClosureAppliesALibraryOverride|TestRootCommandExposesEveryRuntimeFlag'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-override_applies: true
-undeclared_name_startup_error: true
-```
+- override_applies: true
+- undeclared_name_startup_error: true
 
 <!-- field: traces -->
 #### Traces
@@ -188,14 +178,12 @@ rel20.0-uc003-unit-libraries
 
 go test ./internal/load ./internal/support/corepath -run 'TestLoadClosureReportsAnUndeclaredLibraryPrefix|TestLoadClosureResolvesADeclaredLibraryRoot|TestDeclaredLibraryRootsResolveScopedAndReadOnly'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-undeclared_prefix_names_prefix_and_profile: true
-conflict_names_both: deferred with agent blueprints (GH-2123); a profile has one libraries mapping
-child_does_not_inherit: true
-```
+- undeclared_prefix_names_prefix_and_profile: true
+- conflict_names_both: deferred with agent blueprints (GH-2123); a profile has one libraries mapping
+- child_does_not_inherit: true
 
 <!-- field: traces -->
 #### Traces
@@ -219,14 +207,12 @@ rel20.0-uc003-unit-libraries
 
 go test ./internal/tools/catalog ./internal/support/corepath -run 'TestLibraryFileCannotOverrideAnImport|TestLibraryRelativeImportCannotLeaveItsRoot|TestDeclaredLibraryRootsResolveScopedAndReadOnly'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-override_rejected_names_root_and_file: true
-escape_rejected_names_root_and_file: true
-cross_root_prefix_import_accepted: true
-```
+- override_rejected_names_root_and_file: true
+- escape_rejected_names_root_and_file: true
+- cross_root_prefix_import_accepted: true
 
 <!-- field: traces -->
 #### Traces
@@ -250,13 +236,11 @@ rel20.0-uc003-unit-libraries
 
 go test ./internal/load -run 'TestLoadClosureImportsAUnitFromTheAgentCoreLibrary|TestLoadClosureReportsAnUnusedLibraryImport|TestLoadClosureResolvesADeclaredLibraryRoot'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-files_include_rooted_canonical_paths: true
-digest_changes: true
-```
+- files_include_rooted_canonical_paths: true
+- digest_changes: true
 
 <!-- field: traces -->
 #### Traces
@@ -280,13 +264,11 @@ rel20.0-uc003-unit-libraries
 
 go test ./internal/load ./cmd/agent -run 'TestLoadClosureImportsAUnitFromTheAgentCoreLibrary|TestLoadClosureResolvesADeclaredLibraryRoot|TestDumpGolden'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-root_marker: "agent-core, declared name"
-two_dumps_identical: true
-```
+- root_marker: agent-core, declared name
+- two_dumps_identical: true
 
 <!-- field: traces -->
 #### Traces
@@ -310,14 +292,12 @@ rel20.0-uc003-unit-libraries
 
 go test ./pkg/profilestage -run 'TestStageCopiesADeclaredLibraryRootToItsStagedPosition|TestStageLeavesAgentCoreLibraryImportsToTheImage|TestStageReportsAnUndeclaredLibraryRoot'
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-declared_root_files_copied: true
-agent_core_files_not_copied: true
-staged_loads_without_library_flag: true
-```
+- declared_root_files_copied: true
+- agent_core_files_not_copied: true
+- staged_loads_without_library_flag: true
 
 <!-- field: traces -->
 #### Traces
@@ -341,13 +321,11 @@ rel20.0-uc003-unit-libraries
 
 mage audit
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-layout_documented: "REST unit, type unit, client words"
-consumers_import_through_root: true
-```
+- layout_documented: REST unit, type unit, client words
+- consumers_import_through_root: true
 
 <!-- field: traces -->
 #### Traces
@@ -371,12 +349,10 @@ rel20.0-uc003-unit-libraries
 
 mage stats:reuse
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-min_importing_profiles: 2
-```
+- min_importing_profiles: 2
 
 <!-- field: traces -->
 #### Traces

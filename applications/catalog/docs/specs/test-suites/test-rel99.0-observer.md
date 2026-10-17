@@ -38,20 +38,16 @@ rel99.0-uc001-observer-family
 
 cd ../.. && mage audit
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-srd: srd021-observer
-```
+- srd: srd021-observer
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-parameterized_defaults: true
-no_new_environment_variable: true
-```
+- parameterized_defaults: true
+- no_new_environment_variable: true
 
 <!-- field: traces -->
 #### Traces
@@ -76,22 +72,18 @@ rel99.0-uc001-observer-family
 
 cd ../.. && mage audit
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-generalized_from: srd008-observer-agent
-```
+- generalized_from: srd008-observer-agent
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-topology_discovery: true
-monitor_fan_in: true
-resource_usage: true
-served_fleet_ux: true
-```
+- topology_discovery: true
+- monitor_fan_in: true
+- resource_usage: true
+- served_fleet_ux: true
 
 <!-- field: traces -->
 #### Traces
@@ -118,21 +110,20 @@ rel99.0-uc001-observer-family
 
 cd ../.. && mage audit
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-adopters: [coding-agent, agent-architecture, chatbot-mesh]
-```
+- adopters:
+  1. coding-agent
+  1. agent-architecture
+  1. chatbot-mesh
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-adopters_named: true
-realization_rows_deferred: true
-inventory_gate_passes: true
-```
+- adopters_named: true
+- realization_rows_deferred: true
+- inventory_gate_passes: true
 
 <!-- field: traces -->
 #### Traces

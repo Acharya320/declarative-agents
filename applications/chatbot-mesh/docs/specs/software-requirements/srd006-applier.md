@@ -10,18 +10,19 @@ depends_on:
 <!-- Copyright (c) 2026 Nokia -->
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
 
-<!-- field: role_realization_decision -->
+<!-- field: role_realization_decision | form: "tree" -->
 ## Role realization decision
 
-```yaml
-current_actor: applier
-implemented_responsibility: Validate a decided values document, execute Helm and kubectl actuation, verify rollout state, and roll back failure.
-canonical_role_sub_role: Executor / Actuation Agent and Change Manager.
-retained_or_proposed_name: Retain `applier` as a descriptive actor and Helm workload name; Applier is not a canonical role.
-authority_boundary: The creator is the only apply caller; the applier authors no desired state and receives no runtime transport authority.
-evidence: [../catalog/agents/applier/apply-machine.yaml, agents/applier/exec-declarations.yaml, helm/templates/applier.yaml]
-migration_impact: GH-1420 makes the local actor a wrapper over the canonical catalog applier family.
-```
+- current_actor: applier
+- implemented_responsibility: Validate a decided values document, execute Helm and kubectl actuation, verify rollout state, and roll back failure.
+- canonical_role_sub_role: Executor / Actuation Agent and Change Manager.
+- retained_or_proposed_name: Retain `applier` as a descriptive actor and Helm workload name; Applier is not a canonical role.
+- authority_boundary: The creator is the only apply caller; the applier authors no desired state and receives no runtime transport authority.
+- evidence:
+  1. ../catalog/agents/applier/apply-machine.yaml
+  1. agents/applier/exec-declarations.yaml
+  1. helm/templates/applier.yaml
+- migration_impact: GH-1420 makes the local actor a wrapper over the canonical catalog applier family.
 
 <!-- field: context -->
 ## Context
@@ -175,71 +176,144 @@ The applier SHALL NOT select templates or own agent lifecycle; those are the cre
 
 The applier SHALL run the shared agent-core image and receive the helm and kubectl CLIs at pod start from a digest-pinned CLI donor image (applier.cliDonor.image) that an init container copies into a volume mounted read-only at /opt/tools and placed first on the applier's PATH, so the binaries it execs cannot be replaced at runtime; no image diverges from the binary-only image contract (srd003 R1.3, GH-2222). The app's chart SHALL be delivered to the applier pod as a mounted volume at /chart rather than baked into an image (GH-1368).
 
-<!-- field: deployment_api_contract -->
-## Deployment api contract
+<!-- field: deployment_api_contract | form: "tree" -->
+## Deployment API contract
 
-```yaml
-version: "1"
-description: |
-    The single versioned contract the applier serves and the creator, the
-    provisioning panel (through the creator, GH-502), and the integration fake
-    consume (R1.4). Every request and response carries schema_version so a
-    consumer can reject an unknown version. The apply request carries the decided
-    values-plane document as content: the provisioning-workflow-orchestrator decides it (srd004 R3.1),
-    the creator forwards it (srd005 R2.2), and the applier validates and applies
-    it (R2.1, R2.2) -- the applier authors no values (R5.1) and no transport
-    authority crosses the surface (R2.3, R4.2). The apply response fields are what
-    the applier emits statically from a terminal state. The rollout response also
-    carries ready, desired, and revision, read from the Deployment object rather
-    than parsed out of CLI prose (R3.3), so the panel renders the counts it
-    declares.
-apply_request:
-    endpoint: POST /provisioning/api/apply
-    fields:
-        - {name: schema_version, type: string, required: true, note: 'the contract version, "1"'}
-        - {name: content, type: string, required: true, note: the decided values-plane overrides document (YAML) the applier writes and applies}
-    constraints: Values-plane only; no host, URL, method, or credential for a running agent (R2.3, R4.2).
-apply_response:
-    fields:
-        - {name: schema_version, type: string, required: true}
-        - {name: status, type: string, required: true, note: applied | rolled_back}
-        - {name: error, type: string, required: false, note: present when the apply failed or the release was rolled back}
-rollout_response:
-    endpoint: GET /provisioning/api/rollout
-    fields:
-        - {name: schema_version, type: string, required: true}
-        - {name: phase, type: string, required: true, note: "progressing | complete; absent on the 502, which carries status and error instead"}
-        - {name: ready, type: integer, required: true, note: ready replicas of the chatbot Deployment}
-        - {name: desired, type: integer, required: true, note: desired replicas of the chatbot Deployment}
-        - {name: revision, type: integer, required: true, note: the Deployment's current rollout revision}
-        - {name: status, type: string, required: false, note: "unavailable, on the 502 alone"}
-        - {name: error, type: string, required: false, note: "rollout_read_failed, on the 502 alone"}
-state_response:
-    endpoint: GET /provisioning/api/state
-    description: |
-        Flat by necessity: agent-core's machine_request response body maps one
-        selector per named field (rest.MachineResponseMapping.Body is a flat
-        string map), so a nested llm/params object cannot be assembled from
-        several source paths in one step. The provisioning panel's client
-        (agents/chatbot/ui/app/src/provisioningApi.ts) reassembles the nested MeshView it
-        renders from these flat fields (GH-753); this contract states the wire
-        shape the applier actually serves, not the panel's internal type.
-    fields:
-        - {name: schema_version, type: string, required: true}
-        - {name: rags, type: array, required: true, note: "the deployed ragUnits list, each {name, collection, embeddingModel, replicas}; absent on the 502, which carries status and error instead"}
-        - {name: llmInCluster, type: boolean, required: true, note: whether the in-cluster Ollama tier is enabled}
-        - {name: llmExternalURL, type: string, required: true, note: "the external LLM endpoint, used when the in-cluster tier is disabled"}
-        - {name: llmChatModel, type: string, required: true, note: the panel's configured default chat model}
-        - {name: llmEmbedModel, type: string, required: true, note: the embedding model the chatbot uses to embed a query}
-        - {name: llmChatModels, type: array, required: true, note: the in-cluster tier's configured chat models}
-        - {name: llmTierModel, type: string, required: true, note: the configured tier-selector model}
-        - {name: llmTopology, type: string, required: true, note: "the in-cluster tier's topology: single or per-model"}
-        - {name: paramsNResults, type: integer, required: true, note: the per-RAG retrieval bound}
-        - {name: paramsChunkCap, type: integer, required: true, note: the chunk cap parameter}
-        - {name: paramsTierDefault, type: string, required: true, note: the tier selector's default word}
-        - {name: status, type: string, required: false, note: "unavailable, on the 502 alone"}
-        - {name: error, type: string, required: false, note: "state_read_failed, on the 502 alone"}
-```
+- version: "1"
+- description:
+  The single versioned contract the applier serves and the creator, the
+  provisioning panel (through the creator, GH-502), and the integration fake
+  consume (R1.4). Every request and response carries schema_version so a
+  consumer can reject an unknown version. The apply request carries the decided
+  values-plane document as content: the provisioning-workflow-orchestrator decides it (srd004 R3.1),
+  the creator forwards it (srd005 R2.2), and the applier validates and applies
+  it (R2.1, R2.2) -- the applier authors no values (R5.1) and no transport
+  authority crosses the surface (R2.3, R4.2). The apply response fields are what
+  the applier emits statically from a terminal state. The rollout response also
+  carries ready, desired, and revision, read from the Deployment object rather
+  than parsed out of CLI prose (R3.3), so the panel renders the counts it
+  declares.
+- apply_request:
+  - endpoint: POST /provisioning/api/apply
+  - fields:
+    1. - name: schema_version
+       - type: string
+       - required: true
+       - note: the contract version, "1"
+    1. - name: content
+       - type: string
+       - required: true
+       - note: the decided values-plane overrides document (YAML) the applier writes and applies
+  - constraints: Values-plane only; no host, URL, method, or credential for a running agent (R2.3, R4.2).
+- apply_response:
+  - fields:
+    1. - name: schema_version
+       - type: string
+       - required: true
+    1. - name: status
+       - type: string
+       - required: true
+       - note: applied | rolled_back
+    1. - name: error
+       - type: string
+       - required: false
+       - note: present when the apply failed or the release was rolled back
+- rollout_response:
+  - endpoint: GET /provisioning/api/rollout
+  - fields:
+    1. - name: schema_version
+       - type: string
+       - required: true
+    1. - name: phase
+       - type: string
+       - required: true
+       - note: progressing | complete; absent on the 502, which carries status and error instead
+    1. - name: ready
+       - type: integer
+       - required: true
+       - note: ready replicas of the chatbot Deployment
+    1. - name: desired
+       - type: integer
+       - required: true
+       - note: desired replicas of the chatbot Deployment
+    1. - name: revision
+       - type: integer
+       - required: true
+       - note: the Deployment's current rollout revision
+    1. - name: status
+       - type: string
+       - required: false
+       - note: unavailable, on the 502 alone
+    1. - name: error
+       - type: string
+       - required: false
+       - note: rollout_read_failed, on the 502 alone
+- state_response:
+  - endpoint: GET /provisioning/api/state
+  - description:
+    Flat by necessity: agent-core's machine_request response body maps one
+    selector per named field (rest.MachineResponseMapping.Body is a flat
+    string map), so a nested llm/params object cannot be assembled from
+    several source paths in one step. The provisioning panel's client
+    (agents/chatbot/ui/app/src/provisioningApi.ts) reassembles the nested MeshView it
+    renders from these flat fields (GH-753); this contract states the wire
+    shape the applier actually serves, not the panel's internal type.
+  - fields:
+    1. - name: schema_version
+       - type: string
+       - required: true
+    1. - name: rags
+       - type: array
+       - required: true
+       - note: the deployed ragUnits list, each {name, collection, embeddingModel, replicas}; absent on the 502, which carries status and error instead
+    1. - name: llmInCluster
+       - type: boolean
+       - required: true
+       - note: whether the in-cluster Ollama tier is enabled
+    1. - name: llmExternalURL
+       - type: string
+       - required: true
+       - note: the external LLM endpoint, used when the in-cluster tier is disabled
+    1. - name: llmChatModel
+       - type: string
+       - required: true
+       - note: the panel's configured default chat model
+    1. - name: llmEmbedModel
+       - type: string
+       - required: true
+       - note: the embedding model the chatbot uses to embed a query
+    1. - name: llmChatModels
+       - type: array
+       - required: true
+       - note: the in-cluster tier's configured chat models
+    1. - name: llmTierModel
+       - type: string
+       - required: true
+       - note: the configured tier-selector model
+    1. - name: llmTopology
+       - type: string
+       - required: true
+       - note: "the in-cluster tier's topology: single or per-model"
+    1. - name: paramsNResults
+       - type: integer
+       - required: true
+       - note: the per-RAG retrieval bound
+    1. - name: paramsChunkCap
+       - type: integer
+       - required: true
+       - note: the chunk cap parameter
+    1. - name: paramsTierDefault
+       - type: string
+       - required: true
+       - note: the tier selector's default word
+    1. - name: status
+       - type: string
+       - required: false
+       - note: unavailable, on the 502 alone
+    1. - name: error
+       - type: string
+       - required: false
+       - note: state_read_failed, on the 502 alone
 
 <!-- field: acceptance_criteria -->
 ## Acceptance criteria
@@ -328,71 +402,54 @@ Deciding the values (provisioning-workflow-orchestrator) and template selection 
 
 agent-core runtime contracts this agent builds on. External references, owned by agent-core, not part of this application's corpus.
 
-<!-- field: platform_dependencies -->
+<!-- field: platform_dependencies | form: "typed table" -->
 ## Platform dependencies
 
-```yaml
-- srd_id: srd022-applier
-  provider: applications/catalog
-  symbols_used: [R1, R2, R3, R4, R5]
-- srd_id: srd029-rest-server-tools
-  provider: agent-core
-  symbols_used: [R1]
-- srd_id: srd030-machine-request-rest-binding
-  provider: agent-core
-  symbols_used: [R1]
-- srd_id: srd033-monitor-rest-api
-  provider: agent-core
-  symbols_used: [R1]
-- srd_id: srd021-agent-cli-exec-tool
-  provider: agent-core
-  symbols_used: [R2, R3]
-- srd_id: srd028-rest-client-tools
-  provider: agent-core
-  symbols_used: [V30]
-```
+| srd_id | provider | symbols_used |
+| --- | --- | --- |
+| srd022-applier | applications/catalog | [R1, R2, R3, R4, R5] |
+| srd029-rest-server-tools | agent-core | [R1] |
+| srd030-machine-request-rest-binding | agent-core | [R1] |
+| srd033-monitor-rest-api | agent-core | [R1] |
+| srd021-agent-cli-exec-tool | agent-core | [R2, R3] |
+| srd028-rest-client-tools | agent-core | [V30] |
 
-<!-- field: implementation_status -->
+<!-- field: implementation_status | form: "tree" -->
 ## Implementation status
 
-```yaml
-implemented:
-    - >-
-      The applier profile (agents/applier) -- its apply/control/monitor servers, the validate-apply-verify-rollback request machine, and the declared helm and kubectl exec bindings -- the chart values.schema.json that carries the values validation, and the applier Deployment, image, and NetworkPolicy that replace the provisioner, are built for release rel06.0; the Go provisioner is removed and issue #429's deployment-plane exemption no longer applies. The rollout read endpoint (GET /provisioning/api/rollout) shipped; issue #466 delivered rollout only and was closed. mage integration:applier shipped with GH-602: it drives the shipped profile against recording fake helm and kubectl, walking every terminal of the apply and rollout machines and asserting the arguments each word constructs, with the chart schema proven against real helm separately. The live on-cluster rollout shipped with GH-735: mage integration:applierLive runs the applier on the agent-core runtime with helm and kubectl from the pinned CLI donor (GH-2222), stands it up on kind, and drives a values patch that moves the release to a new revision, with a non-conforming one rejected against the real chart schema. That tier is also what found the applier Role could not read the Secrets helm queries to locate its own release, nor the other object kinds the chart it re-renders contains. The state read endpoint (GET /provisioning/api/state, R1.5) shipped with GH-752: it reads the release's fully computed values via helm get values --all -o json (an exec word, mirroring kubectl_rollout_poll and kubectl_get_rollout_counts) rather than a raw read of the applier's own overrides file, so it works from a fresh install with no prior apply. Issue #468 is closed, but shipped narrower than earlier text here implied: a raw mode on the filesystem read builtin (agent-core, GH-521), not a REST binding; it was not the mechanism this endpoint uses. The creator and provisioning-workflow-orchestrator hops that carry this response to the provisioning panel shipped with GH-753, carrying the flat fields through unchanged at each hop and reassembling the panel's nested MeshView client-side in provisioningApi.ts (agent-core's machine_request response mapping is a flat field-to-selector map, so no hop can assemble a nested object from several source paths). The provisioning panel now loads its initial mesh view from a running mesh; rel06.0's last functional gap is closed.
-```
+- implemented:
+  1. "The applier profile (agents/applier) -- its apply/control/monitor servers, the validate-apply-verify-rollback request machine, and the declared helm and kubectl exec bindings -- the chart values.schema.json that carries the values validation, and the applier Deployment, image, and NetworkPolicy that replace the provisioner, are built for release rel06.0; the Go provisioner is removed and issue #429's deployment-plane exemption no longer applies. The rollout read endpoint (GET /provisioning/api/rollout) shipped; issue #466 delivered rollout only and was closed. mage integration:applier shipped with GH-602: it drives the shipped profile against recording fake helm and kubectl, walking every terminal of the apply and rollout machines and asserting the arguments each word constructs, with the chart schema proven against real helm separately. The live on-cluster rollout shipped with GH-735: mage integration:applierLive runs the applier on the agent-core runtime with helm and kubectl from the pinned CLI donor (GH-2222), stands it up on kind, and drives a values patch that moves the release to a new revision, with a non-conforming one rejected against the real chart schema. That tier is also what found the applier Role could not read the Secrets helm queries to locate its own release, nor the other object kinds the chart it re-renders contains. The state read endpoint (GET /provisioning/api/state, R1.5) shipped with GH-752: it reads the release's fully computed values via helm get values --all -o json (an exec word, mirroring kubectl_rollout_poll and kubectl_get_rollout_counts) rather than a raw read of the applier's own overrides file, so it works from a fresh install with no prior apply. Issue #468 is closed, but shipped narrower than earlier text here implied: a raw mode on the filesystem read builtin (agent-core, GH-521), not a REST binding; it was not the mechanism this endpoint uses. The creator and provisioning-workflow-orchestrator hops that carry this response to the provisioning panel shipped with GH-753, carrying the flat fields through unchanged at each hop and reassembling the panel's nested MeshView client-side in provisioningApi.ts (agent-core's machine_request response mapping is a flat field-to-selector map, so no hop can assemble a nested object from several source paths). The provisioning panel now loads its initial mesh view from a running mesh; rel06.0's last functional gap is closed."
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: The deployment API is imperative Go; the same actuation is a declarative agent binding container CLIs"] --> Goals["Goals: Applier Agent Functional Block"]
-      Goals --> R1["R1: Actuation surface"]
-      Goals --> R2["R2: Validate then apply"]
-      Goals --> R3["R3: Verify and roll back"]
-      Goals --> R4["R4: Authority boundary"]
-      Goals --> R5["R5: Non-goals and packaging"]
-      R1 --> AC1["AC1: state/apply/rollout surface, control + monitor servers"]
-      R2 --> AC2["AC2: schema dry-run then values-file apply"]
-      R3 --> AC3["AC3: rollout verify and rollback"]
-      R4 --> AC4["AC4: authenticated apart from chat, authority by declared config"]
-      R5 --> AC5["AC5: not the decision or LCM; CLIs from a pinned donor"]
-    ```
-actuation_machine: |
-    ```mermaid
-    flowchart LR
-      Apply["POST /provisioning/api/apply (creator)"] --> Validate["Validate: helm upgrade --dry-run --atomic -f overrides.yaml"]
-      Validate -->|Valid| ApplyStep["Apply: helm upgrade --atomic --wait -f overrides.yaml --reuse-values"]
-      Validate -->|Invalid| Reject["400"]
-      ApplyStep -->|Applied| Verify["Verify: kubectl rollout status deploy/chatbot"]
-      ApplyStep -->|CommandError| Rollback["helm rollback"]
-      Verify -->|HealthReported| Done["200"]
-      Verify -->|RolloutStalled| Rollback
-      Rollback --> Failed["500"]
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: The deployment API is imperative Go; the same actuation is a declarative agent binding container CLIs"] --> Goals["Goals: Applier Agent Functional Block"]
+    Goals --> R1["R1: Actuation surface"]
+    Goals --> R2["R2: Validate then apply"]
+    Goals --> R3["R3: Verify and roll back"]
+    Goals --> R4["R4: Authority boundary"]
+    Goals --> R5["R5: Non-goals and packaging"]
+    R1 --> AC1["AC1: state/apply/rollout surface, control + monitor servers"]
+    R2 --> AC2["AC2: schema dry-run then values-file apply"]
+    R3 --> AC3["AC3: rollout verify and rollback"]
+    R4 --> AC4["AC4: authenticated apart from chat, authority by declared config"]
+    R5 --> AC5["AC5: not the decision or LCM; CLIs from a pinned donor"]
+  ```
+- actuation_machine:
+  ```mermaid
+  flowchart LR
+    Apply["POST /provisioning/api/apply (creator)"] --> Validate["Validate: helm upgrade --dry-run --atomic -f overrides.yaml"]
+    Validate -->|Valid| ApplyStep["Apply: helm upgrade --atomic --wait -f overrides.yaml --reuse-values"]
+    Validate -->|Invalid| Reject["400"]
+    ApplyStep -->|Applied| Verify["Verify: kubectl rollout status deploy/chatbot"]
+    ApplyStep -->|CommandError| Rollback["helm rollback"]
+    Verify -->|HealthReported| Done["200"]
+    Verify -->|RolloutStalled| Rollback
+    Rollback --> Failed["500"]
+  ```
 
 <!-- field: non_goals -->
 ## Non-goals

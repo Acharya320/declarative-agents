@@ -41,18 +41,16 @@ serves by declaration.
 - G4: Give shared presentation code, including design tokens, one owner and one distribution path for in-repository and external consumers.
 - G5: Let an observer agent carry no UI files by serving an embedded bundle configured only by declaration.
 
-<!-- field: applicability -->
+<!-- field: applicability | form: "tree" -->
 ## Applicability
 
-```yaml
-baseline: |
-    R1 through R6 apply to every panel published by the UI kit and to every
-    application shell built from it. Domain panels an application keeps to
-    itself follow R6 and need not satisfy R1 or R4.
-capability_gates:
-    ui: The whole SRD applies only to applications or actors that ship UI assets.
-    embedded_bundle: R9 applies only to REST definitions that select a named bundle.
-```
+- baseline:
+  R1 through R6 apply to every panel published by the UI kit and to every
+  application shell built from it. Domain panels an application keeps to
+  itself follow R6 and need not satisfy R1 or R4.
+- capability_gates:
+  - ui: The whole SRD applies only to applications or actors that ship UI assets.
+  - embedded_bundle: R9 applies only to REST definitions that select a named bundle.
 
 <!-- req: R1 -->
 ## R1 - Presentation contract

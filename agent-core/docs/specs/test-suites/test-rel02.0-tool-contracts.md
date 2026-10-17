@@ -41,23 +41,19 @@ rel02.0-uc004-sentence-tool-migration
 
 TestFormatIssueEmitsTrackerAgnosticParameters, TestRecordTrackerIssueMapsConfiguredOutputAndUndo, TestRecordTrackerIssueRejectsInvalidOutputWithoutMutation
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-current_plan: implementation_plan
-configured_tracker_result: '{"id":"tracker-42"}'
-```
+- current_plan: implementation_plan
+- configured_tracker_result: "{\"id\":\"tracker-42\"}"
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-tracker_neutral_parameters: true
-issue_id_recorded: tracker-42
-dependency_mapping_recorded: true
-invalid_output_preserves_state: true
-```
+- tracker_neutral_parameters: true
+- issue_id_recorded: tracker-42
+- dependency_mapping_recorded: true
+- invalid_output_preserves_state: true
 
 <!-- field: traces -->
 #### Traces
@@ -86,26 +82,22 @@ rel02.0-uc003-tool-authoring
 
 TestLoadToolDefsExpandsEnvReference, TestLoadToolDefsUsesDefaultWhenUnset, TestLoadToolDefsLeavesSelectorsUntouched
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-declaration_field: provider_url
-declared_value: "${OLLAMA_URL:-http://localhost:11434}"
-environment_value: http://ollama.svc:11434
-selectors_present:
-    - "$from(compose).prompt"
-    - "$.output.answer"
-```
+- declaration_field: provider_url
+- declared_value: ${OLLAMA_URL:-http://localhost:11434}
+- environment_value: http://ollama.svc:11434
+- selectors_present:
+  1. $from(compose).prompt
+  1. $.output.answer
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-expands_to_environment_value: true
-falls_back_to_declared_default: true
-selectors_unchanged: true
-```
+- expands_to_environment_value: true
+- falls_back_to_declared_default: true
+- selectors_unchanged: true
 
 <!-- field: traces -->
 #### Traces
@@ -128,29 +120,25 @@ rel02.0-uc003-tool-authoring
 
 TestValidate_SelectedToolContractCompletenessErrorsForActiveMigratedTool, TestValidate_SelectedToolContractCompletenessPassesCompleteTool
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-tool_category: word
-declaration: complete_builtin_tooldef
-```
+- tool_category: word
+- declaration: complete_builtin_tooldef
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-problem_present: true
-goals_present: true
-requirements_present: true
-non_goals_present: true
-output_schema_present: true
-side_effects_present: true
-reversibility_present: true
-undo_present: true
-errors_present: true
-relationships_present: true
-```
+- problem_present: true
+- goals_present: true
+- requirements_present: true
+- non_goals_present: true
+- output_schema_present: true
+- side_effects_present: true
+- reversibility_present: true
+- undo_present: true
+- errors_present: true
+- relationships_present: true
 
 <!-- field: traces -->
 #### Traces
@@ -174,21 +162,17 @@ surfaces authoring review next.
 
 rel02.0-uc003-tool-authoring
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-proposed_tool: "load config and discover samples and initialize session"
-category: word
-```
+- proposed_tool: load config and discover samples and initialize session
+- category: word
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-authoring_result: rejected
-remediation: split_into_words_or_mark_boundary
-```
+- authoring_result: rejected
+- remediation: split_into_words_or_mark_boundary
 
 <!-- field: traces -->
 #### Traces
@@ -213,22 +197,18 @@ rel02.0-uc003-tool-authoring
 
 TestParseToolDefs_ContractFields, TestValidate_SelectedToolContractCompletenessPassesCompleteTool
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-parameters_schema: object_with_required_fields
-output_schema: object_with_result_fields
-```
+- parameters_schema: object_with_required_fields
+- output_schema: object_with_result_fields
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-parameters_schema_valid: true
-output_schema_valid: true
-llm_visible_schema_excludes_implementation_extensions: true
-```
+- parameters_schema_valid: true
+- output_schema_valid: true
+- llm_visible_schema_excludes_implementation_extensions: true
 
 <!-- field: traces -->
 #### Traces
@@ -253,23 +233,19 @@ rel02.0-uc003-tool-authoring
 
 TestSignatureNeverWaivesBoundarySideEffects, TestValidate_ToolUndoConsistency
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-tools:
-    - filesystem_write_word
-    - conversation_state_word
-```
+- tools:
+  1. filesystem_write_word
+  1. conversation_state_word
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-filesystem_tool_declares_workspace_restore: true
-state_tool_declares_command_state_restore: true
-errors_include_state_after_failure: true
-```
+- filesystem_tool_declares_workspace_restore: true
+- state_tool_declares_command_state_restore: true
+- errors_include_state_after_failure: true
 
 <!-- field: traces -->
 #### Traces
@@ -292,22 +268,18 @@ surfaces authoring review next.
 
 rel02.0-uc003-tool-authoring
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-tool_category: boundary
-reversibility: irreversible
-side_effect_target: external_service
-```
+- tool_category: boundary
+- reversibility: irreversible
+- side_effect_target: external_service
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-requires_confirmation: true
-compensation_or_irreversible_reason_documented: true
-```
+- requires_confirmation: true
+- compensation_or_irreversible_reason_documented: true
 
 <!-- field: traces -->
 #### Traces
@@ -331,22 +303,20 @@ surfaces authoring review next.
 
 rel02.0-uc003-tool-authoring
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-new_tool: collect_artifact_metadata
-overlaps_with: [collect_metrics, dump_config]
-```
+- new_tool: collect_artifact_metadata
+- overlaps_with:
+  1. collect_metrics
+  1. dump_config
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-relationships_before_present: true
-relationships_after_present: true
-overlaps_explain_differences: true
-```
+- relationships_before_present: true
+- relationships_after_present: true
+- overlaps_explain_differences: true
 
 <!-- field: traces -->
 #### Traces
@@ -374,27 +344,23 @@ rel02.0-uc004-sentence-tool-migration
 
 TestSessionWordsDeclareFullContract, TestPointWordsDeclareFullContract, TestSessionWordsReplaceLoadSuite
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-legacy_tool: load_suite
-identified_words:
-    - parse_suite_config
-    - discover_suite_samples
-    - expand_eval_grid
-    - init_eval_session
-    - report_suite_summary
-```
+- legacy_tool: load_suite
+- identified_words:
+  1. parse_suite_config
+  1. discover_suite_samples
+  1. expand_eval_grid
+  1. init_eval_session
+  1. report_suite_summary
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-replacement_tooldefs_created: true
-each_replacement_has_contract_metadata: true
-aggregate_not_selected_by_default: true
-```
+- replacement_tooldefs_created: true
+- each_replacement_has_contract_metadata: true
+- aggregate_not_selected_by_default: true
 
 <!-- field: traces -->
 #### Traces
@@ -425,23 +391,22 @@ rel02.0-uc004-sentence-tool-migration
 
 TestSessionPipelineEmitsValidate, TestUndeclaredEmitIsRejected, TestSelectionRejectsUndeclaredWord
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-machine: internal/evaluation/testdata/session_machine.yaml
-replacement_words: [load_input, prepare_work, report_result]
-```
+- machine: internal/evaluation/testdata/session_machine.yaml
+- replacement_words:
+  1. load_input
+  1. prepare_work
+  1. report_result
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-named_actions_registered: true
-emitted_signals_declared: true
-emitted_signals_have_transitions: true
-sequence_visible_in_machine_yaml: true
-```
+- named_actions_registered: true
+- emitted_signals_declared: true
+- emitted_signals_have_transitions: true
+- sequence_visible_in_machine_yaml: true
 
 <!-- field: traces -->
 #### Traces
@@ -466,26 +431,22 @@ rel02.0-uc004-sentence-tool-migration
 
 TestValidate_ToolBoundaryCategory
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-boundary_tools:
-    - run_agent
-    - rest_await_event
-    - self_invoke
-    - invoke_llm
-```
+- boundary_tools:
+  1. run_agent
+  1. rest_await_event
+  1. self_invoke
+  1. invoke_llm
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-category_boundary: true
-emitted_signals_declared: true
-child_or_external_effects_declared: true
-undo_or_compensation_declared: true
-```
+- category_boundary: true
+- emitted_signals_declared: true
+- child_or_external_effects_declared: true
+- undo_or_compensation_declared: true
 
 <!-- field: traces -->
 #### Traces
@@ -509,23 +470,22 @@ rel02.0-uc004-sentence-tool-migration
 
 TestBuiltinFactoryCatalogCoversSelectedActiveInits
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-retired_aggregate: validate
-replacement_sequence: [build, lint, test]
-```
+- retired_aggregate: validate
+- replacement_sequence:
+  1. build
+  1. lint
+  1. test
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-implementation_removed: true
-declaration_removed: true
-factory_registration_removed: true
-validation_uses_normal_machine_dispatch: true
-```
+- implementation_removed: true
+- declaration_removed: true
+- factory_registration_removed: true
+- validation_uses_normal_machine_dispatch: true
 
 <!-- field: traces -->
 #### Traces
@@ -555,23 +515,28 @@ rel02.0-uc004-sentence-tool-migration
 
 TestSessionPipelineFailureSignalsRoute, TestPointWordsDeclareFullContract
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-migrated_sequence: [load_input, prepare_work, report_result]
-point_words: [record_oracle_result, collect_trace_tokens, check_agent_version, summarize_point_results, record_agent_commit]
-failure_points: [step_failed]
-```
+- migrated_sequence:
+  1. load_input
+  1. prepare_work
+  1. report_result
+- point_words:
+  1. record_oracle_result
+  1. collect_trace_tokens
+  1. check_agent_version
+  1. summarize_point_results
+  1. record_agent_commit
+- failure_points:
+  1. step_failed
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-each_stage_failure_transition: explicit
-point_words_declare_failure_emits: true
-failure_routes_to_terminal: true
-```
+- each_stage_failure_transition: explicit
+- point_words_declare_failure_emits: true
+- failure_routes_to_terminal: true
 
 <!-- field: traces -->
 #### Traces
@@ -608,22 +573,18 @@ rel02.0-uc003-tool-authoring
 
 TestBuiltinFactoryCatalogSelectsEntriesByInit, TestValidate_SelectedToolContractCompletenessKeepsLegacyWarningOnly
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-lifecycle_tools:
-    - checkpoint_history
-    - checkpoint_rollback
-```
+- lifecycle_tools:
+  1. checkpoint_history
+  1. checkpoint_rollback
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-type_builtin: true
-init_present: true
-```
+- type_builtin: true
+- init_present: true
 
 <!-- field: planned -->
 #### Planned
@@ -660,25 +621,21 @@ rel02.0-uc003-tool-authoring
 
 TestRootCommandHasNoLifecycleSubcommands, TestBuiltinFactoryCatalogSelectsEntriesByInit
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-lifecycle_tools:
-    - checkpoint_history
-    - checkpoint_rollback
-forbidden_shape: exec_wrapper_around_agent_binary
-```
+- lifecycle_tools:
+  1. checkpoint_history
+  1. checkpoint_rollback
+- forbidden_shape: exec_wrapper_around_agent_binary
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-shells_into_agent_binary: false
-selected_by_lifecycle_profile: true
-machine_action_visible: true
-core_operation_boundary_documented: true
-```
+- shells_into_agent_binary: false
+- selected_by_lifecycle_profile: true
+- machine_action_visible: true
+- core_operation_boundary_documented: true
 
 <!-- field: traces -->
 #### Traces

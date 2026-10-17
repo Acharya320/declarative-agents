@@ -58,7 +58,7 @@ available.
 rel00.0-uc001-guided-agent-architecture
 
 <!-- field: id -->
-#### Id
+#### ID
 
 presentation_command
 
@@ -77,23 +77,19 @@ mage presentation
 
 dependency_gated
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-application_root: applications/agent-architecture
-slide: agent-architecture.slide
-tool: Go present dependency declared by go.mod
-```
+- application_root: applications/agent-architecture
+- slide: agent-architecture.slide
+- tool: Go present dependency declared by go.mod
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-globally_installed_present_required: false
-slide_path_is_application_local: true
-working_directory_is_application_root: true
-```
+- globally_installed_present_required: false
+- slide_path_is_application_local: true
+- working_directory_is_application_root: true
 
 <!-- field: traces -->
 #### Traces
@@ -116,7 +112,7 @@ runtime checkout and ports are available.
 rel00.0-uc001-guided-agent-architecture
 
 <!-- field: id -->
-#### Id
+#### ID
 
 canonical_curator_command
 
@@ -135,27 +131,23 @@ mage run
 
 dependency_gated
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-catalog_root_config: demo.yaml catalog_root
-core_root_config: demo.yaml core_root
-canonical_profile: agents/knowledge-manager/documentation-curator/profile.yaml
-documentation_workspace: demo.yaml catalog_root
-```
+- catalog_root_config: demo.yaml catalog_root
+- core_root_config: demo.yaml core_root
+- canonical_profile: agents/knowledge-manager/documentation-curator/profile.yaml
+- documentation_workspace: demo.yaml catalog_root
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-profile_owner: applications/catalog
-profile_copy_in_application: false
-ui_copy_in_application: false
-explicit_profile_argument: true
-explicit_directory_argument: true
-development_core_root_argument: true
-```
+- profile_owner: applications/catalog
+- profile_copy_in_application: false
+- ui_copy_in_application: false
+- explicit_profile_argument: true
+- explicit_directory_argument: true
+- development_core_root_argument: true
 
 <!-- field: traces -->
 #### Traces
@@ -182,7 +174,7 @@ observes the canonical curator reaching Done and releasing listeners.
 rel00.0-uc001-guided-agent-architecture
 
 <!-- field: id -->
-#### Id
+#### ID
 
 lifecycle_exit_contract
 
@@ -201,26 +193,24 @@ mage run followed by the documented lifecycle-exit command
 
 dependency_gated
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-profile: ../catalog/agents/lifecycle-exit/profile.yaml
-endpoint: http://127.0.0.1:18082/api/lifecycle/exit
-request_reason: demo presentation
-```
+- profile: ../catalog/agents/lifecycle-exit/profile.yaml
+- endpoint: http://127.0.0.1:18082/api/lifecycle/exit
+- request_reason: demo presentation
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-implementation: declarative_agent
-bespoke_go_http_client: false
-accepted_statuses: [200, 202]
-exit_profile_terminal: succeeded
-live_curator_terminal_observation: dependency_gated
-live_listener_release_observation: dependency_gated
-```
+- implementation: declarative_agent
+- bespoke_go_http_client: false
+- accepted_statuses:
+  1. 200
+  1. 202
+- exit_profile_terminal: succeeded
+- live_curator_terminal_observation: dependency_gated
+- live_listener_release_observation: dependency_gated
 
 <!-- field: traces -->
 #### Traces
@@ -250,7 +240,7 @@ does not satisfy srd002 AC1 through AC3 until those observations run.
 rel00.0-uc001-guided-agent-architecture
 
 <!-- field: id -->
-#### Id
+#### ID
 
 managed_service_contract
 
@@ -269,32 +259,31 @@ bounded launch, readiness, failure, interrupt, and listener-release checks
 
 dependency_gated
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-services:
-    - documentation-curator
-    - Go present
-shared_contract: srd002-managed-application-services
-applicable_requirement_groups: [R1, R2, R3]
-```
+- services:
+  1. documentation-curator
+  1. Go present
+- shared_contract: srd002-managed-application-services
+- applicable_requirement_groups:
+  1. R1
+  1. R2
+  1. R3
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-deterministic_service_classification: true
-deterministic_operator_contract: true
-curator_role_readiness_observation: dependency_gated
-curator_declared_exit_observation: dependency_gated
-present_http_readiness_observation: dependency_gated
-present_interrupt_release_observation: dependency_gated
-process_existence_used_as_readiness: false
-packaged_capability_inferred: false
-helm_capability_inferred: false
-kind_capability_inferred: false
-```
+- deterministic_service_classification: true
+- deterministic_operator_contract: true
+- curator_role_readiness_observation: dependency_gated
+- curator_declared_exit_observation: dependency_gated
+- present_http_readiness_observation: dependency_gated
+- present_interrupt_release_observation: dependency_gated
+- process_existence_used_as_readiness: false
+- packaged_capability_inferred: false
+- helm_capability_inferred: false
+- kind_capability_inferred: false
 
 <!-- field: traces -->
 #### Traces
@@ -321,7 +310,7 @@ the application composition fields and no agents section.
 rel00.0-uc001-guided-agent-architecture
 
 <!-- field: id -->
-#### Id
+#### ID
 
 application_contract
 
@@ -340,28 +329,24 @@ mage audit
 
 mage stats
 
-<!-- field: inputs -->
+<!-- field: inputs | form: "tree" -->
 #### Inputs
 
-```yaml
-documentation_yaml: docs/VISION.md, docs/ARCHITECTURE.md, docs/road-map.md, docs/SPECIFICATIONS.md, the indexed use case, and the indexed test suite
-lifecycle_yaml: ../catalog/agents/lifecycle-exit/profile.yaml, ../catalog/agents/lifecycle-exit/machine.yaml, and ../catalog/agents/lifecycle-exit/rest.yaml are inspected by lifecycle_exit_contract
-canonical_profile_owner: applications/catalog
-expected_canonical_references: 2
-```
+- documentation_yaml: docs/VISION.md, docs/ARCHITECTURE.md, docs/road-map.md, docs/SPECIFICATIONS.md, the indexed use case, and the indexed test suite
+- lifecycle_yaml: ../catalog/agents/lifecycle-exit/profile.yaml, ../catalog/agents/lifecycle-exit/machine.yaml, and ../catalog/agents/lifecycle-exit/rest.yaml are inspected by lifecycle_exit_contract
+- canonical_profile_owner: applications/catalog
+- expected_canonical_references: 2
 
-<!-- field: expected -->
+<!-- field: expected | form: "tree" -->
 #### Expected
 
-```yaml
-yaml_parse_errors: 0
-reciprocal_use_case_traces: true
-portable_paths: true
-ownership: composition-only
-agents_contributed: 0
-canonical_references: 2
-agents_section_present: false
-```
+- yaml_parse_errors: 0
+- reciprocal_use_case_traces: true
+- portable_paths: true
+- ownership: composition-only
+- agents_contributed: 0
+- canonical_references: 2
+- agents_section_present: false
 
 <!-- field: traces -->
 #### Traces

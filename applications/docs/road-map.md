@@ -13,38 +13,36 @@ module obligations from managed-service, package, Helm, and kind-demo
 capabilities, and connect the contract to current executable structural
 evidence.
 
-<!-- field: implementation_evidence -->
+<!-- field: implementation_evidence | form: "tree" -->
 ### Implementation evidence
 
-```yaml
-- path: magefiles/example_modules_test.go
-  proves: Runnable application paths and root audit, test, and stats participation are executable checks.
-- path: magefiles/stats_test.go
-  proves: Root agent totals sum canonical agents sections and ignore composition-only sections.
-- path: applications/coding-agent/magefiles/stats_test.go
-  proves: A composition-only application reports references without contributing duplicate agents.
-- path: applications/chatbot-mesh/magefiles/agent_stats_test.go
-  proves: An agent-owning application separates local implementations from canonical wrappers.
-- path: applications/chatbot-mesh/magefiles/magefile.go
-  proves: The chatbot-mesh application owns an executable audit gate.
-- path: applications/coding-agent/magefiles/magefile.go
-  proves: The coding-agent application owns an executable audit gate.
-- path: applications/agent-architecture/magefiles/magefile.go
-  proves: The demo owns executable audit and composition-only stats targets.
-- path: applications/agent-architecture/magefiles/magefile_test.go
-  proves: |
-    The demo's runnable composition, canonical reference, reciprocal
-    traces, and zero-agent accounting have deterministic tests; its live
-    managed-service observations remain dependency-gated.
-- path: magefiles/build.go
-  proves: Root audit, test, stats, and release lists register all three runnable applications.
-- path: magefiles/stats_test.go
-  proves: |
-    Root accounting accepts the demo's application section without an
-    agents section and retains 15 canonical agents.
-- path: docs/engineering/eng01-kind-test-demo-rig.md
-  proves: kind-demo obligations have one referenced engineering contract.
-```
+1. - path: magefiles/example_modules_test.go
+   - proves: Runnable application paths and root audit, test, and stats participation are executable checks.
+1. - path: magefiles/stats_test.go
+   - proves: Root agent totals sum canonical agents sections and ignore composition-only sections.
+1. - path: applications/coding-agent/magefiles/stats_test.go
+   - proves: A composition-only application reports references without contributing duplicate agents.
+1. - path: applications/chatbot-mesh/magefiles/agent_stats_test.go
+   - proves: An agent-owning application separates local implementations from canonical wrappers.
+1. - path: applications/chatbot-mesh/magefiles/magefile.go
+   - proves: The chatbot-mesh application owns an executable audit gate.
+1. - path: applications/coding-agent/magefiles/magefile.go
+   - proves: The coding-agent application owns an executable audit gate.
+1. - path: applications/agent-architecture/magefiles/magefile.go
+   - proves: The demo owns executable audit and composition-only stats targets.
+1. - path: applications/agent-architecture/magefiles/magefile_test.go
+   - proves:
+     The demo's runnable composition, canonical reference, reciprocal
+     traces, and zero-agent accounting have deterministic tests; its live
+     managed-service observations remain dependency-gated.
+1. - path: magefiles/build.go
+   - proves: Root audit, test, stats, and release lists register all three runnable applications.
+1. - path: magefiles/stats_test.go
+   - proves:
+     Root accounting accepts the demo's application section without an
+     agents section and retains 15 canonical agents.
+1. - path: docs/engineering/eng01-kind-test-demo-rig.md
+   - proves: kind-demo obligations have one referenced engineering contract.
 
 <!-- field: srds -->
 ### Srds
@@ -66,36 +64,23 @@ evidence.
 | --- | --- | --- |
 | test-rel00.0-application-contract-conformance | Parse shared YAML, verify reciprocal traces, run root orchestration/accounting tests, and invoke current application evidence. | implemented |
 
-<!-- field: applicability -->
+<!-- field: applicability | form: "tree" -->
 ### Applicability
 
-```yaml
-baseline: Every runnable application.
-managed_service: Only applications with application-owned long-running services.
-packaged: Only applications that produce distributable artifacts.
-helm_managed: Only applications that ship a Helm chart.
-kind_demo: Only applications that ship a kind integration or demo; ENG01 applies.
-```
+- baseline: Every runnable application.
+- managed_service: Only applications with application-owned long-running services.
+- packaged: Only applications that produce distributable artifacts.
+- helm_managed: Only applications that ship a Helm chart.
+- kind_demo: Only applications that ship a kind integration or demo; ENG01 applies.
 
-<!-- field: current_applications -->
+<!-- field: current_applications | form: "typed table" -->
 ### Current applications
 
-```yaml
-- path: applications/chatbot-mesh
-  ownership: agent-owning
-  runnable_module: implemented
-- path: applications/coding-agent
-  ownership: composition-only
-  runnable_module: implemented
-- path: applications/agent-architecture
-  ownership: composition-only
-  runnable_module: implemented
-  managed_service: partial
-  live_managed_service_evidence: dependency_gated
-  packaged: planned
-  helm_managed: planned
-  kind_demo: planned
-```
+| path | ownership | runnable_module | managed_service | live_managed_service_evidence | packaged | helm_managed | kind_demo |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| applications/chatbot-mesh | agent-owning | implemented |  |  |  |  |  |
+| applications/coding-agent | composition-only | implemented |  |  |  |  |  |
+| applications/agent-architecture | composition-only | implemented | partial | dependency_gated | planned | planned | planned |
 
 <!-- field: non_runnable_modules -->
 ### Non runnable modules
@@ -112,39 +97,36 @@ authority while preserving canonical implementation ownership. The shared
 semantic model lands first; executable binding governance and profile
 migrations follow without rewriting historical releases.
 
-<!-- field: dependencies -->
+<!-- field: dependencies | form: "tree" -->
 ### Dependencies
 
-```yaml
-- id: catalog-release-07.1
-  status: in-progress
-  reason: Preserve and update incomplete per-family boundary evidence during migration.
-- id: catalog-release-11.0
-  status: in-progress
-  reason: Preserve assembler-rig evidence while resolving its canonical-name collision.
-- id: gh-1076-semantic-model
-  status: implemented
-  reason: Defines pinned role authority, classifications, inheritance, and aliases.
-- id: gh-1074-binding-validation
-  status: implemented
-  reason: |
-    Deterministic root-audit and catalog-conformance tests validate profile
-    inventory, classifications, role/sub-role bindings, inheritance,
-    aliases, repeated bindings, and canonical-name collisions.
-```
+1. - id: catalog-release-07.1
+   - status: in-progress
+   - reason: Preserve and update incomplete per-family boundary evidence during migration.
+1. - id: catalog-release-11.0
+   - status: in-progress
+   - reason: Preserve assembler-rig evidence while resolving its canonical-name collision.
+1. - id: gh-1076-semantic-model
+   - status: implemented
+   - reason: Defines pinned role authority, classifications, inheritance, and aliases.
+1. - id: gh-1074-binding-validation
+   - status: implemented
+   - reason:
+     Deterministic root-audit and catalog-conformance tests validate profile
+     inventory, classifications, role/sub-role bindings, inheritance,
+     aliases, repeated bindings, and canonical-name collisions.
 
-<!-- field: use_cases -->
+<!-- field: use_cases | form: "tree" -->
 ### Use cases
 
-```yaml
-- id: rel12.0-uc001-agent-role-realization-alignment
-  summary: |
-    Classify each shipped profile, validate many-to-many role bindings and
-    wrapper inheritance, and migrate incompatible canonical-name collisions
-    through versioned aliases.
-  status: implemented
-  semantic_models: [sm-agent-role-realizations]
-```
+1. - id: rel12.0-uc001-agent-role-realization-alignment
+   - summary:
+     Classify each shipped profile, validate many-to-many role bindings and
+     wrapper inheritance, and migrate incompatible canonical-name collisions
+     through versioned aliases.
+   - status: implemented
+   - semantic_models:
+     1. sm-agent-role-realizations
 
 <!-- field: implementation_sequence -->
 ### Implementation sequence
@@ -154,41 +136,37 @@ migrations follow without rewriting historical releases.
 - Migrate Critic realizations and catalog canonical-name collisions.
 - Coordinate release aliases, consumers, packaging closures, and migration evidence.
 
-<!-- field: release -->
+<!-- field: release | form: "tree" -->
 ### Release
 
-```yaml
-canonical_catalog: applications/catalog/v0.20260727.0
-legacy_alias: agent-profiles/v0.20260727.0
-publication: post-merge from clean main through mage tag
-```
+- canonical_catalog: applications/catalog/v0.20260727.0
+- legacy_alias: agent-profiles/v0.20260727.0
+- publication: post-merge from clean main through mage tag
 
-<!-- field: implementation_evidence -->
+<!-- field: implementation_evidence | form: "tree" -->
 ### Implementation evidence
 
-```yaml
-- path: magefiles/agent_role_realizations_test.go
-  proves: |
-    All repository application profiles are discovered deterministically
-    and checked against the shared role, classification, binding,
-    inheritance, exclusion, path, and alias authority.
-- path: applications/catalog/conformance/family_inventory_test.go
-  proves: Catalog family inventory consumes shared actor classifications instead of treating every family as a canonical role.
-- path: applications/catalog/conformance/membership_contract_test.go
-  proves: Catalog test-time members and incompatible historical aliases retain their documented realization semantics.
-- path: magefiles/audit.go
-  proves: Root mage audit executes the actor-role realization validator before module audits.
-- path: applications/catalog/docs/migrations/v0.20260727.0-agent-role-realization-alignment.md
-  proves: Every rename has an old-to-new path or identity entry, compatibility mechanism and duration, consumer pin, and post-merge publication boundary.
-- path: applications/catalog/conformance/release_alignment_test.go
-  proves: Exact release metadata, consumer pins, migration coverage, and scoped zero-hit policy are executable.
-- path: applications/coding-agent/magefiles/profiles_closure_test.go
-  proves: The coding application pins the alignment release and packages every canonical transitive profile asset.
-- path: applications/chatbot-mesh/magefiles/helm_package_test.go
-  proves: The chart records the catalog pin and its generated archive contains canonical renamed paths without stale coordinator artifacts.
-- path: magefiles/tag_test.go
-  proves: The root release creates the exact canonical catalog and legacy compatibility pair atomically without feature-branch publication.
-```
+1. - path: magefiles/agent_role_realizations_test.go
+   - proves:
+     All repository application profiles are discovered deterministically
+     and checked against the shared role, classification, binding,
+     inheritance, exclusion, path, and alias authority.
+1. - path: applications/catalog/conformance/family_inventory_test.go
+   - proves: Catalog family inventory consumes shared actor classifications instead of treating every family as a canonical role.
+1. - path: applications/catalog/conformance/membership_contract_test.go
+   - proves: Catalog test-time members and incompatible historical aliases retain their documented realization semantics.
+1. - path: magefiles/audit.go
+   - proves: Root mage audit executes the actor-role realization validator before module audits.
+1. - path: applications/catalog/docs/migrations/v0.20260727.0-agent-role-realization-alignment.md
+   - proves: Every rename has an old-to-new path or identity entry, compatibility mechanism and duration, consumer pin, and post-merge publication boundary.
+1. - path: applications/catalog/conformance/release_alignment_test.go
+   - proves: Exact release metadata, consumer pins, migration coverage, and scoped zero-hit policy are executable.
+1. - path: applications/coding-agent/magefiles/profiles_closure_test.go
+   - proves: The coding application pins the alignment release and packages every canonical transitive profile asset.
+1. - path: applications/chatbot-mesh/magefiles/helm_package_test.go
+   - proves: The chart records the catalog pin and its generated archive contains canonical renamed paths without stale coordinator artifacts.
+1. - path: magefiles/tag_test.go
+   - proves: The root release creates the exact canonical catalog and legacy compatibility pair atomically without feature-branch publication.
 
 <!-- release: 13.0 | status: implemented -->
 ## 13.0 - Multi-agent application vision
@@ -207,28 +185,26 @@ shared capability contract.
 | gh-1076-semantic-model | implemented | Defines canonical roles as semantic interfaces and records actor/profile realizations. |
 | application-composition-pattern-language | implemented | Supplies the construction patterns referenced by the root guide. |
 
-<!-- field: implementation_evidence -->
+<!-- field: implementation_evidence | form: "tree" -->
 ### Implementation evidence
 
-```yaml
-- path: applications/docs/VISION.md
-  proves: |
-    The canonical vision records the multi-agent thesis, both operating
-    flows, human boundary, six-step construction sequence, retained
-    capability contract, and pinned conceptual-source provenance.
-- path: applications/README.md
-  proves: |
-    A root reader can determine why and when to use several actors and
-    follow the ordered scenario-to-evidence construction guide.
-- path: applications/docs/ARCHITECTURE.md
-  proves: The project index assigns the revised VISION and README responsibilities and records implementation status.
-- path: applications/docs/SPECIFICATIONS.md
-  proves: The foundation index names and summarizes the broadened canonical vision.
-- path: applications/docs/specs/semantic-models/agent-role-realizations.md
-  proves: Canonical roles, actor/profile realizations, inheritance, and ownership boundaries remain machine-readable.
-- path: applications/docs/pattern-language.md
-  proves: Canonical reuse, composition, package closure, profile-free runtime, wrappers, and workload boundaries have construction patterns.
-```
+1. - path: applications/docs/VISION.md
+   - proves:
+     The canonical vision records the multi-agent thesis, both operating
+     flows, human boundary, six-step construction sequence, retained
+     capability contract, and pinned conceptual-source provenance.
+1. - path: applications/README.md
+   - proves:
+     A root reader can determine why and when to use several actors and
+     follow the ordered scenario-to-evidence construction guide.
+1. - path: applications/docs/ARCHITECTURE.md
+   - proves: The project index assigns the revised VISION and README responsibilities and records implementation status.
+1. - path: applications/docs/SPECIFICATIONS.md
+   - proves: The foundation index names and summarizes the broadened canonical vision.
+1. - path: applications/docs/specs/semantic-models/agent-role-realizations.md
+   - proves: Canonical roles, actor/profile realizations, inheritance, and ownership boundaries remain machine-readable.
+1. - path: applications/docs/pattern-language.md
+   - proves: Canonical reuse, composition, package closure, profile-free runtime, wrappers, and workload boundaries have construction patterns.
 
 <!-- release: 14.0 | status: implemented -->
 ## 14.0 - Application consistency and conformance
@@ -260,117 +236,97 @@ gh-1414-normalize-showcase-applications
 
 - srd003-application-consistency
 
-<!-- field: use_cases -->
+<!-- field: use_cases | form: "tree" -->
 ### Use cases
 
-```yaml
-- id: rel14.0-uc001-application-consistency
-  summary: |
-    Normalize and verify one showcase application while preserving
-    capability gating, ownership, and truthful audit-only or runnable status.
-  status: implemented
-```
+1. - id: rel14.0-uc001-application-consistency
+   - summary:
+     Normalize and verify one showcase application while preserving
+     capability gating, ownership, and truthful audit-only or runnable status.
+   - status: implemented
 
-<!-- field: test_suites -->
+<!-- field: test_suites | form: "tree" -->
 ### Test suites
 
-```yaml
-- id: test-rel14.0-application-consistency
-  summary: |
-    Parse and trace shared documents, then validate manifests, actor
-    grammar, package derivation, UI tokens, README/status agreement, the
-    three-application matrix, and root audit.
-  status: implemented
-  implemented_cases: [TC1, TC2, TC3, TC4, TC5, TC6, TC7, TC8]
-  planned_cases: []
-```
+1. - id: test-rel14.0-application-consistency
+   - summary:
+     Parse and trace shared documents, then validate manifests, actor
+     grammar, package derivation, UI tokens, README/status agreement, the
+     three-application matrix, and root audit.
+   - status: implemented
+   - implemented_cases:
+     1. TC1
+     1. TC2
+     1. TC3
+     1. TC4
+     1. TC5
+     1. TC6
+     1. TC7
+     1. TC8
+   - planned_cases: []
 
-<!-- field: implementation_sequence -->
+<!-- field: implementation_sequence | form: "typed table" -->
 ### Implementation sequence
 
-```yaml
-- order: 1
-  action: Specify the shared SRD, use case, suite, architecture, roadmap, index, and root guide.
-  status: implemented
-- order: 2
-  action: Add shared manifest and application-layout validation without requiring optional surfaces.
-  status: implemented
-- order: 3
-  action: Normalize Chatbot Mesh actor roots, manifest, deployment entries, UIs, and shared-token consumption.
-  status: implemented
-- order: 4
-  action: Normalize Coding Agent manifest, actor variants, ownership, and manifest-derived packaging.
-  status: implemented
-- order: 5
-  action: Normalize Agent Architecture manifest, applier ownership, package/UI roots, and stale capability status.
-  status: implemented
-- order: 6
-  action: Run the full Release 14.0 suite and close only evidence-backed capability states.
-  status: implemented
-```
+| order | action | status |
+| --- | --- | --- |
+| 1 | Specify the shared SRD, use case, suite, architecture, roadmap, index, and root guide. | implemented |
+| 2 | Add shared manifest and application-layout validation without requiring optional surfaces. | implemented |
+| 3 | Normalize Chatbot Mesh actor roots, manifest, deployment entries, UIs, and shared-token consumption. | implemented |
+| 4 | Normalize Coding Agent manifest, actor variants, ownership, and manifest-derived packaging. | implemented |
+| 5 | Normalize Agent Architecture manifest, applier ownership, package/UI roots, and stale capability status. | implemented |
+| 6 | Run the full Release 14.0 suite and close only evidence-backed capability states. | implemented |
 
-<!-- field: current_application_evidence -->
+<!-- field: current_application_evidence | form: "tree" -->
 ### Current application evidence
 
-```yaml
-- path: applications/chatbot-mesh
-  module_state: runnable
-  ownership: agent-owning
-  release_14_status: implemented
-  note: |
-    The manifest, package closure, local actors, two composition wrappers,
-    deployment entries, and canonical token imports have executable checks.
-- path: applications/coding-agent
-  module_state: runnable
-  ownership: composition-only
-  release_14_status: implemented
-  note: |
-    Local planner, executor, critic, and applier profiles are composition
-    wrappers; canonical implementations remain catalog-owned and stats
-    contribute zero agents.
-- path: applications/agent-architecture
-  module_state: runnable
-  ownership: composition-only
-  release_14_status: implemented
-  note: |
-    Canonical curator, collector, lifecycle-exit, and applier behavior
-    remains catalog-owned. The local applier is one composition wrapper,
-    and package/UI assets derive from the manifest.
-```
+1. - path: applications/chatbot-mesh
+   - module_state: runnable
+   - ownership: agent-owning
+   - release_14_status: implemented
+   - note:
+     The manifest, package closure, local actors, two composition wrappers,
+     deployment entries, and canonical token imports have executable checks.
+1. - path: applications/coding-agent
+   - module_state: runnable
+   - ownership: composition-only
+   - release_14_status: implemented
+   - note:
+     Local planner, executor, critic, and applier profiles are composition
+     wrappers; canonical implementations remain catalog-owned and stats
+     contribute zero agents.
+1. - path: applications/agent-architecture
+   - module_state: runnable
+   - ownership: composition-only
+   - release_14_status: implemented
+   - note:
+     Canonical curator, collector, lifecycle-exit, and applier behavior
+     remains catalog-owned. The local applier is one composition wrapper,
+     and package/UI assets derive from the manifest.
 
-<!-- field: evidence_status -->
+<!-- field: evidence_status | form: "tree" -->
 ### Evidence status
 
-```yaml
-shared_documents: implemented
-reciprocal_traceability: implemented
-yaml_parse_case: implemented
-current_root_audit: implemented
-cross_application_manifest_validation: implemented
-application_normalization: implemented
-```
+- shared_documents: implemented
+- reciprocal_traceability: implemented
+- yaml_parse_case: implemented
+- current_root_audit: implemented
+- cross_application_manifest_validation: implemented
+- application_normalization: implemented
 
-<!-- field: implementation_evidence -->
+<!-- field: implementation_evidence | form: "typed table" -->
 ### Implementation evidence
 
-```yaml
-- path: applications/docs/specs/software-requirements/srd003-application-consistency.md
-  proves: Numbered capability-aware composition consistency requirements and acceptance criteria.
-- path: applications/docs/specs/use-cases/rel14.0-uc001-application-consistency.md
-  proves: Three-application flow and ownership touchpoints.
-- path: applications/docs/specs/test-suites/test-rel14.0-application-consistency.md
-  proves: Requirement-to-AC-to-flow-to-test coverage and eight executable cases.
-- path: applications/docs/ARCHITECTURE.md
-  proves: Normalized authority, ownership components, decisions, target structure, and status.
-- path: applications/docs/SPECIFICATIONS.md
-  proves: Reciprocal SRD, use-case, suite, and coverage-gap indexes.
-- path: applications/README.md
-  proves: Capability-gated directory guidance and truthful current classifications.
-- command: mage audit
-  proves: Repository documentation, ownership, application audit, and root classification gates remain green.
-- command: cd magefiles && go test -run 'Test(ApplicationConsistency|ApplicationActor|ManifestDerived|ApplicationPromotion|ApplicationReadme|Release14)'
-  proves: Cross-application Release 14 manifests, grammar, package assets, promotion, tokens, statuses, and matrix remain executable.
-```
+| path | command | proves |
+| --- | --- | --- |
+| applications/docs/specs/software-requirements/srd003-application-consistency.md |  | Numbered capability-aware composition consistency requirements and acceptance criteria. |
+| applications/docs/specs/use-cases/rel14.0-uc001-application-consistency.md |  | Three-application flow and ownership touchpoints. |
+| applications/docs/specs/test-suites/test-rel14.0-application-consistency.md |  | Requirement-to-AC-to-flow-to-test coverage and eight executable cases. |
+| applications/docs/ARCHITECTURE.md |  | Normalized authority, ownership components, decisions, target structure, and status. |
+| applications/docs/SPECIFICATIONS.md |  | Reciprocal SRD, use-case, suite, and coverage-gap indexes. |
+| applications/README.md |  | Capability-gated directory guidance and truthful current classifications. |
+|  | mage audit | Repository documentation, ownership, application audit, and root classification gates remain green. |
+|  | cd magefiles && go test -run 'Test(ApplicationConsistency\|ApplicationActor\|ManifestDerived\|ApplicationPromotion\|ApplicationReadme\|Release14)' | Cross-application Release 14 manifests, grammar, package assets, promotion, tokens, statuses, and matrix remain executable. |
 
 <!-- release: 15.0 | status: implemented -->
 ## 15.0 - Declarative UX
@@ -398,54 +354,47 @@ gh-2154-declarative-ux
 
 - srd004-declarative-ux
 
-<!-- field: use_cases -->
+<!-- field: use_cases | form: "tree" -->
 ### Use cases
 
-```yaml
-- id: rel15.0-uc001-declarative-ux
-  summary: |
-    Compose an application UI from ui.yaml, kit panels, and domain panels,
-    and serve the observer UI from an embedded bundle.
-  status: implemented
-```
+1. - id: rel15.0-uc001-declarative-ux
+   - summary:
+     Compose an application UI from ui.yaml, kit panels, and domain panels,
+     and serve the observer UI from an embedded bundle.
+   - status: implemented
 
-<!-- field: test_suites -->
+<!-- field: test_suites | form: "tree" -->
 ### Test suites
 
-```yaml
-- id: test-rel15.0-declarative-ux
-  summary: |
-    Trace the release documents, then verify the kit client, fixtures,
-    panels, shell, ui.yaml version 2, token ownership, embedded bundle,
-    and the absence of duplicated UI code.
-  status: implemented
-  implemented_cases: [TC1, TC2, TC3, TC4, TC5, TC6, TC7, TC8, TC9]
-  planned_cases: []
-```
+1. - id: test-rel15.0-declarative-ux
+   - summary:
+     Trace the release documents, then verify the kit client, fixtures,
+     panels, shell, ui.yaml version 2, token ownership, embedded bundle,
+     and the absence of duplicated UI code.
+   - status: implemented
+   - implemented_cases:
+     1. TC1
+     1. TC2
+     1. TC3
+     1. TC4
+     1. TC5
+     1. TC6
+     1. TC7
+     1. TC8
+     1. TC9
+   - planned_cases: []
 
-<!-- field: implementation_sequence -->
+<!-- field: implementation_sequence | form: "typed table" -->
 ### Implementation sequence
 
-```yaml
-- order: 1
-  action: Specify srd004, the use case, the suite, and the index entries (GH-2155).
-  status: implemented
-- order: 2
-  action: Scaffold the kit, move tokens, and add the client, fixtures, shell primitives, and hooks (GH-2156; GH-2259 to GH-2262).
-  status: implemented
-- order: 3
-  action: Extract the kit panels as a best-of merge (GH-2157; GH-2263 to GH-2266).
-  status: implemented
-- order: 4
-  action: Serve the observer from an embedded bundle and delete its UI tree (GH-2158; GH-2267 to GH-2269).
-  status: implemented
-- order: 5
-  action: Validate ui.yaml version 2 and run the chatbot-mesh chatbot on the generic shell (GH-2159; GH-2270 to GH-2272).
-  status: implemented
-- order: 6
-  action: Migrate the remaining monorepo UIs, add the duplication sweep, and version the kit 1.0.0 (GH-2160; GH-2273 to GH-2275).
-  status: implemented
-```
+| order | action | status |
+| --- | --- | --- |
+| 1 | Specify srd004, the use case, the suite, and the index entries (GH-2155). | implemented |
+| 2 | Scaffold the kit, move tokens, and add the client, fixtures, shell primitives, and hooks (GH-2156; GH-2259 to GH-2262). | implemented |
+| 3 | Extract the kit panels as a best-of merge (GH-2157; GH-2263 to GH-2266). | implemented |
+| 4 | Serve the observer from an embedded bundle and delete its UI tree (GH-2158; GH-2267 to GH-2269). | implemented |
+| 5 | Validate ui.yaml version 2 and run the chatbot-mesh chatbot on the generic shell (GH-2159; GH-2270 to GH-2272). | implemented |
+| 6 | Migrate the remaining monorepo UIs, add the duplication sweep, and version the kit 1.0.0 (GH-2160; GH-2273 to GH-2275). | implemented |
 
 <!-- field: implementation_evidence -->
 ### Implementation evidence
@@ -483,72 +432,62 @@ gh-2047-chart-conformance
 
 - srd005-chart-conformance
 
-<!-- field: use_cases -->
+<!-- field: use_cases | form: "tree" -->
 ### Use cases
 
-```yaml
-- id: rel16.0-uc001-chart-conformance
-  summary: |
-    An engineer adds a workload whose image floats, the audit fails
-    naming the chart, the overlay, the resource and the rule, and the
-    exception baseline carries what must stand.
-  status: implemented
-```
+1. - id: rel16.0-uc001-chart-conformance
+   - summary:
+     An engineer adds a workload whose image floats, the audit fails
+     naming the chart, the overlay, the resource and the rule, and the
+     exception baseline carries what must stand.
+   - status: implemented
 
-<!-- field: test_suites -->
+<!-- field: test_suites | form: "tree" -->
 ### Test suites
 
-```yaml
-- id: test-rel16.0-chart-conformance
-  summary: |
-    Trace the release documents, then verify render coverage, each
-    numbered rule, the baseline's three behaviours, the shape of a
-    finding, and the pinning of the seeded violations.
-  status: planned
-  implemented_cases: [TC1, TC2, TC3, TC4, TC5, TC6, TC7, TC8, TC9, TC10]
-  planned_cases: []
-```
+1. - id: test-rel16.0-chart-conformance
+   - summary:
+     Trace the release documents, then verify render coverage, each
+     numbered rule, the baseline's three behaviours, the shape of a
+     finding, and the pinning of the seeded violations.
+   - status: planned
+   - implemented_cases:
+     1. TC1
+     1. TC2
+     1. TC3
+     1. TC4
+     1. TC5
+     1. TC6
+     1. TC7
+     1. TC8
+     1. TC9
+     1. TC10
+   - planned_cases: []
 
-<!-- field: implementation_sequence -->
+<!-- field: implementation_sequence | form: "typed table" -->
 ### Implementation sequence
 
-```yaml
-- order: 1
-  action: Add the ENG01 rule table and specify srd005, the use case, the suite, and the index entries (GH-2407).
-  status: planned
-- order: 2
-  action: Add the chart conformance module, its exception baseline, and the root audit wiring (GH-2408).
-  status: implemented
-- order: 3
-  action: Pin the floating image tags and shrink the baseline (GH-2409).
-  status: implemented
-```
+| order | action | status |
+| --- | --- | --- |
+| 1 | Add the ENG01 rule table and specify srd005, the use case, the suite, and the index entries (GH-2407). | planned |
+| 2 | Add the chart conformance module, its exception baseline, and the root audit wiring (GH-2408). | implemented |
+| 3 | Pin the floating image tags and shrink the baseline (GH-2409). | implemented |
 
-<!-- field: implementation_evidence -->
+<!-- field: implementation_evidence | form: "typed table" -->
 ### Implementation evidence
 
-```yaml
-- path: docs/engineering/eng01-kind-test-demo-rig.md
-  proves: Numbered chart conformance rules C1 through C6 and the exception-baseline contract.
-- path: applications/docs/specs/software-requirements/srd005-chart-conformance.md
-  proves: Numbered rendering, pinning, policy, service, readiness, baseline, and reporting requirements.
-- path: applications/docs/specs/use-cases/rel16.0-uc001-chart-conformance.md
-  proves: The flow from a changed chart to a named finding to a shrinking baseline.
-- path: applications/docs/specs/test-suites/test-rel16.0-chart-conformance.md
-  proves: Requirement-to-AC-to-test coverage with every case executable.
-- path: applications/charts/agent-services/templates/_naming.tpl
-  proves: One helper renders every image reference and appends the digest the values pin.
-- command: cd applications/chatbot-mesh && mage integration:helmSmoke
-  proves: The mesh installs and serves on the pinned images against a real cluster, Dolt metrics included.
-- path: magefiles/chartconf/
-  proves: Every numbered rule, the shrink-only baseline, and the shape of a finding, checked from rendered YAML without helm.
-- path: magefiles/chart_conformance_test.go
-  proves: Every chart rendered under its defaults and each checked-in overlay, every kind configuration read, and the baseline reconciled.
-- path: magefiles/chartconf/baseline.yaml
-  proves: The fifty violations the charts carried when the gate first ran, each naming GH-2409.
-- command: cd magefiles && go test . -run TestChartConformance
-  proves: The gate passes against the seeded baseline and fails on an unlisted or a stale entry.
-```
+| path | command | proves |
+| --- | --- | --- |
+| docs/engineering/eng01-kind-test-demo-rig.md |  | Numbered chart conformance rules C1 through C6 and the exception-baseline contract. |
+| applications/docs/specs/software-requirements/srd005-chart-conformance.md |  | Numbered rendering, pinning, policy, service, readiness, baseline, and reporting requirements. |
+| applications/docs/specs/use-cases/rel16.0-uc001-chart-conformance.md |  | The flow from a changed chart to a named finding to a shrinking baseline. |
+| applications/docs/specs/test-suites/test-rel16.0-chart-conformance.md |  | Requirement-to-AC-to-test coverage with every case executable. |
+| applications/charts/agent-services/templates/_naming.tpl |  | One helper renders every image reference and appends the digest the values pin. |
+|  | cd applications/chatbot-mesh && mage integration:helmSmoke | The mesh installs and serves on the pinned images against a real cluster, Dolt metrics included. |
+| magefiles/chartconf/ |  | Every numbered rule, the shrink-only baseline, and the shape of a finding, checked from rendered YAML without helm. |
+| magefiles/chart_conformance_test.go |  | Every chart rendered under its defaults and each checked-in overlay, every kind configuration read, and the baseline reconciled. |
+| magefiles/chartconf/baseline.yaml |  | The fifty violations the charts carried when the gate first ran, each naming GH-2409. |
+|  | cd magefiles && go test . -run TestChartConformance | The gate passes against the seeded baseline and fails on an unlisted or a stale entry. |
 
 <!-- release: 17.0 | status: implemented -->
 ## 17.0 - Pin currency report
@@ -576,64 +515,57 @@ gh-2049-pin-currency
 
 - srd006-pin-currency
 
-<!-- field: use_cases -->
+<!-- field: use_cases | form: "tree" -->
 ### Use cases
 
-```yaml
-- id: rel17.0-uc001-pin-currency
-  summary: |
-    An operator runs the bump target, reads which pins moved and which
-    aged, and edits the ones they choose to take.
-  status: implemented
-```
+1. - id: rel17.0-uc001-pin-currency
+   - summary:
+     An operator runs the bump target, reads which pins moved and which
+     aged, and edits the ones they choose to take.
+   - status: implemented
 
-<!-- field: test_suites -->
+<!-- field: test_suites | form: "tree" -->
 ### Test suites
 
-```yaml
-- id: test-rel17.0-pin-currency
-  summary: |
-    Trace the release documents, then verify the derived and declared
-    inventory, both verdicts, version comparison, the unknown case, and
-    that the target writes nothing.
-  status: implemented
-  implemented_cases: [TC1, TC2, TC3, TC4, TC5, TC6, TC7, TC8, TC9]
-  planned_cases: []
-```
+1. - id: test-rel17.0-pin-currency
+   - summary:
+     Trace the release documents, then verify the derived and declared
+     inventory, both verdicts, version comparison, the unknown case, and
+     that the target writes nothing.
+   - status: implemented
+   - implemented_cases:
+     1. TC1
+     1. TC2
+     1. TC3
+     1. TC4
+     1. TC5
+     1. TC6
+     1. TC7
+     1. TC8
+     1. TC9
+   - planned_cases: []
 
-<!-- field: implementation_sequence -->
+<!-- field: implementation_sequence | form: "typed table" -->
 ### Implementation sequence
 
-```yaml
-- order: 1
-  action: Add the ENG01 pin currency section and the bump verb, and specify srd006, the use case, the suite, and the index entries (GH-2415).
-  status: planned
-- order: 2
-  action: Add the pin survey, its registry client, the declared pin list, and the bump target (GH-2416).
-  status: implemented
-```
+| order | action | status |
+| --- | --- | --- |
+| 1 | Add the ENG01 pin currency section and the bump verb, and specify srd006, the use case, the suite, and the index entries (GH-2415). | planned |
+| 2 | Add the pin survey, its registry client, the declared pin list, and the bump target (GH-2416). | implemented |
 
-<!-- field: implementation_evidence -->
+<!-- field: implementation_evidence | form: "typed table" -->
 ### Implementation evidence
 
-```yaml
-- path: docs/engineering/eng01-kind-test-demo-rig.md
-  proves: The integrity and currency properties, and the bump verb's report-never-mutate contract.
-- path: applications/docs/specs/software-requirements/srd006-pin-currency.md
-  proves: Numbered inventory, integrity, currency, no-write, unknown, and reporting requirements.
-- path: applications/docs/specs/use-cases/rel17.0-uc001-pin-currency.md
-  proves: The flow from one command to a decision the operator takes.
-- path: applications/docs/specs/test-suites/test-rel17.0-pin-currency.md
-  proves: Requirement-to-AC-to-test coverage with every case executable.
-- path: magefiles/pinsurvey/
-  proves: The distribution client, both verdicts, version comparison, and the inventory's two halves.
-- path: magefiles/pinsurvey/pins.yaml
-  proves: The pins no render exposes, each naming the file and symbol that holds it.
-- path: magefiles/bump.go
-  proves: The target joining both halves, skipping images this checkout produces, and reporting without writing.
-- command: mage bump
-  proves: Eleven pins resolved against their registries with no moved pin and no unknown.
-```
+| path | command | proves |
+| --- | --- | --- |
+| docs/engineering/eng01-kind-test-demo-rig.md |  | The integrity and currency properties, and the bump verb's report-never-mutate contract. |
+| applications/docs/specs/software-requirements/srd006-pin-currency.md |  | Numbered inventory, integrity, currency, no-write, unknown, and reporting requirements. |
+| applications/docs/specs/use-cases/rel17.0-uc001-pin-currency.md |  | The flow from one command to a decision the operator takes. |
+| applications/docs/specs/test-suites/test-rel17.0-pin-currency.md |  | Requirement-to-AC-to-test coverage with every case executable. |
+| magefiles/pinsurvey/ |  | The distribution client, both verdicts, version comparison, and the inventory's two halves. |
+| magefiles/pinsurvey/pins.yaml |  | The pins no render exposes, each naming the file and symbol that holds it. |
+| magefiles/bump.go |  | The target joining both halves, skipping images this checkout produces, and reporting without writing. |
+|  | mage bump | Eleven pins resolved against their registries with no moved pin and no unknown. |
 
 <!-- release: 18.0 | status: implemented -->
 ## 18.0 - Release annotation gate
@@ -660,60 +592,52 @@ gh-2418-tag-verify
 
 - srd007-release-annotation
 
-<!-- field: use_cases -->
+<!-- field: use_cases | form: "tree" -->
 ### Use cases
 
-```yaml
-- id: rel18.0-uc001-release-annotation
-  summary: |
-    An operator about to push runs the check; a real summary passes
-    and a degenerate annotation is refused with the rule it broke.
-  status: implemented
-```
+1. - id: rel18.0-uc001-release-annotation
+   - summary:
+     An operator about to push runs the check; a real summary passes
+     and a degenerate annotation is refused with the rule it broke.
+   - status: implemented
 
-<!-- field: test_suites -->
+<!-- field: test_suites | form: "tree" -->
 ### Test suites
 
-```yaml
-- id: test-rel18.0-release-annotation
-  summary: |
-    Trace the release documents, then verify each refusal by name,
-    reachability from main, that a run mutates nothing, and the
-    placement in the runbook and the skill.
-  status: implemented
-  implemented_cases: [TC1, TC2, TC3, TC4, TC5, TC6]
-  planned_cases: []
-```
+1. - id: test-rel18.0-release-annotation
+   - summary:
+     Trace the release documents, then verify each refusal by name,
+     reachability from main, that a run mutates nothing, and the
+     placement in the runbook and the skill.
+   - status: implemented
+   - implemented_cases:
+     1. TC1
+     1. TC2
+     1. TC3
+     1. TC4
+     1. TC5
+     1. TC6
+   - planned_cases: []
 
-<!-- field: implementation_sequence -->
+<!-- field: implementation_sequence | form: "typed table" -->
 ### Implementation sequence
 
-```yaml
-- order: 1
-  action: Add the ENG01 release-annotation section and the tag:verify verb, and specify srd007, the use case, the suite, and the index entries (GH-2419).
-  status: planned
-- order: 2
-  action: Add the tag:verify target, its scratch-repository tests, and the runbook step (GH-2420).
-  status: implemented
-```
+| order | action | status |
+| --- | --- | --- |
+| 1 | Add the ENG01 release-annotation section and the tag:verify verb, and specify srd007, the use case, the suite, and the index entries (GH-2419). | planned |
+| 2 | Add the tag:verify target, its scratch-repository tests, and the runbook step (GH-2420). | implemented |
 
-<!-- field: implementation_evidence -->
+<!-- field: implementation_evidence | form: "typed table" -->
 ### Implementation evidence
 
-```yaml
-- path: docs/engineering/eng01-kind-test-demo-rig.md
-  proves: The annotation-is-the-record statement and the verb's refuse-and-mutate-nothing contract.
-- path: applications/docs/specs/software-requirements/srd007-release-annotation.md
-  proves: Numbered object, degeneracy, reachability, and no-mutation requirements.
-- path: applications/docs/specs/use-cases/rel18.0-uc001-release-annotation.md
-  proves: The flow from an annotated tag to a push that carries a real record.
-- path: applications/docs/specs/test-suites/test-rel18.0-release-annotation.md
-  proves: Requirement-to-AC-to-test coverage with every case executable.
-- path: magefiles/tag_verify.go
-  proves: The four rules with one named reason per failure, and the bar stated once.
-- command: mage tag:verify v0.20260919.1
-  proves: The most recent real-summary tag passes and the degenerate v0.20260919.0 is refused naming R2.1.
-```
+| path | command | proves |
+| --- | --- | --- |
+| docs/engineering/eng01-kind-test-demo-rig.md |  | The annotation-is-the-record statement and the verb's refuse-and-mutate-nothing contract. |
+| applications/docs/specs/software-requirements/srd007-release-annotation.md |  | Numbered object, degeneracy, reachability, and no-mutation requirements. |
+| applications/docs/specs/use-cases/rel18.0-uc001-release-annotation.md |  | The flow from an annotated tag to a push that carries a real record. |
+| applications/docs/specs/test-suites/test-rel18.0-release-annotation.md |  | Requirement-to-AC-to-test coverage with every case executable. |
+| magefiles/tag_verify.go |  | The four rules with one named reason per failure, and the bar stated once. |
+|  | mage tag:verify v0.20260919.1 | The most recent real-summary tag passes and the degenerate v0.20260919.0 is refused naming R2.1. |
 
 <!-- release: 19.0 | status: implemented -->
 ## 19.0 - Persistent application platform
@@ -745,76 +669,58 @@ gh-2474-shared-platform
 
 - srd008-persistent-application-platform
 
-<!-- field: use_cases -->
+<!-- field: use_cases | form: "tree" -->
 ### Use cases
 
-```yaml
-- id: rel19.0-uc001-persistent-application-platform
-  summary: |
-    Run two applications on one platform, remove and redeploy one, and
-    prove that compute, retained data, and query availability follow
-    their separate lifecycle boundaries.
-  status: implemented
-```
+1. - id: rel19.0-uc001-persistent-application-platform
+   - summary:
+     Run two applications on one platform, remove and redeploy one, and
+     prove that compute, retained data, and query availability follow
+     their separate lifecycle boundaries.
+   - status: implemented
 
-<!-- field: test_suites -->
+<!-- field: test_suites | form: "tree" -->
 ### Test suites
 
-```yaml
-- id: test-rel19.0-persistent-application-platform
-  summary: |
-    Trace the release documents, then prove protocol paths,
-    two-application lifecycle, local/cloud parity, WAL-first immutable
-    objects, query restoration, failure isolation, and reusable runner
-    adoption.
-  status: implemented
-  implemented_cases: [TC1, TC2, TC3, TC4, TC5, TC6, TC7, TC8]
-  planned_cases: []
-```
+1. - id: test-rel19.0-persistent-application-platform
+   - summary:
+     Trace the release documents, then prove protocol paths,
+     two-application lifecycle, local/cloud parity, WAL-first immutable
+     objects, query restoration, failure isolation, and reusable runner
+     adoption.
+   - status: implemented
+   - implemented_cases:
+     1. TC1
+     1. TC2
+     1. TC3
+     1. TC4
+     1. TC5
+     1. TC6
+     1. TC7
+     1. TC8
+   - planned_cases: []
 
-<!-- field: implementation_sequence -->
+<!-- field: implementation_sequence | form: "typed table" -->
 ### Implementation sequence
 
-```yaml
-- order: 1
-  action: Specify ownership, lifecycle, storage, query, threat, routing, and apprig boundaries (GH-2476).
-  status: implemented
-- order: 2
-  action: Add collector WAL and immutable object-bucket persistence (GH-2475).
-  status: implemented
-- order: 3
-  action: Add application-scoped object-backed query and retention (GH-2478, split into GH-2489 object-read query engine and GH-2490 collector wiring/retention/purge/cloud isolation).
-  status: implemented
-  note: GH-2489 supplies object-backed query/WAL merge; GH-2490 supplies collector wiring, retention metadata, storage-status UI, isolated purge, and cloud IAM fixtures.
-- order: 4
-  action: Wire durable collector configuration through the shared agent-services chart (GH-2484).
-  status: implemented
-- order: 5
-  action: Make ingress and filesystem-backed fake GCS persistent platform services (GH-2477).
-  status: implemented
-- order: 6
-  action: Add the manifest-driven magefiles/apprig lifecycle runner (GH-2479, split into GH-2492 deterministic core and GH-2493 live proofs/external fixture).
-  status: implemented
-  note: GH-2492 supplies the deterministic core; GH-2493 supplies live lifecycle, compensation, diagnosis, external-module, retained-history, and approved purge evidence.
-- order: 7
-  action: Migrate Chatbot Mesh, Coding Agent, and Agent Architecture (GH-2482, GH-2483, GH-2480).
-  status: implemented
-```
+| order | action | status | note |
+| --- | --- | --- | --- |
+| 1 | Specify ownership, lifecycle, storage, query, threat, routing, and apprig boundaries (GH-2476). | implemented |  |
+| 2 | Add collector WAL and immutable object-bucket persistence (GH-2475). | implemented |  |
+| 3 | Add application-scoped object-backed query and retention (GH-2478, split into GH-2489 object-read query engine and GH-2490 collector wiring/retention/purge/cloud isolation). | implemented | GH-2489 supplies object-backed query/WAL merge; GH-2490 supplies collector wiring, retention metadata, storage-status UI, isolated purge, and cloud IAM fixtures. |
+| 4 | Wire durable collector configuration through the shared agent-services chart (GH-2484). | implemented |  |
+| 5 | Make ingress and filesystem-backed fake GCS persistent platform services (GH-2477). | implemented |  |
+| 6 | Add the manifest-driven magefiles/apprig lifecycle runner (GH-2479, split into GH-2492 deterministic core and GH-2493 live proofs/external fixture). | implemented | GH-2492 supplies the deterministic core; GH-2493 supplies live lifecycle, compensation, diagnosis, external-module, retained-history, and approved purge evidence. |
+| 7 | Migrate Chatbot Mesh, Coding Agent, and Agent Architecture (GH-2482, GH-2483, GH-2480). | implemented |  |
 
-<!-- field: implementation_evidence -->
+<!-- field: implementation_evidence | form: "typed table" -->
 ### Implementation evidence
 
-```yaml
-- path: applications/docs/specs/software-requirements/srd008-persistent-application-platform.md
-  proves: Numbered ownership, platform, collector, lifecycle, parity, object, query, routing, and runner requirements.
-- path: applications/docs/specs/use-cases/rel19.0-uc001-persistent-application-platform.md
-  proves: Complete two-application lifecycle from platform creation through teardown, recovery, purge, and reset.
-- path: applications/docs/specs/test-suites/test-rel19.0-persistent-application-platform.md
-  proves: Requirement-to-acceptance and acceptance-to-test closure with planned implementation owners.
-- path: docs/engineering/eng01-kind-test-demo-rig.md
-  proves: Canonical local platform, exception modes, application verbs, persistence, and query availability.
-- path: docs/engineering/eng08-gcp-demo-rig.md
-  proves: Cloud application buckets, workload identity, bucket IAM, and cluster-independent retention.
-- command: mage audit
-  proves: Structured documents parse and reciprocal traceability remains valid.
-```
+| path | command | proves |
+| --- | --- | --- |
+| applications/docs/specs/software-requirements/srd008-persistent-application-platform.md |  | Numbered ownership, platform, collector, lifecycle, parity, object, query, routing, and runner requirements. |
+| applications/docs/specs/use-cases/rel19.0-uc001-persistent-application-platform.md |  | Complete two-application lifecycle from platform creation through teardown, recovery, purge, and reset. |
+| applications/docs/specs/test-suites/test-rel19.0-persistent-application-platform.md |  | Requirement-to-acceptance and acceptance-to-test closure with planned implementation owners. |
+| docs/engineering/eng01-kind-test-demo-rig.md |  | Canonical local platform, exception modes, application verbs, persistence, and query availability. |
+| docs/engineering/eng08-gcp-demo-rig.md |  | Cloud application buckets, workload identity, bucket IAM, and cluster-independent retention. |
+|  | mage audit | Structured documents parse and reciprocal traceability remains valid. |

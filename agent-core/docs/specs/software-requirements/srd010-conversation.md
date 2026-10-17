@@ -265,39 +265,37 @@ Reset clears history and Append works after Reset.
 - R7.2
 - R7.3
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Agent-core provides a Conversation type that manages..."] --> Goals["Goals: Conversation Management"]
-      Goals --> R1["R1: Message types"]
-      Goals --> R2["R2: Conversation struct"]
-      Goals --> R3["R3: Rollback lifecycle"]
-      Goals --> R4["R4: Manual mode (Append)"]
-      Goals --> R5["R5: History access"]
-      Goals --> R6["R6: Prompt and inference boundary"]
-      Goals --> R7["R7: Reset"]
-      Goals --> R8["R8: No-compaction boundary"]
-      AC1["AC1: Append(msg) adds a message without calling Chat. Appended..."]
-      R1 --> AC1
-      R4 --> AC1
-      AC2["AC2: Snapshot, Restore, and TruncateTo provide deterministic..."]
-      R2 --> AC2
-      R3 --> AC2
-      AC3["AC3: History and Messages return defensive copies. Mutations d..."]
-      R5 --> AC3
-      R8 --> AC3
-      AC4["AC4: DefaultAssembler combines structured prompt data with hi..."]
-      R5 --> AC4
-      R6 --> AC4
-      AC5["AC5: Generator can replace ConversationHistory with Conversati..."]
-      R4 --> AC5
-      R5 --> AC5
-      R7 --> AC5
-      AC6["AC6: Reset clears history and Append works after Reset."]
-      R7 --> AC6
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Agent-core provides a Conversation type that manages..."] --> Goals["Goals: Conversation Management"]
+    Goals --> R1["R1: Message types"]
+    Goals --> R2["R2: Conversation struct"]
+    Goals --> R3["R3: Rollback lifecycle"]
+    Goals --> R4["R4: Manual mode (Append)"]
+    Goals --> R5["R5: History access"]
+    Goals --> R6["R6: Prompt and inference boundary"]
+    Goals --> R7["R7: Reset"]
+    Goals --> R8["R8: No-compaction boundary"]
+    AC1["AC1: Append(msg) adds a message without calling Chat. Appended..."]
+    R1 --> AC1
+    R4 --> AC1
+    AC2["AC2: Snapshot, Restore, and TruncateTo provide deterministic..."]
+    R2 --> AC2
+    R3 --> AC2
+    AC3["AC3: History and Messages return defensive copies. Mutations d..."]
+    R5 --> AC3
+    R8 --> AC3
+    AC4["AC4: DefaultAssembler combines structured prompt data with hi..."]
+    R5 --> AC4
+    R6 --> AC4
+    AC5["AC5: Generator can replace ConversationHistory with Conversati..."]
+    R4 --> AC5
+    R5 --> AC5
+    R7 --> AC5
+    AC6["AC6: Reset clears history and Append works after Reset."]
+    R7 --> AC6
+  ```

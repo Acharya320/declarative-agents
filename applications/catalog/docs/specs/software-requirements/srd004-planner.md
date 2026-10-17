@@ -169,21 +169,19 @@ Profile and conformance tests prove the canonical planner prompt schema and pars
 - R1.5
 - R1.6
 
-<!-- field: diagrams -->
+<!-- field: diagrams | form: "tree" -->
 ## Diagrams
 
-````yaml
-requirements_trace: |
-    ```mermaid
-    flowchart LR
-      Problem["Problem: Planner family needs its own requirements..."] --> Goals["Goals: Planner Functional Block"]
-      Goals --> R1["R1: Behavior model"]
-      Goals --> R2["R2: Inputs, tools, and runtime dependencies"]
-      Goals --> R3["R3: Outputs and outcomes"]
-      R1 --> AC1["AC1: Configured planner invoking executor"]
-      R2 --> AC2["AC2: Inputs, tools, dependencies named"]
-      R3 --> AC3["AC3: Outputs and outcomes checkable"]
-      R1 --> AC4["AC4: Visible retry and completion policy"]
-      R1 --> AC5["AC5: Canonical first response parses"]
-    ```
-````
+- requirements_trace:
+  ```mermaid
+  flowchart LR
+    Problem["Problem: Planner family needs its own requirements..."] --> Goals["Goals: Planner Functional Block"]
+    Goals --> R1["R1: Behavior model"]
+    Goals --> R2["R2: Inputs, tools, and runtime dependencies"]
+    Goals --> R3["R3: Outputs and outcomes"]
+    R1 --> AC1["AC1: Configured planner invoking executor"]
+    R2 --> AC2["AC2: Inputs, tools, dependencies named"]
+    R3 --> AC3["AC3: Outputs and outcomes checkable"]
+    R1 --> AC4["AC4: Visible retry and completion policy"]
+    R1 --> AC5["AC5: Canonical first response parses"]
+  ```

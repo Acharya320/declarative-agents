@@ -97,8 +97,17 @@ func (r *Declaration) fieldRecords(key string) (string, bool) {
 	return "", false
 }
 
+// headingAcronyms are the words a generated heading prints in their
+// conventional case (GH-2643).
+var headingAcronyms = map[string]string{
+	"srd": "SRD", "id": "ID", "ids": "IDs", "api": "API", "ui": "UI", "ux": "UX", "llm": "LLM",
+	"cli": "CLI", "rest": "REST", "yaml": "YAML", "url": "URL", "json": "JSON", "http": "HTTP",
+	"otel": "OTel",
+}
+
 // fieldHeading is the heading a field prints with: the declared one, or the
-// name with its first letter capitalized and underscores as spaces.
+// name with underscores as spaces, its first letter capitalized, and known
+// acronyms in their conventional case.
 func (r *Declaration) fieldHeading(key string) string {
 	if heading := r.Fields[key].Heading; heading != "" {
 		return heading
@@ -106,8 +115,14 @@ func (r *Declaration) fieldHeading(key string) string {
 	if key == "" {
 		return ""
 	}
-	words := strings.ReplaceAll(key, "_", " ")
-	return strings.ToUpper(words[:1]) + words[1:]
+	words := strings.Split(key, "_")
+	for i, word := range words {
+		if acronym, ok := headingAcronyms[word]; ok {
+			words[i] = acronym
+		}
+	}
+	heading := strings.Join(words, " ")
+	return strings.ToUpper(heading[:1]) + heading[1:]
 }
 
 func sortedKeys[V any](m map[string]V) []string {
