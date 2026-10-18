@@ -1063,7 +1063,7 @@ None
 | applications/docs/specs/test-suites/test-rel20.0-agent-operator.md |  | Requirement-to-acceptance and acceptance-to-test traceability. |
 |  | mage audit | Structured documents parse and reciprocal traceability remains valid. |
 
-<!-- release: 20.1 | status: planned -->
+<!-- release: 20.1 | status: implemented -->
 ## 20.1 - Profile-derived Agents
 
 Make the profile the deployment spec. The operator reads an Agent's
@@ -1111,7 +1111,7 @@ reported before any pod exists.
 <!-- field: status -->
 ##### Status
 
-planned
+implemented
 
 <!-- field: implementation_sequence | form: "typed table" -->
 ### Implementation sequence
@@ -1138,20 +1138,20 @@ reconciler, and run the collector proof with the shrunk Agent.
 <!-- field: status -->
 ##### Status
 
-planned
+implemented
 
-<!-- field: implemented_cases | form: "empty list" -->
+<!-- field: implemented_cases -->
 ##### Implemented cases
-
-None
-
-<!-- field: planned_cases -->
-##### Planned cases
 
 - TC1
 - TC2
 - TC3
 - TC4
+
+<!-- field: planned_cases | form: "empty list" -->
+##### Planned cases
+
+None
 
 <!-- field: implementation_evidence | form: "typed table" -->
 ### Implementation evidence

@@ -98,6 +98,23 @@ func TestAgentOperatorChartDeclaresItsRBAC(t *testing.T) {
 	}
 }
 
+// TestAgentOperatorChartGivesTheLoadersAWritableTmp pins applications srd009
+// R1.2's operational need: the operator inspects profiles through agent-core's
+// loaders, which write a temporary tree, while the chart keeps the root
+// filesystem read-only and points --core-root at the tools the image carries.
+func TestAgentOperatorChartGivesTheLoadersAWritableTmp(t *testing.T) {
+	data, err := os.ReadFile(filepath.Join("..", "..", operatorChart, "templates", "deployment.yaml"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	deployment := string(data)
+	for _, want := range []string{"readOnlyRootFilesystem: true", "{name: tmp, mountPath: /tmp}", "{name: tmp, emptyDir: {}}", "--core-root=/opt/agent-core"} {
+		if !strings.Contains(deployment, want) {
+			t.Errorf("deployment.yaml lacks %q", want)
+		}
+	}
+}
+
 func containsPrefix(calls []string, prefix string) bool {
 	for _, c := range calls {
 		if strings.HasPrefix(c, prefix) {

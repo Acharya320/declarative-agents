@@ -41,12 +41,6 @@ type ProfileSource struct {
 	Path      string `json:"path"`
 }
 
-// AgentPort is one port the profile's REST servers listen on.
-type AgentPort struct {
-	Name string `json:"name"`
-	Port int32  `json:"port"`
-}
-
 // WorkVolume is a volume mounted for the agent's working files: an emptyDir,
 // or the existing PersistentVolumeClaim ClaimName names (srd009 R1.1).
 type WorkVolume struct {
@@ -57,16 +51,15 @@ type WorkVolume struct {
 
 // AgentSpec declares the agent (srd009 R1.1).
 type AgentSpec struct {
-	Profile ProfileSource `json:"profile"`
-	Image   string        `json:"image"`
-	Ports   []AgentPort   `json:"ports,omitempty"`
-	// ControlPort names the port in Ports that answers GET
-	// /api/lifecycle/health, the readiness signal (srd009 R1.2).
-	ControlPort string                      `json:"controlPort"`
-	Replicas    *int32                      `json:"replicas,omitempty"`
-	Resources   corev1.ResourceRequirements `json:"resources,omitempty"`
-	Env         []corev1.EnvVar             `json:"env,omitempty"`
-	EnvFrom     []corev1.EnvFromSource      `json:"envFrom,omitempty"`
+	// Profile and Image are all an Agent must say: the profile's REST
+	// definitions declare the ports, the control server, and the monitor
+	// server, which the operator reads (srd009 R1.2).
+	Profile   ProfileSource               `json:"profile"`
+	Image     string                      `json:"image"`
+	Replicas  *int32                      `json:"replicas,omitempty"`
+	Resources corev1.ResourceRequirements `json:"resources,omitempty"`
+	Env       []corev1.EnvVar             `json:"env,omitempty"`
+	EnvFrom   []corev1.EnvFromSource      `json:"envFrom,omitempty"`
 	// Args follow --profile <path> on the agent's command line: --directory,
 	// the OpenTelemetry flags, whatever the chart passed by hand (R1.1).
 	Args []string `json:"args,omitempty"`
@@ -111,15 +104,4 @@ func (a *Agent) DesiredReplicas() int32 {
 		return 1
 	}
 	return *a.Spec.Replicas
-}
-
-// ControlPortNumber returns the number of the control port, or 0 when no
-// declared port carries that name.
-func (a *Agent) ControlPortNumber() int32 {
-	for _, p := range a.Spec.Ports {
-		if p.Name == a.Spec.ControlPort {
-			return p.Port
-		}
-	}
-	return 0
 }

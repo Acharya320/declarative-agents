@@ -14,11 +14,14 @@ import (
 // to srd009 R5.1: the collector profile ConfigMap, the three ports with the
 // control port as the readiness signal, and the bind host on every interface.
 func TestCollectorAgentManifestNamesTheProfileAndPorts(t *testing.T) {
-	for _, want := range []string{"kind: Agent", "configMap: collector-profile", "path: collector/profile.yaml", "image: AGENT_CORE_IMAGE",
-		"{name: control, port: 18191}", "{name: monitor, port: 18192}", "{name: query, port: 18193}", "controlPort: control",
-		`{name: COLLECTOR_BIND_HOST, value: "0.0.0.0"}`} {
+	for _, want := range []string{"kind: Agent", "configMap: collector-profile", "path: collector/profile.yaml", "image: AGENT_CORE_IMAGE", "mountPath: /work"} {
 		if !strings.Contains(collectorAgentManifest, want) {
 			t.Errorf("manifest lacks %q", want)
+		}
+	}
+	for _, repeated := range []string{"ports:", "controlPort", "COLLECTOR_BIND_HOST", "1819"} {
+		if strings.Contains(collectorAgentManifest, repeated) {
+			t.Errorf("manifest repeats %q, which the profile declares (srd009 R1.2)", repeated)
 		}
 	}
 }

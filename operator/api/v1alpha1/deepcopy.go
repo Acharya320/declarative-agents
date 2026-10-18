@@ -27,7 +27,6 @@ func (s AgentSpec) DeepCopy() AgentSpec {
 		r := *s.Replicas
 		out.Replicas = &r
 	}
-	out.Ports = append([]AgentPort(nil), s.Ports...)
 	out.WorkVolumes = append([]WorkVolume(nil), s.WorkVolumes...)
 	out.Args = append([]string(nil), s.Args...)
 	out.PodLabels = nil

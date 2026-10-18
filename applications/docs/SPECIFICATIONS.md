@@ -352,7 +352,7 @@ Profile-derived Agents
 <!-- field: use_cases_done | form: "scalar" -->
 #### Use cases done
 
-0
+1
 
 <!-- field: use_cases_total | form: "scalar" -->
 #### Use cases total
@@ -362,7 +362,7 @@ Profile-derived Agents
 <!-- field: status -->
 #### Status
 
-planned
+implemented
 
 <!-- field: evidence -->
 #### Evidence
@@ -370,7 +370,7 @@ planned
 srd009's revised R1.1, R1.2, R2.1, R2.2, R2.4, R2.5, and R5.1 with AC5 and
 AC6, the use case, and the four-case suite define derivation from the
 profile, reconcile-time validation, the ConfigMap watch, and the shrunk
-collector proof; the cases are planned under GH-2688.
+collector proof; TC1 through TC4 are implemented under GH-2688.
 
 <!-- field: foundation_document_index -->
 ## Foundation document index
@@ -886,7 +886,7 @@ docs/specs/semantic-models/agent-role-realizations.md
 | [rel18.0-uc001-release-annotation](specs/use-cases/rel18.0-uc001-release-annotation.md) | A Degenerate Release Annotation Is Refused Before the Push | "18.0" | implemented | [[srd007-release-annotation](specs/software-requirements/srd007-release-annotation.md)] | [test-rel18.0-release-annotation](specs/test-suites/test-rel18.0-release-annotation.md) | docs/specs/use-cases/rel18.0-uc001-release-annotation.md |
 | [rel19.0-uc001-persistent-application-platform](specs/use-cases/rel19.0-uc001-persistent-application-platform.md) | Operate Two Namespaced Applications Without Losing Retained Telemetry | "19.0" | implemented | [[srd008-persistent-application-platform](specs/software-requirements/srd008-persistent-application-platform.md)] | [test-rel19.0-persistent-application-platform](specs/test-suites/test-rel19.0-persistent-application-platform.md) | docs/specs/use-cases/rel19.0-uc001-persistent-application-platform.md |
 | [rel20.0-uc001-agent-operator](specs/use-cases/rel20.0-uc001-agent-operator.md) | Apply an Agent for the Catalog Collector and Watch It Become Ready | "20.0" | implemented | [[srd009-agent-operator](specs/software-requirements/srd009-agent-operator.md)] | [test-rel20.0-agent-operator](specs/test-suites/test-rel20.0-agent-operator.md) | docs/specs/use-cases/rel20.0-uc001-agent-operator.md |
-| [rel20.1-uc001-profile-derived-agent](specs/use-cases/rel20.1-uc001-profile-derived-agent.md) | Declare an Agent from Its Profile Alone | "20.1" | planned | [[srd009-agent-operator](specs/software-requirements/srd009-agent-operator.md)] | [test-rel20.1-profile-derived-agent](specs/test-suites/test-rel20.1-profile-derived-agent.md) | docs/specs/use-cases/rel20.1-uc001-profile-derived-agent.md |
+| [rel20.1-uc001-profile-derived-agent](specs/use-cases/rel20.1-uc001-profile-derived-agent.md) | Declare an Agent from Its Profile Alone | "20.1" | implemented | [[srd009-agent-operator](specs/software-requirements/srd009-agent-operator.md)] | [test-rel20.1-profile-derived-agent](specs/test-suites/test-rel20.1-profile-derived-agent.md) | docs/specs/use-cases/rel20.1-uc001-profile-derived-agent.md |
 
 <!-- field: test_suite_index | form: "typed table" -->
 ## Test suite index
@@ -901,7 +901,7 @@ docs/specs/semantic-models/agent-role-realizations.md
 | [test-rel18.0-release-annotation](specs/test-suites/test-rel18.0-release-annotation.md) | Release 18.0 Release Annotation Test Suite | "18.0" | 6 | [[rel18.0-uc001-release-annotation](specs/use-cases/rel18.0-uc001-release-annotation.md)] | implemented | [[srd007-release-annotation](specs/software-requirements/srd007-release-annotation.md)] | docs/specs/test-suites/test-rel18.0-release-annotation.md |
 | [test-rel19.0-persistent-application-platform](specs/test-suites/test-rel19.0-persistent-application-platform.md) | Release 19.0 Persistent Application Platform Test Suite | "19.0" | 8 | [[rel19.0-uc001-persistent-application-platform](specs/use-cases/rel19.0-uc001-persistent-application-platform.md)] | implemented | [[srd008-persistent-application-platform](specs/software-requirements/srd008-persistent-application-platform.md)] | docs/specs/test-suites/test-rel19.0-persistent-application-platform.md |
 | [test-rel20.0-agent-operator](specs/test-suites/test-rel20.0-agent-operator.md) | Release 20.0 Agent Operator Test Suite | "20.0" | 5 | [[rel20.0-uc001-agent-operator](specs/use-cases/rel20.0-uc001-agent-operator.md)] | implemented | [[srd009-agent-operator](specs/software-requirements/srd009-agent-operator.md)] | docs/specs/test-suites/test-rel20.0-agent-operator.md |
-| [test-rel20.1-profile-derived-agent](specs/test-suites/test-rel20.1-profile-derived-agent.md) | Release 20.1 Profile-Derived Agent Test Suite | "20.1" | 4 | [[rel20.1-uc001-profile-derived-agent](specs/use-cases/rel20.1-uc001-profile-derived-agent.md)] | planned | [[srd009-agent-operator](specs/software-requirements/srd009-agent-operator.md)] | docs/specs/test-suites/test-rel20.1-profile-derived-agent.md |
+| [test-rel20.1-profile-derived-agent](specs/test-suites/test-rel20.1-profile-derived-agent.md) | Release 20.1 Profile-Derived Agent Test Suite | "20.1" | 4 | [[rel20.1-uc001-profile-derived-agent](specs/use-cases/rel20.1-uc001-profile-derived-agent.md)] | implemented | [[srd009-agent-operator](specs/software-requirements/srd009-agent-operator.md)] | docs/specs/test-suites/test-rel20.1-profile-derived-agent.md |
 
 <!-- field: coverage_gaps -->
 ## Coverage gaps

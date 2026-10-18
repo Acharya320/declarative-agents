@@ -11,13 +11,15 @@ import (
 )
 
 // desiredService renders the one Service an Agent implies (srd009 R2.2):
-// the declared ports by name, selecting the Deployment's pods.
-func desiredService(agent *v1alpha1.Agent, svc *corev1.Service) {
+// every server the profile declares, by its port name, selecting the
+// Deployment's pods.
+func desiredService(agent *v1alpha1.Agent, insp inspection, svc *corev1.Service) {
 	svc.Labels = labels(agent)
 	svc.Spec.Selector = labels(agent)
 	svc.Spec.Type = corev1.ServiceTypeClusterIP
 	svc.Spec.Ports = nil
-	for _, p := range agent.Spec.Ports {
-		svc.Spec.Ports = append(svc.Spec.Ports, corev1.ServicePort{Name: p.Name, Port: p.Port, TargetPort: intstr.FromString(p.Name)})
+	for _, server := range insp.Servers {
+		name := insp.portNames[server.Name]
+		svc.Spec.Ports = append(svc.Spec.Ports, corev1.ServicePort{Name: name, Port: int32(server.Port), TargetPort: intstr.FromString(name)})
 	}
 }

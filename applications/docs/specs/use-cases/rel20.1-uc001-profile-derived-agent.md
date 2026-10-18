@@ -1,7 +1,7 @@
 ---
 id: rel20.1-uc001-profile-derived-agent
 title: Declare an Agent from Its Profile Alone
-status: planned
+status: implemented
 test_suite: test-rel20.1-profile-derived-agent
 ---
 <!-- Copyright (c) 2026 Nokia -->

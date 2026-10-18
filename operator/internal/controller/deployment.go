@@ -6,6 +6,7 @@ package controller
 import (
 	"path"
 	"sort"
+	"strconv"
 	"strings"
 
 	appsv1 "k8s.io/api/apps/v1"
@@ -37,6 +38,10 @@ func labels(agent *v1alpha1.Agent) map[string]string {
 // hold a slash, while profiles import sibling directories
 // (../units/types.yaml), so units__types.yaml mounts at units/types.yaml.
 const keyDirSeparator = "__"
+
+// monitorPortLabel is the pod label an observer's monitor fan-in reads to
+// find the monitor server's port (srd009 R2.1).
+const monitorPortLabel = "monitorPort"
 
 // profileItems maps a ConfigMap's keys onto mount paths when any key spells a
 // directory with the separator. A ConfigMap of flat keys returns nil, which
@@ -97,7 +102,7 @@ func workVolume(w v1alpha1.WorkVolume) corev1.Volume {
 // declared resources, environment, secret references, service account, pod
 // labels, and work volumes. It writes into dep, so CreateOrUpdate keeps
 // what the server owns.
-func desiredDeployment(agent *v1alpha1.Agent, profile *corev1.ConfigMap, dep *appsv1.Deployment) {
+func desiredDeployment(agent *v1alpha1.Agent, profile *corev1.ConfigMap, insp inspection, dep *appsv1.Deployment) {
 	selector := labels(agent)
 	replicas := agent.DesiredReplicas()
 	container := corev1.Container{
@@ -111,14 +116,20 @@ func desiredDeployment(agent *v1alpha1.Agent, profile *corev1.ConfigMap, dep *ap
 		Env:       agent.Spec.Env,
 		EnvFrom:   agent.Spec.EnvFrom,
 	}
-	for _, p := range agent.Spec.Ports {
-		container.Ports = append(container.Ports, corev1.ContainerPort{Name: p.Name, ContainerPort: p.Port})
-	}
-	if port := agent.ControlPortNumber(); port > 0 {
-		container.ReadinessProbe = &corev1.Probe{
-			ProbeHandler:  corev1.ProbeHandler{HTTPGet: &corev1.HTTPGetAction{Path: healthPath, Port: intstr.FromInt32(port)}},
-			PeriodSeconds: 5,
+	for _, server := range insp.Servers {
+		port := int32(server.Port)
+		container.Ports = append(container.Ports, corev1.ContainerPort{Name: insp.portNames[server.Name], ContainerPort: port})
+		if server.Name == insp.ControlServer {
+			container.ReadinessProbe = &corev1.Probe{
+				ProbeHandler:  corev1.ProbeHandler{HTTPGet: &corev1.HTTPGetAction{Path: healthPath, Port: intstr.FromInt32(port)}},
+				PeriodSeconds: 5,
+			}
 		}
+	}
+	container.Env = append(append([]corev1.EnvVar(nil), agent.Spec.Env...), bindEnv(agent, insp.Servers)...)
+	pod := podLabels(agent)
+	if port, ok := insp.port(insp.MonitorServer); ok {
+		pod[monitorPortLabel] = strconv.Itoa(port)
 	}
 	volumes := []corev1.Volume{{
 		Name: "profile",
@@ -134,7 +145,7 @@ func desiredDeployment(agent *v1alpha1.Agent, profile *corev1.ConfigMap, dep *ap
 	dep.Labels = selector
 	dep.Spec.Replicas = &replicas
 	dep.Spec.Selector = &metav1.LabelSelector{MatchLabels: selector}
-	dep.Spec.Template.Labels = podLabels(agent)
+	dep.Spec.Template.Labels = pod
 	dep.Spec.Template.Spec.ServiceAccountName = agent.Spec.ServiceAccountName
 	dep.Spec.Template.Spec.Containers = []corev1.Container{container}
 	dep.Spec.Template.Spec.Volumes = volumes

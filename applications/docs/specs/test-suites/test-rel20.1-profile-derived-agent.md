@@ -2,7 +2,7 @@
 id: test-rel20.1-profile-derived-agent
 title: Release 20.1 Profile-Derived Agent Test Suite
 release: "20.1"
-status: planned
+status: implemented
 ---
 <!-- Copyright (c) 2026 Nokia -->
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
@@ -42,7 +42,7 @@ work volume only.
 <!-- field: test_cases -->
 ## Test cases
 
-<!-- case: Release 20.1 documents parse and trace reciprocally | status: planned -->
+<!-- case: Release 20.1 documents parse and trace reciprocally | status: implemented -->
 ### Release 20.1 documents parse and trace reciprocally
 
 <!-- field: id -->
@@ -84,7 +84,7 @@ cd agent-core && mage audit
 - [rel20.1-uc001-profile-derived-agent](../use-cases/rel20.1-uc001-profile-derived-agent.md) [S1](../use-cases/rel20.1-uc001-profile-derived-agent.md#s1)
 - [srd009-agent-operator](../software-requirements/srd009-agent-operator.md) [AC5](../software-requirements/srd009-agent-operator.md#ac5)
 
-<!-- case: agent-core inspects and validates a profile's servers from a file tree | status: planned -->
+<!-- case: agent-core inspects and validates a profile's servers from a file tree | status: implemented -->
 ### agent-core inspects and validates a profile's servers from a file tree
 
 <!-- field: id -->
@@ -128,7 +128,7 @@ cd agent-core && go test ./pkg/profileservers
 - [rel20.1-uc001-profile-derived-agent](../use-cases/rel20.1-uc001-profile-derived-agent.md) [S1](../use-cases/rel20.1-uc001-profile-derived-agent.md#s1)
 - [srd009-agent-operator](../software-requirements/srd009-agent-operator.md) [AC5](../software-requirements/srd009-agent-operator.md#ac5)
 
-<!-- case: The reconciler derives the Deployment and Service from the profile, reports an invalid profile, and follows a ConfigMap change | status: planned -->
+<!-- case: The reconciler derives the Deployment and Service from the profile, reports an invalid profile, and follows a ConfigMap change | status: implemented -->
 ### The reconciler derives the Deployment and Service from the profile, reports an invalid profile, and follows a ConfigMap change
 
 <!-- field: id -->
@@ -174,7 +174,7 @@ cd operator && go test ./internal/controller -run 'TestReconcile(Derives|Keeps|P
 - [srd009-agent-operator](../software-requirements/srd009-agent-operator.md) [AC5](../software-requirements/srd009-agent-operator.md#ac5)
 - [srd009-agent-operator](../software-requirements/srd009-agent-operator.md) [AC6](../software-requirements/srd009-agent-operator.md#ac6)
 
-<!-- case: The collector Agent of profile, image, and work volume becomes Ready and answers its health endpoint | status: planned -->
+<!-- case: The collector Agent of profile, image, and work volume becomes Ready and answers its health endpoint | status: implemented -->
 ### The collector Agent of profile, image, and work volume becomes Ready and answers its health endpoint
 
 <!-- field: id -->

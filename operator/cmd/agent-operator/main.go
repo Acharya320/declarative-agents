@@ -40,6 +40,7 @@ func main() {
 func run() error {
 	metricsAddr := flag.String("metrics-bind-address", ":8080", "address the metrics endpoint binds to")
 	probeAddr := flag.String("health-probe-bind-address", ":8081", "address the health probes bind to")
+	coreRoot := flag.String("core-root", "/opt/agent-core", "agent-core installation whose tools the profiles import under /opt/agent-core")
 	flag.Parse()
 	ctrl.SetLogger(zap.New())
 	scheme := runtime.NewScheme()
@@ -72,7 +73,7 @@ func run() error {
 	if err != nil {
 		return fmt.Errorf("manager: %w", err)
 	}
-	if err := (&controller.AgentReconciler{Client: mgr.GetClient(), Scheme: mgr.GetScheme()}).SetupWithManager(mgr); err != nil {
+	if err := (&controller.AgentReconciler{Client: mgr.GetClient(), Scheme: mgr.GetScheme(), CoreRoot: *coreRoot}).SetupWithManager(mgr); err != nil {
 		return fmt.Errorf("controller: %w", err)
 	}
 	// The chart probes liveness on /healthz and readiness on /readyz; each
