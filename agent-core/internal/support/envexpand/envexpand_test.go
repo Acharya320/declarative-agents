@@ -39,3 +39,39 @@ func unsetForTest(t *testing.T, name string) {
 	t.Setenv(name, "temporary")
 	require.NoError(t, os.Unsetenv(name))
 }
+
+func TestExpandWithReadsOnlyTheGivenLookup(t *testing.T) {
+	t.Setenv("ONLY_IN_PROCESS", "leaked")
+	lookup := func(name string) (string, bool) {
+		if name == "GIVEN" {
+			return "value", true
+		}
+		return "", false
+	}
+	got := string(ExpandWith([]byte("${GIVEN}/${ONLY_IN_PROCESS:-default}/${UNSET}"), lookup))
+	if got != "value/default/" {
+		t.Fatalf("ExpandWith = %q", got)
+	}
+}
+
+func TestReferencesListsNamesAndDefaults(t *testing.T) {
+	refs := References("${BIND:-127.0.0.1}:${PORT} $.jsonpath")
+	if len(refs) != 2 {
+		t.Fatalf("refs = %+v", refs)
+	}
+	if refs[0] != (Reference{Name: "BIND", Default: "127.0.0.1", HasDefault: true}) || refs[1] != (Reference{Name: "PORT"}) {
+		t.Errorf("refs = %+v", refs)
+	}
+}
+
+func TestMarkReplacesReferencesWithScalars(t *testing.T) {
+	got := string(Mark([]byte("ports: [${PORT:-18191}] ${HOST}"), func(ref Reference) string {
+		if ref.HasDefault {
+			return "D_" + ref.Name
+		}
+		return "N_" + ref.Name
+	}))
+	if got != "ports: [D_PORT] N_HOST" {
+		t.Fatalf("Mark = %q", got)
+	}
+}

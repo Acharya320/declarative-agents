@@ -24,10 +24,18 @@ var refPattern = regexp.MustCompile(`\$\{([A-Za-z_][A-Za-z0-9_]*)(:-([^}]*))?\}`
 // values. A set variable wins; otherwise the default is used, or empty when the
 // variable is unset and no default is given.
 func Expand(data []byte) []byte {
+	//nolint:forbidigo // srd013 R5.6/R5.7 requires ${VAR:-default} expansion at the declaration boundary.
+	return ExpandWith(data, os.LookupEnv)
+}
+
+// ExpandWith is Expand with an explicit variable source, for a caller that
+// expands on behalf of another process: an operator rendering a pod's profile
+// with the environment that pod will see reads nothing from its own
+// (srd009 R1.2).
+func ExpandWith(data []byte, lookup func(string) (string, bool)) []byte {
 	return refPattern.ReplaceAllFunc(data, func(match []byte) []byte {
 		groups := refPattern.FindSubmatch(match)
-		//nolint:forbidigo // srd013 R5.6/R5.7 requires ${VAR:-default} expansion at the declaration boundary.
-		if v, ok := os.LookupEnv(string(groups[1])); ok {
+		if v, ok := lookup(string(groups[1])); ok {
 			return []byte(v)
 		}
 		if len(groups[2]) > 0 { // the ":-default" group is present
@@ -35,6 +43,33 @@ func Expand(data []byte) []byte {
 		}
 		return nil
 	})
+}
+
+// Reference is one ${NAME} or ${NAME:-default} occurrence in a declaration.
+type Reference struct {
+	Name       string
+	Default    string
+	HasDefault bool
+}
+
+// Mark replaces every reference in data with what mark returns for it, so an
+// unexpanded declaration can be parsed as YAML: a ${NAME:-default} is a flow
+// mapping to a YAML parser, a plain token in its place is a scalar.
+func Mark(data []byte, mark func(Reference) string) []byte {
+	return refPattern.ReplaceAllFunc(data, func(match []byte) []byte {
+		groups := refPattern.FindSubmatch(match)
+		return []byte(mark(Reference{Name: string(groups[1]), Default: string(groups[3]), HasDefault: len(groups[2]) > 0}))
+	})
+}
+
+// References lists the references in s in order of appearance, so a reader
+// of an unexpanded address learns which variables a deployment may set.
+func References(s string) []Reference {
+	var refs []Reference
+	for _, match := range refPattern.FindAllStringSubmatch(s, -1) {
+		refs = append(refs, Reference{Name: match[1], Default: match[3], HasDefault: match[2] != ""})
+	}
+	return refs
 }
 
 // Templated reports whether s carries a ${...} reference, well-formed or not.
