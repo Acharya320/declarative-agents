@@ -1062,3 +1062,103 @@ None
 | applications/docs/specs/use-cases/rel20.0-uc001-agent-operator.md |  | The collector walk from platform boot to deletion. |
 | applications/docs/specs/test-suites/test-rel20.0-agent-operator.md |  | Requirement-to-acceptance and acceptance-to-test traceability. |
 |  | mage audit | Structured documents parse and reciprocal traceability remains valid. |
+
+<!-- release: 20.1 | status: implemented -->
+## 20.1 - Profile-derived Agents
+
+Make the profile the deployment spec. The operator reads an Agent's
+profile through agent-core's loader and derives the container and Service
+ports, the readiness probe on the control server, the `monitorPort` label,
+and the bind-host environment, so the Agent declares only its profile,
+image, and what is per deployment; a profile that fails validation is
+reported before any pod exists, and a profile change rolls the
+Deployment. The spec gains arguments, pod labels, a service account, and
+claim-backed work volumes, the four things the hand-written agent
+templates need that an Agent could not say.
+
+<!-- field: parent -->
+### Parent
+
+gh-2688-profile-derived-agents
+
+<!-- field: dependencies -->
+### Dependencies
+
+| id | status | reason |
+| --- | --- | --- |
+| srd009-agent-operator | implemented | Release 20.0 supplies the operator, the resource, and the collector proof this release revises. |
+| eng01-kind-test-demo-rig | implemented | Supplies the kind platform the proof runs on. |
+
+<!-- field: srds -->
+### SRDs
+
+- srd009-agent-operator
+
+<!-- field: use_cases -->
+### Use cases
+
+<!-- use_case_entry: rel20.1-uc001-profile-derived-agent -->
+#### rel20.1-uc001-profile-derived-agent
+
+<!-- field: summary -->
+##### Summary
+
+Apply an Agent for the collector that names only its profile, image, and
+work volume; watch the ports, probe, label, and bind host derive; edit a
+profile port and watch the Deployment roll; see an invalid profile
+reported before any pod exists.
+
+<!-- field: status -->
+##### Status
+
+implemented
+
+<!-- field: implementation_sequence | form: "typed table" -->
+### Implementation sequence
+
+| order | action | status |
+| --- | --- | --- |
+| 1 | Specify profile-derived Agents - srd009 revisions, the use case, the suite, and this release (GH-2691). | planned |
+| 2 | agent-core pkg/profileservers inspects and validates a profile's servers from a file tree (GH-2692). | planned |
+| 3 | Agent spec gains args, podLabels, serviceAccountName, and a claim-backed work volume; the operator depends on agent-core (GH-2693). | planned |
+| 4 | The operator derives ports, probe, monitor label, and bind host from the profile, reports ProfileInvalid, watches the ConfigMap, and the proof shrinks (GH-2694). | planned |
+
+<!-- field: test_suites -->
+### Test suites
+
+<!-- test_suite_entry: test-rel20.1-profile-derived-agent -->
+#### test-rel20.1-profile-derived-agent
+
+<!-- field: summary -->
+##### Summary
+
+Trace the release documents, test the profile inspector and the deriving
+reconciler, and run the collector proof with the shrunk Agent.
+
+<!-- field: status -->
+##### Status
+
+implemented
+
+<!-- field: implemented_cases -->
+##### Implemented cases
+
+- TC1
+- TC2
+- TC3
+- TC4
+
+<!-- field: planned_cases | form: "empty list" -->
+##### Planned cases
+
+None
+
+<!-- field: implementation_evidence | form: "typed table" -->
+### Implementation evidence
+
+| path | command | proves |
+| --- | --- | --- |
+| applications/docs/specs/software-requirements/srd009-agent-operator.md |  | The derivation, validation, and ConfigMap-watch requirements and their acceptance criteria. |
+| applications/docs/specs/use-cases/rel20.1-uc001-profile-derived-agent.md |  | The collector walk with an Agent of profile, image, and work volume. |
+| applications/docs/specs/test-suites/test-rel20.1-profile-derived-agent.md |  | Requirement-to-acceptance and acceptance-to-test traceability. |
+|  | mage audit | Structured documents parse and reciprocal traceability remains valid. |

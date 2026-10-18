@@ -27,6 +27,7 @@ import (
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/internal/observability/tracing"
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/internal/runtime/checkpoint"
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/internal/runtime/core"
+	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/internal/startupcheck"
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/internal/support/corepath"
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/internal/tools/catalog"
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/internal/tools/lifecycle"
@@ -38,7 +39,6 @@ import (
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/internal/tools/validation"
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/internal/typesys"
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/internal/version"
-	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/profileaudit"
 	"github.com/Nokia-Bell-Labs/declarative-agents/agent-core/pkg/spec"
 )
 
@@ -540,22 +540,6 @@ func validateConfig() error {
 	return nil
 }
 
-// requestSourceSignals collects the signals a request signal source can inject,
-// which reach the machine without any transition producing them (srd046).
-func requestSourceSignals(defs toolrest.Collection) []string {
-	var signals []string
-	for _, server := range defs.Servers {
-		for _, endpoint := range server.Endpoints {
-			signals = append(signals, endpoint.Signal)
-			signals = append(signals, endpoint.AllowedSignals...)
-			for _, signal := range endpoint.SignalSource.SignalMapping {
-				signals = append(signals, signal)
-			}
-		}
-	}
-	return signals
-}
-
 func reportMachineDiagnostics(machine core.MachineSpec) {
 	for _, diagnostic := range core.DiagnoseMachineSpec(machine) {
 		fmt.Fprintf(
@@ -728,99 +712,6 @@ func loadRuntimeClosure(captureLevel toollm.CaptureLevel) (runtimeClosure, error
 	}
 	loaded.closure = closure
 	return loaded, nil
-}
-
-func loadValidatedRuntimeMachine(closure *internalload.Closure) (core.MachineSpec, error) {
-	machineSpec := closure.Machine
-	if err := core.ValidateRequiredMachinePolicy(machineSpec); err != nil {
-		return core.MachineSpec{}, fmt.Errorf("load machine runtime policy: %w", err)
-	}
-	if err := validateRuntimeToolWiring(
-		machineSpec, closure.Selected, closure.Types, closure.Rest,
-		catalog.ExhaustivenessInputs{External: requestSourceSignals(closure.Rest)},
-	); err != nil {
-		if machineSpec.TemplatePath() != "" {
-			err = fmt.Errorf("machine %s: %w", core.DescribeMachine(closure.Profile.Machine, machineSpec), err)
-		}
-		return core.MachineSpec{}, err
-	}
-	// Every machine this walk reaches is checked here and not above: the
-	// profile's own machine is the one loadValidatedRuntimeMachine already
-	// holds, and the machines its endpoints dispatch, its child profiles run,
-	// and its evaluator points loop over are reachable only through the walk
-	// (GH-2059, GH-2060).
-	if err := profileaudit.ValidateClosureWithOptions(closure, profileaudit.Options{
-		OnMachine: validateReachedMachine,
-	}); err != nil {
-		return core.MachineSpec{}, fmt.Errorf("inspect profile timeout closure: %w", err)
-	}
-	return machineSpec, nil
-}
-
-// validateReachedMachine applies the startup boundary to one machine the walk
-// reaches, which is every machine a profile runs beyond its own: the machines
-// its endpoints dispatch, the profiles its self_invoke words start, and the
-// machines its evaluator points loop over.
-//
-// Only a request machine takes extra context. It is seeded by the request
-// rather than by its own transitions, so the machine_request entry under the
-// seed label and the signals the dispatching endpoints inject are stated here
-// rather than read from the machine. A child profile and a point machine start
-// on the ordinary runtime seed, which the exhaustiveness check already knows.
-func validateReachedMachine(reached profileaudit.ReachedMachine) error {
-	inputs := catalog.ExhaustivenessInputs{External: requestSourceSignals(reached.Rest)}
-	var runtimeLabels []string
-	kind := "machine"
-	if reached.RequestScoped {
-		inputs.External = append(inputs.External, reached.InitialSignals...)
-		runtimeLabels = []string{catalog.RequestSeedLabel}
-		kind = "request machine"
-	}
-	err := validateRuntimeToolWiring(
-		reached.Machine, reached.Selected, reached.Types, reached.Rest,
-		inputs, runtimeLabels...,
-	)
-	if err != nil {
-		return fmt.Errorf("%s %s: %w", kind, core.DescribeMachine(reached.MachinePath, reached.Machine), err)
-	}
-	return nil
-}
-
-// validateRuntimeToolWiring is the ordinary startup boundary. It rejects
-// unselected named actions, machine/tool signal mismatches, incomplete
-// parse-retry routes, and reversible effects without receipt-consuming undo.
-// Full six-section contract completeness remains an authoring and
-// specification-audit concern.
-func validateRuntimeToolWiring(
-	machine core.MachineSpec, defs []catalog.ToolDef, types *typesys.Registry,
-	operations catalog.RESTOperations,
-	exhaustiveness catalog.ExhaustivenessInputs, runtimeLabels ...string,
-) error {
-	if err := catalog.ValidateMachineActions(machine, defs); err != nil {
-		return err
-	}
-	if err := catalog.ValidateToolPhases(machine, defs); err != nil {
-		return err
-	}
-	if err := catalog.ValidateParseRetryWiring(machine, defs); err != nil {
-		return err
-	}
-	if err := catalog.ValidateToolEmits(machine, defs); err != nil {
-		return err
-	}
-	if err := catalog.ValidateProviderFailureOptIn(defs); err != nil {
-		return err
-	}
-	if err := catalog.ValidateSelectorLabelsStrict(machine, defs, runtimeLabels...); err != nil {
-		return err
-	}
-	if err := catalog.ValidateSelectorPathsStrict(machine, defs, types, operations); err != nil {
-		return err
-	}
-	if err := catalog.ValidateMachineExhaustivenessStrict(machine, defs, exhaustiveness); err != nil {
-		return err
-	}
-	return catalog.ValidateReceiptContracts(defs)
 }
 
 func buildPreparedRun(cmd *cobra.Command, resources runResources) (preparedRun, error) {
@@ -1290,4 +1181,21 @@ func (st *agentState) restoreConversation(data json.RawMessage) error {
 	}
 	st.conversation.Restore(messages)
 	return nil
+}
+
+// loadValidatedRuntimeMachine applies the startup boundary to the loaded
+// closure; startupcheck owns it so --validate-config and the operator's
+// reconcile-time validation reject the same profiles (srd009 R2.4).
+func loadValidatedRuntimeMachine(closure *internalload.Closure) (core.MachineSpec, error) {
+	return startupcheck.ValidateClosure(closure)
+}
+
+// validateRuntimeToolWiring is startupcheck.ValidateToolWiring under the name
+// this package's tests exercise it by.
+func validateRuntimeToolWiring(
+	machine core.MachineSpec, defs []catalog.ToolDef, types *typesys.Registry,
+	operations catalog.RESTOperations,
+	exhaustiveness catalog.ExhaustivenessInputs, runtimeLabels ...string,
+) error {
+	return startupcheck.ValidateToolWiring(machine, defs, types, operations, exhaustiveness, runtimeLabels...)
 }

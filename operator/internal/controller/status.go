@@ -17,6 +17,7 @@ const (
 	ReasonProgressing    = "Progressing"
 	ReasonProfileMissing = "ProfileMissing"
 	ReasonInvalidSpec    = "InvalidSpec"
+	ReasonProfileInvalid = "ProfileInvalid"
 )
 
 // setReady records the Ready condition and the observed generation.

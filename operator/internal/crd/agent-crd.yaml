@@ -38,7 +38,7 @@ spec:
           properties:
             spec:
               type: object
-              required: [profile, image, controlPort]
+              required: [profile, image]
               properties:
                 profile:
                   type: object
@@ -47,15 +47,6 @@ spec:
                     configMap: {type: string, minLength: 1}
                     path: {type: string, minLength: 1}
                 image: {type: string, minLength: 1}
-                ports:
-                  type: array
-                  items:
-                    type: object
-                    required: [name, port]
-                    properties:
-                      name: {type: string, minLength: 1}
-                      port: {type: integer, minimum: 1, maximum: 65535}
-                controlPort: {type: string, minLength: 1}
                 replicas: {type: integer, minimum: 0}
                 resources:
                   type: object
@@ -70,6 +61,13 @@ spec:
                   items:
                     type: object
                     x-kubernetes-preserve-unknown-fields: true
+                args:
+                  type: array
+                  items: {type: string}
+                podLabels:
+                  type: object
+                  additionalProperties: {type: string}
+                serviceAccountName: {type: string}
                 workVolumes:
                   type: array
                   items:
@@ -78,6 +76,7 @@ spec:
                     properties:
                       name: {type: string, minLength: 1}
                       mountPath: {type: string, minLength: 1}
+                      claimName: {type: string}
             status:
               type: object
               properties:

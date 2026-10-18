@@ -30,6 +30,7 @@ spec:
           args:
             - --health-probe-bind-address=:8081
             - --metrics-bind-address=:8080
+            - --core-root=/opt/agent-core
           ports:
             - {name: metrics, containerPort: 8080}
             - {name: probes, containerPort: 8081}
@@ -45,3 +46,9 @@ spec:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
             capabilities: {drop: [ALL]}
+          # The operator writes each profile it inspects to a temporary tree
+          # for agent-core's loaders (srd009 R1.2); the root stays read-only.
+          volumeMounts:
+            - {name: tmp, mountPath: /tmp}
+      volumes:
+        - {name: tmp, emptyDir: {}}

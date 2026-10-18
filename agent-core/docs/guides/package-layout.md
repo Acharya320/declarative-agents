@@ -33,6 +33,22 @@ public Go APIs. Placement rules are defined in
   `cmd/agent` and catalog gates. It currently imports internal catalog, REST,
   runtime, load, and support surfaces listed in
   `internal/boundaries/boundaries_baseline.txt`.
+- `pkg/profileservers` is a public package an operator uses to read what a
+  profile declares about the process that serves it: every REST server with
+  its host, port, and the variables its address reads, the control server
+  (the health endpoint) and the monitor server, from an `fs.FS` with an
+  explicit environment; and to apply the startup boundary before a pod
+  exists (applications srd009 R1.2, R2.4). It imports `internal/load` to
+  load the closure, `internal/startupcheck` for the boundary,
+  `internal/support/corepath` to map `/opt/agent-core` for one load,
+  `internal/support/envexpand` for the reference grammar,
+  `internal/tools/lifecycle` for request-source validation, and
+  `internal/tools/rest/definition` for the server type, all listed in
+  `internal/boundaries/boundaries_baseline.txt`.
+- `internal/startupcheck` is the startup boundary (machine policy, tool
+  wiring, every reached machine) that `cmd/agent` ran inline until
+  `pkg/profileservers` needed the same check; both call it so they reject
+  the same profiles.
 - `pkg/profilestage` is a public package the application build lanes use to
   copy a declaration tree into a staged profile and prove the copy resolves. It
   follows the import edges a declaration carries rather than enumerating the
@@ -152,6 +168,7 @@ Generated from `go list ./...`. The boundaries gate checks this list.
 - `internal/runtime/checkpoint`
 - `internal/runtime/checkpoint/dolt`
 - `internal/runtime/core`
+- `internal/startupcheck`
 - `internal/support`
 - `internal/support/corepath`
 - `internal/support/envexpand`
@@ -189,6 +206,7 @@ Generated from `go list ./...`. The boundaries gate checks this list.
 - `internal/typesys`
 - `internal/version`
 - `pkg/profileaudit`
+- `pkg/profileservers`
 - `pkg/profilestage`
 - `pkg/spec`
 - `pkg/spec/markdown`
@@ -198,7 +216,7 @@ parent keeps collection and the server runtime on top; client, credentials,
 redact, monitor, mock, and servercmd are leaves the parent imports.
 
 Public `pkg/` packages are `pkg/spec`, `pkg/spec/markdown`, `pkg/profileaudit`,
-and `pkg/profilestage`.
+`pkg/profileservers`, and `pkg/profilestage`.
 
 ## Migration Order
 

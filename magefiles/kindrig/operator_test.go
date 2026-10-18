@@ -44,6 +44,7 @@ func TestInstallAgentOperatorBuildsLoadsAndInstalls(t *testing.T) {
 	image := "localhost/declarative-agents/runtime/agent-operator:git-0123456789ab-linux-" + runtime.GOARCH
 	for _, want := range []string{
 		"env CGO_ENABLED=0 GOOS=linux GOARCH=" + runtime.GOARCH + " go build -C /repo/operator -trimpath -ldflags=-s -w -o ",
+		"cp -R /repo/agent-core/tools ",
 		"docker build --platform linux/" + runtime.GOARCH + " -t " + image + " ",
 		"kind load docker-image " + image + " --name da-example",
 		"helm upgrade --install agent-operator /repo/operator/deploy/chart/agent-operator --namespace agent-operator --create-namespace --kube-context kind-da-example --set image.repository=localhost/declarative-agents/runtime/agent-operator --set image.tag=git-0123456789ab-linux-" + runtime.GOARCH + " --wait --timeout 180s",
@@ -94,6 +95,23 @@ func TestAgentOperatorChartDeclaresItsRBAC(t *testing.T) {
 	}
 	if strings.Contains(rbac, "resources: [\"*\"]") || strings.Contains(rbac, "verbs: [\"*\"]") {
 		t.Error("rbac.yaml grants a wildcard")
+	}
+}
+
+// TestAgentOperatorChartGivesTheLoadersAWritableTmp pins applications srd009
+// R1.2's operational need: the operator inspects profiles through agent-core's
+// loaders, which write a temporary tree, while the chart keeps the root
+// filesystem read-only and points --core-root at the tools the image carries.
+func TestAgentOperatorChartGivesTheLoadersAWritableTmp(t *testing.T) {
+	data, err := os.ReadFile(filepath.Join("..", "..", operatorChart, "templates", "deployment.yaml"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	deployment := string(data)
+	for _, want := range []string{"readOnlyRootFilesystem: true", "{name: tmp, mountPath: /tmp}", "{name: tmp, emptyDir: {}}", "--core-root=/opt/agent-core"} {
+		if !strings.Contains(deployment, want) {
+			t.Errorf("deployment.yaml lacks %q", want)
+		}
 	}
 }
 

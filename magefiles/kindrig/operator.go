@@ -26,10 +26,13 @@ const (
 
 // operatorDockerfile is the runtime layer the platform builds around the
 // checkout's binary; operator/Dockerfile builds the same layer for
-// publication, from the module's source.
+// publication, from the module's source. agent-core's tools ride along at
+// the install prefix the agent-core image uses, because the operator reads
+// profiles that import /opt/agent-core units (applications srd009 R1.2).
 const operatorDockerfile = "FROM docker.io/library/alpine:3.22@sha256:5291449c3df73caf6ed85e649dec1b9e818b39a5d8c871e97afc13e9cd5e8fa8\n" +
 	"RUN apk add --no-cache ca-certificates\n" +
 	"COPY agent-operator /usr/local/bin/agent-operator\n" +
+	"COPY tools /opt/agent-core/tools\n" +
 	"USER 65532:65532\n" +
 	"ENTRYPOINT [\"agent-operator\"]\n"
 
@@ -125,6 +128,7 @@ func buildOperatorImage(run CommandRunner, cluster, root, image string) error {
 		{"binary-build", []string{"env", "CGO_ENABLED=0", "GOOS=linux", "GOARCH=" + arch,
 			"go", "build", "-C", filepath.Join(root, operatorModule), "-trimpath", "-ldflags=-s -w",
 			"-o", filepath.Join(ctxDir, "agent-operator"), "./cmd/agent-operator"}},
+		{"tools-stage", []string{"cp", "-R", filepath.Join(root, "agent-core", "tools"), filepath.Join(ctxDir, "tools")}},
 		{"image-build", []string{"docker", "build", "--platform", HostPlatform(), "-t", image, ctxDir}},
 	}
 	return runInstallSteps(run, cluster, operatorComponent, steps)

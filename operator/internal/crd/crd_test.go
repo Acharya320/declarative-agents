@@ -61,7 +61,6 @@ func TestCRDMatchesTypes(t *testing.T) {
 		"spec":        {schemaFields(spec.Properties), reflect.TypeOf(v1alpha1.AgentSpec{})},
 		"status":      {schemaFields(status.Properties), reflect.TypeOf(v1alpha1.AgentStatus{})},
 		"profile":     {schemaFields(spec.Properties["profile"].Properties), reflect.TypeOf(v1alpha1.ProfileSource{})},
-		"ports":       {schemaFields(spec.Properties["ports"].Items.Schema.Properties), reflect.TypeOf(v1alpha1.AgentPort{})},
 		"workVolumes": {schemaFields(spec.Properties["workVolumes"].Items.Schema.Properties), reflect.TypeOf(v1alpha1.WorkVolume{})},
 	} {
 		if want := jsonFields(c.want); !reflect.DeepEqual(c.got, want) {

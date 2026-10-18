@@ -23,6 +23,16 @@ changing how agent-core runs. This document fixes the resource, the
 reconciliation it implies, the status it reports, how the operator ships
 and installs, and the proof that it works on the kind platform.
 
+The profile already declares what a chart repeats. Its REST definitions
+name every server with an address such as
+`${COLLECTOR_BIND_HOST:-127.0.0.1}:${COLLECTOR_CONTROL_PORT:-18191}`, the
+server that answers `GET /api/lifecycle/health`, and the server that
+serves `/monitor/*`. Release 20.1 makes the profile the deployment spec:
+the operator reads it and derives the ports, the control port, the
+monitor label, and the bind-host environment, so an Agent names its
+profile, its image, and what is genuinely per deployment, and nothing
+else.
+
 <!-- field: goals -->
 ## Goals
 
@@ -30,6 +40,7 @@ and installs, and the proof that it works on the kind platform.
 - G2: The operator owns one Deployment and one Service per Agent and reports readiness in the Agent's status.
 - G3: The CRD, the operator image, and its chart ship together and install at platform boot.
 - G4: A kind proof with the catalog collector runs as a release gate.
+- G5: An Agent repeats nothing its profile declares; the operator reads ports, the control server, the monitor server, and the bind host from the profile.
 
 <!-- req: R1 -->
 ## R1 - The Agent resource
@@ -40,23 +51,32 @@ and installs, and the proof that it works on the kind platform.
 The operator shall define a namespaced custom resource Agent in group
 declarative-agents.nokia.com, version v1alpha1, whose spec declares the
 profile (a ConfigMap name and the path of the profile file inside it), the
-agent-core image, the ports the profile serves (each a name and a number),
-the name of the control port, the replica count, container resources,
-environment variables, secret references for the environment, and
-optional work volumes.
+agent-core image, the replica count, container resources, environment
+variables, secret references for the environment, arguments appended to
+the agent's command line, pod labels, a service account name, and
+optional work volumes, each an emptyDir or a named existing
+PersistentVolumeClaim. The spec shall not declare ports or a control
+port: the profile declares them (R1.2).
 
 <!-- field: evidence -->
 #### Evidence
 
 The generated CRD validates each field; an Agent missing the profile or
-the control port is rejected at admission.
+the image is rejected at admission, and one declaring ports is rejected
+as an unknown field.
 
 <!-- req: R1.2 -->
 ### R1.2
 
-The control port named in the spec shall be the one the profile's REST
-server answers `GET /api/lifecycle/health` on; the operator shall treat that
-endpoint as the agent's readiness signal.
+The operator shall read the profile's REST definitions from the
+ConfigMap through agent-core's own loader and take from them every
+server's port, the control server (the one server answering `GET
+/api/lifecycle/health`, the agent's readiness signal), the monitor server
+(the one serving `/monitor/` endpoints), and each server's bind and port
+variables, expanding `${VAR}` and `${VAR:-default}` with the Agent's
+environment over the declaration defaults. A port variable with neither
+a default nor an Agent environment entry, two servers with a health
+endpoint, or none, is an invalid profile (R2.4).
 
 <!-- req: R1.3 -->
 ### R1.3
@@ -72,10 +92,16 @@ binary ship as one unit and no installer can leave them apart.
 ### R2.1
 
 For each Agent the operator shall maintain one Deployment whose container
-runs the declared image with `--profile` at the mounted profile path, mounts
-the profile ConfigMap read-only, probes readiness with `GET
-/api/lifecycle/health` on the control port, and carries the declared
-resources, environment, secret references, and work volumes. A ConfigMap
+runs the declared image with `--profile` at the mounted profile path
+followed by the declared arguments, mounts the profile ConfigMap
+read-only, exposes a named container port for every server the profile
+declares, probes readiness with `GET /api/lifecycle/health` on the control
+server's port, and carries the declared resources, environment, secret
+references, service account name, and work volumes. The pod shall carry
+the declared pod labels under the operator's own labels, plus
+`monitorPort` naming the monitor server's port when the profile has one,
+and its environment shall gain `<bind variable>=0.0.0.0` for every server
+whose bind variable the Agent's environment does not set. A ConfigMap
 key holding `__` shall mount at the path the separator spells
 (`units__types.yaml` at `units/types.yaml`), because keys cannot hold a
 slash while profiles import sibling directories.
@@ -83,8 +109,8 @@ slash while profiles import sibling directories.
 <!-- req: R2.2 -->
 ### R2.2
 
-For each Agent the operator shall maintain one Service that exposes the
-declared ports by name and selects the Deployment's pods.
+For each Agent the operator shall maintain one Service that exposes every
+server's port by name and selects the Deployment's pods.
 
 <!-- req: R2.3 -->
 ### R2.3
@@ -96,9 +122,19 @@ shall patch both, rolling the Deployment when its pod template changes.
 <!-- req: R2.4 -->
 ### R2.4
 
-When the profile ConfigMap is absent or the spec cannot be rendered, the
+When the profile ConfigMap is absent, the profile fails agent-core's
+validation or the derivation of R1.2, or the spec cannot be rendered, the
 operator shall set the Ready condition to False with a reason that names
-the cause, requeue, and change nothing it does not own.
+the cause (ProfileMissing, ProfileInvalid, InvalidSpec) and the loader's
+message, requeue, and create or change nothing: an invalid profile never
+reaches a pod.
+
+<!-- req: R2.5 -->
+### R2.5
+
+A change to a profile ConfigMap shall reconcile every Agent in its
+namespace that names it, so an edited port default or endpoint rolls the
+Deployment without a change to the Agent.
 
 <!-- req: R3 -->
 ## R3 - Status
@@ -140,10 +176,10 @@ ready operator.
 
 A kind proof shall create a ConfigMap from applications/catalog/agents/
 collector and the units file it imports, keyed as directories, apply an
-Agent for the collector with its control, monitor, and
-query ports and the bind host set to every interface, wait for the Ready
-condition, read `/api/lifecycle/health` through the Service, delete the
-Agent, and observe the Deployment and Service go.
+Agent for the collector naming only that ConfigMap, the agent-core image,
+and a work volume, wait for the Ready condition, read
+`/api/lifecycle/health` through the Service on the port the profile
+declares, delete the Agent, and observe the Deployment and Service go.
 
 <!-- req: R5.2 -->
 ### R5.2
@@ -158,6 +194,7 @@ as its own gate in the release gate table, on the platform lane.
 - Task agents run as Jobs.
 - Package images and image volumes as a profile source.
 - Moving the applications' charts onto Agent resources.
+- Init containers and sidecars in the Agent spec: the charts that use them copy tool binaries or unpack archives, which role images and keyed ConfigMaps replace.
 - Installing the operator on a cloud platform.
 
 <!-- field: acceptance_criteria -->
@@ -215,6 +252,40 @@ The collector proof passes on the kind platform and in a release gate run.
 
 - [R5.1](#r51)
 - [R5.2](#r52)
+
+<!-- ac: AC5 -->
+### AC5
+
+An Agent naming only its profile, image, and work volume yields a
+Deployment and Service whose ports, readiness probe, monitor label, and
+bind-host environment come from the profile through agent-core's loader;
+the declared arguments, pod labels, service account, and claim reach the
+pod; and editing a port default in the profile ConfigMap rolls the
+Deployment.
+
+<!-- field: traces -->
+#### Traces
+
+- [R1.1](#r11)
+- [R1.2](#r12)
+- [R2.1](#r21)
+- [R2.2](#r22)
+- [R2.5](#r25)
+- [R5.1](#r51)
+
+<!-- ac: AC6 -->
+### AC6
+
+An Agent whose profile fails agent-core's validation, or declares no
+single server with a health endpoint, reports Ready False with reason
+ProfileInvalid and the loader's message, and no Deployment or Service is
+created.
+
+<!-- field: traces -->
+#### Traces
+
+- [R1.2](#r12)
+- [R2.4](#r24)
 
 <!-- field: related_documents -->
 ## Related documents

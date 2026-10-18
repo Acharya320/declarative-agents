@@ -1,0 +1,6 @@
+# Build contexts rooted here (operator/Dockerfile) send the checkout; keep
+# version control, dependency caches, and build output out of it.
+.git
+**/node_modules
+**/build
+**/kind-evidence
