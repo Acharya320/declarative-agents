@@ -47,10 +47,12 @@ type AgentPort struct {
 	Port int32  `json:"port"`
 }
 
-// WorkVolume is an emptyDir mounted for the agent's working files.
+// WorkVolume is a volume mounted for the agent's working files: an emptyDir,
+// or the existing PersistentVolumeClaim ClaimName names (srd009 R1.1).
 type WorkVolume struct {
 	Name      string `json:"name"`
 	MountPath string `json:"mountPath"`
+	ClaimName string `json:"claimName,omitempty"`
 }
 
 // AgentSpec declares the agent (srd009 R1.1).
@@ -65,7 +67,17 @@ type AgentSpec struct {
 	Resources   corev1.ResourceRequirements `json:"resources,omitempty"`
 	Env         []corev1.EnvVar             `json:"env,omitempty"`
 	EnvFrom     []corev1.EnvFromSource      `json:"envFrom,omitempty"`
-	WorkVolumes []WorkVolume                `json:"workVolumes,omitempty"`
+	// Args follow --profile <path> on the agent's command line: --directory,
+	// the OpenTelemetry flags, whatever the chart passed by hand (R1.1).
+	Args []string `json:"args,omitempty"`
+	// PodLabels join the operator's own labels on the pod, which win on a
+	// collision; a chart's component label and the selectors its network
+	// policies and monitor fan-in use travel here (R2.1).
+	PodLabels map[string]string `json:"podLabels,omitempty"`
+	// ServiceAccountName is the pod's service account, for an agent that
+	// reads the Kubernetes API.
+	ServiceAccountName string       `json:"serviceAccountName,omitempty"`
+	WorkVolumes        []WorkVolume `json:"workVolumes,omitempty"`
 }
 
 // ConditionReady is the one condition the operator keeps (srd009 R3.1).

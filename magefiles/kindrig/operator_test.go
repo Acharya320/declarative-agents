@@ -44,6 +44,7 @@ func TestInstallAgentOperatorBuildsLoadsAndInstalls(t *testing.T) {
 	image := "localhost/declarative-agents/runtime/agent-operator:git-0123456789ab-linux-" + runtime.GOARCH
 	for _, want := range []string{
 		"env CGO_ENABLED=0 GOOS=linux GOARCH=" + runtime.GOARCH + " go build -C /repo/operator -trimpath -ldflags=-s -w -o ",
+		"cp -R /repo/agent-core/tools ",
 		"docker build --platform linux/" + runtime.GOARCH + " -t " + image + " ",
 		"kind load docker-image " + image + " --name da-example",
 		"helm upgrade --install agent-operator /repo/operator/deploy/chart/agent-operator --namespace agent-operator --create-namespace --kube-context kind-da-example --set image.repository=localhost/declarative-agents/runtime/agent-operator --set image.tag=git-0123456789ab-linux-" + runtime.GOARCH + " --wait --timeout 180s",

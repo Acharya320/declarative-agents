@@ -70,6 +70,13 @@ spec:
                   items:
                     type: object
                     x-kubernetes-preserve-unknown-fields: true
+                args:
+                  type: array
+                  items: {type: string}
+                podLabels:
+                  type: object
+                  additionalProperties: {type: string}
+                serviceAccountName: {type: string}
                 workVolumes:
                   type: array
                   items:
@@ -78,6 +85,7 @@ spec:
                     properties:
                       name: {type: string, minLength: 1}
                       mountPath: {type: string, minLength: 1}
+                      claimName: {type: string}
             status:
               type: object
               properties:

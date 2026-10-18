@@ -29,6 +29,14 @@ func (s AgentSpec) DeepCopy() AgentSpec {
 	}
 	out.Ports = append([]AgentPort(nil), s.Ports...)
 	out.WorkVolumes = append([]WorkVolume(nil), s.WorkVolumes...)
+	out.Args = append([]string(nil), s.Args...)
+	out.PodLabels = nil
+	if s.PodLabels != nil {
+		out.PodLabels = make(map[string]string, len(s.PodLabels))
+		for k, v := range s.PodLabels {
+			out.PodLabels[k] = v
+		}
+	}
 	out.Resources = *s.Resources.DeepCopy()
 	out.Env = nil
 	for _, e := range s.Env {

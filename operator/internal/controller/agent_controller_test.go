@@ -145,6 +145,34 @@ func TestReconcileMountsNestedProfileKeys(t *testing.T) {
 	}
 }
 
+// TestReconcilePassesArgsServiceAccountAndClaim covers srd009 R1.1 and R2.1:
+// declared arguments follow --profile, the service account and pod labels
+// reach the pod template with the operator's labels winning a collision, and
+// a work volume naming a claim mounts that claim instead of an emptyDir.
+func TestReconcilePassesArgsServiceAccountAndClaim(t *testing.T) {
+	agent := collector()
+	agent.Spec.Args = []string{"--directory", "/work", "--otel-service-name", "collector"}
+	agent.Spec.ServiceAccountName = "collector-reader"
+	agent.Spec.PodLabels = map[string]string{"app.kubernetes.io/component": "collector", "app.kubernetes.io/instance": "spoofed"}
+	agent.Spec.WorkVolumes = []v1alpha1.WorkVolume{{Name: "work", MountPath: "/work", ClaimName: "collector-work"}}
+	r := newReconciler(t, agent, profileConfigMap())
+	reconcile(t, r, agent)
+	dep := get(t, r, &appsv1.Deployment{}, "collector")
+	pod := dep.Spec.Template
+	if args := strings.Join(pod.Spec.Containers[0].Args, " "); args != "--profile /profiles/profile.yaml --directory /work --otel-service-name collector" {
+		t.Errorf("args = %s", args)
+	}
+	if pod.Spec.ServiceAccountName != "collector-reader" {
+		t.Errorf("service account = %q", pod.Spec.ServiceAccountName)
+	}
+	if pod.Labels["app.kubernetes.io/component"] != "collector" || pod.Labels["app.kubernetes.io/instance"] != "collector" {
+		t.Errorf("pod labels = %v, want the component label kept and the operator's instance label winning", pod.Labels)
+	}
+	if work := pod.Spec.Volumes[1]; work.PersistentVolumeClaim == nil || work.PersistentVolumeClaim.ClaimName != "collector-work" || work.EmptyDir != nil {
+		t.Errorf("work volume = %+v, want the named claim", work.VolumeSource)
+	}
+}
+
 // TestReconcileRollsOnSpecChange covers srd009 R2.3: a new image reaches the
 // Deployment's pod template on the next reconcile.
 func TestReconcileRollsOnSpecChange(t *testing.T) {
